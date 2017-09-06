@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-5">
+    <h2>Courses</h2>
+    <ul class="list-group">
+      <li class="list-group-item"
+        *ngFor="let course of courses"
+        >
+        <h2>{{course.title}}</h2>
+        <p>{{course.description}}</p>
+
+      </li>
+    </ul>
+    <button class="btn btn-warning" (click)="createNewCourse()">New</button>
+  </div>
+
+</div>

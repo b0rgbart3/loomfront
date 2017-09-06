@@ -1,0 +1,43 @@
+.nav-bar {
+	background-color:#555555;
+	padding:20px;
+	text-align:right;
+	padding:0px;
+	margin:0px;
+	border-radius: 0;
+	height:50px;
+}
+
+.nav-bar nav {
+	padding:0px;
+	margin:0px;
+}
+
+.nav-bar ul {
+	padding:0;
+	margin:0;
+	border-bottom:1px solid #00ff00;
+}
+
+.nav-bar ul li {
+	list-style: none;
+	display:inline-block;
+	padding-left:20px;
+	padding-right:20px;
+	margin:0px;
+	padding-top:16px;
+	padding-bottom:0px;
+	border:1px solid black;
+	height:50px;
+}
+
+.nav-bar ul a {
+	margin:0px;
+	padding:0px;
+	text-decoration: none;
+	color:white;
+}
+
+.nav-bar ul li:hover {
+	background-color:#820e7b;
+}
