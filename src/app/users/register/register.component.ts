@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../../models/user.model';
+import { FormPoster } from '../../services/form-poster.service';
+import { NgForm } from '@angular/forms';
 
 import { UserService } from '../user.service';
 
@@ -10,10 +13,15 @@ import { UserService } from '../user.service';
 
 export class RegisterComponent {
 
+    startDate = new Date();
+
+    model = new User('firstname', 'lastname', 'email', 'password');
+    hasPrimaryLanguageError = false;
+    date2 = new Date();
+
     constructor(private contactService: UserService) { }
 
     register() {
-        
 
         console.log();
 

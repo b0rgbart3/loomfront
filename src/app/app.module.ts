@@ -21,6 +21,9 @@ import { UserListComponent } from './users/user-list/user-list.component';
 
 import { RegisterComponent } from './users/register/index';
 import { ProfileComponent } from './users/profile.component';
+import { CustomMaterialModule } from './custom-material/custom-material.module';
+import { FormPoster } from './services/form-poster.service';
+
 
 @NgModule({
   declarations: [
@@ -40,8 +43,10 @@ import { ProfileComponent } from './users/profile.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    CustomMaterialModule
   ],
-  providers: [ CanActivateAuthGuard, UserService ],
+  providers: [ CanActivateAuthGuard, UserService, CustomMaterialModule
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

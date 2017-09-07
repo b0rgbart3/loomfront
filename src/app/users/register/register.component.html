@@ -36,3 +36,18 @@
         </div>
     </form>
 </div>
+
+<input [mdDatepicker]="myDatepicker" class='form-control'>
+<md-datepicker-toggle [for]="myDatepicker"></md-datepicker-toggle>
+<md-datepicker #myDatepicker></md-datepicker>
+
+<md-toolbar color="primary">    
+    <span>MyCompany</span>
+    <span class="example-spacer"></span>
+     
+</md-toolbar>
+  
+<md-form-field>
+    <input mdInput [(ngModel)]="myInput" required >
+    <md-error>This field is required</md-error>
+  </md-form-field>
