@@ -1,8 +1,22 @@
-<div class="col-md-6 col-md-offset-3">
+<div class="container">
     <h2>Register</h2>
     <form #regform="ngForm" novalidate>
+        <div class='form-group'>
+            <label>First Name</label>
+            <input class='form-control' type="text" name="firstName" ngModel required>
+        </div>
+            <button class="btn btn-primary" type="submit">OK</button>
 
-        <input type = "text" placeholder="First name" name="firstName" ngModel required>
+        <md-form-field class="example-full-width">
+                <input mdInput placeholder="First name">
+              </md-form-field>
+
+              
+        <!-- <md-form-field>
+                <input mdInput [(ngModel)]="lastName" required >
+                <md-error>This field is required</md-error>
+        </md-form-field> -->
+
 
         <!-- <div class="form-group" [ngClass]="{ 'has-error': regform.submitted && !username.valid }">
             <label for="firstname">First Name</label>
