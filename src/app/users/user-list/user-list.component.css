@@ -1,0 +1,15 @@
+.userList {
+    text-align: left;
+    list-style: none;
+    line-height: .8em;
+}
+
+.userList h1 {
+    padding:0; margin:0;
+    border-bottom:2px solid #aaaaaa;
+    padding-bottom:6px;
+}
+
+.userList p {
+    margin:0;padding:0;
+}
