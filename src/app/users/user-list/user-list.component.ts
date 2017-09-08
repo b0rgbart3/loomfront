@@ -11,36 +11,43 @@ import { UserService } from '../user.service';
 
 export class UserListComponent implements OnInit {
 
-  users: User[]
-  selectedUser: User
+  users: User[];
+  filteredUsers: User[];
+  selectedUser: User;
+  errorMessage: string;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService
-     .getUsers()
-     .then((users: User[]) => {
-       this.users = users.map((user) => {
-        //  if (!contact.phone) {
-        //    contact.phone = {
-        //      mobile: '',
-        //      work: ''
-        //    }
-        //  }
-         return user;
-       });
-     });
+     .getUsers().subscribe(
+       users => { this.users = users;
+        this.filteredUsers = this.users;
+       },
+       error => this.errorMessage = <any>error);
+
+    //  .then((users: User[]) => {
+    //    this.users = users.map((user) => {
+    //     //  if (!contact.phone) {
+    //     //    contact.phone = {
+    //     //      mobile: '',
+    //     //      work: ''
+    //     //    }
+    //     //  }
+    //      return user;
+    //    });
+    //  });
  }
 
   getUsers() {
 
-this.userService
-      .getUsers()
-      .then((users: User[]) => {
-        this.users = users.map((user) => {
-          return user;
-        });
-      });
+// this.userService
+//       .getUsers()
+//       .then((users: User[]) => {
+//         this.users = users.map((user) => {
+//           return user;
+//         });
+//       });
 
     // this.courseService.getCourses().subscribe(
     //   courses => this.courses = courses);

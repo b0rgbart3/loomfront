@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule, routableComponents } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NavBarComponent } from './navbar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -30,7 +31,19 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 @NgModule({
+  // External
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule,
+    CustomMaterialModule,
+    BrowserAnimationsModule,
+    HttpClientModule
+  ],
+  // Internal
   declarations: [
     AppComponent,
     routableComponents,
@@ -43,14 +56,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PageNotFoundComponent,
     RegisterComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule,
-    CustomMaterialModule,
-    BrowserAnimationsModule
-  ],
+
   providers: [ CanActivateAuthGuard, UserService, FormPoster
    ],
   bootstrap: [AppComponent]
