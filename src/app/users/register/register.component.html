@@ -3,17 +3,31 @@
     <md-card class='bartness'>
         <h2>Register</h2>
 
-        <md-form-field class="example-full-width">
-        <input mdInput placeholder="First name" name="firstName" ngModel required>
+        <md-form-field>
+        <input #firstName="ngModel" mdInput placeholder="First name" 
+        name="firstName" [(ngModel)]="model.firstName" required maxlength="30">
+        </md-form-field>
+        <md-form-field>
+        <input #lastName="ngModel" mdInput placeholder="Last name" 
+        name="lastName" [(ngModel)]="model.lastName" required minlength="3" maxlength="30">
         </md-form-field>
         <br>
-        <md-form-field class="example-full-width">
-        <input mdInput placeholder="Last name" name="lastName" ngModel required>
+        <md-form-field>
+        <input #email="ngModel" mdInput placeholder="email" name="email" 
+        [(ngModel)]="model.email" required type="email" minlength="7" maxlength="40" 
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
         </md-form-field>
         <br>
-        <md-form-field class="example-full-width">
-        <input mdInput placeholder="email" name="email" ngModel required type="email">
+        <md-form-field>
+        <input #password="ngModel" mdInput placeholder="password" 
+        name="password" [(ngModel)]="model.password" required type="password"
+        maxlength="30" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+        <md-hint align="start"><strong>A combination of at least 8 letters and/or numbers </strong> </md-hint>
+       
+     
         </md-form-field>
+
+
         <br>
 
         <br>
@@ -33,3 +47,10 @@
 
   <br><hr>
   {{ regform.pristine }}
+  <br>
+  Model: {{ model | json }}
+  <br>
+  Angular: {{ regform.value | json }}
+
+  <br>
+  FirstName: {{ firstName.pristine }}

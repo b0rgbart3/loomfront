@@ -15,7 +15,7 @@ export class RegisterComponent {
 
     startDate = new Date();
 
-    model = new User('firstname', 'lastname', 'email', 'password');
+    model = new User('', '', '', '');
     hasPrimaryLanguageError = false;
     date2 = new Date();
 
