@@ -19,11 +19,20 @@ export class RegisterComponent {
     hasPrimaryLanguageError = false;
     date2 = new Date();
 
-    constructor(private contactService: UserService) { }
+    constructor(private contactService: UserService, private formPoster: FormPoster) { }
 
-    register() {
+    // The user filled out and submitted the Registration form.
 
-        console.log();
+    registerUser(form: NgForm) {
+
+        console.log(this.model);
+
+        // Validate stuff here
+        this.formPoster.postUserRegistration(this.model)
+            .subscribe(
+                data => console.log('success: ', data),
+                err => console.log('error: ', err )
+            );
 
         // this.loading = true;
         // this.userService.create(this.model)

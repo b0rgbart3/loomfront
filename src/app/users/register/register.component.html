@@ -1,4 +1,4 @@
-<form #regform="ngForm" novalidate>
+<form #regform="ngForm" novalidate (submit)="registerUser(regfrom)">
 
     <md-card class='bartness'>
         <h2>Register</h2>

@@ -51,7 +51,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CustomMaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [ CanActivateAuthGuard, UserService
+  providers: [ CanActivateAuthGuard, UserService, FormPoster
    ],
   bootstrap: [AppComponent]
 })

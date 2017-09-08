@@ -7,10 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 
 export class FormPoster {
-    constructor ( private http: Http)
-    {
-
-    }
+    constructor ( private http: Http){ }
 
     private extractData(res: Response) {
         let body = res.json();
@@ -28,7 +25,21 @@ export class FormPoster {
         return Observable.throw(error.statusText);
     }
 
+    postUserRegistration(postingUser: User): Observable<any>
+    {
+        let body = JSON.stringify(postingUser);
+        let headers = new Headers( { 'Content-type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
 
+
+        console.log( 'Posting User: ', postingUser );
+
+        return this.http.post('http://localhost:8182/postuser', body, options)
+        .map(this.extractData)
+        .catch(this.handleError);
+
+
+    }
 
     getLanguages(): Observable<any> {
         return this.http.get('http://localhost:3100/get-languages')
