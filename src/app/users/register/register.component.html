@@ -1,69 +1,35 @@
-<div class="container">
-    <h2>Register</h2>
-    <form #regform="ngForm" novalidate>
-        <div class='form-group'>
-            <label>First Name</label>
-            <input class='form-control' type="text" name="firstName" ngModel required>
-        </div>
-            <button class="btn btn-primary" type="submit">OK</button>
+<form #regform="ngForm" novalidate>
+
+    <md-card class='bartness'>
+        <h2>Register</h2>
 
         <md-form-field class="example-full-width">
-                <input mdInput placeholder="First name">
-              </md-form-field>
+        <input mdInput placeholder="First name" name="firstName" ngModel required>
+        </md-form-field>
+        <br>
+        <md-form-field class="example-full-width">
+        <input mdInput placeholder="Last name" name="lastName" ngModel required>
+        </md-form-field>
+        <br>
+        <md-form-field class="example-full-width">
+        <input mdInput placeholder="email" name="email" ngModel required type="email">
+        </md-form-field>
+        <br>
 
-              
-        <!-- <md-form-field>
-                <input mdInput [(ngModel)]="lastName" required >
-                <md-error>This field is required</md-error>
-        </md-form-field> -->
+        <br>
+        <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
+        <br clear='all'>
 
+    </md-card>
 
-        <!-- <div class="form-group" [ngClass]="{ 'has-error': regform.submitted && !username.valid }">
-            <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" required />
-            <div *ngIf="regform.submitted && !firstname.valid" class="help-block">First Name is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': regform.submitted && !username.valid }">
-            <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" required />
-            <div *ngIf="f.submitted && !lastname.valid" class="help-block">Last Name is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
-        </div>
+</form>
 
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
-        </div>
-
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-        </div> -->
-
-    </form>
-</div>
 
 <input [mdDatepicker]="myDatepicker" class='form-control'>
 <md-datepicker-toggle [for]="myDatepicker"></md-datepicker-toggle>
 <md-datepicker #myDatepicker></md-datepicker>
 
-<md-toolbar color="primary">    
-    <span>MyCompany</span>
-    <span class="example-spacer"></span>
-     
-</md-toolbar>
-  
-<md-form-field>
-    <input mdInput [(ngModel)]="myInput" required >
-    <md-error>This field is required</md-error>
-  </md-form-field>
+
 
   <br><hr>
   {{ regform.pristine }}

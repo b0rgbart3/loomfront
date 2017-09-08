@@ -1,4 +1,21 @@
-<div class='nav-bar'>
+<md-toolbar color="primary"> 
+
+		 <button md-icon-button [mdMenuTriggerFor]="menu">
+				<md-icon>menu</md-icon>
+		 </button>
+
+
+		<md-menu #menu="mdMenu">
+				<a href="" [routerLink]="['/home']"><button md-menu-item>The Loom</button></a>
+				<a [routerLink]="['/courses']" href=""><button md-menu-item>Courses</button></a>
+				<a [routerLink]="['/contacts']" href=""><button md-menu-item>Contacts</button></a>
+				<a [routerLink]="['/users']" href=""><button md-menu-item>Users</button></a>
+				<a [routerLink]="['/register']" href=""><button md-menu-item>Register</button></a>
+				<a [routerLink]= "['/login']" href=""><button md-menu-item>LOGIN</button></a>
+		</md-menu>
+
+
+<!-- <div class='nav-bar'>
 	<nav>
 	  <ul>
 	    <a href="" [routerLink]="['/home']"><li>The Loom</li></a>
@@ -9,4 +26,5 @@
 	    <a [routerLink]= "['/login']" href=""><li>LOGIN</li></a>
 		</ul>
 	</nav>
-</div>
+</div> -->
+</md-toolbar>

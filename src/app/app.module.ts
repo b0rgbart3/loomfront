@@ -26,7 +26,9 @@ import { FormPoster } from './services/form-poster.service';
 
 import { CustomMaterialModule } from './custom-material/custom-material.module';
 
+
 import 'hammerjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -46,9 +48,10 @@ import 'hammerjs';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    BrowserAnimationsModule
   ],
-  providers: [ CanActivateAuthGuard, UserService, CustomMaterialModule
+  providers: [ CanActivateAuthGuard, UserService
    ],
   bootstrap: [AppComponent]
 })
