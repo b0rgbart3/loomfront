@@ -7,7 +7,9 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 
 export class FormPoster {
-    constructor ( private http: Http){ }
+    constructor ( private http: Http)
+    {
+    }
 
     private extractData(res: Response) {
         let body = res.json();
@@ -34,7 +36,7 @@ export class FormPoster {
 
         console.log( 'Posting User: ', postingUser );
 
-        return this.http.post('http://localhost:8182/postuser', body, options)
+        return this.http.post('http://localhost:3100/postuser', body, options)
         .map(this.extractData)
         .catch(this.handleError);
 

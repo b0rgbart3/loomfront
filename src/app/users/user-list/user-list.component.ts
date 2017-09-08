@@ -16,6 +16,22 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
+  ngOnInit() {
+    this.userService
+     .getUsers()
+     .then((users: User[]) => {
+       this.users = users.map((user) => {
+        //  if (!contact.phone) {
+        //    contact.phone = {
+        //      mobile: '',
+        //      work: ''
+        //    }
+        //  }
+         return user;
+       });
+     });
+ }
+
   getUsers() {
 
 this.userService
@@ -29,13 +45,7 @@ this.userService
     // this.courseService.getCourses().subscribe(
     //   courses => this.courses = courses);
   }
-  ngOnInit() {
-     this.getUsers();
-   //  this.courseService.getCourses().subscribe(
-   //   courses => this.courses = courses);
 
-     
-  }
 
   private getIndexOfUser = (userId: String) => {
     return this.users.findIndex((user) => {

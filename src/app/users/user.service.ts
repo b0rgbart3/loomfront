@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 export class UserService {
   isLoggedIn: boolean = false;
 
-  private usersUrl = '/api/users';
+  private usersUrl = 'localhost:3100/users';
 
     constructor (private http: Http) {}
 
