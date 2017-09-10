@@ -7,12 +7,12 @@
         <h2>Register</h2>
 
         <md-form-field>
-        <input #firstName="ngModel" mdInput placeholder="First name" 
-        name="firstName" [(ngModel)]="model.firstName" required maxlength="30">
+        <input #firstname="ngModel" mdInput placeholder="First name" 
+        name="firstname" [(ngModel)]="model.firstname" required maxlength="30">
         </md-form-field>
         <md-form-field>
-        <input #lastName="ngModel" mdInput placeholder="Last name" 
-        name="lastName" [(ngModel)]="model.lastName" required minlength="3" maxlength="30">
+        <input #lastname="ngModel" mdInput placeholder="Last name" 
+        name="lastname" [(ngModel)]="model.lastname" required minlength="3" maxlength="30">
         </md-form-field>
         <br>
         <md-form-field>
@@ -42,13 +42,13 @@
 </form>
 
 
-<input [mdDatepicker]="myDatepicker" class='form-control'>
+<!-- <input [mdDatepicker]="myDatepicker" class='form-control'>
 <md-datepicker-toggle [for]="myDatepicker"></md-datepicker-toggle>
 <md-datepicker #myDatepicker></md-datepicker>
+ -->
 
 
-
-  <br><hr>
+  <!-- <br><hr>
   {{ regform.pristine }}
   <br>
   Model: {{ model | json }}
@@ -56,4 +56,4 @@
   Angular: {{ regform.value | json }}
 
   <br>
-  FirstName: {{ firstName.pristine }}
+  FirstName: {{ firstname.pristine }} -->

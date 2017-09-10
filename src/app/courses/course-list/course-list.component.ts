@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../course';
+import { Course } from '../../models/course.model';
 import { CourseService } from '../course.service';
 
 @Component({
-  selector: 'course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css'],
   providers: [CourseService]
@@ -11,28 +10,17 @@ import { CourseService } from '../course.service';
 
 export class CourseListComponent implements OnInit {
 
-  courses = [];
-  selectedCourse = {};
+  courses: Course[];
+  selectedCourse: {};
+  errorMessage: string;
 
   constructor(private courseService: CourseService) { }
 
-  getCourses() {
-
-this.courseService
-      .getCourses()
-      .then((courses: Course[]) => {
-        this.courses = courses.map((course) => {
-          return course;
-        });
-      });
-
-    // this.courseService.getCourses().subscribe(
-    //   courses => this.courses = courses);
-  }
   ngOnInit() {
-     this.getCourses();
-   //  this.courseService.getCourses().subscribe(
-   //   courses => this.courses = courses);
+      this.courseService
+       .getCourses().subscribe(
+         courses =>  this.courses = courses,
+         error => this.errorMessage = <any>error);
 
   }
 

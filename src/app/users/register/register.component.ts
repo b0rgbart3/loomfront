@@ -15,35 +15,35 @@ export class RegisterComponent {
 
     startDate = new Date();
 
-    model = new User('', '', '', '');
+    model = new User('', '', '', '', '');
     hasPrimaryLanguageError = false;
     date2 = new Date();
 
-    constructor(private contactService: UserService, private formPoster: FormPoster) { }
+    errorMessage: string;
+
+    constructor(private userService: UserService, private formPoster: FormPoster) { }
 
     // The user filled out and submitted the Registration form.
 
     registerUser(form: NgForm) {
 
+        console.log('REGISTER:');
         console.log(this.model);
 
         // Validate stuff here
-        this.formPoster.postUserRegistration(this.model)
-            .subscribe(
-                data => console.log('success: ', data),
-                err => console.log('error: ', err )
-            );
+        this.userService
+        .postUser( this.model ).subscribe(
+        (val) => {
+          console.log('POST call successful value returned in body ', val);
+        },
+        response => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed.');
+        }
+      );
 
-        // this.loading = true;
-        // this.userService.create(this.model)
-        //     .subscribe(
-        //         data => {
-        //             this.alertService.success('Registration successful', true);
-        //             this.router.navigate(['/login']);
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+
     }
 }

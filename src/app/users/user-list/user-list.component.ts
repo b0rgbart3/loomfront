@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { User } from '../../models/user.model';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
   providers: [UserService]
@@ -26,31 +25,11 @@ export class UserListComponent implements OnInit {
        },
        error => this.errorMessage = <any>error);
 
-    //  .then((users: User[]) => {
-    //    this.users = users.map((user) => {
-    //     //  if (!contact.phone) {
-    //     //    contact.phone = {
-    //     //      mobile: '',
-    //     //      work: ''
-    //     //    }
-    //     //  }
-    //      return user;
-    //    });
-    //  });
+
  }
 
   getUsers() {
 
-// this.userService
-//       .getUsers()
-//       .then((users: User[]) => {
-//         this.users = users.map((user) => {
-//           return user;
-//         });
-//       });
-
-    // this.courseService.getCourses().subscribe(
-    //   courses => this.courses = courses);
   }
 
 
@@ -66,7 +45,7 @@ export class UserListComponent implements OnInit {
 
   createNewUser() {
     var user: User = {
-      username:'', email:'', firstname:'', password: '', lastname: '', 
+      username:'', email:'', firstname:'', password: '', lastname: '',
     };
 
     // By default, a newly-created course will have the selected state.

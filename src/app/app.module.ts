@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { NavBarComponent } from './navbar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { UsersComponent } from './users/users.component';
+
 import { CourseListComponent } from './courses/course-list/course-list.component';
 
 import { AppComponent } from './app.component';
