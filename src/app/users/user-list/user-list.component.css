@@ -2,12 +2,12 @@
     text-align: left;
     list-style: none;
     line-height: .8em;
+    padding-left:0;
 }
 
-.userList h1 {
-    padding:0; margin:0;
-    border-bottom:2px solid #aaaaaa;
-    padding-bottom:6px;
+.userList li {
+    border-bottom:2px solid #9696CC;
+    margin-bottom:10px;
 }
 
 .userList p {

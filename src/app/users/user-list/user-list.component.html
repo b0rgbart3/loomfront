@@ -1,13 +1,13 @@
 
-<md-card>
+<div class='loomCard'>
     <h1>Users</h1>
   <ul class='userList'>
-   <li *ngFor='let user of users'> <h1> {{user.firstName}} {{ user.lastName }}
-   </h1><br clear='all'>
+   <li *ngFor='let user of users'> 
+     <h2> {{user.firstname}} {{ user.lastname }}</h2>
    <p> {{ user.email }} </p> 
-   {{user.lastname}}  </li>
+
   </ul>
 
-</md-card>
+</div>
 
 <br>

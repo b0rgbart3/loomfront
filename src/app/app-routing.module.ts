@@ -7,6 +7,7 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { ProfileComponent } from './users/profile.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './_guards/auth.guard';
 // import { CanActivateAuthGuard } from './can-activate.service';
 
 // const index_1 = require('./login/index');
@@ -18,11 +19,9 @@ const routes: Routes = [
 { path: '', pathMatch: 'full', component: CourseListComponent },
 { path: 'courses', pathMatch: 'full', component: CourseListComponent },
 // { path: 'contacts', pathMatch: 'full', component: ContactListComponent, canActivate: [CanActivateAuthGuard] },
-{ path: 'profile', pathMatch: 'full', component: ProfileComponent },
-{ path: 'home', pathMatch: 'full', component: CourseListComponent },
-{ path: 'login', pathMatch: 'full', component: CourseListComponent },
+{ path: 'home', pathMatch: 'full', component: CourseListComponent, canActivate: [ AuthGuard ] },
 { path: 'register', pathMatch: 'full', component: RegisterComponent },
-{ path: 'users', pathMatch: 'full', component: UserListComponent },
+{ path: 'users', pathMatch: 'full', component: UserListComponent, canActivate: [ AuthGuard ] },
 { path: '**', redirectTo: '' }
 ];
 

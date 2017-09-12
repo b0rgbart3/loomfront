@@ -7,7 +7,7 @@
 body {
     margin: 0;
     font-family: Roboto, sans-serif;
-    background-color: #1D3650;
+    background-color: #3f51b5;
   }
   
   md-card {
@@ -58,4 +58,17 @@ body {
 
   .mat-app-background {
     background-color:rgba(0,0,0,0) !important;
+  }
+
+  .debug {
+    width:50%;
+    margin-left:auto;
+    margin-right:auto;
+    min-width:400px;
+    margin-top:50px;
+    background-color:rgba(0,0,0,.5);
+    color:white;
+    padding:20px;
+    border-radius:20px;
+    font-weight: normal;
   }
