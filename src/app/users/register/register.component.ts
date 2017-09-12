@@ -8,7 +8,8 @@ import { UserService } from '../user.service';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'register.component.html'
+    templateUrl: 'register.component.html',
+    styleUrls: ['register.component.css']
 })
 
 export class RegisterComponent {
@@ -21,7 +22,7 @@ export class RegisterComponent {
 
     errorMessage: string;
 
-    constructor(private userService: UserService, private formPoster: FormPoster) { }
+    constructor(private userService: UserService ) { }
 
     // The user filled out and submitted the Registration form.
 

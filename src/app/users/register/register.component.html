@@ -3,13 +3,13 @@
 
 <form #regform="ngForm" novalidate (submit)="registerUser(regfrom)">
 
-    <md-card class='bartness'>
+    <div class='loomCard'>
         <h2>Register</h2>
 
         <md-form-field>
         <input #firstname="ngModel" mdInput placeholder="First name" 
         name="firstname" [(ngModel)]="model.firstname" required maxlength="30">
-        </md-form-field>
+        </md-form-field><br>
         <md-form-field>
         <input #lastname="ngModel" mdInput placeholder="Last name" 
         name="lastname" [(ngModel)]="model.lastname" required minlength="3" maxlength="30">
@@ -37,7 +37,7 @@
         <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
         <br clear='all'>
 
-    </md-card>
+    </div>
 
 </form>
 

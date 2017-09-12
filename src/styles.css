@@ -7,6 +7,7 @@
 body {
     margin: 0;
     font-family: Roboto, sans-serif;
+    background-color: #1D3650;
   }
   
   md-card {
@@ -30,11 +31,31 @@ body {
       text-decoration: none;
   }
 
-  .bartness {
+  .loomCard {
       text-align: left;
+      width:50%;
+      min-width:400px;
+      background-color:#ffffff;
+      margin-left:auto;
+      margin-right:auto;
+      padding:20px;
+      margin-top:20px;
   }
 
   .rightAlignMe {
       float: right;
       display:inline-block;
+  }
+
+  .mat-form-field{
+    width:100% !important;
+  }
+
+  form {
+    background-color:rgba(0,0,0,0);
+  }
+
+
+  .mat-app-background {
+    background-color:rgba(0,0,0,0) !important;
   }

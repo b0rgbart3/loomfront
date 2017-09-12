@@ -6,9 +6,15 @@ import { CourseListComponent } from './courses/course-list/course-list.component
 import { UserListComponent } from './users/user-list/user-list.component';
 import { ProfileComponent } from './users/profile.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
+import { LoginComponent } from './login/login.component';
 // import { CanActivateAuthGuard } from './can-activate.service';
 
+// const index_1 = require('./login/index');
+// const index_2 = require('./home/index');
+// const index_3 = require('./_guards/index');
+
 const routes: Routes = [
+{ path: 'login', component: LoginComponent },
 { path: '', pathMatch: 'full', component: CourseListComponent },
 { path: 'courses', pathMatch: 'full', component: CourseListComponent },
 // { path: 'contacts', pathMatch: 'full', component: ContactListComponent, canActivate: [CanActivateAuthGuard] },
@@ -17,6 +23,7 @@ const routes: Routes = [
 { path: 'login', pathMatch: 'full', component: CourseListComponent },
 { path: 'register', pathMatch: 'full', component: RegisterComponent },
 { path: 'users', pathMatch: 'full', component: UserListComponent },
+{ path: '**', redirectTo: '' }
 ];
 
 @NgModule ({

@@ -30,7 +30,9 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 
 import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './_guards/index';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   // External
@@ -47,6 +49,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     routableComponents,
+    LoginComponent,
     ContactDetailsComponent,
     ContactListComponent,
     CourseListComponent,
@@ -57,7 +60,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterComponent
   ],
 
-  providers: [ CanActivateAuthGuard, UserService, FormPoster
+  providers: [ AuthGuard, AuthenticationService, UserService
    ],
   bootstrap: [AppComponent]
 })
