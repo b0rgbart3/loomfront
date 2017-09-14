@@ -1,30 +1,24 @@
 <md-toolbar color="primary"> 
 
-		 <button md-icon-button [mdMenuTriggerFor]="menu">
-				<md-icon>menu</md-icon>
-		 </button>
+	<button md-icon-button [mdMenuTriggerFor]="menu">
+		<md-icon>menu</md-icon>
+	</button>
 
 
-		<md-menu #menu="mdMenu">
-				<a href="" [routerLink]="['/home']"><button md-menu-item>The Loom</button></a>
-				<a [routerLink]="['/courses']" href=""><button md-menu-item>Courses</button></a>
-				<a [routerLink]="['/contacts']" href=""><button md-menu-item>Contacts</button></a>
-				<a [routerLink]="['/users']" href=""><button md-menu-item>Users</button></a>
-				<a [routerLink]="['/register']" href=""><button md-menu-item>Register</button></a>
-				<a [routerLink]= "['/login']" href=""><button md-menu-item>LOGIN</button></a>
-		</md-menu>
+<md-menu #menu="mdMenu">
+	<a href="" [routerLink]="['/home']"><button md-menu-item>The Loom</button></a>
+	<a routerLinkActive="active" [routerLink]="['/courses']" href=""><button md-menu-item>Courses</button></a>
+	<a [routerLink]="['/contacts']" href=""><button md-menu-item>Contacts</button></a>
+	<a *ngIf="userLoggedIn" [routerLink]="['/users']" href=""><button md-menu-item>Users</button></a>
+	<a *ngIf="!userLoggedIn" [routerLink]="['/register']" href=""><button md-menu-item>Register</button></a>
+	<a *ngIf="userLoggedIn" (click)="logout()"><button md-menu-item>Logout</button></a>
+	<a *ngIf="!this.userLoggedIn" [routerLink]= "['/login']" href=""><button md-menu-item>Login</button></a>
+</md-menu>
 
 
-<!-- <div class='nav-bar'>
-	<nav>
-	  <ul>
-	    <a href="" [routerLink]="['/home']"><li>The Loom</li></a>
-	    <a [routerLink]="['/courses']" href=""><li>Courses</li></a>
-	    <a [routerLink]="['/contacts']" href=""><li>Contacts</li></a>
-	    <a [routerLink]="['/users']" href=""><li>Users</li></a>
-	    <a [routerLink]="['/register']" href=""><li>Register</li></a>
-	    <a [routerLink]= "['/login']" href=""><li>LOGIN</li></a>
-		</ul>
-	</nav>
-</div> -->
+<div class='userInfo' *ngIf="userLoggedIn">
+	{{ localStorage.getItem('currentUser') }}
+</div>
+
+
 </md-toolbar>

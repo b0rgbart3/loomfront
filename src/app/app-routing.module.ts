@@ -30,9 +30,10 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
 
-export const routableComponents = [
+export const routableComponents = [ UserListComponent, RegisterComponent, CourseListComponent
 
 ];
 

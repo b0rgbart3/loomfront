@@ -2,37 +2,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
-import { AppRoutingModule, routableComponents } from './app-routing.module';
+// import { RouterModule, Routes } from '@angular/router';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { NavBarComponent } from './navbar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-import { CourseListComponent } from './courses/course-list/course-list.component';
-
 import { AppComponent } from './app.component';
-
-import { ContactDetailsComponent } from './contacts/contact-details/contact-details.component';
-import { ContactListComponent } from './contacts/contact-list/contact-list.component';
-
 import { CanActivateAuthGuard } from './can-activate.service';
 import { UserService } from './users/user.service';
-import { UserListComponent } from './users/user-list/user-list.component';
-
-import { RegisterComponent } from './users/register/index';
-import { ProfileComponent } from './users/profile.component';
 
 import { FormPoster } from './services/form-poster.service';
-
 import { CustomMaterialModule } from './custom-material/custom-material.module';
-
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/index';
 import { AuthenticationService } from './services/authentication.service';
+import { AppRoutingModule, routableComponents } from './app-routing.module';
 
 @NgModule({
   // External
@@ -40,24 +30,19 @@ import { AuthenticationService } from './services/authentication.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule,
     CustomMaterialModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlashMessagesModule,
+    AppRoutingModule,
   ],
   // Internal
   declarations: [
     AppComponent,
     routableComponents,
-    LoginComponent,
-    ContactDetailsComponent,
-    ContactListComponent,
-    CourseListComponent,
-    UserListComponent,
     NavBarComponent,
-    ProfileComponent,
     PageNotFoundComponent,
-    RegisterComponent
+    LoginComponent,
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService

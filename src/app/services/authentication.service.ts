@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,14 +17,26 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
     }
 
+    loggedInUser(): User {
+        let localUser = localStorage.getItem('currentUser');
+        let currentUser = <User> {};
+        if (JSON.parse(localUser) )
+        {
+          currentUser = JSON.parse(localUser);
+        }
+        return currentUser;  
+     }
+
     login(username: string, password: string): Observable<boolean> {
 
-        console.log('In authentication service, login() method: username:' + username+", password: "+password);
+        console.log('In authentication service, login() method: username:' + username + ", password: "+password);
         let myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
         let info =  JSON.stringify({ username: username, password: password });
         console.log("INfo: "+ info);
+
+        // Here we are sending the username and password to the api for authentication.
 
         return this.http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders})
             .map((response) => {
@@ -41,8 +54,6 @@ export class AuthenticationService {
                 // token = tokenJSON.jwt;
                 // console.log("JSON: "+token);
 
-
-
                 //let responseJSON = JSON.parse(response.toString());
                 //token = response.token;
 
@@ -59,12 +70,22 @@ export class AuthenticationService {
                     // return false to indicate failed login
                     return false;
                 }
-            });
+            }
+        );
     }
 
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+    }
+
+    isloggedin(): boolean {
+        let user = localStorage.getItem('currentUser');
+        if (user != null)
+        {
+            return true;
+        }
+        else { return false; }
     }
 }

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Http} from '@angular/http';
+import { AppRoutingModule, routableComponents } from './app-routing.module';
 
 @Component({
   selector: 'app-root',
