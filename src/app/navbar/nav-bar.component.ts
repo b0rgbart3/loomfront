@@ -26,6 +26,11 @@ export class NavBarComponent implements OnInit {
     private data: DataService
   ) {}
 
+  getMyProperty() {
+    let storedUser = localStorage.getItem('currentUser');
+    return storedUser;
+
+  }
   logout() {
     this.authenticationService.logout();
     this.data.changeMessage("The user logged out.");
