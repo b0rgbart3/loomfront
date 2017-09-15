@@ -3,6 +3,7 @@ import { Course } from '../../models/course.model';
 import { CourseService } from '../course.service';
 
 @Component({
+  selector: 'course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css'],
   providers: [CourseService]

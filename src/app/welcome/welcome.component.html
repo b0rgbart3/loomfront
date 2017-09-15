@@ -1,0 +1,17 @@
+﻿<div class='welcomeStuff'>
+
+    <div *ngIf="!this.authenticationService.isloggedin()">
+    <h1> Welcome to the Reclaiming Loom! </h1>
+
+
+
+            <button md-raised-button (click)="login()">Login</button>
+  
+    </div>
+
+    <div *ngIf="this.authenticationService.isloggedin()">
+    <h1> Welcome back to the Reclaiming Loom, {{ this.authenticationService.loggedInUser().username }}</h1>
+    </div>
+    <course-list></course-list>
+
+</div>

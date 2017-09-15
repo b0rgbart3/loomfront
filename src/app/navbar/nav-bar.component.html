@@ -8,7 +8,7 @@
 <md-menu #menu="mdMenu">
 	<a href="" [routerLink]="['/welcome']"><button md-menu-item>Welcome</button></a>
 	<a *ngIf="this.loggedinusername()" href="" [routerLink]="['/home']"><button md-menu-item>Home</button></a>
-	<a *ngIf="!this.loggedinusername()" href=""><button md-menu-item>Register</button></a>
+	<a *ngIf="!this.loggedinusername()" [routerLink]="['/register']"><button md-menu-item>Register</button></a>
 	<a *ngIf="this.loggedinusername()" (click)="logout()"><button md-menu-item>Logout</button></a>
 	<a *ngIf="!this.loggedinusername()" [routerLink]= "['/login']" href=""
 	><button md-menu-item>Login</button></a>

@@ -22,9 +22,11 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/index';
 import { AuthenticationService } from './services/authentication.service';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './home/home.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 import { UserService } from './users/user.service';
 import { StudentModule } from './student/student.module';
+import { CourseListComponent } from './courses/course-list/course-list.component';
+import { RegisterComponent } from './users/register/register.component';
 
 @NgModule({
   // External
@@ -45,7 +47,9 @@ import { StudentModule } from './student/student.module';
     NavBarComponent,
     PageNotFoundComponent,
     LoginComponent,
-    HomeComponent,
+    CourseListComponent,
+    RegisterComponent,
+    WelcomeComponent
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService

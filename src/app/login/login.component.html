@@ -1,4 +1,5 @@
-﻿<div class="loomCard">
+﻿<div class='loginStuff'>
+<div class="loomCard">
     <div class="alert alert-info">
     </div>
     <h2>Login</h2>
@@ -15,18 +16,20 @@
                     <input #password="ngModel" mdInput placeholder="Password" 
                     name="pasword" [(ngModel)]="model.password" required maxlength="30" minlength="3">
                     </md-form-field><br>
-
-      
         
                 <br>
-                <button md-raised-button color="primary" class='rightAlignMe' [disabled]="f.form.invalid">OK</button>
+                <button md-raised-button color="primary" class='rightAlignMe'
+                 [disabled]="f.form.invalid">OK</button>
                 <br clear='all'>
-
+                    <!-- <button class="bd-full-width-button">LOGIN</button> -->
 
     
     </form>
+
 </div>
 
-<div class='debug'>
-Form Valid: {{ model.error }}
+<p>New to the Loom? <a href='/register'>&nbsp; &#10148;&nbsp;Register today!</a></p>
 </div>
+<!-- <div class='debug'>
+Form Valid: {{ model.error }}
+</div> -->

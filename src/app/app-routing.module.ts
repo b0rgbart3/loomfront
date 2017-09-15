@@ -8,7 +8,7 @@ import { ProfileComponent } from './users/profile.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { HomeComponent } from './home/home.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -17,9 +17,11 @@ import { HomeComponent } from './home/home.component';
 // const index_3 = require('./_guards/index');
 
 const ROUTES: Routes = [
-{ path: '', pathMatch: 'full', component: HomeComponent },
-{ path: 'welcome', pathMatch: 'full', component: HomeComponent },
+{ path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
+{ path: 'register', pathMatch: 'full', component: RegisterComponent },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
+{ path: '', component: WelcomeComponent },
+{ path: '**', component: WelcomeComponent }
 ];
 
 @NgModule ({
