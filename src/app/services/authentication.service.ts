@@ -55,13 +55,9 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 //let token = "";
 
-                // console.log(response);
-                let token = JSON.stringify(response);
+                console.log("Response: " + response);
+                let token = response;
                 console.log("token: " + token);
-
-                let tokenJSON = JSON.parse(token).token;
-                console.log("tokenJSON== " + tokenJSON);
-
 
                 // token = tokenJSON.jwt;
                 // console.log("JSON: "+token);
@@ -71,7 +67,7 @@ export class AuthenticationService {
 
                 if (token) {
                     // set token property
-                    this.token = token;
+                   // this.token = token;
                     this.username = username;
                     console.log("REASSIGNING USERNAME to: "+username);
 

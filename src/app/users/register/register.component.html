@@ -20,6 +20,13 @@
         [(ngModel)]="model.email" required type="email" minlength="7" maxlength="40" 
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
         </md-form-field>
+        <md-form-field>
+        <input #username="ngModel" mdInput placeholder="witchy name" name="username" 
+        [(ngModel)]="model.username" required type="username" minlength="7" maxlength="40" 
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        <md-hint align="start">This will be the name that you login with</md-hint>
+ 
+        </md-form-field>
         <br>
         <md-form-field>
         <input #password="ngModel" mdInput placeholder="password" 

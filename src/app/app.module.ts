@@ -27,6 +27,7 @@ import { UserService } from './users/user.service';
 import { StudentModule } from './student/student.module';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { RegisterComponent } from './users/register/register.component';
+import { AlertComponent } from './_directives/alert.component';
 
 @NgModule({
   // External
@@ -49,6 +50,7 @@ import { RegisterComponent } from './users/register/register.component';
     LoginComponent,
     CourseListComponent,
     RegisterComponent,
+    AlertComponent,
     WelcomeComponent
   ],
 

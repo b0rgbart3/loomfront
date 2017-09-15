@@ -22,7 +22,7 @@ export class RegisterComponent {
 
     errorMessage: string;
 
-    constructor(private userService: UserService ) { }
+    constructor(private userService: UserService, private  router: Router ) { }
 
     // The user filled out and submitted the Registration form.
 
@@ -42,6 +42,7 @@ export class RegisterComponent {
         },
         () => {
           console.log('The POST observable is now completed.');
+          this.router.navigate(['/home']);
         }
       );
 
