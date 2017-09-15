@@ -3,7 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
-import { DataService } from '../services/data.service';
+
 
 @Component({
     moduleId: module.id,
@@ -19,14 +19,13 @@ export class LoginComponent implements OnInit {
     constructor(
         private authenticationService: AuthenticationService,
         private _flashMessagesService: FlashMessagesService,
-        private _router: Router,
-        private data: DataService
+        private _router: Router
          ) { }
 
     ngOnInit() {
        // this._flashMessagesService.show('We are in the login component!', { cssClass: 'alert-success', timeout: 3000 });
         // reset login status
-        this.data.currentMessage.subscribe(message => this.message = message);
+     
     }
 
     login() {
@@ -41,9 +40,8 @@ export class LoginComponent implements OnInit {
                     // If no redirect has been set, use the default
                     // let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
                     //  this.authenticationService.updateMyself();
-                    this.data.changeMessage("Bartman");
                     
-                    let redirect =  '/studenthome';
+                    let redirect =  '/home';
 
                 // Set our navigation extras object
                 // that passes on our global query params and fragment
@@ -54,7 +52,7 @@ export class LoginComponent implements OnInit {
 
                 // Redirect the user
                 //this.router.navigate([redirect], navigationExtras);
-                this._router.navigate(['/studenthome']);
+                this._router.navigate(['/home']);
                 } else {
                     console.log("NOT AUTHENTICATED!");
                     this.error = 'Username or password is incorrect';

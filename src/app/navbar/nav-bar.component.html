@@ -6,17 +6,16 @@
 
 
 <md-menu #menu="mdMenu">
-	<a href="" [routerLink]="['/home']"><button md-menu-item>The Loom</button></a>
-	<a href=""><button md-menu-item>Register</button></a>
-	<a (click)="logout()"><button md-menu-item>Logout</button></a>
-	<a [routerLink]= "['/login']" href=""
+	<a href="" [routerLink]="['/welcome']"><button md-menu-item>Welcome</button></a>
+	<a *ngIf="this.loggedinusername()" href="" [routerLink]="['/home']"><button md-menu-item>Home</button></a>
+	<a *ngIf="!this.loggedinusername()" href=""><button md-menu-item>Register</button></a>
+	<a *ngIf="this.loggedinusername()" (click)="logout()"><button md-menu-item>Logout</button></a>
+	<a *ngIf="!this.loggedinusername()" [routerLink]= "['/login']" href=""
 	><button md-menu-item>Login</button></a>
 </md-menu>
 
-{{ this.getMyProperty() }}
-<div class='userInfo'>
-	Username: {{ this.message }}
-</div>
+{{ this.loggedinusername() }}
+
 
 
 </md-toolbar>

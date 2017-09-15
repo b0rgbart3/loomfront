@@ -1,4 +1,4 @@
-import {NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './users/register/register.component';
@@ -16,14 +16,14 @@ import { HomeComponent } from './home/home.component';
 // const index_2 = require('./home/index');
 // const index_3 = require('./_guards/index');
 
-const routes: Routes = [
+const ROUTES: Routes = [
 { path: '', pathMatch: 'full', component: HomeComponent },
-{ path: 'home', pathMatch: 'full', component: HomeComponent },
+{ path: 'welcome', pathMatch: 'full', component: HomeComponent },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 ];
 
 @NgModule ({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(ROUTES)],
     exports: [RouterModule]
 })
 

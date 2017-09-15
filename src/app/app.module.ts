@@ -25,7 +25,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { UserService } from './users/user.service';
 import { StudentModule } from './student/student.module';
-import { DataService } from './services/data.service';
 
 @NgModule({
   // External
@@ -37,8 +36,8 @@ import { DataService } from './services/data.service';
     BrowserAnimationsModule,
     HttpClientModule,
     FlashMessagesModule,
-    AppRoutingModule,
-    StudentModule
+    StudentModule,
+    AppRoutingModule
   ],
   // Internal
   declarations: [
@@ -49,7 +48,7 @@ import { DataService } from './services/data.service';
     HomeComponent,
   ],
 
-  providers: [ AuthGuard, AuthenticationService, UserService, DataService
+  providers: [ AuthGuard, AuthenticationService, UserService
    ],
   bootstrap: [AppComponent]
 })

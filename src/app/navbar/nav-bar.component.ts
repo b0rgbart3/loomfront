@@ -3,7 +3,7 @@ import { User } from '../models/user.model';
 import { AuthenticationService } from '../services/authentication.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
-import { DataService } from '../services/data.service';
+
 
 @Component({
   selector: 'nav-bar',
@@ -13,32 +13,38 @@ import { DataService } from '../services/data.service';
 })
 
 export class NavBarComponent implements OnInit {
-  public userLoggedIn: boolean;
-  public userString: string;
-  public userJson: User;
-
-  message: string;
+  public currentUser: User;
 
   constructor (
     private authenticationService: AuthenticationService,
     private _flashMessagesService: FlashMessagesService,
     private _router: Router,
-    private data: DataService
+
   ) {}
 
-  getMyProperty() {
-    let storedUser = localStorage.getItem('currentUser');
-    return storedUser;
+  loggedinusername() {
+    let storedUserString = localStorage.getItem('currentUser');
 
+    if (storedUserString)
+    { 
+      this.currentUser = <User> JSON.parse(storedUserString);
+      return this.currentUser.username;
+    }
+   else
+    {
+      this.currentUser = null;
+      return null;
+    }
   }
+
+
   logout() {
     this.authenticationService.logout();
-    this.data.changeMessage("The user logged out.");
-    this._router.navigate(['/home']);
+    this._router.navigate(['/welcome']);
   }
 
   ngOnInit() {
-    this.data.currentMessage.subscribe(message => this.message = message);
+
   }
 
 

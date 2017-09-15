@@ -10,7 +10,8 @@ import { NavBarComponent } from '../navbar/nav-bar.component';
   // External
   imports: [
     RouterModule.forChild([
-      { path: 'studenthome', pathMatch: 'full', component: StudentHomepageComponent },
+      { path: 'home', pathMatch: 'full', component: StudentHomepageComponent },
+      { path: '', component: StudentHomepageComponent }
     ]),
   ],
   // Internal
