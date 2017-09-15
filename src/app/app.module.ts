@@ -11,7 +11,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 import { AppComponent } from './app.component';
 import { CanActivateAuthGuard } from './can-activate.service';
-import { UserService } from './users/user.service';
 
 import { FormPoster } from './services/form-poster.service';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
@@ -22,7 +21,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/index';
 import { AuthenticationService } from './services/authentication.service';
-import { AppRoutingModule, routableComponents } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { UserService } from './users/user.service';
+import { StudentModule } from './student/student.module';
+import { DataService } from './services/data.service';
 
 @NgModule({
   // External
@@ -35,17 +38,18 @@ import { AppRoutingModule, routableComponents } from './app-routing.module';
     HttpClientModule,
     FlashMessagesModule,
     AppRoutingModule,
+    StudentModule
   ],
   // Internal
   declarations: [
     AppComponent,
-    routableComponents,
     NavBarComponent,
     PageNotFoundComponent,
     LoginComponent,
+    HomeComponent,
   ],
 
-  providers: [ AuthGuard, AuthenticationService, UserService
+  providers: [ AuthGuard, AuthenticationService, UserService, DataService
    ],
   bootstrap: [AppComponent]
 })

@@ -7,17 +7,15 @@
 
 <md-menu #menu="mdMenu">
 	<a href="" [routerLink]="['/home']"><button md-menu-item>The Loom</button></a>
-	<a routerLinkActive="active" [routerLink]="['/courses']" href=""><button md-menu-item>Courses</button></a>
-	<a [routerLink]="['/contacts']" href=""><button md-menu-item>Contacts</button></a>
-	<a *ngIf="userLoggedIn" [routerLink]="['/users']" href=""><button md-menu-item>Users</button></a>
-	<a *ngIf="!userLoggedIn" [routerLink]="['/register']" href=""><button md-menu-item>Register</button></a>
-	<a *ngIf="userLoggedIn" (click)="logout()"><button md-menu-item>Logout</button></a>
-	<a *ngIf="!this.userLoggedIn" [routerLink]= "['/login']" href=""><button md-menu-item>Login</button></a>
+	<a href=""><button md-menu-item>Register</button></a>
+	<a (click)="logout()"><button md-menu-item>Logout</button></a>
+	<a [routerLink]= "['/login']" href=""
+	><button md-menu-item>Login</button></a>
 </md-menu>
 
 
-<div class='userInfo' *ngIf="userLoggedIn">
-	{{ localStorage.getItem('currentUser') }}
+<div class='userInfo'>
+	Username: {{ this.message }}
 </div>
 
 

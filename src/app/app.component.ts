@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Http} from '@angular/http';
-import { AppRoutingModule, routableComponents } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,7 @@ import { AppRoutingModule, routableComponents } from './app-routing.module';
 })
 export class AppComponent {
   title = 'app';
+  username = 'empty';
 
-//   private version: any;
-//   constructor(http: Http) {
-//       // Display the currently used Material 2 version.
-//       this.version = http
-//         .get('https://api.github.com/repos/angular/material2-builds/commits/HEAD')
-//         .map(res => res.json());
-//     }
 }
 

@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, OnChanges } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,21 +10,33 @@ import { User } from '../models/user.model';
 @Injectable()
 export class AuthenticationService {
     public token: string;
+    public currentUser: User;
+    public username;
 
     constructor(private http: HttpClient) {
         // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        let thisUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.token = thisUser && thisUser.token;
+        this.username = thisUser && thisUser.username;
     }
+
+    updateMyself()
+    {
+        let thisUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.token = thisUser && thisUser.token;
+        this.username = thisUser && thisUser.username;
+    }
+
 
     loggedInUser(): User {
         let localUser = localStorage.getItem('currentUser');
-        let currentUser = <User> {};
+        let readInUser = <User> {};
         if (JSON.parse(localUser) )
         {
-          currentUser = JSON.parse(localUser);
+            readInUser = JSON.parse(localUser);
         }
-        return currentUser;  
+        this.currentUser = readInUser;
+        return readInUser;  
      }
 
     login(username: string, password: string): Observable<boolean> {
@@ -60,10 +72,13 @@ export class AuthenticationService {
                 if (token) {
                     // set token property
                     this.token = token;
+                    this.username = username;
+                    console.log("REASSIGNING USERNAME to: "+username);
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
+                    this.updateMyself();
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -78,6 +93,7 @@ export class AuthenticationService {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+        this.updateMyself();
     }
 
     isloggedin(): boolean {
