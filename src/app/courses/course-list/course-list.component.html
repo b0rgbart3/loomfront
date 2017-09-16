@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="loomCard">
+  <div class="loomCard" *ngIf="courses">
     <h2>Courses</h2>
     <ul class="list-group">
       <li class="list-group-item"
@@ -12,5 +12,5 @@
     </ul>
     <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
   </div>
-
+<div class="notice" *ngIf="!courses">Currently having trouble accessing the database for course info.</div>
 </div>

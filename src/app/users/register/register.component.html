@@ -22,8 +22,7 @@
         </md-form-field>
         <md-form-field>
         <input #username="ngModel" mdInput placeholder="witchy name" name="username" 
-        [(ngModel)]="model.username" required type="username" minlength="7" maxlength="40" 
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        [(ngModel)]="model.username" required type="username" minlength="3" maxlength="40">
         <md-hint align="start">This will be the name that you login with</md-hint>
  
         </md-form-field>
@@ -47,7 +46,7 @@
     </div>
 
 </form><br>
-<p>Already have an account? <a href='/login'>&nbsp; &#10148;&nbsp;Then just Login!</a></p>
+<p>Already have an account? <a [routerLink]="['/login']" > &nbsp; &#10148;&nbsp;Then just Login!</a></p>
 </div>
 
 <!-- <input [mdDatepicker]="myDatepicker" class='form-control'>

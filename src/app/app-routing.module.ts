@@ -9,6 +9,7 @@ import { ContactListComponent } from './contacts/contact-list/contact-list.compo
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { RequestresetComponent } from './users/requestreset/requestreset.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -20,6 +21,7 @@ const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
 { path: 'register', pathMatch: 'full', component: RegisterComponent },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
+{ path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }
 ];

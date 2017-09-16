@@ -20,13 +20,18 @@ export class AuthenticationService {
         this.username = thisUser && thisUser.username;
     }
 
-    updateMyself()
-    {
-        let thisUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = thisUser && thisUser.token;
-        this.username = thisUser && thisUser.username;
-    }
+    sendResetRequest(email: string) {
+        let emailObject = {"email": email};
+        let emailObjectString = JSON.stringify(emailObject);
+        let myHeaders = new HttpHeaders();
+        myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
+        console.log("In authentication service, sending a reset request"+ emailObjectString);
+
+        return this.http.post('http://localhost:3100/api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
+            console.log("Got back from http request.");
+    });
+    }
 
     loggedInUser(): User {
         let localUser = localStorage.getItem('currentUser');
@@ -74,7 +79,7 @@ export class AuthenticationService {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
-                    this.updateMyself();
+
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -89,7 +94,6 @@ export class AuthenticationService {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
-        this.updateMyself();
     }
 
     isloggedin(): boolean {

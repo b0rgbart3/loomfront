@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
      
     }
 
+
     login() {
         console.log('In login method');
         this.loading = true;

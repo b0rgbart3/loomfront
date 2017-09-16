@@ -104,4 +104,10 @@ body {
 
   a {
     color:#61A6FF;
+    cursor: pointer;
   }
+
+  .stuff {
+    text-align: center;
+}
+

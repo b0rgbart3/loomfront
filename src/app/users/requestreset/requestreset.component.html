@@ -1,0 +1,27 @@
+<div class='stuff'>
+        <div class="loomCard">
+            <div class="alert alert-info">
+            </div>
+            <h2>Request a reset of your registered password</h2>
+            <form name="form" (ngSubmit)="f.form.valid && sendResetRequest()" #f="ngForm" novalidate>
+        
+                <flash-messages></flash-messages>
+        
+                            
+                <md-form-field>
+                <input #email="ngModel" mdInput placeholder="email" name="email" 
+                [(ngModel)]="model.email" required type="email" minlength="7" maxlength="40" 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                </md-form-field>
+
+                        <br>
+                        <button md-raised-button color="primary" class='rightAlignMe'
+                         [disabled]="f.form.invalid">OK</button>
+                        <br clear='all'>
+                            <!-- <button class="bd-full-width-button">LOGIN</button> -->
+        
+            
+            </form>
+        
+        </div>
+        

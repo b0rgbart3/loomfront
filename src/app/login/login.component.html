@@ -10,10 +10,13 @@
             <md-form-field>
                     <input #username="ngModel" mdInput placeholder="Witchy name" 
                     name="usernane" [(ngModel)]="model.username" required maxlength="30" minlength="3">
-                    </md-form-field><br>
-
+            </md-form-field>
+                    <md-hint align="start">Note: these are case sensitive.</md-hint><br>
+                    <br>
+                   
+                    
             <md-form-field>
-                    <input #password="ngModel" mdInput placeholder="Password" 
+                    <input #password="ngModel" type="password" mdInput placeholder="Password" 
                     name="pasword" [(ngModel)]="model.password" required maxlength="30" minlength="3">
                     </md-form-field><br>
         
@@ -28,7 +31,9 @@
 
 </div>
 
-<p>New to the Loom? <a href='/register'>&nbsp; &#10148;&nbsp;Register today!</a></p>
+<p>New to the Loom? <a [routerLink]="['/register']">&nbsp; &#10148;&nbsp;Register today!</a></p>
+<br>
+<p>Forgot your password? <a [routerLink]="['/requestreset']">&nbsp; &#10148;&nbsp;Request a password reset, via email.</a></p>
 </div>
 <!-- <div class='debug'>
 Form Valid: {{ model.error }}

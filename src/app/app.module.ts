@@ -28,6 +28,8 @@ import { StudentModule } from './student/student.module';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { RegisterComponent } from './users/register/register.component';
 import { AlertComponent } from './_directives/alert.component';
+import { AlertService } from './services/alert.service';
+import { RequestresetComponent } from './users/requestreset/requestreset.component';
 
 @NgModule({
   // External
@@ -51,10 +53,11 @@ import { AlertComponent } from './_directives/alert.component';
     CourseListComponent,
     RegisterComponent,
     AlertComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    RequestresetComponent
   ],
 
-  providers: [ AuthGuard, AuthenticationService, UserService
+  providers: [ AuthGuard, AuthenticationService, UserService, AlertService
    ],
   bootstrap: [AppComponent]
 })
