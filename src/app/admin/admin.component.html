@@ -2,13 +2,28 @@
         <h1>Hello Admin:{{ currentUser.username }} </h1>
     <div class='loomCard'>
     <div class='padMe'>
-
         <class-list></class-list>
 </div></div>
 <div class='loomCard'>
-        <div class='padMe'>
-        <course-list></course-list>
-        
-    </div>
-</div>
+<div class='padMe'>
+        <h2>Courses</h2>
+        <button (click)="createNewCourse()">Add a new course</button>
+    <ul class="list-group" *ngIf="courses">
+      <li class="list-group-item"
+        *ngFor="let course of courses"
+        >
+        <h2>{{course.title}}</h2>
+        <p>{{course.description}}</p>
+        <p>{{ course.id }}</p>
+        <button  [routerLink]="['/courses', course.id, 'edit']" >Edit</button>
+        <button>Delete</button>
+  
+      </li>
+    </ul>
+  </div>
+  </div>
+    <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
+
+<div class="notice" *ngIf="!courses">Currently having trouble accessing the database for course info.</div>
+<br><br>
 </div>

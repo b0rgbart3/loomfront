@@ -12,7 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
 
   private _usersUrl = 'http://localhost:3100/api/users';
 
@@ -27,11 +27,11 @@ export class UserService {
 
     postUser(userObject: User): Observable<any> {
 
-      let myHeaders = new HttpHeaders();
+      const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-      //console.log("In postUser.");
-      let body =  JSON.stringify(userObject);
+      // console.log("In postUser.");
+      const body =  JSON.stringify(userObject);
 
       console.log( 'Posting User: ', body   );
       return this._http.post(this._usersUrl + '/register' , userObject, {headers: myHeaders} );

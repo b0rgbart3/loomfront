@@ -74,4 +74,10 @@ export class AuthenticationService {
             return true;
         } else { return false; }
     }
+
+    isAdmin(): boolean {
+        if (this.currentUser.user_type === 'admin') {
+            return true;
+        }
+    }
 }

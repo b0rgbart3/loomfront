@@ -12,7 +12,8 @@ import { Course } from '../models/course.model';
 
 @Injectable()
 export class CourseService {
-    private _coursesUrl = 'http://localhost:3100/courses';
+    private _coursesUrl = 'http://localhost:3100/api/courses';
+    // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     constructor (private _http: HttpClient) {}
 
@@ -22,6 +23,34 @@ export class CourseService {
       .do(data => console.log('All: ' + JSON.stringify(data)))
       .catch( this.handleError );
   }
+
+  //  getCourseSeedID(): Observable<Course[]> {
+  //   return this._http.get <any> (this._coursesUrl)
+  //     // debug the flow of data
+  //     .do(data => console.log('All: ' + JSON.stringify(data)))
+  //     .catch( this.handleError );
+  // }
+
+  getCourse(id): Observable<Course> {
+    return this._http.get<Course> ( this._coursesUrl + '/id:' + id )
+      .do(data => {
+        console.log( 'found: ' + JSON.stringify(data) );
+      return data; })
+      .catch (this.handleError);
+  }
+
+
+
+  postCourse(courseObject: Course): Observable<any> {
+
+          const myHeaders = new HttpHeaders();
+          myHeaders.append('Content-Type', 'application/json');
+
+          const body =  JSON.stringify(courseObject);
+          console.log( 'Posting User: ', body   );
+          return this._http.post(this._coursesUrl + '/add', courseObject, {headers: myHeaders} );
+        }
+
 
 
     private handleError (error: HttpErrorResponse) {

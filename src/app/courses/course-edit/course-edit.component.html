@@ -1,0 +1,30 @@
+
+
+<div class='stuff'>
+        
+        <form #courseform="ngForm" novalidate (submit)="submitCourse(courseform)">
+        
+            <div class='loomCard'>
+                    <div class="padMe">
+                <h2>Course Info:</h2>
+                <flash-messages></flash-messages>
+
+                <md-form-field>
+                <input #title="ngModel" mdInput placeholder="Title" 
+                name="title" [(ngModel)]="course.title" required minlength="3" maxlength="50">
+                </md-form-field>
+                <md-form-field>
+                <input #description="ngModel" mdInput placeholder="Description" 
+                name="description" [(ngModel)]="course.description" required minlength="3" maxlength="150">
+                </md-form-field>
+
+                <br>
+                <br>
+                <br>
+                <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
+                <br clear='all'>
+            </div>
+            </div>
+        
+        </form><br>
+        

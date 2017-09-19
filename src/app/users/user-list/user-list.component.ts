@@ -44,16 +44,14 @@ export class UserListComponent implements OnInit {
   }
 
   createNewUser() {
-    var user: User = {
-      username:'', email:'', firstname:'', password: '', lastname: '',
-    };
+    const thisUser = new User( '', '', '', '', '', '');
 
     // By default, a newly-created course will have the selected state.
-    this.selectUser(user);
+    this.selectUser( thisUser );
   }
 
   deleteUser = (userId: String) => {
-    var idx = this.getIndexOfUser(userId);
+    const idx = this.getIndexOfUser(userId);
     if (idx !== -1) {
       this.users.splice(idx, 1);
       this.selectUser(null);
@@ -68,7 +66,7 @@ export class UserListComponent implements OnInit {
   }
 
   updateUser = (user: User) => {
-    var idx = this.getIndexOfUser(user._id);
+    const idx = this.getIndexOfUser(user._id);
     if (idx !== -1) {
       this.users[idx] = user;
       this.selectUser(user);

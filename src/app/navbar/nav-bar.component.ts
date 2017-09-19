@@ -26,10 +26,10 @@ export class NavBarComponent implements OnInit {
   loggedinusername() {
     this.admin = false;
     this.currentUser = <User> JSON.parse(localStorage.getItem('currentUser') );
-  
+
     if (this.currentUser) {
-      console.log('CurrentUser name: ' + this.currentUser.username);
-      
+      // console.log('CurrentUser name: ' + this.currentUser.username);
+
       if (this.currentUser.user_type === 'admin') { this.admin = true; }
       return this.currentUser.username;
     } else {

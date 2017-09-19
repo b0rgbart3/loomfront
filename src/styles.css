@@ -9,6 +9,7 @@ body {
     margin: 0;
     font-family: Roboto;
     background-color: #3f51b5;
+    padding-bottom:300px;
   }
   
   md-card {

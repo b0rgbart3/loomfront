@@ -18,7 +18,7 @@ export class RegisterComponent {
 
     startDate = new Date();
 
-    model = new User('', '', '', '', '');
+    model = new User('', '', '', '', '', '');
     hasPrimaryLanguageError = false;
     date2 = new Date();
 
@@ -48,8 +48,8 @@ export class RegisterComponent {
         },
         () => {
           console.log('The POST observable is now completed.');
-          this.alertService.success("Thank you for registering with the Reclaiming Loom. "+
-          " Now, please check your email, and use the verification code to verify your account.  Thank you.", true);
+          this.alertService.success('Thank you for registering with the Reclaiming Loom. '+
+          ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
           // this._flashMessagesService.show('Username or password was incorrect.', 
           // { cssClass: 'alert-warning', timeout: 7000 });
           this.router.navigate(['/welcome']);

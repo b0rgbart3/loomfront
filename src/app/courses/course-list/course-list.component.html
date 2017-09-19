@@ -1,7 +1,5 @@
 
-
-
-    <div class='padMe'>
+<div class='padMe'>
         <h2>Courses</h2>
     <ul class="list-group" *ngIf="courses">
       <li class="list-group-item"
@@ -9,11 +7,12 @@
         >
         <h2>{{course.title}}</h2>
         <p>{{course.description}}</p>
-        <button *ngIf="admin">Edit</button>
-        <button *ngIf="admin">Delete</button>
+        <p>{{ course.id }}</p>
+  
       </li>
     </ul>
   </div>
     <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
 
 <div class="notice" *ngIf="!courses">Currently having trouble accessing the database for course info.</div>
+<br><br>

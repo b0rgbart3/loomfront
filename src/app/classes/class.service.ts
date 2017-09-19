@@ -12,7 +12,7 @@ import { Class } from '../models/class.model';
 
 @Injectable()
 export class ClassService {
-    private _classesUrl = 'http://localhost:3100/classes';
+    private _classesUrl = 'http://localhost:3100/api/classes';
 
     constructor (private _http: HttpClient) {}
 

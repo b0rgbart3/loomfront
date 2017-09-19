@@ -29,6 +29,8 @@ import { AlertService } from './services/alert.service';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
 import { AdminComponent } from './admin/admin.component';
 import { ClassListComponent } from './classes/class-list/class-list.component';
+import { CourseEditComponent } from './courses/course-edit/course-edit.component';
+import { CourseService } from './courses/course.service';
 
 @NgModule({
   // External
@@ -55,10 +57,11 @@ import { ClassListComponent } from './classes/class-list/class-list.component';
     WelcomeComponent,
     RequestresetComponent,
     ClassListComponent,
+    CourseEditComponent,
     AdminComponent
   ],
 
-  providers: [ AuthGuard, AuthenticationService, UserService, AlertService
+  providers: [ AuthGuard, AuthenticationService, UserService, AlertService, CourseService
    ],
   bootstrap: [AppComponent]
 })

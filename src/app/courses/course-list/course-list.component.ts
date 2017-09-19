@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../course.service';
 import { User } from '../../models/user.model';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'course-list',
@@ -18,12 +20,11 @@ export class CourseListComponent implements OnInit {
   currentUser: User;
   admin: boolean;
 
-
-
-  constructor(private courseService: CourseService) { }
+  constructor(private courseService: CourseService, private authenticationService: AuthenticationService,
+    private _router: Router) { }
 
   ngOnInit() {
-     this.currentUser = <User> localStorage.currentUser;
+     this.currentUser = <User> JSON.parse(localStorage.getItem('currentUser') );
       if ( this.currentUser && this.currentUser.user_type === 'admin' ) { this.admin = true; }
 
       this.courseService
@@ -44,16 +45,11 @@ export class CourseListComponent implements OnInit {
   }
 
   createNewCourse() {
-    let course: Course = {
-      title:'', description:'', start:'', length:0
-    };
-
-    // By default, a newly-created course will have the selected state.
-    this.selectCourse(course);
+   this._router.navigate( ['/course/id:0'] );
   }
 
   deleteCourse = (courseId: String) => {
-    let idx = this.getIndexOfCourse(courseId);
+    const idx = this.getIndexOfCourse(courseId);
     if (idx !== -1) {
       this.courses.splice(idx, 1);
       this.selectCourse(null);
@@ -68,7 +64,7 @@ export class CourseListComponent implements OnInit {
   }
 
   updateCourse = (course: Course) => {
-    let idx = this.getIndexOfCourse(course._id);
+    const idx = this.getIndexOfCourse(course._id);
     if (idx !== -1) {
       this.courses[idx] = course;
       this.selectCourse(course);
