@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
+import { AdminComponent } from './admin/admin.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -22,6 +23,7 @@ const ROUTES: Routes = [
 { path: 'register', pathMatch: 'full', component: RegisterComponent },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
+{ path: 'admin', pathMatch: 'full', component: AdminComponent },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }
 ];

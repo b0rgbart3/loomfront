@@ -9,7 +9,8 @@
         >
         <h2>{{course.title}}</h2>
         <p>{{course.description}}</p>
-
+        <button *ngIf="admin">Edit</button>
+        <button *ngIf="admin">Delete</button>
       </li>
     </ul>
   </div>

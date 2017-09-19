@@ -15,79 +15,51 @@ export class AuthenticationService {
 
     constructor(private http: HttpClient) {
         // set token if saved in local storage
-        let thisUser = JSON.parse(localStorage.getItem('currentUser'));
+        const thisUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = thisUser && thisUser.token;
         this.username = thisUser && thisUser.username;
     }
 
     sendResetRequest(email: string) {
-        let emailObject = {"email": email};
-        let emailObjectString = JSON.stringify(emailObject);
-        let myHeaders = new HttpHeaders();
+        const emailObject = {'email': email};
+        const emailObjectString = JSON.stringify(emailObject);
+        const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        console.log("In authentication service, sending a reset request"+ emailObjectString);
+        console.log('In authentication service, sending a reset request' + emailObjectString);
 
         return this.http.post('http://localhost:3100/api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
-            console.log("Got back from http request.");
+            console.log('Got back from http request.');
     });
     }
 
     loggedInUser(): User {
-        let localUser = localStorage.getItem('currentUser');
+        const localUser = localStorage.getItem('currentUser');
         let readInUser = <User> {};
-        if (JSON.parse(localUser) )
-        {
-            readInUser = JSON.parse(localUser);
-        }
+        if (JSON.parse(localUser) ) { readInUser = JSON.parse(localUser); }
         this.currentUser = readInUser;
-        return readInUser;  
+        return readInUser;
      }
 
-    login(username: string, password: string): Observable<boolean> {
+    login(username: string, password: string): Observable <any> {
 
-        console.log('In authentication service, login() method: username:' + username + ", password: "+password);
-        let myHeaders = new HttpHeaders();
+        console.log('In authentication service, login() method: username:' + username + ', password: '+ password);
+        const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        let info =  JSON.stringify({ username: username, password: password });
-        console.log("INfo: "+ info);
+        const info =  JSON.stringify({ username: username, password: password });
+        console.log('INfo: ' + info);
 
         // Here we are sending the username and password to the api for authentication.
 
-        return this.http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders})
+        return this.http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders} )
             .map((response) => {
-                // login successful if there's a jwt token in the response
-                //let token = "";
-
-                console.log("Response: " + response);
-                let token = response;
-                console.log("token: " + token);
-
-                // token = tokenJSON.jwt;
-                // console.log("JSON: "+token);
-
-                //let responseJSON = JSON.parse(response.toString());
-                //token = response.token;
-
-                if (token) {
-                    // set token property
-                   // this.token = token;
-                    this.username = username;
-                    console.log("REASSIGNING USERNAME to: "+username);
-
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-
+                    localStorage.setItem('currentUser', JSON.stringify( response ) );
 
                     // return true to indicate successful login
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    return false;
-                }
-            }
-        );
+                    return JSON.stringify(response);
+                });
+
     }
 
     logout(): void {
@@ -97,11 +69,9 @@ export class AuthenticationService {
     }
 
     isloggedin(): boolean {
-        let user = localStorage.getItem('currentUser');
-        if (user != null)
-        {
+        const user = localStorage.getItem('currentUser');
+        if (user != null) {
             return true;
-        }
-        else { return false; }
+        } else { return false; }
     }
 }

@@ -5,13 +5,10 @@ import { HttpModule } from '@angular/http';
 // import { RouterModule, Routes } from '@angular/router';
 
 import { HttpClientModule } from '@angular/common/http';
-
 import { NavBarComponent } from './navbar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
 import { AppComponent } from './app.component';
 import { CanActivateAuthGuard } from './can-activate.service';
-
 import { FormPoster } from './services/form-poster.service';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -30,6 +27,8 @@ import { RegisterComponent } from './users/register/register.component';
 import { AlertComponent } from './_directives/alert.component';
 import { AlertService } from './services/alert.service';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
+import { AdminComponent } from './admin/admin.component';
+import { ClassListComponent } from './classes/class-list/class-list.component';
 
 @NgModule({
   // External
@@ -54,7 +53,9 @@ import { RequestresetComponent } from './users/requestreset/requestreset.compone
     RegisterComponent,
     AlertComponent,
     WelcomeComponent,
-    RequestresetComponent
+    RequestresetComponent,
+    ClassListComponent,
+    AdminComponent
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService, AlertService

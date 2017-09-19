@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 
 export class NavBarComponent implements OnInit {
   public currentUser: User;
+  public admin: boolean;
 
   constructor (
     private authenticationService: AuthenticationService,
@@ -23,16 +24,15 @@ export class NavBarComponent implements OnInit {
   ) {}
 
   loggedinusername() {
-    let storedUserString = localStorage.getItem('currentUser');
-
-    if (storedUserString)
-    { 
-      this.currentUser = <User> JSON.parse(storedUserString);
+    this.admin = false;
+    this.currentUser = <User> JSON.parse(localStorage.getItem('currentUser') );
+  
+    if (this.currentUser) {
+      console.log('CurrentUser name: ' + this.currentUser.username);
+      
+      if (this.currentUser.user_type === 'admin') { this.admin = true; }
       return this.currentUser.username;
-    }
-   else
-    {
-      this.currentUser = null;
+    } else {
       return null;
     }
   }
@@ -44,7 +44,7 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+     this.loggedinusername();
   }
 
 

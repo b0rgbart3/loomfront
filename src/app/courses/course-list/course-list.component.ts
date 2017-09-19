@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../course.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'course-list',
@@ -14,10 +15,17 @@ export class CourseListComponent implements OnInit {
   courses: Course[];
   selectedCourse: {};
   errorMessage: string;
+  currentUser: User;
+  admin: boolean;
+
+
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit() {
+     this.currentUser = <User> localStorage.currentUser;
+      if ( this.currentUser && this.currentUser.user_type === 'admin' ) { this.admin = true; }
+
       this.courseService
        .getCourses().subscribe(
          courses =>  this.courses = courses,

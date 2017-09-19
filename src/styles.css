@@ -3,10 +3,11 @@
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700');
 
 body {
     margin: 0;
-    font-family: Roboto, sans-serif;
+    font-family: Roboto;
     background-color: #3f51b5;
   }
   
@@ -31,15 +32,34 @@ body {
       text-decoration: none;
   }
 
+  @keyframes slide1 {
+    0% {
+      opacity:0;
+      margin-top:0;
+    }
+    30% {
+      opacity:.3;
+      margin-top:4px;
+    }
+    60% {
+      opacity:.7;
+      margin-top:8px;
+    }
+    100% {
+      opacity:1;
+      margin-top:20px;
+    }
+  }
+
   .loomCard {
       text-align: left;
-      width:50%;
-      min-width:400px;
       background-color:#ffffff;
-      margin-left:auto;
-      margin-right:auto;
+      margin-left:10%;
+      margin-right:10%;
       padding:0px;
       margin-top:20px;
+      animation-name:slide1;
+      animation-duration:.25s;
   }
 
   .rightAlignMe {
@@ -121,6 +141,9 @@ body {
 .loomButton {
   width:100%;
   border-radius:0;
+  text-transform: uppercase;
+  background-color: #CE0CBE;
+  color:white;
 }
 
 .padMe {

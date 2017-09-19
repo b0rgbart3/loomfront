@@ -1,0 +1,17 @@
+
+<div class='padMe'>
+      <h2>Classes</h2>
+  <ul class="list-group" *ngIf="classes">
+    <li class="list-group-item"
+      *ngFor="let class of classes"
+      >
+      <h2>{{class.title}}</h2>
+      <p>{{class.description}}</p>
+      <button *ngIf="admin">Edit</button>
+      <button *ngIf="admin">Delete</button>
+    </li>
+  </ul>
+</div>
+    <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
+
+<div class="notice" *ngIf="!classes">Currently having trouble accessing the database for class info.</div>

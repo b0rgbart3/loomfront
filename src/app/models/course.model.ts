@@ -4,8 +4,6 @@ export class Course {
   constructor (
       public title: string,
       public description: string,
-      public start: string,
-      public length: number
   ) {}
 
 }
