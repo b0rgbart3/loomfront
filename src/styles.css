@@ -38,7 +38,7 @@ body {
       background-color:#ffffff;
       margin-left:auto;
       margin-right:auto;
-      padding:20px;
+      padding:0px;
       margin-top:20px;
   }
 
@@ -75,14 +75,17 @@ body {
 
   /* Alerts */
 
+  .alert {
+    padding:20px;
+    padding:24px;
+    margin-bottom:30px;
+  }
+
   .alert-success
   {
     background-color:#8CE2A6;
     border:1px solid #3B9C58;
-    padding:4px;
-    padding-left:24px;
-    color:#3B9C58;
-    margin-bottom:30px;
+    color:#286E3C;
   }
 
   .alert-warning
@@ -109,5 +112,17 @@ body {
 
   .stuff {
     text-align: center;
+    /* width:80%;
+    max-width:1200px;
+    margin-left:auto;
+    margin-right:auto; */
 }
 
+.loomButton {
+  width:100%;
+  border-radius:0;
+}
+
+.padMe {
+  padding:20px;
+}

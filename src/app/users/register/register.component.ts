@@ -5,6 +5,8 @@ import { FormPoster } from '../../services/form-poster.service';
 import { NgForm } from '@angular/forms';
 
 import { UserService } from '../user.service';
+import { AlertService } from '../../services/alert.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     moduleId: module.id,
@@ -22,7 +24,11 @@ export class RegisterComponent {
 
     errorMessage: string;
 
-    constructor(private userService: UserService, private  router: Router ) { }
+    constructor(
+      private userService: UserService,
+      private  router: Router,
+      private alertService: AlertService,
+      private _flashMessagesService: FlashMessagesService ) { }
 
     // The user filled out and submitted the Registration form.
 
@@ -42,7 +48,11 @@ export class RegisterComponent {
         },
         () => {
           console.log('The POST observable is now completed.');
-          this.router.navigate(['/home']);
+          this.alertService.success("Thank you for registering with the Reclaiming Loom. "+
+          " Now, please check your email, and use the verification code to verify your account.  Thank you.", true);
+          // this._flashMessagesService.show('Username or password was incorrect.', 
+          // { cssClass: 'alert-warning', timeout: 7000 });
+          this.router.navigate(['/welcome']);
         }
       );
 

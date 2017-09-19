@@ -64,7 +64,8 @@ export class LoginComponent implements OnInit {
         err => {
             console.log("NOT AUTHENTICATED!");
             this.error = 'Username or password is incorrect';
-            this._flashMessagesService.show('Username or password was incorrect.', { cssClass: 'alert-warning', timeout: 7000 });
+            this._flashMessagesService.show('Username or password was incorrect.', 
+            { cssClass: 'alert-warning', timeout: 7000 });
             this.loading = false;
         });
     }

@@ -14,7 +14,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class UserService {
   isLoggedIn: boolean = false;
 
-  private _usersUrl = 'http://localhost:3100/users';
+  private _usersUrl = 'http://localhost:3100/api/users';
 
   constructor (private _http: HttpClient) {}
 
@@ -28,13 +28,13 @@ export class UserService {
     postUser(userObject: User): Observable<any> {
 
       let myHeaders = new HttpHeaders();
-      myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+      myHeaders.append('Content-Type', 'application/json');
 
-      console.log("In postUser.");
+      //console.log("In postUser.");
       let body =  JSON.stringify(userObject);
 
       console.log( 'Posting User: ', body   );
-      return this._http.post(this._usersUrl, userObject, {headers: myHeaders} );
+      return this._http.post(this._usersUrl + '/register' , userObject, {headers: myHeaders} );
     }
 
     private handleError (error: HttpErrorResponse) {
