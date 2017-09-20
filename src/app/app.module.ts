@@ -31,6 +31,9 @@ import { AdminComponent } from './admin/admin.component';
 import { ClassListComponent } from './classes/class-list/class-list.component';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { CourseService } from './courses/course.service';
+import { ClassService } from './classes/class.service';
+import { ClassEditComponent } from './classes/class-edit/class-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   // External
@@ -43,7 +46,8 @@ import { CourseService } from './courses/course.service';
     HttpClientModule,
     FlashMessagesModule,
     StudentModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   // Internal
   declarations: [
@@ -58,10 +62,11 @@ import { CourseService } from './courses/course.service';
     RequestresetComponent,
     ClassListComponent,
     CourseEditComponent,
+    ClassEditComponent,
     AdminComponent
   ],
 
-  providers: [ AuthGuard, AuthenticationService, UserService, AlertService, CourseService
+  providers: [ AuthGuard, AuthenticationService, UserService, AlertService, CourseService, ClassService
    ],
   bootstrap: [AppComponent]
 })

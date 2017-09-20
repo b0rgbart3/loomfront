@@ -1,0 +1,32 @@
+<div class='stuff'>
+       
+        <form novalidate (ngSubmit)="save()" [formGroup]="classForm">
+                <div class='loomCard'>
+          
+                <div class='padMe'>
+                        <h1>Class Info:</h1>
+                    <md-form-field>
+                            <input mdInput placeholder="Title" 
+                            name="title" formControlName='title' required minlength="3" maxlength="50">
+                     </md-form-field>
+                     <md-form-field>
+                            <input mdInput placeholder="Description" 
+                            name="description" formControlName='description' required minlength="3" maxlength="250">
+                     </md-form-field>
+                 
+                     <br>
+                     <br>
+                     <br>
+                     <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
+                     <br clear='all'>
+                    </div>
+                </div>
+          
+         </form> 
+</div>
+<div class='debug'>
+<br> Dirty: {{ classForm.dirty }}
+<br> Touched: {{ classForm.touched }}
+<br> Valid: {{ classForm.valid }}
+<br> Value: {{ classForm.value | json }}
+</div>

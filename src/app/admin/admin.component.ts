@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
-import { Class } from '../models/class.model';
+import { ClassModel } from '../models/class.model';
 import { CourseService } from '../courses/course.service';
 import { Router } from '@angular/router';
+import { ClassService } from '../classes/class.service';
 
 
 @Component({
@@ -15,11 +16,11 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
 
   courses: Course[];
-  classes: Class [];
+  classes: ClassModel [];
   errorMessage: string;
   courseCount: number;
 
-  constructor( private courseService: CourseService, private router: Router) {
+  constructor( private courseService: CourseService, private classService: ClassService, private router: Router) {
 
   }
   currentUser = <User> JSON.parse(localStorage.currentUser);
@@ -27,6 +28,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.currentUser = <User> JSON.parse(localStorage.currentUser);
    this.getCourses();
+   this.getClasses();
 }
 
 getCourses() {
@@ -36,6 +38,13 @@ getCourses() {
     this.courseCount = this.courses.length; },
     error => this.errorMessage = <any>error);
 
+}
+
+getClasses() {
+  this.classService
+  .getClasses().subscribe(
+    classes =>  this.classes = classes,
+    error => this.errorMessage = <any>error);
 }
   deleteCourse(courseId) {
     console.log('In the Admin Component: Deleting course #' + courseId);

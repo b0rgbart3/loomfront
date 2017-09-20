@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Class } from '../../models/class.model';
+import { ClassModel } from '../../models/class.model';
 import { ClassService } from '../class.service';
 import { User } from '../../models/user.model';
 
@@ -12,7 +12,7 @@ import { User } from '../../models/user.model';
 
 export class ClassListComponent implements OnInit {
 
-  classes: Class[];
+  classes: ClassModel[];
   selectedClass: {};
   errorMessage: string;
   currentUser: User;
@@ -39,13 +39,13 @@ export class ClassListComponent implements OnInit {
     });
   }
 
-  selectClass(classObject: Class) {
+  selectClass(classObject: ClassModel) {
     this.selectedClass = classObject;
   }
 
   createNewClass() {
-    const classObject: Class = {
-      title: '', description: '', start: '', length: 0, course_id: 0
+    const classObject: ClassModel = {
+      title: '', description: '', start: '', length: '0', course_id: '0', id: '0'
     };
 
     // By default, a newly-created course will have the selected state.
@@ -61,13 +61,13 @@ export class ClassListComponent implements OnInit {
     return this.classes;
   }
 
-  addClass = (classObject: Class) => {
+  addClass = (classObject: ClassModel) => {
     this.classes.push(classObject);
     this.selectClass(classObject);
     return this.classes;
   }
 
-  updateClass= (classObject: Class) => {
+  updateClass= (classObject: ClassModel) => {
     const idx = this.getIndexOfClass(classObject._id);
     if (idx !== -1) {
       this.classes[idx] = classObject;
