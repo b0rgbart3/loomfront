@@ -13,6 +13,7 @@ import { Course } from '../models/course.model';
 @Injectable()
 export class CourseService {
     private _coursesUrl = 'http://localhost:3100/api/courses';
+    private courseCount = 0;
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     constructor (private _http: HttpClient) {}
@@ -20,7 +21,8 @@ export class CourseService {
    getCourses(): Observable<Course[]> {
     return this._http.get <Course[]> (this._coursesUrl)
       // debug the flow of data
-      .do(data => console.log('All: ' + JSON.stringify(data)))
+      .do(data =>  { console.log('All: ' + JSON.stringify(data));
+                    this.courseCount = data.length; } )
       .catch( this.handleError );
   }
 
@@ -39,19 +41,32 @@ export class CourseService {
       .catch (this.handleError);
   }
 
+  deleteCourse(courseId: number): Observable<any> {
+      return this._http.delete( this._coursesUrl + '/id:' + courseId);
+  }
 
+  private extractData(res: Response) {
+    const body = res.json();
+    return body || {};
+  }
 
-  postCourse(courseObject: Course): Observable<any> {
+  createCourse(courseObject: Course): Observable<any> {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+      let thisID = this.courseCount + 1;
+      courseObject.id = '' + thisID;
+      const body =  JSON.stringify(courseObject);
+      console.log( 'Posting Course: ', body   );
+      return this._http.post(this._coursesUrl + '/create', courseObject, {headers: myHeaders} );
+   }
 
-          const myHeaders = new HttpHeaders();
-          myHeaders.append('Content-Type', 'application/json');
-
-          const body =  JSON.stringify(courseObject);
-          console.log( 'Posting User: ', body   );
-          return this._http.post(this._coursesUrl + '/add', courseObject, {headers: myHeaders} );
-        }
-
-
+   updateCourse(courseObject: Course): Observable<any> {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+      const body =  JSON.stringify(courseObject);
+      console.log( 'Posting Course: ', body   );
+      return this._http.post(this._coursesUrl + '/update', courseObject, {headers: myHeaders} );
+   }
 
     private handleError (error: HttpErrorResponse) {
       console.log( error.message );

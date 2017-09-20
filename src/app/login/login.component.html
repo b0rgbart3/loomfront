@@ -1,11 +1,12 @@
 ﻿<div class='loginStuff'>
 <div class="loomCard">
-        <div class="padMe">
+           <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate><div class="padMe"> 
     <!-- <div class="alert alert-info">
     </div> -->
     <flash-messages></flash-messages>
+
     <h2>Login</h2>
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+
       
             <md-form-field>
                     <input #username="ngModel" mdInput placeholder="Witchy name" 
@@ -21,14 +22,13 @@
                     </md-form-field><br>
         
                 <br>
-                <button md-raised-button color="primary" class='rightAlignMe'
-                 [disabled]="f.form.invalid">OK</button>
+               
                 <br clear='all'>
                     <!-- <button class="bd-full-width-button">LOGIN</button> -->
 
-    
+                </div> <button class='loomButton' [disabled]="f.form.invalid">LOGIN</button>
     </form>
-</div>
+
 </div>
 
 <p>New to the Loom? <a [routerLink]="['/register']">&nbsp; &#10148;&nbsp;Register today!</a></p>

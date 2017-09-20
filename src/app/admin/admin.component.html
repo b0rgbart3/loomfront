@@ -6,17 +6,16 @@
 </div></div>
 <div class='loomCard'>
 <div class='padMe'>
-        <h2>Courses</h2>
-        <button (click)="createNewCourse()">Add a new course</button>
-    <ul class="list-group" *ngIf="courses">
-      <li class="list-group-item"
+        <h1>Courses</h1>
+        <button [routerLink]="['/courses', '0', 'edit']" class='addButton'>Add a new course</button>
+    <ul class="loom-list" *ngIf="courses">
+      <li class="loom-list-item" 
         *ngFor="let course of courses"
         >
         <h2>{{course.title}}</h2>
         <p>{{course.description}}</p>
-        <p>{{ course.id }}</p>
         <button  [routerLink]="['/courses', course.id, 'edit']" >Edit</button>
-        <button>Delete</button>
+        <button (click)="deleteCourse(course.id)">Delete</button>
   
       </li>
     </ul>

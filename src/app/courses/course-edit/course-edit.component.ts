@@ -20,7 +20,7 @@ export class CourseEditComponent implements OnInit {
         private courseService: CourseService  ) { }
 
     ngOnInit () {
-        this.course = new Course( '', '' );
+        this.course = new Course( '', '', '0' );
         const id = +this.activated_route.snapshot.params['id'];
         console.log('MyID: ' + id);
 
@@ -37,27 +37,44 @@ export class CourseEditComponent implements OnInit {
     }
 
     postCourse(form: NgForm) {
-        console.log('REGISTER:');
-        console.log(this.course);
+        // console.log(this.course);
 
-        // Validate stuff here
-        this.courseService
-        .postCourse( this.course ).subscribe(
-        (val) => {
-          console.log('POST call successful value returned in body ', val);
-        },
-        response => {
-          console.log('POST call in error', response);
-        },
-        () => {
-          console.log('The POST observable is now completed.');
-        //   this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
-        //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
-        //   // this._flashMessagesService.show('Username or password was incorrect.',
-          // { cssClass: 'alert-warning', timeout: 7000 });
-          this.router.navigate(['/welcome']);
+        if (this.course.id === '0') {
+            this.courseService.createCourse( this.course ).subscribe(
+                (val) => {
+                    console.log('POST call successful value returned in body ', val);
+                  },
+                  response => {
+                    console.log('POST call in error', response);
+                  },
+                  () => {
+                    console.log('The POST observable is now completed.');
+                  //   this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
+                  //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
+                  //   // this._flashMessagesService.show('Username or password was incorrect.',
+                    // { cssClass: 'alert-warning', timeout: 7000 });
+                    this.router.navigate(['/admin']);
+                  }
+            );
+        } else {
+            // Validate stuff here
+            this.courseService
+            .updateCourse( this.course ).subscribe(
+            (val) => {
+            console.log('POST call successful value returned in body ', val);
+            },
+            response => {
+            console.log('POST call in error', response);
+            },
+            () => {
+            console.log('The POST observable is now completed.');
+            //   this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
+            //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
+            //   // this._flashMessagesService.show('Username or password was incorrect.',
+            // { cssClass: 'alert-warning', timeout: 7000 });
+            this.router.navigate(['/admin']);
+            }
+        );
         }
-      );
-
     }
 }
