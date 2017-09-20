@@ -37,7 +37,7 @@ export class CourseEditComponent implements OnInit {
     }
 
     postCourse(form: NgForm) {
-        // console.log(this.course);
+        console.log( 'Posting course: ' + this.course);
 
         if (this.course.id === '0') {
             this.courseService.createCourse( this.course ).subscribe(

@@ -1,43 +1,35 @@
 <div class='stuff'>
-        <h1>Hello Admin:{{ currentUser.username }} </h1>
-    <div class='loomCard'>
-    <div class='padMe'>
-        <div class='padMe'>
-            <h1>Classes</h1>
-            <button [routerLink]="['/classes', '0', 'edit']" class='addButton'>Add a new class</button>
-        <ul class="loom-list" *ngIf="classes">
-          <li *ngFor="let class of classes">
-            <h2>{{class.title}}</h2>
-            <p>{{class.description}}</p>
-            <button [routerLink]="['/classes', class.id, 'edit']">Edit</button>
-            <button>Delete</button>
-          </li>
-        </ul>
-      </div>
+    <h1>Hello Admin:{{ currentUser.username }} </h1>
+    <div class='loomCard group'>
+      <div class='padMe'>
+          <h1>Classes</h1>
+          <button *ngIf="classes" [routerLink]="['/classes', '0', 'edit']" class='addButton'>Add a new class</button>
+          <ul class="loom-list" *ngIf="classes">
+            <li *ngFor="let class of classes">
+              <h2>{{class.title}}</h2>
+              <p>{{class.description}}</p>
+              <button [routerLink]="['/classes', class.id, 'edit']">Edit</button>
+              <button (click)="deleteClass(class.id)">Delete</button>
+            </li>
+          </ul>
+
           <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
       
-      <div class="notice" *ngIf="!classes">Currently having trouble accessing the database for class info.</div>
-      
-</div></div>
-<div class='loomCard'>
-<div class='padMe'>
-        <h1>Courses</h1>
-        <button [routerLink]="['/courses', '0', 'edit']" class='addButton'>Add a new course</button>
-    <ul class="loom-list" *ngIf="courses">
-      <li class="loom-list-item" 
-        *ngFor="let course of courses"
-        >
-        <h2>{{course.title}}</h2>
-        <p>{{course.description}}</p>
-        <button  [routerLink]="['/courses', course.id, 'edit']" >Edit</button>
-        <button (click)="deleteCourse(course.id)">Delete</button>
-  
-      </li>
-    </ul>
-  </div>
-  </div>
-    <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
-
-<div class="notice" *ngIf="!courses">Currently having trouble accessing the database for course info.</div>
-<br><br>
+        <div class="notice" *ngIf="!classes">Currently having trouble accessing the API for class info.</div>
+      </div>
+    </div>
+    <div class='loomCard group'>
+      <div class='padMe'>
+          <h1>Courses</h1>
+          <button *ngIf="courses" [routerLink]="['/courses', '0', 'edit']" class='addButton'>Add a new course</button>
+          <ul class="loom-list" *ngIf="courses">
+            <li *ngFor="let course of courses">
+              <h2>{{course.title}}</h2>
+              <p>{{course.description}}</p>
+              <button  [routerLink]="['/courses', course.id, 'edit']" >Edit</button>
+              <button (click)="deleteCourse(course.id)">Delete</button>
+            </li>
+          </ul>
+      <div class="notice" *ngIf="!courses">Currently having trouble accessing the API for course info.</div>
+    </div>
 </div>

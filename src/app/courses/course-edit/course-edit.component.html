@@ -2,7 +2,7 @@
 
 <div class='stuff'>
         
-        <form #courseform="ngForm" novalidate (submit)="postCourse(courseform)">
+        <form #courseform="ngForm" novalidate (ngSubmit)="postCourse(courseform)">
         
             <div class='loomCard'>
                     <div class="padMe">

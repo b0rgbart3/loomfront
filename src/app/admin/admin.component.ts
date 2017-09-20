@@ -27,8 +27,16 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = <User> JSON.parse(localStorage.currentUser);
+    this.getClasses();
    this.getCourses();
-   this.getClasses();
+
+}
+
+getClasses() {
+  this.classService
+  .getClasses().subscribe(
+    classes =>  this.classes = classes,
+    error => this.errorMessage = <any>error);
 }
 
 getCourses() {
@@ -40,18 +48,20 @@ getCourses() {
 
 }
 
-getClasses() {
-  this.classService
-  .getClasses().subscribe(
-    classes =>  this.classes = classes,
-    error => this.errorMessage = <any>error);
-}
+
   deleteCourse(courseId) {
     console.log('In the Admin Component: Deleting course #' + courseId);
 
     this.courseService.deleteCourse(courseId).subscribe(
       data => { console.log('deleted course: ');
       this.getCourses(); },
+      error => this.errorMessage = <any>error );
+  }
+
+  deleteClass(classId) {
+    this.classService.deleteClass(classId).subscribe(
+      data => { console.log('deleted class: ');
+      this.getClasses(); },
       error => this.errorMessage = <any>error );
   }
 }

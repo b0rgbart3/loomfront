@@ -62,6 +62,7 @@ body {
       margin-top:20px;
       animation-name:slide1;
       animation-duration:.25s;
+      padding-bottom:20px;
   }
 
   .loomCard h1 {
@@ -177,3 +178,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce0cbe', end
 .addButton {
   float: right;
 }
+
+/*  ClearFix  -----------------------------------------------------------
+*/
+/*  The ClearFix by Tony Aslett and Nicholas Gallagher */
+.group:before,
+.group:after {
+  content: "";
+  display: table; }
+
+.group:after {
+  clear: both; }
+
+.group {
+  zoom: 1;
+}
+
