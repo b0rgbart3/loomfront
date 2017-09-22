@@ -20,7 +20,7 @@ export class ClassService {
    getClasses(): Observable<ClassModel[]> {
     return this._http.get <ClassModel[]> (this._classesUrl)
       // debug the flow of data
-      .do(data => {console.log('All: ' + JSON.stringify(data));
+      .do(data => {// console.log('All: ' + JSON.stringify(data));
       this.classCount = +data.length;
 
       // Loop through all the Classes to find the highest ID#
@@ -43,7 +43,7 @@ export class ClassService {
   getClass(id): Observable<ClassModel[]> {
     return this._http.get<ClassModel[]> ( this._classesUrl + '/id:' + id )
       .do(data => {
-        console.log( 'found: ' + JSON.stringify(data) );
+       // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
   }

@@ -50,17 +50,17 @@ getCourses() {
 
 
   deleteCourse(courseId) {
-    console.log('In the Admin Component: Deleting course #' + courseId);
+    // console.log('In the Admin Component: Deleting course #' + courseId);
 
     this.courseService.deleteCourse(courseId).subscribe(
-      data => { console.log('deleted course: ');
+      data => { // console.log('deleted course: ');
       this.getCourses(); },
       error => this.errorMessage = <any>error );
   }
 
   deleteClass(classId) {
     this.classService.deleteClass(classId).subscribe(
-      data => { console.log('deleted class: ');
+      data => { // console.log('deleted class: ');
       this.getClasses(); },
       error => this.errorMessage = <any>error );
   }

@@ -1,32 +1,62 @@
 <div class='stuff'>
+
+<form #classform="ngForm" novalidate (ngSubmit)="save(classform)">
        
-        <form novalidate (ngSubmit)="save()" [formGroup]="classForm">
-                <div class='loomCard'>
-          
-                <div class='padMe'>
-                        <h1>Class Info:</h1>
-                    <md-form-field>
-                            <input mdInput placeholder="Title" 
-                            name="title" formControlName='title' required minlength="3" maxlength="50">
-                     </md-form-field>
-                     <md-form-field>
-                            <input mdInput placeholder="Description" 
-                            name="description" formControlName='description' required minlength="3" maxlength="250">
-                     </md-form-field>
-                 
-                     <br>
-                     <br>
-                     <br>
-                     <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
-                     <br clear='all'>
-                    </div>
-                </div>
-          
-         </form> 
+                                
+<div class='loomCard group'>
+
+<div class='padMe'>
+<h1>Class Info:</h1>
+<md-form-field>
+<input mdInput  #title="ngModel" placeholder="Title" 
+name="title" required minlength="3" maxlength="50" [(ngModel)]="thisClass.title">
+</md-form-field>
+
+
+<md-form-field>
+<input mdInput #description="ngModel" placeholder="Description" 
+name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass.description">
+</md-form-field>
+<!-- 
+<md-select placeholder="Favorite food">
+<md-option *ngFor="let food of foods" [value]="food.value">
+{{ food.viewValue }}
+</md-option>
+</md-select> -->
+
+<md-select placeholder="Coursework for this class" name="course" [(ngModel)]="thisClass.course">
+<md-option *ngFor="let course of courseSelections" [value]="course.value">
+{{ course.viewValue }}
+</md-option>
+</md-select>
+<br clear='all'>
+<br>
+
+<div class='loomDate'>
+<md-form-field>
+<input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" [(ngModel)]="start">
+<md-datepicker-toggle mdSuffix [for]="startDate"></md-datepicker-toggle>
+<md-datepicker #startDate ></md-datepicker>
+</md-form-field>
+</div>
+
+<div class='loomDate'>
+<md-form-field>
+<input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" [(ngModel)]="end">
+<md-datepicker-toggle mdSuffix [for]="endDate"></md-datepicker-toggle>
+<md-datepicker #endDate ></md-datepicker>
+</md-form-field>
+</div>
+
+
+
+<br clear='all'>
+</div>
+<button md-raised-button color="primary" class='loomButton'>Submit Changes</button>
+</div>
+
+</form> 
 </div>
 <div class='debug'>
-<br> Dirty: {{ classForm.dirty }}
-<br> Touched: {{ classForm.touched }}
-<br> Valid: {{ classForm.valid }}
-<br> Value: {{ classForm.value | json }}
+{{ classform.course }}
 </div>

@@ -1,6 +1,6 @@
 
-<div class='padMe'>
-        <h1>Courses</h1>
+<div class='padMe group'>
+    <h1>Courses</h1>
     <ul class="list-group" *ngIf="courses">
       <li class="list-group-item"
         *ngFor="let course of courses"
@@ -11,8 +11,8 @@
   
       </li>
     </ul>
-  </div>
+
     <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
 
 <div class="notice" *ngIf="!courses">Currently having trouble accessing the database for course info.</div>
-<br><br>
+</div>

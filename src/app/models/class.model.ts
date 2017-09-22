@@ -4,9 +4,9 @@ export class ClassModel {
   constructor (
       public title: string,
       public description: string,
-      public course_id: string,
+      public course: string,
       public start: string,
-      public length: string,
+      public end: string,
       public id: string
   ) {}
 

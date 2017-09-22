@@ -22,19 +22,19 @@ export class CourseService {
    getCourses(): Observable<Course[]> {
     return this._http.get <Course[]> (this._coursesUrl)
       // debug the flow of data
-      .do(data =>  { console.log('All: ' + JSON.stringify(data));
+      .do(data =>  { // console.log('All: ' + JSON.stringify(data));
                     this.courseCount = data.length; 
             // Loop through all the Courses to find the highest ID#
             for (let i = 0; i < data.length; i++) {
               let foundID = Number(data[i].id);
-              console.log("Found ID: " + foundID);
+              // console.log("Found ID: " + foundID);
               if (foundID >= this.highestID) {
                 let newHigh = foundID + 1;
                 this.highestID = newHigh;
-                console.log("newHigh == "+newHigh);
+                // console.log("newHigh == "+newHigh);
               }
             }
-            console.log("Course highest ID: "+ this.highestID);      
+            // console.log("Course highest ID: "+ this.highestID);      
                   } )
       .catch( this.handleError );
   }
@@ -70,7 +70,7 @@ export class CourseService {
       courseObject.id = this.highestID.toString();
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(courseObject);
-      console.log( 'Posting Course: ', body   );
+      // console.log( 'Posting Course: ', body   );
       return this._http.post(this._coursesUrl + '/create', courseObject, {headers: myHeaders} );
    }
 
@@ -78,12 +78,12 @@ export class CourseService {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(courseObject);
-      console.log( 'Posting Course: ', body   );
+      // console.log( 'Posting Course: ', body   );
       return this._http.post(this._coursesUrl + '/update', courseObject, {headers: myHeaders} );
    }
 
     private handleError (error: HttpErrorResponse) {
-      console.log( error.message );
+      // console.log( error.message );
       return Observable.throw(error.message);
 
     }

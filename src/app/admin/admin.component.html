@@ -8,6 +8,8 @@
             <li *ngFor="let class of classes">
               <h2>{{class.title}}</h2>
               <p>{{class.description}}</p>
+              <p>Start Date: {{class.start | date: 'yMMMd'}}</p> <!-- jms -->
+              <p>End Date: {{class.end | date: 'yMMMd'}}</p>
               <button [routerLink]="['/classes', class.id, 'edit']">Edit</button>
               <button (click)="deleteClass(class.id)">Delete</button>
             </li>

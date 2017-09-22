@@ -62,7 +62,7 @@ body {
       margin-top:20px;
       animation-name:slide1;
       animation-duration:.25s;
-      padding-bottom:20px;
+
   }
 
   .loomCard h1 {
@@ -172,6 +172,74 @@ background: linear-gradient(to bottom, #ce0cbe 0%,#a50998 100%); /* W3C, IE10+, 
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce0cbe', endColorstr='#a50998',GradientType=0 ); /* IE6-9 */
 }
 
+.loomDate {
+  width:220px;
+  padding:10px;
+  border:1px solid #cccccc;
+  display:inline-block;
+  float:left;
+}
+
+.loomDate label {
+  font-weight: bold;
+
+}
+
+.loomDate .md-datepicker-toggle {
+   margin-top:40px;
+}
+
+/* .loomDate.mat-form-field {
+
+  width:280px !important;
+  padding:0;
+
+}
+
+.loomDate .mat-form-field-wrapper {
+
+  padding:0px;
+  padding-top:30px;
+}
+
+.loomDate .mat-form-field-infix {
+  background-color:#9797EE;
+  padding:0;
+  box-sizing: border-box;
+  padding-bottom:24px;
+  font-size:1.2em;
+  font-weight: bold;
+}
+.loomDate .mat-form-field-infix label {
+ border:1px solid red;
+ box-sizing: border-box;
+ margin:0;
+ margin-bottom:10px;
+ font-size:1.1em;
+
+ padding-bottom:14px;
+ float:left;
+ display:inline-block;
+}
+
+.loomDate .mat-icon-button {
+  width:3em;
+  height:3em;
+}
+
+.mat-icon-button
+{
+width:3em;
+height:3em;
+} */
+/* 
+.loomDate.mat-form-field-infix {
+  width:180px;
+}
+.loomDate.mat-input-element {
+  width:180px;
+  padding:10px;
+} */
 .padMe {
   padding:20px;
 }
