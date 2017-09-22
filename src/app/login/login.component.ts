@@ -6,6 +6,7 @@ import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router'
 
 
 @Component({
+   
     moduleId: module.id,
     templateUrl: 'login.component.html',
     styleUrls: ['login.component.css']

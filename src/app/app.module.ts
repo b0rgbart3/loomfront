@@ -34,6 +34,7 @@ import { CourseService } from './courses/course.service';
 import { ClassService } from './classes/class.service';
 import { ClassEditComponent } from './classes/class-edit/class-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserListComponent } from './users/user-list/user-list.component';
 
 @NgModule({
   // External
@@ -63,6 +64,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ClassListComponent,
     CourseEditComponent,
     ClassEditComponent,
+    UserListComponent,
     AdminComponent
   ],
 

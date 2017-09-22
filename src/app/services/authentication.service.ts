@@ -55,7 +55,7 @@ export class AuthenticationService {
         return this.http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders} )
             .map((response) => {
                     localStorage.setItem('currentUser', JSON.stringify( response ) );
-
+                    this.currentUser = <User> response;
                     // return true to indicate successful login
                     return JSON.stringify(response);
                 });
