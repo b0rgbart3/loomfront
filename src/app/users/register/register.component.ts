@@ -19,7 +19,7 @@ export class RegisterComponent {
 
     startDate = new Date();
 
-    model = new User('', '', '', '', '', '');
+    model = new User('', '', '', '', '', '', '', '', '');
     hasPrimaryLanguageError = false;
     date2 = new Date();
 
@@ -30,7 +30,11 @@ export class RegisterComponent {
       private  router: Router,
       private alertService: AlertService,
       private _flashMessagesService: FlashMessagesService,
-      private authenticationService: AuthenticationService ) { }
+      private authenticationService: AuthenticationService ) {
+
+        this.userService.getUsers();
+
+      }
 
     // The user filled out and submitted the Registration form.
 
@@ -38,10 +42,10 @@ export class RegisterComponent {
 
         console.log('REGISTER:');
         console.log(this.model);
+        console.log('highestID: ' + this.userService.doNothing() );
 
-        // Validate stuff here
         this.userService
-        .postUser( this.model ).subscribe(
+        .createUser( this.model ).subscribe(
         (val) => {
           console.log('POST call successful value returned in body ', val);
         },
@@ -49,20 +53,20 @@ export class RegisterComponent {
           console.log('POST call in error', response);
         },
         () => {
-          // console.log('The POST observable is now completed.');
-          // Check to see if an admin is logged in
+          console.log('The POST observable is now completed.');
+
           if (this.authenticationService.isAdmin() ) {
             this.router.navigate(['/admin']);
           } else {
           this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
           ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
-          // this._flashMessagesService.show('Username or password was incorrect.',
-          // { cssClass: 'alert-warning', timeout: 7000 });
+
           this.router.navigate(['/welcome']);
           }
         }
       );
-
+      // console.log(' I am now below the userService call. ');
+ 
 
     }
 }

@@ -23,18 +23,18 @@ export class CourseService {
     return this._http.get <Course[]> (this._coursesUrl)
       // debug the flow of data
       .do(data =>  { // console.log('All: ' + JSON.stringify(data));
-                    this.courseCount = data.length; 
+                    this.courseCount = data.length;
             // Loop through all the Courses to find the highest ID#
             for (let i = 0; i < data.length; i++) {
-              let foundID = Number(data[i].id);
+              const foundID = Number(data[i].id);
               // console.log("Found ID: " + foundID);
               if (foundID >= this.highestID) {
-                let newHigh = foundID + 1;
+                const newHigh = foundID + 1;
                 this.highestID = newHigh;
                 // console.log("newHigh == "+newHigh);
               }
             }
-            // console.log("Course highest ID: "+ this.highestID);      
+            // console.log("Course highest ID: "+ this.highestID);
                   } )
       .catch( this.handleError );
   }

@@ -11,6 +11,7 @@ import { UserService } from '../user.service';
 
 export class UserListComponent implements OnInit {
 
+  userCount: number;
   users: User[];
   filteredUsers: User[];
   selectedUser: User;
@@ -30,6 +31,11 @@ export class UserListComponent implements OnInit {
  }
 
   getUsers() {
+    this.userService
+    .getUsers().subscribe(
+      courses =>  {this.users = courses;
+      this.userCount = this.users.length; },
+      error => this.errorMessage = <any>error);
 
   }
 
@@ -45,20 +51,21 @@ export class UserListComponent implements OnInit {
   }
 
   createNewUser() {
-    const thisUser = new User( '', '', '', '', '', '');
+    const thisUser = new User( '', '', '', '', '', '', '', '', '');
 
     // By default, a newly-created course will have the selected state.
     this.selectUser( thisUser );
   }
 
-  deleteUser = (userId: String) => {
-    const idx = this.getIndexOfUser(userId);
-    if (idx !== -1) {
-      this.users.splice(idx, 1);
-      this.selectUser(null);
-    }
-    return this.users;
+  deleteUser(userId) {
+    // console.log('In the Admin Component: Deleting course #' + courseId);
+
+    this.userService.deleteUser(userId).subscribe(
+      data => { // console.log('deleted course: ');
+      this.getUsers(); },
+      error => this.errorMessage = <any>error );
   }
+
 
   addUser = (user: User) => {
     this.users.push(user);
@@ -74,6 +81,7 @@ export class UserListComponent implements OnInit {
     }
     return this.users;
   }
+
 }
 
 

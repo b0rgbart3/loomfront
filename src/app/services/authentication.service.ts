@@ -20,6 +20,7 @@ export class AuthenticationService {
         this.username = thisUser && thisUser.username;
     }
 
+
     sendResetRequest(email: string) {
         const emailObject = {'email': email};
         const emailObjectString = JSON.stringify(emailObject);
@@ -76,6 +77,7 @@ export class AuthenticationService {
     }
 
     isAdmin(): boolean {
+        this.loggedInUser();
         if (this.currentUser.user_type === 'admin') {
             return true;
         }

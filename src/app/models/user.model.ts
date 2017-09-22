@@ -7,7 +7,10 @@ export class User {
         public lastname: string,
         public email: string,
         public password: string,
-        public user_type: string
+        public token: string,
+        public verificationID: string,
+        public user_type: string,
+        public id: string
 
     ) {}
 

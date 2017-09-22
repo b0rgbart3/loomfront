@@ -13,27 +13,58 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class UserService {
   isLoggedIn = false;
+  private highestID;
+  private userCount = 0;
 
   private _usersUrl = 'http://localhost:3100/api/users';
 
   constructor (private _http: HttpClient) {}
 
+    doNothing(): number {
+      this.getUsers();
+      return this.highestID;
+    }
     getUsers(): Observable<User[]> {
       return this._http.get <User[]> (this._usersUrl)
         // debug the flow of data
-        .do(data => console.log('All: ' + JSON.stringify(data)))
+        .do(data => {
+          // console.log('All: ' + JSON.stringify(data));
+        this.userCount = data.length;
+        // Loop through all the Courses to find the highest ID#
+        if (!this.highestID) {
+          this.highestID = 0;
+        }
+        for (let i = 0; i < data.length; i++) {
+          const foundID = Number(data[i].id);
+          console.log('Found ID: ' + foundID);
+          if (foundID >= this.highestID) {
+            const newHigh = foundID + 1;
+            this.highestID = newHigh;
+          }
+          console.log('hightestID: ' + this.highestID );
+      } })
         .catch( this.handleError );
     }
 
-    postUser(userObject: User): Observable<any> {
+    deleteUser(userId: number): Observable<any> {
+      return this._http.delete( this._usersUrl + '/id:' + userId);
+    }
+
+    createUser(userObject: User): Observable<any> {
+      console.log('Made it to the createUser method.');
 
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
-
-      // console.log("In postUser.");
+      userObject.id = this.highestID.toString();
       const body =  JSON.stringify(userObject);
+      console.log('Highest ID: ' + this.highestID );
+      console.log('In postUser.');
 
       console.log( 'Posting User: ', body   );
+      console.log(this._usersUrl);
+
+
+      //  return Observable.empty();
       return this._http.post(this._usersUrl + '/register' , userObject, {headers: myHeaders} );
     }
 
