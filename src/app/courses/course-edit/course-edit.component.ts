@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../course.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Section } from '../../models/section.model';
 
 @Component({
@@ -13,18 +13,38 @@ import { Section } from '../../models/section.model';
 
 export class CourseEditComponent implements OnInit {
 
-    course: Course;
+    // This is the Form Model -- and the Root Form Group Object
+    courseForm: FormGroup;
+
+    // This is the Data Model
+    course: Course = new Course( '', '', '0', [] );
     id: string;
     errorMessage: string;
-    sections: Object[];
+    // sections: Object[];
+
+    get sections(): FormArray {
+        return <FormArray>this.courseForm.get('sections');
+    }
 
     constructor(private router: Router, private activated_route: ActivatedRoute,
-        private courseService: CourseService  ) { }
+        private courseService: CourseService, private fb: FormBuilder ) { }
 
-    ngOnInit () {
-        this.course = new Course( '', '', '0', [] );
-        this.sections = [];
-        this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
+    ngOnInit(): void {
+        // Instantiating the Root Form Group Object
+        // This service takes in a form configuration object
+
+        this.courseForm = this.fb.group({
+            title: [ '', [Validators.required, Validators.minLength(3)] ] ,
+            description: [ '', [Validators.required ]],
+            sections: this.fb.array([ this.buildSection() ])
+        });
+
+        // this.courseForm = new FormGroup({
+        //     title: new FormControl(''),
+        //     description: new FormControl()
+        // });
+        // this.sections = [];
+        // this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
 
         const id = +this.activated_route.snapshot.params['id'];
         console.log('MyID: ' + id);
@@ -41,11 +61,11 @@ export class CourseEditComponent implements OnInit {
         );
     }
 
-    postCourse(form: NgForm) {
-        console.log( 'Posting course: ' + this.course);
+    postCourse() {
+        console.log( 'Posting course: ' + this.courseForm.value );
 
         if (this.course.id === '0') {
-            this.courseService.createCourse( this.course ).subscribe(
+            this.courseService.createCourse( this.courseForm.value ).subscribe(
                 (val) => {
                     console.log('POST call successful value returned in body ', val);
                   },
@@ -64,7 +84,7 @@ export class CourseEditComponent implements OnInit {
         } else {
             // Validate stuff here
             this.courseService
-            .updateCourse( this.course ).subscribe(
+            .updateCourse( this.courseForm.value ).subscribe(
             (val) => {
             console.log('POST call successful value returned in body ', val);
             },
@@ -83,7 +103,22 @@ export class CourseEditComponent implements OnInit {
         }
     }
 
-    addSection() {
-        this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
+    addSection(): void {
+      //  this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
+      this.sections.push(this.buildSection());
+    }
+
+    buildSection(): FormGroup {
+        return this.fb.group( {
+            sectionTitle: '',
+            sectionContent: ''
+        });
+    }
+
+    killSection(i) {
+        console.log('Kill' + i);
+        this.sections.removeAt(i);
+        // this.courseForm.get('sections').splice(i, 1);
+        // Here I need to remove the section with an index of i from the sections array.
     }
 }

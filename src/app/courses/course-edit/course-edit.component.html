@@ -2,33 +2,66 @@
 
 <div class='stuff'>
         
-        <form #courseform="ngForm" novalidate (ngSubmit)="postCourse(courseform)">
+        <form [formGroup]="courseForm" novalidate (ngSubmit)="postCourse()">
         
             <div class='loomCard'>
                     <div class="padMe">
                 <h1>Course Info:</h1>
                 <flash-messages></flash-messages>
 
-                <md-form-field>
-                <input #title="ngModel" mdInput placeholder="Title" 
-                name="title" [(ngModel)]="course.title" required minlength="3" maxlength="50">
+                <md-form-field [ngClass]="{'has-error':(courseForm.get('title').touched || courseForm.get('title').dirty)}">
+                <input id="title" mdInput placeholder="Title" formControlName="title" >
                 </md-form-field>
                 <md-form-field>
-                <input #description="ngModel" mdInput placeholder="Description" 
-                name="description" [(ngModel)]="course.description" required minlength="3" maxlength="150">
+
+                <!-- <span class="help-block" *ngIf="(courseForm.get('title').touched || courseForm.get('title').dirty)}">
+                        <span *ngIf="courseForm.get('title').errors.required">
+                            Please enter a title for this course.
+                        </span>
+                        <span *ngIf="courseForm.get('description').errors.minlength">
+                            The Title must be longer than 3 characters.
+                        </span>
+                    </span> -->
+            
+                <input id="description" mdInput placeholder="Description" formControlName="description" >
                 </md-form-field>
                
+
                 <br>
-          
-                <div *ngFor="let section of sections" class='sectionContainer'>
-                    <h1>{{ section.title }}</h1>
-                    <p>{{ section.content }}</p>
+                <div formArrayName='sections' *ngFor="let section of sections.controls; let i=index">
+                    <div [formGroupName]="i" class='sectionContainer'>
+                        <button class='tinyKill rightAlignMe' (click)="killSection(i)"></button>
+                            
+                        <!-- <div *ngFor="let section of sections" class='sectionContainer'> -->
+                        <div class='bannerTop'>
+                            <md-form-field>
+                            <input mdInput id="{{ 'title' + i }}" placeholder="Title of Section {{ i+1 }} " formControlName="sectionTitle">
+                            </md-form-field>
+                        </div>
+                        <div class='sectionSection'>
+                            <md-form-field>
+                            <textarea mdInput id="content" placeholder="Section Content"
+                                 formControlName="sectionContent"></textarea>
+                            </md-form-field>
+                        </div>
+                        <!-- </div> -->
+                    </div>
                 </div>
                 <br>
                 <button md-raised-button (click)="addSection()" type='button'>Add Section</button>
-            </div><button md-raised-button color="primary" class='loomButton'>Submit changes</button>
+            </div><button md-raised-button color="primary" class='loomButton' 
+                type='submit' [disabled]="!courseForm.valid" >Submit changes</button>
             
         </div>
         
         </form><br>
+</div>
+
+<div class='debug'>
+   Form Dirty: {{ courseForm.dirty }}<br>
+   Form Touched: {{ courseForm.touched }}<br>
+   Form valid: {{ courseForm.valid }}<br>
+   Title: {{ courseForm.controls.title }}<br>
+   Title Valid: {{ courseForm.controls.title.valid }}<br>
+   Entire Form Value: {{ courseForm.value | json }}<br> 
 </div>

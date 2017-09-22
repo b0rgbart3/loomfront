@@ -159,17 +159,12 @@ body {
   width:100%;
   border-radius:0;
   text-transform: uppercase;
-  background-color: #CE0CBE;
-  color:white;
+  color:white !important;
   padding-top:16px;
   padding-bottom:12px;
-  border-bottom:2px solid #5E0057;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ce0cbe+0,a50998+100 */
-background: #ce0cbe; /* Old browsers */
-background: -moz-linear-gradient(top, #ce0cbe 0%, #a50998 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top, #ce0cbe 0%,#a50998 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom, #ce0cbe 0%,#a50998 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce0cbe', endColorstr='#a50998',GradientType=0 ); /* IE6-9 */
+  background-color:#ff4081 !important;
+  box-shadow: 0px 0px 4px #666666 !important;
+
 }
 
 .loomDate {
@@ -189,6 +184,42 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce0cbe', end
    margin-top:40px;
 }
 
+.sectionContainer {
+  border:1px solid #999999; /* #3f51b5; */
+
+  box-sizing: border-box;
+  border-radius:4px;
+  margin-bottom:20px;
+}
+.bannerTop {
+  background-color:#eeeeee;
+  padding:18px 18px 0px 18px;
+  box-sizing: border-box;
+}
+.sectionSection {
+  padding:18px;
+}
+
+.tinyKill {
+  border-radius:50%;
+  width:26px;
+  height:26px;
+  background-color:#999999;
+  background-image:url(assets/images/kill.svg);
+  background-size:90%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  box-shadow:0px 2px 2px #888888;
+}
+
+.tinyKill:hover {
+  background-color:#ff4081;
+}
+
+.tinyKill:focus {
+  outline-style: none;
+  background-color:black;
+}
 /* .loomDate.mat-form-field {
 
   width:280px !important;
