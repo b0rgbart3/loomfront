@@ -3,6 +3,7 @@ import { Course } from '../../models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../course.service';
 import { NgForm } from '@angular/forms';
+import { Section } from '../../models/section.model';
 
 @Component({
     moduleId: module.id,
@@ -15,12 +16,16 @@ export class CourseEditComponent implements OnInit {
     course: Course;
     id: string;
     errorMessage: string;
+    sections: Object[];
 
     constructor(private router: Router, private activated_route: ActivatedRoute,
         private courseService: CourseService  ) { }
 
     ngOnInit () {
-        this.course = new Course( '', '', '0' );
+        this.course = new Course( '', '', '0', [] );
+        this.sections = [];
+        this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
+
         const id = +this.activated_route.snapshot.params['id'];
         console.log('MyID: ' + id);
 
@@ -76,5 +81,9 @@ export class CourseEditComponent implements OnInit {
             }
         );
         }
+    }
+
+    addSection() {
+        this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
     }
 }

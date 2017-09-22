@@ -17,13 +17,17 @@
                 <input #description="ngModel" mdInput placeholder="Description" 
                 name="description" [(ngModel)]="course.description" required minlength="3" maxlength="150">
                 </md-form-field>
-
+               
                 <br>
+          
+                <div *ngFor="let section of sections" class='sectionContainer'>
+                    <h1>{{ section.title }}</h1>
+                    <p>{{ section.content }}</p>
+                </div>
                 <br>
-                <br>
-                <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
-                <br clear='all'>
-            </div>
+                <button md-raised-button (click)="addSection()" type='button'>Add Section</button>
+            </div><button md-raised-button color="primary" class='loomButton'>Submit changes</button>
+            
         </div>
         
         </form><br>

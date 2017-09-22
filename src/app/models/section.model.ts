@@ -1,11 +1,10 @@
-export class Course {
+export class Section {
   _id?: string;
 
   constructor (
       public title: string,
-      public description: string,
       public id: string,
-      public topics: Array <Object>
+      public content: string
   ) {}
 
 }
