@@ -20,6 +20,8 @@ export class ClassEditComponent implements OnInit {
     id: string;
     errorMessage: string;
     courses: Course[];
+    myStart: Date;
+    myEnd: Date;
     // weeks= ['1 Week', '2 Weeks', '3 Weeks', '4 Weeks', '5 Weeks', '6 Weeks',
     // '7 Weeks', '8 Weeks', '9 Weeks', '10 Weeks', '11 Weeks', '12 Weeks'];
 
@@ -105,6 +107,9 @@ export class ClassEditComponent implements OnInit {
         this.classService.getClass(id).subscribe(
             classobject => {this.thisClass = <ClassModel>classobject[0]; console.log('got class info :' +
                             JSON.stringify(classobject) );
+                            this.myStart = new Date (this.thisClass.start);
+                            this.myEnd = new Date (this.thisClass.end);
+
                            // console.log('Getting the class Object: ' + JSON.stringify( this.thisClass ) );
                            // this.populateForm();
                          },

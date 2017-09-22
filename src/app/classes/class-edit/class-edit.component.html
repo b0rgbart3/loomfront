@@ -25,7 +25,8 @@ name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass
 </md-select> -->
 
 <md-select placeholder="Coursework for this class" name="course" [(ngModel)]="thisClass.course">
-<md-option *ngFor="let course of courseSelections" [value]="course.value">
+<md-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="thisClass.course">
+    
 {{ course.viewValue }}
 </md-option>
 </md-select>
@@ -34,7 +35,7 @@ name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass
 
 <div class='loomDate'>
 <md-form-field>
-<input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" [(ngModel)]="start">
+<input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" [(ngModel)]="myStart">
 <md-datepicker-toggle mdSuffix [for]="startDate"></md-datepicker-toggle>
 <md-datepicker #startDate ></md-datepicker>
 </md-form-field>
@@ -42,7 +43,7 @@ name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass
 
 <div class='loomDate'>
 <md-form-field>
-<input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" [(ngModel)]="end">
+<input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" [(ngModel)]="myEnd">
 <md-datepicker-toggle mdSuffix [for]="endDate"></md-datepicker-toggle>
 <md-datepicker #endDate ></md-datepicker>
 </md-form-field>
