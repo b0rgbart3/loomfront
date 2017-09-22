@@ -5,7 +5,7 @@ export class Course {
       public title: string,
       public description: string,
       public id: string,
-      public topics: Array <Object>
+      public sections: Array <Object>
   ) {}
 
 }

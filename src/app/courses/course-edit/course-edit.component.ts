@@ -20,6 +20,7 @@ export class CourseEditComponent implements OnInit {
     course: Course = new Course( '', '', '0', [] );
     id: string;
     errorMessage: string;
+    formSections: FormArray;
     // sections: Object[];
 
     get sections(): FormArray {
@@ -33,10 +34,12 @@ export class CourseEditComponent implements OnInit {
         // Instantiating the Root Form Group Object
         // This service takes in a form configuration object
 
+            // this.buildSection()
+        this.formSections = this.fb.array([  ]);
         this.courseForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', [Validators.required ]],
-            sections: this.fb.array([ this.buildSection() ])
+            sections: this.formSections
         });
 
         // this.courseForm = new FormGroup({
@@ -54,18 +57,35 @@ export class CourseEditComponent implements OnInit {
          }
     }
 
+    populateForm(): void {
+        this.courseForm.patchValue({'title': this.course.title, 'description': this.course.description });
+
+        if (this.course.sections) {
+            for (let i = 0; i < this.course.sections.length; i++) {
+                // this.addSection();
+                this.sections.push(this.fb.group( this.course.sections[i]) );
+            }
+        }
+    }
+
     getCourse(id: number) {
         this.courseService.getCourse(id).subscribe(
-            course => {this.course = <Course>course[0]; console.log('got course info :' + JSON.stringify(course) ); },
+            course => {this.course = <Course>course[0];
+                console.log('got course info :' + JSON.stringify(course) );
+                this.populateForm();
+             },
             error => this.errorMessage = <any> error
         );
     }
 
     postCourse() {
-        console.log( 'Posting course: ' + this.courseForm.value );
+
+         // This is Deborah Korata's way of merging our data model with the form model
+        const combinedCourceObject = Object.assign( {}, this.course, this.courseForm.value);
+        console.log( 'Posting course: ' + JSON.stringify(combinedCourceObject) );
 
         if (this.course.id === '0') {
-            this.courseService.createCourse( this.courseForm.value ).subscribe(
+            this.courseService.createCourse( combinedCourceObject ).subscribe(
                 (val) => {
                     console.log('POST call successful value returned in body ', val);
                   },
@@ -84,7 +104,7 @@ export class CourseEditComponent implements OnInit {
         } else {
             // Validate stuff here
             this.courseService
-            .updateCourse( this.courseForm.value ).subscribe(
+            .updateCourse( combinedCourceObject ).subscribe(
             (val) => {
             console.log('POST call successful value returned in body ', val);
             },
