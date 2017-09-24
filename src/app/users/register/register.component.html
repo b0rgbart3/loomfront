@@ -10,28 +10,28 @@
         <flash-messages></flash-messages>
         <md-form-field>
         <input #firstname="ngModel" mdInput placeholder="First name" 
-        name="firstname" [(ngModel)]="model.firstname" required maxlength="30">
+        name="firstname" [(ngModel)]="user.firstname" required maxlength="30">
         </md-form-field><br>
         <md-form-field>
         <input #lastname="ngModel" mdInput placeholder="Last name" 
-        name="lastname" [(ngModel)]="model.lastname" required minlength="3" maxlength="30">
+        name="lastname" [(ngModel)]="user.lastname" required minlength="3" maxlength="30">
         </md-form-field>
         <br>
         <md-form-field>
         <input #email="ngModel" mdInput placeholder="email" name="email" 
-        [(ngModel)]="model.email" required type="email" minlength="7" maxlength="40" 
+        [(ngModel)]="user.email" required type="email" minlength="7" maxlength="40" 
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
         </md-form-field>
         <md-form-field>
         <input #username="ngModel" mdInput placeholder="witchy name" name="username" 
-        [(ngModel)]="model.username" required type="username" minlength="3" maxlength="40">
+        [(ngModel)]="user.username" required type="username" minlength="3" maxlength="40">
         <md-hint align="start">This will be the name that you login with</md-hint>
  
         </md-form-field>
         <br>
         <md-form-field>
         <input #password="ngModel" mdInput placeholder="password" 
-        name="password" [(ngModel)]="model.password" required type="password"
+        name="password" [(ngModel)]="user.password" required type="password"
         maxlength="30" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
         <md-hint align="start">A combination of at least 8 letters and/or numbers</md-hint>
        

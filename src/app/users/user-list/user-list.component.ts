@@ -51,20 +51,20 @@ export class UserListComponent implements OnInit {
   }
 
   createNewUser() {
-    const thisUser = new User( '', '', '', '', '', '', '', '', '');
+    const thisUser = new User( '', '', '', '', '', '', '', '', '', '0');
 
     // By default, a newly-created course will have the selected state.
     this.selectUser( thisUser );
   }
 
-  deleteUser(userId) {
-    // console.log('In the Admin Component: Deleting course #' + courseId);
+  // deleteUser(userId) {
+  //   // console.log('In the Admin Component: Deleting course #' + courseId);
 
-    this.userService.deleteUser(userId).subscribe(
-      data => { // console.log('deleted course: ');
-      this.getUsers(); },
-      error => this.errorMessage = <any>error );
-  }
+  //   this.userService.deleteUser(userId).subscribe(
+  //     data => { // console.log('deleted course: ');
+  //     this.getUsers(); },
+  //     error => this.errorMessage = <any>error );
+  // }
 
 
   addUser = (user: User) => {

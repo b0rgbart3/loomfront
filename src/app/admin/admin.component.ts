@@ -61,16 +61,35 @@ getUsers() {
   deleteCourse(courseId) {
     // console.log('In the Admin Component: Deleting course #' + courseId);
 
+    const result = confirm( 'Are you sure you want to delete this course? ');
+    if (result) {
     this.courseService.deleteCourse(courseId).subscribe(
       data => { // console.log('deleted course: ');
       this.getCourses(); },
       error => this.errorMessage = <any>error );
+   }
   }
 
   deleteClass(classId) {
+    const result = confirm( 'Are you sure you want to delete this class? ');
+    if (result) {
     this.classService.deleteClass(classId).subscribe(
       data => { // console.log('deleted class: ');
       this.getClasses(); },
       error => this.errorMessage = <any>error );
+    }
   }
+
+  deleteUser(userId) {
+    const result = confirm( 'Are you sure you want to delete this user? ');
+    if (result) {
+    this.userService.deleteUser(userId).subscribe(
+      data => {
+        this.getUsers(); },
+        error => this.errorMessage = <any> error );
+
+    }
+  }
+
+
 }

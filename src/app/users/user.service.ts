@@ -20,9 +20,14 @@ export class UserService {
 
   constructor (private _http: HttpClient) {}
 
-    doNothing(): number {
-      this.getUsers();
-      return this.highestID;
+
+    getUser( id ): Observable<User[]> {
+
+      return this._http.get<User[]> ( this._usersUrl + '/id:' + id )
+      .do(data => {
+        console.log( 'found: ' + JSON.stringify(data) );
+      return data; })
+      .catch (this.handleError);
     }
     getUsers(): Observable<User[]> {
       return this._http.get <User[]> (this._usersUrl)
@@ -63,9 +68,19 @@ export class UserService {
       console.log( 'Posting User: ', body   );
       console.log(this._usersUrl);
 
-
-      //  return Observable.empty();
       return this._http.post(this._usersUrl + '/register' , userObject, {headers: myHeaders} );
+    }
+
+    updateUser(userObject: User): Observable<any> {
+      console.log('Made it to the updateUser method.');
+
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+      const body =  JSON.stringify(userObject);
+
+
+      return this._http.post(this._usersUrl + '/update' , userObject, {headers: myHeaders} );
     }
 
     private handleError (error: HttpErrorResponse) {

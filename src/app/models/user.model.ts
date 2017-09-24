@@ -9,6 +9,7 @@ export class User {
         public password: string,
         public token: string,
         public verificationID: string,
+        public verified: string,
         public user_type: string,
         public id: string
 

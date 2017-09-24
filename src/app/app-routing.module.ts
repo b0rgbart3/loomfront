@@ -28,6 +28,7 @@ const ROUTES: Routes = [
 { path: 'admin', pathMatch: 'full', component: AdminComponent },
 { path: 'courses/:id/edit', component: CourseEditComponent },
 { path: 'classes/:id/edit', component: ClassEditComponent },
+{ path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }
 ];

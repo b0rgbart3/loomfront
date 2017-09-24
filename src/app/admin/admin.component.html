@@ -2,18 +2,18 @@
     <h1>Hello Admin:{{ currentUser.username }} </h1>
     <div class='loomCard group'>
       <div class='padMe'>
+          <button *ngIf="classes" [routerLink]="['/classes', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
           <h1>Classes</h1>
-          <button *ngIf="classes" [routerLink]="['/classes', '0', 'edit']" class='addButton'>Add a new class</button>
-          <ul class="loom-list" *ngIf="classes">
+            <ul class="loom-list" *ngIf="classes">
             <li *ngFor="let class of classes">
+                <button [routerLink]="['/classes', class.id, 'edit']" class='loomRoundButton loomEdit'></button>
+                <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteClass(class.id)"></button>
               <h2>{{class.title}}</h2>
               <p>{{class.description}}</p>
               <p>{{class.course}}</p>
               <p>Start Date: {{class.start | date: 'yMMMd'}}</p> <!-- jms -->
               <p>End Date: {{class.end | date: 'yMMMd'}}</p>
-              <button [routerLink]="['/classes', class.id, 'edit']">Edit</button>
-              <button (click)="deleteClass(class.id)">Delete</button>
-            </li>
+           </li>
           </ul>
 
           <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
@@ -23,20 +23,37 @@
     </div>
     <div class='loomCard group'>
       <div class='padMe'>
+        <button *ngIf="courses" [routerLink]="['/courses', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>
           <h1>Courses</h1>
-          <button *ngIf="courses" [routerLink]="['/courses', '0', 'edit']" class='addButton'>Add a new course</button>
-          <ul class="loom-list" *ngIf="courses">
+            <ul class="loom-list" *ngIf="courses">
             <li *ngFor="let course of courses">
+                <button [routerLink]="['/courses', course.id, 'edit']" class='loomRoundButton loomEdit'></button>  
+                <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteCourse(course.id)"></button>
               <h2>{{course.title}}</h2>
               <p>{{course.description}}</p>
-              <button  [routerLink]="['/courses', course.id, 'edit']" >Edit</button>
-              <button (click)="deleteCourse(course.id)">Delete</button>
+                 
             </li>
           </ul>
       <div class="notice" *ngIf="!courses">Currently having trouble accessing the API for course info.</div>
     </div>
 </div>
 
-<user-list></user-list>
+<div class='loomCard group'>
+    <div class='padMe'>
+      <button *ngIf="users" [routerLink]="['/register']" class='loomRoundButton loomAdd rightAlignMe'></button>  
+      <h1>Users</h1>
+      <ul class='loom-list' *ngIf="users">
+        <li *ngFor='let user of users'> 
+            <button [routerLink]="['/users', user.id, 'edit']" class='loomRoundButton loomEdit'></button>
+            <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteUser(user.id)"></button>
+          <h2> {{user.firstname}} {{ user.lastname }}</h2>
+          <p> {{ user.email }} </p> 
+          
+      </ul>
+      <div class="notice" *ngIf="!users">Currently having trouble accessing the API for user info.</div>      
+    </div>
+</div>
+<br>
+
 
 </div>

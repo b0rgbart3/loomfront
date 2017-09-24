@@ -4,8 +4,6 @@
       <h1>Users</h1>
       <ul class='userList'>
         <li *ngFor='let user of users'> 
-            <button class='tinyKill rightAlignMe' (click)="deleteUser(user.id)"></button>
-            
           <h2> {{user.firstname}} {{ user.lastname }}</h2>
           <p> {{ user.email }} </p> 
       </ul>
