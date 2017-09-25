@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     hasPrimaryLanguageError = false;
     date2 = new Date();
     errorMessage: string;
-    user = new User('', '', '', '', '', '', '', 'false', '', '0');
+    user: User; // = new User('', '', '', '', '', '', '', 'false', '', '', '0');
 
     constructor(
       private userService: UserService,
@@ -38,12 +38,14 @@ export class RegisterComponent implements OnInit {
       }
 
     ngOnInit() {
-      this.user = new User ( '', '', '', '', '', '', '', 'false', 'student', '0');
+      console.log('ngOnInit()');
+
+      this.user = new User ( '', '', '', '', '', '', '', 'false', '', '', '0');
 
       const id = +this.activated_route.snapshot.params['id'];
 
-      if (id !== 0) {
-        // console.log('In the edit component, id was not zero: ' + id);
+      if (id && id !== 0) {
+         console.log('In the edit component, id was not zero: ' + id);
 
          this.getUser(id);
       }
