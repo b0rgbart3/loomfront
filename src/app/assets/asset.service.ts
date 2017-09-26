@@ -56,10 +56,9 @@ export class AssetService {
       return this._http.delete( this._AssetsUrl + '/id:' + AssetId);
     }
 
-    createAsset(uploadFile: File): Observable<any> {
+    createAsset( AssetObject: any): Observable<any> {
       console.log('Made it to the createAsset method.');
 
-      const AssetObject = <Asset> {};
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       AssetObject.id = this.highestID.toString();
@@ -69,8 +68,10 @@ export class AssetService {
 
       console.log( 'Creating Asset: ', body   );
       console.log(this._AssetsUrl);
+      console.log(JSON.stringify(AssetObject ) );
 
-      return this._http.post(this._AssetsUrl + '/upload' , uploadFile, {headers: myHeaders} );
+
+      return this._http.post(this._AssetsUrl, AssetObject, {headers: myHeaders} );
     }
 
     updateAsset(AssetObject: Asset): Observable<any> {

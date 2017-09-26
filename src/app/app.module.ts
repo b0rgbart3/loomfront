@@ -37,7 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UploadComponent } from './assets/upload.component';
 import { AssetService } from './assets/asset.service';
-import { Uploader } from 'angular2-http-file-upload';
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+
 
 @NgModule({
   // External
@@ -56,6 +57,8 @@ import { Uploader } from 'angular2-http-file-upload';
   // Internal
   declarations: [
     AppComponent,
+    FileSelectDirective,
+    FileDropDirective,
     NavBarComponent,
     PageNotFoundComponent,
     LoginComponent,
@@ -73,7 +76,7 @@ import { Uploader } from 'angular2-http-file-upload';
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService, AlertService,
-    CourseService, ClassService, AssetService, Uploader
+    CourseService, ClassService, AssetService
    ],
   bootstrap: [AppComponent]
 })

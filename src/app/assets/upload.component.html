@@ -12,11 +12,24 @@
    <input type="file"  multiple  /><br/> -->
 
    Single
-   <input id="myFileInputField" type="file" placeholder="Upload file" accept=".pdf,.doc,.docx,.jpeg,.jpg,.gif,.png" multiple>
+   <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />                                  
+   
+   <!-- <input name="file"
+   id="myFileInputField" type="file" placeholder="Upload file" 
+   accept=".pdf,.doc,.docx,.jpeg,.jpg,.gif,.png" multiple> -->
 
         </div>
-        <button md-raised-button color="primary" class='loomButton'>Upload Asset</button>
+
+        <button type="button" class="btn btn-success btn-s"
+        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+         <span class="glyphicon glyphicon-upload"></span> Upload all
+     </button><br />
+
+     
+        <!-- <button md-raised-button color="primary" class='loomButton'>Upload Asset</button> -->
         </div>
         
+
+
         </form>
 </div>

@@ -3,16 +3,12 @@ import { Asset } from '../models/Asset.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AssetService } from './asset.service';
-// import { FileUploader } from 'ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { NgClass, NgStyle} from '@angular/common';
-import { Uploader } from 'angular2-http-file-upload';
-import { MyUploadItem } from '../../my-upload-item';
 import { HttpHeaders } from '@angular/common/http';
-
 
 // const URL = '/api/';
 const URL = 'http://localhost:3100/api/assets';
-
 
 @Component({
     moduleId: module.id,
@@ -34,7 +30,7 @@ export class UploadComponent implements OnInit {
      courseSelections = [
 
     ];
-    // public uploader: FileUploader = new FileUploader({url: URL});
+    public uploader: FileUploader = new FileUploader({url: 'http://localhost:3100/api/assets'});
     public hasBaseDropZoneOver = false;
     public hasAnotherDropZoneOver = false;
     public fileOverBase(e: any): void {
@@ -47,13 +43,12 @@ export class UploadComponent implements OnInit {
     constructor(
         private activated_route: ActivatedRoute,
         private assetService: AssetService,
-        private router: Router,
-        public uploaderService: Uploader) {   }
+        private router: Router) {   }
 
     ngOnInit(): void {
         console.log('Upload Component ngOnInit.');
 
-        this.asset = new Asset('', '', '', '', '', '', '', '', '', '' );
+        this.asset = new Asset( '', '', '', '', '', '', '', '', '', '' );
         let id = +this.activated_route.snapshot.params['id'];
 
         if (!id) { id = 0; }
@@ -105,6 +100,7 @@ export class UploadComponent implements OnInit {
 
        const uploadFile = (<HTMLInputElement>window.document.getElementById('myFileInputField')).files[0];
        console.log(uploadFile);
+        console.log(form.value);
 
         // const myUploadItem = new MyUploadItem(uploadFile);
         // myUploadItem.formData = { FormDataKey: 'Form Data Value' };  // (optional) form data can be sent with file
@@ -129,7 +125,7 @@ export class UploadComponent implements OnInit {
         //      const combinedAssetObject = Object.assign( {}, this.asset, form.value);
         //      combinedAssetObject.file = this.thisFile;
 
-        this.assetService.createAsset( uploadFile ).subscribe(
+        this.assetService.createAsset( form.value ).subscribe(
                             (val) => {
                                 console.log('POST call successful value returned in body ', val);
                               },
