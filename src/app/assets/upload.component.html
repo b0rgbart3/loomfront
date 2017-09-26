@@ -1,0 +1,22 @@
+<div class='stuff'>
+        
+        <form #assetform="ngForm" novalidate (ngSubmit)="save(assetform)">
+                               
+        <div class='loomCard group'>
+        
+        <div class='padMe'>
+        <h1>Asset Info:</h1>
+
+
+   <!-- Multiple
+   <input type="file"  multiple  /><br/> -->
+
+   Single
+   <input id="myFileInputField" type="file" placeholder="Upload file" accept=".pdf,.doc,.docx,.jpeg,.jpg,.gif,.png" multiple>
+
+        </div>
+        <button md-raised-button color="primary" class='loomButton'>Upload Asset</button>
+        </div>
+        
+        </form>
+</div>

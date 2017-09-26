@@ -35,6 +35,9 @@ import { ClassService } from './classes/class.service';
 import { ClassEditComponent } from './classes/class-edit/class-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './users/user-list/user-list.component';
+import { UploadComponent } from './assets/upload.component';
+import { AssetService } from './assets/asset.service';
+import { Uploader } from 'angular2-http-file-upload';
 
 @NgModule({
   // External
@@ -65,10 +68,12 @@ import { UserListComponent } from './users/user-list/user-list.component';
     CourseEditComponent,
     ClassEditComponent,
     UserListComponent,
+    UploadComponent,
     AdminComponent
   ],
 
-  providers: [ AuthGuard, AuthenticationService, UserService, AlertService, CourseService, ClassService
+  providers: [ AuthGuard, AuthenticationService, UserService, AlertService,
+    CourseService, ClassService, AssetService, Uploader
    ],
   bootstrap: [AppComponent]
 })

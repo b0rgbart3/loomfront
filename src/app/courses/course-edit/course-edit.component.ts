@@ -21,6 +21,7 @@ export class CourseEditComponent implements OnInit {
     id: string;
     errorMessage: string;
     formSections: FormArray;
+
     // sections: Object[];
 
     get sections(): FormArray {
@@ -35,6 +36,7 @@ export class CourseEditComponent implements OnInit {
         // This service takes in a form configuration object
 
             // this.buildSection()
+   
         this.formSections = this.fb.array([  ]);
         this.courseForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,

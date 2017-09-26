@@ -105,7 +105,8 @@ export class ClassEditComponent implements OnInit {
 
     getClass(id: number) {
         this.classService.getClass(id).subscribe(
-            classobject => {this.thisClass = <ClassModel>classobject[0]; console.log('got class info :' +
+            classobject => {this.thisClass = <ClassModel>classobject[0];
+                console.log('got class info :' +
                             JSON.stringify(classobject) );
                             this.myStart = new Date (this.thisClass.start);
                             this.myEnd = new Date (this.thisClass.end);

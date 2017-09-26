@@ -47,15 +47,15 @@ export class CourseService {
   // }
 
   getCourse(id): Observable<Course> {
-    return this._http.get<Course> ( this._coursesUrl + '/id:' + id )
+    return this._http.get<Course> ( this._coursesUrl + '?id=' + id )
       .do(data => {
-        console.log( 'found: ' + JSON.stringify(data) );
+        // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
   }
 
   deleteCourse(courseId: number): Observable<any> {
-      return this._http.delete( this._coursesUrl + '/id:' + courseId);
+      return this._http.delete( this._coursesUrl + '?id=' + courseId);
   }
 
   private extractData(res: Response) {
@@ -71,7 +71,7 @@ export class CourseService {
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.post(this._coursesUrl + '/create', courseObject, {headers: myHeaders} );
+      return this._http.put(this._coursesUrl, courseObject, {headers: myHeaders} );
    }
 
    updateCourse(courseObject: Course): Observable<any> {
@@ -79,7 +79,7 @@ export class CourseService {
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.post(this._coursesUrl + '/update', courseObject, {headers: myHeaders} );
+      return this._http.put(this._coursesUrl + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
     private handleError (error: HttpErrorResponse) {

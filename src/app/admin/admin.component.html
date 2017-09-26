@@ -15,12 +15,12 @@
               <p>End Date: {{class.end | date: 'yMMMd'}}</p>
            </li>
           </ul>
-
-          <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
       
         <div class="notice" *ngIf="!classes">Currently having trouble accessing the API for class info.</div>
       </div>
     </div>
+
+<!--  Course List -->
     <div class='loomCard group'>
       <div class='padMe'>
         <button *ngIf="courses" [routerLink]="['/courses', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>
@@ -38,6 +38,7 @@
     </div>
 </div>
 
+<!--  User List -->
 <div class='loomCard group'>
     <div class='padMe'>
       <button *ngIf="users" [routerLink]="['/register']" class='loomRoundButton loomAdd rightAlignMe'></button>  
@@ -48,6 +49,23 @@
             <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteUser(user.id)"></button>
           <h2> {{user.firstname}} {{ user.lastname }}</h2>
           <p> {{ user.email }} </p> 
+          
+      </ul>
+      <div class="notice" *ngIf="!users">Currently having trouble accessing the API for user info.</div>      
+    </div>
+</div>
+
+<!--  Asset List -->
+<div class='loomCard group'>
+    <div class='padMe'>
+      <button [routerLink]="['/upload']" class='loomRoundButton loomAdd rightAlignMe'></button>  
+      <h1>Assets</h1>
+      <ul class='loom-list' *ngIf="assets">
+        <li *ngFor='let asset of assets'> 
+            <button [routerLink]="['/assets', asset.id, 'edit']" class='loomRoundButton loomEdit'></button>
+            <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteAsset(asset.id)"></button>
+          <h2> {{asset.firstname}} {{ asset.lastname }}</h2>
+          <p> {{ asset.email }} </p> 
           
       </ul>
       <div class="notice" *ngIf="!users">Currently having trouble accessing the API for user info.</div>      

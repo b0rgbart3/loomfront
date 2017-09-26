@@ -13,6 +13,7 @@ import { RequestresetComponent } from './users/requestreset/requestreset.compone
 import { AdminComponent } from './admin/admin.component';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { ClassEditComponent } from './classes/class-edit/class-edit.component';
+import { UploadComponent } from './assets/upload.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -29,6 +30,7 @@ const ROUTES: Routes = [
 { path: 'courses/:id/edit', component: CourseEditComponent },
 { path: 'classes/:id/edit', component: ClassEditComponent },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
+{ path: 'upload', pathMatch: 'full', component: UploadComponent },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }
 ];

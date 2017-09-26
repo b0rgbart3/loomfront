@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
+import { Asset } from '../models/asset.model';
 import { ClassModel } from '../models/class.model';
 import { CourseService } from '../courses/course.service';
 import { Router } from '@angular/router';
 import { ClassService } from '../classes/class.service';
 import { UserService } from '../users/user.service';
+import { AssetService } from '../assets/asset.service';
 
 
 @Component({
@@ -21,9 +23,14 @@ export class AdminComponent implements OnInit {
   users: User [];
   errorMessage: string;
   courseCount: number;
+  assets: Asset [];
 
-  constructor( private courseService: CourseService, private classService: ClassService, private router: Router,
-  private userService: UserService) {
+  constructor(
+    private courseService: CourseService,
+    private classService: ClassService,
+    private router: Router,
+    private userService: UserService,
+    private assetService: AssetService ) {
 
   }
   currentUser = <User> JSON.parse(localStorage.currentUser);
@@ -33,31 +40,38 @@ export class AdminComponent implements OnInit {
     this.getClasses();
     this.getCourses();
     this.getUsers();
-}
+  }
 
-getClasses() {
+  getClasses() {
   this.classService
   .getClasses().subscribe(
     classes =>  this.classes = classes,
     error => this.errorMessage = <any>error);
-}
+  }
 
-getCourses() {
+  getCourses() {
   this.courseService
   .getCourses().subscribe(
     courses =>  {this.courses = courses;
     this.courseCount = this.courses.length; },
     error => this.errorMessage = <any>error);
 
-}
+  }
 
-getUsers() {
+  getUsers() {
   this.userService
   .getUsers().subscribe(
     users =>  this.users = users,
     error => this.errorMessage = <any>error);
-}
+  }
 
+  getAssets() {
+    this.assetService
+    .getAssets().subscribe(
+      assets =>  this.assets = assets,
+      error => this.errorMessage = <any>error);
+    }
+  
   deleteCourse(courseId) {
     // console.log('In the Admin Component: Deleting course #' + courseId);
 

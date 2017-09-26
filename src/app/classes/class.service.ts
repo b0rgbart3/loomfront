@@ -18,7 +18,10 @@ export class ClassService {
     constructor (private _http: HttpClient) {}
 
    getClasses(): Observable<ClassModel[]> {
-    return this._http.get <ClassModel[]> (this._classesUrl)
+     const myHeaders = new HttpHeaders();
+     myHeaders.append('Content-Type', 'application/json');
+
+    return this._http.get <ClassModel[]> (this._classesUrl, {headers: myHeaders})
       // debug the flow of data
       .do(data => {// console.log('All: ' + JSON.stringify(data));
       this.classCount = +data.length;
@@ -41,7 +44,7 @@ export class ClassService {
   }
 
   getClass(id): Observable<ClassModel[]> {
-    return this._http.get<ClassModel[]> ( this._classesUrl + '/id:' + id )
+    return this._http.get<ClassModel[]> ( this._classesUrl + '?id=' + id )
       .do(data => {
        // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
@@ -56,25 +59,22 @@ export class ClassService {
     myHeaders.append('Content-Type', 'application/json');
 
     // Note: I'm not passing the id as part of the url -- because it's inside the classObject
-    const url = this._classesUrl + '/create';
+    const url = this._classesUrl;
     return this._http.put(url, classObject, {headers: myHeaders}).map( () => classObject );
 
   }
 
-  updateClass(classObject): Observable<ClassModel> {
+  updateClass(classObject: ClassModel): Observable<any> {
     // console.log('In updateClass, in the service');
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
 
-    // Note: I'm not passing the id as part of the url -- because it's inside the classObject
-    const url = this._classesUrl + '/update';
-    // console.log('using this url: ' + url);
-    return this._http.put(url, classObject, {headers: myHeaders}).map( () => classObject );
+    return this._http.put(this._classesUrl + '?id=' + classObject.id, classObject, {headers: myHeaders});
 
   }
 
   deleteClass(classId: number): Observable<any> {
-    return this._http.delete( this._classesUrl + '/id:' + classId);
+    return this._http.delete( this._classesUrl + '?id=' + classId);
 }
 
 
