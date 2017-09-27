@@ -44,11 +44,11 @@ export class AuthenticationService {
 
     login(username: string, password: string): Observable <any> {
 
-        console.log('In authentication service, login() method: username:' + username + ', password: '+ password);
+        console.log('In authentication service, login() method: username:' + username + ', password: ' + password);
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        const info =  JSON.stringify({ username: username, password: password });
+        const info =  { username: username, password: password };
         console.log('INfo: ' + info);
 
         // Here we are sending the username and password to the api for authentication.
@@ -67,6 +67,11 @@ export class AuthenticationService {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+    }
+
+    getUserId(): string {
+        this.loggedInUser();
+        return this.currentUser.id;
     }
 
     isloggedin(): boolean {

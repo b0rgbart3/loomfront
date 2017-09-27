@@ -68,7 +68,7 @@ export class UserService {
       console.log( 'Posting User: ', body   );
       console.log(this._usersUrl);
 
-      return this._http.put(this._usersUrl, userObject, {headers: myHeaders} );
+      return this._http.put(this._usersUrl + '?id=0', userObject, {headers: myHeaders} );
     }
 
     updateUser(userObject: User): Observable<any> {

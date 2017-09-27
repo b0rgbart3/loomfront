@@ -6,9 +6,9 @@ import { AssetService } from './asset.service';
 import { FileUploader } from 'ng2-file-upload';
 import { NgClass, NgStyle} from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
-
+import { AuthenticationService } from '../services/authentication.service';
 // const URL = '/api/';
-const URL = 'http://localhost:3100/api/assets';
+// let uploadURL = 'http://localhost:3100/api/assets';
 
 @Component({
     moduleId: module.id,
@@ -26,11 +26,14 @@ export class UploadComponent implements OnInit {
     myStart: Date;
     myEnd: Date;
     assets: Asset [];
+    userId: string;
 
      courseSelections = [
 
     ];
-    public uploader: FileUploader = new FileUploader({url: 'http://localhost:3100/api/assets'});
+
+
+    public uploader: FileUploader;
     public hasBaseDropZoneOver = false;
     public hasAnotherDropZoneOver = false;
     public fileOverBase(e: any): void {
@@ -43,9 +46,15 @@ export class UploadComponent implements OnInit {
     constructor(
         private activated_route: ActivatedRoute,
         private assetService: AssetService,
-        private router: Router) {   }
+        private router: Router,
+        private authenticationService: AuthenticationService) {   }
 
     ngOnInit(): void {
+
+        const currentUserId = this.authenticationService.getUserId();
+        const urlWithQuery = 'http://localhost:3100/api/assets?userid=' + currentUserId;
+
+        this.uploader = new FileUploader({url: urlWithQuery});
         console.log('Upload Component ngOnInit.');
 
         this.asset = new Asset( '', '', '', '', '', '', '', '', '', '' );

@@ -6,7 +6,6 @@ import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router'
 
 
 @Component({
-   
     moduleId: module.id,
     templateUrl: 'login.component.html',
     styleUrls: ['login.component.css']
@@ -37,7 +36,6 @@ export class LoginComponent implements OnInit {
 
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
-                
 
                 if (result) {
                     let logger = JSON.parse(result);

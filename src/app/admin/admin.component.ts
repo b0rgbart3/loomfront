@@ -29,7 +29,7 @@ export class AdminComponent implements OnInit {
     private courseService: CourseService,
     private classService: ClassService,
     private router: Router,
-    private userService: UserService,
+    public userService: UserService,
     private assetService: AssetService ) {
 
   }

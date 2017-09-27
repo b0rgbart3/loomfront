@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model';
-import { FormPoster } from '../../services/form-poster.service';
 import { NgForm } from '@angular/forms';
 
 import { UserService } from '../user.service';
@@ -26,7 +25,7 @@ export class RegisterComponent implements OnInit {
     user: User; // = new User('', '', '', '', '', '', '', 'false', '', '', '0');
 
     constructor(
-      private userService: UserService,
+      public userService: UserService,
       private router: Router,
       private alertService: AlertService,
       private _flashMessagesService: FlashMessagesService,
@@ -58,6 +57,9 @@ export class RegisterComponent implements OnInit {
         console.log(this.user);
 
         if (this.user.id === '0') {
+
+          console.log('About to create a new user');
+
         this.userService
           .createUser( this.user ).subscribe(
           (val) => {
@@ -77,7 +79,7 @@ export class RegisterComponent implements OnInit {
 
               this.router.navigate(['/welcome']);
               }
-            }
+             }
           );
         } else {
           this.userService
