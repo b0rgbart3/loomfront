@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
 import { User } from '../models/user.model';
+import { Avatar } from '../models/avatar.model';
 import { HttpHeaders } from '@angular/common/http';
 
 
@@ -17,9 +18,20 @@ export class UserService {
   private userCount = 0;
 
   private _usersUrl = 'http://localhost:3100/api/users';
+  private _avatarUrl = 'http://localhost:3100/api/avatars';
 
   constructor (private _http: HttpClient) {}
 
+
+    getAvatar ( id ): Observable<Avatar> {
+      console.log('In user service, getting the avatar.');
+      const getRequest = this._avatarUrl + '/id=' + id;
+      console.log("My Get Request: " + getRequest );
+
+      return this._http.get <string> ( getRequest )
+      .do(data =>  data  )
+      .catch( this.handleError );
+    }
 
     getUser( id ): Observable<User[]> {
 

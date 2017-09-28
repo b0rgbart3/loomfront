@@ -83,11 +83,11 @@ export class CourseEditComponent implements OnInit {
     postCourse() {
 
          // This is Deborah Korata's way of merging our data model with the form model
-        const combinedCourceObject = Object.assign( {}, this.course, this.courseForm.value);
-        console.log( 'Posting course: ' + JSON.stringify(combinedCourceObject) );
+        const combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
+        console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
 
         if (this.course.id === '0') {
-            this.courseService.createCourse( combinedCourceObject ).subscribe(
+            this.courseService.createCourse( combinedCourseObject ).subscribe(
                 (val) => {
                     console.log('POST call successful value returned in body ', val);
                   },
@@ -106,7 +106,7 @@ export class CourseEditComponent implements OnInit {
         } else {
             // Validate stuff here
             this.courseService
-            .updateCourse( combinedCourceObject ).subscribe(
+            .updateCourse( combinedCourseObject ).subscribe(
             (val) => {
             console.log('POST call successful value returned in body ', val);
             },

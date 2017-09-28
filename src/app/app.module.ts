@@ -38,7 +38,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UploadComponent } from './assets/upload.component';
 import { AssetService } from './assets/asset.service';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-
+import { UserSettingsComponent } from './users/settings/user-settings.component';
+import { SafeUrlPipe } from './shared/safe-url.pipe';
 
 @NgModule({
   // External
@@ -61,6 +62,7 @@ import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
     FileDropDirective,
     NavBarComponent,
     PageNotFoundComponent,
+    SafeUrlPipe,
     LoginComponent,
     CourseListComponent,
     RegisterComponent,
@@ -72,6 +74,7 @@ import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
     ClassEditComponent,
     UserListComponent,
     UploadComponent,
+    UserSettingsComponent,
     AdminComponent
   ],
 

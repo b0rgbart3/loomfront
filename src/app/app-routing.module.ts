@@ -14,6 +14,7 @@ import { AdminComponent } from './admin/admin.component';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { ClassEditComponent } from './classes/class-edit/class-edit.component';
 import { UploadComponent } from './assets/upload.component';
+import { UserSettingsComponent } from './users/settings/user-settings.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -31,6 +32,7 @@ const ROUTES: Routes = [
 { path: 'classes/:id/edit', component: ClassEditComponent },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
 { path: 'upload', pathMatch: 'full', component: UploadComponent },
+{ path: 'usersettings', component: UserSettingsComponent },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }
 ];
