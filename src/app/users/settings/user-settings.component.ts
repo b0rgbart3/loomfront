@@ -12,6 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { Avatar } from '../../models/avatar.model';
+import { Usersettings } from '../../models/usersettings.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe } from '@angular/core';
 
@@ -36,7 +37,8 @@ import { Pipe } from '@angular/core';
 export class UserSettingsComponent implements OnInit {
     user: User;
     thisFile: File;
-    favoriteColor: FormControl;
+    usersettings: Usersettings;
+    favoritecolor: FormControl;
     avatar: FormControl;
     currentUserId;
     currentAvatar: Avatar;
@@ -57,34 +59,48 @@ export class UserSettingsComponent implements OnInit {
         private sanitizer: DomSanitizer) {}
 
     ngOnInit () {
-        this.favoriteColor = new FormControl();
+        this.favoritecolor = new FormControl();
         this.avatar = new FormControl();
         this.settingsForm = new FormGroup ( {
-            favoriteColor: this.favoriteColor,
+            favoritecolor: this.favoritecolor,
             avatar: this.avatar
         } );
         this.user = this.authenticationService.loggedInUser();
         this.currentUserId = this.authenticationService.getUserId();
         this.getCurrentAvatar();
 
+        this.userService.getUsersettings(this.currentUserId).subscribe(
+            usersettings =>  { this.usersettings = usersettings[0]; this.populateForm(); },
+            error => this.errorMessage = <any>error);
+
+
         const urlWithQuery = 'http://localhost:3100/api/avatar?userid=' + this.currentUserId;
         this.uploader = new FileUploader({url: urlWithQuery});
         this.uploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
-            this.localImageUrl = url; };
+            this.localImageUrl = url;
+            this.currentAvatarFile = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + this.currentAvatar[0].filename;
+            this.uploader.queue[0].upload();
+         };
+         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            this.getCurrentAvatar();
+            this.uploader.queue[0].remove();
+        };
 
-        this.favoriteColor.valueChanges.subscribe( value => console.log(value) );
+        this.favoritecolor.valueChanges.subscribe( value => console.log(value) );
         this.avatar.valueChanges.subscribe( value => console.log('value change: ' + value) );
+        // this.populateForm();
     }
 
     getCurrentAvatar () {
         this.userService.getAvatar(this.currentUserId).subscribe(
             avatar => {this.currentAvatar = avatar;
                 this.currentAvatarFile = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + this.currentAvatar[0].filename;
-                this.sanitizer.bypassSecurityTrustResourceUrl(this.currentAvatarFile);
+                // this.sanitizer.bypassSecurityTrustResourceUrl(this.currentAvatarFile);
                 // this.currentAvatarFile = imageFile;
-            console.log(JSON.stringify(this.currentAvatar) ); },
+        //    console.log(JSON.stringify(this.currentAvatar) );
+         },
             error => this.errorMessage = <any>error);
     }
 
@@ -116,30 +132,46 @@ export class UserSettingsComponent implements OnInit {
     //     console.log(event);
     // }
 
+    populateForm(): void {
+        console.log('Populating the form with: ' + JSON.stringify(this.usersettings) );
+
+        if (this.usersettings) {
+            this.favoritecolor.patchValue(this.usersettings.favoritecolor);
+
+       // this.settingsForm.patchValue({'favoritecolor': this.usersettings.favoritecolor });
+        }
+
+    }
+
     submitSettings() {
         console.log('In submitSettings');
         // Combine the Form Model with our Data Model
-         const combinedObject = Object.assign( {}, this.user, this.settingsForm.value);
-        //         console.log( JSON.stringify( combinedObject ) );
-        const uploadFile = (<HTMLInputElement>window.document.getElementById('avatar')).files[0];
-        console.log(uploadFile);
 
-        const formDataObject: FormData = new FormData();
-        formDataObject.append('uploadFile', uploadFile, uploadFile.name);
+        let superObject = {};
+        if ( this.settingsForm.value.favoritecolor ) {
+         superObject = {'id': this.user.id, 'favoritecolor': this.settingsForm.value.favoritecolor }; } else {
+             superObject = {'id': this.user.id };        }
 
-   //     this.settingsForm.addControl( 'uploadFile' : uploadFile );
-        console.log('This form value: ' + JSON.stringify( this.settingsForm.value ) );
+         console.log(JSON.stringify(superObject));
+        this.userService.saveSettings( superObject ).subscribe(
+            (val) => {
+                console.log('POST call successful value returned in body ', val);
+              },
+              response => {
+                console.log('POST call in error', response);
+              },
+              () => {
+                console.log('The POST observable is now completed.');
+              //   this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
+              //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
+              //   // this._flashMessagesService.show('Username or password was incorrect.',
+                // { cssClass: 'alert-warning', timeout: 7000 });
+                this.router.navigate(['/admin']);
+              }
+        );
 
-        const myHeaders = new HttpHeaders();
-        myHeaders.append('Content-Type', 'multipart/form-data');
-
-        this._http.post('http://localhost:3100/api/avatar?userid='
-            + this.currentUserId, this.settingsForm.value, {headers: myHeaders} ).subscribe(result => {
-                console.log('Returned from avatar upload');
-                        },
-                    err => {
-                        console.log('ERROR IN AVATAR UPLOAD');
-                    });
 
     }
+
+
 }

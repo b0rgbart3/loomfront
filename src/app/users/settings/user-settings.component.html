@@ -11,24 +11,34 @@
 
             <h1>Preferences</h1>
             <div class="form-group">
-                    <input class="form-control" placeholder="favoriteColor"
-                     name="favoriteColor" formControlName="favoriteColor"/>                                  
+                    <input class="form-control" placeholder="favoritecolor"
+                     name="favoritecolor" formControlName="favoritecolor"/>                                  
      
+                     <h1>Your Avatar Image:</h1>
+
                      <br><img [src]="currentAvatarFile" width='200' height='200'><br>
-                     {{ currentAvatarFile }}<br>
+                     <!-- {{ currentAvatarFile }}<br>
+                     {{ localImageUrl }}<br>
+                     {{ this.currentAvatarFile }}<br> -->
 
 
-            <h1>Upload your Avatar Image:</h1>
+                     <div class="upload-wrap">
+                        <!-- <button type="button" class="nice-button">upload_file</button> -->
+                        Upload Image
+                        <input type="file" name="csv_file" class="upload-btn"  name="avatar"  
+                        ng2FileSelect [uploader]="uploader" formControlName="avatar"
+                        (change)="fileChange($event)" id="avatar">
+                    </div>
                
-                <input type="file" class="form-control" name="avatar"  
+                <!-- <input type="file" class="chooseFile" name="avatar"  
                 ng2FileSelect [uploader]="uploader" formControlName="avatar"
-                (change)="fileChange($event)" id="avatar"/>                                  
+                (change)="fileChange($event)" id="avatar"/>                                   -->
             </div> 
 
             <tbody>
                 <tr *ngFor="let item of uploader.queue">
                     <td><strong>{{ item.file.name }}</strong></td>
-                    <td><strong>xx {{ item.file.webkitRelativePath  }}xx</strong></td>
+                    <td><strong> {{ item.file.webkitRelativePath  }}</strong></td>
                     <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
                     <td>
                         <div class="progress" style="margin-bottom: 0;">

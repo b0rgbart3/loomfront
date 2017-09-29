@@ -8,6 +8,7 @@ import 'rxjs/add/operator/do';
 
 import { User } from '../models/user.model';
 import { Avatar } from '../models/avatar.model';
+import { Usersettings } from '../models/usersettings.model';
 import { HttpHeaders } from '@angular/common/http';
 
 
@@ -19,6 +20,7 @@ export class UserService {
 
   private _usersUrl = 'http://localhost:3100/api/users';
   private _avatarUrl = 'http://localhost:3100/api/avatars';
+  private _userSettingsUrl = 'http://localhost:3100/api/usersettings';
 
   constructor (private _http: HttpClient) {}
 
@@ -26,7 +28,7 @@ export class UserService {
     getAvatar ( id ): Observable<Avatar> {
       console.log('In user service, getting the avatar.');
       const getRequest = this._avatarUrl + '/id=' + id;
-      console.log("My Get Request: " + getRequest );
+      console.log('My Get Request: ' + getRequest );
 
       return this._http.get <string> ( getRequest )
       .do(data =>  data  )
@@ -57,10 +59,16 @@ export class UserService {
           if (foundID >= this.highestID) {
             const newHigh = foundID + 1;
             this.highestID = newHigh;
-          }
+            }
           console.log('hightestID: ' + this.highestID );
-      } })
+         } }
+
+        )
         .catch( this.handleError );
+    }
+
+    getUsersettings(id): Observable<any> {
+      return this._http.get( this._userSettingsUrl + '?id=' + id);
     }
 
     deleteUser(userId: number): Observable<any> {
@@ -102,6 +110,12 @@ export class UserService {
       return Observable.throw(error.message);
     }
 
+    saveSettings(settingsObject: any): Observable<any> {
+        const myHeaders = new HttpHeaders();
+        myHeaders.append('Content-Type', 'application/json');
+        return this._http.put(this._userSettingsUrl + '?id=' + settingsObject.id, settingsObject, {headers: myHeaders} );
+
+      }
 
 
 }
