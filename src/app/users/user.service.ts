@@ -27,7 +27,7 @@ export class UserService {
 
     getAvatar ( id ): Observable<Avatar> {
       console.log('In user service, getting the avatar.');
-      const getRequest = this._avatarUrl + '/id=' + id;
+      const getRequest = this._avatarUrl + '?id=' + id;
       console.log('My Get Request: ' + getRequest );
 
       return this._http.get <string> ( getRequest )

@@ -70,7 +70,9 @@ export class UserSettingsComponent implements OnInit {
         this.getCurrentAvatar();
 
         this.userService.getUsersettings(this.currentUserId).subscribe(
-            usersettings =>  { this.usersettings = usersettings[0]; this.populateForm(); },
+            usersettings =>  {
+                console.log("Got User Settings for "+this.currentUserId + ": " + JSON.stringify(usersettings) );
+                this.usersettings = usersettings[0]; this.populateForm(); },
             error => this.errorMessage = <any>error);
 
 
@@ -140,6 +142,7 @@ export class UserSettingsComponent implements OnInit {
 
        // this.settingsForm.patchValue({'favoritecolor': this.usersettings.favoritecolor });
         }
+        this.getCurrentAvatar();
 
     }
 

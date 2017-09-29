@@ -16,7 +16,7 @@
      
                      <h1>Your Avatar Image:</h1>
 
-                     <br><img [src]="currentAvatarFile" width='200' height='200'><br>
+                     <br><img [src]="currentAvatarFile" width='200' height='200' *ngIf="currentAvatarFile"><br>
                      <!-- {{ currentAvatarFile }}<br>
                      {{ localImageUrl }}<br>
                      {{ this.currentAvatarFile }}<br> -->
