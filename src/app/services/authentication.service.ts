@@ -6,12 +6,17 @@ import 'rxjs/add/operator/map';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { Avatar } from '../models/avatar.model';
 
 @Injectable()
 export class AuthenticationService {
     public token: string;
     public currentUser: User;
     public username;
+    avatarUrl = 'http://localhost:3100/api/avatars';
+    public avatar: Avatar;
+    public avatarfile: string;
+    public errorMessage: string;
 
     constructor(private http: HttpClient) {
         // set token if saved in local storage
@@ -57,6 +62,7 @@ export class AuthenticationService {
             .map((response) => {
                     localStorage.setItem('currentUser', JSON.stringify( response ) );
                     this.currentUser = <User> response;
+                    this.getAvatar(this.currentUser.id).subscribe();
                     // return true to indicate successful login
                     return JSON.stringify(response);
                 });
@@ -74,6 +80,13 @@ export class AuthenticationService {
         return this.currentUser.id;
     }
 
+    getAvatar ( id ): Observable<any> {
+         console.log('In authentication service, requesting the avatar object from the api.');
+        const getRequest = this.avatarUrl + '?id=' + id;
+         console.log('My Get Request: ' + getRequest );
+        return this.http.get( getRequest );
+      }
+
     isloggedin(): boolean {
         const user = localStorage.getItem('currentUser');
         if (user != null) {
@@ -85,6 +98,37 @@ export class AuthenticationService {
         this.loggedInUser();
         if (this.currentUser.user_type === 'admin') {
             return true;
+        }
+    }
+
+    currentAvatar(): Avatar {
+        if (this.avatar && this.avatar.id === this.currentUser.id) {
+            return this.avatar;
+        } else {
+            this.getCurrentAvatar();
+        }
+    }
+
+    getCurrentAvatar () {
+        console.log("Auth Serv: -- getCurrentAvatar()");
+        if (this.currentUser) {
+            console.log('currentUser.id' + this.currentUser.id);
+            this.getAvatar(this.currentUser.id).subscribe(
+                avatar => {
+                    this.avatar = avatar[0];
+                    console.log("AS: gCA: " + JSON.stringify(this.avatar));
+                    
+                    this.avatarfile = 'http://localhost:3100/avatars/' + this.currentUser.id + '/' + this.avatar.filename;
+                    console.log("AS: gCA: " + this.avatarfile);
+             },
+                error => this.errorMessage = <any>error);
+        } }
+
+    currentAvatarFile(): string {
+        if (this.avatarfile && this.avatar.id === this.currentUser.id) {
+            return this.avatarfile;
+        } else {
+            this.getCurrentAvatar();
         }
     }
 }

@@ -16,8 +16,10 @@
 	><button md-menu-item>Login</button></a>
 </md-menu>
 
+<div *ngIf="this.loggedinusername()">
+		<img [src]="currentAvatarFile" width='60' height='60' *ngIf="currentAvatarFile"><br>
 {{ this.loggedinusername() }}
 
-
+</div>
 
 </md-toolbar>

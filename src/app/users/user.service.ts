@@ -25,15 +25,7 @@ export class UserService {
   constructor (private _http: HttpClient) {}
 
 
-    getAvatar ( id ): Observable<Avatar> {
-      console.log('In user service, getting the avatar.');
-      const getRequest = this._avatarUrl + '?id=' + id;
-      console.log('My Get Request: ' + getRequest );
 
-      return this._http.get <string> ( getRequest )
-      .do(data =>  data  )
-      .catch( this.handleError );
-    }
 
     getUser( id ): Observable<User[]> {
 

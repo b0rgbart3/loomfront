@@ -67,11 +67,13 @@ export class UserSettingsComponent implements OnInit {
         } );
         this.user = this.authenticationService.loggedInUser();
         this.currentUserId = this.authenticationService.getUserId();
+        this.currentAvatar = null;
+        this.currentAvatarFile = null;
         this.getCurrentAvatar();
 
         this.userService.getUsersettings(this.currentUserId).subscribe(
             usersettings =>  {
-                console.log("Got User Settings for "+this.currentUserId + ": " + JSON.stringify(usersettings) );
+                console.log('Got User Settings for ' + this.currentUserId + ': ' + JSON.stringify(usersettings) );
                 this.usersettings = usersettings[0]; this.populateForm(); },
             error => this.errorMessage = <any>error);
 
@@ -82,11 +84,13 @@ export class UserSettingsComponent implements OnInit {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
             this.localImageUrl = url;
-            this.currentAvatarFile = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + this.currentAvatar[0].filename;
+            this.currentAvatarFile = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + this.currentAvatar[0].filename;
             this.uploader.queue[0].upload();
          };
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            this.getCurrentAvatar();
+            // this.getCurrentAvatar();
+            this.currentAvatar = this.authenticationService.currentAvatar();
+            this.currentAvatarFile = this.authenticationService.currentAvatarFile();
             this.uploader.queue[0].remove();
         };
 
@@ -96,12 +100,9 @@ export class UserSettingsComponent implements OnInit {
     }
 
     getCurrentAvatar () {
-        this.userService.getAvatar(this.currentUserId).subscribe(
+        this.authenticationService.getAvatar(this.currentUserId).subscribe(
             avatar => {this.currentAvatar = avatar;
                 this.currentAvatarFile = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + this.currentAvatar[0].filename;
-                // this.sanitizer.bypassSecurityTrustResourceUrl(this.currentAvatarFile);
-                // this.currentAvatarFile = imageFile;
-        //    console.log(JSON.stringify(this.currentAvatar) );
          },
             error => this.errorMessage = <any>error);
     }
@@ -142,7 +143,7 @@ export class UserSettingsComponent implements OnInit {
 
        // this.settingsForm.patchValue({'favoritecolor': this.usersettings.favoritecolor });
         }
-        this.getCurrentAvatar();
+        this.authenticationService.getCurrentAvatar();
 
     }
 
