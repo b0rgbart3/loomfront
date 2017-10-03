@@ -29,14 +29,14 @@ export class ClassService {
       // Loop through all the Classes to find the highest ID#
       for (let i = 0; i < data.length; i++) {
         const foundID = Number(data[i].id);
-        // console.log("Found ID: " + foundID);
+      
         if (foundID >= this.highestID) {
           const newHigh = foundID + 1;
           this.highestID = newHigh;
-          // console.log("newHigh == "+newHigh);
+        
         }
       }
-      // console.log("Class highest ID: "+ this.highestID);
+  
 
 
     } )
@@ -46,13 +46,13 @@ export class ClassService {
   getClass(id): Observable<ClassModel[]> {
     return this._http.get<ClassModel[]> ( this._classesUrl + '?id=' + id )
       .do(data => {
-       // console.log( 'found: ' + JSON.stringify(data) );
+    
       return data; })
       .catch (this.handleError);
   }
 
  createClass(classObject): Observable<ClassModel> {
-  // console.log('In Class Service: creating class');
+
     classObject.id = this.highestID.toString();
 
     const myHeaders = new HttpHeaders();
@@ -65,7 +65,7 @@ export class ClassService {
   }
 
   updateClass(classObject: ClassModel): Observable<any> {
-    // console.log('In updateClass, in the service');
+
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
 

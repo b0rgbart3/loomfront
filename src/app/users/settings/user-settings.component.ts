@@ -69,7 +69,6 @@ export class UserSettingsComponent implements OnInit {
         this.currentUserId = this.authenticationService.getUserId();
         this.currentAvatar = null;
         this.currentAvatarFile = null;
-        this.getCurrentAvatar();
 
         this.userService.getUsersettings(this.currentUserId).subscribe(
             usersettings =>  {
@@ -88,9 +87,9 @@ export class UserSettingsComponent implements OnInit {
             this.uploader.queue[0].upload();
          };
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            // this.getCurrentAvatar();
-            this.currentAvatar = this.authenticationService.currentAvatar();
-            this.currentAvatarFile = this.authenticationService.currentAvatarFile();
+           
+            this.currentAvatar = this.authenticationService.avatar;
+            this.currentAvatarFile = this.authenticationService.avatarfile;
             this.uploader.queue[0].remove();
         };
 
@@ -99,13 +98,6 @@ export class UserSettingsComponent implements OnInit {
         // this.populateForm();
     }
 
-    getCurrentAvatar () {
-        this.authenticationService.getAvatar(this.currentUserId).subscribe(
-            avatar => {this.currentAvatar = avatar;
-                this.currentAvatarFile = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + this.currentAvatar[0].filename;
-         },
-            error => this.errorMessage = <any>error);
-    }
 
     fileChange(event) {
         const fileList: FileList = event.target.files;
@@ -143,7 +135,7 @@ export class UserSettingsComponent implements OnInit {
 
        // this.settingsForm.patchValue({'favoritecolor': this.usersettings.favoritecolor });
         }
-        this.authenticationService.getCurrentAvatar();
+       
 
     }
 

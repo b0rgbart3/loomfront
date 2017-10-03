@@ -1,12 +1,14 @@
-﻿<div class='loginStuff'>
+﻿
+<div class='loginStuff'>
 <div class="loomCard">
+
            <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate><div class="padMe"> 
     <!-- <div class="alert alert-info">
     </div> -->
     <flash-messages></flash-messages>
 
     <h2>Login</h2>
-
+  
       
             <md-form-field>
                     <input #username="ngModel" mdInput placeholder="Witchy name" 

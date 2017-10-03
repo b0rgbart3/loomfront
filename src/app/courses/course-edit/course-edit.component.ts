@@ -52,7 +52,7 @@ export class CourseEditComponent implements OnInit {
         // this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
 
         const id = +this.activated_route.snapshot.params['id'];
-        console.log('MyID: ' + id);
+        // console.log('MyID: ' + id);
 
         if (id !== 0) {
             this.getCourse(id);
@@ -73,7 +73,7 @@ export class CourseEditComponent implements OnInit {
     getCourse(id: number) {
         this.courseService.getCourse(id).subscribe(
             course => {this.course = <Course>course[0];
-                console.log('got course info :' + JSON.stringify(course) );
+                // console.log('got course info :' + JSON.stringify(course) );
                 this.populateForm();
              },
             error => this.errorMessage = <any> error
@@ -84,18 +84,18 @@ export class CourseEditComponent implements OnInit {
 
          // This is Deborah Korata's way of merging our data model with the form model
         const combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
-        console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
+        // console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
 
         if (this.course.id === '0') {
             this.courseService.createCourse( combinedCourseObject ).subscribe(
                 (val) => {
-                    console.log('POST call successful value returned in body ', val);
+                    // console.log('POST call successful value returned in body ', val);
                   },
                   response => {
-                    console.log('POST call in error', response);
+                    // console.log('POST call in error', response);
                   },
                   () => {
-                    console.log('The POST observable is now completed.');
+                    // console.log('The POST observable is now completed.');
                   //   this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
                   //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
                   //   // this._flashMessagesService.show('Username or password was incorrect.',
@@ -108,13 +108,13 @@ export class CourseEditComponent implements OnInit {
             this.courseService
             .updateCourse( combinedCourseObject ).subscribe(
             (val) => {
-            console.log('POST call successful value returned in body ', val);
+            // console.log('POST call successful value returned in body ', val);
             },
             response => {
-            console.log('POST call in error', response);
+            // console.log('POST call in error', response);
             },
             () => {
-            console.log('The POST observable is now completed.');
+            // console.log('The POST observable is now completed.');
             //   this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
             //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
             //   // this._flashMessagesService.show('Username or password was incorrect.',
@@ -138,7 +138,7 @@ export class CourseEditComponent implements OnInit {
     }
 
     killSection(i) {
-        console.log('Kill' + i);
+        // console.log('Kill' + i);
         this.sections.removeAt(i);
         // this.courseForm.get('sections').splice(i, 1);
         // Here I need to remove the section with an index of i from the sections array.

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ClassService } from '../classes/class.service';
 import { UserService } from '../users/user.service';
 import { AssetService } from '../assets/asset.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -24,22 +25,24 @@ export class AdminComponent implements OnInit {
   errorMessage: string;
   courseCount: number;
   assets: Asset [];
+  username: string;
 
   constructor(
     private courseService: CourseService,
     private classService: ClassService,
     private router: Router,
     public userService: UserService,
-    private assetService: AssetService ) {
+    private assetService: AssetService,
+    private authenticationService: AuthenticationService,
+  ) {
 
   }
-  currentUser = <User> JSON.parse(localStorage.currentUser);
 
   ngOnInit() {
-    this.currentUser = <User> JSON.parse(localStorage.currentUser);
     this.getClasses();
     this.getCourses();
     this.getUsers();
+    this.username = localStorage.getItem('username');
   }
 
   getClasses() {
@@ -71,14 +74,13 @@ export class AdminComponent implements OnInit {
       assets =>  this.assets = assets,
       error => this.errorMessage = <any>error);
     }
-  
+
   deleteCourse(courseId) {
-    // console.log('In the Admin Component: Deleting course #' + courseId);
 
     const result = confirm( 'Are you sure you want to delete this course? ');
     if (result) {
     this.courseService.deleteCourse(courseId).subscribe(
-      data => { // console.log('deleted course: ');
+      data => {
       this.getCourses(); },
       error => this.errorMessage = <any>error );
    }
@@ -88,7 +90,7 @@ export class AdminComponent implements OnInit {
     const result = confirm( 'Are you sure you want to delete this class? ');
     if (result) {
     this.classService.deleteClass(classId).subscribe(
-      data => { // console.log('deleted class: ');
+      data => {
       this.getClasses(); },
       error => this.errorMessage = <any>error );
     }
@@ -104,6 +106,7 @@ export class AdminComponent implements OnInit {
 
     }
   }
+
 
 
 }

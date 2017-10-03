@@ -55,7 +55,7 @@ export class UploadComponent implements OnInit {
         const urlWithQuery = 'http://localhost:3100/api/assets?userid=' + currentUserId;
 
         this.uploader = new FileUploader({url: urlWithQuery});
-        console.log('Upload Component ngOnInit.');
+       
 
         this.asset = new Asset( '', '', '', '', '', '', '', '', '', '' );
         let id = +this.activated_route.snapshot.params['id'];
@@ -64,17 +64,16 @@ export class UploadComponent implements OnInit {
         if (id !== 0) {
             this.getAsset(id);
          }
-         console.log('ID: ' + id);
+    
         // this.assetService.getAssets().subscribe( assets => { this.assets = assets; },
         //   error => this.errorMessage = <any>error);
     }
 
     getAsset(id: number) {
         this.assetService.getAsset(id).subscribe(
-            Assetobject => {this.asset = <Asset>Assetobject[0]; console.log('got Asset info :' +
-                            JSON.stringify(Assetobject) );
+            Assetobject => {this.asset = <Asset>Assetobject[0]; 
 
-                           // console.log('Getting the Asset Object: ' + JSON.stringify( this.thisAsset ) );
+                      
                            // this.populateForm();
                          },
             error => this.errorMessage = <any> error
@@ -108,8 +107,6 @@ export class UploadComponent implements OnInit {
     save(form): void {
 
        const uploadFile = (<HTMLInputElement>window.document.getElementById('myFileInputField')).files[0];
-       console.log(uploadFile);
-        console.log(form.value);
 
         // const myUploadItem = new MyUploadItem(uploadFile);
         // myUploadItem.formData = { FormDataKey: 'Form Data Value' };  // (optional) form data can be sent with file
@@ -136,48 +133,18 @@ export class UploadComponent implements OnInit {
 
         this.assetService.createAsset( form.value ).subscribe(
                             (val) => {
-                                console.log('POST call successful value returned in body ', val);
+                                // console.log('POST call successful value returned in body ', val);
                               },
                               response => {
-                               console.log('POST call in error', response);
+                               // console.log('POST call in error', response);
                               },
                               () => {
-                                console.log('POST call completed. ');
+                              //   console.log('POST call completed. ');
                                // this.router.navigate(['/admin']);
                               }
         );
 
-        //      console.log('Combined Asset Object: ' + JSON.stringify(combinedAssetObject) );
-        //   //  console.log('In Asset-Edit component, saving model');
-        //     if (this.asset.id === '0') {
-        //         this.assetService.createAsset( combinedAssetObject ).subscribe(
-        //         // this.AssetService.createAsset( combinedAssetObject ).subscribe(
-        //             (val) => {
-        //             //    console.log('POST call successful value returned in body ', val);
-        //               },
-        //               response => {
-        //             //    console.log('POST call in error', response);
-        //               },
-        //               () => {
-        //                 this.router.navigate(['/admin']);
-        //               }
-        //         );
-        //     } else {
-        //         // Validate stuff here
-        //        console.log('About to update Asset.');
-        //        console.log(combinedAssetObject);
-        //         this.assetService
-        //         .updateAsset( combinedAssetObject ).subscribe(
-        //         (val) => {
-        //        // console.log('POST call successful value returned in body ', val);
-        //         },
-        //         response => {
-        //       //  console.log('POST call in error', response);
-        //         },
-        //         () => {
-        //         this.router.navigate(['/admin']);
-        //         });
-        //     }
+
     }
 
 

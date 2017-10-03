@@ -25,7 +25,7 @@ export class AssetService {
 
       return this._http.get<Asset[]> ( this._AssetsUrl + '/id:' + id )
       .do(data => {
-        console.log( 'found: ' + JSON.stringify(data) );
+        
       return data; })
       .catch (this.handleError);
     }
@@ -42,12 +42,12 @@ export class AssetService {
         if (data) {
         for (let i = 0; i < data.length; i++) {
           const foundID = Number(data[i].id);
-          console.log('Found ID: ' + foundID);
+       
           if (foundID >= this.highestID) {
             const newHigh = foundID + 1;
             this.highestID = newHigh;
           }
-          console.log('hightestID: ' + this.highestID );
+         
       } }})
         .catch( this.handleError );
     }
@@ -57,25 +57,21 @@ export class AssetService {
     }
 
     createAsset( AssetObject: any): Observable<any> {
-      console.log('Made it to the createAsset method.');
+      
 
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       AssetObject.id = this.highestID.toString();
       const body =  JSON.stringify(AssetObject);
-      console.log('Highest ID: ' + this.highestID );
-      console.log('In createAsset.');
+    
 
-      console.log( 'Creating Asset: ', body   );
-      console.log(this._AssetsUrl);
-      console.log(JSON.stringify(AssetObject ) );
 
 
       return this._http.post(this._AssetsUrl, AssetObject, {headers: myHeaders} );
     }
 
     updateAsset(AssetObject: Asset): Observable<any> {
-      console.log('Made it to the updateAsset method.');
+   
 
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
@@ -87,7 +83,7 @@ export class AssetService {
     }
 
     private handleError (error: HttpErrorResponse) {
-      console.log( error.message );
+    
       return Observable.throw(error.message);
     }
 

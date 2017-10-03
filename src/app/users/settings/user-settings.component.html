@@ -1,5 +1,5 @@
 <div class='loginStuff'>
-    <div class="loomCard">
+    <div class="loomCard" *ngIf="authenticationService.currentUser">
         <form [formGroup]="settingsForm" (ngSubmit)="submitSettings()" novalidate
          enctype="multipart/form-data">
         
@@ -7,7 +7,7 @@
                                 
             <flash-messages></flash-messages>
         
-            <h2>Your Settings: {{ user.username }}</h2>
+            <h2>Your Settings: {{ authenticationService.currentUser.username }}</h2>
 
             <h1>Preferences</h1>
             <div class="form-group">

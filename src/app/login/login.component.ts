@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Output } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -12,15 +12,16 @@ import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router'
 })
 
 export class LoginComponent implements OnInit {
+
     model = <User> {};
     loading = false;
     error = '';
     message: string;
 
     constructor(
-        private authenticationService: AuthenticationService,
+        public authenticationService: AuthenticationService,
         private _flashMessagesService: FlashMessagesService,
-        private _router: Router
+        private _router: Router,
          ) { }
 
     ngOnInit() {
@@ -38,21 +39,26 @@ export class LoginComponent implements OnInit {
             .subscribe(result => {
 
                 if (result) {
-                    let logger = JSON.parse(result);
-                    localStorage.setItem('currentUser', JSON.stringify(logger ) );
+                    const logger = result;
 
+                    this.authenticationService.doubleCheck();
                     console.log('AUTHENTICATED! - : ' + JSON.stringify(logger) );
                     let redirect = '/welcome';
 
+
+
                     switch ( logger.user_type ) {
                         case 'admin':
-                         redirect = '/admin';
-                        break;
+                          redirect = '/admin';
+                          break;
                         case 'teacher':
+                        redirect = '/admin';
                         break;
                         case 'student':
+                        redirect = '/admin';
                         break;
                         default:
+                        redirect = '/welcome';
                         break;
                     }
 

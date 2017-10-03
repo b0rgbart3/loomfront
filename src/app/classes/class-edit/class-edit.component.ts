@@ -106,13 +106,9 @@ export class ClassEditComponent implements OnInit {
     getClass(id: number) {
         this.classService.getClass(id).subscribe(
             classobject => {this.thisClass = <ClassModel>classobject[0];
-                console.log('got class info :' +
-                            JSON.stringify(classobject) );
-                            this.myStart = new Date (this.thisClass.start);
-                            this.myEnd = new Date (this.thisClass.end);
+           
 
-                           // console.log('Getting the class Object: ' + JSON.stringify( this.thisClass ) );
-                           // this.populateForm();
+                        
                          },
             error => this.errorMessage = <any> error
         );
@@ -132,7 +128,7 @@ export class ClassEditComponent implements OnInit {
     // }
 
     save(form): void {
-        console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(form.value)  );
+        // console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(form.value)  );
         if (form.dirty && form.valid) {
 
             // This is Deborah Korata's way of merging our data model with the form model
@@ -158,8 +154,7 @@ export class ClassEditComponent implements OnInit {
                 );
             } else {
                 // Validate stuff here
-               console.log('About to update class.');
-               console.log(combinedClassObject);
+       
                 this.classService
                 .updateClass( combinedClassObject ).subscribe(
                 (val) => {
@@ -169,11 +164,7 @@ export class ClassEditComponent implements OnInit {
               //  console.log('POST call in error', response);
                 },
                 () => {
-              //  console.log('The POST observable is now completed.');
-                //   this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
-                //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
-                //   // this._flashMessagesService.show('Username or password was incorrect.',
-                // { cssClass: 'alert-warning', timeout: 7000 });
+        
                 this.router.navigate(['/admin']);
                 });
             }

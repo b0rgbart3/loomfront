@@ -1,15 +1,13 @@
-﻿<div class='stuff'>
+﻿
+<div class='stuff'>
     <flash-messages></flash-messages>
-    <div *ngIf="!this.authenticationService.isloggedin()">
-        <h1> Welcome to the Reclaiming Loom! </h1>
+
+    <div>
+        <h1> Welcome back to the Reclaiming Loom {{ username }}</h1>
     </div>
 
-    <div *ngIf="this.authenticationService.isloggedin()">
-        <h1> Welcome back to the Reclaiming Loom, {{ this.authenticationService.loggedInUser().username }}</h1>
-    </div>
-
-    <div class="loomCard">
-            <button class='loomButton' (click)="login()" *ngIf="!this.authenticationService.isloggedin()">
+    <div class="loomCard" >
+            <button class='loomButton' (click)="login()" *ngIf="!username">
                 Login
             </button>
             <course-list></course-list>

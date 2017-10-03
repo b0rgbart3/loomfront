@@ -40,6 +40,8 @@ import { AssetService } from './assets/asset.service';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { SafeUrlPipe } from './shared/safe-url.pipe';
+import { Error404Component } from './errors/404component';
+import { AdminRouteActivator } from './admin/admin-route-activator';
 
 @NgModule({
   // External
@@ -53,7 +55,8 @@ import { SafeUrlPipe } from './shared/safe-url.pipe';
     FlashMessagesModule,
     StudentModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   // Internal
   declarations: [
@@ -75,11 +78,13 @@ import { SafeUrlPipe } from './shared/safe-url.pipe';
     UserListComponent,
     UploadComponent,
     UserSettingsComponent,
-    AdminComponent
+    AdminComponent,
+    Error404Component,
+ 
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService, AlertService,
-    CourseService, ClassService, AssetService
+    CourseService, ClassService, AssetService, AdminRouteActivator
    ],
   bootstrap: [AppComponent]
 })

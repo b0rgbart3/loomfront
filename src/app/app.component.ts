@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, Output, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -8,8 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  username = 'empty';
+
+  constructor( ) {}
 
 }
 

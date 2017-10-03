@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Input } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './users/register/register.component';
@@ -15,6 +15,8 @@ import { CourseEditComponent } from './courses/course-edit/course-edit.component
 import { ClassEditComponent } from './classes/class-edit/class-edit.component';
 import { UploadComponent } from './assets/upload.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
+import { Error404Component } from './errors/404component';
+import { AdminRouteActivator } from './admin/admin-route-activator';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -27,22 +29,23 @@ const ROUTES: Routes = [
 { path: 'register', pathMatch: 'full', component: RegisterComponent },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
-{ path: 'admin', pathMatch: 'full', component: AdminComponent },
+{ path: 'admin', pathMatch: 'full', component: AdminComponent, canActivate: [ AdminRouteActivator ] },
 { path: 'courses/:id/edit', component: CourseEditComponent },
 { path: 'classes/:id/edit', component: ClassEditComponent },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
 { path: 'upload', pathMatch: 'full', component: UploadComponent },
 { path: 'usersettings', component: UserSettingsComponent },
+{ path: '404', component: Error404Component },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }
 ];
+
 
 @NgModule ({
     imports: [RouterModule.forRoot(ROUTES)],
     exports: [RouterModule]
 })
 
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }
 
 
