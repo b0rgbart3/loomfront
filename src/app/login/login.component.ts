@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
                 if (result) {
                     const logger = result;
 
-                    this.authenticationService.doubleCheck();
                     console.log('AUTHENTICATED! - : ' + JSON.stringify(logger) );
                     let redirect = '/welcome';
 

@@ -11,7 +11,6 @@ export class User {
         public verificationID: string,
         public verified: string,
         public user_type: string,
-        public avatar: string, // this will be a url
         public id: string
 
     ) {}

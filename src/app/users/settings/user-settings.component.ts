@@ -14,7 +14,7 @@ import { User } from '../../models/user.model';
 import { Avatar } from '../../models/avatar.model';
 import { Usersettings } from '../../models/usersettings.model';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Pipe } from '@angular/core';
+import { Pipe, DoCheck } from '@angular/core';
 
 
 // @Pipe({name: 'secureUrl'})
@@ -39,10 +39,10 @@ export class UserSettingsComponent implements OnInit {
     thisFile: File;
     usersettings: Usersettings;
     favoritecolor: FormControl;
-    avatar: FormControl;
+    avatarInput: FormControl;
     currentUserId;
-    currentAvatar: Avatar;
-    currentAvatarFile: string;
+    avatarobject: Avatar;
+    avatarimage: string;
     public uploader: FileUploader;
     settingsForm: FormGroup;
     errorMessage: string;
@@ -58,18 +58,26 @@ export class UserSettingsComponent implements OnInit {
         private activated_route: ActivatedRoute,
         private sanitizer: DomSanitizer) {}
 
-    ngOnInit () {
-        this.favoritecolor = new FormControl();
-        this.avatar = new FormControl();
-        this.settingsForm = new FormGroup ( {
-            favoritecolor: this.favoritecolor,
-            avatar: this.avatar
-        } );
+    myInit() {
         this.user = this.authenticationService.loggedInUser();
         this.currentUserId = this.authenticationService.getUserId();
-        this.currentAvatar = null;
-        this.currentAvatarFile = null;
+        // this.currentAvatar = null;
+        // this.currentAvatarFile = null;
+        this.avatarobject = this.authenticationService.avatar;
+        this.avatarimage = localStorage.getItem('avatarimage');
+        console.log('In user settings init ID: ' + this.currentUserId);
+//        this.avatarimage = this.authenticationService.avatarimage;
 
+    }
+    ngOnInit () {
+        this.favoritecolor = new FormControl();
+        this.avatarInput = new FormControl();
+        this.settingsForm = new FormGroup ( {
+            favoritecolor: this.favoritecolor,
+            avatar: this.avatarInput
+        } );
+
+        this.myInit();
         this.userService.getUsersettings(this.currentUserId).subscribe(
             usersettings =>  {
                 console.log('Got User Settings for ' + this.currentUserId + ': ' + JSON.stringify(usersettings) );
@@ -83,19 +91,22 @@ export class UserSettingsComponent implements OnInit {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
             this.localImageUrl = url;
-            this.currentAvatarFile = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + this.currentAvatar[0].filename;
+            this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + this.uploader.queue[0].file.name;
+            // this.avatarimage = url;
             this.uploader.queue[0].upload();
          };
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-           
-            this.currentAvatar = this.authenticationService.avatar;
-            this.currentAvatarFile = this.authenticationService.avatarfile;
+
+            this.avatarobject = this.authenticationService.avatar;
+            // this.avatarimage = this.authenticationService.avatarimage;
             this.uploader.queue[0].remove();
         };
 
         this.favoritecolor.valueChanges.subscribe( value => console.log(value) );
-        this.avatar.valueChanges.subscribe( value => console.log('value change: ' + value) );
+        this.avatarInput.valueChanges.subscribe( value => console.log('value change: ' + value) );
         // this.populateForm();
+
+        console.log('At the end of the user settings init method: the avatarimage = ' + this.avatarimage );
     }
 
 
@@ -135,7 +146,9 @@ export class UserSettingsComponent implements OnInit {
 
        // this.settingsForm.patchValue({'favoritecolor': this.usersettings.favoritecolor });
         }
-       
+        // this.avatarobject = this.authenticationService.avatar;
+        // this.avatarimage = this.authenticationService.avatarimage;
+
 
     }
 

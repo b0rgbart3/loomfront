@@ -20,8 +20,7 @@ export class NavBarComponent implements OnInit, DoCheck {
 
   errorMessage: string;
   username = '';
-currentUser: User;
-myData: string;
+  avatarimage = '';
 
 
   constructor (
@@ -36,19 +35,22 @@ myData: string;
 
   logout() {
     this.username = null;
+    this.avatarimage = '';
     this.authenticationService.logout();
     localStorage.removeItem('username');
+    localStorage.removeItem('avatarimage');
     this._router.navigate(['/welcome']);
   }
 
 
   ngOnInit() {
     this.username = localStorage.getItem('username');
-    setInterval(function(){ this.username = localStorage.getItem('username'); console.log('updating to: ' + this.username); }, 5000);
+    this.avatarimage = localStorage.getItem('avatarimage');
   }
 
  ngDoCheck() {
   this.username = localStorage.getItem('username');
+  this.avatarimage = localStorage.getItem('avatarimage');
  }
 
 }

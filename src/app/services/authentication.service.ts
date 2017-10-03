@@ -17,7 +17,7 @@ export class AuthenticationService implements OnInit {
     public username;
     avatarUrl = 'http://localhost:3100/api/avatars';
     public avatar: Avatar;
-    public avatarfile: string;
+    public avatarimage: string;
     public errorMessage: string;
     public color: string;
 
@@ -56,9 +56,6 @@ export class AuthenticationService implements OnInit {
         return this.currentUser;
      }
 
-     doubleCheck() {
-        console.log('Double check: '+ this.currentUser.username);
-     }
 
     login(username: string, password: string): Observable <any> {
 
@@ -67,7 +64,7 @@ export class AuthenticationService implements OnInit {
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
         const info =  { username: username, password: password };
-        
+
         return this.http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders} )
             .do((response) => {
 
@@ -77,6 +74,13 @@ export class AuthenticationService implements OnInit {
                     // this.username = this.currentUser.username;
                     localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
                     localStorage.setItem('username', username);
+                    this.loadAvatar().subscribe(
+                        (data) => { console.log("Got data returnd: " + JSON.stringify(data));
+                        // localStorage.setItem('avatarimage', data);
+                        // this.avatarimage = data;
+                    },
+                        (error) => { console.log("Got error returned from loadAvatar() "); }
+                    );
                     // console.log('Calling changeNav with: ' + this.currentUser.username);
 
                     // this.changeNav(this.currentUser.username);
@@ -91,27 +95,22 @@ export class AuthenticationService implements OnInit {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentAvatar');
+        localStorage.removeItem('currentAvatarfile');
         this.currentUser = null;
         this.username = null;
         this.avatar = null;
-        this.avatarfile = null;
+        this.avatarimage = null;
 
     }
 
     getUserId(): string {
         this.loggedInUser();
+        console.log( ' In Auth Service: UserID: ' + this.currentUser)
         if (this.currentUser) {
           return this.currentUser.id; } else {
             return '';
         }
-    }
-
-    getAvatar ( ): Avatar {
-        return JSON.parse(localStorage.getItem('currentAvatar') );
-      }
-
-    getAvatarfile (): string {
-        return localStorage.getItem('currentAvatarfile');
     }
 
     isloggedin(): boolean {
@@ -129,23 +128,26 @@ export class AuthenticationService implements OnInit {
         }
     }
 
-    loadAvatar () {
-        // console.log('Auth Serv: -- getCurrentAvatar()');
+    loadAvatar (): Observable <any> {
+        console.log('In LoadAvatar()');
         if (this.currentUser) {
-            // console.log('currentUser.id' + this.currentUser.id);
+            // console.log('currentUser' + JSON.stringify( this.currentUser) );
 
             const myHeaders = new HttpHeaders();
             myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-            return this.http.post('http://localhost:3100/api/avatars?id=' + this.currentUser.id, {headers: myHeaders} )
+            return this.http.get('http://localhost:3100/api/avatars?id=' + this.currentUser.id, {headers: myHeaders} )
             .map((avatar) => {
-                     this.avatar = avatar[0];
-                    localStorage.setItem('currentUser', JSON.stringify( avatar ) );
-                    this.avatarfile = 'http://localhost:3100/avatars/' + this.currentUser.id + '/' + this.avatar.filename;
-                    localStorage.setItem('currentAvatar', JSON.stringify( this.avatar ) );
-                    localStorage.setItem('currentAvatarfile', this.avatarfile );
+                   console.log(' got avatar back from the server. ');
 
-                });
+                    this.avatar = avatar[0];
+                    localStorage.setItem('currentUser', JSON.stringify( avatar ) );
+                    this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUser.id + '/' + this.avatar.filename;
+                    localStorage.setItem('avatar', JSON.stringify( this.avatar ) );
+                    localStorage.setItem('avatarimage', this.avatarimage );
+                    console.log('this avatar image: ' + this.avatarimage);
+                    return(this.avatarimage);
+                }, error => console.log('Got error fetching avatar') );
 
 
 

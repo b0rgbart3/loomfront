@@ -18,6 +18,8 @@
 		<button md-menu-item>Login</button></a>
 </md-menu>
 
-<div>{{ username }}</div>
+<div>{{ username }}
+	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
+</div>
 
 </md-toolbar>
