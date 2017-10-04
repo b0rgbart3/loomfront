@@ -37,6 +37,7 @@ import { Pipe, DoCheck } from '@angular/core';
 export class UserSettingsComponent implements OnInit {
     user: User;
     thisFile: File;
+    tempName: string;
     usersettings: Usersettings;
     favoritecolor: FormControl;
     avatarInput: FormControl;
@@ -97,9 +98,14 @@ export class UserSettingsComponent implements OnInit {
             this.uploader.queue[0].upload();
          };
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            console.log("on complet: status== " + JSON.stringify( status ) );
+            
 
             this.authenticationService.loadAvatar();
+            this.tempName = this.uploader.queue[0].file.name;
+            
+            const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
+            console.log("New name: "+ newfilename);
+            this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
             this.uploader.queue[0].remove();
         };
 
