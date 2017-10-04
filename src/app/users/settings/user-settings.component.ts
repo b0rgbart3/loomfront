@@ -60,12 +60,13 @@ export class UserSettingsComponent implements OnInit {
 
     myInit() {
         this.user = this.authenticationService.loggedInUser();
-        this.currentUserId = this.authenticationService.getUserId();
+        this.currentUserId = localStorage.getItem('id');
         // this.currentAvatar = null;
         // this.currentAvatarFile = null;
         this.avatarobject = this.authenticationService.avatar;
         this.avatarimage = localStorage.getItem('avatarimage');
-        console.log('In user settings init ID: ' + this.currentUserId);
+        console.log('In user settings init User: ' + JSON.stringify ( this.user));
+        console.log('id: ' + this.currentUserId);
 //        this.avatarimage = this.authenticationService.avatarimage;
 
     }
@@ -91,14 +92,14 @@ export class UserSettingsComponent implements OnInit {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
             this.localImageUrl = url;
-            this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + this.uploader.queue[0].file.name;
+            // this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + ;
             // this.avatarimage = url;
             this.uploader.queue[0].upload();
          };
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            console.log("on complet: status== " + JSON.stringify( status ) );
 
-            this.avatarobject = this.authenticationService.avatar;
-            // this.avatarimage = this.authenticationService.avatarimage;
+            this.authenticationService.loadAvatar();
             this.uploader.queue[0].remove();
         };
 

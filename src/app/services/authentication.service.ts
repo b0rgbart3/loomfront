@@ -30,6 +30,8 @@ export class AuthenticationService implements OnInit {
 
     }
 
+
+
     sendResetRequest(email: string) {
         const emailObject = {'email': email};
         const emailObjectString = JSON.stringify(emailObject);
@@ -44,15 +46,12 @@ export class AuthenticationService implements OnInit {
     }
 
     loggedInUser(): User {
-        this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
+        // this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
         return this.currentUser;
      }
 
      checkAuthenticationStatus() {
-        this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
-        console.log('Checking authentication status... ' + JSON.stringify(this.currentUser) );
-        const lSvalue = localStorage.getItem('test');
-        console.log(lSvalue);
+        //this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
         return this.currentUser;
      }
 
@@ -68,12 +67,15 @@ export class AuthenticationService implements OnInit {
         return this.http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders} )
             .do((response) => {
 
-                    // localStorage.setItem('username', username );
-                    // localStorage.setItem('currentUser', JSON.stringify( response ) );
+
                     this.currentUser = <User> response;
-                    // this.username = this.currentUser.username;
-                    localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
-                    localStorage.setItem('username', username);
+                    this.username = this.currentUser.username;
+                    localStorage.setItem('currentUser', JSON.stringify( response ) );
+                    localStorage.setItem('username', this.username );
+                    localStorage.setItem('id', this.currentUser.id );
+
+                    console.log("In auth service: " + JSON.stringify(this.currentUser) );
+
                     this.loadAvatar().subscribe(
                         (data) => { console.log("Got data returnd: " + JSON.stringify(data));
                         // localStorage.setItem('avatarimage', data);
@@ -105,12 +107,7 @@ export class AuthenticationService implements OnInit {
     }
 
     getUserId(): string {
-        this.loggedInUser();
-        console.log( ' In Auth Service: UserID: ' + this.currentUser)
-        if (this.currentUser) {
-          return this.currentUser.id; } else {
-            return '';
-        }
+      return this.currentUser.id;
     }
 
     isloggedin(): boolean {
@@ -146,7 +143,7 @@ export class AuthenticationService implements OnInit {
                     localStorage.setItem('avatar', JSON.stringify( this.avatar ) );
                     localStorage.setItem('avatarimage', this.avatarimage );
                     console.log('this avatar image: ' + this.avatarimage);
-                    return(this.avatarimage);
+                    return(this.avatar);
                 }, error => console.log('Got error fetching avatar') );
 
 
@@ -155,6 +152,7 @@ export class AuthenticationService implements OnInit {
     }
 
     ngOnInit () {
+
         this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
     }
 
