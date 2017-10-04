@@ -106,6 +106,9 @@ export class UserSettingsComponent implements OnInit {
             const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
             console.log("New name: "+ newfilename);
             this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
+
+            localStorage.setItem('avatarimage', this.avatarimage);
+            
             this.uploader.queue[0].remove();
         };
 
@@ -165,8 +168,8 @@ export class UserSettingsComponent implements OnInit {
 
         let superObject = {};
         if ( this.settingsForm.value.favoritecolor ) {
-         superObject = {'id': this.user.id, 'favoritecolor': this.settingsForm.value.favoritecolor }; } else {
-             superObject = {'id': this.user.id };        }
+         superObject = {'id': this.currentUserId , 'favoritecolor': this.settingsForm.value.favoritecolor }; } else {
+             superObject = {'id': this.currentUserId  };        }
 
          console.log(JSON.stringify(superObject));
         this.userService.saveSettings( superObject ).subscribe(
