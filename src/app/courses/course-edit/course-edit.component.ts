@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../course.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Section } from '../../models/section.model';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
     moduleId: module.id,
@@ -17,11 +18,15 @@ export class CourseEditComponent implements OnInit {
     courseForm: FormGroup;
 
     // This is the Data Model
-    course: Course = new Course( '', '', '0', [] );
-    id: string;
+    course: Course = new Course( '', '', '0', [], '' );
+    id: number;
     errorMessage: string;
+    image: string;
     formSections: FormArray;
-
+    public uploader: FileUploader;
+    localImageUrl: string;
+    tempName: string;
+    thisFile: File;
     // sections: Object[];
 
     get sections(): FormArray {
@@ -41,23 +46,60 @@ export class CourseEditComponent implements OnInit {
         this.courseForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', [Validators.required ]],
-            sections: this.formSections
+            imageUploader: '',
+            sections: this.formSections,
+
         });
 
-        // this.courseForm = new FormGroup({
-        //     title: new FormControl(''),
-        //     description: new FormControl()
-        // });
-        // this.sections = [];
-        // this.sections.push( new Section( 'Section Title', '0', 'Section Content goes here...'));
 
-        const id = +this.activated_route.snapshot.params['id'];
+        this.id = +this.activated_route.snapshot.params['id'];
         // console.log('MyID: ' + id);
 
-        if (id !== 0) {
-            this.getCourse(id);
+        if (this.id !== 0) {
+            this.getCourse(this.id);
          }
+
+         const urlWithQuery = 'http://localhost:3100/api/courseimages?id=' + this.id;
+         this.uploader = new FileUploader({url: urlWithQuery});
+         this.uploader.onAfterAddingFile = (fileItem) => {
+             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
+                 : (window as any).webkitURL.createObjectURL(fileItem._file);
+             this.localImageUrl = url;
+             // this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + ;
+             // this.avatarimage = url;
+             this.uploader.queue[0].upload();
+             // console.log("Uploaded: " + JSON.stringify( fileItem._file ) );
+
+            // this.courseForm.patchValue({'image': fileItem._file});
+          };
+          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+
+             this.tempName = this.uploader.queue[0].file.name;
+            console.log('Response from the server: ' + this.tempName);
+
+             // const newfilename = 'courseimage.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
+            // console.log('New name: ' + newfilename);
+             this.image = this.tempName;
+            // this.courseForm.patchValue({'image': this.image });
+             this.uploader.queue[0].remove();
+         };
+
+        //  this.favoritecolor.valueChanges.subscribe( value => console.log(value) );
+        //  this.avatarInput.valueChanges.subscribe( value => console.log('value change: ' + value) );
+
     }
+
+
+    fileChange(event) {
+        const fileList: FileList = event.target.files;
+        if ( fileList.length > 0) {
+            const file: File = fileList[0];
+            console.log('Got a file: ' + file.name);
+            this.thisFile = file;
+
+        }
+    }
+
 
     populateForm(): void {
         this.courseForm.patchValue({'title': this.course.title, 'description': this.course.description });
@@ -80,11 +122,19 @@ export class CourseEditComponent implements OnInit {
         );
     }
 
+    showForm() {
+        this.course.image = this.image;
+        console.log(this.course.image);
+        console.log(JSON.stringify( this.course ) );
+        let combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
+        console.log( 'Course Form Info: ' + JSON.stringify(this.courseForm.value) );
+        console.log( 'combined: ' + JSON.stringify(combinedCourseObject));
+    }
     postCourse() {
 
          // This is Deborah Korata's way of merging our data model with the form model
-        const combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
-        // console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
+        let combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
+        console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
 
         if (this.course.id === '0') {
             this.courseService.createCourse( combinedCourseObject ).subscribe(

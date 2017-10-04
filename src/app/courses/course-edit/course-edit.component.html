@@ -25,7 +25,18 @@
             
                 <input id="description" mdInput placeholder="Description" formControlName="description" >
                 </md-form-field>
-               
+               <br>
+                <br><img [src]="image" width='200' height='200' *ngIf='image'><br>
+                
+
+
+                <div class="upload-wrap">
+                   Upload Image
+                   <input type="file" class="upload-btn"  name="imageUploader"  
+                   ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
+                   (change)="fileChange($event)" id="imageUploader">
+               </div>
+
 
                 <br>
                 <div formArrayName='sections' *ngFor="let section of sections.controls; let i=index">
@@ -53,8 +64,8 @@
                 type='submit' [disabled]="!courseForm.valid" >Submit changes</button>
             
         </div>
-        
-        </form><br>
+ 
+        </form><br>       <button (click)="showForm()">ShowFormInfo</button>
 </div>
 
 <div class='debug'>
