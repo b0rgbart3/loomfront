@@ -43,6 +43,7 @@ import { SafeUrlPipe } from './shared/safe-url.pipe';
 import { Error404Component } from './errors/404component';
 import { AdminRouteActivator } from './admin/admin-route-activator';
 import { MaterialEditComponent } from './materials/material-edit.component';
+import { MaterialService } from './materials/material.service';
 
 @NgModule({
   // External
@@ -86,7 +87,7 @@ import { MaterialEditComponent } from './materials/material-edit.component';
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService, AlertService,
-    CourseService, ClassService, AssetService, AdminRouteActivator
+    CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService
    ],
   bootstrap: [AppComponent]
 })

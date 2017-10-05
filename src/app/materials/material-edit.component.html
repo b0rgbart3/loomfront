@@ -8,11 +8,11 @@
     <div class='padMe'>
     <h1>Course Material Info:</h1>
     <md-form-field>
-    <input mdInput placeholder="Title" name="title" id='title'>
+    <input mdInput placeholder="Title" name="title" id='title' formControlName='title'>
     </md-form-field>
 
     <md-form-field>
-        <input mdInput placeholder="Description" name="description" id='description'>
+        <input mdInput placeholder="Description" name="description" id='description' formControlName='description'>
         </md-form-field>
    
     <br>
@@ -25,16 +25,16 @@
 
     <br>
     <md-form-field>
-        <input mdInput placeholder="Content Url" name="contenturl" id='contenturl'>
+        <input mdInput placeholder="Content Url" name="contenturl" id='contenturl' formControlName='contenturl'>
         </md-form-field>
    
 
     <md-form-field>
-        <input mdInput placeholder="Reference Url" name="referenceurl" id='referenceurl'>
+        <input mdInput placeholder="Reference Url" name="referenceurl" id='referenceurl' formControlName='referenceurl'>
         </md-form-field>
 
     
-    <md-select placeholder='Material Type'>
+    <md-select placeholder='Material Type' formControlName='materialtype'>
         <md-option *ngFor='let type of types' mdOption [value]='type' > {{ type }}</md-option>
     </md-select>
 <br><br>
