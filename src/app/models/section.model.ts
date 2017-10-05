@@ -5,7 +5,7 @@ export class Section {
       public title: string,
       public id: string,
       public content: string,
-      public materials: Array <number>,
+      public materials: Array <Object>,
   ) {}
 
 }

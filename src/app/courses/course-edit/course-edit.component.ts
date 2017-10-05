@@ -5,6 +5,9 @@ import { CourseService } from '../course.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Section } from '../../models/section.model';
 import { FileUploader } from 'ng2-file-upload';
+import { Material } from '../../models/material.model';
+import { MaterialService } from '../../materials/material.service';
+import { Materialreference } from '../../models/materialreference.model';
 const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages/';
 
 @Component({
@@ -16,8 +19,6 @@ const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages/';
 
 
 export class CourseEditComponent implements OnInit {
-
-    
 
     // This is the Form Model -- and the Root Form Group Object
     courseForm: FormGroup;
@@ -33,6 +34,8 @@ export class CourseEditComponent implements OnInit {
     localImageUrl: string;
     tempName: string;
     thisFile: File;
+    materialList: Material [];
+    materialReferences: FormArray;
     // sections: Object[];
 
     get sections(): FormArray {
@@ -40,23 +43,26 @@ export class CourseEditComponent implements OnInit {
     }
 
     constructor(private router: Router, private activated_route: ActivatedRoute,
-        private courseService: CourseService, private fb: FormBuilder ) { }
+        private courseService: CourseService, private fb: FormBuilder, private materialService: MaterialService ) { }
 
     ngOnInit(): void {
         // Instantiating the Root Form Group Object
         // This service takes in a form configuration object
 
-            // this.buildSection()
-   
         this.formSections = this.fb.array([  ]);
         this.courseForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', [Validators.required ]],
             imageUploader: '',
             sections: this.formSections,
-
         });
 
+        this.materialService.getMaterials().subscribe(
+            materialList => {this.materialList = <Material []>materialList;
+                // console.log('got course info :' + JSON.stringify(course) );
+             },
+            error => this.errorMessage = <any> error
+        );
 
         this.id = +this.activated_route.snapshot.params['id'];
         // console.log('MyID: ' + id);
@@ -74,28 +80,19 @@ export class CourseEditComponent implements OnInit {
              // this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + ;
              // this.avatarimage = url;
              this.uploader.queue[0].upload();
-             // console.log("Uploaded: " + JSON.stringify( fileItem._file ) );
-
-            // this.courseForm.patchValue({'image': fileItem._file});
+     
           };
           this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 
              this.tempName = this.uploader.queue[0].file.name;
             console.log('Response from the server: ' + this.tempName);
 
-             // const newfilename = 'courseimage.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
-            // console.log('New name: ' + newfilename);
              this.image = this.tempName;
              this.imageUrl = COURSE_IMAGE_PATH + this.course.id + '/' + this.image;
 
-             console.log("Image url: " + this.imageUrl);
-
-            // this.courseForm.patchValue({'image': this.image });
              this.uploader.queue[0].remove();
          };
 
-        //  this.favoritecolor.valueChanges.subscribe( value => console.log(value) );
-        //  this.avatarInput.valueChanges.subscribe( value => console.log('value change: ' + value) );
 
     }
 
@@ -116,8 +113,41 @@ export class CourseEditComponent implements OnInit {
 
         if (this.course.sections) {
             for (let i = 0; i < this.course.sections.length; i++) {
-                // this.addSection();
-                this.sections.push(this.fb.group( this.course.sections[i]) );
+
+                 const sections = this.course.sections;
+                 const section = <Section> sections[i];
+                 const title = section.title;
+                 const content = section.content;
+                 const thissectionMaterials = section.materials;
+                 console.log ( JSON.stringify ( thissectionMaterials ));
+                console.log ( 'No of section materials: ' + thissectionMaterials.length );
+                let sectionMaterialReferences = <FormArray> this.fb.array([  ]);
+
+                for (let j = 0; j < thissectionMaterials.length; j++) {
+                    console.log("Found reference");
+                    const materialReference = <Materialreference> thissectionMaterials[j];
+                    console.log( JSON.stringify( materialReference ) );
+                    console.log( typeof(materialReference) );
+                    console.log( materialReference.reference );
+                    const refValue = materialReference.reference;
+                    sectionMaterialReferences.push ( this.fb.group( {
+                        reference: refValue,
+                    }));
+                }
+                console.log(sectionMaterialReferences);
+
+
+                this.sections.push(  this.fb.group( {
+                    title: title,
+                    content: content,
+                    materials: sectionMaterialReferences
+                }) );
+
+
+                console.log( this.sections );
+
+                // this.sections[i].patchValue({'title': title, 'content': content });
+           //     this.sections.push(this.fb.group( this.course.sections[i]) );
             }
         }
     }
@@ -138,14 +168,14 @@ export class CourseEditComponent implements OnInit {
         this.course.image = this.image;
         console.log(this.course.image);
         console.log(JSON.stringify( this.course ) );
-        let combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
+        const combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
         console.log( 'Course Form Info: ' + JSON.stringify(this.courseForm.value) );
         console.log( 'combined: ' + JSON.stringify(combinedCourseObject));
     }
     postCourse() {
         this.course.image = this.image;
          // This is Deborah Korata's way of merging our data model with the form model
-        let combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
+        const combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
         console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
 
         if (this.course.id === '0') {
@@ -192,18 +222,26 @@ export class CourseEditComponent implements OnInit {
       this.sections.push(this.buildSection());
     }
 
-    buildSection(): FormGroup {
+
+    buildMaterialReference(): FormGroup {
         return this.fb.group( {
-            sectionTitle: '',
-            sectionContent: ''
+            reference: ''
         });
     }
 
-    addBookRef() {
 
+    buildSection(): FormGroup {
+        return this.fb.group( {
+            title: '',
+            content: '',
+            // materials: FormArray
+        });
     }
 
-    
+    addReference(i): void {
+        this.sections[i].materials.push(this.buildMaterialReference());
+    }
+
     killSection(i) {
         // console.log('Kill' + i);
         let k = confirm('Are you sure you want to delete this whole section, and all the related reference materials?');

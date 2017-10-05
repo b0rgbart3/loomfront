@@ -46,21 +46,28 @@
                       
                         <div class='bannerTop'>
                             <md-form-field>
-                            <input mdInput id="{{ 'title' + i }}" placeholder="Title of Section {{ i+1 }} " formControlName="sectionTitle">
+                            <input mdInput id="{{ 'title' + i }}" 
+                            placeholder="Title of Section {{ i+1 }} " formControlName="title">
                             </md-form-field>
                         </div>
                         <div class='sectionSection'>
                             <md-form-field>
                             <textarea mdInput id="content" placeholder="Section Content"
-                                 formControlName="sectionContent"></textarea>
+                                 formControlName="content"></textarea>
                             </md-form-field>
+
+                            <div formArrayName='materials' *ngFor='let material of section.controls.materials.controls; let j=index'>
+                                <div [formGroupName]="j"> 
+                            <md-select placeholder="Materials" fromControlName="materials">
+                                <md-option *ngFor="let item of materialList" 
+                                [value]="item.title" ng-selected="item.title">{{ item.title }}</md-option>
+                            </md-select>
+                            </div>
+                            </div>
                         </div>
                         
-                        <div><label class='sectionLabel'>Reference materials for this section</label><br>
-                            <button class='bookref' (click)="addBookRef()">Add Book</button>
-                            <button class='pdfdoc' (click)="addPdf()">Add PDF</button>
-                            <button class='video' (click)="addVideo()">Add Video</button>
-                        </div>
+                        
+                        
                     </div>
                 </div>
                 <br>
