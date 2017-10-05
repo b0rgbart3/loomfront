@@ -41,9 +41,9 @@
                 <br>
                 <div formArrayName='sections' *ngFor="let section of sections.controls; let i=index">
                     <div [formGroupName]="i" class='sectionContainer'>
-                        <button class='tinyKill rightAlignMe' (click)="killSection(i)"></button>
+                        <button class='loomKill rightAlignMe' (click)="killSection(i)"></button>
                             
-                        <!-- <div *ngFor="let section of sections" class='sectionContainer'> -->
+                      
                         <div class='bannerTop'>
                             <md-form-field>
                             <input mdInput id="{{ 'title' + i }}" placeholder="Title of Section {{ i+1 }} " formControlName="sectionTitle">
@@ -55,7 +55,12 @@
                                  formControlName="sectionContent"></textarea>
                             </md-form-field>
                         </div>
-                        <!-- </div> -->
+                        
+                        <div><label class='sectionLabel'>Reference materials for this section</label><br>
+                            <button class='bookref' (click)="addBookRef()">Add Book</button>
+                            <button class='pdfdoc' (click)="addPdf()">Add PDF</button>
+                            <button class='video' (click)="addVideo()">Add Video</button>
+                        </div>
                     </div>
                 </div>
                 <br>

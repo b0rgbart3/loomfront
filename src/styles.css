@@ -249,9 +249,16 @@ body {
   height:44px;
 }
 
+.sectionLabel {
+  padding-left:20px;
+  font-size:.9em;
+  color:#555555;
+}
+
 .nice-button {
   opacity:.2;
 }
+
 .upload-wrap {
   position: relative;
   background-color:#ff4081;
@@ -274,6 +281,11 @@ body {
   padding-top:-20px;
 }
 
+md-select {
+  width:250px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
 
 /* .loomDate.mat-form-field {
 

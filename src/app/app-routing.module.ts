@@ -17,6 +17,7 @@ import { UploadComponent } from './assets/upload.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { Error404Component } from './errors/404component';
 import { AdminRouteActivator } from './admin/admin-route-activator';
+import { MaterialEditComponent } from './materials/material-edit.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -33,7 +34,8 @@ const ROUTES: Routes = [
 { path: 'courses/:id/edit', component: CourseEditComponent },
 { path: 'classes/:id/edit', component: ClassEditComponent },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
-{ path: 'upload', pathMatch: 'full', component: UploadComponent },
+{ path: 'materials/:id/edit', component: MaterialEditComponent },
+// { path: 'upload', pathMatch: 'full', component: UploadComponent },
 { path: 'usersettings', component: UserSettingsComponent },
 { path: '404', component: Error404Component },
 { path: '', component: WelcomeComponent },

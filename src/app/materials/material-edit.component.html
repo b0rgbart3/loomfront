@@ -1,0 +1,56 @@
+<div class='stuff'>
+    
+
+    <form [formGroup]="materialForm" novalidate (ngSubmit)="postMaterial()">
+                                    
+    <div class='loomCard group'>
+    
+    <div class='padMe'>
+    <h1>Course Material Info:</h1>
+    <md-form-field>
+    <input mdInput placeholder="Title" name="title" id='title'>
+    </md-form-field>
+
+    <md-form-field>
+        <input mdInput placeholder="Description" name="description" id='description'>
+        </md-form-field>
+   
+    <br>
+    <div class="upload-wrap">
+        Include Image
+        <input type="file" class="upload-btn"  name="imageUploader"  
+        ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
+        (change)="fileChange($event)" id="imageUploader">
+    </div>
+
+    <br>
+    <md-form-field>
+        <input mdInput placeholder="Content Url" name="contenturl" id='contenturl'>
+        </md-form-field>
+   
+
+    <md-form-field>
+        <input mdInput placeholder="Reference Url" name="referenceurl" id='referenceurl'>
+        </md-form-field>
+
+    
+    <md-select placeholder='Material Type'>
+        <md-option *ngFor='let type of types' mdOption [value]='type' > {{ type }}</md-option>
+    </md-select>
+<br><br>
+<div class="upload-wrap">
+    Upload Document
+    <input type="file" class="upload-btn"  name="fileUploader"  
+    ng2FileSelect [uploader]="uploader" formControlName="fileUploader"
+    (change)="fileChange($event)" id="fileUploader">
+</div>
+
+
+</div>
+<button md-raised-button color="primary" class='loomButton' 
+type='submit' >Submit changes</button>
+
+</div>
+
+</form>    
+</div>

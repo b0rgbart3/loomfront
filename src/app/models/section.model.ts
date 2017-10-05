@@ -4,7 +4,8 @@ export class Section {
   constructor (
       public title: string,
       public id: string,
-      public content: string
+      public content: string,
+      public materials: Array <number>,
   ) {}
 
 }

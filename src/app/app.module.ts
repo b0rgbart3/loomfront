@@ -42,6 +42,7 @@ import { UserSettingsComponent } from './users/settings/user-settings.component'
 import { SafeUrlPipe } from './shared/safe-url.pipe';
 import { Error404Component } from './errors/404component';
 import { AdminRouteActivator } from './admin/admin-route-activator';
+import { MaterialEditComponent } from './materials/material-edit.component';
 
 @NgModule({
   // External
@@ -80,6 +81,7 @@ import { AdminRouteActivator } from './admin/admin-route-activator';
     UserSettingsComponent,
     AdminComponent,
     Error404Component,
+    MaterialEditComponent
  
   ],
 

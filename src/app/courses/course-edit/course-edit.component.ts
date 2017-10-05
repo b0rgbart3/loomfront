@@ -199,9 +199,16 @@ export class CourseEditComponent implements OnInit {
         });
     }
 
+    addBookRef() {
+
+    }
+
+    
     killSection(i) {
         // console.log('Kill' + i);
-        this.sections.removeAt(i);
+        let k = confirm('Are you sure you want to delete this whole section, and all the related reference materials?');
+        if (k) {
+        this.sections.removeAt(i); }
         // this.courseForm.get('sections').splice(i, 1);
         // Here I need to remove the section with an index of i from the sections array.
     }

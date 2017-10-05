@@ -1,6 +1,25 @@
 
 <div class='stuff'>
     <h1>Hello Admin:{{ username }} </h1>
+
+    <!--  User List -->
+<div class='loomCard group'>
+  <div class='padMe'>
+    <button *ngIf="users" [routerLink]="['/register']" class='loomRoundButton loomAdd rightAlignMe'></button>  
+    <h1>Users</h1>
+    <ul class='loom-list' *ngIf="users">
+      <li *ngFor='let user of users'> 
+          <button [routerLink]="['/users', user.id, 'edit']" class='loomRoundButton loomEdit'></button>
+          <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteUser(user.id)"></button>
+        <h2> {{user.firstname}} {{ user.lastname }}</h2>
+        <p> {{ user.email }} </p> 
+        
+    </ul>
+    <div class="notice" *ngIf="!users">Currently having trouble accessing the API for user info.</div>      
+  </div>
+</div>
+
+
     <div class='loomCard group'>
       <div class='padMe'>
           <button *ngIf="classes" [routerLink]="['/classes', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
@@ -39,27 +58,24 @@
     </div>
 </div>
 
-<!--  User List -->
+
+
 <div class='loomCard group'>
-    <div class='padMe'>
-      <button *ngIf="users" [routerLink]="['/register']" class='loomRoundButton loomAdd rightAlignMe'></button>  
-      <h1>Users</h1>
-      <ul class='loom-list' *ngIf="users">
-        <li *ngFor='let user of users'> 
-            <button [routerLink]="['/users', user.id, 'edit']" class='loomRoundButton loomEdit'></button>
-            <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteUser(user.id)"></button>
-          <h2> {{user.firstname}} {{ user.lastname }}</h2>
-          <p> {{ user.email }} </p> 
-          
-      </ul>
-      <div class="notice" *ngIf="!users">Currently having trouble accessing the API for user info.</div>      
-    </div>
+  <div class='padMe'>
+    <button [routerLink]="['/materials', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
+    <h1>Materials</h1>
+    <ul class='loom-list' *ngIf='materials'>
+      <li *ngFor='let material of materials'>
+        <h2>{{ material.title }}</h2>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <!--  Asset List -->
 <div class='loomCard group'>
     <div class='padMe'>
-      <button [routerLink]="['/upload']" class='loomRoundButton loomAdd rightAlignMe'></button>  
+      <button [routerLink]="['/assets', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
       <h1>Assets</h1>
       <ul class='loom-list' *ngIf="assets">
         <li *ngFor='let asset of assets'> 
