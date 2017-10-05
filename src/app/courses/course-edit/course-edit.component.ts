@@ -5,6 +5,7 @@ import { CourseService } from '../course.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Section } from '../../models/section.model';
 import { FileUploader } from 'ng2-file-upload';
+const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages/';
 
 @Component({
     moduleId: module.id,
@@ -12,7 +13,11 @@ import { FileUploader } from 'ng2-file-upload';
     styleUrls: ['course-edit.component.css']
 })
 
+
+
 export class CourseEditComponent implements OnInit {
+
+    
 
     // This is the Form Model -- and the Root Form Group Object
     courseForm: FormGroup;
@@ -22,6 +27,7 @@ export class CourseEditComponent implements OnInit {
     id: number;
     errorMessage: string;
     image: string;
+    imageUrl: string;
     formSections: FormArray;
     public uploader: FileUploader;
     localImageUrl: string;
@@ -80,6 +86,10 @@ export class CourseEditComponent implements OnInit {
              // const newfilename = 'courseimage.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
             // console.log('New name: ' + newfilename);
              this.image = this.tempName;
+             this.imageUrl = COURSE_IMAGE_PATH + this.course.id + '/' + this.image;
+
+             console.log("Image url: " + this.imageUrl);
+
             // this.courseForm.patchValue({'image': this.image });
              this.uploader.queue[0].remove();
          };
@@ -116,6 +126,8 @@ export class CourseEditComponent implements OnInit {
         this.courseService.getCourse(id).subscribe(
             course => {this.course = <Course>course[0];
                 // console.log('got course info :' + JSON.stringify(course) );
+                this.image = this.course.image;
+                this.imageUrl = COURSE_IMAGE_PATH + '/' + this.course.id + '/' + this.image;
                 this.populateForm();
              },
             error => this.errorMessage = <any> error
@@ -131,7 +143,7 @@ export class CourseEditComponent implements OnInit {
         console.log( 'combined: ' + JSON.stringify(combinedCourseObject));
     }
     postCourse() {
-
+        this.course.image = this.image;
          // This is Deborah Korata's way of merging our data model with the form model
         let combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
         console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
