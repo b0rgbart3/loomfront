@@ -66,14 +66,16 @@
     <h1>Materials</h1>
     <ul class='loom-list' *ngIf='materials'>
       <li *ngFor='let material of materials'>
-        <h2>{{ material.title }}</h2>
+          <button [routerLink]="['/materials', material.id, 'edit']" class='loomRoundButton loomEdit'></button>  
+          <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteMaterial(material.id)"></button>
+          <h2>{{ material.title }}</h2>
       </li>
     </ul>
   </div>
 </div>
 
 <!--  Asset List -->
-<div class='loomCard group'>
+<!-- <div class='loomCard group'>
     <div class='padMe'>
       <button [routerLink]="['/assets', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
       <h1>Assets</h1>
@@ -87,7 +89,7 @@
       </ul>
       <div class="notice" *ngIf="!users">Currently having trouble accessing the API for user info.</div>      
     </div>
-</div>
+</div> -->
 <br>
 
 

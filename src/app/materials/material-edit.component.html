@@ -16,11 +16,13 @@
         </md-form-field>
    
     <br>
+    <br><img [src]="imageUrl" width='200' height='200' *ngIf='image'><br>
+    
     <div class="upload-wrap">
         Include Image
-        <input type="file" class="upload-btn"  name="imageUploader"  
-        ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
-        (change)="fileChange($event)" id="imageUploader">
+        <input type="file" class="upload-btn"  name="image"  
+        ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
+        (change)="imageChange($event)" id="image">
     </div>
 
     <br>
@@ -34,15 +36,16 @@
         </md-form-field>
 
     
-    <md-select placeholder='Material Type' formControlName='materialtype'>
-        <md-option *ngFor='let type of types' mdOption [value]='type' > {{ type }}</md-option>
+    <md-select placeholder='Material Type' formControlName='type'>
+        <md-option *ngFor='let type of types' mdOption [value]='type' ng-selected="material.type"> {{ type }}</md-option>
     </md-select>
 <br><br>
+File:  {{ file }}<br><br>
 <div class="upload-wrap">
     Upload Document
-    <input type="file" class="upload-btn"  name="fileUploader"  
-    ng2FileSelect [uploader]="uploader" formControlName="fileUploader"
-    (change)="fileChange($event)" id="fileUploader">
+    <input type="file" class="upload-btn"  name="file"  
+    ng2FileSelect [uploader]="fileUploader" formControlName="fileUploader"
+    (change)="fileChange($event)" id="file">
 </div>
 
 

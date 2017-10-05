@@ -61,11 +61,15 @@ export class MaterialService {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       // let thisID = this.courseCount + 1;
+      if (this.highestID < 1) {
+        this.highestID = 1;
+      }
       courseObject.id = this.highestID.toString();
+
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this._materialsUrl, courseObject, {headers: myHeaders} );
+      return this._http.put(this._materialsUrl + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
    updateMaterial(courseObject: Material): Observable<any> {

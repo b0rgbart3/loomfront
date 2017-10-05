@@ -9,6 +9,8 @@ import { ClassService } from '../classes/class.service';
 import { UserService } from '../users/user.service';
 import { AssetService } from '../assets/asset.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { MaterialService } from '../materials/material.service';
+import { Material } from '../models/material.model';
 
 
 @Component({
@@ -26,10 +28,12 @@ export class AdminComponent implements OnInit {
   courseCount: number;
   assets: Asset [];
   username: string;
+  materials: Material [];
 
   constructor(
     private courseService: CourseService,
     private classService: ClassService,
+    private materialService: MaterialService,
     private router: Router,
     public userService: UserService,
     private assetService: AssetService,
@@ -39,9 +43,10 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUsers();
     this.getClasses();
     this.getCourses();
-    this.getUsers();
+    this.getMaterials();
     this.username = localStorage.getItem('username');
   }
 
@@ -67,6 +72,13 @@ export class AdminComponent implements OnInit {
     users =>  this.users = users,
     error => this.errorMessage = <any>error);
   }
+
+  getMaterials() {
+    this.materialService
+    .getMaterials().subscribe(
+      materials =>  this.materials = materials,
+      error => this.errorMessage = <any>error);
+    }
 
   getAssets() {
     this.assetService
@@ -106,7 +118,15 @@ export class AdminComponent implements OnInit {
 
     }
   }
-
+  deleteMaterial(materialId) {
+    const result = confirm( 'Are you sure you want to delete this material? ');
+    if (result) {
+    this.materialService.deleteMaterial(materialId).subscribe(
+      data => {
+      this.getMaterials(); },
+      error => this.errorMessage = <any>error );
+    }
+  }
 
 
 }
