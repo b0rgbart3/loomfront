@@ -3,13 +3,16 @@
     <flash-messages></flash-messages>
 
     <div>
-        <h1> Welcome back to the Reclaiming Loom {{ username }}</h1>
+        <h1> Welcome back to the Reclaiming Loom {{ currentUser.username }}</h1>
     </div>
 
     <div class="loomCard" >
-            <button class='loomButton' (click)="login()" *ngIf="!username">
-                Login
-            </button>
+            <button class='loomButton' (click)="login()" *ngIf="!currentUser">Login</button>
+            <class-list></class-list>
+    </div>
+
+    <div class="loomCard" >
+
             <course-list></course-list>
     </div>
 </div>

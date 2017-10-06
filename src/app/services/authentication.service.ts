@@ -51,10 +51,14 @@ export class AuthenticationService implements OnInit {
      }
 
      checkAuthenticationStatus() {
-        //this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
+        // this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
         return this.currentUser;
      }
 
+     getCurrentUser(): User {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser') );
+         return this.currentUser;
+     }
 
     login(username: string, password: string): Observable <any> {
 
@@ -70,18 +74,18 @@ export class AuthenticationService implements OnInit {
 
                     this.currentUser = <User> response;
                     this.username = this.currentUser.username;
-                    localStorage.setItem('currentUser', JSON.stringify( response ) );
-                    localStorage.setItem('username', this.username );
-                    localStorage.setItem('id', this.currentUser.id );
+                    localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
+                    // localStorage.setItem('username', this.username );
+                    // localStorage.setItem('id', this.currentUser.id );
 
-                    console.log("In auth service: " + JSON.stringify(this.currentUser) );
+                    console.log('In auth service: ' + JSON.stringify(this.currentUser) );
 
                     this.loadAvatar().subscribe(
-                        (data) => { console.log("Got data returnd: " + JSON.stringify(data));
+                        (data) => { console.log('Got data returnd: ' + JSON.stringify(data));
                         // localStorage.setItem('avatarimage', data);
                         // this.avatarimage = data;
                     },
-                        (error) => { console.log("Got error returned from loadAvatar() "); }
+                        (error) => { console.log('Got error returned from loadAvatar() '); }
                     );
                     // console.log('Calling changeNav with: ' + this.currentUser.username);
 
@@ -138,7 +142,7 @@ export class AuthenticationService implements OnInit {
                    console.log(' got avatar back from the server. ');
 
                     this.avatar = avatar[0];
-                    localStorage.setItem('currentUser', JSON.stringify( avatar ) );
+                    // localStorage.setItem('currentUser', JSON.stringify( avatar ) );
                     this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUser.id + '/' + this.avatar.filename;
                     localStorage.setItem('avatar', JSON.stringify( this.avatar ) );
                     localStorage.setItem('avatarimage', this.avatarimage );

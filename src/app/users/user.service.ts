@@ -25,8 +25,6 @@ export class UserService {
   constructor (private _http: HttpClient) {}
 
 
-
-
     getUser( id ): Observable<User[]> {
 
       return this._http.get<User[]> ( this._usersUrl + '?id=' + id )

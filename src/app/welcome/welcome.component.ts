@@ -2,6 +2,7 @@
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { User } from '../models/user.model';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 
 export class WelcomeComponent implements OnInit {
-    username: string;
+    currentUser: User;
 
     constructor(    public authenticationService: AuthenticationService, private router: Router,
         private _flashMessagesService: FlashMessagesService, private zone: NgZone ) {
@@ -22,7 +23,8 @@ export class WelcomeComponent implements OnInit {
         }
 
         ngOnInit() {
-            this.username = localStorage.getItem('username');
+            // this.username = localStorage.getItem('username');
+            this.currentUser = this.authenticationService.getCurrentUser();
         }
 
 

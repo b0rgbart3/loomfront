@@ -21,7 +21,8 @@ export class NavBarComponent implements OnInit, DoCheck {
   errorMessage: string;
   username = '';
   avatarimage = '';
-
+  currentUser: User;
+  admin;
 
   constructor (
     private authenticationService: AuthenticationService,
@@ -32,6 +33,13 @@ export class NavBarComponent implements OnInit, DoCheck {
   ) {
   }
 
+  updateMyself() {
+    this.currentUser = this.authenticationService.getCurrentUser();
+    console.log(JSON.stringify(this.currentUser));
+    if (this.currentUser.user_type === 'admin') {
+      this.admin = true;
+    }
+  }
 
   logout() {
     this.username = null;

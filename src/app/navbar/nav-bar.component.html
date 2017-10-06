@@ -1,4 +1,4 @@
-<md-toolbar color="primary"> 
+<md-toolbar color="primary" (click)="updateMyself()"> 
 
 	<button md-icon-button [mdMenuTriggerFor]="menu">
 		<md-icon>menu</md-icon>
@@ -7,9 +7,9 @@
 
 <md-menu #menu="mdMenu">
 	<a href="" [routerLink]="['/welcome']"><button md-menu-item>Welcome</button></a>
-	<a *ngIf="username" [routerLink]="['/home']">
+	<a *ngIf="currentUser" [routerLink]="['/home']">
 		<button md-menu-item>Home</button></a>
-	<a [routerLink]="['/admin']"><button md-menu-item>Admin</button></a>
+	<a *ngIf='admin' [routerLink]="['/admin']"><button md-menu-item>Admin</button></a>
 	<a  *ngIf="username" [routerLink]="['/usersettings']"><button md-menu-item>My Settings</button></a>
 	<a  (click)="logout()"><button md-menu-item>Logout</button></a>
 
