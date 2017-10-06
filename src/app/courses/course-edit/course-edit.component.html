@@ -63,13 +63,13 @@
                                     <input mdInput id="{{ 'material' +j }}" formControlName="reference">
                                      </md-form-field> -->
                                      
-                                    <md-select placeholder='Material Type' formControlName='reference'>
+                                    <md-select placeholder='Material' formControlName='reference'>
                                             <md-option *ngFor='let item of materialList' mdOption [value]='item.id' ng-selected="reference"> {{ item.title }}</md-option>
                                         </md-select>
                                    
                                 </div>
                             </div>
-                            </div>
+                            </div><button md-raised-button (click)="addMaterial(i)" type='button'>Add Material</button>
                         </div>
                         
                         

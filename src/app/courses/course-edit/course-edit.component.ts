@@ -37,6 +37,7 @@ export class CourseEditComponent implements OnInit {
     materialList: Material [];
     materialReferences: FormArray;
     matObjRefArray: Object[]; // This is my custom object array so I can refer to material id#s instead of just the array indexes
+    sectionReferences: FormArray[];
     // sections: Object[];
 
     get sections(): FormArray {
@@ -51,6 +52,7 @@ export class CourseEditComponent implements OnInit {
         // This service takes in a form configuration object
 
         this.formSections = this.fb.array([  ]);
+        this.sectionReferences = [];
         this.courseForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', [Validators.required ]],
@@ -134,6 +136,7 @@ export class CourseEditComponent implements OnInit {
                  console.log ( JSON.stringify ( thissectionMaterials ));
                 console.log ( 'No of section materials: ' + thissectionMaterials.length );
                 const sectionMaterialReferences = <FormArray> this.fb.array([  ]);
+                this.sectionReferences[i] = sectionMaterialReferences;
 
                 for (let j = 0; j < thissectionMaterials.length; j++) {
                     console.log('Found reference');
@@ -158,6 +161,7 @@ export class CourseEditComponent implements OnInit {
                     }));
 
                 }
+                
                 console.log(sectionMaterialReferences);
 
 
@@ -255,15 +259,27 @@ export class CourseEditComponent implements OnInit {
 
 
     buildSection(): FormGroup {
+        const sectionMaterialReferences = <FormArray> this.fb.array([  ]);
+        this.sectionReferences.push(sectionMaterialReferences);
+
         return this.fb.group( {
             title: '',
             content: '',
-            // materials: FormArray
+            materials: sectionMaterialReferences
         });
     }
 
-    addReference(i): void {
-        this.sections[i].materials.push(this.buildMaterialReference());
+    addMaterial(i): void {
+        this.sectionReferences[i].push(this.buildMaterialReference());
+
+//        this.courseForm.sections[i].materials.push(this.buildMaterialReference());
+       //  this.populateForm();
+        // const thisSection = <Section> this.course.sections[i];
+        // thisSection.materials.push( { 'reference' : ''});
+
+
+        // console.log(JSON.stringify(this.course.sections[i]) );
+//        this.sections[i].materials.push(this.buildMaterialReference());
     }
 
     killSection(i) {
