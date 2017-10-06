@@ -11,6 +11,7 @@ import { User } from '../models/user.model';
 })
 
 export class WelcomeComponent implements OnInit {
+    username;
     currentUser: User;
 
     constructor(    public authenticationService: AuthenticationService, private router: Router,
@@ -25,6 +26,11 @@ export class WelcomeComponent implements OnInit {
         ngOnInit() {
             // this.username = localStorage.getItem('username');
             this.currentUser = this.authenticationService.getCurrentUser();
+
+            if (this.currentUser) {
+            this.username = this.currentUser.username; } else {
+                this.username = '';
+            }
         }
 
 

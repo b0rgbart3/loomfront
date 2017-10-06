@@ -60,7 +60,7 @@ export class ClassService {
 
     // Note: I'm not passing the id as part of the url -- because it's inside the classObject
     const url = this._classesUrl;
-    return this._http.put(url, classObject, {headers: myHeaders}).map( () => classObject );
+    return this._http.put(url + '?id=' + classObject.id, classObject, {headers: myHeaders}).map( () => classObject );
 
   }
 

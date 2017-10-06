@@ -71,7 +71,7 @@ export class CourseService {
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this._coursesUrl, courseObject, {headers: myHeaders} );
+      return this._http.put(this._coursesUrl + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
    updateCourse(courseObject: Course): Observable<any> {

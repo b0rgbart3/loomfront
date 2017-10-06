@@ -18,6 +18,7 @@ import { User } from '../../models/user.model';
 export class ClassEditComponent implements OnInit {
     classForm: FormGroup;
     thisClass: ClassModel;
+    classes: ClassModel[];
     id: string;
     errorMessage: string;
     courses: Course[];
@@ -52,11 +53,15 @@ export class ClassEditComponent implements OnInit {
         this.thisClass = new ClassModel( '', '', '', '', '', '0', [] );
         const id = +this.activated_route.snapshot.params['id'];
 
-        console.log('This ID: '+ id);
+        console.log('This ID: ' + id);
 
         if (id !== 0) {
             this.getClass(id);
          }
+
+         this.classService
+         .getClasses().subscribe(
+           classes => { this.classes = classes; } );
 
         this.courseService
         .getCourses().subscribe(
@@ -170,7 +175,7 @@ export class ClassEditComponent implements OnInit {
             // This sends the class Object to the API
             if (this.thisClass.id === '0') {
                 this.classService.createClass( comboObject ).subscribe(
-                    (val) => { }, response => {},
+                    (val) => { }, response => { console.log(response); },
                       () => { this.router.navigate(['/admin']); } );
             } else { this.classService
                 .updateClass( comboObject ).subscribe(

@@ -134,7 +134,8 @@ export class CourseEditComponent implements OnInit {
                  const content = section.content;
                  const thissectionMaterials = section.materials;
                  console.log ( JSON.stringify ( thissectionMaterials ));
-                console.log ( 'No of section materials: ' + thissectionMaterials.length );
+                 if (thissectionMaterials) {
+                console.log ( 'No of section materials: ' + thissectionMaterials.length ); }
                 const sectionMaterialReferences = <FormArray> this.fb.array([  ]);
                 this.sectionReferences[i] = sectionMaterialReferences;
 
