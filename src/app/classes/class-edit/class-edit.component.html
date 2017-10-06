@@ -1,41 +1,33 @@
 <div class='stuff'>
 
-<form #classform="ngForm" novalidate (ngSubmit)="save(classform)">
-       
+<form [formGroup]="classForm" novalidate (ngSubmit)="save()">
                                 
 <div class='loomCard group'>
 
 <div class='padMe'>
 <h1>Class Info:</h1>
 <md-form-field>
-<input mdInput  #title="ngModel" placeholder="Title" 
-name="title" required minlength="3" maxlength="50" [(ngModel)]="thisClass.title">
+<input mdInput  formControlName='title' placeholder="Title" 
+name="title" required minlength="3" maxlength="50">
 </md-form-field>
 
 
 <md-form-field>
-<input mdInput #description="ngModel" placeholder="Description" 
-name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass.description">
+<input mdInput formControlName='description' placeholder="Description" 
+name="description" required minlength="3" maxlength="250">
 </md-form-field>
-<!-- 
-<md-select placeholder="Favorite food">
-<md-option *ngFor="let food of foods" [value]="food.value">
-{{ food.viewValue }}
-</md-option>
-</md-select> -->
 
-<md-select placeholder="Coursework for this class" name="course" [(ngModel)]="thisClass.course">
-<md-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="thisClass.course">
-    
+<md-select placeholder="Coursework for this class" name="course" formControlName='course'>
+<md-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
 {{ course.viewValue }}
 </md-option>
 </md-select>
 <br clear='all'>
-<br>
+<br> 
 
 <div class='loomDate'>
 <md-form-field>
-<input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" [(ngModel)]="myStart">
+<input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" formControlName="start">
 <md-datepicker-toggle mdSuffix [for]="startDate"></md-datepicker-toggle>
 <md-datepicker #startDate ></md-datepicker>
 </md-form-field>
@@ -43,23 +35,26 @@ name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass
 
 <div class='loomDate'>
 <md-form-field>
-<input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" [(ngModel)]="myEnd">
+<input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" formControlName="end">
 <md-datepicker-toggle mdSuffix [for]="endDate"></md-datepicker-toggle>
 <md-datepicker #endDate ></md-datepicker>
 </md-form-field>
-</div>
+</div> 
 <br clear='all'>
 <br><h1>Registered Users</h1>
-<md-checkbox *ngFor="let user of users">{{user.username}}</md-checkbox>
 
-<br clear='all'>
+<div formArrayName='regUsers' *ngFor='let user of regUsers.controls; let i=index'>
+    <div [formGroupName]="i" class='loomCheckBox'> 
+        <md-checkbox formControlName="value">{{user.value.username}}</md-checkbox>
+    </div>
 </div>
+</div>
+<br clear='all'><br>
 <button md-raised-button color="primary" class='loomButton'>Submit Changes</button>
 </div>
-
 </form> 
 </div>
 <div class='debug'>
-{{ classform.course }}
-{{ classform.value | json }}
+{{ classForm.course }}
+{{ classForm.value | json }}
 </div>

@@ -64,6 +64,7 @@ export class RegisterComponent implements OnInit {
           .createUser( this.user ).subscribe(
           (val) => {
             console.log('POST call successful value returned in body ', val);
+            this.router.navigate(['/welcome']);
           },
           response => {
             console.log('POST call in error', response);
@@ -112,9 +113,6 @@ export class RegisterComponent implements OnInit {
       this.userService.getUser(id).subscribe(
         userObject => {this.user = <User>userObject[0]; console.log('got class info :' +
                           JSON.stringify(userObject) );
-
-
-                         // console.log('Getting the class Object: ' + JSON.stringify( this.thisClass ) );
 
                        },
           error => this.errorMessage = <any> error

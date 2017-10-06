@@ -181,6 +181,7 @@ body {
   border:1px solid #cccccc;
   display:inline-block;
   float:left;
+  margin-right:20px;
 }
 
 .loomDate label {
@@ -287,8 +288,12 @@ md-select {
   margin-bottom:10px;
 }
 
-md-checkbox  {
+.loomCheckBox  {
   padding-right:20px;
+  display:inline-block;
+  width:200px;
+  float:left;
+
 }
 /* .loomDate.mat-form-field {
 
