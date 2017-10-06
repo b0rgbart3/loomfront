@@ -33,17 +33,9 @@
         <input #password="ngModel" mdInput placeholder="password" 
         name="password" [(ngModel)]="user.password" required type="password"
         maxlength="30" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-        <md-hint align="start">A combination of at least 8 letters and/or numbers</md-hint>
-       
-     
+        <md-hint align="start">A combination of at least 8 letters and/or numbers</md-hint>     
         </md-form-field>
 
-        <!-- <md-form-field>
-                <input #username="ngModel" mdInput placeholder="avatar" name="avatar" 
-                [(ngModel)]="user.avatar" required type="avatar">
-                <md-hint align="start">This will be your public profile pic</md-hint>
-         
-        </md-form-field> -->
 
         <br>
 
@@ -58,18 +50,7 @@
 <p>Already have an account? <a [routerLink]="['/login']" > &nbsp; &#10148;&nbsp;Then just Login!</a></p>
 </div>
 
-<!-- <input [mdDatepicker]="myDatepicker" class='form-control'>
-<md-datepicker-toggle [for]="myDatepicker"></md-datepicker-toggle>
-<md-datepicker #myDatepicker></md-datepicker>
- -->
-
-
-  <!-- <br><hr>
-  {{ regform.pristine }}
-  <br>
-  Model: {{ model | json }}
-  <br>
-  Angular: {{ regform.value | json }}
-
-  <br>
-  FirstName: {{ firstname.pristine }} -->
+<div class='debug'>
+    {{ regform.value | json }}
+    {{ this.user | json }}
+</div>

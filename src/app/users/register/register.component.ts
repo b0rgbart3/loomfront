@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
     hasPrimaryLanguageError = false;
     date2 = new Date();
     errorMessage: string;
+    users;
     user: User; // = new User('', '', '', '', '', '', '', 'false', '', '', '0');
 
     constructor(
@@ -31,12 +32,10 @@ export class RegisterComponent implements OnInit {
       private _flashMessagesService: FlashMessagesService,
       private authenticationService: AuthenticationService,
       private activated_route: ActivatedRoute, ) {
-
-        this.userService.getUsers();
-
       }
 
     ngOnInit() {
+      this.userService.getUsers().subscribe((users) => this.users = users);
       console.log('ngOnInit()');
 
       this.user = new User ( '', '', '', '', '', '', '', 'false', '', '0');
@@ -60,28 +59,14 @@ export class RegisterComponent implements OnInit {
 
           console.log('About to create a new user');
 
-        this.userService
-          .createUser( this.user ).subscribe(
-          (val) => {
-            console.log('POST call successful value returned in body ', val);
-            this.router.navigate(['/welcome']);
-          },
-          response => {
-            console.log('POST call in error', response);
-          },
-          () => {
-            console.log('The POST observable is now completed.');
-
-            if (this.authenticationService.isAdmin() ) {
-              this.router.navigate(['/admin']);
-            } else {
-              this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
+        this.userService.createUser( this.user ).subscribe(
+          (val) => { console.log('POST call successful value returned in body ', val);
+            this.router.navigate(['/welcome']); },
+          response => {console.log('POST call in error', response); },
+          () => {console.log('The POST observable is now completed.');
+            this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
               ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
-
-              this.router.navigate(['/welcome']);
-              }
-             }
-          );
+              this.router.navigate(['/welcome']);  });
         } else {
           this.userService
           .updateUser( this.user ).subscribe(
