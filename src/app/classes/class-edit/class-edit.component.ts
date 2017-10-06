@@ -5,6 +5,7 @@ import { ClassService } from '../class.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CourseService } from '../../courses/course.service';
 import { Course } from '../../models/course.model';
+import { UserService } from '../../users/user.service';
 
 
 @Component({
@@ -14,7 +15,6 @@ import { Course } from '../../models/course.model';
 })
 
 export class ClassEditComponent implements OnInit {
-
     classForm: FormGroup;
     thisClass: ClassModel;
     id: string;
@@ -22,51 +22,29 @@ export class ClassEditComponent implements OnInit {
     courses: Course[];
     myStart: Date;
     myEnd: Date;
-    // weeks= ['1 Week', '2 Weeks', '3 Weeks', '4 Weeks', '5 Weeks', '6 Weeks',
-    // '7 Weeks', '8 Weeks', '9 Weeks', '10 Weeks', '11 Weeks', '12 Weeks'];
 
-
-    // foods = [
-    //     {value: '1', viewValue: '1 Week'},
-    //     {value: '2', viewValue: '2 Week'},
-    //     {value: '3', viewValue: '3 Week'},
-    //     {value: '4', viewValue: '4 Week'},
-    //     {value: '5', viewValue: '5 Week'},
-    //     {value: '6', viewValue: '6 Week'},
-    //     {value: '7', viewValue: '7 Week'},
-    //   ];
-
+    users = [
+        { "username":"Terry" },
+        { "username":"John"}
+    ];
      courseSelections = [
         // {value: '1', viewValue: 'Course 1'},
         // {value: '2', viewValue: 'Course 2'},
     ];
 
     constructor( private activated_route: ActivatedRoute, private classService: ClassService,
-        private router: Router, private courseService: CourseService ) {   }
+        private router: Router, private courseService: CourseService,
+        private userService: UserService ) {   }
 
-    // buildCourseSelect(course) {
-    //     const newObject = { value: this.courseSelections.length, viewValue: course.title };
-    //     return newObject;
-    // }
+
 
     ngOnInit(): void {
         this.thisClass = new ClassModel( '', '', '', '', '', '0' );
         const id = +this.activated_route.snapshot.params['id'];
 
         if (id !== 0) {
-           // console.log('In the edit component, id was not zero: ' + id);
-
             this.getClass(id);
          }
-
-        // this.classForm = this.fb.group({
-        //     title: this.thisClass.title,
-        //     description: this.thisClass.description,
-        //     course: { type: 'select', label: 'coursework', name: 'course', options: [this.courses],
-        //                 placeholder: 'select a course', value: this.thisClass.course },
-        //     start: [ new Date( this.thisClass.start ), Validators.required ],
-        //     end: [ new Date( this.thisClass.end), Validators.required ]
-        // });
 
         this.courseService
         .getCourses().subscribe(
@@ -82,50 +60,24 @@ export class ClassEditComponent implements OnInit {
         },
           error => this.errorMessage = <any>error);
 
-        // this.classForm.controls['course'].valueChanges.subscribe((value) => {
-        //     console.log('value changed: ' + this.classForm.get('course').value);
-        //     // if (course) { console.log('Selected Course: ' + course.title); }
-        // });
-        // this.classForm.controls['length'].valueChanges.subscribe((value) => {
-        //     console.log(value);
 
-        //   });
-        // this.classForm.patchValue({
-        //     // start: this.thisClass.start
-        //   });
+          this.userService
+          .getUsers().subscribe(
+            users => { this.users = users;
 
-        //  this.classForm = new FormGroup( {
-        //     title: new FormControl(),
-        //     description: new FormControl(),
-        //     // I don't actually think I need a form control for the course id
-        //    // course_id: new FormControl(this.thisCla)
-        //  } );
+          },
+            error => this.errorMessage = <any>error);
 
     }
 
     getClass(id: number) {
         this.classService.getClass(id).subscribe(
-            classobject => {this.thisClass = <ClassModel>classobject[0];
-           
-
-                        
-                         },
+            classobject => {this.thisClass = <ClassModel>classobject[0]; },
             error => this.errorMessage = <any> error
         );
     }
 
 
-    // populateForm(): void {
-    //    // console.log('In populate: ' + JSON.stringify(this.thisClass) );
-    //     this.classForm.patchValue({
-    //         title: this.thisClass.title,
-    //         description: this.thisClass.description,
-    //         course: { type: 'select', label: 'coursework', name: 'course', options: [this.courses],
-    //                     placeholder: 'select a course', value: this.thisClass.course },
-    //         start: new Date(this.thisClass.start),
-    //         end: new Date(this.thisClass.end)
-    //     });
-    // }
 
     save(form): void {
         // console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(form.value)  );

@@ -48,8 +48,9 @@ name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass
 <md-datepicker #endDate ></md-datepicker>
 </md-form-field>
 </div>
-
-
+<br clear='all'>
+<br><h1>Registered Users</h1>
+<md-checkbox *ngFor="let user of users">{{user.username}}</md-checkbox>
 
 <br clear='all'>
 </div>
@@ -60,4 +61,5 @@ name="description" required minlength="3" maxlength="250" [(ngModel)]="thisClass
 </div>
 <div class='debug'>
 {{ classform.course }}
+{{ classform.value | json }}
 </div>

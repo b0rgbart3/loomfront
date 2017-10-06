@@ -287,6 +287,9 @@ md-select {
   margin-bottom:10px;
 }
 
+md-checkbox  {
+  padding-right:20px;
+}
 /* .loomDate.mat-form-field {
 
   width:280px !important;
