@@ -10,6 +10,7 @@ import { User } from '../models/user.model';
 import { Avatar } from '../models/avatar.model';
 import { Usersettings } from '../models/usersettings.model';
 import { HttpHeaders } from '@angular/common/http';
+import { Classregistration } from '../models/classregistration.model';
 
 
 @Injectable()
@@ -17,10 +18,12 @@ export class UserService {
   isLoggedIn = false;
   private highestID;
   private userCount = 0;
+  classregistrations: Classregistration[];
 
   private _usersUrl = 'http://localhost:3100/api/users';
   private _avatarUrl = 'http://localhost:3100/api/avatars';
   private _userSettingsUrl = 'http://localhost:3100/api/usersettings';
+  private _classregistrationsUrl = 'http://localhost:3100/api/classregistrations';
 
   constructor (private _http: HttpClient) {}
 
@@ -33,6 +36,14 @@ export class UserService {
       return data; })
       .catch (this.handleError);
     }
+
+    getClassregistrations(): Observable <Classregistration []> {
+      return this._http.get <Classregistration []> (this._classregistrationsUrl)
+      .do(data => {
+        this.classregistrations = data;
+      }).catch (this.handleError );
+    }
+
     getUsers(): Observable<User[]> {
       return this._http.get <User[]> (this._usersUrl)
         // debug the flow of data

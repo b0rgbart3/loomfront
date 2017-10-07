@@ -11,6 +11,7 @@ import { AssetService } from '../assets/asset.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { MaterialService } from '../materials/material.service';
 import { Material } from '../models/material.model';
+import { Classregistration } from '../models/classregistration.model';
 
 
 @Component({
@@ -29,6 +30,9 @@ export class AdminComponent implements OnInit {
   assets: Asset [];
   username: string;
   materials: Material [];
+  chart: Object [];
+
+  classregistrations: Classregistration [];
 
   constructor(
     private courseService: CourseService,
@@ -47,6 +51,7 @@ export class AdminComponent implements OnInit {
     this.getClasses();
     this.getCourses();
     this.getMaterials();
+    this.getClassregistrations();
     this.username = localStorage.getItem('username');
   }
 
@@ -72,6 +77,93 @@ export class AdminComponent implements OnInit {
     users =>  this.users = users,
     error => this.errorMessage = <any>error);
   }
+
+  // this method returns a User object from our local User Object array
+  // rather than asking the service or the API for it.
+  // Because we're really just trying to find the User who's id
+  // matches this parameter.
+  localGetUser( userId ) {
+    let foundUser = {};
+
+    if (this.users) {
+      for (let i = 0; i < this.users.length; i++) {
+
+        if (this.users[i].id.toString() === userId.toString()) {
+          foundUser = this.users[i];
+          return foundUser;
+        }
+      }
+    }
+  }
+
+
+  buildCRegChart() {
+    const chart = [];
+    const userObjects = [];
+
+    // console.log('crsCount: ' + crsCount);
+
+    if (this.classes && this.users && this.classregistrations) {
+
+      const classCount = this.classes.length;
+    const crsCount = this.classregistrations.length;
+
+    for (let i = 0; i < classCount; i++ ) {
+
+      chart[i] = [];
+      // console.log('Class: ' + JSON.stringify( this.classes[i] ) );
+
+      const userArray = [];
+      for (let j = 0; j < crsCount; j++ ) {
+        // console.log('CHECKING THIS CLASS REG');
+        // console.log( 'cr_class_id: ' + this.classregistrations[j].class_id );
+        // console.log ('classes_id: ' + this.classes[i].id );
+        if ( this.classregistrations[j].class_id.toString() === this.classes[i].id.toString() ) {
+
+
+          // we have found a reg that corresponds to this class index
+          // so now we need to grab the User that this reg refers to,
+          // and store that object here in our new chart that we're building
+          const refUID = this.classregistrations[j].user_id;
+
+          const refUser = this.localGetUser(refUID);
+          // console.log ( 'Reg user: ' + JSON.stringify(refUser) );
+          userArray.push( refUser );
+        }
+      }
+      // I'm creating this chart as an array of objects that have both the
+      // class ID and the User objects as a nested array -- all in a single object
+      // because we can't just use the index of this loop to stand in for the
+      // class id.  We need to explicitly save it in our new chart.
+
+      chart[i].push({ 'class_id': this.classes[i].id, 'class_title': this.classes[i].title, 'users': userArray} );
+    }
+    // We should have a pretty nifty chart now - so let's output it and see what we've got
+
+     this.chart = chart;
+     console.log('This chart:');
+     console.log( chart );
+    }    else {
+      console.log('Could not build the registration chart because the data is not back from the server yet.');
+    }
+  }
+
+  getClassregistrations() {
+    this.userService
+    .getClassregistrations().subscribe(
+      classregistrations =>  {this.classregistrations = classregistrations;
+      console.log('ClassRegistrations: ' + JSON.stringify( classregistrations) );
+
+      // I need to build a chart of users, organized by the Class they are registered for.
+      // So I guess that means building a double nested array of objects where the outer
+      // array key is the class and the inner array key is the user objects
+
+          this.buildCRegChart();
+
+
+    },
+      error => this.errorMessage = <any>error);
+    }
 
   getMaterials() {
     this.materialService
