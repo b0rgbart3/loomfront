@@ -5,6 +5,7 @@ export class Classregistrationgroup {
 
   constructor (
       public id: string,
+      public instructors: Classregistration [],
       public regs: Classregistration [],
 
   ) {}

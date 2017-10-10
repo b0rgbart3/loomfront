@@ -25,9 +25,11 @@ export class ClassEditComponent implements OnInit {
     errorMessage: string;
     courses: Course[];
     regUsers: FormArray;
+    instructingUsers: FormArray;
     userChart: Object[];
     registry: Classregistrationgroup;
     regs: Classregistration[];
+    instructors: Classregistration[];
     sortedRegs: Classregistrationgroup;
 
 
@@ -45,6 +47,7 @@ export class ClassEditComponent implements OnInit {
     ngOnInit(): void {
 
         this.regUsers = this.fb.array([  ]);
+        this.instructingUsers = this.fb.array([  ]);
 
         this.classForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
@@ -52,6 +55,7 @@ export class ClassEditComponent implements OnInit {
             course: '',
             start: [new Date()],
             end: [new Date()],
+            instructors: this.instructingUsers,
             regUsers: this.regUsers,
         });
 
@@ -88,6 +92,7 @@ export class ClassEditComponent implements OnInit {
 
                         // console.log ('Got the registry: ' + JSON.stringify(this.registry));
                         this.regs = this.registry.regs;
+                        this.instructors = this.registry.instructors;
                         // console.log ('The REGS: ' + this.regs);
                         this.populateForm();
 
@@ -116,6 +121,7 @@ export class ClassEditComponent implements OnInit {
         // loop through the reg array to build a simple regUsersArray (collection of user ids)
 
         this.userChart = [];
+ 
 
         // Here I am building a custom CHART - (array of coloquial objects ) - just for the purposes of display
         // The FORM ARRAY - is built of these temporary user objects - which I am building based on the
@@ -123,13 +129,32 @@ export class ClassEditComponent implements OnInit {
         // console.log('REGS:' + JSON.stringify( this.regs) );
 
         for (let i = 0; i < this.users.length; i++) {
-            const chartObject = {'id': '0', 'value': false, 'name': '', 'creation_date': '', 'role' : [], 'status': []};
+            const chartObject = {'id': '0', 'value': false, 'name': '', 'creation_date': '', 'roles' : [], 'status': []};
             const thisUser = <User> this.users[i];
             chartObject.id = thisUser.id;
             chartObject.name = thisUser.username;
+            chartObject.value = false;
 
             this.userChart.push(chartObject);
 
+            if (thisUser.user_type.includes('instructor')) {
+
+                for (let m = 0; m < this.instructors.length; m++) {
+                    if (thisUser.id === this.instructors[m].userid) {
+                        chartObject.value = true;
+                    }
+                }
+
+                this.instructingUsers.push( this.fb.group( {
+                    userid: chartObject.id,
+                    username: chartObject.name,
+                    value: chartObject.value,
+                    creation_date: chartObject.creation_date,
+                    status: []
+                }) ); }
+
+
+            chartObject.value = false; // start over for Student List 
             // loop through the regs to adjust the values of the reg Form array
             // console.log ('Regs: ' + this.regs.length );
 
@@ -147,7 +172,6 @@ export class ClassEditComponent implements OnInit {
                 username: chartObject.name,
                 value: chartObject.value,
                 creation_date: chartObject.creation_date,
-                role: chartObject.role,
                 status: chartObject.status
             }) );
 
@@ -176,20 +200,40 @@ export class ClassEditComponent implements OnInit {
     }
 
     sortRegs() {
-            const newClassRegistrationObject = {'id': this.thisClass.id, 'regs': [] };
 
-            const tempList = [];
+
+            const newClassRegistrationObject = {'id': this.thisClass.id, 'instructors': [], 'regs': [] };
+
+            const instructorList = [];
+            const studentList = [];
+
+
+            for (let i = 0; i < this.instructingUsers.length; i++) {
+
+                if (this.instructingUsers.at(i).value.value) {
+
+                      instructorList.push(this.instructingUsers.at(i).value);
+                }
+            }
+
+            // Looping through the FormArray
             for (let j = 0; j < this.regUsers.length; j++ ) {
-                // console.log ('j + ' + j);
-                console.log( j + ',' + this.regUsers.at(j).value.value );
+
 
                 if (this.regUsers.at(j).value.value) {
-                    tempList.push(this.regUsers.at(j).value);
+                    studentList.push(this.regUsers.at(j).value);
                 }
 
             }
-            console.log(tempList);
-            newClassRegistrationObject.regs = tempList;
+
+            // look for duplicates and consolidate them
+
+            console.log(JSON.stringify( studentList ) );
+
+
+            console.log( 'New TempList: ' + JSON.stringify( studentList ) );
+            newClassRegistrationObject.instructors = instructorList;
+            newClassRegistrationObject.regs = studentList;
              // }
 
             // for (let j = 0; j < this.regUsers.length; j++) {
@@ -199,6 +243,7 @@ export class ClassEditComponent implements OnInit {
             //     this.regs.splice( j , 1);
             // }
        //  }
+
         this.sortedRegs = newClassRegistrationObject;
 
     }
@@ -210,19 +255,14 @@ export class ClassEditComponent implements OnInit {
              const combinedClassObject = Object.assign( {}, this.thisClass, this.classForm.value);
 
 
-            // const regUsersToSave = combinedClassObject.regUsers;
-
             // we store the class registrations separately from the class info (even though we make both editable here).
              delete combinedClassObject.regUsers;
-
-
-            //  const classRegObject = { 'id': this.thisClass.id, 'regs': regUsersToSave };
-            //  console.log ('classRegObject: ' + JSON.stringify(classRegObject) );
 
             // This sends the class Object to the API
             if (this.thisClass.id === '0') {
                 this.classService.createClass( combinedClassObject ).subscribe(
-                    (val) => { }, response => console.log(response),
+                    (val) => { }, response => console.log('')
+                    ,
                       () => {});
             } else { this.classService
                 .updateClass( combinedClassObject ).subscribe(

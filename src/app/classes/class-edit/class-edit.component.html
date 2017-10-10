@@ -41,6 +41,14 @@ name="description" required minlength="3" maxlength="250">
 </md-form-field>
 </div> 
 <br clear='all'>
+<br><h1>Instructors</h1>
+<div *ngIf='instructingUsers'>
+<div formArrayName='instructors' *ngFor='let instructor of instructingUsers.controls; let j=index'>
+        <div [formGroupName]="j" class='loomCheckBox'> 
+            <md-checkbox formControlName="value" (click)="sortRegs()">{{instructor.value.username}}</md-checkbox>
+        </div>
+    </div>
+</div><br>
 <br><h1>Registered Students</h1>
 
 <div formArrayName='regUsers' *ngFor='let user of regUsers.controls; let i=index'>
@@ -55,8 +63,5 @@ name="description" required minlength="3" maxlength="250">
 </form> 
 </div>
 <div class='debug'>
-{{ classForm.course }}
-{{ classForm.value | json }}
-<br>Sorted:<br>
-{{ sortedRegsString }}
+
 </div>
