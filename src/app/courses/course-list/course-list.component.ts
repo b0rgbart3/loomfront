@@ -25,7 +25,7 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit() {
      this.currentUser = <User> JSON.parse(localStorage.getItem('currentUser') );
-      if ( this.currentUser && this.currentUser.user_type === 'admin' ) { this.admin = true; }
+      if ( this.currentUser && this.currentUser.user_type.includes('admin') ) { this.admin = true; }
 
       this.courseService
        .getCourses().subscribe(

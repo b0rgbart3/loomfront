@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
       this.userService.getUsers().subscribe((users) => this.users = users);
       console.log('ngOnInit()');
 
-      this.user = new User ( '', '', '', '', '', '', '', 'false', '', '0');
+      this.user = new User ( '', '', '', '', '', '', '', 'false', ['student'], '0');
 
       const id = +this.activated_route.snapshot.params['id'];
 

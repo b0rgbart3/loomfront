@@ -11,6 +11,7 @@ import { Avatar } from '../models/avatar.model';
 import { Usersettings } from '../models/usersettings.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Classregistration } from '../models/classregistration.model';
+import { Classregistrationgroup } from '../models/classregistrationgroup.model';
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class UserService {
   isLoggedIn = false;
   private highestID;
   private userCount = 0;
-  classregistrations: Classregistration[];
+  classregistrations: Classregistrationgroup;
 
   private _usersUrl = 'http://localhost:3100/api/users';
   private _avatarUrl = 'http://localhost:3100/api/avatars';
@@ -37,8 +38,8 @@ export class UserService {
       .catch (this.handleError);
     }
 
-    getClassregistrations(): Observable <Classregistration []> {
-      return this._http.get <Classregistration []> (this._classregistrationsUrl)
+    getClassregistrations(): Observable <Classregistrationgroup> {
+      return this._http.get <Classregistrationgroup> (this._classregistrationsUrl)
       .do(data => {
         this.classregistrations = data;
       }).catch (this.handleError );
@@ -56,12 +57,12 @@ export class UserService {
         }
         for (let i = 0; i < data.length; i++) {
           const foundID = Number(data[i].id);
-          console.log('Found ID: ' + foundID);
+          // console.log('Found ID: ' + foundID);
           if (foundID >= this.highestID) {
             const newHigh = foundID + 1;
             this.highestID = newHigh;
             }
-          console.log('hightestID: ' + this.highestID );
+          // console.log('hightestID: ' + this.highestID );
          } }
 
         )
@@ -85,7 +86,6 @@ export class UserService {
       const body =  JSON.stringify(userObject);
       console.log('Highest ID: ' + this.highestID );
       console.log('In postUser.');
-
       console.log( 'Posting User: ', body   );
       console.log(this._usersUrl);
 
@@ -94,16 +94,11 @@ export class UserService {
 
     updateUser(userObject: User): Observable<any> {
       console.log('Made it to the updateUser method.');
-
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
-
       const body =  JSON.stringify(userObject);
-
-
       return this._http.put(this._usersUrl + '?id=' + userObject.id , userObject, {headers: myHeaders} );
     }
-
 
 
     private handleError (error: HttpErrorResponse) {

@@ -19,25 +19,26 @@
   </div>
 </div>
 
-<div class='loomCard group'>
+<!-- Class Registrations -->
+<!-- <div class='loomCard group'>
     <div class='padMe'> 
-      <div *ngIf="classregistrations && chart">
+      <div *ngIf="classregistrations">
       <h1>Class Registrations</h1>
-      <div *ngFor='let class of chart'>
-        <h2>{{ class[0].class_title }}</h2>
-          <div *ngFor='let user of class[0].users'>
+      <div *ngFor='let class of classregistrations'>
+        <h2>{{ class.id }}</h2>
+          <div *ngFor='let user of class.regs'>
             
              {{ user.username}}
           </div>
-          <!-- I want the list of users here -->
+       
         </div>
       </div>
-      <div *ngIf="!classregistrations || !chart">
+      <div *ngIf="!classregistrations">
         <button (click)="buildCRegChart()">view registrations</button>
       </div>
     </div>
   </div>
-
+ -->
 
 
     <div class='loomCard group'>

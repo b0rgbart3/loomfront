@@ -23,8 +23,11 @@ export class ClassListComponent implements OnInit {
   constructor(private classService: ClassService) { }
 
   ngOnInit() {
-     this.currentUser = <User> localStorage.currentUser;
-      if ( this.currentUser && this.currentUser.user_type === 'admin' ) { this.admin = true; }
+    this.currentUser = <User>JSON.parse( localStorage.currentUser );
+    console.log(this.currentUser);
+
+
+      if ( this.currentUser && this.currentUser.user_type.includes('admin') ) { this.admin = true; }
 
       this.classService
        .getClasses().subscribe(
@@ -45,7 +48,7 @@ export class ClassListComponent implements OnInit {
 
   createNewClass() {
     const classObject: ClassModel = {
-      title: '', description: '', course: '', start: '', end: '', id: '0', regUsers: []
+      title: '', description: '', course: '', start: '', end: '', id: '0'
     };
 
     // By default, a newly-created course will have the selected state.

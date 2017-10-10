@@ -124,7 +124,7 @@ export class AuthenticationService implements OnInit {
 
     isAdmin(): boolean {
         this.loggedInUser();
-        if (this.currentUser && this.currentUser.user_type === 'admin') {
+        if (this.currentUser && this.currentUser.user_type.includes('admin')) {
             return true;
         }
     }

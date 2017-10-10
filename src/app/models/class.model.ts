@@ -7,8 +7,8 @@ export class ClassModel {
       public course: string,
       public start: string,
       public end: string,
-      public id: string,
-      public regUsers: string[]
+      public id: string
+
   ) {}
 
 }

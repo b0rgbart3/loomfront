@@ -12,6 +12,7 @@ import { ClassModel } from '../models/class.model';
 
 @Injectable()
 export class ClassService {
+    private _registryUrl = 'http://localhost:3100/api/classregistrations';
     private _classesUrl = 'http://localhost:3100/api/classes';
     private classCount = 0;
     private highestID = 0;
@@ -29,14 +30,12 @@ export class ClassService {
       // Loop through all the Classes to find the highest ID#
       for (let i = 0; i < data.length; i++) {
         const foundID = Number(data[i].id);
-      
+
         if (foundID >= this.highestID) {
           const newHigh = foundID + 1;
           this.highestID = newHigh;
-        
         }
       }
-  
 
 
     } )
@@ -46,7 +45,7 @@ export class ClassService {
   getClass(id): Observable<ClassModel[]> {
     return this._http.get<ClassModel[]> ( this._classesUrl + '?id=' + id )
       .do(data => {
-    
+
       return data; })
       .catch (this.handleError);
   }
@@ -61,6 +60,29 @@ export class ClassService {
     // Note: I'm not passing the id as part of the url -- because it's inside the classObject
     const url = this._classesUrl;
     return this._http.put(url + '?id=' + classObject.id, classObject, {headers: myHeaders}).map( () => classObject );
+
+  }
+
+  // Note the class ID should match the classreggroup id
+
+  getClassRegistry ( classID ): Observable<any> {
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('Content-Type', 'application/json');
+
+    return this._http.get<ClassModel[]> ( this._registryUrl + '?id=' + classID )
+    .do(data => data )
+    .catch ( this.handleError );
+
+  }
+
+  saveRegistry ( regObject ): Observable<any> {
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('Content-Type', 'application/json');
+
+   // console.log('Saving Reg Object: ' + JSON.stringify ( regObject) );
+    
+
+    return this._http.put(this._registryUrl + '?id=' + regObject.id, regObject, {headers: myHeaders});
 
   }
 
