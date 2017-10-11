@@ -23,9 +23,10 @@ export class ClassListComponent implements OnInit {
   constructor(private classService: ClassService) { }
 
   ngOnInit() {
+    if (localStorage.currentUser) {
     this.currentUser = <User>JSON.parse( localStorage.currentUser );
     console.log(this.currentUser);
-
+    }
 
       if ( this.currentUser && this.currentUser.user_type.includes('admin') ) { this.admin = true; }
 

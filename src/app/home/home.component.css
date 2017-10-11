@@ -1,0 +1,10 @@
+.selectorBox {
+    border:1px solid #cccccc;
+    border-radius:8px;
+    padding:10px;
+    padding-top:0;
+}
+
+.selectorBox:hover {
+    border:1px solid #f833ff;
+}

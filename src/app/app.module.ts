@@ -21,7 +21,6 @@ import { AuthenticationService } from './services/authentication.service';
 import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UserService } from './users/user.service';
-import { StudentModule } from './student/student.module';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { RegisterComponent } from './users/register/register.component';
 import { AlertComponent } from './_directives/alert.component';
@@ -44,6 +43,7 @@ import { Error404Component } from './errors/404component';
 import { AdminRouteActivator } from './admin/admin-route-activator';
 import { MaterialEditComponent } from './materials/material-edit.component';
 import { MaterialService } from './materials/material.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   // External
@@ -55,7 +55,6 @@ import { MaterialService } from './materials/material.service';
     BrowserAnimationsModule,
     HttpClientModule,
     FlashMessagesModule,
-    StudentModule,
     AppRoutingModule,
     ReactiveFormsModule,
 
@@ -78,6 +77,7 @@ import { MaterialService } from './materials/material.service';
     CourseEditComponent,
     ClassEditComponent,
     UserListComponent,
+    HomeComponent,
     UploadComponent,
     UserSettingsComponent,
     AdminComponent,

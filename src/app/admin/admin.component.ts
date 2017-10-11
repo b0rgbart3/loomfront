@@ -33,6 +33,7 @@ export class AdminComponent implements OnInit {
   materials: Material [];
   chart: Object [];
   regs: Object[];
+  test: true;
 
   classregistrations: Classregistrationgroup;
 
@@ -49,6 +50,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.test = true;
     this.getUsers();
     this.getClasses();
     this.getCourses();
