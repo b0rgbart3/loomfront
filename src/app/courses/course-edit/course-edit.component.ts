@@ -35,7 +35,7 @@ export class CourseEditComponent implements OnInit {
     tempName = '';
     thisFile: File;
     materialList: Material [];
-    materialReferences: FormArray;
+//    materialReferences: FormArray;
     matObjRefArray: Object[]; // This is my custom object array so I can refer to material id#s instead of just the array indexes
     sectionReferences: FormArray[];
     // sections: Object[];
@@ -103,7 +103,7 @@ export class CourseEditComponent implements OnInit {
           this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 
              this.tempName = this.uploader.queue[0].file.name;
-            console.log('Response from the server: ' + this.tempName);
+            // console.log('Response from the server: ' + this.tempName);
 
              this.image = this.tempName;
              this.imageUrl = COURSE_IMAGE_PATH + this.course.id + '/' + this.image;
@@ -129,11 +129,12 @@ export class CourseEditComponent implements OnInit {
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-            console.log('Got a file: ' + file.name);
+            // console.log('Got a file: ' + file.name);
             this.thisFile = file;
 
         }
     }
+
 
 
     populateForm(): void {
@@ -147,18 +148,19 @@ export class CourseEditComponent implements OnInit {
                  const title = section.title;
                  const content = section.content;
                  const thissectionMaterials = section.materials;
-                 console.log ( JSON.stringify ( thissectionMaterials ));
+                 // console.log ( JSON.stringify ( thissectionMaterials ));
                  if (thissectionMaterials) {
-                console.log ( 'No of section materials: ' + thissectionMaterials.length ); }
+            //    console.log ( 'No of section materials: ' + thissectionMaterials.length );
+             }
                 const sectionMaterialReferences = <FormArray> this.fb.array([  ]);
                 this.sectionReferences[i] = sectionMaterialReferences;
 
                 for (let j = 0; j < thissectionMaterials.length; j++) {
-                    console.log('Found reference');
+                    // console.log('Found reference');
                     const materialReference = <Materialreference> thissectionMaterials[j];
-                    console.log( JSON.stringify( materialReference ) );
-                    console.log( typeof(materialReference) );
-                    console.log( materialReference.reference );
+                    // console.log( JSON.stringify( materialReference ) );
+                    // console.log( typeof(materialReference) );
+                    // console.log( materialReference.reference );
                     const refID = materialReference.reference;
 
                     // I need to grab the material object -- whos ID is
@@ -177,7 +179,7 @@ export class CourseEditComponent implements OnInit {
 
                 }
 
-                console.log(sectionMaterialReferences);
+                // console.log(sectionMaterialReferences);
 
 
                 this.sections.push(  this.fb.group( {
@@ -187,7 +189,7 @@ export class CourseEditComponent implements OnInit {
                 }) );
 
 
-                console.log( this.sections );
+                // console.log( this.sections );
 
                 // this.sections[i].patchValue({'title': title, 'content': content });
            //     this.sections.push(this.fb.group( this.course.sections[i]) );
@@ -209,11 +211,11 @@ export class CourseEditComponent implements OnInit {
 
     showForm() {
         this.course.image = this.image;
-        console.log(this.course.image);
-        console.log(JSON.stringify( this.course ) );
+        // console.log(this.course.image);
+        // console.log(JSON.stringify( this.course ) );
         const combinedCourseObject = Object.assign( {}, this.course, this.courseForm.value);
-        console.log( 'Course Form Info: ' + JSON.stringify(this.courseForm.value) );
-        console.log( 'combined: ' + JSON.stringify(combinedCourseObject));
+        // console.log( 'Course Form Info: ' + JSON.stringify(this.courseForm.value) );
+        // console.log( 'combined: ' + JSON.stringify(combinedCourseObject));
     }
     postCourse() {
         this.course.image = this.image;
@@ -304,5 +306,15 @@ export class CourseEditComponent implements OnInit {
         this.sections.removeAt(i); }
         // this.courseForm.get('sections').splice(i, 1);
         // Here I need to remove the section with an index of i from the sections array.
+    }
+
+    killMaterial(i, j) {
+        // const k = confirm('Are you sure you want to delete this whole section, and all the related reference materials?');
+        // if (k) {
+            // console.log( 'Section References: ' + JSON.stringify( this.sectionReferences) );
+
+            console.log (' section #' + i + ', material#' + j);
+            this.sectionReferences[i].removeAt(j);
+       // }
     }
 }

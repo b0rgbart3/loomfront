@@ -57,12 +57,9 @@
                             </md-form-field>
 
                             <div *ngIf='section.controls.materials' >
-                            <div formArrayName='materials' *ngFor='let material of section.controls.materials.controls; let j=index'>
+                            <div formArrayName='materials' *ngFor='let material of section.controls.materials.controls; let j=index' class='materialChooser'>
+                                    <button type='button' class='loomKill rightAlignMe' (click)="killMaterial(i, j)"></button>
                                 <div [formGroupName]="j"> 
-                                    <!-- <md-form-field>
-                                    <input mdInput id="{{ 'material' +j }}" formControlName="reference">
-                                     </md-form-field> -->
-                                     
                                     <md-select placeholder='Material' formControlName='reference'>
                                             <md-option *ngFor='let item of materialList' mdOption [value]='item.id' ng-selected="reference"> {{ item.title }}</md-option>
                                         </md-select>

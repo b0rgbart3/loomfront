@@ -162,7 +162,7 @@ export class AdminComponent implements OnInit {
     this.userService
     .getClassregistrations().subscribe(
       classregistrations =>  {this.classregistrations = classregistrations;
-      console.log('ClassRegistrations: ' + JSON.stringify( classregistrations) );
+      // console.log('ClassRegistrations: ' + JSON.stringify( classregistrations) );
         this.regs = this.classregistrations.regs;
       // I need to build a chart of users, organized by the Class they are registered for.
       // So I guess that means building a double nested array of objects where the outer
@@ -220,6 +220,7 @@ export class AdminComponent implements OnInit {
 
     }
   }
+  
   deleteMaterial(materialId) {
     const result = confirm( 'Are you sure you want to delete this material? ');
     if (result) {
