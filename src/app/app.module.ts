@@ -44,6 +44,7 @@ import { AdminRouteActivator } from './admin/admin-route-activator';
 import { MaterialEditComponent } from './materials/material-edit.component';
 import { MaterialService } from './materials/material.service';
 import { HomeComponent } from './home/home.component';
+import { ClassComponent } from './classes/class/class.component';
 
 @NgModule({
   // External
@@ -73,6 +74,7 @@ import { HomeComponent } from './home/home.component';
     AlertComponent,
     WelcomeComponent,
     RequestresetComponent,
+    ClassComponent,
     ClassListComponent,
     CourseEditComponent,
     ClassEditComponent,
@@ -83,7 +85,7 @@ import { HomeComponent } from './home/home.component';
     AdminComponent,
     Error404Component,
     MaterialEditComponent
- 
+
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService, AlertService,

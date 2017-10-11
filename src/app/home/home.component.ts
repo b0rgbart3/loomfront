@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
       }
 
       goto( queryID ) {
-          const queryString = '\/courses?id=' + queryID;
+          const queryString = '/classes/' + queryID;
         this._router.navigate( [queryString] );
       }
 }

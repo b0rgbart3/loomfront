@@ -19,7 +19,7 @@ const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages/';
 
 export class CourseEditComponent implements OnInit {
 
-    
+
     // This is the Form Model -- and the Root Form Group Object
     courseForm: FormGroup;
 
@@ -27,12 +27,12 @@ export class CourseEditComponent implements OnInit {
     course: Course = new Course( '', '', '0', [], '' );
     id: number;
     errorMessage: string;
-    image: string;
-    imageUrl: string;
+    image = '';
+    imageUrl = '';
     formSections: FormArray;
     public uploader: FileUploader;
-    localImageUrl: string;
-    tempName: string;
+    localImageUrl = '';
+    tempName = '';
     thisFile: File;
     materialList: Material [];
     materialReferences: FormArray;
@@ -50,6 +50,8 @@ export class CourseEditComponent implements OnInit {
     ngOnInit(): void {
         // Instantiating the Root Form Group Object
         // This service takes in a form configuration object
+
+        
 
         this.formSections = this.fb.array([  ]);
         this.sectionReferences = [];
@@ -73,6 +75,18 @@ export class CourseEditComponent implements OnInit {
 
         if (this.id !== 0) {
             this.getCourse(this.id);
+
+         // before we even deal with the uploader - we should grab the existing image from the DB if there is one.
+
+        // this.courseService.loadCourseImage( this.id ).subscribe(
+        //     courseimage => { console.log(' got courseimage back from the server. ');
+        //     const thecourseimage = courseimage[0];
+        //     if (thecourseimage) {
+        //     this.image = courseimage[0];
+        //     const thecourseimageURL = 'http://localhost:3100/courseimages/' + this.id + '/' + thecourseimage.filename;
+        //     this.imageUrl = thecourseimageURL;
+        //     console.log('this courseimage image: ' + thecourseimageURL); } else { this.image = null; this.imageUrl = null; } },
+        //     error => this.errorMessage = <any> error );
          }
 
          const urlWithQuery = 'http://localhost:3100/api/courseimages?id=' + this.id;
@@ -84,7 +98,7 @@ export class CourseEditComponent implements OnInit {
              // this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + ;
              // this.avatarimage = url;
              this.uploader.queue[0].upload();
-     
+
           };
           this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 
@@ -162,7 +176,7 @@ export class CourseEditComponent implements OnInit {
                     }));
 
                 }
-                
+
                 console.log(sectionMaterialReferences);
 
 
@@ -285,7 +299,7 @@ export class CourseEditComponent implements OnInit {
 
     killSection(i) {
         // console.log('Kill' + i);
-        let k = confirm('Are you sure you want to delete this whole section, and all the related reference materials?');
+        const k = confirm('Are you sure you want to delete this whole section, and all the related reference materials?');
         if (k) {
         this.sections.removeAt(i); }
         // this.courseForm.get('sections').splice(i, 1);

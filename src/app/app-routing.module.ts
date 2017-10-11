@@ -19,6 +19,7 @@ import { Error404Component } from './errors/404component';
 import { AdminRouteActivator } from './admin/admin-route-activator';
 import { MaterialEditComponent } from './materials/material-edit.component';
 import { HomeComponent } from './home/home.component';
+import { ClassComponent } from './classes/class/class.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -34,6 +35,7 @@ const ROUTES: Routes = [
 { path: 'admin', pathMatch: 'full', component: AdminComponent, canActivate: [ AdminRouteActivator ] },
 { path: 'home', pathMatch: 'full', component: HomeComponent },
 { path: 'courses/:id/edit', component: CourseEditComponent },
+{ path: 'classes/:id', component: ClassComponent },
 { path: 'classes/:id/edit', component: ClassEditComponent },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
 { path: 'materials/:id/edit', component: MaterialEditComponent },

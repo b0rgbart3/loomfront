@@ -1,0 +1,16 @@
+<div *ngIf='thisClass'>
+<h1>{{ thisClass.title }}</h1>
+<div *ngIf='courseimageURL' class='mainImage'>
+    <img [src]='courseimageURL' class='mainImageImage'>
+</div>
+<div *ngIf='course'>
+   
+    <div *ngIf='course.sections'>
+      
+        <div *ngFor='let section of course.sections' class='loomCard group padMe'>
+           <h2> {{ section.title }} </h2>
+           <p> {{section.content }}</p>
+        </div>
+    </div>
+</div>
+</div>

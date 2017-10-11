@@ -72,8 +72,12 @@ export class ClassService implements OnInit {
   }
 
   getClassFromMemory(queryID): ClassModel {
+    console.log('In getClassFromMemory method: ' + this.classes);
+
     if (this.classes) {
+      console.log('looking: ' + this.classes.length);
       for (let i = 0; i < this.classes.length; i++) {
+        
         if (this.classes[i].id === queryID ) {
           return this.classes[i];
         }

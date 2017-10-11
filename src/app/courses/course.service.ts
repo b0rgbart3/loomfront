@@ -13,6 +13,7 @@ import { Course } from '../models/course.model';
 @Injectable()
 export class CourseService {
     private _coursesUrl = 'http://localhost:3100/api/courses';
+    private _courseImagesUrl = 'http://localhost:3100/api/courseimages';
     private courseCount = 0;
     private highestID = 0;
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
@@ -46,8 +47,25 @@ export class CourseService {
   //     .catch( this.handleError );
   // }
 
+  // loadCourseImage ( queryID ): Observable <any> {
+  //   console.log('In LoadCourseImage()');
+
+  //   const myHeaders = new HttpHeaders();
+  //   myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+  //   return this._http.get('http://localhost:3100/api/courseimages?id=' + queryID, {headers: myHeaders} );
+  // }
+
   getCourse(id): Observable<Course> {
     return this._http.get<Course> ( this._coursesUrl + '?id=' + id )
+      .do(data => {
+        // console.log( 'found: ' + JSON.stringify(data) );
+      return data; })
+      .catch (this.handleError);
+  }
+
+  getCourseImage(id): Observable<Course> {
+    return this._http.get<string> ( this._courseImagesUrl + '?id=' + id )
       .do(data => {
         // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
