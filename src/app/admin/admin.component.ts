@@ -13,7 +13,8 @@ import { MaterialService } from '../materials/material.service';
 import { Material } from '../models/material.model';
 import { Classregistration } from '../models/classregistration.model';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
-
+import { Avatar } from '../models/avatar.model';
+const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -34,6 +35,8 @@ export class AdminComponent implements OnInit {
   chart: Object [];
   regs: Object[];
   test: true;
+  userFat: string[]; // a list of userids
+  avatars: Avatar[];
 
   classregistrations: Classregistrationgroup;
 
@@ -78,8 +81,30 @@ export class AdminComponent implements OnInit {
   getUsers() {
   this.userService
   .getUsers().subscribe(
-    users =>  this.users = users,
+    users =>  {this.users = users;
+      // console.log(JSON.stringify(this.users));
+      this.buildUserCharts();
+    },
     error => this.errorMessage = <any>error);
+  }
+
+  buildUserCharts() {
+    this.userFat = [];
+    for (let u = 0; u < this.users.length; u++) {
+      this.userFat.push(this.users[u].id);
+    }
+   // console.log(JSON.stringify(this.userFat));
+
+    this.avatars = [];
+    for (let f = 0; f < this.userFat.length; f++) {
+      this.userService.getAvatar(this.userFat[f]).subscribe(
+        (avatar) => { this.avatars.push( avatar[0] );
+          // create an Avatar Chart Object?
+
+       // console.log('Got avatars: ' + JSON.stringify(this.avatars));
+      },
+        (error) => this.errorMessage = <any>error);
+    }
   }
 
   // this method returns a User object from our local User Object array

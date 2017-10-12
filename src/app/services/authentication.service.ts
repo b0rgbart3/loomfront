@@ -38,7 +38,7 @@ export class AuthenticationService implements OnInit {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        console.log('In authentication service, sending a reset request' + emailObjectString);
+        // console.log('In authentication service, sending a reset request' + emailObjectString);
 
         return this.http.post('http://localhost:3100/api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
             // console.log('Got back from http request.');
@@ -130,7 +130,7 @@ export class AuthenticationService implements OnInit {
     }
 
     loadAvatar (): Observable <any> {
-        console.log('In LoadAvatar()');
+        // console.log('In LoadAvatar()');
         if (this.currentUser) {
             // console.log('currentUser' + JSON.stringify( this.currentUser) );
 
@@ -139,16 +139,17 @@ export class AuthenticationService implements OnInit {
 
             return this.http.get('http://localhost:3100/api/avatars?id=' + this.currentUser.id, {headers: myHeaders} )
             .map((avatar) => {
-                   console.log(' got avatar back from the server. ');
+                  // console.log(' got avatar back from the server. ');
 
                     this.avatar = avatar[0];
                     // localStorage.setItem('currentUser', JSON.stringify( avatar ) );
                     this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUser.id + '/' + this.avatar.filename;
                     localStorage.setItem('avatar', JSON.stringify( this.avatar ) );
                     localStorage.setItem('avatarimage', this.avatarimage );
-                    console.log('this avatar image: ' + this.avatarimage);
+                   // console.log('this avatar image: ' + this.avatarimage);
                     return(this.avatar);
-                }, error => console.log('Got error fetching avatar') );
+                }, error => console.log('Got error fetching avatar')
+             );
 
 
 

@@ -40,7 +40,7 @@ export class ClassService implements OnInit {
      return this._http.get <Classregistrationgroup[]> (this._registryUrl, {headers: myHeaders})
        // debug the flow of data
        .do(data => {
-        console.log('All: ' + JSON.stringify(data));
+        // console.log('All: ' + JSON.stringify(data));
        this.classregistrations = data;
      } )
        .catch( this.handleError );
@@ -72,10 +72,10 @@ export class ClassService implements OnInit {
   }
 
   getClassFromMemory(queryID): ClassModel {
-    console.log('In getClassFromMemory method: ' + this.classes);
+    // console.log('In getClassFromMemory method: ' + this.classes);
 
     if (this.classes) {
-      console.log('looking: ' + this.classes.length);
+      // console.log('looking: ' + this.classes.length);
       for (let i = 0; i < this.classes.length; i++) {
         
         if (this.classes[i].id === queryID ) {
@@ -134,9 +134,9 @@ export class ClassService implements OnInit {
   getRegClassIds( queryID ) {
     const classIDs = <string []>[];
     if (this.classregistrations ) {
-      console.log('Class registrations: ' + JSON.stringify( this.classregistrations ));
+      // console.log('Class registrations: ' + JSON.stringify( this.classregistrations ));
     } else {
-      console.log(' No class registrations' );
+      // console.log(' No class registrations' );
       this.getClassRegistrations().subscribe(
         classregistrations => this.classregistrations = classregistrations,
         error => this.errorMessage = <any>error);

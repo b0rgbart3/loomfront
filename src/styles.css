@@ -350,7 +350,34 @@ height:3em;
   padding:20px;
 }
 
+.avatarThumb {
+  width:100px;
+  height:100px;
+  border-radius:6px 6px 0 0;
 
+}
+.usernamebox {
+  background-color:white;
+  width:100px;
+  padding:4px;
+  text-align: center;
+
+}
+
+.avatarContainer {
+  width:120px;
+  display:inline-block;
+  float:left;
+  border:1px solid #cccccc;
+  border-radius:4px;
+  margin-right:10px;
+  text-align:center;
+  padding-top:8px;
+}
+
+h2 {
+  margin-bottom:6px;
+}
 /*  ClearFix  -----------------------------------------------------------
 */
 /*  The ClearFix by Tony Aslett and Nicholas Gallagher */

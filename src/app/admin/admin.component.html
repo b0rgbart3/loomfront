@@ -1,5 +1,4 @@
 
-<div *ngIf="test===true">This is a test</div>
 
 <div class='stuff'>
     <h1>Hello Admin:{{ username }} </h1>
@@ -7,17 +6,23 @@
     <!--  User List -->
 <div class='loomCard group'>
   <div class='padMe'>
-    <button *ngIf="users" [routerLink]="['/register']" class='loomRoundButton loomAdd rightAlignMe'></button>  
+    <button *ngIf="users" [routerLink]="['/register']" 
+    class='loomRoundButton loomAdd rightAlignMe'></button>  
     <h1>Users</h1>
     <ul class='loom-list' *ngIf="users">
-      <li *ngFor='let user of users'> 
-          <button [routerLink]="['/users', user.id, 'edit']" class='loomRoundButton loomEdit'></button>
-          <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteUser(user.id)"></button>
+      <li *ngFor='let user of users; let i = index'>
+        <div *ngIf='avatars[i]'>
+       {{ avatars[i].filename }} </div>
+          <button [routerLink]="['/users', user.id, 'edit']" 
+          class='loomRoundButton loomEdit'></button>
+          <button class='loomRoundButton loomKill rightAlignMe' 
+          (click)="deleteUser(user.id)"></button>
         <h2> {{user.firstname}} {{ user.lastname }}</h2>
         <p> {{ user.email }} </p> 
         
     </ul>
-    <div class="notice" *ngIf="!users">Currently having trouble accessing the API for user info.</div>      
+    <div class="notice" *ngIf="!users">
+      Currently having trouble accessing the API for user info.</div>      
   </div>
 </div>
 
@@ -89,9 +94,12 @@
     <h1>Materials</h1>
     <ul class='loom-list' *ngIf='materials'>
       <li *ngFor='let material of materials'>
-          <button [routerLink]="['/materials', material.id, 'edit']" class='loomRoundButton loomEdit'></button>  
-          <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteMaterial(material.id)"></button>
+          <button [routerLink]="['/materials', material.id, 'edit']" 
+          class='loomRoundButton loomEdit'></button>  
+          <button class='loomRoundButton loomKill rightAlignMe' 
+          (click)="deleteMaterial(material.id)"></button>
           <h2>{{ material.title }}</h2>
+          <p>{{ material.description }} </p>
       </li>
     </ul>
   </div>

@@ -20,6 +20,7 @@ export class UserService {
   private highestID;
   private userCount = 0;
   classregistrations: Classregistrationgroup;
+  avatars: Avatar[];
 
   private _usersUrl = 'http://localhost:3100/api/users';
   private _avatarUrl = 'http://localhost:3100/api/avatars';
@@ -28,12 +29,20 @@ export class UserService {
 
   constructor (private _http: HttpClient) {}
 
+  getAvatar( id ): Observable<Avatar> {
+
+          return this._http.get<Avatar> ( this._avatarUrl + '?id=' + id )
+          .do(data => {
+            // console.log( 'found: ' + JSON.stringify(data) );
+          return data; })
+          .catch (this.handleError);
+    }
 
     getUser( id ): Observable<User[]> {
 
       return this._http.get<User[]> ( this._usersUrl + '?id=' + id )
       .do(data => {
-        console.log( 'found: ' + JSON.stringify(data) );
+        // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
     }
