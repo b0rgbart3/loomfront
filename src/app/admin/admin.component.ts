@@ -37,6 +37,7 @@ export class AdminComponent implements OnInit {
   test: true;
   userFat: string[]; // a list of userids
   avatars: Avatar[];
+  userChart: Object[];
 
   classregistrations: Classregistrationgroup;
 
@@ -53,6 +54,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.ngOnInit();
     this.test = true;
     this.getUsers();
     this.getClasses();
@@ -60,6 +62,7 @@ export class AdminComponent implements OnInit {
     this.getMaterials();
     this.getClassregistrations();
     this.username = localStorage.getItem('username');
+
   }
 
   getClasses() {
@@ -83,28 +86,27 @@ export class AdminComponent implements OnInit {
   .getUsers().subscribe(
     users =>  {this.users = users;
       // console.log(JSON.stringify(this.users));
-      this.buildUserCharts();
     },
     error => this.errorMessage = <any>error);
   }
 
-  buildUserCharts() {
-    this.userFat = [];
-    for (let u = 0; u < this.users.length; u++) {
-      this.userFat.push(this.users[u].id);
-    }
-   // console.log(JSON.stringify(this.userFat));
+  buildUserChart() {
+  //   this.userFat = [];
+  //   for (let u = 0; u < this.users.length; u++) {
+  //     this.userFat.push(this.users[u].id);
+  //   }
+  //  // console.log(JSON.stringify(this.userFat));
 
-    this.avatars = [];
-    for (let f = 0; f < this.userFat.length; f++) {
-      this.userService.getAvatar(this.userFat[f]).subscribe(
-        (avatar) => { this.avatars.push( avatar[0] );
-          // create an Avatar Chart Object?
+  //   this.avatars = [];
+  //   for (let f = 0; f < this.userFat.length; f++) {
+  //     this.userService.getAvatar(this.userFat[f]).subscribe(
+  //       (avatar) => { this.avatars.push( avatar[0] );
+  //         // create an Avatar Chart Object?
 
-       // console.log('Got avatars: ' + JSON.stringify(this.avatars));
-      },
-        (error) => this.errorMessage = <any>error);
-    }
+  //      // console.log('Got avatars: ' + JSON.stringify(this.avatars));
+  //     },
+  //       (error) => this.errorMessage = <any>error);
+  //   }
   }
 
   // this method returns a User object from our local User Object array
@@ -194,7 +196,7 @@ export class AdminComponent implements OnInit {
       // array key is the class and the inner array key is the user objects
 
           this.buildCRegChart();
-
+          this.userChart = this.userService.buildUserChart();
 
     },
       error => this.errorMessage = <any>error);

@@ -4,15 +4,14 @@
     <h1>Hello Admin:{{ username }} </h1>
 
     <!--  User List -->
-<div class='loomCard group'>
+<!-- <div class='loomCard group'>
   <div class='padMe'>
     <button *ngIf="users" [routerLink]="['/register']" 
     class='loomRoundButton loomAdd rightAlignMe'></button>  
     <h1>Users</h1>
     <ul class='loom-list' *ngIf="users">
       <li *ngFor='let user of users; let i = index'>
-        <div *ngIf='avatars[i]'>
-       {{ avatars[i].filename }} </div>
+
           <button [routerLink]="['/users', user.id, 'edit']" 
           class='loomRoundButton loomEdit'></button>
           <button class='loomRoundButton loomKill rightAlignMe' 
@@ -23,6 +22,30 @@
     </ul>
     <div class="notice" *ngIf="!users">
       Currently having trouble accessing the API for user info.</div>      
+  </div>
+</div> -->
+
+<div class='loomCard group'>
+  <div class='padMe'>  
+    <button *ngIf="users" [routerLink]="['/register']" 
+    class='loomRoundButton loomAdd rightAlignMe'></button> 
+    <h1>Users</h1>
+    <button *ngIf="!userChart" (click)='buildUserChart'>Get User Info</button>  
+    <div *ngIf="userChart">
+      <div *ngFor='let userObject of userChart; let u = index'>
+          
+        <div class='userInfoBox'><a [routerLink]="['/users', userObject.id, 'edit']">
+        <img [src]="userObject.avatarURL" class='avatarThumb'></a>
+       
+        <button class='loomRoundButton loomKill rightAlignMe' 
+        (click)="deleteUser(userObject.id)"></button>
+        <h2> {{userObject.username}}</h2>
+        <p> {{ userObject.firstname }}&nbsp;{{ userObject.lastname }}</p>
+        <p> {{userObject.email}}</p>
+      </div>
+    </div>
+  </div>
+    
   </div>
 </div>
 
