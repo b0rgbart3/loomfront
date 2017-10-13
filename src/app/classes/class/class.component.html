@@ -3,17 +3,18 @@
 <h1>{{ thisClass.title }}</h1>
 
 <h2>Instructors for this class:</h2>
-<div *ngFor='let instructor of instructors; let i=index'>
-    <div *ngIf='instructorAvatarArray[i]' class='avatarContainer'>
-        <img [src]="instructorAvatarArray[i]" class='avatarThumb'>
-        <div class='usernamebox'>{{ instructor.username }}</div>
+<div *ngFor='let instructor of instructorChart; let i=index'>
+    <div *ngIf='instructorChart && instructorChart[i]' class='avatarContainer'>
+        <img [src]="instructor.avatarURL" class='avatarThumb'>
+        <div class='usernamebox'>{{ instructor.username }}<br>
+        </div>
     </div>
 </div>
 <br clear='all'>
 <h2>Students in this class:</h2>
-<div *ngFor='let student of regs; let j=index'>
-        <div *ngIf='studentAvatarArray[j]' class='avatarContainer'>
-            <img [src]="studentAvatarArray[j]" class='avatarThumb'>
+<div *ngFor='let student of studentChart; let j=index'>
+        <div *ngIf='studentChart && studentChart[j]' class='avatarContainer'>
+            <img [src]="student.avatarURL" class='avatarThumb'>
             <div class='usernamebox'>{{ student.username }}</div>
         </div>
     </div>

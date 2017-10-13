@@ -11,6 +11,7 @@ import { Usersettings } from '../models/usersettings.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Classregistration } from '../models/classregistration.model';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
+import { Userchartobject } from '../models/userchartobject.model';
 const AVATAR_IMAGE_URL = 'http://localhost:3100/avatars/';
 
 @Injectable()
@@ -23,7 +24,7 @@ export class UserService implements OnInit {
   avatar: Avatar;
   avatars: Avatar[];
   users: User[];
-  userObjects: Object[];
+  userObjects: Userchartobject[];
   errorMessage: string;
 
   private _usersUrl = 'http://localhost:3100/api/users';
@@ -66,14 +67,26 @@ export class UserService implements OnInit {
     return avatar.id === queryID;
   }
 
+  findUserById(queryId): User {
+    let foundUser = <User>{};
+    if (this.users) {
+    for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].id === queryId) {
+            foundUser = this.users[i];
+        }
+    } }
+    return foundUser;
+}
+
   // This builds a local Chart of user info + avatarURLs -- still not sure if the shouldn't just all be stored
   // in the user DB instead of having to recreate it all like this. ??
-  buildUserChart(): Object[] {
+  buildUserChart(): Userchartobject[] {
     console.log ('In user service, building User Chart');
     const localUserObjects = [];
     if (this.users && this.avatars) {
-
+      console.log('Users length: ' + this.users.length);
       for (let i = 0; i < this.users.length; i++) {
+        console.log('Building userChart... i= ' + i);
         const aUserObject = { 'id': '', 'firstname' : '', 'lastname' : '', 'username': '', 'email': '', 'avatarURL': ''};
         aUserObject.id = this.users[i].id;
         aUserObject.firstname = this.users[i].firstname;
@@ -89,6 +102,9 @@ export class UserService implements OnInit {
         aUserObject.avatarURL = 'http://localhost:3100/avatars/' + this.users[i].id + '/' + matchingAvatar.filename;
         localUserObjects.push(aUserObject);
       }
+    } else {
+      this.subscribeToUsers();
+      this.subscribeToAvatars();
     }
     console.log('UserObjects: ' + JSON.stringify(localUserObjects));
     this.userObjects = localUserObjects;
@@ -121,7 +137,7 @@ export class UserService implements OnInit {
     }
 
     getAvatars(): Observable<Avatar[]> {
-      console.log ('In user service, getting Avatars: ' + this._avatarsUrl);
+      // console.log ('In user service, getting Avatars: ' + this._avatarsUrl);
       return this._http.get<Avatar[]> (this._avatarsUrl).do(data => { console.log('received avatar data');
           this.avatars = data;
        }, err => console.log('Error:')
@@ -132,7 +148,7 @@ export class UserService implements OnInit {
     getAvatarImage( id, avatar ): string {
 
       const avatarimage = AVATAR_IMAGE_URL + id + '/' + avatar.filename;
-      console.log('In getAvatarImage: ' + JSON.stringify(avatar) );
+      // console.log('In getAvatarImage: ' + JSON.stringify(avatar) );
       return avatarimage;
     }
 

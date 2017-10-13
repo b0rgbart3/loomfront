@@ -351,7 +351,7 @@ height:3em;
 }
 
 .avatarThumb {
-  width:100px;
+  width:120px;
   height:100px;
   border-radius:6px 6px 0 0;
 
@@ -369,10 +369,10 @@ height:3em;
   display:inline-block;
   float:left;
   border:1px solid #cccccc;
-  border-radius:4px;
+  border-radius:6px;
   margin-right:10px;
   text-align:center;
-  padding-top:8px;
+  padding-top:0px;
 }
 
 h2 {

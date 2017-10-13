@@ -9,6 +9,7 @@ import { ClassService } from '../class.service';
 import { UserService } from '../../users/user.service';
 import { Classregistrationgroup } from '../../models/classregistrationgroup.model';
 import { Classregistration } from '../../models/classregistration.model';
+import { Userchartobject } from '../../models/userchartobject.model';
 const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages';
 const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 
@@ -32,8 +33,9 @@ export class ClassComponent implements OnInit {
     registry: Classregistrationgroup;
     regs: Classregistration[];
     instructors: Classregistration[];
-    instructorAvatarArray: string[];
-    studentAvatarArray: string[];
+    instructorChart: Object[];
+    studentChart: Object[];
+    userChart: Userchartobject[];
 
     constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,
@@ -41,6 +43,8 @@ export class ClassComponent implements OnInit {
     private userService: UserService ) {}
 
     ngOnInit() {
+        this.userService.subscribeToUsers();
+        this.userService.subscribeToAvatars();
         this.classService
         .getClasses().subscribe(
           classes =>  {this.classes = classes;
@@ -81,25 +85,78 @@ export class ClassComponent implements OnInit {
     }
 
         populateForm() {
-       // console.log('In pop form');
-       this.studentAvatarArray = [];
-       for (let j = 0; j < this.regs.length; j++) {
-           this.userService.getAvatar(this.regs[j].userid).subscribe(
-               (avatar) => { // console.log('Avatar:' + avatar[0].filename );
-               const avatarURL = AVATAR_IMAGE_PATH + this.regs[j].userid + '/' + avatar[0].filename;
-                   this.studentAvatarArray.push( avatarURL );
-               },
-               (error) => this.errorMessage = <any>error);
-       }
-        this.instructorAvatarArray = [];
-        for (let i = 0; i < this.instructors.length; i++) {
-            this.userService.getAvatar(this.instructors[i].userid).subscribe(
-                (avatar) => { // console.log('Avatar:' + avatar[0].filename );
-                const avatarURL = AVATAR_IMAGE_PATH + this.instructors[i].userid + '/' + avatar[0].filename;
-                    this.instructorAvatarArray.push( avatarURL );
-                },
-                (error) => this.errorMessage = <any>error);
+       console.log('In pop form: instructors: ' + JSON.stringify( this.instructors) );
+       this.userChart = this.userService.buildUserChart();
+
+       console.log('In pop form: regs: userChart: ' + JSON.stringify( this.userChart) );
+
+      this.createStudentChart();
+      this.createInstructorChart();
+
+
+    }
+
+    createStudentChart() {
+        this.studentChart = [];
+        for (let j = 0; j < this.regs.length; j++) {
+ 
+            const thisStudentObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
+            if (this.userChart) {
+             console.log('building student chart: userChart length: ' + this.userChart.length);
+             thisStudentObject.id = this.regs[j].userid;
+ 
+             let foundUserChartObject = {};
+             let foundChartIndex = -1;
+ 
+             for (let k = 0; k < this.userChart.length; k++) {
+                 if (this.userChart[k].id === this.regs[j].userid) {
+                     foundUserChartObject = this.userChart[k];
+                     foundChartIndex = k;
+                     console.log('Found username: ' + this.userChart[foundChartIndex].username);
+                     console.log('found: foundChartIndex=' + foundChartIndex);
+                 }
+             }
+             if (foundChartIndex !== -1) {
+             console.log('Pushing: ' + this.userChart[foundChartIndex].username);
+             thisStudentObject.username = this.userChart[foundChartIndex].username;
+             thisStudentObject.avatarURL = this.userChart[foundChartIndex].avatarURL;
+             this.studentChart.push(thisStudentObject);
+              }
+            }
         }
+ 
+        console.log( 'Student Chart: ' + JSON.stringify(this.studentChart ));
+    }
+    createInstructorChart() {
+        this.instructorChart = [];
+        for (let j = 0; j < this.instructors.length; j++) {
+ 
+            const thisInstructorObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
+            if (this.userChart) {
+             // console.log('building instructor chart: userChart length: ' + this.userChart.length);
+             thisInstructorObject.id = this.instructors[j].userid;
+ 
+             let foundUserChartObject = {};
+             let foundChartIndex = -1;
+ 
+             for (let k = 0; k < this.userChart.length; k++) {
+                 if (this.userChart[k].id === this.instructors[j].userid) {
+                     foundUserChartObject = this.userChart[k];
+                     foundChartIndex = k;
+                     // console.log('Found username: ' + this.userChart[foundChartIndex].username);
+                     // console.log('found: foundChartIndex=' + foundChartIndex);
+                 }
+             }
+             if (foundChartIndex !== -1) {
+             console.log('Pushing: ' + this.userChart[foundChartIndex].username);
+             thisInstructorObject.username = this.userChart[foundChartIndex].username;
+             thisInstructorObject.avatarURL = this.userChart[foundChartIndex].avatarURL;
+             this.instructorChart.push(thisInstructorObject);
+              }
+            }
+        }
+ 
+       //  console.log( 'Student Chart: ' + JSON.stringify(this.instructorChart ));
     }
 }
 
