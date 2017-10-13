@@ -60,17 +60,22 @@ export class UserSettingsComponent implements OnInit {
         private sanitizer: DomSanitizer) {}
 
     myInit() {
-        this.user = this.authenticationService.loggedInUser();
-        this.currentUserId = localStorage.getItem('id');
-        // this.currentAvatar = null;
-        // this.currentAvatarFile = null;
-        this.avatarobject = this.authenticationService.avatar;
-        this.avatarimage = localStorage.getItem('avatarimage');
-        console.log('In user settings init User: ' + JSON.stringify ( this.user));
-        console.log('id: ' + this.currentUserId);
-//        this.avatarimage = this.authenticationService.avatarimage;
+        this.user = this.authenticationService.getCurrentUser();
+        if (this.user) {
+            this.currentUserId = this.user.id;
 
+        console.log('In myInit: this.user: ' + JSON.stringify(this.user));
+        this.userService.getAvatar(this.currentUserId).subscribe(
+            avatar =>  {this.avatarobject = avatar[0];
+                console.log('In myInit: got avatar data');
+                this.avatarimage = this.userService.getAvatarImage(this.currentUserId, this.avatarobject);
+                console.log('In myInit: this.avatarimage: ' + this.avatarimage);
+                this.populateForm();
+            },
+            error => this.errorMessage = <any>error);
+        }
     }
+
     ngOnInit () {
         this.favoritecolor = new FormControl();
         this.avatarInput = new FormControl();
@@ -93,30 +98,24 @@ export class UserSettingsComponent implements OnInit {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
             this.localImageUrl = url;
-            // this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + ;
-            // this.avatarimage = url;
             this.uploader.queue[0].upload();
          };
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            
 
-            this.authenticationService.loadAvatar();
             this.tempName = this.uploader.queue[0].file.name;
-            
+
             const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
-            console.log("New name: "+ newfilename);
+            console.log('New name: ' + newfilename);
             this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
 
             localStorage.setItem('avatarimage', this.avatarimage);
-            
+
             this.uploader.queue[0].remove();
         };
 
         this.favoritecolor.valueChanges.subscribe( value => console.log(value) );
         this.avatarInput.valueChanges.subscribe( value => console.log('value change: ' + value) );
-        // this.populateForm();
 
-        console.log('At the end of the user settings init method: the avatarimage = ' + this.avatarimage );
     }
 
 

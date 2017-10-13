@@ -5,21 +5,22 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
-
 import { User } from '../models/user.model';
 import { Avatar } from '../models/avatar.model';
 import { Usersettings } from '../models/usersettings.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Classregistration } from '../models/classregistration.model';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
-
+const AVATAR_IMAGE_URL = 'http://localhost:3100/avatars/';
 
 @Injectable()
 export class UserService implements OnInit {
+  currentUser: User;
   isLoggedIn = false;
   private highestID;
   private userCount = 0;
   classregistrations: Classregistrationgroup;
+  avatar: Avatar;
   avatars: Avatar[];
   users: User[];
   userObjects: Object[];
@@ -128,6 +129,13 @@ export class UserService implements OnInit {
         .catch( this.handleError );
     }
 
+    getAvatarImage( id, avatar ): string {
+
+      const avatarimage = AVATAR_IMAGE_URL + id + '/' + avatar.filename;
+      console.log('In getAvatarImage: ' + JSON.stringify(avatar) );
+      return avatarimage;
+    }
+
     getUsers(): Observable<User[]> {
       console.log ('In user service, gettingUsers');
       return this._http.get <User[]> (this._usersUrl)
@@ -198,6 +206,7 @@ export class UserService implements OnInit {
         return this._http.put(this._userSettingsUrl + '?id=' + settingsObject.id, settingsObject, {headers: myHeaders} );
 
       }
+
 
 
 }

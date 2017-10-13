@@ -20,6 +20,7 @@ export class NavBarComponent implements OnInit, DoCheck {
 
   errorMessage: string;
   username = '';
+  avatar: Avatar;
   avatarimage = '';
   currentUser: User;
   admin;
@@ -35,11 +36,20 @@ export class NavBarComponent implements OnInit, DoCheck {
 
   updateMyself() {
     this.currentUser = this.authenticationService.getCurrentUser();
-    console.log(JSON.stringify(this.currentUser));
+    // console.log(JSON.stringify(this.currentUser));
     if (this.currentUser && this.currentUser.user_type.includes('admin')) {
       this.admin = true;
     }
-  }
+    if (this.currentUser) {
+    this.userService.getAvatar(this.currentUser.id).subscribe(
+      avatar =>  {this.avatar = avatar[0];
+        console.log('In navbar updateMyself(), got new avatar: currentUser.id == ' + JSON.stringify( this.avatar) );
+        this.avatarimage = this.userService.getAvatarImage(this.currentUser.id, this.avatar);
+        console.log('Current Avatar Image: ' + this.avatarimage );
+      },
+      error => this.errorMessage = <any>error);
+
+  }}
 
   logout() {
     this.username = null;
@@ -52,13 +62,22 @@ export class NavBarComponent implements OnInit, DoCheck {
 
 
   ngOnInit() {
+    this.updateMyself();
     this.username = localStorage.getItem('username');
     this.avatarimage = localStorage.getItem('avatarimage');
   }
 
  ngDoCheck() {
   this.username = localStorage.getItem('username');
-  this.avatarimage = localStorage.getItem('avatarimage');
+  if (!this.username || this.username === '') {
+    this.currentUser = this.authenticationService.getCurrentUser();
+    if (this.currentUser) {
+      this.username = this.currentUser.username;
+    }
+  }
+  if (this.currentUser && this.avatar) {
+  this.avatarimage = this.userService.getAvatarImage(this.currentUser.id, this.avatar);
+  }
  }
 
 }
