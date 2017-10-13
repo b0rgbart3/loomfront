@@ -37,7 +37,7 @@
         <div class='userInfoBox'><a [routerLink]="['/users', userObject.id, 'edit']">
         <img [src]="userObject.avatarURL" class='avatarThumb'></a>
        
-        <button class='loomRoundButton loomKill rightAlignMe' 
+        <button class='loomSquareButton simpleKill rightAlignMe' 
         (click)="deleteUser(userObject.id)"></button>
         <h2> {{userObject.username}}</h2>
         <p> {{ userObject.firstname }}&nbsp;{{ userObject.lastname }}</p>

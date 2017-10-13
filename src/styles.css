@@ -53,11 +53,20 @@ body {
     }
   }
 
+  .loomContainer {
+    margin-left:auto;
+    margin-right:auto;
+    width:100%;
+    max-width:1200px;
+  }
+
   .loomCard {
       text-align: left;
-      background-color:#ffffff;
-      margin-left:10%;
-      margin-right:10%;
+      background-color:#dddddd;
+      margin-left:auto;
+      margin-right:auto;
+      width:100%;
+      max-width:1200px;
       padding:0px;
       margin-top:20px;
       animation-name:slide1;
@@ -100,6 +109,24 @@ body {
     background-color:rgba(0,0,0,0);
   }
 
+  .userInfoBox {
+    display:inline-block;
+    width:200px;
+    float:left;
+    vertical-align: top;
+    margin-right:10px;
+    text-align:center;
+    line-height: .8em;
+    background-color:white;
+    border:1px solid #cccccc;
+    font-size:.9em;
+    line-height: .69em;
+  }
+
+  .userInfoBox h2 {
+    line-height:1em;
+    font-size:1.2em;
+  }
 
   .mat-app-background {
     background-color:rgba(0,0,0,0) !important;
@@ -209,6 +236,17 @@ body {
   padding:18px;
 }
 
+.loomSquareButton {
+  background-color:#999999;
+  background-size:80%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  box-shadow:0px 2px 2px #888888;
+  border-radius:0;
+}
+.loomSquareButton:hover {
+  background-color:#ff4081;
+}
 .loomRoundButton {
   border-radius:50%;
   background-color:#999999;
@@ -228,10 +266,16 @@ body {
 .loomKill {
   width:30px;
   height:30px;
-  background-image:url(assets/images/kill.svg);
-  background-color:white;
+  background-image:url(assets/images/kill_hi.svg);
+  background-color:#dddddd;
 }
 
+.simpleKill {
+  width:26px;
+  height:26px;
+  background-image:url(assets/images/kill_hi.svg);
+  background-color:#cccccc;
+}
 
 .loomEdit {
   background-image: url(assets/images/edit.svg);
@@ -351,8 +395,7 @@ height:3em;
 }
 
 .avatarThumb {
-  width:120px;
-  height:100px;
+  width:100%;
   border-radius:6px 6px 0 0;
 
 }
