@@ -45,6 +45,7 @@ import { MaterialEditComponent } from './materials/material-edit.component';
 import { MaterialService } from './materials/material.service';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
+import { CourseResolver } from './services/course-resolver.service';
 
 @NgModule({
   // External
@@ -89,7 +90,8 @@ import { ClassComponent } from './classes/class/class.component';
   ],
 
   providers: [ AuthGuard, AuthenticationService, UserService, AlertService,
-    CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService
+    CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
+    CourseResolver
    ],
   bootstrap: [AppComponent]
 })

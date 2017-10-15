@@ -22,15 +22,32 @@
 <div *ngIf='courseimageURL' class='mainImage'>
     <img [src]='courseimageURL' class='mainImageImage'>
 </div>
+<!--
 <div *ngIf='course'>
    
     <div *ngIf='course.sections'>
       
-        <div *ngFor='let section of course.sections' class='group padMe'>
+        <div *ngFor='let section of course.sections; let k = index' class='group padMe'>
            <h2> {{ section.title }} </h2>
            <p> {{section.content }}</p>
+           <div *ngFor= 'let material of course.sections[k].materials'>Material:
+               {{material.title}}
+           </div>
         </div>
     </div>
-</div>
+</div> -->
+
+    <div *ngIf='courseChart'>
+        Section:
+        <div *ngFor='let section of CourseChart' class='loomCard'>
+            <h2> {{ section.title }} </h2>
+            <p> {{section.content }}</p>
+            <div *ngFor= 'let material of section.materials'>Material:
+                {{material.title}}
+            </div>
+        </div>
+    </div>
+
+
 </div>
 </div>

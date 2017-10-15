@@ -43,7 +43,7 @@ export class UserService implements OnInit {
     // I think I'm ok with that.
 
     // Apparently this lifecycle hook doesn't work for 'services'.
-    console.log ('In user service, ngOnInit');
+    // console.log ('In user service, ngOnInit');
     this.subscribeToUsers();
     this.subscribeToAvatars();
   }
@@ -81,12 +81,12 @@ export class UserService implements OnInit {
   // This builds a local Chart of user info + avatarURLs -- still not sure if the shouldn't just all be stored
   // in the user DB instead of having to recreate it all like this. ??
   buildUserChart(): Userchartobject[] {
-    console.log ('In user service, building User Chart');
+    // console.log ('In user service, building User Chart');
     const localUserObjects = [];
     if (this.users && this.avatars) {
-      console.log('Users length: ' + this.users.length);
+      // console.log('Users length: ' + this.users.length);
       for (let i = 0; i < this.users.length; i++) {
-        console.log('Building userChart... i= ' + i);
+        // console.log('Building userChart... i= ' + i);
         const aUserObject = { 'id': '', 'firstname' : '', 'lastname' : '', 'username': '', 'email': '', 'avatarURL': ''};
         aUserObject.id = this.users[i].id;
         aUserObject.firstname = this.users[i].firstname;
@@ -106,7 +106,7 @@ export class UserService implements OnInit {
       this.subscribeToUsers();
       this.subscribeToAvatars();
     }
-    console.log('UserObjects: ' + JSON.stringify(localUserObjects));
+    // console.log('UserObjects: ' + JSON.stringify(localUserObjects));
     this.userObjects = localUserObjects;
     return localUserObjects;
   }
@@ -138,7 +138,7 @@ export class UserService implements OnInit {
 
     getAvatars(): Observable<Avatar[]> {
       // console.log ('In user service, getting Avatars: ' + this._avatarsUrl);
-      return this._http.get<Avatar[]> (this._avatarsUrl).do(data => { console.log('received avatar data');
+      return this._http.get<Avatar[]> (this._avatarsUrl).do(data => { // console.log('received avatar data');
           this.avatars = data;
        }, err => console.log('Error:')
       )
@@ -153,11 +153,11 @@ export class UserService implements OnInit {
     }
 
     getUsers(): Observable<User[]> {
-      console.log ('In user service, gettingUsers');
+      // console.log ('In user service, gettingUsers');
       return this._http.get <User[]> (this._usersUrl)
         // debug the flow of data
         .do(data => {
-          console.log('Got Users data.');
+          // console.log('Got Users data.');
           this.users = data;  // store a local copy - even though this method is usually called
                               // from an outside component
           // console.log('All: ' + JSON.stringify(data));
@@ -188,7 +188,7 @@ export class UserService implements OnInit {
     }
 
     createUser(userObject: User): Observable<any> {
-      console.log('Made it to the createUser method.');
+      // console.log('Made it to the createUser method.');
 
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');

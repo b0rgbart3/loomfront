@@ -8,12 +8,14 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
 import { Course } from '../models/course.model';
+import { Material } from '../models/material.model';
 
 
 @Injectable()
 export class CourseService {
     private _coursesUrl = 'http://localhost:3100/api/courses';
     private _courseImagesUrl = 'http://localhost:3100/api/courseimages';
+    private _materialsUrl = 'http://localhost:3100/api/materials';
     private courseCount = 0;
     private highestID = 0;
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
@@ -55,6 +57,7 @@ export class CourseService {
 
   //   return this._http.get('http://localhost:3100/api/courseimages?id=' + queryID, {headers: myHeaders} );
   // }
+
 
   getCourse(id): Observable<Course> {
     return this._http.get<Course> ( this._coursesUrl + '?id=' + id )

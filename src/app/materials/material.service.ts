@@ -19,8 +19,11 @@ export class MaterialService {
 
     constructor (private _http: HttpClient) {}
 
-   getMaterials(): Observable<Material[]> {
-    return this._http.get <Material[]> (this._materialsUrl)
+    // We want to get all the material objects for the entire course -- but
+    // not all the material objects in the entire database -- so we'll grab
+    // them using the corresponding course_id.
+   getMaterials( course_id ): Observable<Material[]> {
+    return this._http.get <Material[]> (this._materialsUrl + '?id=' + course_id )
       // debug the flow of data
       .do(data =>  { // console.log('All: ' + JSON.stringify(data));
                     this.materialCount = data.length;

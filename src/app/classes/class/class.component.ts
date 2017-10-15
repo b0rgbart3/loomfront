@@ -10,6 +10,11 @@ import { UserService } from '../../users/user.service';
 import { Classregistrationgroup } from '../../models/classregistrationgroup.model';
 import { Classregistration } from '../../models/classregistration.model';
 import { Userchartobject } from '../../models/userchartobject.model';
+import { ContentChart } from '../../models/contentchart.model';
+import { Section } from '../../models/section.model';
+import { MaterialService } from '../../materials/material.service';
+
+
 const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages';
 const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 
@@ -21,7 +26,7 @@ const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 })
 
 export class ClassComponent implements OnInit {
-
+    materialService: MaterialService;
     classID: string;
     thisClass: ClassModel;
     errorMessage: string;
@@ -36,6 +41,7 @@ export class ClassComponent implements OnInit {
     instructorChart: Object[];
     studentChart: Object[];
     userChart: Userchartobject[];
+    courseChart: ContentChart[];
 
     constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,
@@ -61,7 +67,7 @@ export class ClassComponent implements OnInit {
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
-
+                console.log ( JSON.stringify (this.course ));
         },
             error => this.errorMessage = <any>error);
 
@@ -85,60 +91,60 @@ export class ClassComponent implements OnInit {
     }
 
         populateForm() {
-       console.log('In pop form: instructors: ' + JSON.stringify( this.instructors) );
+       // console.log('In pop form: instructors: ' + JSON.stringify( this.instructors) );
        this.userChart = this.userService.buildUserChart();
 
-       console.log('In pop form: regs: userChart: ' + JSON.stringify( this.userChart) );
+       // console.log('In pop form: regs: userChart: ' + JSON.stringify( this.userChart) );
 
       this.createStudentChart();
       this.createInstructorChart();
-
+      this.createContentCharts();
 
     }
 
     createStudentChart() {
         this.studentChart = [];
         for (let j = 0; j < this.regs.length; j++) {
- 
+
             const thisStudentObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
             if (this.userChart) {
-             console.log('building student chart: userChart length: ' + this.userChart.length);
+             // console.log('building student chart: userChart length: ' + this.userChart.length);
              thisStudentObject.id = this.regs[j].userid;
- 
+
              let foundUserChartObject = {};
              let foundChartIndex = -1;
- 
+
              for (let k = 0; k < this.userChart.length; k++) {
                  if (this.userChart[k].id === this.regs[j].userid) {
                      foundUserChartObject = this.userChart[k];
                      foundChartIndex = k;
-                     console.log('Found username: ' + this.userChart[foundChartIndex].username);
-                     console.log('found: foundChartIndex=' + foundChartIndex);
+                     // console.log('Found username: ' + this.userChart[foundChartIndex].username);
+                     // console.log('found: foundChartIndex=' + foundChartIndex);
                  }
              }
              if (foundChartIndex !== -1) {
-             console.log('Pushing: ' + this.userChart[foundChartIndex].username);
+             // console.log('Pushing: ' + this.userChart[foundChartIndex].username);
              thisStudentObject.username = this.userChart[foundChartIndex].username;
              thisStudentObject.avatarURL = this.userChart[foundChartIndex].avatarURL;
              this.studentChart.push(thisStudentObject);
               }
             }
         }
- 
-        console.log( 'Student Chart: ' + JSON.stringify(this.studentChart ));
+
+        // console.log( 'Student Chart: ' + JSON.stringify(this.studentChart ));
     }
     createInstructorChart() {
         this.instructorChart = [];
         for (let j = 0; j < this.instructors.length; j++) {
- 
+
             const thisInstructorObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
             if (this.userChart) {
              // console.log('building instructor chart: userChart length: ' + this.userChart.length);
              thisInstructorObject.id = this.instructors[j].userid;
- 
+
              let foundUserChartObject = {};
              let foundChartIndex = -1;
- 
+
              for (let k = 0; k < this.userChart.length; k++) {
                  if (this.userChart[k].id === this.instructors[j].userid) {
                      foundUserChartObject = this.userChart[k];
@@ -148,15 +154,61 @@ export class ClassComponent implements OnInit {
                  }
              }
              if (foundChartIndex !== -1) {
-             console.log('Pushing: ' + this.userChart[foundChartIndex].username);
+             // console.log('Pushing: ' + this.userChart[foundChartIndex].username);
              thisInstructorObject.username = this.userChart[foundChartIndex].username;
              thisInstructorObject.avatarURL = this.userChart[foundChartIndex].avatarURL;
              this.instructorChart.push(thisInstructorObject);
               }
             }
         }
- 
+
        //  console.log( 'Student Chart: ' + JSON.stringify(this.instructorChart ));
     }
+
+    // This method takes a section object, and creates a contentChart - which includes
+    // all the content from the section, as well as all the material info - so that it's
+    // neatly in one data object.  This requires loading in all the material info from
+    // references that are stored in the section arrays in the db for the course.
+
+    createContentCharts() {
+    this.courseChart = <ContentChart[]> [];
+
+    // Need to loop through all the sections in this course.
+
+    for (let j = 0; j < this.course.sections.length; j++ ) {
+        const contentChart = <ContentChart> {};
+        const section = <Section> this.course.sections[j];
+
+        contentChart.title = section.title;
+        contentChart.id = section.id;
+        contentChart.content = section.content;
+        contentChart.course_id = this.course.id;
+        contentChart.materials = [];
+
+        // curious to see if this subscription can add content to our array,
+        // even if it comes in asychronously...?
+
+        for (let i = 0; i < section.materials.length; i++ ) {
+        const materialID = section.materials[i]['reference'];
+            this.materialService.getMaterial(materialID).subscribe(
+                (material) => { contentChart.materials.push(material);
+                // console.log('received material: ' + JSON.stringify(material) );
+
+                if (i + 1 === section.materials.length) {
+                    console.log('WE FINISHED THE LOOP');
+                    console.log('COURSE CHART: ' + JSON.stringify(this.courseChart));
+                }
+             },
+                error => this.errorMessage = <any>error);
+
+        this.courseChart.push(contentChart);
+
+        }
+    }
+
+    console.log('COURSE CHART: ' + JSON.stringify(this.courseChart));
+  }
+
+
 }
 
