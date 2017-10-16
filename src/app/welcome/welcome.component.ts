@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, NgZone } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { User } from '../models/user.model';
+import { UserService } from '../users/user.service';
 
 
 @Component({
@@ -14,8 +14,9 @@ export class WelcomeComponent implements OnInit {
     username;
     currentUser: User;
 
-    constructor(    public authenticationService: AuthenticationService, private router: Router,
-        private _flashMessagesService: FlashMessagesService, private zone: NgZone ) {
+    constructor( private router: Router,
+        private _flashMessagesService: FlashMessagesService, private zone: NgZone,
+    private userService: UserService ) {
 
         }
 
@@ -25,7 +26,7 @@ export class WelcomeComponent implements OnInit {
 
         ngOnInit() {
             // this.username = localStorage.getItem('username');
-            this.currentUser = this.authenticationService.getCurrentUser();
+            this.currentUser = this.userService.getCurrentUser();
 
             if (this.currentUser) {
             this.username = this.currentUser.username; } else {

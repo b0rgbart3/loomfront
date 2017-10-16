@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Http} from '@angular/http';
-import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user.model';
 import { CourseService } from '../courses/course.service';
 import { Course } from '../models/course.model';
 import { ClassModel } from '../models/class.model';
 import { ClassService } from '../classes/class.service';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
+import { UserService } from '../users/user.service';
 
 
 @Component({
@@ -25,14 +25,14 @@ export class StudentHomepageComponent implements OnInit {
   username: string;
 
   constructor (
-    private authenticationService: AuthenticationService,
+    private userService: UserService,
   private classService: ClassService) { }
 
     ngOnInit() {
       this.test = true;
 
       // this.username = localStorage.getItem('username');
-      this.currentUser = this.authenticationService.getCurrentUser();
+      this.currentUser = this.userService.getCurrentUser();
       if (this.currentUser) {
       this.username = this.currentUser.username; } else {
           this.username = '';

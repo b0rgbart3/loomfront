@@ -1,9 +1,9 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
 import { ClassService } from '../classes/class.service';
 import { User } from '../models/user.model';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
 import { Router } from '@angular/router';
+import { UserService } from '../users/user.service';
 
 
 
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     errorMessage: string;
 
     constructor (
-        private authenticationService: AuthenticationService,
+        private userService: UserService,
       private classService: ClassService,
     private _router: Router) {
 
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.test = true;
-        this.currentUser = this.authenticationService.getCurrentUser();
+        this.currentUser = this.userService.getCurrentUser();
         if (this.currentUser) {
         this.username = this.currentUser.username; } else {
             this.username = '';

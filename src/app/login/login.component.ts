@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, Output } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
+import { UserService } from '../users/user.service';
 
 
 @Component({
@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
     message: string;
 
     constructor(
-        public authenticationService: AuthenticationService,
         private _flashMessagesService: FlashMessagesService,
         private _router: Router,
+        private userService: UserService
          ) { }
 
     ngOnInit() {
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         console.log('In login method');
         this.loading = true;
 
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.userService.login(this.model.username, this.model.password)
             .subscribe(result => {
 
                 if (result) {

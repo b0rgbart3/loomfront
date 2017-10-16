@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -18,15 +18,14 @@ export class RequestresetComponent {
     message: string;
 
     constructor(
-        private authenticationService: AuthenticationService,
+        private userService: UserService,
         private _flashMessagesService: FlashMessagesService,
         private _router: Router
          ) { }
 
 
 
-    sendResetRequest()
-    {
-        this.authenticationService.sendResetRequest(this.model.email);
+    sendResetRequest() {
+        this.userService.sendResetRequest(this.model.email);
     }
 }

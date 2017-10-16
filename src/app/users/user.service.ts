@@ -6,33 +6,36 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { User } from '../models/user.model';
-import { Avatar } from '../models/avatar.model';
-import { Usersettings } from '../models/usersettings.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Classregistration } from '../models/classregistration.model';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
-import { Userchartobject } from '../models/userchartobject.model';
+
 const AVATAR_IMAGE_URL = 'http://localhost:3100/avatars/';
 
 @Injectable()
 export class UserService implements OnInit {
   currentUser: User;
+  subscribeduser: User;
   isLoggedIn = false;
   private highestID;
   private userCount = 0;
   classregistrations: Classregistrationgroup;
-  avatar: Avatar;
-  avatars: Avatar[];
   users: User[];
-  userObjects: Userchartobject[];
   errorMessage: string;
+
+  public token: string;
+  public username;
+  public color: string;
 
   private _usersUrl = 'http://localhost:3100/api/users';
   private _avatarsUrl = 'http://localhost:3100/api/avatars';
-  private _userSettingsUrl = 'http://localhost:3100/api/usersettings';
   private _classregistrationsUrl = 'http://localhost:3100/api/classregistrations';
 
-  constructor (private _http: HttpClient) {}
+  constructor (private _http: HttpClient) {
+    const thisUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.token = thisUser && thisUser.token;
+    this.username = thisUser && thisUser.username;
+  }
 
   ngOnInit() {
     // Let's start by building our "User Chart" which is a local / live
@@ -45,7 +48,7 @@ export class UserService implements OnInit {
     // Apparently this lifecycle hook doesn't work for 'services'.
     // console.log ('In user service, ngOnInit');
     this.subscribeToUsers();
-    this.subscribeToAvatars();
+    this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
   }
 
   subscribeToUsers() {
@@ -55,10 +58,9 @@ export class UserService implements OnInit {
       error => this.errorMessage = <any>error);
     }
 
-  subscribeToAvatars() {
-      this.getAvatars().subscribe(
-        avatars =>  {this.avatars = avatars;
-          this.buildUserChart();
+    subscribeToUser( id ) {
+      this.getUser( id ).subscribe(
+        user =>  {this.subscribeduser = user[0];
         },
         error => this.errorMessage = <any>error);
       }
@@ -78,48 +80,6 @@ export class UserService implements OnInit {
     return foundUser;
 }
 
-  // This builds a local Chart of user info + avatarURLs -- still not sure if the shouldn't just all be stored
-  // in the user DB instead of having to recreate it all like this. ??
-  buildUserChart(): Userchartobject[] {
-    // console.log ('In user service, building User Chart');
-    const localUserObjects = [];
-    if (this.users && this.avatars) {
-      // console.log('Users length: ' + this.users.length);
-      for (let i = 0; i < this.users.length; i++) {
-        // console.log('Building userChart... i= ' + i);
-        const aUserObject = { 'id': '', 'firstname' : '', 'lastname' : '', 'username': '', 'email': '', 'avatarURL': ''};
-        aUserObject.id = this.users[i].id;
-        aUserObject.firstname = this.users[i].firstname;
-        aUserObject.lastname = this.users[i].lastname;
-        aUserObject.username = this.users[i].username;
-        aUserObject.email = this.users[i].email;
-        let matchingAvatar = null;
-        for (let j = 0; j < this.avatars.length; j++) {
-          if (this.avatars[j].id === this.users[i].id) {
-            matchingAvatar = this.avatars[j];
-          }
-        }
-        aUserObject.avatarURL = 'http://localhost:3100/avatars/' + this.users[i].id + '/' + matchingAvatar.filename;
-        localUserObjects.push(aUserObject);
-      }
-    } else {
-      this.subscribeToUsers();
-      this.subscribeToAvatars();
-    }
-    // console.log('UserObjects: ' + JSON.stringify(localUserObjects));
-    this.userObjects = localUserObjects;
-    return localUserObjects;
-  }
-
-  getAvatar( id ): Observable<Avatar> {
-
-          return this._http.get<Avatar> ( this._avatarsUrl + '?id=' + id )
-          .do(data => {
-            // console.log( 'found: ' + JSON.stringify(data) );
-          return data; })
-          .catch (this.handleError);
-    }
-
     getUser( id ): Observable<User[]> {
 
       return this._http.get<User[]> ( this._usersUrl + '?id=' + id )
@@ -136,21 +96,6 @@ export class UserService implements OnInit {
       }).catch (this.handleError );
     }
 
-    getAvatars(): Observable<Avatar[]> {
-      // console.log ('In user service, getting Avatars: ' + this._avatarsUrl);
-      return this._http.get<Avatar[]> (this._avatarsUrl).do(data => { // console.log('received avatar data');
-          this.avatars = data;
-       }, err => console.log('Error:')
-      )
-        .catch( this.handleError );
-    }
-
-    getAvatarImage( id, avatar ): string {
-
-      const avatarimage = AVATAR_IMAGE_URL + id + '/' + avatar.filename;
-      // console.log('In getAvatarImage: ' + JSON.stringify(avatar) );
-      return avatarimage;
-    }
 
     getUsers(): Observable<User[]> {
       // console.log ('In user service, gettingUsers');
@@ -180,7 +125,7 @@ export class UserService implements OnInit {
     }
 
     getUsersettings(id): Observable<any> {
-      return this._http.get( this._userSettingsUrl + '?id=' + id);
+      return this._http.get( this._usersUrl + '?id=' + id);
     }
 
     deleteUser(userId: number): Observable<any> {
@@ -219,9 +164,94 @@ export class UserService implements OnInit {
     saveSettings(settingsObject: any): Observable<any> {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
-        return this._http.put(this._userSettingsUrl + '?id=' + settingsObject.id, settingsObject, {headers: myHeaders} );
+        return this._http.put(this._usersUrl + '?id=' + settingsObject.id, settingsObject, {headers: myHeaders} );
 
       }
+
+      sendResetRequest(email: string) {
+        const emailObject = {'email': email};
+        const emailObjectString = JSON.stringify(emailObject);
+        const myHeaders = new HttpHeaders();
+        myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        // console.log('In authentication service, sending a reset request' + emailObjectString);
+
+        return this._http.post('http://localhost:3100/api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
+            // console.log('Got back from http request.');
+    });
+    }
+
+    loggedInUser(): User {
+        // this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
+        return this.currentUser;
+     }
+
+     checkAuthenticationStatus() {
+        // this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
+        return this.currentUser;
+     }
+
+     getCurrentUser(): User {
+         this.currentUser = JSON.parse(localStorage.getItem('currentUser') );
+         // this.subscribeToUser(this.currentUser.id);
+         return this.currentUser;
+     }
+
+     resetCurrentUser( newUserObject ) {
+      this.currentUser = newUserObject;
+      localStorage.setItem('currentUser', JSON.stringify( newUserObject) );
+     }
+
+
+
+    login(username: string, password: string): Observable <any> {
+
+        this.logout();
+        const myHeaders = new HttpHeaders();
+        myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        const info =  { username: username, password: password };
+
+        return this._http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders} )
+            .do((response) => {
+                    this.currentUser = <User> response;
+                    this.username = this.currentUser.username;
+                    localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
+                   return <User> response;
+                });
+
+    }
+
+    logout(): void {
+        // clear token remove user from local storage to log user out
+        this.token = null;
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentAvatar');
+        localStorage.removeItem('currentAvatarfile');
+        this.currentUser = null;
+        this.username = null;
+
+
+    }
+
+    getUserId(): string {
+      return this.currentUser.id;
+    }
+
+    isloggedin(): boolean {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser') );
+
+        if (this.currentUser != null) {
+            return true;
+        } else { return false; }
+    }
+
+    isAdmin(): boolean {
+        this.loggedInUser();
+        if (this.currentUser && this.currentUser.user_type.includes('admin')) {
+            return true;
+        }
+    }
 
 
 

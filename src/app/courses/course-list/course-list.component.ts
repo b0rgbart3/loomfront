@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../course.service';
 import { User } from '../../models/user.model';
-import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../users/user.service';
 
 @Component({
   selector: 'course-list',
@@ -20,7 +20,7 @@ export class CourseListComponent implements OnInit {
   currentUser: User;
   admin: boolean;
 
-  constructor(private courseService: CourseService, private authenticationService: AuthenticationService,
+  constructor(private courseService: CourseService, private userService: UserService,
     private _router: Router) { }
 
   ngOnInit() {

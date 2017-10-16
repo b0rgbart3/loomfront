@@ -20,6 +20,7 @@
 
 <div>{{ username }}
 	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
+	<img *ngIf="currentUser && currentUser.avatar_URL" [src]="currentUser.avatar_URL" class='avatar'>
 </div>
 
 </md-toolbar>

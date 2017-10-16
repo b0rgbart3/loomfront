@@ -62,13 +62,13 @@ export class CourseEditComponent implements OnInit {
             sections: this.formSections,
         });
 
-        this.materialService.getMaterials().subscribe(
-            materialList => {this.materialList = <Material []>materialList;
-                // console.log('got course info :' + JSON.stringify(course) );
-                this.buildMaterialObjectReferenceArray();
-             },
-            error => this.errorMessage = <any> error
-        );
+        // this.materialService.getMaterials().subscribe(
+        //     materialList => {this.materialList = <Material []>materialList;
+        //         // console.log('got course info :' + JSON.stringify(course) );
+        //         this.buildMaterialObjectReferenceArray();
+        //      },
+        //     error => this.errorMessage = <any> error
+        // );
 
         this.id = +this.activated_route.snapshot.params['id'];
         // console.log('MyID: ' + id);

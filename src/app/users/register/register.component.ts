@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { AuthenticationService } from '../../services/authentication.service';
+
 
 @Component({
     moduleId: module.id,
@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit {
       private router: Router,
       private alertService: AlertService,
       private _flashMessagesService: FlashMessagesService,
-      private authenticationService: AuthenticationService,
       private activated_route: ActivatedRoute, ) {
       }
 
@@ -38,7 +37,7 @@ export class RegisterComponent implements OnInit {
       this.userService.getUsers().subscribe((users) => this.users = users);
       console.log('ngOnInit()');
 
-      this.user = new User ( '', '', '', '', '', '', '', 'false', ['student'], '0');
+      this.user = <User> {};
 
       const id = +this.activated_route.snapshot.params['id'];
 
@@ -79,7 +78,7 @@ export class RegisterComponent implements OnInit {
           () => {
             console.log('The POST observable is now completed.');
 
-            if (this.authenticationService.isAdmin() ) {
+            if (this.userService.isAdmin() ) {
               this.router.navigate(['/admin']);
             } else {
               this.alertService.success('Your account info has been updated.', true);

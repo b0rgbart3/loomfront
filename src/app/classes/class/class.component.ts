@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../../courses/course.service';
 import { User } from '../../models/user.model';
-import { AuthenticationService } from '../../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassModel } from '../../models/class.model';
 import { ClassService } from '../class.service';
 import { UserService } from '../../users/user.service';
 import { Classregistrationgroup } from '../../models/classregistrationgroup.model';
 import { Classregistration } from '../../models/classregistration.model';
-import { Userchartobject } from '../../models/userchartobject.model';
 import { ContentChart } from '../../models/contentchart.model';
 import { Section } from '../../models/section.model';
 import { MaterialService } from '../../materials/material.service';
@@ -40,7 +38,6 @@ export class ClassComponent implements OnInit {
     instructors: Classregistration[];
     instructorChart: Object[];
     studentChart: Object[];
-    userChart: Userchartobject[];
     courseChart: ContentChart[];
 
     constructor( private activated_route: ActivatedRoute,
@@ -50,7 +47,6 @@ export class ClassComponent implements OnInit {
 
     ngOnInit() {
         this.userService.subscribeToUsers();
-        this.userService.subscribeToAvatars();
         this.classService
         .getClasses().subscribe(
           classes =>  {this.classes = classes;
@@ -91,8 +87,7 @@ export class ClassComponent implements OnInit {
     }
 
         populateForm() {
-       // console.log('In pop form: instructors: ' + JSON.stringify( this.instructors) );
-       this.userChart = this.userService.buildUserChart();
+
 
        // console.log('In pop form: regs: userChart: ' + JSON.stringify( this.userChart) );
 
@@ -107,28 +102,7 @@ export class ClassComponent implements OnInit {
         for (let j = 0; j < this.regs.length; j++) {
 
             const thisStudentObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
-            if (this.userChart) {
-             // console.log('building student chart: userChart length: ' + this.userChart.length);
-             thisStudentObject.id = this.regs[j].userid;
 
-             let foundUserChartObject = {};
-             let foundChartIndex = -1;
-
-             for (let k = 0; k < this.userChart.length; k++) {
-                 if (this.userChart[k].id === this.regs[j].userid) {
-                     foundUserChartObject = this.userChart[k];
-                     foundChartIndex = k;
-                     // console.log('Found username: ' + this.userChart[foundChartIndex].username);
-                     // console.log('found: foundChartIndex=' + foundChartIndex);
-                 }
-             }
-             if (foundChartIndex !== -1) {
-             // console.log('Pushing: ' + this.userChart[foundChartIndex].username);
-             thisStudentObject.username = this.userChart[foundChartIndex].username;
-             thisStudentObject.avatarURL = this.userChart[foundChartIndex].avatarURL;
-             this.studentChart.push(thisStudentObject);
-              }
-            }
         }
 
         // console.log( 'Student Chart: ' + JSON.stringify(this.studentChart ));
@@ -138,28 +112,8 @@ export class ClassComponent implements OnInit {
         for (let j = 0; j < this.instructors.length; j++) {
 
             const thisInstructorObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
-            if (this.userChart) {
-             // console.log('building instructor chart: userChart length: ' + this.userChart.length);
-             thisInstructorObject.id = this.instructors[j].userid;
 
-             let foundUserChartObject = {};
-             let foundChartIndex = -1;
 
-             for (let k = 0; k < this.userChart.length; k++) {
-                 if (this.userChart[k].id === this.instructors[j].userid) {
-                     foundUserChartObject = this.userChart[k];
-                     foundChartIndex = k;
-                     // console.log('Found username: ' + this.userChart[foundChartIndex].username);
-                     // console.log('found: foundChartIndex=' + foundChartIndex);
-                 }
-             }
-             if (foundChartIndex !== -1) {
-             // console.log('Pushing: ' + this.userChart[foundChartIndex].username);
-             thisInstructorObject.username = this.userChart[foundChartIndex].username;
-             thisInstructorObject.avatarURL = this.userChart[foundChartIndex].avatarURL;
-             this.instructorChart.push(thisInstructorObject);
-              }
-            }
         }
 
        //  console.log( 'Student Chart: ' + JSON.stringify(this.instructorChart ));

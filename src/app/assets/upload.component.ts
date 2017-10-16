@@ -6,7 +6,8 @@ import { AssetService } from './asset.service';
 import { FileUploader } from 'ng2-file-upload';
 import { NgClass, NgStyle} from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
-import { AuthenticationService } from '../services/authentication.service';
+import { UserService } from '../users/user.service';
+
 // const URL = '/api/';
 // let uploadURL = 'http://localhost:3100/api/assets';
 
@@ -47,15 +48,14 @@ export class UploadComponent implements OnInit {
         private activated_route: ActivatedRoute,
         private assetService: AssetService,
         private router: Router,
-        private authenticationService: AuthenticationService) {   }
+        private userService: UserService) {   }
 
     ngOnInit(): void {
 
-        const currentUserId = this.authenticationService.getUserId();
+        const currentUserId = this.userService.getUserId();
         const urlWithQuery = 'http://localhost:3100/api/assets?userid=' + currentUserId;
 
         this.uploader = new FileUploader({url: urlWithQuery});
-       
 
         this.asset = new Asset( '', '', '', '', '', '', '', '', '', '' );
         let id = +this.activated_route.snapshot.params['id'];
@@ -64,16 +64,16 @@ export class UploadComponent implements OnInit {
         if (id !== 0) {
             this.getAsset(id);
          }
-    
+
         // this.assetService.getAssets().subscribe( assets => { this.assets = assets; },
         //   error => this.errorMessage = <any>error);
     }
 
     getAsset(id: number) {
         this.assetService.getAsset(id).subscribe(
-            Assetobject => {this.asset = <Asset>Assetobject[0]; 
+            Assetobject => {this.asset = <Asset>Assetobject[0];
 
-                      
+
                            // this.populateForm();
                          },
             error => this.errorMessage = <any> error

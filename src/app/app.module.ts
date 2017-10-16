@@ -17,7 +17,6 @@ import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/index';
-import { AuthenticationService } from './services/authentication.service';
 import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UserService } from './users/user.service';
@@ -89,7 +88,7 @@ import { CourseResolver } from './services/course-resolver.service';
 
   ],
 
-  providers: [ AuthGuard, AuthenticationService, UserService, AlertService,
+  providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
     CourseResolver
    ],

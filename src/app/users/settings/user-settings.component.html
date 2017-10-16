@@ -16,20 +16,16 @@
      
                      <h1>Your Avatar Image:</h1>
 
-                   <br><img [src]="avatarimage" width='200' height='200' *ngIf="avatarimage"><br>
-  
-
+                   <br><img [src]="user.avatar_URL" width='200' height='200' *ngIf="user && user.avatar_URL"><br>
+                   <br><img [src]="localImageUrl" width='200' height='200' *ngIf="localImageUrl"><br>
+                   
                      <div class="upload-wrap">
-                        <!-- <button type="button" class="nice-button">upload_file</button> -->
                         Upload Image
                         <input type="file" class="upload-btn"  name="avatar"  
                         ng2FileSelect [uploader]="uploader" formControlName="avatar"
                         (change)="fileChange($event)" id="avatar">
                     </div>
-               
-                <!-- <input type="file" class="chooseFile" name="avatar"  
-                ng2FileSelect [uploader]="uploader" formControlName="avatar"
-                (change)="fileChange($event)" id="avatar"/>                                   -->
+                        
             </div> 
 
             <tbody>
@@ -64,10 +60,6 @@
                 </tr>
                 </tbody>
                 
-                <!-- <div class="form-group">
-                 <input type="file" class="form-control" name="avatar" id='avatar' [(ngModel)]="avatar"/>
-                                                   
-                </div> -->
             </div>
             <button class='loomButton' >Submit</button>
         </form>

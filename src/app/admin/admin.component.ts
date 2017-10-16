@@ -8,12 +8,11 @@ import { Router } from '@angular/router';
 import { ClassService } from '../classes/class.service';
 import { UserService } from '../users/user.service';
 import { AssetService } from '../assets/asset.service';
-import { AuthenticationService } from '../services/authentication.service';
 import { MaterialService } from '../materials/material.service';
 import { Material } from '../models/material.model';
 import { Classregistration } from '../models/classregistration.model';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
-import { Avatar } from '../models/avatar.model';
+
 const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 
 @Component({
@@ -36,7 +35,6 @@ export class AdminComponent implements OnInit {
   regs: Object[];
   test: true;
   userFat: string[]; // a list of userids
-  avatars: Avatar[];
   userChart: Object[];
 
   classregistrations: Classregistrationgroup;
@@ -48,7 +46,6 @@ export class AdminComponent implements OnInit {
     private router: Router,
     public userService: UserService,
     private assetService: AssetService,
-    private authenticationService: AuthenticationService,
   ) {
 
   }
@@ -59,7 +56,7 @@ export class AdminComponent implements OnInit {
     this.getUsers();
     this.getClasses();
     this.getCourses();
-    this.getMaterials();
+    // this.getMaterials();
     this.getClassregistrations();
     this.username = localStorage.getItem('username');
 
@@ -196,15 +193,14 @@ export class AdminComponent implements OnInit {
       // array key is the class and the inner array key is the user objects
 
           this.buildCRegChart();
-          this.userChart = this.userService.buildUserChart();
 
     },
       error => this.errorMessage = <any>error);
     }
 
-  getMaterials() {
+  getMaterials( id ) {
     this.materialService
-    .getMaterials().subscribe(
+    .getMaterials( id ).subscribe(
       materials =>  this.materials = materials,
       error => this.errorMessage = <any>error);
     }
@@ -253,7 +249,8 @@ export class AdminComponent implements OnInit {
     if (result) {
     this.materialService.deleteMaterial(materialId).subscribe(
       data => {
-      this.getMaterials(); },
+      // this.getMaterials();
+     },
       error => this.errorMessage = <any>error );
     }
   }

@@ -51,8 +51,7 @@ export class UserListComponent implements OnInit {
   }
 
   createNewUser() {
-    const thisUser = new User( '', '', '', '', '', '', '', '', ['student'], '0');
-
+    const thisUser = <User>{};
     // By default, a newly-created course will have the selected state.
     this.selectUser( thisUser );
   }
