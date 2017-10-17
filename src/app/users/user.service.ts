@@ -122,9 +122,9 @@ export class UserService implements OnInit {
           this.users = data;  // store a local copy - even though this method is usually called
                               // from an outside component
           for (let i = 0; i < this.users.length; i++ ) {
-            if (this.users[i].avatar_URL === null) {
-              console.log('setting placeholder');
-              this.users[i].avatar_URL = AVATAR_IMAGE_URL + 'placeholder.jpg';
+            if (this.users[i].avatar_URL === undefined) {
+              // console.log('setting placeholder');
+              this.users[i].avatar_URL = AVATAR_IMAGE_URL + 'placeholder.png';
             }
           }
           // console.log('All: ' + JSON.stringify(data));

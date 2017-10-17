@@ -13,6 +13,7 @@ import { Material } from '../models/material.model';
 @Injectable()
 export class MaterialService {
     private _materialsUrl = 'http://localhost:3100/api/materials';
+    private _materialUrl = 'http://localhost:3100/api/material';
     private materialCount = 0;
     private highestID = 0;
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
@@ -23,6 +24,9 @@ export class MaterialService {
     // not all the material objects in the entire database -- so we'll grab
     // them using the corresponding course_id.
    getMaterials( course_id ): Observable<Material[]> {
+     if (course_id === 0) {
+        return this._http.get <Material[]> (this._materialsUrl);
+     } else {
     return this._http.get <Material[]> (this._materialsUrl + '?id=' + course_id )
       // debug the flow of data
       .do(data =>  { // console.log('All: ' + JSON.stringify(data));
@@ -39,14 +43,14 @@ export class MaterialService {
             }
             // console.log("Course highest ID: "+ this.highestID);
                   } )
-      .catch( this.handleError );
+      .catch( this.handleError ); }
   }
 
 
   getMaterial(id): Observable<Material> {
-    return this._http.get<Material> ( this._materialsUrl + '?id=' + id )
+    return this._http.get<Material> ( this._materialUrl + '?id=' + id )
       .do(data => {
-        // console.log( 'found: ' + JSON.stringify(data) );
+         console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
   }

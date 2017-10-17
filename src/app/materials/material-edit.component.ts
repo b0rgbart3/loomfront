@@ -116,7 +116,7 @@ export class MaterialEditComponent implements OnInit {
     getMaterial(id: number) {
         this.materialService.getMaterial(id).subscribe(
             material => { this.material = <Material>material[0];
-                // console.log('got course info :' + JSON.stringify(course) );
+                console.log('got material ' +id + ' info :' + JSON.stringify(material) );
                 this.image = this.material.image;
                 this.imageUrl = MATERIALS_IMAGE_PATH + '/' + this.material.id + '/' + this.image;
                 this.file = this.material.file;

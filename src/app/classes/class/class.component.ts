@@ -33,11 +33,10 @@ export class ClassComponent implements OnInit {
     course: Course;
     courseimageURL: string;
     users: User[];
-    registry: Classregistrationgroup;
-    regs: Classregistration[];
-    instructors: Classregistration[];
-    instructorChart: Object[];
-    studentChart: Object[];
+    instructors: User[];
+    students: User[];
+    instructorCount= 0;
+    studentCount= 0;
     courseChart: ContentChart[];
 
     constructor( private activated_route: ActivatedRoute,
@@ -46,78 +45,47 @@ export class ClassComponent implements OnInit {
     private userService: UserService ) {}
 
     ngOnInit() {
-        this.userService.subscribeToUsers();
-        this.classService
-        .getClasses().subscribe(
-          classes =>  {this.classes = classes;
-        this.continueInit(); },
-          error => this.errorMessage = <any>error);
+        const id = this.activated_route.snapshot.params['id'];
+        this.classID = id;
+        this.classService.getClass(id).subscribe( (classObject) => {
+            this.thisClass = classObject[0]; this.continueInit(); },
+         (err) => this.errorMessage = <any> err );
 
     }
 
     continueInit() {
-        const id = this.activated_route.snapshot.params['id'];
-        this.classID = id;
-        this.thisClass = this.classService.getClassFromMemory(id);
+
         this.courseID = this.thisClass.course;
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
                 console.log ( JSON.stringify (this.course ));
+
+                this.populateForm();
+                this.userService.getInstructors( this.thisClass.id ).subscribe(
+                    (instructors) => {this.instructors = instructors;
+                    this.instructorCount = instructors.length;
+                    console.log('Found Instructors: ' + JSON.stringify(this.instructors));
+                    this.userService.getStudents( this.thisClass.id).subscribe(
+                        (students) => { this.students = students;
+                        this.studentCount = students.length;
+                    console.log('Found Students: ' + JSON.stringify(this.students)); },
+                    (err) => this.errorMessage = <any> err );
+                },
+                    (err) => this.errorMessage = <any> err
+                );
         },
             error => this.errorMessage = <any>error);
-
-        this.userService
-        .getUsers().subscribe(
-          users => { this.users = users;
-            // console.log ('Got the users' );
-            this.classService.getClassRegistry( this.thisClass.id )
-            .subscribe( registry => { this.registry = registry[0];
-                // this.regs = this.registry[0].regs;
-                // console.log ( '#of regs: ' + this.regs.length );
-
-                    // console.log ('Got the registry: ' + JSON.stringify(this.registry));
-                    this.regs = this.registry.regs;
-                    this.instructors = this.registry.instructors;
-                    // console.log ('The REGS: ' + this.regs);
-                    this.populateForm(); },
-            error => this.errorMessage = <any>error); },
-            error => this.errorMessage = <any>error);
-
     }
 
         populateForm() {
 
-
        // console.log('In pop form: regs: userChart: ' + JSON.stringify( this.userChart) );
 
-      this.createStudentChart();
-      this.createInstructorChart();
-      this.createContentCharts();
+     // this.createContentCharts();
 
     }
 
-    createStudentChart() {
-        this.studentChart = [];
-        for (let j = 0; j < this.regs.length; j++) {
-
-            const thisStudentObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
-
-        }
-
-        // console.log( 'Student Chart: ' + JSON.stringify(this.studentChart ));
-    }
-    createInstructorChart() {
-        this.instructorChart = [];
-        for (let j = 0; j < this.instructors.length; j++) {
-
-            const thisInstructorObject = { 'id' : '', 'username' : '', 'avatarURL': ''};
-
-
-        }
-
-       //  console.log( 'Student Chart: ' + JSON.stringify(this.instructorChart ));
-    }
 
     // This method takes a section object, and creates a contentChart - which includes
     // all the content from the section, as well as all the material info - so that it's

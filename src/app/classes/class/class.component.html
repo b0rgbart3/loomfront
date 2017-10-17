@@ -3,20 +3,31 @@
 <h1>{{ thisClass.title }}</h1>
 
 <h2>Instructors for this class:</h2>
-<div *ngFor='let instructor of instructorChart; let i=index'>
-    <div *ngIf='instructorChart && instructorChart[i]' class='avatarContainer'>
-        <img [src]="instructor.avatarURL" class='avatarThumb'>
-        <div class='usernamebox'>{{ instructor.username }}<br>
-        </div>
+<div *ngFor='let instructor of instructors'>
+
+    <div class='userInfoBox'>
+        <div class='userInfoAvatarFramer'>
+             <img [src]="instructor.avatar_URL" class='avatarThumb'>
+         </div>
+      <h2> {{instructor.username}}</h2>
+      <p> {{ instructor.firstname }}&nbsp;{{ instructor.lastname }}</p>
+      <p> {{instructor.email}}</p>
     </div>
 </div>
 <br clear='all'>
 <h2>Students in this class:</h2>
-<div *ngFor='let student of studentChart; let j=index'>
-        <div *ngIf='studentChart && studentChart[j]' class='avatarContainer'>
-            <img [src]="student.avatarURL" class='avatarThumb'>
-            <div class='usernamebox'>{{ student.username }}</div>
-        </div>
+<div *ngFor='let student of students'>
+     
+    <div class='userInfoBox'>
+        <div class='userInfoAvatarFramer'>
+             <img [src]="student.avatar_URL" class='avatarThumb'>
+         </div>
+      <h2> {{student.username}}</h2>
+      <p> {{ student.firstname }}&nbsp;{{ student.lastname }}</p>
+      <p> {{student.email}}</p>
+    </div>
+
+        
     </div>
 <br clear='all'><br>
 <div *ngIf='courseimageURL' class='mainImage'>
