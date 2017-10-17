@@ -9,6 +9,7 @@ import { User } from '../models/user.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Classregistration } from '../models/classregistration.model';
 import { Classregistrationgroup } from '../models/classregistrationgroup.model';
+import { Enrollment } from '../models/enrollment.model';
 
 const AVATAR_IMAGE_URL = 'http://localhost:3100/avatars/';
 
@@ -30,6 +31,8 @@ export class UserService implements OnInit {
   private _usersUrl = 'http://localhost:3100/api/users';
   private _avatarsUrl = 'http://localhost:3100/api/avatars';
   private _classregistrationsUrl = 'http://localhost:3100/api/classregistrations';
+  private _instructorsUrl = 'http://localhost:3100/api/instructors';
+  private _studentsUrl = 'http://localhost:3100/api/students';
 
   constructor (private _http: HttpClient) {
     const thisUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -100,6 +103,15 @@ export class UserService implements OnInit {
       }).catch (this.handleError );
     }
 
+    // Return an array of Users that are enrolled as instructors for this class ID
+    getInstructors( class_id ): Observable <User[]> {
+      return this._http.get < User[] >( this._instructorsUrl + '?id=' + class_id);
+    }
+
+
+    getStudents( class_id ): Observable <User[]> {
+      return this._http.get < User[] >( this._studentsUrl + '?id=' + class_id);
+    }
 
     getUsers(): Observable<User[]> {
       // console.log ('In user service, gettingUsers');

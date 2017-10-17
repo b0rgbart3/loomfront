@@ -42,20 +42,39 @@ name="description" required minlength="3" maxlength="250">
 </div> 
 <br clear='all'>
 <br><h1>Instructors</h1>
-<div *ngIf='instructingUsers'>
-<div formArrayName='instructors' *ngFor='let instructor of instructingUsers.controls; let j=index'>
-        <div [formGroupName]="j" class='loomCheckBox'> 
-            <md-checkbox formControlName="value" (click)="sortRegs()">{{instructor.value.username}}</md-checkbox>
-        </div>
-    </div>
-</div><br>
-<br><h1>Registered Students</h1>
 
-<div formArrayName='regUsers' *ngFor='let user of regUsers.controls; let i=index'>
-    <div [formGroupName]="i" class='loomCheckBox'> 
-        <md-checkbox formControlName="value" (click)="sortRegs()">{{user.value.username}}</md-checkbox>
+<p *ngIf='instructorCount===0'>There aren't any instructors yet assigned to this class.</p>
+<div *ngIf='instructors'>
+<div *ngFor='let instructor of instructors'>
+    <div class='userInfoBox'>
+        <div class='userInfoAvatarFramer'>
+             <img [src]="instructor.avatar_URL" class='avatarThumb'>
+         </div>
+      <h2> {{instructor.username}}</h2>
+      <p> {{ instructor.firstname }}&nbsp;{{ instructor.lastname }}</p>
+      <p> {{instructor.email}}</p>
     </div>
-</div>
+    </div>
+</div><br clear='all'>
+<br><h1>Students</h1>
+<p *ngIf='studentCount===0'>There aren't any students yet registered to this class.</p>
+<div *ngIf='students'>
+    <div *ngFor='let student of students'>
+
+        <div class='userInfoBox'>
+            <div class='userInfoAvatarFramer'>
+                 <img [src]="student.avatar_URL" class='avatarThumb'>
+             </div>
+          <h2> {{student.username}}</h2>
+          <p> {{ student.firstname }}&nbsp;{{ student.lastname }}</p>
+          <p> {{student.email}}</p>
+        </div>
+
+
+            
+        </div>
+    </div><br>
+
 </div>
 <br clear='all'><br>
 <button md-raised-button color="primary" class='loomButton'>Submit Changes</button>

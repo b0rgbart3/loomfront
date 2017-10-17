@@ -7,8 +7,9 @@ import { CourseService } from '../../courses/course.service';
 import { Course } from '../../models/course.model';
 import { UserService } from '../../users/user.service';
 import { User } from '../../models/user.model';
-import { Classregistrationgroup } from '../../models/classregistrationgroup.model';
-import { Classregistration } from '../../models/classregistration.model';
+import { Enrollment } from '../../models/enrollment.model';
+// import { Classregistrationgroup } from '../../models/classregistrationgroup.model';
+// import { Classregistration } from '../../models/classregistration.model';
 
 
 @Component({
@@ -24,13 +25,19 @@ export class ClassEditComponent implements OnInit {
     id: string;
     errorMessage: string;
     courses: Course[];
-    regUsers: FormArray;
-    instructingUsers: FormArray;
-    userChart: Object[];
-    registry: Classregistrationgroup;
-    regs: Classregistration[];
-    instructors: Classregistration[];
-    sortedRegs: Classregistrationgroup;
+   // students: FormArray;
+   // instructors: FormArray;
+     instructorCount = 0;
+     studentCount = 0;
+     students: User[];
+     instructors: User[];
+    // regUsers: FormArray;
+    // instructingUsers: FormArray;
+    // userChart: Object[];
+    // registry: Classregistrationgroup;
+    // regs: Classregistration[];
+    // instructors: Classregistration[];
+    // sortedRegs: Classregistrationgroup;
 
 
     users = [
@@ -46,8 +53,9 @@ export class ClassEditComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.regUsers = this.fb.array([  ]);
-        this.instructingUsers = this.fb.array([  ]);
+
+       //  this.students = this.fb.array([  ]);
+       // this.instructors = this.fb.array([  ]);
 
         this.classForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
@@ -55,8 +63,8 @@ export class ClassEditComponent implements OnInit {
             course: '',
             start: [new Date()],
             end: [new Date()],
-            instructors: this.instructingUsers,
-            regUsers: this.regUsers,
+          //  instructors: this.instructors,
+          //  students: this.students,
         });
 
         this.thisClass = new ClassModel( '', '', '', '', '', '0' );
@@ -66,9 +74,9 @@ export class ClassEditComponent implements OnInit {
 
         if (id !== 0) { this.getClass(id); }
 
-         this.classService
-         .getClasses().subscribe(
-           classes => { this.classes = classes; } );
+       //  this.classService
+       //  .getClasses().subscribe(
+       //    classes => { this.classes = classes; } );
 
         this.courseService
         .getCourses().subscribe(
@@ -81,26 +89,26 @@ export class ClassEditComponent implements OnInit {
                 this.courseSelections.push( newObject );
             }
             // console.log(JSON.stringify( this.courseSelections) );
-            this.userService
-            .getUsers().subscribe(
-              users => { this.users = users;
+           // this.userService
+           // .getUsers().subscribe(
+          //    users => { this.users = users;
                 // console.log ('Got the users' );
-                this.classService.getClassRegistry( this.thisClass.id )
-                .subscribe( registry => { this.registry = registry[0];
-                    // this.regs = this.registry[0].regs;
-                    // console.log ( '#of regs: ' + this.regs.length );
+                // this.classService.getClassRegistry( this.thisClass.id )
+                // .subscribe( registry => { this.registry = registry[0];
+                //     // this.regs = this.registry[0].regs;
+                //     // console.log ( '#of regs: ' + this.regs.length );
 
-                        // console.log ('Got the registry: ' + JSON.stringify(this.registry));
-                        this.regs = this.registry.regs;
-                        this.instructors = this.registry.instructors;
+                //         // console.log ('Got the registry: ' + JSON.stringify(this.registry));
+                //         this.regs = this.registry.regs;
+                //         this.instructors = this.registry.instructors;
                         // console.log ('The REGS: ' + this.regs);
-                        this.populateForm();
+             //           this.populateForm();
 
-            },
-                error => this.errorMessage = <any>error);
+            // },
+            //     error => this.errorMessage = <any>error);
 
-            },
-              error => this.errorMessage = <any>error);
+           // },
+            //  error => this.errorMessage = <any>error);
         },
           error => this.errorMessage = <any>error);
 
@@ -110,17 +118,31 @@ export class ClassEditComponent implements OnInit {
     getClass(id: number) {
         this.classService.getClass(id).subscribe(
             classobject => {this.thisClass = <ClassModel>classobject[0];
-            // console.log('Got the Class Info: ' + JSON.stringify(this.thisClass));
+            console.log('Got the Class Info: ' + JSON.stringify(this.thisClass));
+            this.populateForm();
+            this.userService.getInstructors(id).subscribe(
+                (instructors) => {this.instructors = instructors;
+                this.instructorCount = instructors.length;
+                console.log('Found Instructors: ' + JSON.stringify(this.instructors));
+                this.userService.getStudents(id).subscribe(
+                    (students) => { this.students = students;
+                    this.studentCount = students.length;
+                console.log('Found Students: ' + JSON.stringify(this.students)); },
+                (err) => this.errorMessage = <any> err );
+            },
+                (err) => this.errorMessage = <any> err
+            );
          },
             error => this.errorMessage = <any> error
         );
+
     }
 
     continuePopulatingForm() {
         // OK here I'm going to build my RegUsers array.
         // loop through the reg array to build a simple regUsersArray (collection of user ids)
 
-        this.userChart = [];
+       // this.userChart = [];
  
 
         // Here I am building a custom CHART - (array of coloquial objects ) - just for the purposes of display
@@ -128,67 +150,89 @@ export class ClassEditComponent implements OnInit {
         // regs array within the ClasRegistration object that we loaded in.
         // console.log('REGS:' + JSON.stringify( this.regs) );
 
-        for (let i = 0; i < this.users.length; i++) {
-            const chartObject = {'id': '0', 'value': false, 'name': '', 'creation_date': '', 'roles' : [], 'status': []};
-            const thisUser = <User> this.users[i];
-            chartObject.id = thisUser.id;
-            chartObject.name = thisUser.username;
-            chartObject.value = false;
+        // for (let i = 0; i < this.users.length; i++) {
+        //     const chartObject = {'id': '0', 'value': false, 'name': '', 'creation_date': '', 'roles' : [], 'status': []};
+        //     const thisUser = <User> this.users[i];
+        //     chartObject.id = thisUser.id;
+        //     chartObject.name = thisUser.username;
+        //     chartObject.value = false;
 
-            this.userChart.push(chartObject);
+        //    // this.userChart.push(chartObject);
 
-            if (thisUser.user_type.includes('instructor')) {
+        //     if (thisUser.user_type.includes('instructor')) {
 
-                for (let m = 0; m < this.instructors.length; m++) {
-                    if (thisUser.id === this.instructors[m].userid) {
-                        chartObject.value = true;
-                    }
-                }
+        //         for (let m = 0; m < this.instructors.length; m++) {
+        //             if (thisUser.id === this.instructors[m].userid) {
+        //                 chartObject.value = true;
+        //             }
+        //         }
 
-                this.instructingUsers.push( this.fb.group( {
-                    userid: chartObject.id,
-                    username: chartObject.name,
-                    value: chartObject.value,
-                    creation_date: chartObject.creation_date,
-                    status: []
-                }) ); }
+        //         this.instructingUsers.push( this.fb.group( {
+        //             userid: chartObject.id,
+        //             username: chartObject.name,
+        //             value: chartObject.value,
+        //             creation_date: chartObject.creation_date,
+        //             status: []
+        //         }) ); }
 
 
-            chartObject.value = false; // start over for Student List 
-            // loop through the regs to adjust the values of the reg Form array
-            // console.log ('Regs: ' + this.regs.length );
+        //     chartObject.value = false; // start over for Student List
+        //     // loop through the regs to adjust the values of the reg Form array
+        //     // console.log ('Regs: ' + this.regs.length );
 
-            for (let j = 0; j < this.regs.length; j++ ) {
+        //     for (let j = 0; j < this.regs.length; j++ ) {
 
-                // console.log(thisUser.id + ', ' + this.regs[j].userid);
-                if (thisUser.id === this.regs[j].userid) {
-                    chartObject.value = true;
-                }
+        //         // console.log(thisUser.id + ', ' + this.regs[j].userid);
+        //         if (thisUser.id === this.regs[j].userid) {
+        //             chartObject.value = true;
+        //         }
 
-            }
+        //     }
 
-            this.regUsers.push( this.fb.group( {
-                userid: chartObject.id,
-                username: chartObject.name,
-                value: chartObject.value,
-                creation_date: chartObject.creation_date,
-                status: chartObject.status
-            }) );
+        //     this.regUsers.push( this.fb.group( {
+        //         userid: chartObject.id,
+        //         username: chartObject.name,
+        //         value: chartObject.value,
+        //         creation_date: chartObject.creation_date,
+        //         status: chartObject.status
+        //     }) );
 
-        }
+        // }
        //  console.log(this.userChart);
     }
     populateForm() {
 
         // console.log('In Pop Form: ' + JSON.stringify ( this.regs ));
         // we need to have the full list of users in memory so that we can build our list of reg. students
-        if (!this.users) { return; }
+       // if (!this.users) { return; }
 
         // console.log('In pop form, ' + JSON.stringify(this.thisClass));
         this.classForm.patchValue({'title': this.thisClass.title, 'description': this.thisClass.description,
             'course' : this.thisClass.course, 'start' : new Date(this.thisClass.start), 'end' : new Date(this.thisClass.end) });
 
-        this.continuePopulatingForm();
+        // this.continuePopulatingForm();
+
+        // for (let i = 0; i < this.users.length; i++) {
+        //     console.log('looking for students: ' + i );
+        //     const thisUser = <User> this.users[i];
+        //     const thisUserEnrollments = <Enrollment[]> thisUser.enrollments;
+        //     if (thisUserEnrollments && ( thisUserEnrollments.length > 0)) {
+
+        //         for (let j = 0; j < thisUserEnrollments.length; j++) {
+        //             if (thisUserEnrollments[j].class_id === this.thisClass.id) {
+
+        //                 // User is enrolled in this class -
+        //                 if (thisUserEnrollments[j].roles.includes('student')) {
+        //                     this.studentCount = this.studentCount + 1;
+
+        //                     this.students.push(this.buildUserReference({userid: thisUser.id, username: thisUser.username}));
+
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // console.log('At the end of popForm: ' + this.studentCount);
 
     }
 
@@ -199,54 +243,54 @@ export class ClassEditComponent implements OnInit {
         });
     }
 
-    sortRegs() {
+    // sortRegs() {
 
 
-            const newClassRegistrationObject = {'id': this.thisClass.id, 'instructors': [], 'regs': [] };
+    //         const newClassRegistrationObject = {'id': this.thisClass.id, 'instructors': [], 'regs': [] };
 
-            const instructorList = [];
-            const studentList = [];
-
-
-            for (let i = 0; i < this.instructingUsers.length; i++) {
-
-                if (this.instructingUsers.at(i).value.value) {
-
-                      instructorList.push(this.instructingUsers.at(i).value);
-                }
-            }
-
-            // Looping through the FormArray
-            for (let j = 0; j < this.regUsers.length; j++ ) {
+    //         const instructorList = [];
+    //         const studentList = [];
 
 
-                if (this.regUsers.at(j).value.value) {
-                    studentList.push(this.regUsers.at(j).value);
-                }
+    //         for (let i = 0; i < this.instructingUsers.length; i++) {
 
-            }
+    //             if (this.instructingUsers.at(i).value.value) {
 
-            // look for duplicates and consolidate them
+    //                   instructorList.push(this.instructingUsers.at(i).value);
+    //             }
+    //         }
 
-            console.log(JSON.stringify( studentList ) );
+    //         // Looping through the FormArray
+    //         for (let j = 0; j < this.regUsers.length; j++ ) {
 
 
-            console.log( 'New TempList: ' + JSON.stringify( studentList ) );
-            newClassRegistrationObject.instructors = instructorList;
-            newClassRegistrationObject.regs = studentList;
-             // }
+    //             if (this.regUsers.at(j).value.value) {
+    //                 studentList.push(this.regUsers.at(j).value);
+    //             }
 
-            // for (let j = 0; j < this.regUsers.length; j++) {
-            //     console.log ('j = ' + j + ', ' +  this.regUsers[j].value);
+    //         }
 
-            // if (this.regUsers[j].value === false ) {
-            //     this.regs.splice( j , 1);
-            // }
-       //  }
+    //         // look for duplicates and consolidate them
 
-        this.sortedRegs = newClassRegistrationObject;
+    //         console.log(JSON.stringify( studentList ) );
 
-    }
+
+    //         console.log( 'New TempList: ' + JSON.stringify( studentList ) );
+    //         newClassRegistrationObject.instructors = instructorList;
+    //         newClassRegistrationObject.regs = studentList;
+    //          // }
+
+    //         // for (let j = 0; j < this.regUsers.length; j++) {
+    //         //     console.log ('j = ' + j + ', ' +  this.regUsers[j].value);
+
+    //         // if (this.regUsers[j].value === false ) {
+    //         //     this.regs.splice( j , 1);
+    //         // }
+    //    //  }
+
+    //     this.sortedRegs = newClassRegistrationObject;
+
+    // }
     save(): void {
         // console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(this.classForm.value)  );
         if (this.classForm.dirty && this.classForm.valid) {
@@ -269,9 +313,9 @@ export class ClassEditComponent implements OnInit {
                 (val) => {}, response => {},
                 () => { }); }
 
-            this.sortRegs();
-            this.classService.saveRegistry( this.sortedRegs ).subscribe (
-                    (val) => { }, response => { } , () => { this.onSaveComplete(); } );
+           // this.sortRegs();
+            // this.classService.saveRegistry( this.sortedRegs ).subscribe (
+            //         (val) => { }, response => { } , () => { this.onSaveComplete(); } );
         }
     }
 
