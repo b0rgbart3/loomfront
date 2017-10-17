@@ -17,10 +17,10 @@
                      <h1>Your Avatar Image:</h1>
 
                    <br><img [src]="user.avatar_URL" width='200' height='200' *ngIf="user && user.avatar_URL"><br>
-                   <br><img [src]="localImageUrl" width='200' height='200' *ngIf="localImageUrl"><br>
+                   <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br>
                    
                      <div class="upload-wrap">
-                        Upload Image
+                        Upload New Avatar Image
                         <input type="file" class="upload-btn"  name="avatar"  
                         ng2FileSelect [uploader]="uploader" formControlName="avatar"
                         (change)="fileChange($event)" id="avatar">
@@ -28,7 +28,7 @@
                         
             </div> 
 
-            <tbody>
+            <!-- <tbody>
                 <tr *ngFor="let item of uploader.queue">
                     <td><strong>{{ item.file.name }}</strong></td>
                     <td><strong> {{ item.file.webkitRelativePath  }}</strong></td>
@@ -58,10 +58,10 @@
                         </button>
                     </td>
                 </tr>
-                </tbody>
+                </tbody> -->
                 
             </div>
-            <button class='loomButton' >Submit</button>
+            <button class='loomCancel' (click)="cancel()" type='reset' >Cancel</button><button type='submit' class='loomHalfButton' >Submit</button>
         </form>
         
     </div>

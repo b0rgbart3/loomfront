@@ -9,8 +9,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Pipe, DoCheck } from '@angular/core';
-
+import { Pipe, DoCheck, AfterViewChecked, OnChanges } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
     moduleId: module.id,
@@ -18,7 +18,7 @@ import { Pipe, DoCheck } from '@angular/core';
     styleUrls: ['user-settings.component.css']
 })
 
-export class UserSettingsComponent implements OnInit {
+export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChanges {
     user: User;
     thisFile: File;
     tempName: string;
@@ -70,6 +70,7 @@ export class UserSettingsComponent implements OnInit {
 
             this.tempName = this.uploader.queue[0].file.name;
             console.log('Done uploading' + JSON.stringify(this.tempName));
+            alert('Your image will be cropped to fit a square aspect ratio.');
             // const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
             // console.log('New name: ' + newfilename);
             // this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
@@ -78,6 +79,7 @@ export class UserSettingsComponent implements OnInit {
             this.localImageUrl = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + this.tempName;
 
             this.uploader.queue[0].remove();
+            this.positionCropper();
         };
 
         this.favoritecolor.valueChanges.subscribe( value => console.log(value) );
@@ -95,13 +97,27 @@ export class UserSettingsComponent implements OnInit {
         }
     }
 
+    positionCropper() {
+
+    }
     populateForm(): void {
 
     }
 
+    ngAfterViewChecked() {
+
+    }
+
+    ngOnChanges() {
+       
+    }
+
+    cancel() {
+        this.router.navigate(['/welcome']);
+    }
     submitSettings() {
         console.log('In submitSettings');
-        
+
         // Combine the Form Model with our Data Model
 
         // The user is submitting their settings changes -

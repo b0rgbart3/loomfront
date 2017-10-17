@@ -34,8 +34,8 @@ export class AdminComponent implements OnInit {
   chart: Object [];
   regs: Object[];
   test: true;
-  userFat: string[]; // a list of userids
-  userChart: Object[];
+ // userFat: string[]; // a list of userids
+ // userChart: Object[];
 
   classregistrations: Classregistrationgroup;
 
@@ -57,7 +57,7 @@ export class AdminComponent implements OnInit {
     this.getClasses();
     this.getCourses();
     // this.getMaterials();
-    this.getClassregistrations();
+    // this.getClassregistrations();
     this.username = localStorage.getItem('username');
 
   }
@@ -87,7 +87,7 @@ export class AdminComponent implements OnInit {
     error => this.errorMessage = <any>error);
   }
 
-  buildUserChart() {
+  // buildUserChart() {
   //   this.userFat = [];
   //   for (let u = 0; u < this.users.length; u++) {
   //     this.userFat.push(this.users[u].id);
@@ -104,7 +104,7 @@ export class AdminComponent implements OnInit {
   //     },
   //       (error) => this.errorMessage = <any>error);
   //   }
-  }
+  // }
 
   // this method returns a User object from our local User Object array
   // rather than asking the service or the API for it.

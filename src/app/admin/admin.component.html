@@ -30,18 +30,19 @@
     <button *ngIf="users" [routerLink]="['/register']" 
     class='loomRoundButton loomAdd rightAlignMe'></button> 
     <h1>Users</h1>
-    <button *ngIf="!userChart" (click)='buildUserChart'>Get User Info</button>  
-    <div *ngIf="userChart">
-      <div *ngFor='let userObject of userChart; let u = index'>
+    <!-- <button *ngIf="!userChart" (click)='buildUserChart'>Get User Info</button>   -->
+    <div *ngIf="users">
+      <div *ngFor='let user of users; let u = index'>
           
-        <div class='userInfoBox'><a [routerLink]="['/users', userObject.id, 'edit']">
-        <img [src]="userObject.avatarURL" class='avatarThumb'></a>
-       
+        <div class='userInfoBox'><a [routerLink]="['/users', user.id, 'edit']">
+          <div class='userInfoAvatarFramer'>
+        <img [src]="user.avatar_URL" class='avatarThumb'>
+      </div></a>
         <button class='loomSquareButton simpleKill rightAlignMe' 
-        (click)="deleteUser(userObject.id)"></button>
-        <h2> {{userObject.username}}</h2>
-        <p> {{ userObject.firstname }}&nbsp;{{ userObject.lastname }}</p>
-        <p> {{userObject.email}}</p>
+        (click)="deleteUser(user.id)"></button>
+        <h2> {{user.username}}</h2>
+        <p> {{ user.firstname }}&nbsp;{{ user.lastname }}</p>
+        <p> {{user.email}}</p>
       </div>
     </div>
   </div>

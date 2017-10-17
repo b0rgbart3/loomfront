@@ -121,6 +121,28 @@ body {
     border:1px solid #cccccc;
     font-size:.9em;
     line-height: .69em;
+
+  }
+
+  .userInfoAvatarFramer {
+    height:200px;
+    width:200px;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .cropTool {
+    border:4px dashed #ff4081;
+    width:200px;
+    height:200px;
+    z-index:100;
+    display:inline-block;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .cropTool img {
+
   }
 
   .userInfoBox h2 {
@@ -145,6 +167,10 @@ body {
     font-weight: normal;
   }
 
+  .cropTarget {
+    max-width:200px;
+    max-height:200px;
+  }
   /* Alerts */
 
   .alert {
@@ -200,6 +226,29 @@ body {
   background-color:#ff4081 !important;
   box-shadow: 0px 0px 4px #666666 !important;
 
+}
+.loomCancel {
+  width:49.99999999%;
+  border-radius:0;
+  text-transform: uppercase;
+  color:white !important;
+  padding-top:20px;
+  padding-bottom:20px;
+  background-color:hsl(233, 50%, 34%) !important;
+  box-shadow: 0px 0px 4px #666666 !important;
+  display:inline-block;
+}
+
+.loomHalfButton {
+  width:49.99999999%;
+  border-radius:0;
+  text-transform: uppercase;
+  color:white !important;
+  padding-top:20px;
+  padding-bottom:20px;
+  background-color:#ff4081 !important;
+  box-shadow: 0px 0px 4px #666666 !important;
+  display:inline-block;
 }
 
 .loomDate {
@@ -395,7 +444,8 @@ height:3em;
 }
 
 .avatarThumb {
-  width:100%;
+  height:200px;
+  min-width:200px;
   border-radius:6px 6px 0 0;
 
 }
