@@ -45,6 +45,8 @@ export class RegisterComponent implements OnInit {
          console.log('In the edit component, id was not zero: ' + id);
 
          this.getUser(id);
+      } else {
+        this.user.id = '0';
       }
     }
     // The user filled out and submitted the Registration form.
@@ -52,7 +54,7 @@ export class RegisterComponent implements OnInit {
     registerUser(form: NgForm) {
 
         console.log('REGISTER:');
-        console.log(this.user);
+        console.log(this.user.id);
 
         if (this.user.id === '0') {
 

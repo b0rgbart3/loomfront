@@ -83,6 +83,13 @@ export class AdminComponent implements OnInit {
   .getUsers().subscribe(
     users =>  {this.users = users;
       // console.log(JSON.stringify(this.users));
+
+      for (let i = 0; i < this.users.length; i++ ) {
+        console.log('looping through users: ' + this.users[i].avatar_URL);
+        if (this.users[i].avatar_URL === undefined) {
+          this.users[i].avatar_URL = AVATAR_IMAGE_PATH + 'placeholder.png';
+        }
+      }
     },
     error => this.errorMessage = <any>error);
   }

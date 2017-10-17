@@ -115,13 +115,12 @@ body {
     float:left;
     vertical-align: top;
     margin-right:10px;
-    text-align:center;
-    line-height: .8em;
+    line-height: .65em;
     background-color:white;
     border:1px solid #cccccc;
     font-size:.9em;
     line-height: .69em;
-
+    padding-left:10px;
   }
 
   .userInfoAvatarFramer {

@@ -84,6 +84,10 @@ export class UserService implements OnInit {
 
       return this._http.get<User[]> ( this._usersUrl + '?id=' + id )
       .do(data => {
+        if (data[0].avatar_URL === null) {
+          data[0].avatar_URL = AVATAR_IMAGE_URL + 'placeholder.jpg';
+          console.log('setting placeholder');
+        }
         // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
@@ -105,6 +109,12 @@ export class UserService implements OnInit {
           // console.log('Got Users data.');
           this.users = data;  // store a local copy - even though this method is usually called
                               // from an outside component
+          for (let i = 0; i < this.users.length; i++ ) {
+            if (this.users[i].avatar_URL === null) {
+              console.log('setting placeholder');
+              this.users[i].avatar_URL = AVATAR_IMAGE_URL + 'placeholder.jpg';
+            }
+          }
           // console.log('All: ' + JSON.stringify(data));
         this.userCount = data.length;
         // Loop through all the Courses to find the highest ID#
@@ -119,7 +129,9 @@ export class UserService implements OnInit {
             this.highestID = newHigh;
             }
           // console.log('hightestID: ' + this.highestID );
-         }  }
+         }
+        return this.users;
+        }
         )
         .catch( this.handleError );
     }
