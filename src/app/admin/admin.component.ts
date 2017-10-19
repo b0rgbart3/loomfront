@@ -10,9 +10,6 @@ import { UserService } from '../users/user.service';
 import { AssetService } from '../assets/asset.service';
 import { MaterialService } from '../materials/material.service';
 import { Material } from '../models/material.model';
-import { Classregistration } from '../models/classregistration.model';
-import { Classregistrationgroup } from '../models/classregistrationgroup.model';
-
 const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 
 @Component({
@@ -26,13 +23,13 @@ export class AdminComponent implements OnInit {
   courses: Course[];
   classes: ClassModel [];
   users: User [];
+  instructors: User[];
   errorMessage: string;
   courseCount: number;
   assets: Asset [];
   username: string;
   materials: Material [];
 
-  classregistrations: Classregistrationgroup;
 
   constructor(
     private courseService: CourseService,
@@ -51,10 +48,18 @@ export class AdminComponent implements OnInit {
     this.getClasses();
     this.getCourses();
     this.getMaterials();
-    // this.getClassregistrations();
+    this.getInstructorAssignments();
     this.username = localStorage.getItem('username');
 
   }
+
+  getInstructorAssignments() {
+    this.userService.getInstructors(0).subscribe(
+      instructors =>  {this.instructors = instructors;
+        // console.log('Instructors: ' + JSON.stringify(this.instructors ) );
+      console.log(this.instructors.length); },
+      error => this.errorMessage = <any>error);
+    }
 
   getClasses() {
   this.classService

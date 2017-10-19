@@ -23,6 +23,8 @@ import { ClassComponent } from './classes/class/class.component';
 import { CourseResolver } from './services/course-resolver.service';
 import { MaterialsResolver } from './services/materials-resolver.service';
 import { ClassesResolver } from './services/classes-resolver.service';
+import { InstructorAssignmentsComponent } from './users/instructors/instructorassignments.component';
+import { UsersResolver } from './services/users-resolver';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -44,6 +46,7 @@ const ROUTES: Routes = [
 { path: 'materials/:id/edit', component: MaterialEditComponent },
 // { path: 'upload', pathMatch: 'full', component: UploadComponent },
 { path: 'usersettings', component: UserSettingsComponent },
+{ path: 'instructorassignments', component: InstructorAssignmentsComponent, resolve: {users: UsersResolver } },
 { path: '404', component: Error404Component },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }

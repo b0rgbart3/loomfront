@@ -7,8 +7,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { User } from '../models/user.model';
 import { HttpHeaders } from '@angular/common/http';
-import { Classregistration } from '../models/classregistration.model';
-import { Classregistrationgroup } from '../models/classregistrationgroup.model';
 import { Enrollment } from '../models/enrollment.model';
 
 const AVATAR_IMAGE_URL = 'http://localhost:3100/avatars/';
@@ -20,7 +18,6 @@ export class UserService implements OnInit {
   isLoggedIn = false;
   private highestID;
   private userCount = 0;
-  classregistrations: Classregistrationgroup;
   users: User[];
   errorMessage: string;
 
@@ -96,16 +93,13 @@ export class UserService implements OnInit {
       .catch (this.handleError);
     }
 
-    getClassregistrations(): Observable <Classregistrationgroup> {
-      return this._http.get <Classregistrationgroup> (this._classregistrationsUrl)
-      .do(data => {
-        this.classregistrations = data;
-      }).catch (this.handleError );
-    }
-
     // Return an array of Users that are enrolled as instructors for this class ID
     getInstructors( class_id ): Observable <User[]> {
+      if (class_id === 0) {
+        return this._http.get < User[] >( this._instructorsUrl);
+      }  else {
       return this._http.get < User[] >( this._instructorsUrl + '?id=' + class_id);
+      }
     }
 
 

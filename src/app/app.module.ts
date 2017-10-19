@@ -49,6 +49,8 @@ import { DynamicFormComponent } from './shared/dynamic-form.component';
 import { DynamicFormQuestionComponent } from './shared/dynamic-form-question.component';
 import { MaterialsResolver } from './services/materials-resolver.service';
 import { ClassesResolver } from './services/classes-resolver.service';
+import { UsersResolver } from './services/users-resolver';
+import { InstructorAssignmentsComponent } from './users/instructors/instructorassignments.component';
 
 @NgModule({
   // External
@@ -89,13 +91,14 @@ import { ClassesResolver } from './services/classes-resolver.service';
     UserSettingsComponent,
     AdminComponent,
     Error404Component,
-    MaterialEditComponent
+    MaterialEditComponent,
+    InstructorAssignmentsComponent
 
   ],
 
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
-    CourseResolver, MaterialsResolver, ClassesResolver
+    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver
    ],
   bootstrap: [AppComponent]
 })

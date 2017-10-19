@@ -3,28 +3,6 @@
 <div class='stuff'>
     <h1>Hello Admin:{{ username }} </h1>
 
-    <!--  User List -->
-<!-- <div class='loomCard group'>
-  <div class='padMe'>
-    <button *ngIf="users" [routerLink]="['/register']" 
-    class='loomRoundButton loomAdd rightAlignMe'></button>  
-    <h1>Users</h1>
-    <ul class='loom-list' *ngIf="users">
-      <li *ngFor='let user of users; let i = index'>
-
-          <button [routerLink]="['/users', user.id, 'edit']" 
-          class='loomRoundButton loomEdit'></button>
-          <button class='loomRoundButton loomKill rightAlignMe' 
-          (click)="deleteUser(user.id)"></button>
-        <h2> {{user.firstname}} {{ user.lastname }}</h2>
-        <p> {{ user.email }} </p> 
-        
-    </ul>
-    <div class="notice" *ngIf="!users">
-      Currently having trouble accessing the API for user info.</div>      
-  </div>
-</div> -->
-
 <div class='loomCard group'>
   <div class='padMe'>  
     <button *ngIf="users" [routerLink]="['/register']" 
@@ -50,26 +28,13 @@
   </div>
 </div>
 
-<!-- Class Registrations -->
-<!-- <div class='loomCard group'>
-    <div class='padMe'> 
-      <div *ngIf="classregistrations">
-      <h1>Class Registrations</h1>
-      <div *ngFor='let class of classregistrations'>
-        <h2>{{ class.id }}</h2>
-          <div *ngFor='let user of class.regs'>
-            
-             {{ user.username}}
-          </div>
-       
-        </div>
-      </div>
-      <div *ngIf="!classregistrations">
-        <button (click)="buildCRegChart()">view registrations</button>
-      </div>
-    </div>
+<div class='loomCard group'>
+  <div class='padMe'>
+      <button *ngIf="users" [routerLink]="['/instructorassignments']" 
+      class='loomRoundButton loomAdd rightAlignMe'></button> 
+    <h1>Instructors</h1>
   </div>
- -->
+</div>
 
 
     <div class='loomCard group'>

@@ -6,8 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClassModel } from '../../models/class.model';
 import { ClassService } from '../class.service';
 import { UserService } from '../../users/user.service';
-import { Classregistrationgroup } from '../../models/classregistrationgroup.model';
-import { Classregistration } from '../../models/classregistration.model';
 import { ContentChart } from '../../models/contentchart.model';
 import { Section } from '../../models/section.model';
 import { MaterialService } from '../../materials/material.service';
