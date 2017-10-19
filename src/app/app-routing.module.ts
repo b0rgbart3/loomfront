@@ -21,6 +21,7 @@ import { MaterialEditComponent } from './materials/material-edit.component';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
 import { CourseResolver } from './services/course-resolver.service';
+import { MaterialsResolver } from './services/materials-resolver.service';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -35,7 +36,7 @@ const ROUTES: Routes = [
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
 { path: 'admin', pathMatch: 'full', component: AdminComponent, canActivate: [ AdminRouteActivator ] },
 { path: 'home', pathMatch: 'full', component: HomeComponent },
-{ path: 'courses/:id/edit', component: CourseEditComponent, resolve: { course: CourseResolver} },
+{ path: 'courses/:id/edit', component: CourseEditComponent, resolve: { course: CourseResolver, materials: MaterialsResolver} },
 { path: 'classes/:id', component: ClassComponent },
 { path: 'classes/:id/edit', component: ClassEditComponent },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },

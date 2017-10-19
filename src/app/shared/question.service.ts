@@ -11,8 +11,8 @@ export class QuestionService {
   // Todo: make asynchronous
   getQuestions() {
 
-    const questions: QuestionBase<any>[] = [
-
+    const questions: QuestionBase<any>[][] = [
+[
       new DropdownQuestion({
         key: 'brave',
         label: 'Bravery Rating',
@@ -26,21 +26,21 @@ export class QuestionService {
       }),
 
       new TextboxQuestion({
-        key: 'firstName',
-        label: 'First name',
-        value: 'Bombasto',
+        key: 'title',
+        label: 'Course Title',
+        value: '',
         required: true,
         order: 1
       }),
 
       new TextboxQuestion({
-        key: 'emailAddress',
-        label: 'Email',
-        type: 'email',
+        key: 'description',
+        label: 'Description',
+        value: '',
         order: 2
       })
-    ];
+    ] ];
 
-    return questions.sort((a, b) => a.order - b.order);
+    return questions; // .sort((a, b) => a.order - b.order);
   }
 }

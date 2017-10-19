@@ -1,15 +1,12 @@
 <div>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
-
-    <div *ngFor="let question of questions" class="form-row">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" class='loomform'>
+  <div *ngFor='let questionArray of questions'>xx
+    <div *ngFor="let question of questionArray" class="form-row">
       <df-question [question]="question" [form]="form"></df-question>
     </div>
-
-    <div class="form-row">
-      <button type="submit" [disabled]="!form.valid">Save</button>
-    </div>
+  </div>
   </form>
-
+  <button type="submit" md-raised-button color="primary" class='loomButton' [disabled]="!form.valid">Save</button>
   <div *ngIf="payLoad" class="form-row">
     <strong>Saved the following values</strong><br>{{payLoad}}
   </div>

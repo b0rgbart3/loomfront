@@ -45,6 +45,9 @@ import { MaterialService } from './materials/material.service';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
 import { CourseResolver } from './services/course-resolver.service';
+import { DynamicFormComponent } from './shared/dynamic-form.component';
+import { DynamicFormQuestionComponent } from './shared/dynamic-form-question.component';
+import { MaterialsResolver } from './services/materials-resolver.service';
 
 @NgModule({
   // External
@@ -63,6 +66,7 @@ import { CourseResolver } from './services/course-resolver.service';
   // Internal
   declarations: [
     AppComponent,
+    DynamicFormComponent, DynamicFormQuestionComponent,
     FileSelectDirective,
     FileDropDirective,
     NavBarComponent,
@@ -90,7 +94,7 @@ import { CourseResolver } from './services/course-resolver.service';
 
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
-    CourseResolver
+    CourseResolver, MaterialsResolver
    ],
   bootstrap: [AppComponent]
 })

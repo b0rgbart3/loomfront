@@ -15,16 +15,12 @@ export class MaterialsResolver implements Resolve <Course> {
     constructor( private materialService: MaterialService, private router: Router ) { }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
-        const id = route.params['id'];
 
-        if (isNaN(id)) {
-            console.log(`Course id was not a number: ${id}`);
-            this.router.navigate(['/welcome']);
-            return Observable.of(null);
-        }
-        return this.materialService.getMaterials(id).
+
+
+        return this.materialService.getMaterials(0).
         map(course => { if (course) { return course; }
-        console.log(`Materialswere not found: ${id}`);
+        console.log(`Materialswere not found`);
         this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
