@@ -36,10 +36,10 @@
    
     <div *ngIf='course.sections'>
       
-        <div *ngFor='let section of course.sections' class='group padMe'>
+        <div *ngFor='let section of course.sections; let i = index;' class='group padMe'>
            <h2> {{ section.title }} </h2>
            <p> {{section.content }}</p>
-           <div *ngFor= 'let material of section.materials'>Material:
+           <div *ngFor= 'let material of materials[i]'>Material:
                {{material.title}}
            </div>
         </div>

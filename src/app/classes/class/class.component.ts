@@ -11,6 +11,7 @@ import { Classregistration } from '../../models/classregistration.model';
 import { ContentChart } from '../../models/contentchart.model';
 import { Section } from '../../models/section.model';
 import { MaterialService } from '../../materials/material.service';
+import { Material } from '../../models/material.model';
 
 
 const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages';
@@ -24,7 +25,6 @@ const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 })
 
 export class ClassComponent implements OnInit {
-    materialService: MaterialService;
     classID: string;
     thisClass: ClassModel;
     errorMessage: string;
@@ -37,53 +37,41 @@ export class ClassComponent implements OnInit {
     students: User[];
     instructorCount= 0;
     studentCount= 0;
-    courseChart: ContentChart[];
+    materials = [];
+    materialsLoaded: boolean;
 
     constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,
     private courseService: CourseService,
-    private userService: UserService ) {}
+    private userService: UserService,
+    private materialService: MaterialService ) {}
 
     ngOnInit() {
-        const id = this.activated_route.snapshot.params['id'];
-        this.classID = id;
-        this.classService.getClass(id).subscribe( (classObject) => {
-            this.thisClass = classObject[0]; this.continueInit(); },
-         (err) => this.errorMessage = <any> err );
 
-    }
-
-    continueInit() {
-
+        this.classID = this.activated_route.snapshot.params['id'];
+        this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
         this.courseID = this.thisClass.course;
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
-                console.log ( JSON.stringify (this.course ));
 
-                this.populateForm();
-                this.userService.getInstructors( this.thisClass.id ).subscribe(
-                    (instructors) => {this.instructors = instructors;
-                    this.instructorCount = instructors.length;
-                    // console.log('Found Instructors: ' + JSON.stringify(this.instructors));
-                    this.userService.getStudents( this.thisClass.id).subscribe(
-                        (students) => { this.students = students;
-                        this.studentCount = students.length;
-                    // console.log('Found Students: ' + JSON.stringify(this.students));
-                },
-                    (err) => this.errorMessage = <any> err );
-                },
-                    (err) => this.errorMessage = <any> err
-                );
-        },
-            error => this.errorMessage = <any>error);
+            this.loadInMaterials();
+            this.userService.getInstructors( this.thisClass.id ).subscribe(
+                (instructors) => {this.instructors = instructors;
+                this.instructorCount = instructors.length;
+                this.userService.getStudents( this.thisClass.id).subscribe(
+                    (students) => { this.students = students;
+                    this.studentCount = students.length;
+            },
+                (err) => this.errorMessage = <any> err );
+            },
+                (err) => this.errorMessage = <any> err );
+            },
+                error => this.errorMessage = <any>error);
+
     }
 
-        populateForm() {
-
-       // console.log('In pop form: regs: userChart: ' + JSON.stringify( this.userChart) );
-
-     // this.createContentCharts();
+    populateForm() {
 
     }
 
@@ -93,45 +81,35 @@ export class ClassComponent implements OnInit {
     // neatly in one data object.  This requires loading in all the material info from
     // references that are stored in the section arrays in the db for the course.
 
-    createContentCharts() {
-    this.courseChart = <ContentChart[]> [];
+    loadInMaterials() {
+        for (let i = 0; i < this.course.sections.length; i++) {
+            const matArray = this.course.sections[i].materials;
 
-    // Need to loop through all the sections in this course.
+            this.materials[i] = [];
+            for (let j = 0; j < matArray.length; j++) {
+                const id = matArray[j]['material'];
 
-    for (let j = 0; j < this.course.sections.length; j++ ) {
-        const contentChart = <ContentChart> {};
-        const section = <Section> this.course.sections[j];
+                this.materialService.getMaterial(id).subscribe(
+                    (material) => { console.log('found a material ' + j);
+                    this.materials[i].push(material[0]);
 
-        contentChart.title = section.title;
-        contentChart.id = section.id;
-        contentChart.content = section.content;
-        contentChart.course_id = this.course.id;
-        contentChart.materials = [];
+                    // if ((i + 1 === this.course.sections.length) && (j + 1 === matArray.length)) {
+                    //     this.materialsLoaded = true;
+                    //     console.log('Done loading materials: ' + JSON.stringify( this.materials ) );
+                    // }
 
-        // curious to see if this subscription can add content to our array,
-        // even if it comes in asychronously...?
-
-        for (let i = 0; i < section.materials.length; i++ ) {
-        const materialID = section.materials[i]['reference'];
-            this.materialService.getMaterial(materialID).subscribe(
-                (material) => { contentChart.materials.push(material);
-                // console.log('received material: ' + JSON.stringify(material) );
-
-                if (i + 1 === section.materials.length) {
-                    console.log('WE FINISHED THE LOOP');
-                    console.log('COURSE CHART: ' + JSON.stringify(this.courseChart));
                 }
-             },
-                error => this.errorMessage = <any>error);
 
-        this.courseChart.push(contentChart);
+                );
+            }
 
         }
     }
 
-    console.log('COURSE CHART: ' + JSON.stringify(this.courseChart));
-  }
+
+
 
 
 }
+
 

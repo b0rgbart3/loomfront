@@ -48,6 +48,7 @@ import { CourseResolver } from './services/course-resolver.service';
 import { DynamicFormComponent } from './shared/dynamic-form.component';
 import { DynamicFormQuestionComponent } from './shared/dynamic-form-question.component';
 import { MaterialsResolver } from './services/materials-resolver.service';
+import { ClassesResolver } from './services/classes-resolver.service';
 
 @NgModule({
   // External
@@ -94,7 +95,7 @@ import { MaterialsResolver } from './services/materials-resolver.service';
 
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
-    CourseResolver, MaterialsResolver
+    CourseResolver, MaterialsResolver, ClassesResolver
    ],
   bootstrap: [AppComponent]
 })
