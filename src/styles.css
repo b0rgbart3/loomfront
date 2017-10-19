@@ -287,6 +287,13 @@ body {
   padding:18px;
 }
 
+.loomChoice {
+  width:300px;
+  border-top:1px solid #cccccc;
+  border-right:1px solid #cccccc;
+  margin-top:6px;
+}
+
 .loomSquareButton {
   background-color:#999999;
   background-size:80%;

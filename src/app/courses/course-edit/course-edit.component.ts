@@ -177,7 +177,7 @@ export class CourseEditComponent implements OnInit {
 
     killMaterial(i, j) {
           //  console.log (' section #' + i + ', material#' + j);
-           // this.materialFormArray[i].removeAt(j);
+           this.materialFormArray[i].removeAt(j);
     }
 
 
