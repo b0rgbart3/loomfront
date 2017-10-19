@@ -16,6 +16,7 @@ export class MaterialService {
     private _materialUrl = 'http://localhost:3100/api/material';
     private materialCount = 0;
     private highestID = 0;
+    private materials: Material[];
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     constructor (private _http: HttpClient) {}
@@ -25,25 +26,34 @@ export class MaterialService {
     // them using the corresponding course_id.
    getMaterials( course_id ): Observable<Material[]> {
      if (course_id === 0) {
-        return this._http.get <Material[]> (this._materialsUrl);
+        return this._http.get <Material[]> (this._materialsUrl).do(data => {
+          this.materialCount = data.length;
+          this.materials = data;
+          this.updateIDCount();
+        }).catch(this.handleError);
      } else {
     return this._http.get <Material[]> (this._materialsUrl + '?id=' + course_id )
       // debug the flow of data
       .do(data =>  { // console.log('All: ' + JSON.stringify(data));
                     this.materialCount = data.length;
-            // Loop through all the Courses to find the highest ID#
-            for (let i = 0; i < data.length; i++) {
-              const foundID = Number(data[i].id);
-              // console.log("Found ID: " + foundID);
-              if (foundID >= this.highestID) {
-                const newHigh = foundID + 1;
-                this.highestID = newHigh;
-                // console.log("newHigh == "+newHigh);
-              }
-            }
+                    this.materials = data;
+                    this.updateIDCount();
             // console.log("Course highest ID: "+ this.highestID);
                   } )
       .catch( this.handleError ); }
+  }
+
+  updateIDCount() {
+               // Loop through all the Courses to find the highest ID#
+               for (let i = 0; i < this.materials.length; i++) {
+                const foundID = Number(this.materials[i].id);
+                console.log('Found ID: ' + foundID);
+                if (foundID >= this.highestID) {
+                  const newHigh = foundID + 1;
+                  this.highestID = newHigh;
+                  console.log('newHigh == ' + newHigh);
+                }
+              }
   }
 
 
@@ -68,6 +78,7 @@ export class MaterialService {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       // let thisID = this.courseCount + 1;
+      console.log('highestID: ' + this.highestID);
       if (this.highestID < 1) {
         this.highestID = 1;
       }

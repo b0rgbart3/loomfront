@@ -16,6 +16,7 @@ export class CourseResolver implements Resolve <Course> {
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
         const id = route.params['id'];
+        console.log('In the course resolver.');
 
         if (isNaN(id)) {
             console.log(`Course id was not a number: ${id}`);

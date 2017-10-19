@@ -65,11 +65,12 @@ export class ClassComponent implements OnInit {
                 this.userService.getInstructors( this.thisClass.id ).subscribe(
                     (instructors) => {this.instructors = instructors;
                     this.instructorCount = instructors.length;
-                    console.log('Found Instructors: ' + JSON.stringify(this.instructors));
+                    // console.log('Found Instructors: ' + JSON.stringify(this.instructors));
                     this.userService.getStudents( this.thisClass.id).subscribe(
                         (students) => { this.students = students;
                         this.studentCount = students.length;
-                    console.log('Found Students: ' + JSON.stringify(this.students)); },
+                    // console.log('Found Students: ' + JSON.stringify(this.students));
+                },
                     (err) => this.errorMessage = <any> err );
                 },
                     (err) => this.errorMessage = <any> err

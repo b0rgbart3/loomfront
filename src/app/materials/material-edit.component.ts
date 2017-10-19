@@ -167,9 +167,10 @@ export class MaterialEditComponent implements OnInit {
 
          // This is Deborah Korata's way of merging our data model with the form model
         const combinedObject = Object.assign( {}, this.material, this.materialForm.value);
-        console.log( 'Posting course: ' + JSON.stringify( combinedObject ) );
+        console.log( 'Posting material: ' + JSON.stringify( combinedObject ) );
 
         if (this.material.id === '0') {
+            console.log('Creating material');
             this.materialService.createMaterial( combinedObject ).subscribe(
                 (val) => {
                   },

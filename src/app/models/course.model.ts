@@ -1,3 +1,5 @@
+import { Section } from './section.model';
+
 export class Course {
   _id?: string;
 
@@ -5,7 +7,7 @@ export class Course {
       public title: string,
       public description: string,
       public id: string,
-      public sections: Array <Object>,
+      public sections: Section[],
       public image: string
   ) {}
 

@@ -96,6 +96,8 @@ export class CourseService {
    }
 
    updateCourse(courseObject: Course): Observable<any> {
+
+    console.log( 'In course Service: ' + JSON.stringify(courseObject));
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(courseObject);
