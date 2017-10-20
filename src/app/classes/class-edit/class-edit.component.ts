@@ -53,7 +53,7 @@ export class ClassEditComponent implements OnInit {
 
         console.log('class edit oninit: ' + JSON.stringify(this.thisClass));
         this.instructorChoices = <FormArray> this.fb.array([ ]);
-        // 
+
 
         this.classForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
@@ -67,6 +67,7 @@ export class ClassEditComponent implements OnInit {
         this.populateForm();
         this.userService.getInstructors(id).subscribe(
             (instructors) => {this.instructors = instructors;
+                this.buildInstructorChoices();
             this.instructorCount = instructors.length;
             // console.log('Found Instructors: ' + JSON.stringify(this.instructors));
             this.userService.getStudents(id).subscribe(
@@ -94,16 +95,27 @@ export class ClassEditComponent implements OnInit {
           error => this.errorMessage = <any>error);
 
 
-          this.buildInstructorChoices();
     }
 
-    buildInstructorChoice( user ): FormGroup {
-        return this.fb.group({value: false, username: user.username, id: user.id });
+    buildInstructorChoice( user, isSelected ): FormGroup {
+        return this.fb.group({value: isSelected, username: user.username, id: user.id });
     }
 
     buildInstructorChoices() {
         for (let i = 0; i < this.possibleInstructors.length; i++) {
-            this.instructor_choices.push(this.buildInstructorChoice(this.possibleInstructors[i]));
+            let match = false;
+
+            // The Instructors array contains the folks whose enrollments include this class
+            // with the role of instructor.  We compare that against the full list of possible Instructors
+            // in order to determine which Controls to check as selected.
+            // If there's a match in the two lists, then we build the control with the value of true.
+
+            for (let j = 0; j < this.instructors.length; j++) {
+                if (this.instructors[j].id === this.possibleInstructors[i].id) {
+                    match = true;
+                }
+            }
+            this.instructor_choices.push(this.buildInstructorChoice(this.possibleInstructors[i], match) );
         }
     }
 
@@ -131,8 +143,8 @@ export class ClassEditComponent implements OnInit {
              const combinedClassObject = Object.assign( {}, this.thisClass, this.classForm.value);
 
 
-            // we store the class registrations separately from the class info (even though we make both editable here).
-             delete combinedClassObject.regUsers;
+            // we store the instructor choices separately from the class info (even though we make both editable here).
+             delete combinedClassObject.instructor_choices;
 
             // This sends the class Object to the API
             if (this.thisClass.id === '0') {

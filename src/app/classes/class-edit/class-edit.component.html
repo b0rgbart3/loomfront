@@ -43,20 +43,24 @@ name="description" required minlength="3" maxlength="250">
 <br clear='all'>
 <br><h1>Instructors</h1>
 
-<div formArrayName='instructor_choices' *ngFor='let pi of instructor_choices.controls; let k = index'>
-    <div [formGroupName]='k'>
+<!-- These are the list of possible instructors -->
+<div formArrayName='instructor_choices' *ngFor='let instructor of instructor_choices.controls; let j = index'>
+    <div [formGroupName]='j' class='loomCheckBox'>
 
-        <md-checkbox id="{{'username'+i}}" value="username">{{pi.username}}</md-checkbox>
+        <md-checkbox formControlName='value' id="{{'username'+j}}">{{instructor.value.username}}</md-checkbox>
 
     </div>
 </div>
-<app-dialog [(visible)]="showDialog">
+
+<br clear='all'>
+
+<!-- <app-dialog [(visible)]="showDialog">
   <h1>Add Instructor</h1>
   <button (click)="showDialog = !showDialog" class="btn">Cancel</button>
   <button (click)="showDialog = !showDialog" class="btn">Ok</button>
-</app-dialog>
+</app-dialog> -->
 
-<p *ngIf='instructorCount===0'>There aren't any instructors yet assigned to this class.</p>
+<!-- <p *ngIf='instructorCount===0'>There aren't any instructors yet assigned to this class.</p>
 <div *ngIf='instructors'>
 <div *ngFor='let instructor of instructors'>
     <div class='userInfoBox'>
@@ -72,7 +76,7 @@ name="description" required minlength="3" maxlength="250">
 </div>
 <md-select placeholder='add instructor'>
     <md-option *ngFor='let user of users'>{{user.username}}</md-option>
-</md-select>
+</md-select> -->
 
 
 
