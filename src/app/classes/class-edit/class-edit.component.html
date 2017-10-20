@@ -43,6 +43,19 @@ name="description" required minlength="3" maxlength="250">
 <br clear='all'>
 <br><h1>Instructors</h1>
 
+<div formArrayName='instructor_choices' *ngFor='let pi of instructor_choices.controls; let k = index'>
+    <div [formGroupName]='k'>
+
+        <md-checkbox id="{{'username'+i}}" value="username">{{pi.username}}</md-checkbox>
+
+    </div>
+</div>
+<app-dialog [(visible)]="showDialog">
+  <h1>Add Instructor</h1>
+  <button (click)="showDialog = !showDialog" class="btn">Cancel</button>
+  <button (click)="showDialog = !showDialog" class="btn">Ok</button>
+</app-dialog>
+
 <p *ngIf='instructorCount===0'>There aren't any instructors yet assigned to this class.</p>
 <div *ngIf='instructors'>
 <div *ngFor='let instructor of instructors'>
@@ -55,7 +68,18 @@ name="description" required minlength="3" maxlength="250">
       <p> {{instructor.email}}</p>
     </div>
     </div>
-</div><br clear='all'>
+    <button (click)="showDialog = !showDialog" class="btn">Add Instructor</button>
+</div>
+<md-select placeholder='add instructor'>
+    <md-option *ngFor='let user of users'>{{user.username}}</md-option>
+</md-select>
+
+
+
+
+<br clear='all'>
+
+
 <br><h1>Students</h1>
 <p *ngIf='studentCount===0'>There aren't any students yet registered to this class.</p>
 <div *ngIf='students'>
@@ -82,5 +106,5 @@ name="description" required minlength="3" maxlength="250">
 </form> 
 </div>
 <div class='debug'>
-
+ {{ classForm.value | json }}
 </div>

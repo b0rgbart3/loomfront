@@ -51,6 +51,8 @@ import { MaterialsResolver } from './services/materials-resolver.service';
 import { ClassesResolver } from './services/classes-resolver.service';
 import { UsersResolver } from './services/users-resolver';
 import { InstructorAssignmentsComponent } from './users/instructors/instructorassignments.component';
+import { DialogComponent } from './classes/dialog.component';
+import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
 
 @NgModule({
   // External
@@ -64,7 +66,7 @@ import { InstructorAssignmentsComponent } from './users/instructors/instructoras
     FlashMessagesModule,
     AppRoutingModule,
     ReactiveFormsModule,
-
+    BrowserAnimationsModule
   ],
   // Internal
   declarations: [
@@ -92,13 +94,14 @@ import { InstructorAssignmentsComponent } from './users/instructors/instructoras
     AdminComponent,
     Error404Component,
     MaterialEditComponent,
-    InstructorAssignmentsComponent
+    InstructorAssignmentsComponent,
+    DialogComponent
 
   ],
 
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
-    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver
+    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver
    ],
   bootstrap: [AppComponent]
 })

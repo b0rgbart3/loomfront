@@ -25,6 +25,7 @@ import { MaterialsResolver } from './services/materials-resolver.service';
 import { ClassesResolver } from './services/classes-resolver.service';
 import { InstructorAssignmentsComponent } from './users/instructors/instructorassignments.component';
 import { UsersResolver } from './services/users-resolver';
+import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -41,7 +42,8 @@ const ROUTES: Routes = [
 { path: 'home', pathMatch: 'full', component: HomeComponent },
 { path: 'courses/:id/edit', component: CourseEditComponent, resolve: { course: CourseResolver, materials: MaterialsResolver} },
 { path: 'classes/:id', component: ClassComponent, resolve: { thisClass: ClassesResolver } },
-{ path: 'classes/:id/edit', component: ClassEditComponent },
+{ path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
+    thisClass: ClassesResolver, users: UsersResolver, possibleInstructors: PossibleInstructorsResolver } },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
 { path: 'materials/:id/edit', component: MaterialEditComponent },
 // { path: 'upload', pathMatch: 'full', component: UploadComponent },
