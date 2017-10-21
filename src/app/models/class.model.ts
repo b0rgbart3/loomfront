@@ -1,3 +1,6 @@
+import { Instructor } from './instructor.model';
+import { Student } from './student.model';
+
 export class ClassModel {
   _id?: string;
 
@@ -7,7 +10,9 @@ export class ClassModel {
       public course: string,
       public start: string,
       public end: string,
-      public id: string
+      public id: string,
+      public instructors: Instructor[],
+      public students: Student[]
 
   ) {}
 

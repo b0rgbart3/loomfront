@@ -18,11 +18,11 @@ export class UsersResolver implements Resolve <User[]> {
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <User[]> {
 
-        console.log('In the Users resolver.');
+       // console.log('In the Users resolver.');
 
         return this.userService.getUsers().
         map(course => { if (course) { return course; }
-        console.log(`Course was not found:`);
+        console.log(`users were not found:`);
         this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {

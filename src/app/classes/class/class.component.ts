@@ -10,6 +10,8 @@ import { ContentChart } from '../../models/contentchart.model';
 import { Section } from '../../models/section.model';
 import { MaterialService } from '../../materials/material.service';
 import { Material } from '../../models/material.model';
+import { Student } from '../../models/student.model';
+import { Instructor } from '../../models/instructor.model';
 
 
 const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages';
@@ -48,22 +50,35 @@ export class ClassComponent implements OnInit {
 
         this.classID = this.activated_route.snapshot.params['id'];
         this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
+        this.users = this.activated_route.snapshot.data['users'];
+        this.instructors = [];
+        for (let i = 0; i < this.thisClass.instructors.length; i++) {
+            const inst_id = this.thisClass.instructors[i].user_id;
+
+            for (let j = 0; j < this.users.length; j++) {
+                if (this.users[j].id === inst_id) {
+                    this.instructors.push(this.users[j]);
+                }
+            }
+        }
+
+        this.students = [];
+        for (let i = 0; i < this.thisClass.students.length; i++) {
+            const student_id = this.thisClass.students[i].user_id;
+
+            for (let j = 0; j < this.users.length; j++) {
+                if (this.users[j].id === student_id) {
+                    this.students.push(this.users[j]);
+                }
+            }
+        }
+
         this.courseID = this.thisClass.course;
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
 
             this.loadInMaterials();
-            this.userService.getInstructors( this.thisClass.id ).subscribe(
-                (instructors) => {this.instructors = instructors;
-                this.instructorCount = instructors.length;
-                this.userService.getStudents( this.thisClass.id).subscribe(
-                    (students) => { this.students = students;
-                    this.studentCount = students.length;
-            },
-                (err) => this.errorMessage = <any> err );
-            },
-                (err) => this.errorMessage = <any> err );
             },
                 error => this.errorMessage = <any>error);
 

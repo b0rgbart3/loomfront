@@ -41,7 +41,7 @@ const ROUTES: Routes = [
 { path: 'admin', pathMatch: 'full', component: AdminComponent, canActivate: [ AdminRouteActivator ] },
 { path: 'home', pathMatch: 'full', component: HomeComponent },
 { path: 'courses/:id/edit', component: CourseEditComponent, resolve: { course: CourseResolver, materials: MaterialsResolver} },
-{ path: 'classes/:id', component: ClassComponent, resolve: { thisClass: ClassesResolver } },
+{ path: 'classes/:id', component: ClassComponent, resolve: { thisClass: ClassesResolver, users: UsersResolver } },
 { path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
     thisClass: ClassesResolver, users: UsersResolver, possibleInstructors: PossibleInstructorsResolver } },
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },

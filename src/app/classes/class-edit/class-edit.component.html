@@ -5,110 +5,73 @@
 <div class='loomCard group'>
 
 <div class='padMe'>
-<h1>Class Info:</h1>
-<md-form-field>
-<input mdInput  formControlName='title' placeholder="Title" 
-name="title" required minlength="3" maxlength="50">
-</md-form-field>
+        <h1>Class Info:</h1>
+        <md-form-field>
+        <input mdInput  formControlName='title' placeholder="Title" 
+        name="title" required minlength="3" maxlength="50">
+        </md-form-field>
 
 
-<md-form-field>
-<input mdInput formControlName='description' placeholder="Description" 
-name="description" required minlength="3" maxlength="250">
-</md-form-field>
+        <md-form-field>
+        <input mdInput formControlName='description' placeholder="Description" 
+        name="description" required minlength="3" maxlength="250">
+        </md-form-field>
 
-<md-select placeholder="Coursework for this class" name="course" formControlName='course'>
-<md-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
-{{ course.viewValue }}
-</md-option>
-</md-select>
-<br clear='all'>
-<br> 
+        <md-select placeholder="Coursework for this class" name="course" formControlName='course'>
+        <md-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
+        {{ course.viewValue }}
+        </md-option>
+        </md-select>
+        <br clear='all'>
+        <br> 
 
-<div class='loomDate'>
-<md-form-field>
-<input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" formControlName="start">
-<md-datepicker-toggle mdSuffix [for]="startDate"></md-datepicker-toggle>
-<md-datepicker #startDate ></md-datepicker>
-</md-form-field>
-</div>
-
-<div class='loomDate'>
-<md-form-field>
-<input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" formControlName="end">
-<md-datepicker-toggle mdSuffix [for]="endDate"></md-datepicker-toggle>
-<md-datepicker #endDate ></md-datepicker>
-</md-form-field>
-</div> 
-<br clear='all'>
-<br><h1>Instructors</h1>
-
-<!-- These are the list of possible instructors -->
-<div formArrayName='instructor_choices' *ngFor='let instructor of instructor_choices.controls; let j = index'>
-    <div [formGroupName]='j' class='loomCheckBox'>
-
-        <md-checkbox formControlName='value' id="{{'username'+j}}">{{instructor.value.username}}</md-checkbox>
-
-    </div>
-</div>
-
-<br clear='all'>
-
-<!-- <app-dialog [(visible)]="showDialog">
-  <h1>Add Instructor</h1>
-  <button (click)="showDialog = !showDialog" class="btn">Cancel</button>
-  <button (click)="showDialog = !showDialog" class="btn">Ok</button>
-</app-dialog> -->
-
-<!-- <p *ngIf='instructorCount===0'>There aren't any instructors yet assigned to this class.</p>
-<div *ngIf='instructors'>
-<div *ngFor='let instructor of instructors'>
-    <div class='userInfoBox'>
-        <div class='userInfoAvatarFramer'>
-             <img [src]="instructor.avatar_URL" class='avatarThumb'>
-         </div>
-      <h2> {{instructor.username}}</h2>
-      <p> {{ instructor.firstname }}&nbsp;{{ instructor.lastname }}</p>
-      <p> {{instructor.email}}</p>
-    </div>
-    </div>
-    <button (click)="showDialog = !showDialog" class="btn">Add Instructor</button>
-</div>
-<md-select placeholder='add instructor'>
-    <md-option *ngFor='let user of users'>{{user.username}}</md-option>
-</md-select> -->
-
-
-
-
-<br clear='all'>
-
-
-<br><h1>Students</h1>
-<p *ngIf='studentCount===0'>There aren't any students yet registered to this class.</p>
-<div *ngIf='students'>
-    <div *ngFor='let student of students'>
-
-        <div class='userInfoBox'>
-            <div class='userInfoAvatarFramer'>
-                 <img [src]="student.avatar_URL" class='avatarThumb'>
-             </div>
-          <h2> {{student.username}}</h2>
-          <p> {{ student.firstname }}&nbsp;{{ student.lastname }}</p>
-          <p> {{student.email}}</p>
+        <div class='loomDate'>
+        <md-form-field>
+        <input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" formControlName="start">
+        <md-datepicker-toggle mdSuffix [for]="startDate"></md-datepicker-toggle>
+        <md-datepicker #startDate ></md-datepicker>
+        </md-form-field>
         </div>
 
+        <div class='loomDate'>
+            <md-form-field>
+            <input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" formControlName="end">
+            <md-datepicker-toggle mdSuffix [for]="endDate"></md-datepicker-toggle>
+            <md-datepicker #endDate ></md-datepicker>
+            </md-form-field>
+        </div> 
+        <br clear='all'>
+        <br><h1>Instructors</h1>
 
+        <!-- These are the list of possible instructors -->
+        <div formArrayName='instructor_choices' *ngFor='let instructor of instructor_choices.controls; let j = index'>
+            <div [formGroupName]='j' class='loomCheckBox'>
+
+                <md-checkbox formControlName='value' id="{{'instructor'+j}}">{{instructor.value.username}}</md-checkbox>
+
+            </div>
+        </div>
+
+        <br clear='all'>
+        <br><h1>Students</h1>
+        <!-- These are the list of possible students -->
+        <div formArrayName='student_choices' *ngFor='let student of student_choices.controls; let k = index'>
+                <div [formGroupName]='k' class='loomCheckBox'>
             
+                    <md-checkbox formControlName='value' id="{{'student'+k}}">{{student.value.username}}</md-checkbox>
+            
+                </div>
         </div>
-    </div><br>
+        <br clear='all'>
 
-</div>
-<br clear='all'><br>
-<button md-raised-button color="primary" class='loomButton'>Submit Changes</button>
+        <br clear='all'><br>
+        
+</div><button md-raised-button color="primary" class='loomButton'>Submit Changes</button>
 </div>
 </form> 
 </div>
 <div class='debug'>
+    {{ classForm.dirty }}<br>
+    {{ classForm.valid }}<br>
  {{ classForm.value | json }}
 </div>
