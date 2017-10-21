@@ -26,6 +26,7 @@ import { ClassesResolver } from './services/classes-resolver.service';
 import { InstructorAssignmentsComponent } from './users/instructors/instructorassignments.component';
 import { UsersResolver } from './services/users-resolver';
 import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
+import { UserResolver } from './services/user-resolver';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -36,6 +37,7 @@ import { PossibleInstructorsResolver } from './services/possible-instructors-res
 const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
 { path: 'register', pathMatch: 'full', component: RegisterComponent },
+{ path: 'users/:id/edit', component: RegisterComponent, resolve: { user: UserResolver }},
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
 { path: 'admin', pathMatch: 'full', component: AdminComponent, canActivate: [ AdminRouteActivator ] },

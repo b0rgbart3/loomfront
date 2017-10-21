@@ -114,7 +114,6 @@ body {
 
   .userInfoBox {
     display:inline-block;
-    width:200px;
     float:left;
     vertical-align: top;
     margin-right:10px;
@@ -127,8 +126,6 @@ body {
   }
 
   .userInfoAvatarFramer {
-    height:200px;
-    width:200px;
     overflow: hidden;
     text-align: center;
   }
@@ -146,6 +143,32 @@ body {
   .cropTool img {
 
   }
+
+.avatarThumb {
+  height:150px;
+  width:150px;
+}
+.avatarThumb img {
+  width:150px;
+}
+.usernamebox {
+  background-color:white;
+  width:100px;
+  padding:4px;
+  text-align: center;
+
+}
+
+.avatarContainer {
+  width:120px;
+  display:inline-block;
+  float:left;
+  border:1px solid #cccccc;
+  border-radius:6px;
+  margin-right:10px;
+  text-align:center;
+  padding-top:0px;
+}
 
   .userInfoBox h2 {
     line-height:1em;
@@ -397,85 +420,11 @@ md-select {
   float:left;
 
 }
-/* .loomDate.mat-form-field {
 
-  width:280px !important;
-  padding:0;
-
-}
-
-.loomDate .mat-form-field-wrapper {
-
-  padding:0px;
-  padding-top:30px;
-}
-
-.loomDate .mat-form-field-infix {
-  background-color:#9797EE;
-  padding:0;
-  box-sizing: border-box;
-  padding-bottom:24px;
-  font-size:1.2em;
-  font-weight: bold;
-}
-.loomDate .mat-form-field-infix label {
- border:1px solid red;
- box-sizing: border-box;
- margin:0;
- margin-bottom:10px;
- font-size:1.1em;
-
- padding-bottom:14px;
- float:left;
- display:inline-block;
-}
-
-.loomDate .mat-icon-button {
-  width:3em;
-  height:3em;
-}
-
-.mat-icon-button
-{
-width:3em;
-height:3em;
-} */
-/* 
-.loomDate.mat-form-field-infix {
-  width:180px;
-}
-.loomDate.mat-input-element {
-  width:180px;
-  padding:10px;
-} */
 .padMe {
   padding:20px;
 }
 
-.avatarThumb {
-  height:200px;
-  min-width:200px;
-  border-radius:6px 6px 0 0;
-
-}
-.usernamebox {
-  background-color:white;
-  width:100px;
-  padding:4px;
-  text-align: center;
-
-}
-
-.avatarContainer {
-  width:120px;
-  display:inline-block;
-  float:left;
-  border:1px solid #cccccc;
-  border-radius:6px;
-  margin-right:10px;
-  text-align:center;
-  padding-top:0px;
-}
 
 h2 {
   margin-bottom:6px;

@@ -53,6 +53,7 @@ import { UsersResolver } from './services/users-resolver';
 import { InstructorAssignmentsComponent } from './users/instructors/instructorassignments.component';
 import { DialogComponent } from './classes/dialog.component';
 import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
+import { UserResolver } from './services/user-resolver';
 
 @NgModule({
   // External
@@ -101,7 +102,7 @@ import { PossibleInstructorsResolver } from './services/possible-instructors-res
 
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
-    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver
+    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver
    ],
   bootstrap: [AppComponent]
 })

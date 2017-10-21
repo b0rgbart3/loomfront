@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 
 import { UserService } from '../user.service';
 import { AlertService } from '../../services/alert.service';
@@ -24,6 +24,12 @@ export class RegisterComponent implements OnInit {
     errorMessage: string;
     users;
     user: User; // = new User('', '', '', '', '', '', '', 'false', '', '', '0');
+    currentUser: User;
+    admin: boolean;
+    editSelf: boolean;
+    makeTeacher: boolean;
+    isInstructor: boolean;
+    checkBox: FormControl;
 
     constructor(
       public userService: UserService,
@@ -34,20 +40,40 @@ export class RegisterComponent implements OnInit {
       }
 
     ngOnInit() {
+
       this.userService.getUsers().subscribe((users) => this.users = users);
       console.log('ngOnInit()');
 
       this.user = <User> {};
 
-      const id = +this.activated_route.snapshot.params['id'];
+      const id = this.activated_route.snapshot.params['id'];
+      this.user = this.activated_route.snapshot.data['user'][0];
 
-      if (id && id !== 0) {
-         console.log('In the edit component, id was not zero: ' + id);
-
-         this.getUser(id);
-      } else {
-        this.user.id = '0';
+      if (this.user.user_type && this.user.user_type.includes['instructor']) {
+        this.isInstructor = true;
       }
+
+      this.checkBox = new FormControl( { makeTeacher : this.isInstructor });
+
+      // if (id && id !== 0) {
+      //    console.log('In the edit component, id was not zero: ' + id);
+
+      //    this.getUser(id);
+      // } else {
+      //   this.user.id = '0';
+      // }
+
+      this.admin = false;
+      this.editSelf = false;
+      this.currentUser = this.userService.getCurrentUser();
+      if (this.currentUser.id === this.user.id) {
+        this.editSelf = true;
+      }
+      if (this.currentUser.user_type && this.currentUser.user_type.includes('admin')) {
+        this.admin = true;
+      }
+
+
     }
     // The user filled out and submitted the Registration form.
 

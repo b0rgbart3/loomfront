@@ -6,7 +6,8 @@
 
     <div class='loomCard'>
             <div class="padMe">
-        <h2>Register</h2>
+        <h2 *ngIf='!admin'>Register</h2>
+        <h2 *ngIf='admin'>Edit User</h2>
         <flash-messages></flash-messages>
         <md-form-field>
         <input #firstname="ngModel" mdInput placeholder="First name" 
@@ -29,7 +30,7 @@
  
         </md-form-field>
         <br>
-        <md-form-field>
+        <md-form-field *ngIf="editSelf">
         <input #password="ngModel" mdInput placeholder="password" 
         name="password" [(ngModel)]="user.password" required type="password"
         maxlength="30" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
@@ -39,6 +40,12 @@
 
         <br>
 
+            <md-checkbox [(ngModel)]='checkBox' name='checkBox'>Instructor</md-checkbox>
+        
+        <!-- {{user.user_type | json}}<br>
+        {{currentUser.user_type | json }}<br>
+        {{currentUser.id}}, {{user.id}}<br>
+        {{editSelf}} -->
         <br>
         <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
         <br clear='all'>
