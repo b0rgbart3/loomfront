@@ -33,9 +33,20 @@
       <button *ngIf="users" [routerLink]="['/instructorassignments']" 
       class='loomRoundButton loomAdd rightAlignMe'></button> 
     <h1>Instructors</h1>
+    <div *ngFor='let instructor of instructors; let u = index'>
+        
+      <div class='userInfoBox'><a [routerLink]="['/users', instructor.id, 'edit']">
+        <div class='userInfoAvatarFramer'>
+      <img [src]="instructor.avatar_URL" class='avatarThumb'>
+    </div></a>
+
+      <h2> {{instructor.username}}</h2>
+      <p> {{ instructor.firstname }}&nbsp;{{ instructor.lastname }}</p>
+      <p> {{instructor.email}}</p>
+    </div>
   </div>
 </div>
-
+<br clear='all'><br>
 
     <div class='loomCard group'>
       <div class='padMe'>

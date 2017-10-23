@@ -266,7 +266,7 @@ export class UserService implements OnInit {
 
     isAdmin(): boolean {
         this.loggedInUser();
-        if (this.currentUser && this.currentUser.user_type.includes('admin')) {
+        if (this.currentUser && this.currentUser.admin) {
             return true;
         }
     }

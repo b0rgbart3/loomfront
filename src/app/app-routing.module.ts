@@ -36,7 +36,7 @@ import { UserResolver } from './services/user-resolver';
 
 const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
-{ path: 'register', pathMatch: 'full', component: RegisterComponent },
+{ path: 'register', pathMatch: 'full', component: RegisterComponent, resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'users/:id/edit', component: RegisterComponent, resolve: { user: UserResolver }},
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },

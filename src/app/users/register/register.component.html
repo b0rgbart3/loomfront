@@ -2,7 +2,7 @@
 
 <div class='stuff'>
 
-<form #regform="ngForm" novalidate (submit)="registerUser(regfrom)">
+<form novalidate (ngSubmit)="registerUser()" [formGroup]="regFormGroup">
 
     <div class='loomCard'>
             <div class="padMe">
@@ -10,54 +10,64 @@
         <h2 *ngIf='admin'>Edit User</h2>
         <flash-messages></flash-messages>
         <md-form-field>
-        <input #firstname="ngModel" mdInput placeholder="First name" 
-        name="firstname" [(ngModel)]="user.firstname" required maxlength="30">
+        <input mdInput placeholder="First name" 
+        name="firstname" formControlName='firstname' required maxlength="30">
         </md-form-field><br>
         <md-form-field>
-        <input #lastname="ngModel" mdInput placeholder="Last name" 
-        name="lastname" [(ngModel)]="user.lastname" required minlength="3" maxlength="30">
+        <input mdInput placeholder="Last name" 
+        name="lastname" formControlName='lastname' required minlength="3" maxlength="30">
         </md-form-field>
         <br>
         <md-form-field>
-        <input #email="ngModel" mdInput placeholder="email" name="email" 
-        [(ngModel)]="user.email" required type="email" minlength="7" maxlength="40" 
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        <input mdInput placeholder="email" name="email" 
+       formControlName='email' required type="email" minlength="7" maxlength="40">
         </md-form-field>
         <md-form-field>
-        <input #username="ngModel" mdInput placeholder="witchy name" name="username" 
-        [(ngModel)]="user.username" required type="username" minlength="3" maxlength="40">
+        <input mdInput placeholder="witchy name" name="username" 
+        formControlName='username' required type="username" minlength="3" maxlength="40">
         <md-hint align="start">This will be the name that you login with</md-hint>
  
         </md-form-field>
-        <br>
+        <br clear='all'><br>
         <md-form-field *ngIf="editSelf">
-        <input #password="ngModel" mdInput placeholder="password" 
-        name="password" [(ngModel)]="user.password" required type="password"
-        maxlength="30" minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-        <md-hint align="start">A combination of at least 8 letters and/or numbers</md-hint>     
+        <input  mdInput placeholder="password" 
+        name="password" formControlName='password'>
+        <md-hint align="start">A combination of at least 8 lower and uppercase letters, at least 1 number, and 1 symbol</md-hint>     
         </md-form-field>
 
+        <br clear='all'><br>
+        <br><div *ngIf='admin'>
+                <md-checkbox formControlName='student'>
+                        Student&nbsp;&nbsp;
+                    </md-checkbox>
+            <md-checkbox formControlName='instructor'>
+                Instructor&nbsp;&nbsp;
+            </md-checkbox>
+            <md-checkbox formControlName='admin'>
+                    Admin&nbsp;&nbsp;
+                </md-checkbox>
+<br clear='all'><br>
+    </div>
 
-        <br>
-
-            <md-checkbox [(ngModel)]='checkBox' name='checkBox'>Instructor</md-checkbox>
-        
+            <!-- <md-checkbox [(ngModel)]='checkBox' name='checkBox'>Instructor</md-checkbox>
+         -->
         <!-- {{user.user_type | json}}<br>
         {{currentUser.user_type | json }}<br>
         {{currentUser.id}}, {{user.id}}<br>
         {{editSelf}} -->
-        <br>
-        <button md-raised-button color="primary" class='rightAlignMe'>OK</button>
-        <br clear='all'>
+
+        
     </div>
+    <button class='loomCancel' (click)="cancel()" type='reset' >Cancel</button><button type='submit' class='loomHalfButton' >Submit</button>
+
     </div>
 
-</form><br>
-
+</form>
+<br>
 <p>Already have an account? <a [routerLink]="['/login']" > &nbsp; &#10148;&nbsp;Then just Login!</a></p>
 </div>
 
 <div class='debug'>
-    {{ regform.value | json }}
-    {{ this.user | json }}
+    {{ regFormGroup.value | json }}
+
 </div>

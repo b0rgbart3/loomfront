@@ -28,7 +28,7 @@ export class ClassListComponent implements OnInit {
     console.log(this.currentUser);
     }
 
-      if ( this.currentUser && this.currentUser.user_type.includes('admin') ) { this.admin = true; }
+      if ( this.currentUser && this.currentUser.admin ) { this.admin = true; }
 
       this.classService
        .getClasses().subscribe(

@@ -48,12 +48,12 @@ export class AdminComponent implements OnInit {
     this.getClasses();
     this.getCourses();
     this.getMaterials();
-    this.getInstructorAssignments();
+    this.getInstructors();
     this.username = localStorage.getItem('username');
 
   }
 
-  getInstructorAssignments() {
+  getInstructors() {
     this.userService.getInstructors(0).subscribe(
       instructors =>  {this.instructors = instructors;
         // console.log('Instructors: ' + JSON.stringify(this.instructors ) );

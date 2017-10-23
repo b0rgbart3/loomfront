@@ -20,7 +20,7 @@ export class UserResolver implements Resolve <User[]> {
 
         const id = route.params['id'];
         // console.log('In the Users resolver.');
-
+        if (id) {
         return this.userService.getUser(id).
         map(course => { if (course) { return course; }
         console.log(`user was not found:`);
@@ -30,6 +30,8 @@ export class UserResolver implements Resolve <User[]> {
         console.log(`Retrieval error: ${error}`);
         this.router.navigate(['/welcome']);
         return Observable.of(null);
-    });
+    }); } else {
+        return null;
+    }
     }
 }
