@@ -17,7 +17,8 @@
 </div>
 
 <div *ngIf='course'>
-   
+    <course [course]=course></course>
+    <!--    
     <div *ngIf='course.sections'>
       
         <div *ngFor='let section of course.sections; let i = index;' class='group padMe'>
@@ -27,7 +28,7 @@
                {{material.title}}
            </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 
