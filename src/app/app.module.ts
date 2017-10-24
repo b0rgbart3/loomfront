@@ -54,6 +54,7 @@ import { InstructorAssignmentsComponent } from './users/instructors/instructoras
 import { DialogComponent } from './classes/dialog.component';
 import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
 import { UserResolver } from './services/user-resolver';
+import { UserThumbComponent } from './users/user-thumb/user-thumb.component';
 
 @NgModule({
   // External
@@ -96,7 +97,8 @@ import { UserResolver } from './services/user-resolver';
     Error404Component,
     MaterialEditComponent,
     InstructorAssignmentsComponent,
-    DialogComponent
+    DialogComponent,
+    UserThumbComponent
 
   ],
 

@@ -11,17 +11,7 @@
     <!-- <button *ngIf="!userChart" (click)='buildUserChart'>Get User Info</button>   -->
     <div *ngIf="users">
       <div *ngFor='let user of users; let u = index'>
-          
-        <div class='userInfoBox'><a [routerLink]="['/users', user.id, 'edit']">
-          <div class='userInfoAvatarFramer'>
-        <img [src]="user.avatar_URL" class='avatarThumb'>
-      </div></a>
-        <button class='loomSquareButton simpleKill rightAlignMe' 
-        (click)="deleteUser(user.id)"></button>
-        <h2> {{user.username}}</h2>
-        <p> {{ user.firstname }}&nbsp;{{ user.lastname }}</p>
-        <p> {{user.email}}</p>
-      </div>
+          <user-thumb [user]=user [editable]=true [deletable]=true></user-thumb>
     </div>
   </div>
     
@@ -34,15 +24,7 @@
       class='loomRoundButton loomAdd rightAlignMe'></button> 
     <h1>Instructors</h1>
     <div *ngFor='let instructor of instructors; let u = index'>
-        
-      <div class='userInfoBox'><a [routerLink]="['/users', instructor.id, 'edit']">
-        <div class='userInfoAvatarFramer'>
-      <img [src]="instructor.avatar_URL" class='avatarThumb'>
-    </div></a>
-
-      <h2> {{instructor.username}}</h2>
-      <p> {{ instructor.firstname }}&nbsp;{{ instructor.lastname }}</p>
-      <p> {{instructor.email}}</p>
+        <user-thumb [user]=instructor [editable]=false [deletable]=false></user-thumb>
     </div>
   </div>
 </div>

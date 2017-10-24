@@ -1,0 +1,74 @@
+/* .avatarThumb {
+    height:150px;
+    width:150px;
+  }
+  .avatarThumb img {
+    width:150px;
+  }
+  .usernamebox {
+    background-color:white;
+    width:100px;
+    padding:4px;
+    text-align: center;
+  
+  }
+  
+  .avatarContainer {
+    width:120px;
+    display:inline-block;
+    float:left;
+    border:1px solid #cccccc;
+    border-radius:6px;
+    margin-right:10px;
+    text-align:center;
+    padding-top:0px;
+  }
+  
+    .userInfoBox h2 {
+      line-height:1em;
+      font-size:1.2em;
+    }
+
+    .userInfoBox {
+        display:inline-block;
+        float:left;
+        vertical-align: top;
+        margin-right:10px;
+        line-height: .65em;
+        background-color:white;
+        border:1px solid #cccccc;
+        font-size:.9em;
+        line-height: .69em;
+        padding-left:10px;
+      }
+    
+      .userInfoAvatarFramer {
+        overflow: hidden;
+        text-align: center;
+      }
+     */
+
+    .userThumb {
+        width:160px;
+        border:2px solid #aaaaaa;
+        box-shadow:4x 4x 4x #555555;
+        border-radius: 8px;
+        margin-right:8px;
+        margin-bottom:8px;
+        background-color:white;
+        display:inline-block;
+        float:left;
+        line-height: .5em;
+    }
+    .userThumb h2 {
+      padding-left:10px;
+      font-size:1em;
+    }
+
+    .userThumb p {
+      padding-left:10px;
+    }
+
+    .userThumb img {
+      width:100%;
+    }

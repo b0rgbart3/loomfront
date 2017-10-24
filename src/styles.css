@@ -118,23 +118,6 @@ body {
     padding:20px;
   }
 
-  .userInfoBox {
-    display:inline-block;
-    float:left;
-    vertical-align: top;
-    margin-right:10px;
-    line-height: .65em;
-    background-color:white;
-    border:1px solid #cccccc;
-    font-size:.9em;
-    line-height: .69em;
-    padding-left:10px;
-  }
-
-  .userInfoAvatarFramer {
-    overflow: hidden;
-    text-align: center;
-  }
 
   .cropTool {
     border:4px dashed #ff4081;
@@ -150,36 +133,7 @@ body {
 
   }
 
-.avatarThumb {
-  height:150px;
-  width:150px;
-}
-.avatarThumb img {
-  width:150px;
-}
-.usernamebox {
-  background-color:white;
-  width:100px;
-  padding:4px;
-  text-align: center;
 
-}
-
-.avatarContainer {
-  width:120px;
-  display:inline-block;
-  float:left;
-  border:1px solid #cccccc;
-  border-radius:6px;
-  margin-right:10px;
-  text-align:center;
-  padding-top:0px;
-}
-
-  .userInfoBox h2 {
-    line-height:1em;
-    font-size:1.2em;
-  }
 
   .mat-app-background {
     background-color:rgba(0,0,0,0) !important;
