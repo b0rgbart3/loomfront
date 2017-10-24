@@ -1,0 +1,65 @@
+.section {
+    background-color:white;
+    padding:14px;
+}
+
+.nextSectionButton {
+
+    display:inline-block;
+    float:right;
+    height:40px;
+    background-image:url('../../../assets/images/next.svg');
+    background-repeat: no-repeat;
+    background-position: 90% 4px;
+    background-size:30px 30px;
+    padding-left:24px;
+    padding-top:12px;
+    padding-right:44px;
+    border-radius:12px;
+    margin-top:14px;
+    margin-bottom:14px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background:rgba(0,0,0.71);
+    transition: all .5s;
+    vertical-align: top;
+}
+
+.nextSectionButton:hover {
+    background: #bbbbbb;
+    background-color:#bbbbbb;
+    background-repeat: no-repeat;
+    background-position: 98% 4px;
+    background-size:30px 30px;
+    background-image:url('../../../assets/images/next.svg');
+}
+
+
+.previousSectionButton {
+    display:inline-block;
+    float:left;
+    height:40px;
+    background-image:url('../../../assets/images/previous.svg');
+    background-repeat: no-repeat;
+    background-position: 10% 4px;
+    background-size:30px 30px;
+    padding-left:54px;
+    padding-top:12px;
+    padding-right:14px;
+    border-radius:12px;
+    margin-top:14px;
+    margin-bottom:14px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background:rgba(0,0,0.71);
+    transition: all .5s;
+}
+
+.previousSectionButton:hover {
+    background: #bbbbbb;
+    background-color:#bbbbbb;
+    background-repeat: no-repeat;
+    background-position: 0% 4px;
+    background-size:30px 30px;
+    background-image:url('../../../assets/images/previous.svg');
+}

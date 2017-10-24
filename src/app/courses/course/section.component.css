@@ -1,0 +1,10 @@
+.section {
+    background-color:white;
+    padding:16px;
+    border-radius:8px;
+    box-shadow:5px 4px 4px #999999;
+    margin-top:20px;
+    box-sizing: border-box;
+    margin-left:20px;
+    margin-right:20px;
+}

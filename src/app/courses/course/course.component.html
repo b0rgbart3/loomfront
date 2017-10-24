@@ -1,10 +1,7 @@
 <div *ngIf='course.sections'>
         
-          <div *ngFor='let section of course.sections; let x = index;' class='group padMe'>
-             <h2> {{ section.title }} </h2>
-             <p> {{section.content }}</p>
-             <div *ngFor= 'let material of materials[x]'>Material:
-                 {{material.title}}
-             </div>
-          </div>
-      </div> 
+        <section [section]=this.currentSection [course]=course></section>
+        <div class='previousSectionButton' (click)='previousSection()'>Previous Section</div>
+        <div class='nextSectionButton' (click)='nextSection()'>Next Section</div>
+
+</div> 

@@ -56,6 +56,7 @@ import { PossibleInstructorsResolver } from './services/possible-instructors-res
 import { UserResolver } from './services/user-resolver';
 import { UserThumbComponent } from './users/user-thumb/user-thumb.component';
 import { CourseComponent } from './courses/course/course.component';
+import { SectionComponent } from './courses/course/section.component';
 
 @NgModule({
   // External
@@ -100,7 +101,8 @@ import { CourseComponent } from './courses/course/course.component';
     InstructorAssignmentsComponent,
     DialogComponent,
     UserThumbComponent,
-    CourseComponent
+    CourseComponent,
+    SectionComponent
 
   ],
 

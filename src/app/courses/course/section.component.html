@@ -1,0 +1,12 @@
+<div class='section'>
+    <h2> {{ title }} </h2>
+    <p> {{ content }}</p>
+</div>
+
+    <div *ngIf='materials' class='section'>
+        <h1>Reference Materials for this Section</h1>
+    <div *ngFor= 'let material of materials'>Material:
+        {{material.title}}
+    </div>
+    </div>
+<br><br clear='all'>

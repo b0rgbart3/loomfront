@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { MaterialService } from '../../materials/material.service';
 import { Material } from '../../models/material.model';
+import { Section } from '../../models/section.model';
 
 
 
@@ -17,33 +18,31 @@ import { Material } from '../../models/material.model';
 export class CourseComponent implements OnInit {
     @Input() course: Course;
     public materials: Material[][];
+    public section: number;
+    public currentSection: Section;
 
     constructor (private materialService: MaterialService ) {}
 
     ngOnInit() {
-        this.loadInMaterials();
+        this.section = 0;
+        this.currentSection = this.course.sections[this.section];
     }
 
-    loadInMaterials() {
-        if (this.course && this.course.sections) {
-            this.materials = [];
-        for (let i = 0; i < this.course.sections.length; i++) {
-            const matArray = this.course.sections[i].materials;
-
-            this.materials[i] = [];
-            for (let j = 0; j < matArray.length; j++) {
-                const id = matArray[j]['material'];
-
-                this.materialService.getMaterial(id).subscribe(
-                    (material) => { console.log('found a material ' + j);
-                    this.materials[i].push(material[0]);
-
-                }
-
-                );
-            }
-
+   previousSection() {
+        this.section--;
+        if (this.section < 0) {
+            this.section = this.course.sections.length - 1;
         }
-      }
+        this.currentSection = this.course.sections[this.section];
+        console.log('nexting');
+    }
+
+    nextSection() {
+        this.section++;
+        if (this.section === this.course.sections.length) {
+            this.section = 0;
+        }
+        this.currentSection = this.course.sections[this.section];
+        console.log('nexting');
     }
 }
