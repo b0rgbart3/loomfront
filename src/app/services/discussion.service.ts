@@ -55,7 +55,7 @@ export class DiscussionService implements OnInit, OnChanges {
       if (this.highestID <= 0 ) {
           this.highestID = 1;
       }
-      console.log('Thread\'s highest ID: ' + this.highestID);
+     // console.log('Thread\'s highest ID: ' + this.highestID);
 
     } )
       .catch( this.handleError );

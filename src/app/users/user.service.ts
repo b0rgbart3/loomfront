@@ -136,6 +136,7 @@ export class UserService implements OnInit {
             }
           // console.log('hightestID: ' + this.highestID );
          }
+         console.log('Users\'s highest ID: ' + this.highestID);
         return this.users;
         }
         )

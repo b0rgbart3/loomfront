@@ -29,7 +29,8 @@
  
         </md-form-field>
         <br clear='all'><br>
-        <md-form-field *ngIf="editSelf">
+
+        <md-form-field *ngIf="editSelf || !currentUser || !user.id">
         <input  mdInput placeholder="password" 
         name="password" formControlName='password'>
         <md-hint align="start">A combination of at least 8 lower and uppercase letters, at least 1 number, and 1 symbol</md-hint>     

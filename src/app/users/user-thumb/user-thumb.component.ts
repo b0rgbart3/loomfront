@@ -12,7 +12,6 @@ export class UserThumbComponent implements OnInit {
     @Input() user: User;
     @Input() user_id: number;
     @Input() editable: boolean;
-    @Input() deletable: boolean;
     @Input() tiny: boolean;
   userCount: number;
   users: User[];
@@ -29,8 +28,8 @@ export class UserThumbComponent implements OnInit {
         },
         error => this.errorMessage = <any>error);
       }
-
-    if ((this.user !== null) && this.user.avatar_URL === undefined) {
+      console.log( 'User: ' + JSON.stringify(this.user));
+    if (this.user && this.user.avatar_URL === '' ) {
         this.user.avatar_URL = 'http://localhost:3100/avatars/placeholder.png';
     }
   }

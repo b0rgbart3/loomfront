@@ -11,7 +11,10 @@
     <!-- <button *ngIf="!userChart" (click)='buildUserChart'>Get User Info</button>   -->
     <div *ngIf="users">
       <div *ngFor='let user of users; let u = index'>
-          <user-thumb [user]=user [editable]=true [deletable]=true></user-thumb>
+        <div class='thumbnailAdmin'>
+          <button class='loomSquareButton simpleKill rightAlignMe' 
+          (click)="deleteUser(user.id)"></button>
+          <user-thumb [user]=user [editable]=true ></user-thumb></div>
     </div>
   </div>
     
@@ -24,7 +27,7 @@
       class='loomRoundButton loomAdd rightAlignMe'></button> 
     <h1>Instructors</h1>
     <div *ngFor='let instructor of instructors; let u = index'>
-        <user-thumb [user]=instructor [editable]=false [deletable]=false></user-thumb>
+        <user-thumb [user]=instructor [editable]=false></user-thumb>
     </div>
   </div>
 </div>

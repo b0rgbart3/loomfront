@@ -1,14 +1,14 @@
 <div class='thread group'>
         {{ thread.post_date }}
 <div *ngIf='user'>
-        <user-thumb [user]=user [editable]=false [deletable]=false [tiny]=true></user-thumb>
+        <user-thumb [user]=user [editable]=false [tiny]=true></user-thumb>
 </div>
 <!-- <button *ngIf='thread.user_id===currentUser.id' class='tinyButton' (click)='killThread()'>Delete</button> -->
  {{ thread.subject }}<br clear='all' >
  <div *ngIf="thread.replies" class='threadReplies'>
          <div *ngFor="let reply of thread.replies; let r = index" class='threadReply'>
                         <user-thumb [user]='null' [user_id]=reply.user_id 
-                        [editable]=false [deletable]=false [tiny]=true></user-thumb>
+                        [editable]=false [tiny]=true></user-thumb>
                  {{ reply.reply }}
                  <button *ngIf='reply.user_id===currentUser.id' class='tinyButton'
                   (click)='killReply(r)'>Delete</button>

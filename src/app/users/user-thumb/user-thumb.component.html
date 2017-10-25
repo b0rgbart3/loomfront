@@ -8,8 +8,7 @@
   <img [src]="user.avatar_URL" *ngIf='user.avatar_URL'>
   </div>
 
-    <button class='loomSquareButton simpleKill rightAlignMe' 
-    (click)="deleteUser(user.id)" *ngIf='deletable'></button>
+    
     <h2> {{user.username}}</h2>
     <p> {{ user.firstname }}&nbsp;{{ user.lastname }}</p>
     <p> {{user.email}}</p>

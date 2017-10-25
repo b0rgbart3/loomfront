@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
         firstname: [this.user.firstname, [ Validators.required, Validators.maxLength(20), ] ],
         lastname: [this.user.lastname, [ Validators.required, Validators.maxLength(40)] ],
         email: [this.user.email, [ Validators.required,
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')] ],
+          Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')] ],
         username: [this.user.username, [ Validators.required ]],
         // password: [this.user.password, [Validators.required,
         //   Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')]]
@@ -85,8 +85,9 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/welcome']);
     }
     registerUser() {
+      console.log('About to register user');
       if (this.regFormGroup.dirty && this.regFormGroup.valid) {
-
+        console.log('Form is valid.');
                     // This is Deborah Korata's way of merging our data model with the form model
                      const combinedObject = Object.assign( {}, this.user, this.regFormGroup.value);
 

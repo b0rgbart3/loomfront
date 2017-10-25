@@ -25,6 +25,8 @@ export class ChatroomComponent implements OnInit {
   users: User[];
 
   @Input() class: ClassModel;
+  @Input() instructors: User[];
+  @Input() students: User[];
 
   constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,

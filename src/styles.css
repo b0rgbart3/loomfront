@@ -322,7 +322,10 @@ body {
   width:26px;
   height:26px;
   background-image:url(assets/images/kill_hi.svg);
-  background-color:#cccccc;
+  background-color:#aaaaaa;
+  position: relative;
+  top:20px;
+  right:5px;
 }
 
 .loomEdit {

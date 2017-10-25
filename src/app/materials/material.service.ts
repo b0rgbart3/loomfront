@@ -47,11 +47,11 @@ export class MaterialService {
                // Loop through all the Courses to find the highest ID#
                for (let i = 0; i < this.materials.length; i++) {
                 const foundID = Number(this.materials[i].id);
-                console.log('Found ID: ' + foundID);
+                // console.log('Found ID: ' + foundID);
                 if (foundID >= this.highestID) {
                   const newHigh = foundID + 1;
                   this.highestID = newHigh;
-                  console.log('newHigh == ' + newHigh);
+                  // console.log('newHigh == ' + newHigh);
                 }
               }
   }
@@ -60,7 +60,7 @@ export class MaterialService {
   getMaterial(id): Observable<Material> {
     return this._http.get<Material> ( this._materialUrl + '?id=' + id )
       .do(data => {
-         console.log( 'found: ' + JSON.stringify(data) );
+         // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
   }
@@ -78,7 +78,7 @@ export class MaterialService {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       // let thisID = this.courseCount + 1;
-      console.log('highestID: ' + this.highestID);
+      // console.log('highestID: ' + this.highestID);
       if (this.highestID < 1) {
         this.highestID = 1;
       }
