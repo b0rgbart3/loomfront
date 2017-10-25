@@ -1,0 +1,38 @@
+.thread {
+    border-bottom:1px solid #888888;
+    padding:4px;
+    margin:0px;
+    padding-bottom:0;
+}
+
+.reply {
+    background-color:#1f00ce;
+    color:white;
+    float:right;
+    margin-right:20px;
+    position: relative;
+    top:-20px;
+    display:inline-block;
+    padding:8px;
+    font-size:1em;
+}
+
+.replyInput {
+    margin:0px;
+    width:80%;
+    font-size:1.2em;
+    padding:10px;
+}
+
+.threadReplies {
+    border-bottom:4px solid blue;
+    margin-bottom:8px;
+    padding-left:30px;
+    padding-top:0;
+}
+
+.threadReply {
+    border-bottom:1px solid #999999;
+    margin-bottom:2px;
+    padding:0px;
+}

@@ -1,0 +1,20 @@
+<div class='thread group'>
+<div *ngIf='user'>
+        <user-thumb [user]=user [editable]=false [deletable]=false [tiny]=true></user-thumb>
+</div>
+ {{ thread.subject }}<br clear='all' >
+ <div *ngIf="thread.replies" class='threadReplies'>
+         <div *ngFor="let reply of thread.replies" class='threadReply'>
+                        <user-thumb [user]='null' [user_id]=reply.user_id [editable]=false [deletable]=false [tiny]=true></user-thumb>
+                 {{ reply.reply }}<br clear='all'>
+         </div>
+ </div>
+ <div *ngIf="displayReplyInput">
+        <form [formGroup]="replyFormGroup" (ngSubmit)="submitReply()">
+                <input type='text' class='replyInput' formControlName='reply'>
+                <button type='submit' class=''>Post Reply</button>
+                <button type='cancel' (click)='cancel()'>Cancel</button>
+        </form> 
+</div>
+ <button class='reply' (click)="reply(thread)" class='reply' *ngIf="!displayReplyInput">Reply</button>
+</div><br clear='all'>

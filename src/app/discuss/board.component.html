@@ -1,0 +1,23 @@
+<div class='loomCard group '>
+        <button [routerLink]="['/classes', thisClass.id ]" class='backButton'>Back to Classroom</button>
+        <div *ngIf='thisClass' class='padMe'>
+        <h1>Discussion Board for: {{ thisClass.title }}</h1>
+
+                <form [formGroup]='discussionFormGroup' (ngSubmit)='newThread()'>
+                <input formControlName='subject' id='subject' name='subject' type='text' class='largeInput'>
+                <button type='submit' class=''>Post New Topic</button>
+        </form>
+
+        <hr>
+
+        <div *ngIf='threads'>
+                <div *ngFor='let thread of threads'>
+                       <thread [thread]=thread></thread>
+                </div>
+        </div>
+</div>        
+</div>
+
+<div class='debug'>
+        {{ discussionFormGroup.value | json }}
+</div>

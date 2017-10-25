@@ -40,7 +40,8 @@ export class ClassComponent implements OnInit {
     materials = [];
     materialsLoaded: boolean;
 
-    constructor( private activated_route: ActivatedRoute,
+    constructor( private router: Router,
+    private activated_route: ActivatedRoute,
     private classService: ClassService,
     private courseService: CourseService,
     private userService: UserService,

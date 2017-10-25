@@ -72,3 +72,16 @@
     .userThumb img {
       width:100%;
     }
+
+  
+    .tinyThumb {
+      width:50px;
+      display:inline-block;
+      float:left;
+      margin-right:10px;
+      margin-bottom:12px;
+    }
+
+    .tinyThumb img {
+      width:100%;
+    }

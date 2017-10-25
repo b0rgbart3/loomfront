@@ -57,6 +57,10 @@ import { UserResolver } from './services/user-resolver';
 import { UserThumbComponent } from './users/user-thumb/user-thumb.component';
 import { CourseComponent } from './courses/course/course.component';
 import { SectionComponent } from './courses/course/section.component';
+import { ChatroomComponent } from './chat/chatroom.component';
+import { BoardComponent } from './discuss/board.component';
+import { DiscussionService } from './services/discussion.service';
+import { ThreadComponent } from './discuss/thread.component';
 
 @NgModule({
   // External
@@ -102,13 +106,17 @@ import { SectionComponent } from './courses/course/section.component';
     DialogComponent,
     UserThumbComponent,
     CourseComponent,
-    SectionComponent
+    SectionComponent,
+    ChatroomComponent,
+    BoardComponent,
+    ThreadComponent
 
   ],
 
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
-    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver
+    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
+    DiscussionService
    ],
   bootstrap: [AppComponent]
 })

@@ -390,6 +390,7 @@ md-select {
 
 .padMe {
   padding:20px;
+  box-sizing: border-box;
 }
 
 

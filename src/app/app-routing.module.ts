@@ -27,6 +27,8 @@ import { InstructorAssignmentsComponent } from './users/instructors/instructoras
 import { UsersResolver } from './services/users-resolver';
 import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
 import { UserResolver } from './services/user-resolver';
+import { ChatroomComponent } from './chat/chatroom.component';
+import { BoardComponent } from './discuss/board.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -49,6 +51,8 @@ const ROUTES: Routes = [
 { path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
 { path: 'materials/:id/edit', component: MaterialEditComponent },
 // { path: 'upload', pathMatch: 'full', component: UploadComponent },
+{ path: 'chatroom/:id', component: ChatroomComponent, resolve: { thisClass: ClassesResolver, users: UsersResolver }},
+{ path: 'discussion/:id', component: BoardComponent, resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'usersettings', component: UserSettingsComponent },
 { path: 'instructorassignments', component: InstructorAssignmentsComponent, resolve: {users: UsersResolver } },
 { path: '404', component: Error404Component },

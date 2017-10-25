@@ -16,6 +16,13 @@
     <img [src]='courseimageURL' class='mainImageImage'>
 </div>
 
+<div>
+    <!-- <a (click)="joinChat()">Class Chatroom</a> -->
+    <button [routerLink]="['/chatroom', thisClass.id ]" class=''>Chatroom</button>
+    <button [routerLink]="['/discussion', thisClass.id ]" class=''>Discussion</button>
+    <!-- <a (click)="discuss()">Join the Discussion</a> -->
+</div>
+
 <div *ngIf='course'>
     <course [course]=course></course>
     <!--    
