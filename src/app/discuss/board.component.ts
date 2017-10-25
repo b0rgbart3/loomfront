@@ -63,11 +63,15 @@ export class BoardComponent implements OnInit {
   backToClass() {
     this.router.navigate(['/classes']);
   }
+  ngOnChange() {
+    console.log('ch ch changin');
+  }
   newThread(): void {
 
     const combinedObject = Object.assign( {}, this.thread, this.discussionFormGroup.value);
     combinedObject.classID = this.classID;
     combinedObject.user_id = this.currentUser.id;
+    combinedObject.post_date = new Date( Date.now());
 
     console.log('About to post: ' + JSON.stringify( combinedObject ) );
 
@@ -77,5 +81,17 @@ export class BoardComponent implements OnInit {
         () => { console.log('finished'); });
   }
 
+  threadChange( thisThread: Thread ) {
+    console.log('got the emission');
+    const combinedObject = Object.assign( {}, thisThread, this.discussionFormGroup.value);
+    combinedObject.classID = this.classID;
+    combinedObject.user_id = this.currentUser.id;
+    console.log('About to post: ' + JSON.stringify( combinedObject ) );
+
+    this.ds.updateThread( combinedObject ).subscribe(
+          (val) => { }, response => console.log('thread saved')
+          ,
+            () => { console.log('finished'); });
+  }
 
 }

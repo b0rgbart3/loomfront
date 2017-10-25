@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ClassService } from '../classes/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
@@ -18,15 +18,18 @@ import { DiscussionService } from '../services/discussion.service';
 
 export class ThreadComponent implements OnInit {
 
-    user: User;
+  user: User;
   subject: string;
   user_id: string;
   errorMessage: string;
   displayReplyInput: boolean;
   replyFormGroup: FormGroup;
   currentUser: User;
+  post_date: Date;
+  display_date: string;
 
   @Input() thread: Thread;
+  @Output() threadChange = new EventEmitter<Thread>();
 
   constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,
@@ -35,6 +38,9 @@ export class ThreadComponent implements OnInit {
     private ds: DiscussionService ) {}
 
   ngOnInit() {
+    this.post_date = this.thread.post_date;
+    if (this.post_date) {
+    this.display_date = this.post_date.toString(); }
     this.currentUser = this.userService.getCurrentUser();
     console.log('Current User: ' + JSON.stringify(this.currentUser));
     // console.log('thread: ' + JSON.stringify(this.thread));
@@ -52,6 +58,15 @@ export class ThreadComponent implements OnInit {
 
   cancel() {
     this.displayReplyInput = false;
+  }
+
+  killReply(r) {
+    if (r > -1) {
+      const cd = confirm('Are you sure you want to delete this reply?');
+      if (cd) {
+      this.thread.replies.splice(r, 1); }
+    }
+    this.threadChange.emit(this.thread);
   }
 
   submitReply() {

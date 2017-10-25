@@ -12,7 +12,7 @@
 
         <div *ngIf='threads'>
                 <div *ngFor='let thread of threads'>
-                       <thread [thread]=thread></thread>
+                       <thread [thread]=thread (threadChange)="threadChange($event)"></thread>
                 </div>
         </div>
 </div>        
