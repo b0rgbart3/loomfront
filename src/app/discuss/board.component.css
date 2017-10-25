@@ -3,3 +3,28 @@
     padding:10px;
     min-width:80%;
 }
+.deleteThreadButton {
+    display:inline-block;
+    float:right;
+    padding:8px;
+    font-size:.5;
+    background-color:#383e72;
+    color:white;
+    cursor: pointer;
+}
+.fancyPostButton {
+    background-color:#338723;
+    color:white;
+    outline: none;
+}
+
+.fancyPostButton:hover {
+    background-color:#43bd2b;
+}
+.fancyPostButton:active {
+    background-color:#8dff76;
+}
+
+.fancyPostButton:focus {
+    background-color:#bc00d4;
+}

@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -11,9 +11,8 @@ import { ClassModel } from '../models/class.model';
 import { Thread } from '../models/thread.model';
 
 @Injectable()
-export class DiscussionService implements OnInit {
+export class DiscussionService implements OnInit, OnChanges {
     private _registryUrl = 'http://localhost:3100/api/classregistrations';
-    private _threadUrl = 'http://localhost:3100/api/thread';
     private _threadsUrl = 'http://localhost:3100/api/threads';
     private classCount = 0;
     private highestID = 0;
@@ -30,6 +29,9 @@ export class DiscussionService implements OnInit {
 
     }
 
+    ngOnChanges() {
+
+    }
 
    getThreads(): Observable<Thread[]> {
      const myHeaders = new HttpHeaders();
@@ -53,6 +55,7 @@ export class DiscussionService implements OnInit {
       if (this.highestID <= 0 ) {
           this.highestID = 1;
       }
+      console.log('Thread\'s highest ID: ' + this.highestID);
 
     } )
       .catch( this.handleError );
@@ -61,23 +64,31 @@ export class DiscussionService implements OnInit {
 
 
   getThread(id): Observable<Thread[]> {
-    return this._http.get<Thread[]> ( this._threadUrl + '?id=' + id )
+    return this._http.get<Thread[]> ( this._threadsUrl + '?id=' + id )
       .do(data => {
 
       return data; })
       .catch (this.handleError);
   }
 
+  deleteThread(threadObject): Observable<any> {
+    console.log('Deleting thread: ' + JSON.stringify(threadObject));
+    return this._http.delete( this._threadsUrl + '?id=' + threadObject.id);
+  }
+
+
  newThread(threadObject): Observable<Thread> {
 
-    threadObject.id = this.highestID;
+    threadObject.id = this.highestID.toString();
+    this.highestID++;
 
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
 
     // Note: I'm not passing the id as part of the url -- because it's inside the classObject
     const url = this._threadsUrl;
-    return this._http.put(url + '?id=' + threadObject.id, threadObject, {headers: myHeaders}).map( () => threadObject );
+    return this._http.put(url + '?id=' + threadObject.id, threadObject,
+     {headers: myHeaders}).map( () => threadObject );
 
   }
 

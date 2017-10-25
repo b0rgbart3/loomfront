@@ -4,15 +4,17 @@
         <h1>Discussion Board for: {{ thisClass.title }}</h1>
 
                 <form [formGroup]='discussionFormGroup' (ngSubmit)='newThread()'>
-                <input formControlName='subject' id='subject' name='subject' type='text' class='largeInput'>
-                <button type='submit' class=''>Post New Topic</button>
+                <input formControlName='subject' id='subject' autofocus name='subject' type='text' class='largeInput'>
+                <button type='submit' class='fancyPostButton'>Post New Topic</button>
         </form>
 
         <hr>
 
         <div *ngIf='threads'>
                 <div *ngFor='let thread of threads'>
-                       <thread [thread]=thread (threadChange)="threadChange($event)"></thread>
+                        <div *ngIf="currentUser.id == thread.user_id" 
+                        class='deleteThreadButton' (click)="deleteThread(thread)">Delete this Thread</div>
+                       <thread [thread]=thread (threadChange)="threadChange($event)" (threadKill)="threadKill($event)"></thread>
                 </div>
         </div>
 </div>        

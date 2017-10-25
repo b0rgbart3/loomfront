@@ -42,7 +42,7 @@ export class ThreadComponent implements OnInit {
     if (this.post_date) {
     this.display_date = this.post_date.toString(); }
     this.currentUser = this.userService.getCurrentUser();
-    console.log('Current User: ' + JSON.stringify(this.currentUser));
+    // console.log('Current User: ' + JSON.stringify(this.currentUser));
     // console.log('thread: ' + JSON.stringify(this.thread));
     this.displayReplyInput = false;
     this.userService.getUser(this.thread.user_id).subscribe(
@@ -53,11 +53,11 @@ export class ThreadComponent implements OnInit {
     }
 
   reply(thread) {
-    this.displayReplyInput = true;
+    this.thread.displayReplyInput = true;
   }
 
-  cancel() {
-    this.displayReplyInput = false;
+  cancel(thread) {
+    this.thread.displayReplyInput = false;
   }
 
   killReply(r) {
@@ -69,7 +69,8 @@ export class ThreadComponent implements OnInit {
     this.threadChange.emit(this.thread);
   }
 
-  submitReply() {
+
+  submitReply(thread) {
     // console.log(this.replyFormGroup.get('reply').value);
     const reply = this.replyFormGroup.get('reply').value;
     if (!this.thread.replies) {
@@ -83,7 +84,9 @@ export class ThreadComponent implements OnInit {
       this.ds.updateThread( this.thread ).subscribe(
         (val) => { }, response => console.log('thread saved')
         ,
-          () => { console.log('finished'); });
+          () => { console.log('finished'); this.replyFormGroup.reset();
+        this.thread.displayReplyInput = false;
+       });
 
 
 
