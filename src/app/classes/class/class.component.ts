@@ -53,26 +53,9 @@ export class ClassComponent implements OnInit {
         this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
         this.users = this.activated_route.snapshot.data['users'];
         this.instructors = [];
-        for (let i = 0; i < this.thisClass.instructors.length; i++) {
-            const inst_id = this.thisClass.instructors[i].user_id;
-
-            for (let j = 0; j < this.users.length; j++) {
-                if (this.users[j].id === inst_id) {
-                    this.instructors.push(this.users[j]);
-                }
-            }
-        }
-
+        this.instructors = this.classService.getInstructors(this.thisClass, this.users);
         this.students = [];
-        for (let i = 0; i < this.thisClass.students.length; i++) {
-            const student_id = this.thisClass.students[i].user_id;
-
-            for (let j = 0; j < this.users.length; j++) {
-                if (this.users[j].id === student_id) {
-                    this.students.push(this.users[j]);
-                }
-            }
-        }
+        this.students = this.classService.getStudents(this.thisClass, this.users);
 
         this.courseID = this.thisClass.course;
         this.courseService.getCourse(this.courseID).subscribe(
@@ -104,7 +87,7 @@ export class ClassComponent implements OnInit {
                 const id = matArray[j]['material'];
 
                 this.materialService.getMaterial(id).subscribe(
-                    (material) => { console.log('found a material ' + j);
+                    (material) => { // console.log('found a material ' + j);
                     this.materials[i].push(material[0]);
 
                     // if ((i + 1 === this.course.sections.length) && (j + 1 === matArray.length)) {

@@ -1,11 +1,11 @@
-<div class='loomCard group'>
+<div class='loomCard group padMe'>
         <div *ngIf='thisClass'>
-        <h1>{{ thisClass.title }}</h1>
-        
+        <h1>Chatroom for: {{ thisClass.title }}</h1>
         <h2>Instructors for this class:</h2>
-        <div *ngFor='let instructor of instructors'>
-                <user-thumb [user]=instructor [editable]=false ></user-thumb>
-        </div>
+        <div *ngFor='let instructor of inChatInstructors'>
+                <user-thumb [user]=instructor.user [editable]=false [inRoom]=instructor.inRoom></user-thumb>
+        </div><br clear='all'>
+
         <br clear='all'>
         <h2>Students in this class:</h2>
         <div *ngFor='let student of students'>

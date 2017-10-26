@@ -59,6 +59,8 @@
         display:inline-block;
         float:left;
         line-height: .5em;
+        overflow: hidden;
+        font-size:.87em;
     }
     .userThumb h2 {
       padding-left:10px;
@@ -84,4 +86,17 @@
 
     .tinyThumb img {
       width:100%;
+    }
+
+    .inDaHouse {
+      border:2px solid #555555;
+      opacity:1;
+      box-shadow: 4px 4px 4px #888888;
+      margin-right:10px;
+   
+    }
+
+    .notInDaHouse {
+      opacity: .42;
+
     }

@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
 import { ClassModel } from '../models/class.model';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class ClassService implements OnInit {
@@ -75,6 +76,40 @@ export class ClassService implements OnInit {
 
       return data; })
       .catch (this.handleError);
+  }
+
+  // This method just takes the classObject and a list of users,
+  // and returns an array of full User Objects for this class
+  // -- because the classObject stores user info objects - but not
+  // user objects.
+  getStudents(classObject, users): User[] {
+    const students = <User[]> [];
+    for (let i = 0; i < classObject.students.length; i++) {
+      const student_id = classObject.students[i].user_id;
+
+      for (let j = 0; j < users.length; j++) {
+          if (users[j].id === student_id) {
+              students.push(users[j]);
+          }
+      }
+    }
+    return students;
+  }
+
+  // Similarly here - we're colleting an array of User objects
+  // of the instructors for this class
+  getInstructors(classObject, users): User[] {
+      const instructors = <User[]> [];
+         for (let i = 0; i < classObject.instructors.length; i++) {
+            const inst_id = classObject.instructors[i].user_id;
+
+            for (let j = 0; j < users.length; j++) {
+                if (users[j].id === inst_id) {
+                    instructors.push(users[j]);
+                }
+            }
+        }
+        return instructors;
   }
 
  createClass(classObject): Observable<ClassModel> {

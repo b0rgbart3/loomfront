@@ -1,5 +1,5 @@
 <div *ngIf='!tiny'>
-    <div class='userThumb'>
+    <div [class]='inClass'>
     <a [routerLink]="['/users', user.id, 'edit']" *ngIf='editable'>
     <img [src]="user.avatar_URL" *ngIf='user.avatar_URL'>
   </a>

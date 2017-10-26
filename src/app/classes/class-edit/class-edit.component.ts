@@ -195,8 +195,9 @@ export class ClassEditComponent implements OnInit {
                       () => {});
             } else { this.classService
                 .updateClass( combinedClassObject ).subscribe(
-                (val) => {console.log('save completed'); //  this.router.navigate(['/welcome']);
-            }, response => {console.log('save completed'); },
+                (val) => {
+                 this.router.navigate(['/welcome']);
+            }, response => { },
                 () => { }); }
 
 

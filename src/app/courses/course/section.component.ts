@@ -57,7 +57,7 @@ export class SectionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        console.log('changes');
+        // console.log('changes');
         this.loadInMaterials();
      }
 
@@ -67,7 +67,7 @@ export class SectionComponent implements OnInit, OnChanges {
                 const id = this._section.materials[j]['material'];
 
                 this.materialService.getMaterial(id).subscribe(
-                    (material) => { console.log('found a material ' + j);
+                    (material) => { // console.log('found a material ' + j);
                     this.materials.push(material[0]);
 
                 }

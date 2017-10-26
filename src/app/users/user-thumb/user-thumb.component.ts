@@ -13,22 +13,27 @@ export class UserThumbComponent implements OnInit {
     @Input() user_id: number;
     @Input() editable: boolean;
     @Input() tiny: boolean;
+    @Input() inRoom: boolean;
   userCount: number;
   users: User[];
   filteredUsers: User[];
   selectedUser: User;
   errorMessage: string;
+  inClass: string;
 
   constructor ( private userService: UserService) { }
 
   ngOnInit() {
+    if (this.inRoom) {this.inClass = 'userThumb inDaHouse'; } else {
+      this.inClass = 'userThumb notInDaHouse';
+    }
     if (!this.user) {
      this.userService.getUser(this.user_id).subscribe(
         user =>  {this.user = user[0];
         },
         error => this.errorMessage = <any>error);
       }
-      console.log( 'User: ' + JSON.stringify(this.user));
+      // console.log( 'User: ' + JSON.stringify(this.user));
     if (this.user && this.user.avatar_URL === '' ) {
         this.user.avatar_URL = 'http://localhost:3100/avatars/placeholder.png';
     }

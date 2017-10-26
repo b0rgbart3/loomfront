@@ -61,6 +61,7 @@ import { ChatroomComponent } from './chat/chatroom.component';
 import { BoardComponent } from './discuss/board.component';
 import { DiscussionService } from './services/discussion.service';
 import { ThreadComponent } from './discuss/thread.component';
+import { ChatService } from './chat/chat.service';
 
 @NgModule({
   // External
@@ -116,7 +117,7 @@ import { ThreadComponent } from './discuss/thread.component';
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
     CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
-    DiscussionService
+    DiscussionService, ChatService
    ],
   bootstrap: [AppComponent]
 })
