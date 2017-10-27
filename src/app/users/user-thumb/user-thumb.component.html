@@ -1,23 +1,21 @@
-<div *ngIf='!tiny'>
-    <div [class]='inClass'>
-    <a [routerLink]="['/users', user.id, 'edit']" *ngIf='editable'>
-    <img [src]="user.avatar_URL" *ngIf='user.avatar_URL'>
-  </a>
 
-  <div *ngIf='!editable'>
-  <img [src]="user.avatar_URL" *ngIf='user.avatar_URL'>
-  </div>
+<div [style.width.px]="thumbnail.size" class='userThumb'>
 
-    
-    <h2> {{user.username}}</h2>
-    <p> {{ user.firstname }}&nbsp;{{ user.lastname }}</p>
-    <p> {{user.email}}</p>
-  </div>
+<div *ngIf='thumbnail.editable'>
+<a [routerLink]="['/users', thumbnail.user.id, 'edit']">
+<img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'>
+</a></div>
+
+<div *ngIf='!thumbnail.editable && thumbnail.user'>
+  <img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'>
 </div>
 
-<div *ngIf='tiny'>
-  <div class='tinyThumb' *ngIf='user'>
-      <img [src]="user.avatar_URL" *ngIf='user.avatar_URL'><br>
-      {{ user.username }}
-  </div>
-</div>
+
+
+
+<div *ngIf="thumbnail.user">
+<h2 *ngIf='thumbnail.showUsername'> {{thumbnail.user.username}}</h2>
+<p *ngIf='thumbnail.showInfo'> {{ thumbnail.user.firstname }}&nbsp;{{ thumbnail.user.lastname }}</p>
+<p *ngIf='thumbnail.showInfo'> {{thumbnail.user.email}}</p>
+</div></div>
+

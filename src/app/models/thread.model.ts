@@ -1,3 +1,5 @@
+import { Reply } from './reply.model';
+
 export class Thread {
     _id?: string;
 
@@ -7,8 +9,9 @@ export class Thread {
         public classID: string,
         public post_date: Date,
         public subject: string,
-        public replies: any [],
-        public displayReplyInput: boolean
+        public replies: Reply [],
+        public displayReplyInput: boolean,
+        public collapsed: boolean
     ) {}
 
   }

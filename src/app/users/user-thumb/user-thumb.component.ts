@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../user.service';
+import { Userthumbnail } from '../../models/userthumbnail.model';
 
 @Component({
   selector: 'user-thumb',
@@ -9,11 +10,8 @@ import { UserService } from '../user.service';
 })
 
 export class UserThumbComponent implements OnInit {
-    @Input() user: User;
-    @Input() user_id: number;
-    @Input() editable: boolean;
-    @Input() tiny: boolean;
-    @Input() inRoom: boolean;
+    @Input() thumbnail: Userthumbnail;
+
   userCount: number;
   users: User[];
   filteredUsers: User[];
@@ -24,18 +22,21 @@ export class UserThumbComponent implements OnInit {
   constructor ( private userService: UserService) { }
 
   ngOnInit() {
-    if (this.inRoom) {this.inClass = 'userThumb inDaHouse'; } else {
+
+    if (this.thumbnail.inRoom) {this.inClass = 'userThumb inDaHouse'; } else {
       this.inClass = 'userThumb notInDaHouse';
     }
-    if (!this.user) {
-     this.userService.getUser(this.user_id).subscribe(
-        user =>  {this.user = user[0];
+    if (!this.thumbnail.user) {
+      // console.log('loading in the user: ' + this.thumbnail.user_id);
+     this.userService.getUser(this.thumbnail.user_id).subscribe(
+        user =>  {this.thumbnail.user = user[0];
+          // console.log('found user: ' + JSON.stringify(this.thumbnail.user));
         },
         error => this.errorMessage = <any>error);
       }
       // console.log( 'User: ' + JSON.stringify(this.user));
-    if (this.user && this.user.avatar_URL === '' ) {
-        this.user.avatar_URL = 'http://localhost:3100/avatars/placeholder.png';
+    if (this.thumbnail.user && this.thumbnail.user.avatar_URL === '' ) {
+        this.thumbnail.user.avatar_URL = 'http://localhost:3100/avatars/placeholder.png';
     }
   }
 

@@ -25,14 +25,14 @@
 }
 
 .threadReplies {
-    border-bottom:4px solid blue;
+    border-bottom:2px solid rgba(0,0,0,.2);
     margin-bottom:8px;
     padding-left:30px;
     padding-top:0;
 }
 
 .threadReply {
-    border-bottom:1px solid #999999;
+    border-top:1px dashed rgba(0,0,0,.2);
     margin-bottom:2px;
     padding:0px;
 }
@@ -42,4 +42,21 @@
     font-size:.8em;
     display:inline-block;
     float:right;
+}
+
+.threadSubject {
+    background-color:rgba(255,255,255,.25);
+    padding-left:30px;
+}
+
+.threadSubject:hover {
+    background-color:rgba(255,255,255,.75);
+}
+
+.threadSubject:active {
+    border:2px solid white;
+}
+
+.subject {
+    font-size:1.4em;
 }

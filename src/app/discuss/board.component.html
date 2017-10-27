@@ -11,7 +11,7 @@
         <hr>
 
         <div *ngIf='threads'>
-                <div *ngFor='let thread of threads'>
+                <div *ngFor='let thread of threads' class='threadContainer group'>
                         <div *ngIf="currentUser.id == thread.user_id" 
                         class='deleteThreadButton' (click)="deleteThread(thread)">Delete this Thread</div>
                        <thread [thread]=thread (threadChange)="threadChange($event)" (threadKill)="threadKill($event)"></thread>

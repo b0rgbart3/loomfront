@@ -13,18 +13,24 @@
     cursor: pointer;
 }
 .fancyPostButton {
-    background-color:#338723;
+    background-color:#ce00bd;
     color:white;
     outline: none;
 }
 
 .fancyPostButton:hover {
-    background-color:#43bd2b;
+    background-color:#a00095;
 }
 .fancyPostButton:active {
-    background-color:#8dff76;
+    background-color:#e85bf5;
 }
 
 .fancyPostButton:focus {
     background-color:#bc00d4;
 }
+
+.threadContainer {
+    padding:0;
+    box-sizing: border-box;
+}
+

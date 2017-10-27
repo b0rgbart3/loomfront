@@ -29,6 +29,7 @@ export class ChatroomComponent implements OnInit {
   whosIn: any[];
   inChatInstructors: Object[];
   instThumbObjects: Userthumbnail[];
+  public studentThumbnails: Userthumbnail[];
 
   @Input() class: ClassModel;
   @Input() instructors: User[];
@@ -48,6 +49,10 @@ export class ChatroomComponent implements OnInit {
     this.instructors = this.classService.getInstructors(this.thisClass, this.users);
     this.students = [];
     this.students = this.classService.getStudents(this.thisClass, this.users);
+    this.studentThumbnails = this.students.map(this.createThumbnail);
+
+    console.log('Student thumbnails' + JSON.stringify(this.studentThumbnails));
+
     this.currentUser = this.userService.getCurrentUser();
 
     this.chatService.enterChat(this.currentUser, this.thisClass).subscribe(
@@ -65,6 +70,12 @@ export class ChatroomComponent implements OnInit {
 
     }
 
+    createThumbnail(user) {
+      const thumbnailObj = { user: user, user_id: user.id, editable: false,
+        inRoom: false, size: 90, showUsername: true, showInfo: false };
+      return thumbnailObj;
+    }
+
     displayWhosIn() {
       console.log('Looking for who is in...');
       this.inChatInstructors = [];
@@ -80,7 +91,7 @@ export class ChatroomComponent implements OnInit {
         const instObj = { user: this.instructors[i], inRoom: isIn};
         this.inChatInstructors.push(instObj);
         const instThumbObj = <Userthumbnail> { user: this.instructors[i],
-          user_id: this.instructors[i].id, inRoom: isIn, editable: false, size: 50};
+          user_id: this.instructors[i].id, inRoom: isIn, editable: false, size: 90, showUsername: true, showInfo: false};
         this.instThumbObjects.push(instThumbObj);
       }
     }

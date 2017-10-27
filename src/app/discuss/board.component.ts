@@ -57,7 +57,7 @@ export class BoardComponent implements OnInit, OnChanges {
     // this.threads = [];
     // this.threads.push(this.thread);
 
-    console.log(JSON.stringify( this.threads ));
+    // console.log(JSON.stringify( this.threads ));
   }
 
   backToClass() {
@@ -97,6 +97,10 @@ export class BoardComponent implements OnInit, OnChanges {
           (val) => { }, response => console.log('thread saved')
           ,
             () => { console.log('finished'); });
+
+    this.ds.getThreads().subscribe(
+              (val) => {}, response => { this.threads = response; }, () => {});
+
   }
  deleteThread ( thisThread: Thread) {
    const conf = confirm('Are you sure you want to delete this discussion topic, and all of it\'s replies?');

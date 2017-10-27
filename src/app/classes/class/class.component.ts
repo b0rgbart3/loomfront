@@ -12,6 +12,7 @@ import { MaterialService } from '../../materials/material.service';
 import { Material } from '../../models/material.model';
 import { Student } from '../../models/student.model';
 import { Instructor } from '../../models/instructor.model';
+import { Userthumbnail } from '../../models/userthumbnail.model';
 
 
 const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages';
@@ -46,6 +47,8 @@ export class ClassComponent implements OnInit {
     private courseService: CourseService,
     private userService: UserService,
     private materialService: MaterialService ) {}
+    public instructorThumbnails: Userthumbnail[];
+    public studentThumbnails: Userthumbnail[];
 
     ngOnInit() {
 
@@ -57,7 +60,12 @@ export class ClassComponent implements OnInit {
         this.students = [];
         this.students = this.classService.getStudents(this.thisClass, this.users);
 
+        this.instructorThumbnails = this.instructors.map(this.createThumbnail);
+        this.studentThumbnails = this.students.map(this.createThumbnail);
+
         this.courseID = this.thisClass.course;
+
+
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
@@ -66,6 +74,11 @@ export class ClassComponent implements OnInit {
             },
                 error => this.errorMessage = <any>error);
 
+    }
+    createThumbnail(user) {
+        const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
+            size: 100,  showUsername: true, showInfo: false };
+        return thumbnailObj;
     }
 
     populateForm() {
