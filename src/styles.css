@@ -403,6 +403,15 @@ md-select {
 h2 {
   margin-bottom:6px;
 }
+
+.nobr	{ white-space:nowrap; }
+
+.showTable {
+  background-color:rgba(0,0,0,.1);
+}
+.showTable td {
+  text-align: center;
+}
 /*  ClearFix  -----------------------------------------------------------
 */
 /*  The ClearFix by Tony Aslett and Nicholas Gallagher */
@@ -418,3 +427,36 @@ h2 {
   zoom: 1;
 }
 
+/* Buttons --------
+*/
+
+.backButton {
+  font-size:.9em;
+  padding:16px;
+  background-color:rgba(0,0,0,.2);
+  border-radius:0 0 8px 0;
+  cursor: pointer;
+  outline:none;
+}
+.backButton:hover {
+  background-color:#ff4081;
+  color:white;
+}
+
+.backButton:active {
+  background-color:#fa6b9d;
+}
+
+.basicButton {
+  background-color:#4052ad !important;
+  color:white;
+  padding:12px;
+  border-radius:8px;
+  font-size:1em;
+  outline:none;
+  cursor: pointer;
+}
+
+.basicButton:hover {
+  background-color: #ff4081 !important;
+}

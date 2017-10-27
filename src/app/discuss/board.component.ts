@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
 import { ClassService } from '../classes/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
@@ -16,7 +16,7 @@ import { DiscussionService } from '../services/discussion.service';
   providers: [ClassService]
 })
 
-export class BoardComponent implements OnInit, OnChanges {
+export class BoardComponent implements OnInit, OnChanges, DoCheck {
 
   classes: ClassModel[];
   selectedClass: {};
@@ -66,6 +66,10 @@ export class BoardComponent implements OnInit, OnChanges {
   ngOnChanges() {
     console.log('ch ch changin');
   }
+  ngDoCheck() {
+    console.log('Do checking!');
+  }
+
   newThread(): void {
 
     if (this.discussionFormGroup.valid && this.discussionFormGroup.dirty) {

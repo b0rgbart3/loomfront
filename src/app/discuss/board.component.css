@@ -1,16 +1,27 @@
 .largeInput {
     font-size:1.2em;
     padding:10px;
-    min-width:80%;
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+
 }
 .deleteThreadButton {
     display:inline-block;
     float:right;
     padding:8px;
-    font-size:.5;
-    background-color:#383e72;
+    font-size:.4;
+    background-color: #bbbbbb;
     color:white;
     cursor: pointer;
+    border-right:1px solid #999999;
+    border-top:1px solid #aaaaaa;
+    transition: .5s;
+    border-radius:0 0 0 4px;
+}
+
+.deleteThreadButton:hover {
+    background-color:#aaaaaa;
 }
 .fancyPostButton {
     background-color:#ce00bd;

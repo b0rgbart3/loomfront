@@ -1,18 +1,25 @@
+<script src="/socket.io/socket.io.js"></script>
 <div class='loomCard group '>
-        <button [routerLink]="['/classes', thisClass.id ]" class='backButton'>Back to Classroom</button>
+        <button [routerLink]="['/classes', thisClass.id ]" class='backButton'>Back to Course Material</button>
         <div *ngIf='thisClass' class='padMe'>
         <h1>Discussion Board for: {{ thisClass.title }}</h1>
 
                 <form [formGroup]='discussionFormGroup' (ngSubmit)='newThread()'>
-                <input formControlName='subject' id='subject' autofocus name='subject' type='text' class='largeInput'>
-                <button type='submit' class='fancyPostButton'>Post New Topic</button>
+                <table width='100%' class='showTable'>
+                   <tr>
+                <td width='90%'><input formControlName='subject' id='subject' 
+                        autofocus name='subject' type='text' class='largeInput'></td>
+                <td>
+                <button type='submit' class='basicButton nobr'>Post New Topic</button></td>
+                </tr>
+                </table>
         </form>
 
-        <hr>
+        <br clear='all'><br>
 
         <div *ngIf='threads'>
                 <div *ngFor='let thread of threads' class='threadContainer group'>
-                        <div *ngIf="currentUser.id == thread.user_id" 
+                        <div *ngIf="currentUser.id === thread.user_id" 
                         class='deleteThreadButton' (click)="deleteThread(thread)">Delete this Thread</div>
                        <thread [thread]=thread (threadChange)="threadChange($event)" (threadKill)="threadKill($event)"></thread>
                 </div>

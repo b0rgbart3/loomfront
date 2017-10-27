@@ -23,10 +23,14 @@
  </div>
  <div *ngIf="thread.displayReplyInput">
         <form [formGroup]="replyFormGroup" (ngSubmit)="submitReply(thread)">
-                <input type='text' autofocus class='replyInput' formControlName='reply'>
-                <button type='submit' class=''>Post Reply</button>
-                <button type='cancel' (click)='cancel(thread)'>Cancel</button>
+                <table width='100%' class='showTable'>
+                <tr>
+                <td width='80%'><input type='text' autofocus class='replyInput' formControlName='reply'></td>
+                <td width='10%'><button type='submit' class='basicButton nobr'>Post Reply</button></td>
+                <td><button type='cancel' (click)='cancel(thread)'>Cancel</button></td>
+                 </tr>
+                </table>
         </form> 
 </div>
- <button class='reply' (click)="reply(thread)" class='reply' *ngIf="!thread.displayReplyInput">Reply</button>
+ <button class='reply' (click)="reply(thread)" class='reply basicButton' *ngIf="!thread.displayReplyInput">Reply</button>
 </div><br clear='all'>

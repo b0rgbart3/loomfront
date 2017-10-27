@@ -1,5 +1,6 @@
-<div class='loomCard group padMe'>
-        <div *ngIf='thisClass'>
+<div class='loomCard group'>
+                <button [routerLink]="['/classes', thisClass.id ]" class='backButton'>Back to Course Material</button>
+        <div *ngIf='thisClass' class='padMe'>
         <h1>Chatroom for: {{ thisClass.title }}</h1>
         <h2>Instructors for this class:</h2>
         <div *ngFor='let instructor of instThumbObjects'>

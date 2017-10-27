@@ -7,21 +7,25 @@
 }
 
 .reply {
-    background-color:#1f00ce;
+    background-color:#ce00bd;
     color:white;
     float:right;
     margin-right:20px;
     display:inline-block;
-    padding:8px;
-    font-size:1em;
+    padding:12px;
+    font-size:1.1em;
     margin-bottom:4px;
+}
+.reply:hover {
+    background-color:rgb(221, 86, 248);
 }
 
 .replyInput {
-    margin:0px;
-    width:80%;
+    width:90%;
     font-size:1.2em;
     padding:10px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .threadReplies {
@@ -47,6 +51,8 @@
 .threadSubject {
     background-color:rgba(255,255,255,.25);
     padding-left:30px;
+    cursor:pointer;
+    transition: .5s;
 }
 
 .threadSubject:hover {
@@ -59,4 +65,9 @@
 
 .subject {
     font-size:1.4em;
+}
+
+
+.postReplyBlock {
+    float:right;
 }
