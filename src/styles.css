@@ -463,7 +463,7 @@ h2 {
 
 .notifications {
   left: calc(50% - 150px);
-  position: absolute;
+  position: fixed;
   top: 10%; }
   .notifications div {
     border: 1px solid;

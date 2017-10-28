@@ -32,8 +32,8 @@ export class ChatSocketService implements OnInit {
     this._notes.add(<Notification> {type: 'info', message: data});
   }
 
-  somethingHappened() {
-    this.socket.emit('messages', 'something happened!');
+  somethingHappened(username) {
+    this.socket.emit('messages', username);
   }
   // Emit: message saved event
   emitEventOnMessageSaved(messageSaved) {
