@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { ClassService } from '../classes/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
@@ -6,6 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../users/user.service';
 import { ChatService } from './chat.service';
 import { Userthumbnail } from '../models/userthumbnail.model';
+import { ChatSocketService } from '../services/chatsocket.service';
+import { NotificationsService } from '../services/notifications.service';
+import { Notification } from '../models/notifications.model';
 
 
 @Component({
@@ -30,6 +33,7 @@ export class ChatroomComponent implements OnInit {
   inChatInstructors: Object[];
   instThumbObjects: Userthumbnail[];
   public studentThumbnails: Userthumbnail[];
+  public msg: string;
 
   @Input() class: ClassModel;
   @Input() instructors: User[];
@@ -38,9 +42,13 @@ export class ChatroomComponent implements OnInit {
   constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,
     private userService: UserService,
-    private chatService: ChatService ) {}
+    private chatService: ChatService,
+  private chatSocketService: ChatSocketService,
+private _notes: NotificationsService ) {
+ }
 
   ngOnInit() {
+    this.msg = 'test this';
     this.classID = this.activated_route.snapshot.params['id'];
     this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
     this.users = this.activated_route.snapshot.data['users'];
@@ -68,6 +76,8 @@ export class ChatroomComponent implements OnInit {
        },
       error => this.errorMessage = <any>error);
 
+      this._notes.add(new Notification('success', 'This shows up green!'));
+      this.chatSocketService.somethingHappened();
     }
 
     createThumbnail(user) {
@@ -97,4 +107,5 @@ export class ChatroomComponent implements OnInit {
     }
 
     }
+
 }

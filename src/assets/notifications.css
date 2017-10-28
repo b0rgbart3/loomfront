@@ -1,0 +1,30 @@
+.notifications {
+  left: calc(50% - 150px);
+  position: absolute;
+  top: 10%; }
+  .notifications div {
+    border: 1px solid;
+    border-radius: 4px;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.22), 0 17px 20px 0 rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    margin-bottom: .5em;
+    min-height: 3em;
+    padding: 1em;
+    text-align: center;
+    width: 300px; }
+    .notifications div.success {
+      background-color: #dff2bf;
+      border-color: #9fd840;
+      color: #4a6a15; }
+    .notifications div.error {
+      background-color: #ffbaba;
+      border-color: #ff8787;
+      color: #870000; }
+    .notifications div.warn {
+      background-color: #feefb3;
+      border-color: #fccf1c;
+      color: #8c7102; }
+    .notifications div.info {
+      background-color: #bde5f8;
+      border-color: #33afe9;
+      color: #1175a5; }

@@ -58,6 +58,7 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
     // this.threads.push(this.thread);
 
     // console.log(JSON.stringify( this.threads ));
+
   }
 
   backToClass() {

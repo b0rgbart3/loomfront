@@ -62,6 +62,10 @@ import { BoardComponent } from './discuss/board.component';
 import { DiscussionService } from './services/discussion.service';
 import { ThreadComponent } from './discuss/thread.component';
 import { ChatService } from './chat/chat.service';
+import { ChatSocketService } from './services/chatsocket.service';
+import { InfobotComponent } from './infobot/infobot.component';
+import { NotificationsService } from './services/notifications.service';
+import { NotificationsComponent } from './shared/notifications.component';
 
 @NgModule({
   // External
@@ -75,7 +79,6 @@ import { ChatService } from './chat/chat.service';
     FlashMessagesModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
   ],
   // Internal
   declarations: [
@@ -110,15 +113,17 @@ import { ChatService } from './chat/chat.service';
     SectionComponent,
     ChatroomComponent,
     BoardComponent,
-    ThreadComponent
+    ThreadComponent,
+    InfobotComponent,
+    NotificationsComponent,
 
   ],
 
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
     CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
-    DiscussionService, ChatService
+    DiscussionService, ChatService, ChatSocketService, NotificationsService
    ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent ]
 })
 export class AppModule { }
