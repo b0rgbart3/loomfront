@@ -16,43 +16,43 @@ import { Section } from '../../models/section.model';
 })
 
 export class SectionComponent implements OnInit, OnChanges {
-    private _course: Course;
-    private _section: Section;
+    // private _course: Course;
+    // private _section: Section;
 
 
-    @Input()
-    set course(course: Course) {
-        this._course = course;
-        console.log('course Updated');
-      }
+    @Input() course: Course;
+    // set course(course: Course) {
+    //     this._course = course;
+    //     console.log('course Updated');
+    //   }
 
-      get course(): Course { return this.course; }
+    // get course(): Course { return this.course; }
 
-    @Input()
-    set section(section: Section) {
-        this._section = section;
-        this.title = this._section.title;
-        this.content = this._section.content;
-        console.log('section updated');
-    }
+    @Input() section: Section;
+    // set section(section: Section) {
+    //     this._section = section;
+    //     this.title = this._section.title;
+    //     this.content = this._section.content;
+    //     console.log('section updated');
+    // }
 
-    get section(): Section { return this.section; }
+    // get section(): Section { return this.section; }
 
 
     public materials: Material [];
     public materialRefs: Object [];
-    public title: string;
-    public content: string;
-    public description: string;
+    // public title: string;
+    // public content: string;
+    // public description: string;
 
     constructor (private materialService: MaterialService ) {}
 
 
     ngOnInit() {
 
-        this.title = this._course.title;
-        this.description = this._course.description;
-        this.materialRefs = this._section.materials;
+        // this.title = this.course.title;
+        // this.description = this.course.description;
+        this.materialRefs = this.section.materials;
         this.loadInMaterials();
     }
 
@@ -63,8 +63,9 @@ export class SectionComponent implements OnInit, OnChanges {
 
     loadInMaterials() {
             this.materials = [];
-            for (let j = 0; j < this._section.materials.length; j++) {
-                const id = this._section.materials[j]['material'];
+            if (this.section.materials) {
+            for (let j = 0; j < this.section.materials.length; j++) {
+                const id = this.section.materials[j]['material'];
 
                 this.materialService.getMaterial(id).subscribe(
                     (material) => { // console.log('found a material ' + j);
@@ -76,6 +77,7 @@ export class SectionComponent implements OnInit, OnChanges {
             }
 
         }
+    }
 
 }
 

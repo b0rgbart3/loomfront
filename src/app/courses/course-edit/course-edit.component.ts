@@ -69,9 +69,10 @@ export class CourseEditComponent implements OnInit {
             this.materialFormArray = [];
             for (let i = 0; i < this.course.sections.length; i++) {
                 this.materialFormArray[i] = this.fb.array([]);
+                if (this.course.sections[i].materials) {
                 for (let j = 0; j < this.course.sections[i].materials.length; j++ ) {
                     this.materialFormArray[i].push(this.buildMaterialsSubSection(this.course.sections[i].materials[j]['material']));
-                }
+                } }
                 this.sectionReferences[i] = this.fb.group( {
                     title: this.course.sections[i].title,
                     content: this.course.sections[i].content,

@@ -96,6 +96,7 @@ export class ClassComponent implements OnInit {
             const matArray = this.course.sections[i].materials;
 
             this.materials[i] = [];
+            if (matArray) {
             for (let j = 0; j < matArray.length; j++) {
                 const id = matArray[j]['material'];
 
@@ -112,7 +113,7 @@ export class ClassComponent implements OnInit {
 
                 );
             }
-
+          }
         }
     }
 

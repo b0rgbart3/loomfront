@@ -13,7 +13,7 @@ import { Material } from '../models/material.model';
 @Injectable()
 export class MaterialService {
     private _materialsUrl = 'http://localhost:3100/api/materials';
-    private _materialUrl = 'http://localhost:3100/api/material';
+   // private _materialUrl = 'http://localhost:3100/api/material';
     private materialCount = 0;
     private highestID = 0;
     private materials: Material[];
@@ -26,6 +26,7 @@ export class MaterialService {
     // them using the corresponding course_id.
    getMaterials( course_id ): Observable<Material[]> {
      if (course_id === 0) {
+       // get a list of ALL the materials for ALL courses
         return this._http.get <Material[]> (this._materialsUrl).do(data => {
           this.materialCount = data.length;
           this.materials = data;
@@ -43,22 +44,27 @@ export class MaterialService {
       .catch( this.handleError ); }
   }
 
+  getNextId() {
+    return this.highestID.toString();
+  }
+
   updateIDCount() {
-               // Loop through all the Courses to find the highest ID#
-               for (let i = 0; i < this.materials.length; i++) {
-                const foundID = Number(this.materials[i].id);
-                // console.log('Found ID: ' + foundID);
-                if (foundID >= this.highestID) {
-                  const newHigh = foundID + 1;
-                  this.highestID = newHigh;
-                  // console.log('newHigh == ' + newHigh);
-                }
-              }
+      // Loop through all the Materials to find the highest ID#
+      if (this.materials && this.materials.length > 0) {
+      for (let i = 0; i < this.materials.length; i++) {
+      const foundID = Number(this.materials[i].id);
+      // console.log('Found ID: ' + foundID);
+      if (foundID >= this.highestID) {
+        const newHigh = foundID + 1;
+        this.highestID = newHigh;
+        // console.log('newHigh == ' + newHigh);
+      }
+    } } else { this.highestID = 1; }
   }
 
 
   getMaterial(id): Observable<Material> {
-    return this._http.get<Material> ( this._materialUrl + '?id=' + id )
+    return this._http.get<Material> ( this._materialsUrl + '?id=' + id )
       .do(data => {
          // console.log( 'found: ' + JSON.stringify(data) );
       return data; })

@@ -41,6 +41,7 @@
                                          formControlName="content"></textarea>
                                      </md-form-field>
                                      
+                                     <div *ngIf='materialFormArray[i]'>
                                       <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
                                           <div class='loomChoice'>
                                           <button class='loomKill rightAlignMe' (click)='killMaterial(i,j)'></button>
@@ -49,7 +50,7 @@
                                          <md-option *ngFor='let item of materials' mdOption [value]='item.id' 
                                          ng-selected='value'>{{item.title}}</md-option>
                                      </md-select></div></div> 
-                                    </div>
+                                    </div></div>
                                    
       
                              <button md-raised-button (click)="addMaterial(i)" type='button'>Add Material</button>

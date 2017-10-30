@@ -17,10 +17,10 @@ const MATERIALS_FILE_PATH  = 'http://localhost:3100/materialimages/';
 })
 
 export class MaterialEditComponent implements OnInit {
-    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '', '');
+    material: Material = new Material ( '', '', '0', '', '', '', '', '');
     materialForm: FormGroup;
     types: Array<string>;
-    id: number;
+    id: string;
     errorMessage: string;
     thisFile: File;
     public imageUploader: FileUploader;
@@ -37,10 +37,13 @@ export class MaterialEditComponent implements OnInit {
 
     ngOnInit() {
 
-        this.id = +this.activated_route.snapshot.params['id'];
+        this.id = this.activated_route.snapshot.params['id'];
 
-        if (this.id !== 0) {
+        if (this.id !== '0') {
             this.getMaterial(this.id);
+         } else {
+             this.id = this.materialService.getNextId();
+             console.log('The highest ID we got back was: ' + this.id );
          }
 
         const urlWithQuery = 'http://localhost:3100/api/materialimages?id=' + this.id;
@@ -76,7 +79,6 @@ export class MaterialEditComponent implements OnInit {
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', []],
             contenturl: '',
-            referenceurl: '',
             type: ['', [ ] ],
             imageUploader: '',
             fileUploader: '',
@@ -113,10 +115,10 @@ export class MaterialEditComponent implements OnInit {
 
     }
 
-    getMaterial(id: number) {
+    getMaterial(id: string) {
         this.materialService.getMaterial(id).subscribe(
             material => { this.material = <Material>material[0];
-                console.log('got material ' +id + ' info :' + JSON.stringify(material) );
+                console.log('got material ' + id + ' info :' + JSON.stringify(material) );
                 this.image = this.material.image;
                 this.imageUrl = MATERIALS_IMAGE_PATH + '/' + this.material.id + '/' + this.image;
                 this.file = this.material.file;
@@ -152,7 +154,6 @@ export class MaterialEditComponent implements OnInit {
         'title': this.material.title,
         'description': this.material.description,
         'contenturl': this.material.contenturl,
-        'referenceurl': this.material.referenceurl,
         'type': this.material.type
      });
 

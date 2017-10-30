@@ -66,6 +66,7 @@ import { ChatSocketService } from './services/chatsocket.service';
 import { InfobotComponent } from './infobot/infobot.component';
 import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
+import { MaterialComponent } from './materials/material.component';
 
 @NgModule({
   // External
@@ -116,6 +117,7 @@ import { NotificationsComponent } from './shared/notifications.component';
     ThreadComponent,
     InfobotComponent,
     NotificationsComponent,
+    MaterialComponent
 
   ],
 

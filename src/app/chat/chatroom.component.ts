@@ -76,8 +76,8 @@ private _notes: NotificationsService ) {
        },
       error => this.errorMessage = <any>error);
 
-      this._notes.add(new Notification('success', 'Welcome to the chatroom, ' + this.currentUser.username));
-      this.chatSocketService.somethingHappened(this.currentUser.username);
+    //  this._notes.add(new Notification('success', 'Welcome to the chatroom, ' + this.currentUser.username));
+      this.chatSocketService.introduceMyself(this.currentUser, this.thisClass.id );
     }
 
     createThumbnail(user) {

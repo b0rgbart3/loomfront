@@ -1,12 +1,14 @@
 <div class='section'>
-    <h2> {{ title }} </h2>
-    <p> {{ content }}</p>
+    <h1> {{ course.title }} </h1>
+    <h2> {{ section.title }} </h2>
+    <p> {{ section.content }}</p>
 </div>
 
-    <div *ngIf='materials' class='section'>
-        <h1>Reference Materials for this Section</h1>
-    <div *ngFor= 'let material of materials'>Material:
-        {{material.title}}
+    <div *ngIf='materials && materials.length > 0' class='section'>
+        <h3>Reference Materials:</h3>
+    <div *ngFor= 'let material of materials'>
+        <material [material]=material></material>
+       
     </div>
     </div>
 <br><br clear='all'>
