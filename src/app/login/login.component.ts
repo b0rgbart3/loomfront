@@ -45,20 +45,8 @@ export class LoginComponent implements OnInit {
                     let redirect = '/welcome';
 
 
-
-                    switch ( logger.user_type ) {
-                        case 'admin':
-                          redirect = '/admin';
-                          break;
-                        case 'teacher':
-                        redirect = '/admin';
-                        break;
-                        case 'student':
-                        redirect = '/admin';
-                        break;
-                        default:
-                        redirect = '/welcome';
-                        break;
+                    if (logger.admin) { redirect = '/admin'; } else {
+                        redirect = '/home';
                     }
 
 

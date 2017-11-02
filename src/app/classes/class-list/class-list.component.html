@@ -1,16 +1,12 @@
 
 <div class='padMe'>
-      <h1>Classes</h1>
-  <ul class="list-group" *ngIf="classes">
-    <li class="list-group-item"
-      *ngFor="let class of classes"
-      >
-      <h2>{{class.title}}</h2>
-      <p>{{class.description}}</p>
-      <button *ngIf="admin">Edit</button>
-      <button *ngIf="admin">Delete</button>
-    </li>
-  </ul>
+      <h1>Current & Upcoming Classes</h1>
+  <div class="list-group" *ngIf="classes">
+    <div class="list-group-item"
+      *ngFor="let class of classes">
+      <class-thumb [classObject]=class></class-thumb>
+      </div>
+    </div>
 
     <!-- <button class="btn btn-warning" (click)="createNewCourse()">New</button> -->
 

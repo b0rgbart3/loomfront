@@ -6,6 +6,7 @@ export class Section {
       public id: string,
       public content: string,
       public materials: Array <Object>,
+      public sectionNumber: number
   ) {}
 
 }

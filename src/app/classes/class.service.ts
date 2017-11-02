@@ -87,11 +87,12 @@ export class ClassService implements OnInit {
     for (let i = 0; i < classObject.students.length; i++) {
       const student_id = classObject.students[i].user_id;
 
+      if (users) {
       for (let j = 0; j < users.length; j++) {
           if (users[j].id === student_id) {
               students.push(users[j]);
           }
-      }
+      }}
     }
     return students;
   }
@@ -103,11 +104,11 @@ export class ClassService implements OnInit {
          for (let i = 0; i < classObject.instructors.length; i++) {
             const inst_id = classObject.instructors[i].user_id;
 
-            for (let j = 0; j < users.length; j++) {
+            if (users) { for (let j = 0; j < users.length; j++) {
                 if (users[j].id === inst_id) {
                     instructors.push(users[j]);
                 }
-            }
+            }}
         }
         return instructors;
   }

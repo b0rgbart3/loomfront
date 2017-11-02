@@ -3,31 +3,45 @@
 <div *ngIf='thisClass'>
     <h1>{{ thisClass.title }}</h1>
 
-    <h2>Instructors for this class:</h2>
-    <div *ngFor='let instructor of instructorThumbnails'>
+    <div class='sidebar group'>
+        <h2>Instructors:</h2>
+        <div *ngFor='let instructor of instructorThumbnails'>
             <user-thumb [thumbnail]=instructor></user-thumb>
-    </div>
-    <br clear='all'>
-    <h2>Students in this class:</h2>
-    <div *ngFor='let student of studentThumbnails'>
-            <user-thumb [thumbnail]=student></user-thumb>
         </div>
-</div>
-</div>
-<br clear='all'><br>
+        <br clear='all'>
+        <h2>Students:</h2>
+        <div *ngFor='let student of studentThumbnails'>
+            <user-thumb [thumbnail]=student></user-thumb>
+        </div><br clear='all'><br>
+        <button [routerLink]="['/chatroom', thisClass.id ]" 
+        class='largeFunButton'>Chatroom</button>
+        <button [routerLink]="['/discussion', thisClass.id ]" 
+        class='largeFunButton'>Discussion</button>
+        
+       
+        <div *ngIf='this.course'>
+         <div class='sectionNavTitle'>Sections</div>
+        <div class='sectionNav' *ngFor='let section of this.course.sections; let s=index'>
+            <div (click)="navigateTo(s)" class='sectionNav'>
+                {{section.title}}</div>
+        </div>
+      </div>
+   
+    </div> <!-- end sidebar -->
+
+<div class='mainContent group'>
 <div *ngIf='courseimageURL' class='mainImage'>
     <img [src]='courseimageURL' class='mainImageImage'>
 </div>
 
 <div>
     <!-- <a (click)="joinChat()">Class Chatroom</a> -->
-    <button [routerLink]="['/chatroom', thisClass.id ]" class='basicButton'>Chatroom</button>
-    <button [routerLink]="['/discussion', thisClass.id ]" class='basicButton'>Discussion</button>
+
     <!-- <a (click)="discuss()">Join the Discussion</a> -->
 </div>
 
 <div *ngIf='course'>
-    <course [course]=course></course>
+    <course [course]=course [section]=section></course>
     <!--    
     <div *ngIf='course.sections'>
       
@@ -44,4 +58,5 @@
 
 
 
+</div>
 </div>

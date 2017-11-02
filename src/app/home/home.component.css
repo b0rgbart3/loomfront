@@ -2,9 +2,11 @@
     border:1px solid #cccccc;
     padding:12px;
     padding-top:0;
+    cursor:pointer;
+    border-radius:8px;
 }
 
 .selectorBox:hover {
-    border:1px solid #555555;
+    border:1px solid #ffffff;
     background-color:white;
 }

@@ -67,6 +67,7 @@ import { InfobotComponent } from './infobot/infobot.component';
 import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
 import { MaterialComponent } from './materials/material.component';
+import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 
 @NgModule({
   // External
@@ -98,6 +99,7 @@ import { MaterialComponent } from './materials/material.component';
     RequestresetComponent,
     ClassComponent,
     ClassListComponent,
+    ClassThumbComponent,
     CourseEditComponent,
     ClassEditComponent,
     UserListComponent,

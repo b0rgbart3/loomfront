@@ -25,6 +25,7 @@ export class ClassesResolver implements Resolve <ClassModel> {
         }
         return this.classService.getClass(id).
         map(thisClass => { if (thisClass) {
+            console.log('This class id: ' + id);
            // console.log('found: ' + JSON.stringify(thisClass));
             return thisClass; }
         console.log(`Class was not found: ${id}`);

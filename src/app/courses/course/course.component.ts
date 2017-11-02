@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { MaterialService } from '../../materials/material.service';
 import { Material } from '../../models/material.model';
@@ -17,14 +17,19 @@ import { Section } from '../../models/section.model';
 
 export class CourseComponent implements OnInit {
     @Input() course: Course;
+    @Input() section: number;
     public materials: Material[][];
-    public section: number;
+
     public currentSection: Section;
 
-    constructor (private materialService: MaterialService ) {}
+    constructor (private materialService: MaterialService,
+    private activated_route: ActivatedRoute ) {}
 
     ngOnInit() {
-        this.section = 0;
+        if (!this.section) { this.section  = 0; }
+        // if (this.activated_route.snapshot.params['section']) {
+        // this.section = this.activated_route.snapshot.params['section']; }
+
         this.currentSection = this.course.sections[this.section];
     }
 

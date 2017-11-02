@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../../courses/course.service';
 import { User } from '../../models/user.model';
@@ -25,7 +25,7 @@ const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
   providers: [CourseService]
 })
 
-export class ClassComponent implements OnInit {
+export class ClassComponent implements OnInit, DoCheck, OnChanges {
     classID: string;
     thisClass: ClassModel;
     errorMessage: string;
@@ -40,6 +40,7 @@ export class ClassComponent implements OnInit {
     studentCount= 0;
     materials = [];
     materialsLoaded: boolean;
+    section: 0;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -52,6 +53,11 @@ export class ClassComponent implements OnInit {
 
     ngOnInit() {
 
+        this.myInit();
+
+    }
+
+    myInit() {
         this.classID = this.activated_route.snapshot.params['id'];
         this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
         this.users = this.activated_route.snapshot.data['users'];
@@ -64,16 +70,17 @@ export class ClassComponent implements OnInit {
         this.studentThumbnails = this.students.map(this.createThumbnail);
 
         this.courseID = this.thisClass.course;
-
+        // this.jumpTo = this.activated_route.snapshot.params['section'];
+        // console.log('activated route section# ' + this.jumpTo);
 
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
 
             this.loadInMaterials();
+        
             },
                 error => this.errorMessage = <any>error);
-
     }
     createThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
@@ -83,6 +90,23 @@ export class ClassComponent implements OnInit {
 
     populateForm() {
 
+    }
+    ngOnChanges() {
+        this.myInit();
+    }
+
+    ngDoCheck() {
+        if (this.activated_route.snapshot.params['section']) {
+        this.section = this.activated_route.snapshot.params['section']; }
+        console.log('activated route section# ' + this.section);
+        if (this.section === undefined) {
+            this.section = 0;
+        }
+    }
+
+    navigateTo(sectionNumber) {
+        console.log('will navigate to: ' + sectionNumber);
+        this.router.navigate(['classes/' + this.classID + '/' + sectionNumber]);
     }
 
 
