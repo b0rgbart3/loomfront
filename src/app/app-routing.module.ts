@@ -29,6 +29,7 @@ import { PossibleInstructorsResolver } from './services/possible-instructors-res
 import { UserResolver } from './services/user-resolver';
 import { ChatroomComponent } from './chat/chatroom.component';
 import { BoardComponent } from './discuss/board.component';
+import { SectionsResolver } from './services/sections-resolver.service';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -47,7 +48,7 @@ const ROUTES: Routes = [
 { path: 'courses/:id/edit', component: CourseEditComponent, resolve: { course: CourseResolver, materials: MaterialsResolver} },
 
 { path: 'classes/:id/:section', component: ClassComponent, resolve: {
-    thisClass: ClassesResolver, user: UsersResolver }},
+    thisClass: ClassesResolver, section: SectionsResolver, users: UsersResolver }},
 
  { path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
         thisClass: ClassesResolver, users: UsersResolver,

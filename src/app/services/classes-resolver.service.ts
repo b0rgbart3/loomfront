@@ -19,20 +19,20 @@ export class ClassesResolver implements Resolve <ClassModel> {
         const id = route.params['id'];
 
         if (isNaN(id)) {
-            console.log(`Class id was not a number: ${id}`);
+            // console.log(`Class id was not a number: ${id}`);
             this.router.navigate(['/welcome']);
             return Observable.of(null);
         }
         return this.classService.getClass(id).
         map(thisClass => { if (thisClass) {
-            console.log('This class id: ' + id);
+            // console.log('This class id: ' + id);
            // console.log('found: ' + JSON.stringify(thisClass));
             return thisClass; }
-        console.log(`Class was not found: ${id}`);
+        // console.log(`Class was not found: ${id}`);
         this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
-        console.log(`Retrieval error: ${error}`);
+       // console.log(`Retrieval error: ${error}`);
         this.router.navigate(['/welcome']);
         return Observable.of(null);
     });

@@ -40,7 +40,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     studentCount= 0;
     materials = [];
     materialsLoaded: boolean;
-    section: 0;
+    sectionNumber: 0;
+    section: Section;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -58,11 +59,13 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     }
 
     myInit() {
+      //  console.log('in class Init...');
         this.classID = this.activated_route.snapshot.params['id'];
         this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
         this.users = this.activated_route.snapshot.data['users'];
         this.instructors = [];
         this.instructors = this.classService.getInstructors(this.thisClass, this.users);
+      //  console.log('instructors: ' + JSON.stringify(this.users));
         this.students = [];
         this.students = this.classService.getStudents(this.thisClass, this.users);
 
@@ -70,15 +73,39 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.studentThumbnails = this.students.map(this.createThumbnail);
 
         this.courseID = this.thisClass.course;
-        // this.jumpTo = this.activated_route.snapshot.params['section'];
-        // console.log('activated route section# ' + this.jumpTo);
+       // console.log('thisClass: ' + this.classID);
+       // console.log('course: ' + this.courseID );
+    //    this.sectionNumber = this.activated_route.snapshot.params['section'];
+    //     if (this.sectionNumber === undefined) { this.sectionNumber = 0; }
+
+        if (this.activated_route.snapshot.params['section']) {
+            this.sectionNumber = this.activated_route.snapshot.params['section']; } else { this.sectionNumber = 0; }
+
+        if (this.sectionNumber === undefined) {
+                this.sectionNumber = 0;
+             //   console.log('resetting sectionNumber to zero: ' + this.sectionNumber);
+         }
+         //   console.log('activated route section# ' + this.sectionNumber);
+        this.activated_route.params.subscribe( params => {
+            console.log ('params changed.');
+            this.classID = params['id'];
+            this.sectionNumber = params['section'];
+            if (this.course && this.course.sections) {
+            this.section = this.course.sections[this.sectionNumber];
+            }
+        });
 
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
 
+            if (!this.sectionNumber) { this.sectionNumber = 0; }
+            if (this.course && this.course.sections) {
+                this.section = this.course.sections[this.sectionNumber]; }
+
+             //   console.log(' section Number ' + this.sectionNumber);
             this.loadInMaterials();
-        
+
             },
                 error => this.errorMessage = <any>error);
     }
@@ -92,21 +119,22 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
     }
     ngOnChanges() {
-        this.myInit();
+        this.section = this.course.sections[this.sectionNumber];
+       // this.myInit();
     }
 
     ngDoCheck() {
-        if (this.activated_route.snapshot.params['section']) {
-        this.section = this.activated_route.snapshot.params['section']; }
-        console.log('activated route section# ' + this.section);
-        if (this.section === undefined) {
-            this.section = 0;
-        }
+        // if (this.activated_route.snapshot.params['section']) {
+        // this.section = this.activated_route.snapshot.params['section']; }
+        // console.log('activated route section# ' + this.section);
+        // if (this.section === undefined) {
+        //     this.section = 0;
+        // }
     }
 
     navigateTo(sectionNumber) {
-        console.log('will navigate to: ' + sectionNumber);
-        this.router.navigate(['classes/' + this.classID + '/' + sectionNumber]);
+     //   console.log('will navigate to: ' + sectionNumber);
+        this.router.navigate(['classes', this.classID, sectionNumber]);
     }
 
 

@@ -68,6 +68,7 @@ import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
 import { MaterialComponent } from './materials/material.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
+import { SectionsResolver } from './services/sections-resolver.service';
 
 @NgModule({
   // External
@@ -79,8 +80,8 @@ import { ClassThumbComponent } from './classes/class-list/class-thumb.component'
     BrowserAnimationsModule,
     HttpClientModule,
     FlashMessagesModule,
-    AppRoutingModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
   // Internal
   declarations: [
@@ -126,7 +127,7 @@ import { ClassThumbComponent } from './classes/class-list/class-thumb.component'
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
     CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
-    DiscussionService, ChatService, ChatSocketService, NotificationsService
+    DiscussionService, ChatService, ChatSocketService, NotificationsService, SectionsResolver
    ],
   bootstrap: [AppComponent ]
 })

@@ -22,41 +22,33 @@
         <div *ngIf='this.course'>
          <div class='sectionNavTitle'>Sections</div>
         <div class='sectionNav' *ngFor='let section of this.course.sections; let s=index'>
+   
             <div (click)="navigateTo(s)" class='sectionNav'>
-                {{section.title}}</div>
+                {{section.title}} </div>
         </div>
       </div>
    
     </div> <!-- end sidebar -->
 
-<div class='mainContent group'>
-<div *ngIf='courseimageURL' class='mainImage'>
-    <img [src]='courseimageURL' class='mainImageImage'>
-</div>
-
-<div>
-    <!-- <a (click)="joinChat()">Class Chatroom</a> -->
-
-    <!-- <a (click)="discuss()">Join the Discussion</a> -->
-</div>
-
-<div *ngIf='course'>
-    <course [course]=course [section]=section></course>
-    <!--    
-    <div *ngIf='course.sections'>
-      
-        <div *ngFor='let section of course.sections; let i = index;' class='group padMe'>
-           <h2> {{ section.title }} </h2>
-           <p> {{section.content }}</p>
-           <div *ngFor= 'let material of materials[i]'>Material:
-               {{material.title}}
-           </div>
+    <div class='mainContent group'>
+        <div *ngIf='courseimageURL' class='mainImage'>
+            <img [src]='courseimageURL' class='mainImageImage'>
         </div>
-    </div> -->
-</div>
+
+
+
+        <div *ngIf='course' class='group'>
+            <div *ngIf='course.sections' class='section group'>
+
+                    <section [course]=course [section]=section></section>
+
+            </div>
+
+        </div>
 
 
 
 
+    </div>
 </div>
 </div>

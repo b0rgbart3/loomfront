@@ -16,8 +16,10 @@ import { Section } from '../../models/section.model';
 })
 
 export class SectionComponent implements OnInit, OnChanges {
-    // private _course: Course;
-    // private _section: Section;
+    private _course: Course;
+    private _section: Section;
+    title: string;
+    content: string;
 
 
     @Input() course: Course;
@@ -41,6 +43,7 @@ export class SectionComponent implements OnInit, OnChanges {
 
     public materials: Material [];
     public materialRefs: Object [];
+   // public section: Section;
     // public title: string;
     // public content: string;
     // public description: string;
@@ -52,12 +55,15 @@ export class SectionComponent implements OnInit, OnChanges {
 
         // this.title = this.course.title;
         // this.description = this.course.description;
-        this.materialRefs = this.section.materials;
+        // console.log('sectionNumber: ' + this.section);
+        // this.section = this.course.sections[this.sectionNumber];
+        // this.materialRefs = this.section.materials;
         this.loadInMaterials();
     }
 
     ngOnChanges() {
         // console.log('changes');
+       
         this.loadInMaterials();
      }
 
