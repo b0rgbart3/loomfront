@@ -63,7 +63,6 @@ body {
     margin-left:auto;
     margin-right:auto;
     width:100%;
-    max-width:1200px;
   }
 
   .loomCard {
@@ -72,7 +71,6 @@ body {
       margin-left:auto;
       margin-right:auto;
       width:98%;
-      max-width:1200px;
       padding:0px;
       margin-top:20px;
       animation-name:slide1;

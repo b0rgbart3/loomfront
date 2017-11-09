@@ -69,6 +69,7 @@ import { NotificationsComponent } from './shared/notifications.component';
 import { MaterialComponent } from './materials/material.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 import { SectionsResolver } from './services/sections-resolver.service';
+import { Globals } from './globals';
 
 @NgModule({
   // External
@@ -127,7 +128,7 @@ import { SectionsResolver } from './services/sections-resolver.service';
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
     CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
-    DiscussionService, ChatService, ChatSocketService, NotificationsService, SectionsResolver
+    DiscussionService, ChatService, ChatSocketService, NotificationsService, SectionsResolver, Globals
    ],
   bootstrap: [AppComponent ]
 })

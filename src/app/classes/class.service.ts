@@ -9,18 +9,22 @@ import 'rxjs/add/operator/do';
 
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
+import { Globals } from '../globals';
 
 @Injectable()
 export class ClassService implements OnInit {
-    private _registryUrl = 'http://localhost:3100/api/classregistrations';
-    private _classesUrl = 'http://localhost:3100/api/classes';
+    private _registryUrl;
+    private _classesUrl;
     private classCount = 0;
     private highestID = 0;
     classes: ClassModel[];
     errorMessage: string;
 
 
-    constructor (private _http: HttpClient) {}
+    constructor (private _http: HttpClient, private globals: Globals) {
+      this._registryUrl = globals.base_path + '/api/classregistrations';
+      this._classesUrl = globals.base_path + '/api/classes';
+    }
 
     ngOnInit() {
       this.getClasses().subscribe(

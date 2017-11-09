@@ -8,8 +8,9 @@ import 'rxjs/add/operator/do';
 import { User } from '../models/user.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Enrollment } from '../models/enrollment.model';
+import { Globals } from '../globals';
 
-const AVATAR_IMAGE_URL = 'http://localhost:3100/avatars/';
+
 
 @Injectable()
 export class UserService implements OnInit {
@@ -25,16 +26,27 @@ export class UserService implements OnInit {
   public username;
   public color: string;
 
-  private _usersUrl = 'http://localhost:3100/api/users';
-  private _avatarsUrl = 'http://localhost:3100/api/avatars';
-  private _classregistrationsUrl = 'http://localhost:3100/api/classregistrations';
-  private _instructorsUrl = 'http://localhost:3100/api/instructors';
-  private _studentsUrl = 'http://localhost:3100/api/students';
+  private base_path;
+  private _usersUrl;
+  private _avatarsUrl;
+  private _classregistrationsUrl;
+  private _instructorsUrl;
+  private _studentsUrl;
+  private _avatar_image_url;
 
-  constructor (private _http: HttpClient) {
+  constructor (private _http: HttpClient, private globals: Globals) {
     const thisUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = thisUser && thisUser.token;
     this.username = thisUser && thisUser.username;
+
+    this.base_path = globals.base_path;
+     this._usersUrl = this.base_path + '/api/users';
+     this._avatarsUrl = this.base_path + '/api/avatars';
+     this._classregistrationsUrl = this.base_path + '/api/classregistrations';
+     this._instructorsUrl = this.base_path + '/api/instructors';
+     this._studentsUrl = this.base_path + '/api/students';
+
+     this._avatar_image_url = this.base_path + '/avatars/';
   }
 
   ngOnInit() {
@@ -85,7 +97,7 @@ export class UserService implements OnInit {
       return this._http.get<User[]> ( this._usersUrl + '?id=' + id )
       .do(data => {
         if (data[0].avatar_URL === null) {
-          data[0].avatar_URL = AVATAR_IMAGE_URL + 'placeholder.jpg';
+          data[0].avatar_URL = this._avatar_image_url + 'placeholder.jpg';
           console.log('setting placeholder');
         }
         // console.log( 'found: ' + JSON.stringify(data) );
@@ -118,7 +130,7 @@ export class UserService implements OnInit {
           for (let i = 0; i < this.users.length; i++ ) {
             if (this.users[i].avatar_URL === undefined) {
               // console.log('setting placeholder');
-              this.users[i].avatar_URL = AVATAR_IMAGE_URL + 'placeholder.png';
+              this.users[i].avatar_URL = this._avatar_image_url + 'placeholder.png';
             }
           }
           // console.log('All: ' + JSON.stringify(data));
@@ -195,7 +207,7 @@ export class UserService implements OnInit {
 
         // console.log('In authentication service, sending a reset request' + emailObjectString);
 
-        return this._http.post('http://localhost:3100/api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
+        return this._http.post(this.base_path + '/api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
             // console.log('Got back from http request.');
     });
     }
@@ -231,7 +243,7 @@ export class UserService implements OnInit {
 
         const info =  { username: username, password: password };
 
-        return this._http.post('http://localhost:3100/api/authenticate', info, {headers: myHeaders} )
+        return this._http.post(this.base_path + '/api/authenticate', info, {headers: myHeaders} )
             .do((response) => {
                     this.currentUser = <User> response;
                     this.username = this.currentUser.username;

@@ -11,16 +11,20 @@ import { Course } from '../models/course.model';
 import { Material } from '../models/material.model';
 import { User } from '../models/user.model';
 import { ClassModel } from '../models/class.model';
+import { Globals } from '../globals';
 
 
 @Injectable()
 export class ChatService {
-    private _chatRegUrl = 'http://localhost:3100/api/chats/enter';
-    private _chatWhosInUrl = 'http://localhost:3100/api/chats/whosin';
+    private _chatRegUrl;
+    private _chatWhosInUrl;
 
 
 
-    constructor (private _http: HttpClient) {}
+    constructor (private _http: HttpClient, globals: Globals) {
+        this._chatRegUrl = globals.base_path + '/api/chats/enter';
+        this._chatWhosInUrl = globals.base_path + '/api/chats/whosin';
+    }
 
     enterChat( user: User , thisClass: ClassModel ): Observable <boolean> {
         console.log('entering the chat: ');

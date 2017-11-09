@@ -9,18 +9,23 @@ import 'rxjs/add/operator/do';
 
 import { Course } from '../models/course.model';
 import { Material } from '../models/material.model';
+import { Globals } from '../globals';
 
 
 @Injectable()
 export class CourseService {
-    private _coursesUrl = 'http://localhost:3100/api/courses';
-    private _courseImagesUrl = 'http://localhost:3100/api/courseimages';
-    private _materialsUrl = 'http://localhost:3100/api/materials';
+    private _coursesUrl;
+    private _courseImagesUrl;
+    private _materialsUrl;
     private courseCount = 0;
     private highestID = 0;
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
-    constructor (private _http: HttpClient) {}
+    constructor (private _http: HttpClient, private globals: Globals) {
+      this._coursesUrl = globals.base_path + '/api/courses';
+      this._courseImagesUrl = globals.base_path + '/api/courseimages';
+      this._materialsUrl = globals.base_path + '/api/materials';
+    }
 
    getCourses(): Observable<Course[]> {
     return this._http.get <Course[]> (this._coursesUrl)
