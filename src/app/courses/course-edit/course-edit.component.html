@@ -7,13 +7,13 @@
                      <h1>Course Info:</h1>
                      <flash-messages></flash-messages>
      
-                     <md-form-field>
-                     <input id="title" mdInput placeholder="Title" formControlName="title" >
-                     </md-form-field>
-                     <md-form-field>
+                     <mat-form-field>
+                     <input id="title" matInput placeholder="Title" formControlName="title" >
+                     </mat-form-field>
+                     <mat-form-field>
      
-                     <input id="description" mdInput placeholder="Description" formControlName="description" >
-                     </md-form-field>
+                     <input id="description" matInput placeholder="Description" formControlName="description" >
+                     </mat-form-field>
                     <br>
                      <br><img [src]="existingImage" width='200' height='200' *ngIf='existingImage'><br>
                      <br><img [src]="imageUrl " width='200' height='200' *ngIf='imageUrl '><br>
@@ -30,26 +30,26 @@
                                  <button class='loomKill rightAlignMe' (click)="killSection(i)"></button>
                                      
                                  <div class='bannerTop'>
-                                     <md-form-field>
-                                     <input mdInput id="{{ 'title' + i }}" 
+                                     <mat-form-field>
+                                     <input matInput id="{{ 'title' + i }}" 
                                      placeholder="Title of Section {{ i+1 }} " formControlName="title" >
-                                     </md-form-field>
+                                     </mat-form-field>
                                  </div>
                                  <div class='sectionSection'>
-                                     <md-form-field>
-                                     <textarea mdInput id="content" placeholder="Section Content"
+                                     <mat-form-field>
+                                     <textarea matInput id="content" placeholder="Section Content"
                                          formControlName="content"></textarea>
-                                     </md-form-field>
+                                     </mat-form-field>
                                      
                                      <div *ngIf='materialFormArray[i]'>
                                       <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
                                           <div class='loomChoice'>
                                           <button class='loomKill rightAlignMe' (click)='killMaterial(i,j)'></button>
                                          <div [formGroupName]="j">
-                                            <md-select placeholder='Material' formControlName="material">
-                                         <md-option *ngFor='let item of materials' mdOption [value]='item.id' 
-                                         ng-selected='value'>{{item.title}}</md-option>
-                                     </md-select></div></div> 
+                                            <mat-select placeholder='Material' formControlName="material">
+                                         <mat-option *ngFor='let item of materials' mdOption [value]='item.id' 
+                                         ng-selected='value'>{{item.title}}</mat-option>
+                                     </mat-select></div></div> 
                                     </div></div>
                                    
       

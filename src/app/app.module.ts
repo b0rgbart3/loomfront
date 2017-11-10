@@ -34,7 +34,6 @@ import { ClassEditComponent } from './classes/class-edit/class-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UploadComponent } from './assets/upload.component';
-import { AssetService } from './assets/asset.service';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { SafeUrlPipe } from './shared/safe-url.pipe';
@@ -70,6 +69,7 @@ import { MaterialComponent } from './materials/material.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 import { SectionsResolver } from './services/sections-resolver.service';
 import { Globals } from './globals';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
   // External
@@ -83,6 +83,7 @@ import { Globals } from './globals';
     FlashMessagesModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    MatInputModule
   ],
   // Internal
   declarations: [
@@ -126,7 +127,7 @@ import { Globals } from './globals';
   ],
 
   providers: [ AuthGuard, UserService, AlertService,
-    CourseService, ClassService, AssetService, AdminRouteActivator, MaterialService,
+    CourseService, ClassService, AdminRouteActivator, MaterialService,
     CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
     DiscussionService, ChatService, ChatSocketService, NotificationsService, SectionsResolver, Globals
    ],

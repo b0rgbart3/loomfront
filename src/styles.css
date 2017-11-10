@@ -8,12 +8,12 @@
 body {
     margin: 0;
     font-family: Roboto;
-    background-color: #515670;
+    background-color:#424147; /* #515670; */
     padding-bottom:300px;
     font-size:15px;
   }
   
-  md-card {
+  mat-card {
     max-width: 80%;
     margin: 2em auto;
     text-align: center;
@@ -22,7 +22,7 @@ body {
   .mat-toolbar.mat-primary {
     background-color: #515670 !important;
   }
-  md-toolbar-row {
+  mat-toolbar-row {
     justify-content: space-between;
     box-sizing: border-box;
     
@@ -67,7 +67,7 @@ body {
 
   .loomCard {
       text-align: left;
-      background-color:#cccccc;
+      background-color:#727272;
       margin-left:auto;
       margin-right:auto;
       width:98%;
@@ -79,8 +79,8 @@ body {
   }
 
   .loomCard h1 {
-    color:#3f51b5;
-    border-bottom:1px solid #3f51b5;
+    color:#000000;
+    border-bottom:1px solid #000000;
     font-weight: 300;
     padding-bottom:0;
     box-sizing:border-box;
@@ -251,11 +251,11 @@ body {
 
 }
 
-.loomDate .md-datepicker-toggle {
+.loomDate .mat-datepicker-toggle {
    margin-top:40px;
 }
 
-.md-checkbox label {
+.mat-checkbox label {
   margin-right:20px !important;
 }
 
@@ -376,7 +376,7 @@ body {
   padding-top:-20px;
 }
 
-md-select {
+mat-select {
   width:250px;
   margin-top:10px;
   margin-bottom:10px;

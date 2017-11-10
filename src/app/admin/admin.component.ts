@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
-import { Asset } from '../models/asset.model';
+// import { Asset } from '../models/asset.model';
 import { ClassModel } from '../models/class.model';
 import { CourseService } from '../courses/course.service';
 import { Router } from '@angular/router';
 import { ClassService } from '../classes/class.service';
 import { UserService } from '../users/user.service';
-import { AssetService } from '../assets/asset.service';
+
 import { MaterialService } from '../materials/material.service';
 import { Material } from '../models/material.model';
 import { Userthumbnail } from '../models/userthumbnail.model';
@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit {
   instructors: User[];
   errorMessage: string;
   courseCount: number;
-  assets: Asset [];
+  // assets: Asset [];
   username: string;
   materials: Material [];
   public instructorThumbnails: Userthumbnail[];
@@ -39,8 +39,7 @@ export class AdminComponent implements OnInit {
     private classService: ClassService,
     private materialService: MaterialService,
     private router: Router,
-    public userService: UserService,
-    private assetService: AssetService,
+    public userService: UserService
   ) {
 
   }
@@ -108,12 +107,12 @@ export class AdminComponent implements OnInit {
       error => this.errorMessage = <any>error);
     }
 
-  getAssets() {
-    this.assetService
-    .getAssets().subscribe(
-      assets =>  this.assets = assets,
-      error => this.errorMessage = <any>error);
-    }
+  // getAssets() {
+  //   this.assetService
+  //   .getAssets().subscribe(
+  //     assets =>  this.assets = assets,
+  //     error => this.errorMessage = <any>error);
+  //   }
 
   deleteCourse(courseId) {
 

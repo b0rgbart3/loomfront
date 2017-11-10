@@ -6,39 +6,39 @@
 
 <div class='padMe'>
         <h1>Class Info:</h1>
-        <md-form-field>
-        <input mdInput  formControlName='title' placeholder="Title" 
+        <mat-form-field>
+        <input matInput  formControlName='title' placeholder="Title" 
         name="title" required minlength="3" maxlength="50">
-        </md-form-field>
+        </mat-form-field>
 
 
-        <md-form-field>
-        <input mdInput formControlName='description' placeholder="Description" 
+        <mat-form-field>
+        <input matInput formControlName='description' placeholder="Description" 
         name="description" required minlength="3" maxlength="250">
-        </md-form-field>
+        </mat-form-field>
 
-        <md-select placeholder="Coursework for this class" name="course" formControlName='course'>
-        <md-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
+        <mat-select placeholder="Coursework for this class" name="course" formControlName='course'>
+        <mat-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
         {{ course.viewValue }}
-        </md-option>
-        </md-select>
+        </mat-option>
+        </mat-select>
         <br clear='all'>
         <br> 
 
         <div class='loomDate'>
-        <md-form-field>
-        <input mdInput [mdDatepicker]="startDate" placeholder="Start Date" name="start" formControlName="start">
-        <md-datepicker-toggle mdSuffix [for]="startDate"></md-datepicker-toggle>
-        <md-datepicker #startDate ></md-datepicker>
-        </md-form-field>
+        <mat-form-field>
+        <input matInput [matDatepicker]="startDate" placeholder="Start Date" name="start" formControlName="start">
+        <mat-datepicker-toggle mdSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate ></mat-datepicker>
+        </mat-form-field>
         </div>
 
         <div class='loomDate'>
-            <md-form-field>
-            <input mdInput [mdDatepicker]="endDate" placeholder="End Date" name="end" formControlName="end">
-            <md-datepicker-toggle mdSuffix [for]="endDate"></md-datepicker-toggle>
-            <md-datepicker #endDate ></md-datepicker>
-            </md-form-field>
+            <mat-form-field>
+            <input matInput [matDatepicker]="endDate" placeholder="End Date" name="end" formControlName="end">
+            <mat-datepicker-toggle mdSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate ></mat-datepicker>
+            </mat-form-field>
         </div> 
         <br clear='all'>
         <br><h1>Instructors</h1>
@@ -47,7 +47,7 @@
         <div formArrayName='instructor_choices' *ngFor='let instructor of instructor_choices.controls; let j = index'>
             <div [formGroupName]='j' class='loomCheckBox'>
 
-                <md-checkbox formControlName='value' id="{{'instructor'+j}}">{{instructor.value.username}}</md-checkbox>
+                <mat-checkbox formControlName='value' id="{{'instructor'+j}}">{{instructor.value.username}}</mat-checkbox>
 
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div formArrayName='student_choices' *ngFor='let student of student_choices.controls; let k = index'>
                 <div [formGroupName]='k' class='loomCheckBox'>
             
-                    <md-checkbox formControlName='value' id="{{'student'+k}}">{{student.value.username}}</md-checkbox>
+                    <mat-checkbox formControlName='value' id="{{'student'+k}}">{{student.value.username}}</mat-checkbox>
             
                 </div>
         </div>

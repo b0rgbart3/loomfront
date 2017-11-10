@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Asset } from '../models/Asset.model';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-import { AssetService } from './asset.service';
+
 import { FileUploader } from 'ng2-file-upload';
 import { NgClass, NgStyle} from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
@@ -21,12 +21,12 @@ export class UploadComponent implements OnInit {
 
     thisFile: File;
     AssetForm: FormGroup;
-    asset: Asset;
+
     id: string;
     errorMessage: string;
     myStart: Date;
     myEnd: Date;
-    assets: Asset [];
+
     userId: string;
 
      courseSelections = [
@@ -46,7 +46,7 @@ export class UploadComponent implements OnInit {
 
     constructor(
         private activated_route: ActivatedRoute,
-        private assetService: AssetService,
+   
         private router: Router,
         private userService: UserService) {   }
 
@@ -57,27 +57,16 @@ export class UploadComponent implements OnInit {
 
         this.uploader = new FileUploader({url: urlWithQuery});
 
-        this.asset = new Asset( '', '', '', '', '', '', '', '', '', '' );
+       // this.asset = new Asset( '', '', '', '', '', '', '', '', '', '' );
         let id = +this.activated_route.snapshot.params['id'];
 
         if (!id) { id = 0; }
         if (id !== 0) {
-            this.getAsset(id);
+            // this.getAsset(id);
          }
 
         // this.assetService.getAssets().subscribe( assets => { this.assets = assets; },
         //   error => this.errorMessage = <any>error);
-    }
-
-    getAsset(id: number) {
-        this.assetService.getAsset(id).subscribe(
-            Assetobject => {this.asset = <Asset>Assetobject[0];
-
-
-                           // this.populateForm();
-                         },
-            error => this.errorMessage = <any> error
-        );
     }
 
     fileChange(event) {
@@ -104,49 +93,7 @@ export class UploadComponent implements OnInit {
         }
     }
 
-    save(form): void {
-
-       const uploadFile = (<HTMLInputElement>window.document.getElementById('myFileInputField')).files[0];
-
-        // const myUploadItem = new MyUploadItem(uploadFile);
-        // myUploadItem.formData = { FormDataKey: 'Form Data Value' };  // (optional) form data can be sent with file
-
-        // // let headers = new HttpHeaders();
-        // // headers.append('Content-Type', 'application/json');
-
-        // this.uploaderService.onSuccessUpload = (item, response, status, headers) => {
-        //     // success callback
-        // };
-        // this.uploaderService.onErrorUpload = (item, response, status, headers) => {
-        //     // error callback
-        // };
-        // this.uploaderService.onCompleteUpload = (item, response, status, headers) => {
-        //     // complete callback, called regardless of success or failure
-        // };
-        // this.uploaderService.upload(myUploadItem);
-       // console.log('In Asset-Edit component, about to savemodel: ' + JSON.stringify(form.value)  );
-
-        // console.log(JSON.stringify( this.thisFile) );
-        //     // This is Deborah Korata's way of merging our data model with the form model
-        //      const combinedAssetObject = Object.assign( {}, this.asset, form.value);
-        //      combinedAssetObject.file = this.thisFile;
-
-        this.assetService.createAsset( form.value ).subscribe(
-                            (val) => {
-                                // console.log('POST call successful value returned in body ', val);
-                              },
-                              response => {
-                               // console.log('POST call in error', response);
-                              },
-                              () => {
-                              //   console.log('POST call completed. ');
-                               // this.router.navigate(['/admin']);
-                              }
-        );
-
-
-    }
-
+   
 
 
     onSaveComplete(): void {

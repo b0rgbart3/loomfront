@@ -9,48 +9,48 @@
         <h2 *ngIf='!admin'>Register</h2>
         <h2 *ngIf='admin'>Edit User</h2>
         <flash-messages></flash-messages>
-        <md-form-field>
-        <input mdInput placeholder="First name" 
+        <mat-form-field>
+        <input matInput placeholder="First name" 
         name="firstname" formControlName='firstname' required maxlength="30">
-        </md-form-field><br>
-        <md-form-field>
-        <input mdInput placeholder="Last name" 
+        </mat-form-field><br>
+        <mat-form-field>
+        <input matInput placeholder="Last name" 
         name="lastname" formControlName='lastname' required minlength="3" maxlength="30">
-        </md-form-field>
+        </mat-form-field>
         <br>
-        <md-form-field>
-        <input mdInput placeholder="email" name="email" 
+        <mat-form-field>
+        <input matInput placeholder="email" name="email" 
        formControlName='email' required type="email" minlength="7" maxlength="40">
-        </md-form-field>
-        <md-form-field>
-        <input mdInput placeholder="witchy name" name="username" 
+        </mat-form-field>
+        <mat-form-field>
+        <input matInput placeholder="witchy name" name="username" 
         formControlName='username' required type="username" minlength="3" maxlength="40">
-        <md-hint align="start">This will be the name that you login with</md-hint>
+        <mat-hint align="start">This will be the name that you login with</mat-hint>
  
-        </md-form-field>
+        </mat-form-field>
         <br clear='all'><br>
 
-        <md-form-field *ngIf="editSelf || !currentUser || !user.id">
-        <input  mdInput placeholder="password" 
+        <mat-form-field *ngIf="editSelf || !currentUser || !user.id">
+        <input  matInput placeholder="password" 
         name="password" formControlName='password'>
-        <md-hint align="start">A combination of at least 8 lower and uppercase letters, at least 1 number, and 1 symbol</md-hint>     
-        </md-form-field>
+        <mat-hint align="start">A combination of at least 8 lower and uppercase letters, at least 1 number, and 1 symbol</mat-hint>     
+        </mat-form-field>
 
         <br clear='all'><br>
         <br><div *ngIf='admin'>
-                <md-checkbox formControlName='student'>
+                <mat-checkbox formControlName='student'>
                         Student&nbsp;&nbsp;
-                    </md-checkbox>
-            <md-checkbox formControlName='instructor'>
+                    </mat-checkbox>
+            <mat-checkbox formControlName='instructor'>
                 Instructor&nbsp;&nbsp;
-            </md-checkbox>
-            <md-checkbox formControlName='admin'>
+            </mat-checkbox>
+            <mat-checkbox formControlName='admin'>
                     Admin&nbsp;&nbsp;
-                </md-checkbox>
+                </mat-checkbox>
 <br clear='all'><br>
     </div>
 
-            <!-- <md-checkbox [(ngModel)]='checkBox' name='checkBox'>Instructor</md-checkbox>
+            <!-- <mat-checkbox [(ngModel)]='checkBox' name='checkBox'>Instructor</mat-checkbox>
          -->
         <!-- {{user.user_type | json}}<br>
         {{currentUser.user_type | json }}<br>

@@ -7,13 +7,13 @@
     
     <div class='padMe'>
     <h1>Course Material Info:</h1>
-    <md-form-field>
-    <input mdInput placeholder="Title" name="title" id='title' formControlName='title'>
-    </md-form-field>
+    <mat-form-field>
+    <input matInput placeholder="Title" name="title" id='title' formControlName='title'>
+    </mat-form-field>
 
-    <md-form-field>
-        <input mdInput placeholder="Description" name="description" id='description' formControlName='description'>
-        </md-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Description" name="description" id='description' formControlName='description'>
+        </mat-form-field>
    
     <br>
     <br><img [src]="imageUrl" width='200' height='200' *ngIf='image'><br>
@@ -26,14 +26,14 @@
     </div>
 
     <br>
-    <md-form-field>
-        <input mdInput placeholder="Content Url" name="contenturl" id='contenturl' formControlName='contenturl'>
-        </md-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Content Url" name="contenturl" id='contenturl' formControlName='contenturl'>
+        </mat-form-field>
 
     
-    <md-select placeholder='Material Type' formControlName='type'>
-        <md-option *ngFor='let type of types' mdOption [value]='type' ng-selected="material.type"> {{ type }}</md-option>
-    </md-select>
+    <mat-select placeholder='Material Type' formControlName='type'>
+        <mat-option *ngFor='let type of types' mdOption [value]='type' ng-selected="material.type"> {{ type }}</mat-option>
+    </mat-select>
 <br><br>
 File:  {{ file }}<br><br>
 <div class="upload-wrap">
