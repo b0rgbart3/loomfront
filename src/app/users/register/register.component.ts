@@ -6,6 +6,7 @@ import { NgForm, FormControl, FormBuilder, FormGroup, FormArray, Validators } fr
 import { UserService } from '../user.service';
 import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 
 
 @Component({
@@ -29,6 +30,8 @@ export class RegisterComponent implements OnInit {
     isInstructor: boolean;
     checkBox: FormControl;
     regFormGroup: FormGroup;
+    regChoice = '';
+    fbResponseObject: LoginResponse;
 
     constructor(
       public userService: UserService,
@@ -36,8 +39,29 @@ export class RegisterComponent implements OnInit {
       private alertService: AlertService,
       private _flashMessagesService: FlashMessagesService,
       private activated_route: ActivatedRoute,
-      private fb: FormBuilder) {
+      private formBuilder: FormBuilder,
+      private FB: FacebookService) {
+
+        const initParams: InitParams = {
+          appId: '143123396316217',
+          xfbml: true,
+          version: 'v2.11'
+        };
+
+        FB.init(initParams);
       }
+
+    loginWithFacebook(): void {
+      console.log('checking Login status');
+
+          this.FB.login()
+            .then((response: LoginResponse) => {
+              this.fbResponseObject = response;
+              console.log( 'fb Response: ' + response); })
+            .catch((error: any) => console.error(error));
+
+        }
+
 
     ngOnInit() {
 
@@ -63,7 +87,7 @@ export class RegisterComponent implements OnInit {
       if (!this.user) {
         this.user = new User('', '', '', '', '', '', '', '', '', true, false, false , [], '', '', '', '', [], [], [] );
       }
-      this.regFormGroup = this.fb.group( {
+      this.regFormGroup = this.formBuilder.group( {
         firstname: [this.user.firstname, [ Validators.required, Validators.maxLength(20), ] ],
         lastname: [this.user.lastname, [ Validators.required, Validators.maxLength(40)] ],
         email: [this.user.email, [ Validators.required,
@@ -77,7 +101,19 @@ export class RegisterComponent implements OnInit {
         instructor: this.user.instructor,
         admin: this.user.admin
       });
+      this.loginWithFacebook();
+    }
 
+    revealForm() {
+      this.regChoice = 'direct';
+    }
+
+    revealFB() {
+      this.regChoice = 'facebook';
+    }
+
+    already() {
+      this.router.navigate(['/login']);
     }
     // The user filled out and submitted the Registration form.
 

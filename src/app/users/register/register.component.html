@@ -1,9 +1,14 @@
 
 
 <div class='stuff'>
-
+    <h1>Reclaiming Loom Registration:</h1>
+<div *ngIf='!regChoice'>
+    
+<button class='bigchoice' (click)='revealForm()'>Register directly with the Loom</button>
+<button class='bigchoice' (click)='revealFB()'>Register using my Facebook account info</button>
+</div>
+<div  *ngIf="regChoice === 'direct'">
 <form novalidate (ngSubmit)="registerUser()" [formGroup]="regFormGroup">
-
     <div class='loomCard'>
             <div class="padMe">
         <h2 *ngIf='!admin'>Register</h2>
@@ -63,12 +68,20 @@
 
     </div>
 
-</form>
-<br>
-<p>Already have an account? <a [routerLink]="['/login']" > &nbsp; &#10148;&nbsp;Then just Login!</a></p>
+</form></div>
+
+<div *ngIf="regChoice === 'facebook'">
+    It looks like you are logged into facebook as:
+    Is this the account you would like to use for the Loom?
+
 </div>
 
-<div class='debug'>
+<div *ngIf="!regChoice">
+<button class='already' (click)="already()">
+If you've already registered, you can just Login!
+</button>
+</div>
+<!-- <div class='debug'>
     {{ regFormGroup.value | json }}
 
-</div>
+</div> -->

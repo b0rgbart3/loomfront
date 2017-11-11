@@ -1,3 +1,31 @@
 .registerStuff {
     text-align: center;
 }
+.bigchoice {
+    width:40%;
+    height:200px;
+    background-color:rgba(255,255,255,.15);
+    border-radius:10px;
+    vertical-align: top;
+    display:inline-block;
+    cursor: pointer;
+    user-select: none;
+    padding:20px;
+    outline:none;
+}
+
+.bigchoice:hover {
+    background-color:rgba(255,255,255,.25);
+}
+
+.already {
+    width:80%;
+    margin-top:10px;
+    background-color:rgba(255,255,255,.1);
+    padding-top:20px;
+    padding-bottom:20px;
+    outline:none;
+    border-radius:10px;
+    cursor:pointer;
+    user-select:none;
+}

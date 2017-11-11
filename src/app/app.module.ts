@@ -70,6 +70,7 @@ import { ClassThumbComponent } from './classes/class-list/class-thumb.component'
 import { SectionsResolver } from './services/sections-resolver.service';
 import { Globals } from './globals';
 import { MatInputModule } from '@angular/material';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   // External
@@ -83,7 +84,8 @@ import { MatInputModule } from '@angular/material';
     FlashMessagesModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    MatInputModule
+    MatInputModule,
+    FacebookModule.forRoot()
   ],
   // Internal
   declarations: [

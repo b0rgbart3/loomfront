@@ -3,39 +3,43 @@
 <div *ngIf='thisClass'>
     <h1>{{ thisClass.title }}</h1>
 
-    <div class='sidebar group'>
+    <div class='rollcall group'>
+
+        <div class='instructors group'>
         <h2>Instructors:</h2>
-        <div *ngFor='let instructor of instructorThumbnails'>
+        <div *ngFor='let instructor of instructorThumbnails' class='userThumb'>
             <user-thumb [thumbnail]=instructor></user-thumb>
         </div>
-        <br clear='all'>
+    </div>
+       <div class='students group'>
         <h2>Students:</h2>
-        <div *ngFor='let student of studentThumbnails'>
+        <div *ngFor='let student of studentThumbnails' class='userThumb'>
             <user-thumb [thumbnail]=student></user-thumb>
-        </div><br clear='all'><br>
-        <button [routerLink]="['/chatroom', thisClass.id ]" 
-        class='largeFunButton'>Chatroom</button>
-        <button [routerLink]="['/discussion', thisClass.id ]" 
-        class='largeFunButton'>Discussion</button>
-        
-       
-        <div *ngIf='this.course'>
-         <div class='sectionNavTitle'>Sections</div>
-        <div class='sectionNav' *ngFor='let section of this.course.sections; let s=index'>
-   
-            <div (click)="navigateTo(s)" class='sectionNav'>
-                {{section.title}} </div>
         </div>
+    </div>
+
       </div>
    
-    </div> <!-- end sidebar -->
+    </div> 
 
     <div class='mainContent group'>
         <div *ngIf='courseimageURL' class='mainImage'>
             <img [src]='courseimageURL' class='mainImageImage'>
         </div>
+        <br clear='all'><br>
+        <button [routerLink]="['/chatroom', thisClass.id ]" 
+        class='largeFunButton'>Chatroom</button>
+        <button [routerLink]="['/discussion', thisClass.id ]" 
+        class='largeFunButton'>Discussion</button>
 
-
+        <div *ngIf='this.course'>
+                <div class='sectionNavTitle'>Sections</div>
+                <div class='sectionNav' *ngFor='let section of this.course.sections; 
+                let s=index'>
+          
+                   <div (click)="navigateTo(s)" class='sectionNav'>
+                       {{section.title}} </div>
+               </div>
 
         <div *ngIf='course' class='group'>
             <div *ngIf='course.sections' class='section group'>
