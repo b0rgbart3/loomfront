@@ -3,17 +3,21 @@
 <div *ngIf='classObjects' class='loomCard padMe'><h1>Classes you are taking</h1>
 <div *ngFor='let class of classObjects' >
     <div class='selectorBox group' (click)='goto(class.id)'>
+        <div class='classInfoSelectionCollection'>
+        <div class='classCourseImageThumnail'>
+            courseimage
+        </div>
     <h2>{{ class.title }}</h2>
     {{ class.description }}<br>
     Starts: {{ class.start }}<br>
     Ends: {{ class.end }}
-    </div>
+    </div></div>
 </div></div>
 <div *ngIf='classObjects' class='loomCard padMe'><h1>Classes you are teaching</h1>
 <div *ngFor='let class of instructorClassObjects'>
         <div class='selectorBox group' (click)='goto(class.id)'>
         <h2>{{ class.title }}</h2>
-        {{ class.description }}<br>
+        {{ class.description }}<br><br>
         Starts: {{ class.start }}<br>
         Ends: {{ class.end }}
         </div>

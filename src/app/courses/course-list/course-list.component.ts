@@ -29,9 +29,12 @@ export class CourseListComponent implements OnInit {
 
       this.courseService
        .getCourses().subscribe(
-         courses =>  this.courses = courses,
+         courses =>  {this.courses = courses;
+        console.log('got courses');
+        },
          error => this.errorMessage = <any>error);
 
+    console.log('end of init');
   }
 
   private getIndexOfCourse = (courseId: String) => {

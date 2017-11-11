@@ -1,45 +1,6 @@
-/* .nav-bar {
-	width:100%;
-	padding:20px;
-	text-align:right;
-	padding:0px;
-	margin:0px;
-	border-radius: 0;
-	height:50px;
+.myNavWrapper {
+	padding:1px;
 }
-
-.nav-bar nav {
-	padding:0px;
-	margin:0px;
-}
-
-.nav-bar ul {
-	padding:0;
-	margin:0;
-}
-
-.nav-bar ul li {
-	list-style: none;
-	display:inline-block;
-	padding-left:20px;
-	padding-right:20px;
-	margin:0px;
-	padding-bottom:0px;
-	height:60px;
-	font-size: 1em;
-	font-weight: normal;
-}
-
-.nav-bar ul a {
-	margin:0px;
-	padding:0px;
-	text-decoration: none;
-	color:white;
-}
-
-.nav-bar ul li:hover {
-	background-color:#B50FC6;
-} */
 
 .userInfo {
 	font-size:.8em;
@@ -74,16 +35,42 @@ border:2px solid red;
 	width:55px;
 	height:55px;
 	margin-top:10px;
+	border-radius:4px;
 }
 
 .userPic {
-	margin-right:0;
+	margin-right:20px;
 	float:right !important;
-	border:1px solid blue;
 	display:inline-block;
 	position: relative;
-	top:20px;
+	top:10px;
 	right:0;
+	vertical-align: top;
+	color:rgba(255,255,255,.6);
+	background-color:rgba(34, 33, 36, 0.211);
+	padding:0px 14px 2px 22px;
+	border-radius:4px;
+	text-align: right;
+	line-height: 25px;
+	border-bottom:2px solid rgba(0,0,0,.5);
+	border-right:2px solid rgba(0,0,0,.5);
+	margin-top:10px;
+}
+
+.userPic p {
+	float:left;
+	margin-bottom:0px;
+	display:inline-block;
+	padding-bottom:0px;
+
+}
+.userPic img {
+	margin-left:10px;
+}
+.username {
+	color:rgba(255,255,255,.8);
+	font-size:16px;
+	line-height: 24px;
 }
 
 /* mat-icon {

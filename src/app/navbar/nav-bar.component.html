@@ -1,4 +1,4 @@
-<div (click)="updateMyself()"> 
+<div (click)="updateMyself()" class='myNavWrapper group'> 
 
 	<button mat-icon-button [matMenuTriggerFor]="menu" class='loomMenu'>
 		<mat-icon>menu</mat-icon>
@@ -18,9 +18,11 @@
 		<button mat-menu-item>Login</button></a>
 </mat-menu>
 
-<div class='userPic'>{{ username }}
+<div class='userPic'><p>You are logged in as:<br><span class='username'>
+	{{ username }}</span></p>
 	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
-	<img *ngIf="currentUser && currentUser.avatar_URL" [src]="currentUser.avatar_URL" class='avatar'>
+	<img *ngIf="currentUser && currentUser.avatar_URL" 
+	[src]="currentUser.avatar_URL" class='avatar'>
 </div>
 
 </div>

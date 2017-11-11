@@ -1,12 +1,25 @@
 .selectorBox {
-    border:1px solid #cccccc;
-    padding:12px;
-    padding-top:0;
+    background-color: rgba(0,0,0,.1);
+    padding:20px;
     cursor:pointer;
     border-radius:8px;
 }
 
 .selectorBox:hover {
-    border:1px solid #ffffff;
-    background-color:white;
+    border-bottom:1px solid black;
+    border-right:1px solid black;
+}
+
+.classCourseImageThumnail {
+    width:200px;
+    height:100px;
+    display:inline-block;
+    float:left;
+    margin-right:14px;
+    margin-bottom: 20px;
+}
+
+.classInfoSelectionCollection {
+
+    line-height:1.7em;
 }

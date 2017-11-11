@@ -3,6 +3,7 @@ import { ClassService } from '../classes/class.service';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { UserService } from '../users/user.service';
+import { Course } from '../models/course.model';
 
 
 
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
     currentUser: User;
     username: string;
     classObjects: Object[];
+    courses: Course[];
     instructorClassObjects: Object[];
     regClassIds: string[];
     instructorClassIds: string[];
@@ -47,8 +49,14 @@ export class HomeComponent implements OnInit {
                 },
                     error => this.errorMessage = <any>error);
 
+        this.loadCourseImages();
     }
 
+    loadCourseImages() {
+        for (let i = 0; i < this.classObjects.length; i++) {
+
+        }
+    }
       goto( queryID ) {
           const queryString = '/classes/' + queryID;
         this._router.navigate( [queryString] );

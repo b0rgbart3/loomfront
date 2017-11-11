@@ -32,6 +32,7 @@ export class WelcomeComponent implements OnInit {
             this.username = this.currentUser.username; } else {
                 this.username = '';
             }
+            console.log('end of welcome init.');
         }
 
 
