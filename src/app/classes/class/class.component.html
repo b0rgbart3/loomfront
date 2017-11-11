@@ -1,4 +1,8 @@
-<div class='loomCard group padMe'>
+
+
+
+<div class='{{widthStyle}} {{mainStyle}} {{scrollable}} mainContent group padMe'>
+
 <div class='padMe'>
 <div *ngIf='thisClass'>
     <h1>{{ thisClass.title }}</h1>
@@ -22,15 +26,16 @@
    
     </div> 
 
-    <div class='mainContent group'>
+    <div class='group'>
         <div *ngIf='courseimageURL' class='mainImage'>
             <img [src]='courseimageURL' class='mainImageImage'>
         </div>
         <br clear='all'><br>
-        <button [routerLink]="['/chatroom', thisClass.id ]" 
-        class='largeFunButton'>Chatroom</button>
-        <button [routerLink]="['/discussion', thisClass.id ]" 
-        class='largeFunButton'>Discussion</button>
+        
+        <button (click)="openDiscussion()" 
+        class='discussButton'>Discussion</button>
+        <!-- <button [routerLink]="['/chatroom', thisClass.id ]" 
+        class='largeFunButton'>Chatroom</button> -->
 
         <div *ngIf='this.course'>
                 <div class='sectionNavTitle'>Sections</div>
@@ -56,3 +61,12 @@
     </div>
 </div>
 </div>
+</div>
+
+<div class='slideColumn {{boardStyle}} {{scrollable}} group' *ngIf='discussing'>
+        <button (click)='closeDiscussion()'>close</button>
+        <button (click)='makeStacked()'>stacked</button>
+        <button (click)='moveLeft()'>left</button>
+        <button (click)='moveRight()'>right</button>
+        <discussion></discussion>
+    </div>

@@ -42,6 +42,11 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     materialsLoaded: boolean;
     sectionNumber: 0;
     section: Section;
+    discussing: boolean;
+    widthStyle: string;
+    boardStyle: string;
+    mainStyle: string;
+    scrollable: string;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -55,7 +60,49 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     ngOnInit() {
 
         this.myInit();
+        this.discussing = false;
+        this.widthStyle = 'full';
+        this.boardStyle = 'leftSide';
+        this.mainStyle = 'mainRight';
+        this.scrollable = '';
+    }
 
+    closeDiscussion() {
+        this.widthStyle = 'full';
+        this.discussing = false;
+        this.mainStyle = 'full';
+        this.scrollable = '';
+    }
+    
+    openDiscussion() {
+        this.widthStyle = 'divided';
+        this.discussing = true;
+        this.scrollable = 'scrollable';
+        if (this.boardStyle === 'rightSide') {
+            this.moveRight();
+        } else {
+            if (this.boardStyle === 'leftSide') {
+                this.moveLeft();
+            }
+        }
+    }
+
+    moveRight() {
+        this.boardStyle = 'rightSide';
+        this.scrollable = 'scrollable';
+        this.mainStyle = 'mainLeft';
+    }
+
+    moveLeft() {
+        this.boardStyle = 'leftSide';
+        this.mainStyle = 'mainRight';
+        this.scrollable = 'scrollable';
+    }
+
+    makeStacked() {
+        this.boardStyle = 'fullSize';
+        this.mainStyle = 'full';
+        this.scrollable = 'scrollable';
     }
 
     myInit() {
@@ -111,7 +158,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     }
     createThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 100,  showUsername: true, showInfo: false };
+            size: 70,  showUsername: true, showInfo: false };
         return thumbnailObj;
     }
 

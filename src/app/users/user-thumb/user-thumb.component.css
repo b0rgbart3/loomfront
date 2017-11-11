@@ -1,21 +1,23 @@
 
 
 .userThumb {
-border:2px solid #aaaaaa;
-box-shadow:4x 4x 4x #555555;
-border-radius: 8px;
-margin-right:8px;
+border-radius: 4px;
+margin-right:2%;
 margin-bottom:8px;
-background-color:white;
+background-color:rgba(90,90,90,1);
 display:inline-block;
 float:left;
 line-height: .5em;
 overflow: hidden;
-font-size:.87em;
+font-size:.9em;
+box-shadow:4px 4px 4px rgba(0,0,0,.1);
+color:rgba(220,220,220,1);
+text-align: left;
 }
 .userThumb h2 {
 padding-left:10px;
-font-size:1em;
+font-size:1.1em;
+font-weight: 400;
 }
 
 .userThumb p {

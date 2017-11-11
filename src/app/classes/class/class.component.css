@@ -17,17 +17,58 @@
     background-color:rgba(255,255,255,.1);
     border-radius:8px;
     padding:8px;
-    text-align:center;
 }
 
-.sidebar h2 {
-    text-transform: uppercase;
-    font-size: 1em;
-    color:#4254ae;
-}
 
 .mainContent {
+display:inline-block;
+border-radius:8px;
+background-color:rgba(100,100,100,1);
+height: 1000px;
+}
 
+.scrollable {
+    overflow-y: auto;
+    height:1000px;
+}
+
+.divided {
+    width:69%;
+}
+
+.mainRight {
+    float:right;
+}
+.mainLeft {
+    float:left;
+}
+.mainFull {
+    float:none;
+}
+    
+.full {
+        width:100%;
+}
+    
+.discussButton {
+    /* -ms-transform: rotate(90deg); 
+    -webkit-transform: rotate(90deg); 
+    transform: rotate(90deg); */
+    padding:20px;
+    width:200px;
+    height:100px;
+    margin-bottom:10px;
+    background-color:#4254ae;
+    color:white;
+    text-transform: uppercase;
+    margin-right:10px;
+    outline:none;
+    cursor:pointer;
+    box-shadow:8px -8px 8px rgba(0,0,0,.5);
+}
+
+.discussButton:active {
+    background-color:red;
 }
 
 .largeFunButton {
@@ -137,16 +178,31 @@
     display:inline-block;
 }
 
-@media screen and (max-width: 768px) {
+  
 
-    .sidebar {
-        width:100%;
-        display:block;
-        float:none;
-    }
-    .mainContent {
-        width:100%;
-        display:block;
-        float:none;
-    }
-}    
+.slideColumn {
+    display:inline-block;
+    border-radius:8px;
+    background-color:rgb(117, 119, 126);
+}
+
+.rightSide {
+    width:30%;
+    float:right;
+}
+
+.leftSide {
+    width:30%;
+    float:left;
+}
+.fullSize {
+    width:100%;
+    float:none;
+}
+@media screen and (max-width: 768px) {
+    
+
+        .mainContent {
+
+        }
+    }  

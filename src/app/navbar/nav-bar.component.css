@@ -1,5 +1,8 @@
 .myNavWrapper {
 	padding:1px;
+	background-color:rgba(0,0,0,.1);
+	padding-bottom:8px;
+	box-sizing: border-box;
 }
 
 .userInfo {
@@ -54,7 +57,7 @@ border:2px solid red;
 	line-height: 25px;
 	border-bottom:2px solid rgba(0,0,0,.5);
 	border-right:2px solid rgba(0,0,0,.5);
-	margin-top:10px;
+	box-sizing: border-box;
 }
 
 .userPic p {

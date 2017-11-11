@@ -18,12 +18,12 @@
 		<button mat-menu-item>Login</button></a>
 </mat-menu>
 
-<div *ngIf="username">
-<div class='userPic'><p>You are logged in as:<br><span class='username'>
+<div *ngIf="username" class='userPic'>
+<p>You are logged in as:<br><span class='username'>
 	{{ username }}</span></p>
 	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
 	<img *ngIf="currentUser && currentUser.avatar_URL" 
 	[src]="currentUser.avatar_URL" class='avatar'>
-</div>
+
 </div>
 </div>
