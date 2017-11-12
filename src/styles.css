@@ -409,6 +409,9 @@ h2 {
 .showTable td {
   text-align: center;
 }
+
+
+
 /*  ClearFix  -----------------------------------------------------------
 */
 /*  The ClearFix by Tony Aslett and Nicholas Gallagher */
@@ -488,3 +491,4 @@ h2 {
       background-color: #bde5f8;
       border-color: #33afe9;
       color: #1175a5; }
+

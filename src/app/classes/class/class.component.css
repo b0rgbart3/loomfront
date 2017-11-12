@@ -24,7 +24,6 @@
 display:inline-block;
 border-radius:8px;
 background-color:rgba(100,100,100,1);
-height: 1000px;
 }
 
 .scrollable {
@@ -32,6 +31,29 @@ height: 1000px;
     height:1000px;
 }
 
+.flexcroll {
+
+}
+.flexcroll::-webkit-scrollbar {
+    width: 18px;
+}
+
+.flexcroll::-webkit-scrollbar-track {
+    -webkit-border-radius: 8px;
+    border-radius: 0px;
+    background: #363636; 
+    -webkit-box-shadow: inset 4px 4px 6px rgba(0,0,0,0.5); 
+}
+/* Handle */
+.flexcroll::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 12px;
+    background: #545a7a;
+    border:2px solid #1b2035;
+}
+
+.flexcroll::-webkit-scrollbar-thumb:active {
+    background: orange;
+}
 .divided {
     width:69%;
 }
@@ -183,7 +205,7 @@ height: 1000px;
 .slideColumn {
     display:inline-block;
     border-radius:8px;
-    background-color:rgb(117, 119, 126);
+    background-color:rgba(100,100,100,1);
 }
 
 .rightSide {
@@ -199,6 +221,47 @@ height: 1000px;
     width:100%;
     float:none;
 }
+
+.roundButton {
+    background-position: 50% 50%;
+    background-size:48%;
+    background-repeat: no-repeat;
+    width:55px;
+    height:55px;
+    display:inline-block;
+    padding:4px;
+    box-sizing: border-box;
+    background-color:rgba(0,0,0,.1);
+    border-radius:50%;
+    opacity:.7;
+    margin-top:4px;
+}
+.roundButton:hover {
+    opacity:1;
+    background-color:rgba(0,0,0,.3);
+}
+
+.leftButton {
+    background-image:url('../../../assets/images/left.svg');
+  
+}
+
+.rightButton {
+    background-image:url('../../../assets/images/right.svg');
+}
+
+.stackDownButton {
+    background-image:url('../../../assets/images/stack_down.svg');
+}
+
+.closeButton {
+    background-image:url('../../../assets/images/close.svg');
+    float:right;
+    margin-right:4px;
+}
+
+
+
 @media screen and (max-width: 768px) {
     
 

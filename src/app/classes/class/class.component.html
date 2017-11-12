@@ -1,43 +1,31 @@
 
 
 
-<div class='{{widthStyle}} {{mainStyle}} {{scrollable}} mainContent group padMe'>
-
+<div class='loomScroll {{widthStyle}} {{mainStyle}} {{scrollable}} 
+mainContent padMe group flexcroll'>
 <div class='padMe'>
-<div *ngIf='thisClass'>
+    <div *ngIf='thisClass'>
     <h1>{{ thisClass.title }}</h1>
-
-    <div class='rollcall group'>
-
-        <div class='instructors group'>
-        <h2>Instructors:</h2>
-        <div *ngFor='let instructor of instructorThumbnails' class='userThumb'>
-            <user-thumb [thumbnail]=instructor></user-thumb>
+        <div class='rollcall group'>
+            <div class='instructors group'>
+                <h2>Instructors:</h2>
+                <div *ngFor='let instructor of instructorThumbnails' class='userThumb'>
+                    <user-thumb [thumbnail]=instructor></user-thumb></div>
+            </div>
+        <div class='students group'>
+                <h2>Students:</h2>
+                <div *ngFor='let student of studentThumbnails' class='userThumb'>
+                    <user-thumb [thumbnail]=student></user-thumb></div>
         </div>
-    </div>
-       <div class='students group'>
-        <h2>Students:</h2>
-        <div *ngFor='let student of studentThumbnails' class='userThumb'>
-            <user-thumb [thumbnail]=student></user-thumb>
         </div>
-    </div>
-
-      </div>
-   
-    </div> 
-
-    <div class='group'>
         <div *ngIf='courseimageURL' class='mainImage'>
             <img [src]='courseimageURL' class='mainImageImage'>
-        </div>
-        <br clear='all'><br>
+        </div><br>
         
-        <button (click)="openDiscussion()" 
-        class='discussButton'>Discussion</button>
-        <!-- <button [routerLink]="['/chatroom', thisClass.id ]" 
-        class='largeFunButton'>Chatroom</button> -->
+        <button (click)="openDiscussion()" *ngIf="!discussing" 
+        class='discussButton'>Discussion</button>    <!-- <button [routerLink]="['/chatroom', thisClass.id ]" class='largeFunButton'>Chatroom</button> -->
 
-        <div *ngIf='this.course'>
+        <div *ngIf='course'>
                 <div class='sectionNavTitle'>Sections</div>
                 <div class='sectionNav' *ngFor='let section of this.course.sections; 
                 let s=index'>
@@ -46,27 +34,23 @@
                        {{section.title}} </div>
                </div>
 
-        <div *ngIf='course' class='group'>
+
             <div *ngIf='course.sections' class='section group'>
 
                     <section [course]=course [section]=section></section>
-
             </div>
-
         </div>
-
-
-
-
     </div>
 </div>
-</div>
+
 </div>
 
-<div class='slideColumn {{boardStyle}} {{scrollable}} group' *ngIf='discussing'>
-        <button (click)='closeDiscussion()'>close</button>
-        <button (click)='makeStacked()'>stacked</button>
-        <button (click)='moveLeft()'>left</button>
-        <button (click)='moveRight()'>right</button>
+
+<div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'>
+        <div (click)='closeDiscussion()' class='roundButton closeButton'></div>
+        <div (click)='makeStacked()' class='roundButton stackDownButton' *ngIf="boardStyle!='fullSize'"></div>
+        <div (click)='moveLeft()' class='roundButton leftButton' *ngIf="boardStyle!='leftSide'"></div>
+        <div (click)='moveRight()' class='roundButton rightButton' *ngIf="boardStyle!='rightSide'"></div>
+
         <discussion></discussion>
     </div>

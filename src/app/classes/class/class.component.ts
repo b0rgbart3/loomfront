@@ -47,6 +47,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     boardStyle: string;
     mainStyle: string;
     scrollable: string;
+    clientX;
+    clientY;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -63,7 +65,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.discussing = false;
         this.widthStyle = 'full';
         this.boardStyle = 'leftSide';
-        this.mainStyle = 'mainRight';
+        this.mainStyle = 'full';
         this.scrollable = '';
     }
 
@@ -103,6 +105,12 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.boardStyle = 'fullSize';
         this.mainStyle = 'full';
         this.scrollable = 'scrollable';
+    }
+
+    grab(event: MouseEvent) {
+        this.clientX = event.clientX;
+        this.clientY = event.clientY;
+        console.log('clientX: ' + this.clientX);
     }
 
     myInit() {
