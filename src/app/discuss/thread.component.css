@@ -1,23 +1,36 @@
 .thread {
-    border-bottom:1px solid #888888;
-    padding:4px;
+    border-bottom:1px solid #aaaaaa;
+    padding:0px;
     margin:0px;
     padding-bottom:0;
     background-color:rgba(255,255,255,.2);
 }
 
 .reply {
-    background-color:#ce00bd;
+    background-color:#555555;
     color:white;
     float:right;
     margin-right:20px;
     display:inline-block;
-    padding:12px;
-    font-size:1.1em;
-    margin-bottom:4px;
+    padding-top:6px;
+    padding-bottom:6px;
+    padding-left:14px;
+    padding-right:14px;
+    font-size:1em;
+    margin-bottom:8px;
+    border:1px solid #333333;
+    border-bottom:1px solid black;
+    outline:none;
+    cursor: pointer;
+    user-select: none;
+    text-transform: uppercase;
+    border-radius:2px;
+    box-shadow:2px 2px 4px rgba(0,0,0,.4);
 }
 .reply:hover {
-    background-color:rgb(221, 86, 248);
+    background-color:#eeeeee;
+    color:black;
+    border:1px solid #555555;
 }
 
 .replyInput {
@@ -41,6 +54,13 @@
     padding:0px;
 }
 
+.threadReply p {
+    padding:2px;
+    line-height:1.5em;
+    padding-left:10px;
+    margin-left:10px;
+}
+
 .tinyButton {
     padding:3px;
     font-size:.8em;
@@ -50,9 +70,11 @@
 
 .threadSubject {
     background-color:rgba(255,255,255,.25);
-    padding-left:30px;
+    padding-left:10px;
     cursor:pointer;
     transition: .5s;
+    font-size:.9em;
+    font-family: Arial;
 }
 
 .threadSubject:hover {
@@ -70,4 +92,36 @@
 
 .postReplyBlock {
     float:right;
+}
+
+.dateString {
+    color:#555555;
+    padding:4px;
+    font-size:1.2em;
+}
+
+.tinyDelete {
+    width:26px;
+    height:26px;
+    background-image:url('../../assets/images/kill.svg');
+    background-color:#777777;
+    float:right;
+    border-radius:0;
+
+}
+
+.tinyEdit {
+    background-color:#777777;
+    width:60px;
+    height:26px;
+    float:right;
+    border-radius:0;
+    font-size:.8em;
+    padding:0;
+    vertical-align: top;
+    outline:none;
+    cursor: pointer;
+    user-select: none;
+    margin-right:4px;
+    margin-left:4px;
 }

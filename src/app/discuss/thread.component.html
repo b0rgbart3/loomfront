@@ -1,6 +1,6 @@
 <div class='thread group'>
         <div class='threadSubject group' (click)='toggleThread()'>
-        {{ thread.post_date }}
+      <div class='dateString'>  {{ thread.post_date | date }}</div>
 <div *ngIf='user'>
         <user-thumb [thumbnail]=userThumbnail></user-thumb>
 </div>
@@ -14,11 +14,11 @@
                  <user-thumb [thumbnail]="replyThumbnails[r]"></user-thumb></div>
                         <!-- <user-thumb {[user]='null' [user_id]=reply.user_id 
                         [editable]=false [tiny]=true}></user-thumb> -->
-                 {{ reply.reply }}
-                 <button *ngIf='reply.user_id===currentUser.id' class='tinyButton'
-                  (click)='killReply(r)'>Delete</button>
-                    <button *ngIf='reply.user_id===currentUser.id' class='tinyButton'>Edit</button>
-                    <br clear='all'>
+                 
+                 <button *ngIf='reply.user_id===currentUser.id' class='tinyDelete'
+                  (click)='killReply(r)'></button>
+                    <button *ngIf='reply.user_id===currentUser.id' class='tinyEdit'>Edit</button>
+                    <p>{{ reply.reply }} </p><br clear='all'>
          </div>
  </div>
  <div *ngIf="thread.displayReplyInput">
@@ -32,5 +32,5 @@
                 </table>
         </form> 
 </div>
- <button class='reply' (click)="reply(thread)" class='reply basicButton' *ngIf="!thread.displayReplyInput">Reply</button>
+ <button (click)="reply(thread)" class='reply' *ngIf="!thread.displayReplyInput">Reply</button>
 </div><br clear='all'>

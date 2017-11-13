@@ -2,7 +2,7 @@
 <div class='group '>
         <!-- <button [routerLink]="['/classes', thisClass.id ]" class='backButton'>Back to Course Material</button>
          -->
-        <div *ngIf='thisClass' class='padMe'>
+        <div *ngIf='thisClass'>
                 <form [formGroup]='discussionFormGroup' (ngSubmit)='newThread()'>
                 <table width='100%' class='showTable'>
                    <tr>
