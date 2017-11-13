@@ -54,9 +54,10 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     contentWidth = 0;
     startX;
     initialWindowWidth;
+    initialWindowHeight;
     instructorThumbnails: Userthumbnail[];
     studentThumbnails: Userthumbnail[];
-    minBoardWidth = 200;
+    minBoardWidth = 310;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -78,6 +79,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.boardStyle = 'leftSide';
         this.mainStyle = 'full';
         this.scrollable = '';
+        this.contentWidth = window.innerWidth;
     }
 
     closeDiscussion() {
@@ -85,15 +87,18 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.discussing = false;
         this.mainStyle = 'full';
         this.scrollable = '';
+        this.contentWidth = window.innerWidth;
     }
 
     openDiscussion() {
-        this.boardWidth = 300;
+        this.boardWidth = window.innerWidth * .3;
         this.contentWidth = window.innerWidth - this.boardWidth - 20;
         console.log('contentWidth should be: ' + window.screen.width);
         this.widthStyle = 'divided';
         this.discussing = true;
         this.scrollable = 'scrollable';
+        this.initialWindowHeight = window.innerHeight;
+
         if (this.boardStyle === 'rightSide') {
             this.moveRight();
         } else {
@@ -138,7 +143,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             this.clientY = event.clientY;
             const diff = this.startX - this.clientX;
             // console.log(diff);
-            this.boardWidth = this.clientX + 40;
+            this.boardWidth = this.clientX + 50;
             if (this.boardWidth < this.minBoardWidth) {
                 this.boardWidth = this.minBoardWidth;
             }
