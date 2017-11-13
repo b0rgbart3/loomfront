@@ -58,6 +58,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     instructorThumbnails: Userthumbnail[];
     studentThumbnails: Userthumbnail[];
     minBoardWidth = 310;
+    grabberStyle;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -78,6 +79,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.widthStyle = 'full';
         this.boardStyle = 'leftSide';
         this.mainStyle = 'full';
+        this.grabberStyle = 'grabRight';
         this.scrollable = '';
         this.contentWidth = window.innerWidth;
     }
@@ -109,21 +111,29 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     }
 
     moveRight() {
+        this.boardWidth = window.innerWidth * .3;
+        this.contentWidth = window.innerWidth - this.boardWidth - 20;
         this.boardStyle = 'rightSide';
         this.scrollable = 'scrollable';
         this.mainStyle = 'mainLeft';
+        this.grabberStyle = 'grabLeft';
     }
 
     moveLeft() {
+        this.boardWidth = window.innerWidth * .3;
+        this.contentWidth = window.innerWidth - this.boardWidth - 20;
         this.boardStyle = 'leftSide';
         this.mainStyle = 'mainRight';
         this.scrollable = 'scrollable';
+        this.grabberStyle = 'grabRight';
     }
 
     makeStacked() {
         this.boardStyle = 'fullSize';
         this.mainStyle = 'full';
         this.scrollable = 'scrollable';
+        this.boardWidth = window.innerWidth - 20;
+        this.contentWidth = window.innerWidth - 20;
     }
 
 
@@ -141,14 +151,19 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
           if (this.tracking) {
             this.clientX = event.clientX;
             this.clientY = event.clientY;
-            const diff = this.startX - this.clientX;
-            // console.log(diff);
-            this.boardWidth = this.clientX + 50;
-            if (this.boardWidth < this.minBoardWidth) {
-                this.boardWidth = this.minBoardWidth;
-            }
-            this.contentWidth = window.innerWidth - this.boardWidth - 20;
-           // console.log(this.clientX);
+
+            if (this.boardStyle === 'leftSide') {
+                this.boardWidth = this.clientX + 50;
+                if (this.boardWidth < this.minBoardWidth) {
+                     this.boardWidth = this.minBoardWidth;
+                 }
+                 this.contentWidth = window.innerWidth - this.boardWidth - 20;
+            } else {
+              if (this.boardStyle === 'rightSide') {
+                this.boardWidth = window.innerWidth - this.clientX;
+                this.contentWidth = window.innerWidth - this.boardWidth - 20;
+              }
+          }
         }
       }
 

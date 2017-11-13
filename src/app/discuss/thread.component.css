@@ -1,6 +1,7 @@
 .thread {
     border-bottom:1px solid #aaaaaa;
     padding:0px;
+    padding-left:8px;
     margin:0px;
     padding-bottom:0;
     background-color:rgba(255,255,255,.2);

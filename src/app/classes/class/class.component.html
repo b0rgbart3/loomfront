@@ -47,8 +47,8 @@ mainContent padMe group flexcroll' [style.width.px]="contentWidth"  [style.heigh
 
 
 <div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'
-[style.width.px]="boardWidth" [style.height.px] = "initialWindowHeight">
-        <div class='grabber' (mousedown)="grab($event)" (mousemove)="trackGrab($event)"
+ [style.width.px]="boardWidth" [style.height.px] = "initialWindowHeight">
+        <div class='grabber {{grabberStyle}}' (mousedown)="grab($event)" (mousemove)="trackGrab($event)"
         (mouseup)="endGrab($event)" (mouseout)="endGrab($event)"></div>
         <div (click)='closeDiscussion()' class='roundButton closeButton'></div>
         <div (click)='makeStacked()' class='roundButton stackDownButton' *ngIf="boardStyle!='fullSize'"></div>
