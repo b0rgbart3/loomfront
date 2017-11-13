@@ -55,7 +55,7 @@ background-color:rgba(100,100,100,1);
     background: orange;
 }
 .divided {
-    width:69%;
+
 }
 
 .mainRight {
@@ -69,7 +69,7 @@ background-color:rgba(100,100,100,1);
 }
     
 .full {
-        width:100%;
+
 }
     
 .discussButton {
@@ -214,7 +214,7 @@ background-color:rgba(100,100,100,1);
 }
 
 .leftSide {
-    width:30%;
+    width:300px;
     float:left;
 }
 .fullSize {
@@ -261,6 +261,25 @@ background-color:rgba(100,100,100,1);
 }
 
 
+.grabber {
+    width:100px;
+    height:40px;
+    background-color:red;
+    display:inline-block;
+    float:right;
+    vertical-align: top;
+    border:4px solid black;
+    cursor:pointer;
+    user-select: none;
+}
+
+.grabber:hover {
+    background-color:orange;
+}
+
+.grabber:active {
+    color:black;
+}
 
 @media screen and (max-width: 768px) {
     

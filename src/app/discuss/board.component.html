@@ -1,5 +1,6 @@
 
 <div class='group '>
+        
         <!-- <button [routerLink]="['/classes', thisClass.id ]" class='backButton'>Back to Course Material</button>
          -->
         <div *ngIf='thisClass'>
@@ -9,7 +10,7 @@
                 <td width='90%'><input formControlName='subject' id='subject' 
                         autofocus name='subject' type='text' class='largeInput'></td>
                 <td>
-                <button type='submit' class='basicButton nobr'>Post New Topic</button></td>
+                <button type='submit' class='newTopicButton'>Post</button></td>
                 </tr>
                 </table>
         </form>
@@ -19,7 +20,7 @@
         <div *ngIf='threads'>
                 <div *ngFor='let thread of threads' class='threadContainer group'>
                         <div *ngIf="currentUser.id === thread.user_id" 
-                        class='deleteThreadButton' (click)="deleteThread(thread)">Delete this Thread</div>
+                        class='deleteThreadButton' (click)="deleteThread(thread)"></div>
                        <thread [thread]=thread (threadChange)="threadChange($event)" (threadKill)="threadKill($event)"></thread>
                 </div>
         </div>

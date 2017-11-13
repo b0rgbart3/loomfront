@@ -2,7 +2,7 @@
 
 
 <div class='loomScroll {{widthStyle}} {{mainStyle}} {{scrollable}} 
-mainContent padMe group flexcroll'>
+mainContent padMe group flexcroll' [style.width.px]="contentWidth">
 <div class='padMe'>
     <div *ngIf='thisClass'>
     <h1>{{ thisClass.title }}</h1>
@@ -46,11 +46,14 @@ mainContent padMe group flexcroll'>
 </div>
 
 
-<div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'>
+<div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'
+[style.width.px]="boardWidth">
+        <div class='grabber' (mousedown)="grab($event)" (mousemove)="trackGrab($event)"
+        (mouseup)="endGrab($event)" (mouseout)="endGrab($event)"></div>
         <div (click)='closeDiscussion()' class='roundButton closeButton'></div>
         <div (click)='makeStacked()' class='roundButton stackDownButton' *ngIf="boardStyle!='fullSize'"></div>
         <div (click)='moveLeft()' class='roundButton leftButton' *ngIf="boardStyle!='leftSide'"></div>
         <div (click)='moveRight()' class='roundButton rightButton' *ngIf="boardStyle!='rightSide'"></div>
 
         <discussion></discussion>
-    </div>
+</div>

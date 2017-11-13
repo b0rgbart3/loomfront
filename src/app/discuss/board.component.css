@@ -7,21 +7,20 @@
 
 }
 .deleteThreadButton {
+    background-image:url('../../assets/images/kill.svg');
     display:inline-block;
+    width:10px;
+    height:10px;
     float:right;
     padding:8px;
     font-size:.4;
-    background-color: #bbbbbb;
     color:white;
     cursor: pointer;
-    border-right:1px solid #999999;
-    border-top:1px solid #aaaaaa;
     transition: .5s;
-    border-radius:0 0 0 4px;
 }
 
 .deleteThreadButton:hover {
-    background-color:#aaaaaa;
+    background-color:#555555;
 }
 .fancyPostButton {
     background-color:#ce00bd;
@@ -45,3 +44,29 @@
     box-sizing: border-box;
 }
 
+.newTopicButton {
+    background-color:#555555;
+    color:white;
+    float:right;
+    margin-right:20px;
+    display:inline-block;
+    padding-top:6px;
+    padding-bottom:6px;
+    padding-left:14px;
+    padding-right:14px;
+    font-size:1em;
+    margin-bottom:8px;
+    border:1px solid #333333;
+    border-bottom:1px solid black;
+    outline:none;
+    cursor: pointer;
+    user-select: none;
+    text-transform: uppercase;
+    border-radius:2px;
+    box-shadow:2px 2px 4px rgba(0,0,0,.4);
+}
+.newTopicButton:hover {
+    background-color:#eeeeee;
+    color:black;
+    border:1px solid #555555;
+}

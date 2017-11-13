@@ -30,6 +30,7 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
   thread: Thread;
   threads: Thread[];
 
+
   @Input() class: ClassModel;
 
   constructor( private router: Router,
@@ -68,8 +69,9 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
     console.log('ch ch changin');
   }
   ngDoCheck() {
-    console.log('Do checking!');
+    // console.log('Do checking!');
   }
+
 
   newThread(): void {
 

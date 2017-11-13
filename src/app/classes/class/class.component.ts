@@ -49,15 +49,26 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     scrollable: string;
     clientX;
     clientY;
+    tracking: boolean;
+    boardWidth = 0;
+    contentWidth = 0;
+    startX;
+    initialWindowWidth;
+    instructorThumbnails: Userthumbnail[];
+    studentThumbnails: Userthumbnail[];
+    minBoardWidth = 200;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
     private classService: ClassService,
     private courseService: CourseService,
     private userService: UserService,
-    private materialService: MaterialService ) {}
-    public instructorThumbnails: Userthumbnail[];
-    public studentThumbnails: Userthumbnail[];
+    private materialService: MaterialService ) {
+        this.initialWindowWidth = window.screen.width;
+        this.boardWidth = this.initialWindowWidth * .3;
+        this.contentWidth = this.initialWindowWidth * .6;
+    }
+
 
     ngOnInit() {
 
@@ -75,8 +86,11 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.mainStyle = 'full';
         this.scrollable = '';
     }
-    
+
     openDiscussion() {
+        this.boardWidth = 300;
+        this.contentWidth = window.innerWidth - this.boardWidth - 20;
+        console.log('contentWidth should be: ' + window.screen.width);
         this.widthStyle = 'divided';
         this.discussing = true;
         this.scrollable = 'scrollable';
@@ -107,11 +121,38 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.scrollable = 'scrollable';
     }
 
+
     grab(event: MouseEvent) {
+        this.tracking = true;
         this.clientX = event.clientX;
         this.clientY = event.clientY;
-        console.log('clientX: ' + this.clientX);
-    }
+        this.startX = this.clientX;
+       // console.log(this.clientX);
+       // this.boardWidth = 500;
+      }
+
+      trackGrab(event: MouseEvent) {
+          console.log('tracking' + event.clientX);
+          if (this.tracking) {
+            this.clientX = event.clientX;
+            this.clientY = event.clientY;
+            const diff = this.startX - this.clientX;
+            // console.log(diff);
+            this.boardWidth = this.clientX + 40;
+            if (this.boardWidth < this.minBoardWidth) {
+                this.boardWidth = this.minBoardWidth;
+            }
+            this.contentWidth = window.innerWidth - this.boardWidth - 20;
+           // console.log(this.clientX);
+        }
+      }
+
+      endGrab(event: MouseEvent) {
+        this.tracking = false;
+        this.clientX = event.clientX;
+        this.clientY = event.clientY;
+       // console.log(this.clientX);
+      }
 
     myInit() {
       //  console.log('in class Init...');
