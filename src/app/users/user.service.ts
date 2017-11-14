@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Enrollment } from '../models/enrollment.model';
 import { Globals } from '../globals';
-
+import { BoardSettings } from '../models/boardsettings.model';
 
 
 @Injectable()
@@ -190,6 +190,15 @@ export class UserService implements OnInit {
     private handleError (error: HttpErrorResponse) {
       console.log( error.message );
       return Observable.throw(error.message);
+    }
+
+    storeBoardSettings( boardSettings: BoardSettings ): Observable<any> {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+      this.currentUser.boardsettings = boardSettings;
+      return this._http.put(this._usersUrl + '?id=' + this.currentUser.id, this.currentUser, {headers: myHeaders} );
+
     }
 
     saveSettings(settingsObject: any): Observable<any> {

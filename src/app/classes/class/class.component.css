@@ -22,8 +22,15 @@
 
 .mainContent {
 display:inline-block;
-background-color:rgba(100,100,100,1);
 user-select: none;
+padding:0;
+margin:0;
+}
+
+.mainContentInnerWrapper {
+    background-color:rgba(100,100,100,1);
+    padding:10px;
+    margin:0;
 }
 
 .scrollable {
@@ -113,9 +120,15 @@ user-select: none;
 
 .sectionNav {
     background-color: rgba(255,255,255,.5);
-    margin-bottom:10px;
-    border-radius:8px;
+    margin-bottom:0px;
+    border-radius:0px;
     padding:4px;
+    padding-top:14px;
+    padding-left:14px;
+    padding-bottom:8px;
+    cursor:pointer;
+    user-select:none;
+    border-bottom:2px solid rgba(100,100,100,.25);
 }
 
 .sectionNav:hover {
@@ -127,10 +140,26 @@ user-select: none;
   background-color:#999999;
   text-transform: uppercase;
   color:white;
-  padding-top:10px;
-  padding-bottom:10px;
-  margin-top:20px;
+  padding-top:15px;
+  padding-bottom:12px;
+  padding-left:14px;
+  margin-top:22px;
   border-radius:8px 8px 0 0;
+  border-bottom:2px solid #333333;
+  cursor:pointer;
+  user-select:none;
+}
+
+.sectionNavTitle:hover {
+    background-color:#888888;
+}
+
+#sectionMenu {
+    background-color:rgba(255,255,255,.2);
+    border-radius:4px;
+    padding:8px;
+    z-index:2000;
+
 }
 
 .section {

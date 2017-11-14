@@ -2,7 +2,8 @@
 
 
 <div class='loomScroll {{widthStyle}} {{mainStyle}} {{scrollable}} 
-mainContent padMe group flexcroll' [style.width.px]="contentWidth"  [style.height.px] = "initialWindowHeight">
+mainContent padMe group flexcroll' [style.width.px]="contentWidth" [style.height.px] = "initialWindowHeight">
+<div class='mainContentInnerWrapper'>
 <div class='padMe'>
     <div *ngIf='thisClass'>
     <h1>{{ thisClass.title }}</h1>
@@ -26,30 +27,27 @@ mainContent padMe group flexcroll' [style.width.px]="contentWidth"  [style.heigh
         class='discussButton'>Discussion</button>    <!-- <button [routerLink]="['/chatroom', thisClass.id ]" class='largeFunButton'>Chatroom</button> -->
 
         <div *ngIf='course'>
-                <div class='sectionNavTitle'>Sections</div>
+                <div class='sectionNavTitle' (click)='showSectionMenu()'>Sections</div>
+                <div id='sectionMenu' class='group' *ngIf='showingSectionMenu'>
                 <div class='sectionNav' *ngFor='let section of this.course.sections; 
                 let s=index'>
-          
-                   <div (click)="navigateTo(s)" class='sectionNav'>
+                   <div (click)="navigateTo(s)">
                        {{section.title}} </div>
-               </div>
-
-
-            <div *ngIf='course.sections' class='section group'>
-
+               </div></div>
+                <div *ngIf='course.sections' class='section group'>
                     <section [course]=course [section]=section></section>
             </div>
         </div>
     </div>
 </div>
-
+</div>
 </div>
 
 
 <div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'
  [style.width.px]="boardWidth" [style.height.px] = "initialWindowHeight">
         <div class='grabber {{grabberStyle}}' (mousedown)="grab($event)" (mousemove)="trackGrab($event)"
-        (mouseup)="endGrab($event)" (mouseout)="endGrab($event)"></div>
+        (mouseup)="endGrab($event)" (mouseout)="endGrab($event)" id='grabber' *ngIf="boardStyle!='fullSize'"></div>
         <div (click)='closeDiscussion()' class='roundButton closeButton'></div>
         <div (click)='makeStacked()' class='roundButton stackDownButton' *ngIf="boardStyle!='fullSize'"></div>
         <div (click)='moveLeft()' class='roundButton leftButton' *ngIf="boardStyle!='leftSide'"></div>

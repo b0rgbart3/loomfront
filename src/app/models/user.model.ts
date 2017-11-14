@@ -1,4 +1,5 @@
 import { Enrollment } from './enrollment.model';
+import { BoardSettings } from './boardsettings.model';
 
 export class User {
     _id?: string;
@@ -23,7 +24,8 @@ export class User {
         public avatar_URL: string,
         public completed_classes: string[],
         public completed_series: string[],
-        public enrollments: Enrollment[]
+        public enrollments: Enrollment[],
+        public boardsettings: BoardSettings
 
     ) {}
 

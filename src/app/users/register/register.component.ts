@@ -7,6 +7,7 @@ import { UserService } from '../user.service';
 import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
+import { BoardSettings } from '../../models/boardsettings.model';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class RegisterComponent implements OnInit {
     regFormGroup: FormGroup;
     regChoice = '';
     fbResponseObject: LoginResponse;
+    boardSettings: BoardSettings;
 
     constructor(
       public userService: UserService,
@@ -85,7 +87,8 @@ export class RegisterComponent implements OnInit {
       }
 
       if (!this.user) {
-        this.user = new User('', '', '', '', '', '', '', '', '', true, false, false , [], '', '', '', '', [], [], [] );
+        this.boardSettings = new BoardSettings('', '', '');
+        this.user = new User('', '', '', '', '', '', '', '', '', true, false, false , [], '', '', '', '', [], [], [], this.boardSettings );
       }
       this.regFormGroup = this.formBuilder.group( {
         firstname: [this.user.firstname, [ Validators.required, Validators.maxLength(20), ] ],
