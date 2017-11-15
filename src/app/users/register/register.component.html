@@ -2,7 +2,7 @@
 
 <div class='stuff'>
     <h1>Reclaiming Loom Registration:</h1>
-<div *ngIf='!regChoice'>
+<div *ngIf='!regChoice && !alreadyConnectedThruFB'>
     
 <button class='bigchoice' (click)='revealForm()'>Register directly with the Loom</button>
 <button class='bigchoice' (click)='revealFB()'>Register using my Facebook account info</button>
@@ -69,13 +69,41 @@
     </div>
 
 </form></div>
-
+<div *ngIf="alreadyConnectedThruFB">
+    You are already registered and connected through FaceBook, as: {{ FBProfile.name }}
+</div>
 <div *ngIf="regChoice === 'facebook'">
-    It looks like you are logged into facebook as:
-    Is this the account you would like to use for the Loom?
+    <h2>Facebook Registration:</h2>
+    <button (click)="fblogout()">LogOut (of facebook)</button>
 
+    <div *ngIf="!connectedThruFB">
+            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false"
+            data-use-continue-as="false">
+          Log in With Facebook
+          </div>
+
+    <button (click)="loginWithFacebook()">Login using my Facebook account</button>
+    <p>You should see a pop-up window from Facebook, asking you to login.</p>
+    <p>Note:  If you have Pop-up's blocked, you will need to 'allow' this pop-up.</p>
+    </div>
+
+    <div *ngIf="connectedThruFB">
+
+    </div>
 </div>
 
+<div *ngIf="FBProfile">
+    <!-- <p>You have chosen to register using your Facebook Profile.</p> -->
+  <p>You are connected through Facebook as: {{ FBProfile.name }}</p>
+  <!-- <form novalidate (ngSubmit)="registerFBUser()" [formGroup]="FBregFormGroup">
+
+
+  </form> -->
+</div>
+
+<div *ngIf="FBUser">
+    <p> {{ FBUser | json }}</p>
+</div>
 <div *ngIf="!regChoice">
 <button class='already' (click)="already()">
 If you've already registered, you can just Login!

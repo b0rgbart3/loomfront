@@ -24,6 +24,7 @@ export class ClassService implements OnInit {
     constructor (private _http: HttpClient, private globals: Globals) {
       this._registryUrl = globals.base_path + '/api/classregistrations';
       this._classesUrl = globals.base_path + '/api/classes';
+      console.log('Classes API URL: ' + this._classesUrl);
     }
 
     ngOnInit() {

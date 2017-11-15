@@ -6,7 +6,7 @@ import { NgForm, FormControl, FormBuilder, FormGroup, FormArray, Validators } fr
 import { UserService } from '../user.service';
 import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
+import { FacebookService, InitParams, LoginResponse, LoginStatus } from 'ngx-facebook';
 import { BoardSettings } from '../../models/boardsettings.model';
 
 
@@ -33,7 +33,16 @@ export class RegisterComponent implements OnInit {
     regFormGroup: FormGroup;
     regChoice = '';
     fbResponseObject: LoginResponse;
+    fbStatusResponseObject: LoginStatus;
     boardSettings: BoardSettings;
+    initParams;
+    fbloginStatus;
+    connectedThruFB: boolean;
+    alreadyConnectedThruFB: boolean;
+    FBProfile: any;
+    newFBUser: User;
+    FBUser: any;
+ 
 
     constructor(
       public userService: UserService,
@@ -43,30 +52,66 @@ export class RegisterComponent implements OnInit {
       private activated_route: ActivatedRoute,
       private formBuilder: FormBuilder,
       private FB: FacebookService) {
-
-        const initParams: InitParams = {
-          appId: '143123396316217',
-          xfbml: true,
-          version: 'v2.11'
-        };
-
-        FB.init(initParams);
       }
 
     loginWithFacebook(): void {
       console.log('checking Login status');
 
-          this.FB.login()
+          this.FB.login({scope: 'public_profile,email'})
             .then((response: LoginResponse) => {
               this.fbResponseObject = response;
-              console.log( 'fb Response: ' + response); })
+              console.log( 'fb Response: ' + JSON.stringify(response) );
+              if (this.fbResponseObject && (this.fbResponseObject.status === 'connected')) {
+              this.getProfileForRegistration();
+            }
+
+            })
             .catch((error: any) => console.error(error));
 
         }
 
+  getProfileForRegistration() {
+    console.log('Getting the profile for registtration purposes.');
+    this.FB.api('/' + this.fbResponseObject.authResponse.userID + '?fields=id,name,picture,email')
+    .then((res: any) => {this.FBProfile = res;
+      if (res) {
+       // this.connectedThruFB = true;
+        // this.getFBUserFromProfileID();
+       // this.processFBLoginResponse();
+      }
+      console.log('Got the users profile', res);
+      console.log('including email: ' + this.FBProfile.email);
+      this.processFBLoginResponse();
+    })
+    .catch(this.handleError);
+  }
+
+
+  /**
+   * Get the user's profile
+   */
+  getProfile() {
+    this.FB.api('/me')
+      .then((res: any) => {this.FBProfile = res;
+        if (res) {
+          this.connectedThruFB = true;
+        }
+        console.log('Got the users profile', res);
+      })
+      .catch(this.handleError);
+  }
 
     ngOnInit() {
 
+      this.initParams = {
+        appId: '143123396316217',
+        xfbml: true,
+        version: 'v2.11'
+      };
+
+      //  cookie     : true
+
+      this.connectedThruFB = false;
       const id = this.activated_route.snapshot.params['id'];
       if (id) {
               this.user = this.activated_route.snapshot.data['user'][0]; }
@@ -88,7 +133,8 @@ export class RegisterComponent implements OnInit {
 
       if (!this.user) {
         this.boardSettings = new BoardSettings('', '', '');
-        this.user = new User('', '', '', '', '', '', '', '', '', true, false, false , [], '', '', '', '', [], [], [], this.boardSettings );
+        this.user = <User> {};
+        this.user.boardsettings = this.boardSettings;
       }
       this.regFormGroup = this.formBuilder.group( {
         firstname: [this.user.firstname, [ Validators.required, Validators.maxLength(20), ] ],
@@ -104,24 +150,94 @@ export class RegisterComponent implements OnInit {
         instructor: this.user.instructor,
         admin: this.user.admin
       });
-      this.loginWithFacebook();
+
+      this.alreadyConnectedThruFB = false;
+      this.initFB();
+     // this.loginWithFacebook();
+    }
+
+    // Here the user has finished clicking on the Login with Facebook Button
+    // and filling in their FB credentials into the FB generated Popup.
+    // So we now need to take their login info and "create a registration".
+    processFBLoginResponse() {
+        this.newFBUser = <User> {};
+        const nameSplit = this.FBProfile.name.split(' ');
+        if (nameSplit.length === 3 ) {
+          this.newFBUser.firstname = nameSplit[0];
+          this.newFBUser.middlename = nameSplit[1];
+          this.newFBUser.lastname = nameSplit[2];
+          this.newFBUser.username = nameSplit[0] + nameSplit[2];
+        }
+        if (nameSplit.length === 2 ) {
+          this.newFBUser.firstname = nameSplit[0];
+          this.newFBUser.lastname = nameSplit[1];
+          this.newFBUser.username = nameSplit[0] + nameSplit[1];
+        }
+
+        this.newFBUser.email = this.FBProfile.email;
+        this.registerFBUser( this.newFBUser );
+
+
+    }
+
+    processFBLoginStatusResponse() {
+ 
+      console.log('FACEBOOK Initial Status: ');
+      console.log(JSON.stringify(this.fbStatusResponseObject) );
+
+      if (this.fbStatusResponseObject.status === 'connected') {
+        this.alreadyConnectedThruFB = true;
+        this.regChoice = null;
+        this.getProfile();
+      }  else {
+        this.connectedThruFB = false;
+      }
     }
 
     revealForm() {
       this.regChoice = 'direct';
     }
+    fblogout() {
+      this.FB.logout();
+    }
 
     revealFB() {
       this.regChoice = 'facebook';
+      // this.loginWithFacebook();
     }
 
     already() {
       this.router.navigate(['/login']);
     }
+
+    getLoginStatus() {
+      this.FB.getLoginStatus()
+        .then( response => { this.fbStatusResponseObject = response;
+        this.processFBLoginStatusResponse(); } )
+        .catch(console.error.bind(console));
+    }
+
+    initFB() {
+      this.FB.init(this.initParams);
+
+      this.getLoginStatus();
+    }
     // The user filled out and submitted the Registration form.
 
     cancel() {
       this.router.navigate(['/welcome']);
+    }
+
+    registerFBUser( newFBUser: User) {
+
+      this.userService.createUser( newFBUser ).subscribe(
+        (val) => { console.log('POST call successful value returned in body ', val);
+          this.router.navigate(['/welcome']); },
+        response => {console.log('POST call in error', response); },
+        () => {console.log('The POST observable is now completed.');
+          this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
+            ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
+            this.router.navigate(['/welcome']);  });
     }
     registerUser() {
       console.log('About to register user');
@@ -169,6 +285,14 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+    /**
+   * This is a convenience method for the sake of this example project.
+   * Do not use this in production, it's better to handle errors separately.
+   * @param error
+   */
+  private handleError(error) {
+    console.error('Error processing action', error);
+  }
 }
 
 

@@ -4,6 +4,7 @@ import { ClassService } from '../class.service';
 import { User } from '../../models/user.model';
 import { CourseService } from '../../courses/course.service';
 import { Course } from '../../models/course.model';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'class-thumb',
@@ -21,19 +22,18 @@ public course: Course;
 public courseimageURL: string;
 public errorMessage: string;
 
-  constructor(private classService: ClassService, private courseService: CourseService) { }
+  constructor(private classService: ClassService, private courseService: CourseService, private globals: Globals) { }
 
   ngOnInit() {
     this.courseID = this.classObject.course;
     this.courseService.getCourse(this.courseID).subscribe(
       course =>  {this.course = course[0];
-      this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
+      this.courseimageURL = this.globals.base_path + '/courseimages/' + this.courseID + '/' + this.course.image;
 
       },
           error => this.errorMessage = <any>error);
 
     // this.courseService.getCourseImage().subscribe(
-      
     // )
   }
 
