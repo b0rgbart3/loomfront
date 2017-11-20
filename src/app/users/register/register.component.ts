@@ -56,6 +56,7 @@ export class RegisterComponent implements OnInit {
 
     loginWithFacebook(): void {
       console.log('checking Login status');
+      this.regChoice = 'facebook';
 
           this.FB.login({scope: 'public_profile,email'})
             .then((response: LoginResponse) => {
@@ -109,7 +110,7 @@ export class RegisterComponent implements OnInit {
         version: 'v2.11'
       };
 
-      //  cookie     : true
+
 
       this.connectedThruFB = false;
       const id = this.activated_route.snapshot.params['id'];

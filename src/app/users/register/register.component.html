@@ -5,7 +5,7 @@
 <div *ngIf='!regChoice && !alreadyConnectedThruFB'>
     
 <button class='bigchoice' (click)='revealForm()'>Register directly with the Loom</button>
-<button class='bigchoice' (click)='revealFB()'>Register using my Facebook account info</button>
+<button class='bigchoice' (click)='loginWithFacebook()'>Register using my Facebook account info</button>
 </div>
 <div  *ngIf="regChoice === 'direct'">
 <form novalidate (ngSubmit)="registerUser()" [formGroup]="regFormGroup">
@@ -69,10 +69,10 @@
     </div>
 
 </form></div>
-<div *ngIf="alreadyConnectedThruFB">
+<!-- <div *ngIf="alreadyConnectedThruFB">
     You are already registered and connected through FaceBook, as: {{ FBProfile.name }}
-</div>
-<div *ngIf="regChoice === 'facebook'">
+</div> -->
+<!-- <div *ngIf="regChoice === 'facebook'">
     <h2>Facebook Registration:</h2>
     <button (click)="fblogout()">LogOut (of facebook)</button>
 
@@ -90,7 +90,7 @@
     <div *ngIf="connectedThruFB">
 
     </div>
-</div>
+</div> -->
 
 <div *ngIf="FBProfile">
     <!-- <p>You have chosen to register using your Facebook Profile.</p> -->
@@ -106,7 +106,7 @@
 </div>
 <div *ngIf="!regChoice">
 <button class='already' (click)="already()">
-If you've already registered, you can just Login!
+If you've already registered, you can <span class='just'>just Login!</span>
 </button>
 </div>
 <!-- <div class='debug'>
