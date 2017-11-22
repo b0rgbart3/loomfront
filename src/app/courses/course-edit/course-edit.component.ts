@@ -7,7 +7,7 @@ import { Section } from '../../models/section.model';
 import { FileUploader } from 'ng2-file-upload';
 import { Material } from '../../models/material.model';
 import { MaterialService } from '../../materials/material.service';
-const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages';
+import { Globals } from '../../globals';
 
 @Component({
     moduleId: module.id,
@@ -39,7 +39,8 @@ export class CourseEditComponent implements OnInit {
     materialFormArrayReferences: FormArray[]; // these are just pointers to the various material form arrays
 
     constructor(private router: Router, private activated_route: ActivatedRoute,
-        private courseService: CourseService, private fb: FormBuilder, private materialService: MaterialService ) { }
+        private courseService: CourseService, private fb: FormBuilder,
+        private materialService: MaterialService, private globals: Globals ) { }
 
     ngOnInit(): void {
 
@@ -49,7 +50,7 @@ export class CourseEditComponent implements OnInit {
         this.materials = this.activated_route.snapshot.data['materials'];
 
         console.log(JSON.stringify(this.materials));
-        this.existingImage = COURSE_IMAGE_PATH + '/' + this.id + '/' + this.course.image;
+        this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
 
         this.uploadedCourseImage = false;
         this.sectionsFormArray = this.fb.array([  ]);
@@ -119,7 +120,7 @@ export class CourseEditComponent implements OnInit {
             course => {this.course = <Course>course[0];
                 // console.log('got course info :' + JSON.stringify(course) );
                 this.image = this.course.image;
-                this.imageUrl = COURSE_IMAGE_PATH + '/' + this.course.id + '/' + this.image;
+                this.imageUrl = this.globals.courseimages + '/' + this.course.id + '/' + this.image;
              },
             error => this.errorMessage = <any> error
         );
@@ -195,7 +196,7 @@ export class CourseEditComponent implements OnInit {
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             this.tempName = this.uploader.queue[0].file.name;
             this.image = this.tempName;
-            this.imageUrl = COURSE_IMAGE_PATH + '/' +  this.course.id + '/' + this.image;
+            this.imageUrl = this.globals.courseimages + '/' +  this.course.id + '/' + this.image;
             this.uploader.queue[0].remove();
         };
     }

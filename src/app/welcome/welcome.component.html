@@ -2,6 +2,18 @@
 <div class='stuff'>
     <flash-messages></flash-messages>
 
+    <div *ngIf="!dataConnection">
+        <div class='warning'>
+        <h1>Experiencing Technical Difficulties:</h1>
+    <h2>Can't connect to the database.</h2>
+   
+    <p>Thank you for your patience.</p><br>
+<a href='/'><div class='tryagain'>Try Again</div></a></div>
+<br><br>
+<p class='contactAdmin'>If this problem persists, please <a href='mailto:b0rgBart3@gmail.com'>contact the administrator</a>.</p>
+    </div>
+    
+    <div *ngIf="dataConnection">
     <div>
         <h1> Welcome back to the Reclaiming Loom {{ username }}</h1>
     </div>
@@ -14,5 +26,6 @@
 
     <div class="loomCard" >
             <course-list></course-list>
+    </div>
     </div>
 </div>

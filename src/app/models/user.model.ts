@@ -15,6 +15,7 @@ export class User {
         public token: string,
         public verificationID: string,
         public verified: string,
+        public facebookRegistration: boolean,
         public student: boolean,
         public instructor: boolean,
         public admin: boolean,

@@ -75,12 +75,19 @@ export class ClassService implements OnInit {
     return null;
   }
 
-  getClass(id): Observable<ClassModel[]> {
+  getClass(id): Observable <ClassModel> {
+    console.log('In Class Service, this id =' + id);
+    const idNumber = parseInt(id, 10);
+    if (idNumber > 0 ) {
+      console.log('The ID wasn\'t zero, so we\'re gettin the class from the api.');
     return this._http.get<ClassModel[]> ( this._classesUrl + '?id=' + id )
       .do(data => {
 
       return data; })
-      .catch (this.handleError);
+      .catch (this.handleError); } else {
+        console.log('The ID is zero, so we\'re creating a fresh new Class.');
+        return Observable.of( new ClassModel('', '', '', '', '', '', null, null) );
+      }
   }
 
   // This method just takes the classObject and a list of users,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user.service';
 
 
 @Component({

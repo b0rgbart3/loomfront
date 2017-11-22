@@ -21,6 +21,7 @@
 <div *ngIf="username" class='userPic'>
 <p>You are logged in as:<br><span class='username'>
 	{{ username }}</span></p>
+	<!-- Why is there a 2nd image here that seems to be blank? -->
 	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
 	<img *ngIf="currentUser && currentUser.avatar_URL" 
 	[src]="currentUser.avatar_URL" class='avatar'>

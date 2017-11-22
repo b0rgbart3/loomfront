@@ -1,14 +1,15 @@
 ﻿
 <div class='loginStuff'>
-<div class="loomCard">
+                <flash-messages></flash-messages>
+<div class="loomCardLeft">
 
            <form name="form" (ngSubmit)="f.form.valid &&
             login()" #f="ngForm" novalidate><div class="padMe"> 
     <!-- <div class="alert alert-info">
     </div> -->
-    <flash-messages></flash-messages>
 
-    <h2>Login</h2>
+
+    <h2>Loom Private Login</h2>
   
       
             <mat-form-field>
@@ -38,7 +39,11 @@
     </form>
 
 </div>
-
+<div class='loomDivider'></div>
+<div class='loomFloatRight group'>
+        <div class='fbLoginButton' (click)="FBLogin()">Login with Facebook</div>
+</div>
+<br clear='all'>
 <p>New to the Loom? <a [routerLink]="['/register']">&nbsp; &#10148;&nbsp;Register today!</a></p>
 <br>
 <p>Forgot your password? <a [routerLink]="['/requestreset']">&nbsp; &#10148;&nbsp;Request a password reset, via email.</a></p>

@@ -8,21 +8,24 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import { User } from '../models/user.model';
-import { UserService } from '../services/user.service';
 
 @Injectable()
-export class UsersResolver implements Resolve <User[]> {
+export class CourseResolver implements Resolve <Course> {
 
-    constructor( private userService: UserService, private router: Router ) { }
+    constructor( private courseService: CourseService, private classService: ClassService, private router: Router ) { }
 
-    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <User[]> {
+    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
+        const id = route.params['id'];
+        console.log('In the course resolver.');
 
-       // console.log('In the Users resolver.');
-
-        return this.userService.getUsers().
+        if (isNaN(id)) {
+            console.log(`Course id was not a number: ${id}`);
+            this.router.navigate(['/welcome']);
+            return Observable.of(null);
+        }
+        return this.courseService.getCourse(id).
         map(course => { if (course) { return course; }
-        console.log(`users were not found:`);
+        console.log(`Course was not found: ${id}`);
         this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {

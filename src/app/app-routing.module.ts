@@ -47,12 +47,14 @@ const ROUTES: Routes = [
 { path: 'home', pathMatch: 'full', component: HomeComponent },
 { path: 'courses/:id/edit', component: CourseEditComponent, resolve: { course: CourseResolver, materials: MaterialsResolver} },
 
+{ path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
+    thisClass: ClassesResolver, users: UsersResolver,
+    possibleInstructors: PossibleInstructorsResolver } },
+    
 { path: 'classes/:id/:section', component: ClassComponent, resolve: {
     thisClass: ClassesResolver, section: SectionsResolver, users: UsersResolver }},
 
- { path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
-        thisClass: ClassesResolver, users: UsersResolver,
-        possibleInstructors: PossibleInstructorsResolver } },
+
 
 { path: 'classes/:id', component: ClassComponent, resolve: { thisClass: ClassesResolver, users: UsersResolver } },
 

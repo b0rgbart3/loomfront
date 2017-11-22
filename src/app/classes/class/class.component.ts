@@ -5,7 +5,7 @@ import { User } from '../../models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassModel } from '../../models/class.model';
 import { ClassService } from '../class.service';
-import { UserService } from '../../users/user.service';
+import { UserService } from '../../services/user.service';
 import { ContentChart } from '../../models/contentchart.model';
 import { Section } from '../../models/section.model';
 import { MaterialService } from '../../materials/material.service';
@@ -14,10 +14,8 @@ import { Student } from '../../models/student.model';
 import { Instructor } from '../../models/instructor.model';
 import { Userthumbnail } from '../../models/userthumbnail.model';
 import { BoardSettings } from '../../models/boardsettings.model';
+import { Globals } from '../../globals';
 
-
-const COURSE_IMAGE_PATH = 'http://localhost:3100/courseimages';
-const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
 
 @Component({
 
@@ -67,16 +65,21 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     diff;
     grabberWidth;
     adjustment;
+    COURSE_IMAGE_PATH: string;
+    AVATAR_IMAGE_PATH: string;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
     private classService: ClassService,
     private courseService: CourseService,
     private userService: UserService,
-    private materialService: MaterialService ) {
+    private materialService: MaterialService, private globals: Globals ) {
         this.initialWindowWidth = window.screen.width;
         this.boardWidth = this.initialWindowWidth * .3;
         this.contentWidth = this.initialWindowWidth * .6;
+
+    
+
     }
 
 
@@ -338,7 +341,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
-            this.courseimageURL = 'http://localhost:3100/courseimages/' + this.courseID + '/' + this.course.image;
+            this.courseimageURL = this.globals.courseimages + this.courseID + '/' + this.course.image;
 
             if (!this.sectionNumber) { this.sectionNumber = 0; }
             if (this.course && this.course.sections) {

@@ -81,6 +81,17 @@ export class UserService implements OnInit {
     return avatar.id === queryID;
   }
 
+  findUserByEmail(queryEmail): User {
+    let foundUser = <User>null;
+    if (this.users) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].email === queryEmail ) {
+          foundUser = this.users[i];
+        }
+      }
+    }
+    return foundUser;
+  }
   findUserById(queryId): User {
     let foundUser = <User>{};
     if (this.users) {
@@ -98,7 +109,7 @@ export class UserService implements OnInit {
       .do(data => {
         if (data[0].avatar_URL === null) {
           data[0].avatar_URL = this._avatar_image_url + 'placeholder.jpg';
-          console.log('setting placeholder');
+          // console.log('setting placeholder');
         }
         // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
@@ -148,7 +159,7 @@ export class UserService implements OnInit {
             }
           // console.log('hightestID: ' + this.highestID );
          }
-         console.log('Users\'s highest ID: ' + this.highestID);
+         // console.log('Users\'s highest ID: ' + this.highestID);
         return this.users;
         }
         )
@@ -170,16 +181,16 @@ export class UserService implements OnInit {
       myHeaders.append('Content-Type', 'application/json');
       userObject.id = this.highestID.toString();
       const body =  JSON.stringify(userObject);
-      console.log('Highest ID: ' + this.highestID );
-      console.log('In postUser.');
-      console.log( 'Posting User: ', body   );
-      console.log(this._usersUrl);
+      // console.log('Highest ID: ' + this.highestID );
+      // console.log('In postUser.');
+      // console.log( 'Posting User: ', body   );
+      // console.log(this._usersUrl);
 
       return this._http.put(this._usersUrl + '?id=0', userObject, {headers: myHeaders} );
     }
 
     updateUser(userObject: User): Observable<any> {
-      console.log('Made it to the updateUser method.');
+      // console.log('Made it to the updateUser method.');
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(userObject);
@@ -188,7 +199,7 @@ export class UserService implements OnInit {
 
 
     private handleError (error: HttpErrorResponse) {
-      console.log( error.message );
+      // console.log( error.message );
       return Observable.throw(error.message);
     }
 
@@ -242,7 +253,45 @@ export class UserService implements OnInit {
       localStorage.setItem('currentUser', JSON.stringify( newUserObject) );
      }
 
+    loginFBUser ( User ) {
+      /*  This User object is being sent to this method because we already called the FB api in the
+          registration component.  So we are assuming that part of things has already happened.
+          We might need another method to login in a user to FB and the loom -- cold, here in the User
+          Serivce -- for other components.
 
+          This first uses the local method: findUserByEmail - to check our exiting User array.
+          If it doesn't find it -- then it calls the database.
+      */
+       const FBUser = this.findUserByEmail ( User.email );
+       if (FBUser !== null) {
+         this.currentUser = <User> FBUser;
+       } else {
+         // console.log('In USER SERVICE, in the loginFBUser method.');
+         this.logout();
+         // console.log('In USER SERVICE, looking for the user by email: ' + User.email );
+         return this.findUserByEmailFromDB( User.email ).subscribe(
+           (val) => { this.currentUser = <User> val[0];
+               // console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
+                      this.username = this.currentUser.username;
+                      localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
+
+                     },
+           (error) => { this.errorMessage = error; }
+         );
+       }
+    }
+
+    findUserByEmailFromDB( email: string ): Observable <any> {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+      return this._http.get(this.base_path + '/api/finduser?email=' + email , {headers: myHeaders} ).do((response) => {
+        this.currentUser = <User> response;
+        this.username = this.currentUser.username;
+        localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
+       return <User> response;
+      });
+    }
 
     login(username: string, password: string): Observable <any> {
 

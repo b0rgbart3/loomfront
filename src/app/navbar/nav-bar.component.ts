@@ -4,9 +4,10 @@ import {
 import { User } from '../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FacebookService } from 'ngx-facebook/dist/esm/providers/facebook';
 
 @Component({
   selector: 'nav-bar',
@@ -27,13 +28,18 @@ export class NavBarComponent implements OnInit, DoCheck {
     private _flashMessagesService: FlashMessagesService,
     private _router: Router,
     public userService: UserService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private FB: FacebookService
   ) {
   }
 
   updateMyself() {
     this.currentUser = this.userService.getCurrentUser();
-    // console.log(JSON.stringify(this.currentUser));
+    // console.log('In navbar: ' + JSON.stringify(this.currentUser));
+    if (this.currentUser) {
+      this.username = this.currentUser.username;
+      // console.log('username: ' + this.username);
+    }
     if (this.currentUser && this.currentUser.admin) {
       this.admin = true;
     }
@@ -46,6 +52,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.userService.logout();
     localStorage.removeItem('username');
     this._router.navigate(['/welcome']);
+    this.FB.logout();
   }
 
 

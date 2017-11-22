@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model';
 import { NgForm, FormGroup, FormBuilder } from '@angular/forms';
 
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user.service';
 import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 

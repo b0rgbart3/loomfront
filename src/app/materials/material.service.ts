@@ -6,20 +6,20 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+import { Globals } from '../globals';
 
 import { Material } from '../models/material.model';
 
 
 @Injectable()
 export class MaterialService {
-    private _materialsUrl = 'http://localhost:3100/api/materials';
-   // private _materialUrl = 'http://localhost:3100/api/material';
+
     private materialCount = 0;
     private highestID = 0;
     private materials: Material[];
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
-    constructor (private _http: HttpClient) {}
+    constructor (private _http: HttpClient, private globals: Globals) {}
 
     // We want to get all the material objects for the entire course -- but
     // not all the material objects in the entire database -- so we'll grab
@@ -27,13 +27,13 @@ export class MaterialService {
    getMaterials( course_id ): Observable<Material[]> {
      if (course_id === 0) {
        // get a list of ALL the materials for ALL courses
-        return this._http.get <Material[]> (this._materialsUrl).do(data => {
+        return this._http.get <Material[]> (this.globals.materials).do(data => {
           this.materialCount = data.length;
           this.materials = data;
           this.updateIDCount();
         }).catch(this.handleError);
      } else {
-    return this._http.get <Material[]> (this._materialsUrl + '?id=' + course_id )
+    return this._http.get <Material[]> (this.globals.materials + '?id=' + course_id )
       // debug the flow of data
       .do(data =>  { // console.log('All: ' + JSON.stringify(data));
                     this.materialCount = data.length;
@@ -64,7 +64,7 @@ export class MaterialService {
 
 
   getMaterial(id): Observable<Material> {
-    return this._http.get<Material> ( this._materialsUrl + '?id=' + id )
+    return this._http.get<Material> ( this.globals.materials + '?id=' + id )
       .do(data => {
          // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
@@ -72,7 +72,7 @@ export class MaterialService {
   }
 
   deleteMaterial(courseId: number): Observable<any> {
-      return this._http.delete( this._materialsUrl + '?id=' + courseId);
+      return this._http.delete( this.globals.materials + '?id=' + courseId);
   }
 
   private extractData(res: Response) {
@@ -93,7 +93,7 @@ export class MaterialService {
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this._materialsUrl + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+      return this._http.put(this.globals.materials + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
    updateMaterial(courseObject: Material): Observable<any> {
@@ -101,7 +101,7 @@ export class MaterialService {
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this._materialsUrl + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+      return this._http.put(this.globals.materials + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
     private handleError (error: HttpErrorResponse) {

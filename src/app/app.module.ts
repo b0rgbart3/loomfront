@@ -19,7 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/index';
 import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { UserService } from './users/user.service';
+import { UserService } from './services/user.service';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { RegisterComponent } from './users/register/register.component';
 import { AlertComponent } from './_directives/alert.component';
@@ -71,6 +71,7 @@ import { SectionsResolver } from './services/sections-resolver.service';
 import { Globals } from './globals';
 import { MatInputModule } from '@angular/material';
 import { FacebookModule } from 'ngx-facebook';
+import { LoomsFacebookService } from './services/loomsfacebook.service';
 
 @NgModule({
   // External
@@ -131,7 +132,8 @@ import { FacebookModule } from 'ngx-facebook';
   providers: [ AuthGuard, UserService, AlertService,
     CourseService, ClassService, AdminRouteActivator, MaterialService,
     CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
-    DiscussionService, ChatService, ChatSocketService, NotificationsService, SectionsResolver, Globals
+    DiscussionService, ChatService, ChatSocketService, NotificationsService,
+    SectionsResolver, Globals, LoomsFacebookService
    ],
   bootstrap: [AppComponent ]
 })

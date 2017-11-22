@@ -3,7 +3,7 @@ import { ClassService } from '../classes/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Thread } from '../models/thread.model';
 import { DiscussionService } from '../services/discussion.service';

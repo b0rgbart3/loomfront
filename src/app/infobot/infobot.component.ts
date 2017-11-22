@@ -5,7 +5,7 @@ import { ClassService } from '../classes/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 import { ChatSocketService } from '../services/chatsocket.service';
 
 

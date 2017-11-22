@@ -23,6 +23,7 @@ export class ClassesResolver implements Resolve <ClassModel> {
             this.router.navigate(['/welcome']);
             return Observable.of(null);
         }
+        console.log('In Classes Resolver: id=' + id);
         return this.classService.getClass(id).
         map(thisClass => { if (thisClass) {
             // console.log('This class id: ' + id);

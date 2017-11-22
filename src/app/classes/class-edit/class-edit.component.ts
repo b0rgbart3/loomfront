@@ -5,7 +5,7 @@ import { ClassService } from '../class.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { CourseService } from '../../courses/course.service';
 import { Course } from '../../models/course.model';
-import { UserService } from '../../users/user.service';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Enrollment } from '../../models/enrollment.model';
 import { Student } from '../../models/student.model';
@@ -70,8 +70,12 @@ export class ClassEditComponent implements OnInit {
             student_choices: this.studentChoices
         });
 
-        this.instructors = this.thisClass.instructors;
-        this.students = this.thisClass.students;
+        if (this.thisClass && this.thisClass.instructors) {
+        this.instructors = this.thisClass.instructors; } else { this.instructors = null; }
+
+        if (this.thisClass && this.thisClass.students) {this.students = this.thisClass.students; } else {
+            this.students = null;
+        }
 
         this.courseSelections = [];
         this.courseService
@@ -125,21 +129,22 @@ export class ClassEditComponent implements OnInit {
             // with the role of instructor.  We compare that against the full list of possible Instructors
             // in order to determine which Controls to check as selected.
             // If there's a match in the two lists, then we build the control with the value of true.
-
+            if (this.instructors) {
             for (let j = 0; j < this.instructors.length; j++) {
                 if (this.instructors[j].user_id === this.possibleInstructors[i].id) {
                     match = true;
                 }
-            }
+            } }
             this.instructor_choices.push(this.buildInstructorChoice(this.possibleInstructors[i], match) );
         }
     }
 
     populateForm() {
 
+        if (this.thisClass) {
         this.classForm.patchValue({'title': this.thisClass.title, 'description': this.thisClass.description,
             'course' : this.thisClass.course, 'start' : new Date(this.thisClass.start), 'end' : new Date(this.thisClass.end) });
-
+        }
 
 
     }

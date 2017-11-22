@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { FileUploader} from 'ng2-file-upload';
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';

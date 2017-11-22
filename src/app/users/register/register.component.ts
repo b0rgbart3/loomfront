@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model';
 import { NgForm, FormControl, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user.service';
 import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FacebookService, InitParams, LoginResponse, LoginStatus } from 'ngx-facebook';
@@ -54,9 +54,17 @@ export class RegisterComponent implements OnInit {
       private FB: FacebookService) {
       }
 
-    loginWithFacebook(): void {
+    registerWithFacebook(): void {
       console.log('checking Login status');
       this.regChoice = 'facebook';
+
+      /* This checks the login status -- and if the user is NOT connected to our App via Facebook,
+         then it presents the user with a dialog for their login info, which gets verified by FB.
+         It then sends us a data-object that includes an "authResponse", object, which has
+         an "accessToken", a User_ID, an expiresIn #, and a signedRequest signature.
+         If the user IS already connected to our App via facebook, then we just get that same data-object
+         back right away, and the dialog box closes itself automatically.
+         So we either way we either get a status "connected", otherwise we get a status "unknown" */
 
           this.FB.login({scope: 'public_profile,email'})
             .then((response: LoginResponse) => {
@@ -71,18 +79,16 @@ export class RegisterComponent implements OnInit {
 
         }
 
+  /* This calls the Facebook API to get the user's profile -- using the UserID we got in our Response Object.
+     The initial response object gives us the user ID - but it doesnt' give us the picture and email, so that's why we're
+     calling the API again here. */
   getProfileForRegistration() {
-    console.log('Getting the profile for registtration purposes.');
+    console.log('Getting the profile for registration purposes.');
     this.FB.api('/' + this.fbResponseObject.authResponse.userID + '?fields=id,name,picture,email')
     .then((res: any) => {this.FBProfile = res;
-      if (res) {
-       // this.connectedThruFB = true;
-        // this.getFBUserFromProfileID();
-       // this.processFBLoginResponse();
-      }
       console.log('Got the users profile', res);
       console.log('including email: ' + this.FBProfile.email);
-      this.processFBLoginResponse();
+      this.processFBProfile();
     })
     .catch(this.handleError);
   }
@@ -160,7 +166,7 @@ export class RegisterComponent implements OnInit {
     // Here the user has finished clicking on the Login with Facebook Button
     // and filling in their FB credentials into the FB generated Popup.
     // So we now need to take their login info and "create a registration".
-    processFBLoginResponse() {
+    processFBProfile() {
         this.newFBUser = <User> {};
         const nameSplit = this.FBProfile.name.split(' ');
         if (nameSplit.length === 3 ) {
@@ -176,6 +182,11 @@ export class RegisterComponent implements OnInit {
         }
 
         this.newFBUser.email = this.FBProfile.email;
+        if (this.FBProfile.picture && this.FBProfile.picture.data &&
+        this.FBProfile.picture.data.url) {
+          this.newFBUser.avatar_URL = this.FBProfile.picture.data.url;
+        }
+        this.newFBUser.facebookRegistration = true;
         this.registerFBUser( this.newFBUser );
 
 
@@ -229,10 +240,21 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/welcome']);
     }
 
+    /* We first search for an existing user with the same email address.
+       If it's unique, then we'll go ahead and create a new user.
+    */
     registerFBUser( newFBUser: User) {
 
+      const existingUser = this.userService.findUserByEmail ( newFBUser.email );
+      if (existingUser === null) {
+        this.createFBUser(newFBUser);
+      }
+    }
+
+    createFBUser( newFBUser: User) {
       this.userService.createUser( newFBUser ).subscribe(
         (val) => { console.log('POST call successful value returned in body ', val);
+          this.userService.loginFBUser( newFBUser );
           this.router.navigate(['/welcome']); },
         response => {console.log('POST call in error', response); },
         () => {console.log('The POST observable is now completed.');
@@ -240,6 +262,7 @@ export class RegisterComponent implements OnInit {
             ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
             this.router.navigate(['/welcome']);  });
     }
+
     registerUser() {
       console.log('About to register user');
       if (this.regFormGroup.dirty && this.regFormGroup.valid) {

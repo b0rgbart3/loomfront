@@ -6,7 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
 import { NgClass, NgStyle} from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 
 // const URL = '/api/';
 // let uploadURL = 'http://localhost:3100/api/assets';

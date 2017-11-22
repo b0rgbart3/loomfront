@@ -2,7 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { ClassService } from '../classes/class.service';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 import { Course } from '../models/course.model';
 
 

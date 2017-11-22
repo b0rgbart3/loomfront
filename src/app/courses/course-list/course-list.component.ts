@@ -3,7 +3,7 @@ import { Course } from '../../models/course.model';
 import { CourseService } from '../course.service';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
-import { UserService } from '../../users/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'course-list',

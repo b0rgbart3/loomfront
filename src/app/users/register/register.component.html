@@ -5,7 +5,7 @@
 <div *ngIf='!regChoice && !alreadyConnectedThruFB'>
     
 <button class='bigchoice' (click)='revealForm()'>Register directly with the Loom</button>
-<button class='bigchoice' (click)='loginWithFacebook()'>Register using my Facebook account info</button>
+<button class='bigchoice' (click)='registerWithFacebook()'>Register using my Facebook account info</button>
 </div>
 <div  *ngIf="regChoice === 'direct'">
 <form novalidate (ngSubmit)="registerUser()" [formGroup]="regFormGroup">

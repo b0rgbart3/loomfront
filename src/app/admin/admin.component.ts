@@ -6,12 +6,12 @@ import { ClassModel } from '../models/class.model';
 import { CourseService } from '../courses/course.service';
 import { Router } from '@angular/router';
 import { ClassService } from '../classes/class.service';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 
 import { MaterialService } from '../materials/material.service';
 import { Material } from '../models/material.model';
 import { Userthumbnail } from '../models/userthumbnail.model';
-const AVATAR_IMAGE_PATH = 'http://localhost:3100/avatars/';
+import { Globals } from '../globals';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -32,6 +32,7 @@ export class AdminComponent implements OnInit {
   materials: Material [];
   public instructorThumbnails: Userthumbnail[];
   public userThumbnails: Userthumbnail[];
+  AVATAR_IMAGE_PATH: string;
 
 
   constructor(
@@ -39,8 +40,9 @@ export class AdminComponent implements OnInit {
     private classService: ClassService,
     private materialService: MaterialService,
     private router: Router,
-    public userService: UserService
+    public userService: UserService, globals: Globals
   ) {
+    this.AVATAR_IMAGE_PATH = globals.base_path + '/avatars/';
 
   }
 

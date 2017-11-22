@@ -9,18 +9,19 @@ import 'rxjs/add/operator/do';
 
 import { ClassModel } from '../models/class.model';
 import { Thread } from '../models/thread.model';
+import { Globals } from '../globals';
 
 @Injectable()
 export class DiscussionService implements OnInit, OnChanges {
-    private _registryUrl = 'http://localhost:3100/api/classregistrations';
-    private _threadsUrl = 'http://localhost:3100/api/threads';
+    // private _registryUrl = 'http://localhost:3100/api/classregistrations';
+    // private _threadsUrl = 'http://localhost:3100/api/threads';
     private classCount = 0;
     private highestID = 0;
     threads: Thread[];
     errorMessage: string;
 
 
-    constructor (private _http: HttpClient) {}
+    constructor (private _http: HttpClient, private globals: Globals) {}
 
     ngOnInit() {
       this.getThreads().subscribe(
@@ -37,7 +38,7 @@ export class DiscussionService implements OnInit, OnChanges {
      const myHeaders = new HttpHeaders();
      myHeaders.append('Content-Type', 'application/json');
 
-    return this._http.get <Thread[]> (this._threadsUrl, {headers: myHeaders})
+    return this._http.get <Thread[]> (this.globals.threads, {headers: myHeaders})
       // debug the flow of data
       .do(data => {// console.log('All: ' + JSON.stringify(data));
       this.threads = data;
@@ -64,7 +65,7 @@ export class DiscussionService implements OnInit, OnChanges {
 
 
   getThread(id): Observable<Thread[]> {
-    return this._http.get<Thread[]> ( this._threadsUrl + '?id=' + id )
+    return this._http.get<Thread[]> ( this.globals.threads + '?id=' + id )
       .do(data => {
 
       return data; })
@@ -73,7 +74,7 @@ export class DiscussionService implements OnInit, OnChanges {
 
   deleteThread(threadObject): Observable<any> {
     console.log('Deleting thread: ' + JSON.stringify(threadObject));
-    return this._http.delete( this._threadsUrl + '?id=' + threadObject.id);
+    return this._http.delete( this.globals.threads + '?id=' + threadObject.id);
   }
 
 
@@ -86,7 +87,7 @@ export class DiscussionService implements OnInit, OnChanges {
     myHeaders.append('Content-Type', 'application/json');
 
     // Note: I'm not passing the id as part of the url -- because it's inside the classObject
-    const url = this._threadsUrl;
+    const url = this.globals.threads;
     return this._http.put(url + '?id=' + threadObject.id, threadObject,
      {headers: myHeaders}).map( () => threadObject );
 
@@ -98,7 +99,7 @@ export class DiscussionService implements OnInit, OnChanges {
         myHeaders.append('Content-Type', 'application/json');
 
         // Note: I'm not passing the id as part of the url -- because it's inside the classObject
-        const url = this._threadsUrl;
+        const url = this.globals.threads;
         return this._http.put(url + '?id=' + threadObject.id, threadObject, {headers: myHeaders}).map( () => threadObject );
 
       }

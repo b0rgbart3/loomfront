@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { User } from '../models/user.model';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class UserResolver implements Resolve <User[]> {
