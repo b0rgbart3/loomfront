@@ -8,6 +8,7 @@ import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FacebookService, InitParams, LoginResponse, LoginStatus } from 'ngx-facebook';
 import { BoardSettings } from '../../models/boardsettings.model';
+import { Globals } from '../../globals';
 
 
 @Component({
@@ -51,7 +52,8 @@ export class RegisterComponent implements OnInit {
       private _flashMessagesService: FlashMessagesService,
       private activated_route: ActivatedRoute,
       private formBuilder: FormBuilder,
-      private FB: FacebookService) {
+      private FB: FacebookService,
+      private globals: Globals) {
       }
 
     registerWithFacebook(): void {
@@ -109,13 +111,6 @@ export class RegisterComponent implements OnInit {
   }
 
     ngOnInit() {
-
-      this.initParams = {
-        appId: '143123396316217',
-        xfbml: true,
-        version: 'v2.11'
-      };
-
 
 
       this.connectedThruFB = false;
@@ -230,8 +225,7 @@ export class RegisterComponent implements OnInit {
     }
 
     initFB() {
-      this.FB.init(this.initParams);
-
+      this.FB.init(this.globals.fb_app_params);
       this.getLoginStatus();
     }
     // The user filled out and submitted the Registration form.

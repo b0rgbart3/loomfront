@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     test: true;
     currentUser: User;
     username: string;
+    classIDs: string[];
     classObjects: Object[];
     courses: Course[];
     instructorClassObjects: Object[];
@@ -42,12 +43,21 @@ export class HomeComponent implements OnInit {
         this.classObjects = [];
         this.instructorClassObjects = [];
 
-        this.classService
-              .getClasses().subscribe(
-                classes =>  {
-                  this.classObjects = classes;
-                },
-                    error => this.errorMessage = <any>error);
+        if (this.currentUser) {
+        this.classIDs = this.classService.getClassesByStudentUserid(this.currentUser.id);
+
+        if (this.classIDs && (this.classIDs.length > 0)) {
+          for (let i = 0; i < this.classIDs.length; i++) {
+                this.classObjects.push(this.classService.getClass(this.classIDs[i]));
+            }
+        }
+    }
+        // this.classService
+        //       .getClasses().subscribe(
+        //         classes =>  {
+        //           this.classObjects = classes;
+        //         },
+        //             error => this.errorMessage = <any>error);
 
         this.loadCourseImages();
     }

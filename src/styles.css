@@ -415,7 +415,7 @@ body {
 }
 
 mat-select {
-  width:250px;
+  width:250px !important;
   margin-top:10px;
   margin-bottom:10px;
 }

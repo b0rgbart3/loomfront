@@ -10,23 +10,17 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class CourseResolver implements Resolve <Course> {
+export class CoursesResolver implements Resolve <Course> {
 
-    constructor( private courseService: CourseService, private classService: ClassService, private router: Router ) { }
+    constructor( private courseService: CourseService, private router: Router ) { }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
-        const id = route.params['id'];
-        console.log('In the course resolver.');
 
-        if (isNaN(id)) {
-            console.log(`Course id was not a number: ${id}`);
-            this.router.navigate(['/welcome']);
-            return Observable.of(null);
-        }
-        return this.courseService.getCourse(id).
-        map(course => { if (course) { return course; }
-        console.log(`Course was not found: ${id}`);
-        this.router.navigate(['/welcome']);
+        console.log('In the course(s) resolver.');
+        return this.courseService.getCourses().
+        map(courses => { if (courses) {
+            // console.log('got courses back from the api: ' + JSON.stringify(courses));
+            return courses; }
         return null; })
     .catch(error => {
         console.log(`Retrieval error: ${error}`);

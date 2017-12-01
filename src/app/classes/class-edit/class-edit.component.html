@@ -17,11 +17,14 @@
         name="description" required minlength="3" maxlength="250">
         </mat-form-field>
 
-        <mat-select placeholder="Coursework for this class" name="course" formControlName='course'>
-        <mat-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
+        <mat-form-field>
+        <mat-select placeholder="Coursework for this class" name="course" formControlName='course' [(value)]="selected">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
         {{ course.viewValue }}
         </mat-option>
         </mat-select>
+        </mat-form-field>
         <br clear='all'>
         <br> 
 

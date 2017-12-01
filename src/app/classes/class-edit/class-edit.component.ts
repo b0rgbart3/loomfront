@@ -53,8 +53,11 @@ export class ClassEditComponent implements OnInit {
         const id = this.activated_route.snapshot.params['id'];
         this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
         this.users = this.activated_route.snapshot.data['users'];
+        this.courses = this.activated_route.snapshot.data['courses'];
         this.possibleInstructors = this.activated_route.snapshot.data['possibleInstructors'];
         // console.log('in init: poss.Instructors: ' + JSON.stringify(this.possibleInstructors));
+
+        console.log('In Class Edit Component: thisClass = ' + JSON.stringify(this.thisClass));
 
         this.possibleStudents = this.activated_route.snapshot.data['users'];
         this.instructorChoices = <FormArray> this.fb.array([ ]);
@@ -78,19 +81,17 @@ export class ClassEditComponent implements OnInit {
         }
 
         this.courseSelections = [];
-        this.courseService
-        .getCourses().subscribe(
-          courses => { this.courses = courses;
-            // console.log ('Got the courses');
+
+        if (this.courses) {
             for (let i = 0; i < this.courses.length; i++) {
-                // console.log(this.courses[i].title);
+                console.log(this.courses[i].title);
                 const newObject = { value: this.courses[i].id , viewValue: this.courses[i].title };
-                // console.log(newObject);
+                console.log(newObject);
                 this.courseSelections.push( newObject );
             }
 
-        },
-          error => this.errorMessage = <any>error);
+            console.log('course selections: ' + JSON.stringify(this.courseSelections) );
+        }
 
         this.buildInstructorChoices();
         this.buildStudentChoices();
@@ -142,8 +143,11 @@ export class ClassEditComponent implements OnInit {
     populateForm() {
 
         if (this.thisClass) {
+            console.log('In Class edit component - about to patch Values to the form: ' + JSON.stringify(this.thisClass));
         this.classForm.patchValue({'title': this.thisClass.title, 'description': this.thisClass.description,
             'course' : this.thisClass.course, 'start' : new Date(this.thisClass.start), 'end' : new Date(this.thisClass.end) });
+        } else {
+            console.log('ERROR in Class Edit -- no thisClass object!');
         }
 
 
@@ -193,19 +197,24 @@ export class ClassEditComponent implements OnInit {
             console.log('in save: ' + JSON.stringify(combinedClassObject) );
 
             // This sends the newly formed class Object to the API
-            if (this.thisClass.id === '0') {
-                this.classService.createClass( combinedClassObject ).subscribe(
-                    (val) => { }, response => console.log('save completed')
-                    ,
-                      () => {});
-            } else { this.classService
+            const id_as_number = parseInt(this.thisClass.id, 10);
+            if ( id_as_number > 0 ) {
+                console.log('calling update: ');
+                this.classService
                 .updateClass( combinedClassObject ).subscribe(
                 (val) => {
                  this.router.navigate(['/welcome']);
-            }, response => { },
-                () => { }); }
+            }, response => { this.router.navigate(['/welcome']); },
+                () => { });
 
-
+            } else {
+                console.log('calling createClass');
+                this.classService.createClass( combinedClassObject ).subscribe(
+                    (val) => { }, (response) => { console.log('save completed');
+                     this.router.navigate(['/welcome']); }
+                    ,
+                      () => {});
+            }
 
         }
     }

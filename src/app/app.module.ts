@@ -72,6 +72,8 @@ import { Globals } from './globals';
 import { MatInputModule } from '@angular/material';
 import { FacebookModule } from 'ngx-facebook';
 import { LoomsFacebookService } from './services/loomsfacebook.service';
+import { CoursesResolver } from './services/courses-resolver.service';
+import { ClassResolver } from './services/class-resolver.service';
 
 @NgModule({
   // External
@@ -129,11 +131,29 @@ import { LoomsFacebookService } from './services/loomsfacebook.service';
 
   ],
 
-  providers: [ AuthGuard, UserService, AlertService,
-    CourseService, ClassService, AdminRouteActivator, MaterialService,
-    CourseResolver, MaterialsResolver, ClassesResolver, UsersResolver, PossibleInstructorsResolver, UserResolver,
-    DiscussionService, ChatService, ChatSocketService, NotificationsService,
-    SectionsResolver, Globals, LoomsFacebookService
+  providers: [
+    AdminRouteActivator,
+    AlertService,
+    AuthGuard,
+    ChatService,
+    ChatSocketService,
+    ClassService,
+    ClassResolver,
+    ClassesResolver,
+    CourseService,
+    CourseResolver,
+    CoursesResolver,
+    DiscussionService,
+    Globals,
+    LoomsFacebookService,
+    MaterialService,
+    MaterialsResolver,
+    NotificationsService,
+    PossibleInstructorsResolver,
+    SectionsResolver,
+    UserResolver,
+    UsersResolver,
+    UserService
    ],
   bootstrap: [AppComponent ]
 })

@@ -34,6 +34,21 @@ export class ClassService implements OnInit {
 
     }
 
+    // Return an array of class ID's that this user is registered for
+    getClassesByStudentUserid( studentUserID ): string [] {
+      const regClasses = [];
+
+      for (let i = 0; i < this.classCount; i ++) {
+        if ( this.classes[i] && this.classes[i].students) {
+          for (let j = 0; j < this.classes[i].students.length; j++) {
+            if (this.classes[i].students[j].user_id === studentUserID) {
+              regClasses.push(this.classes[i].id);
+            }
+          }
+        }
+      }
+      return regClasses;
+    }
 
    getClasses(): Observable<ClassModel[]> {
      const myHeaders = new HttpHeaders();
@@ -127,14 +142,17 @@ export class ClassService implements OnInit {
 
  createClass(classObject): Observable<ClassModel> {
 
+    console.log('In createClass method of the Class Service: ' + JSON.stringify(classObject));
     classObject.id = this.highestID.toString();
-
+    console.log('New id =' + classObject.id);
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
 
     // Note: I'm not passing the id as part of the url -- because it's inside the classObject
     const url = this._classesUrl;
-    return this._http.put(url + '?id=' + classObject.id, classObject, {headers: myHeaders}).map( () => classObject );
+    const putString = url + '?id=' + classObject.id;
+    console.log('Put string: ' + putString);
+    return this._http.put(putString, classObject, {headers: myHeaders}).map( () => classObject );
 
   }
 

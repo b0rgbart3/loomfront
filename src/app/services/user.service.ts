@@ -175,13 +175,14 @@ export class UserService implements OnInit {
     }
 
     createUser(userObject: User): Observable<any> {
-      // console.log('Made it to the createUser method.');
+      this.subscribeToUsers();
+      console.log('Made it to the createUser method.');
 
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
-      userObject.id = this.highestID.toString();
+      userObject.id = this.highestID; // toString();
       const body =  JSON.stringify(userObject);
-      // console.log('Highest ID: ' + this.highestID );
+      console.log('Highest ID: ' + this.highestID );
       // console.log('In postUser.');
       // console.log( 'Posting User: ', body   );
       // console.log(this._usersUrl);
@@ -262,19 +263,26 @@ export class UserService implements OnInit {
           This first uses the local method: findUserByEmail - to check our exiting User array.
           If it doesn't find it -- then it calls the database.
       */
+
+      console.log('IN User Service:, calling find by Email');
+
        const FBUser = this.findUserByEmail ( User.email );
        if (FBUser !== null) {
+        console.log('IN User Service:, found user by Email');
          this.currentUser = <User> FBUser;
+         this.username = this.currentUser.username;
+         localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
        } else {
-         // console.log('In USER SERVICE, in the loginFBUser method.');
+         console.log('In USER SERVICE, in the loginFBUser method, didnt find the user by email');
          this.logout();
-         // console.log('In USER SERVICE, looking for the user by email: ' + User.email );
+         console.log('In USER SERVICE, looking for the user by email: ' + User.email );
          return this.findUserByEmailFromDB( User.email ).subscribe(
            (val) => { this.currentUser = <User> val[0];
-               // console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
+               console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
+                      if ( this.currentUser && this.currentUser.username) {
                       this.username = this.currentUser.username;
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
-
+                    } else { console.log('user not yet registered.'); }
                      },
            (error) => { this.errorMessage = error; }
          );

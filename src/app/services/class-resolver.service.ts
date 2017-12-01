@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 import { ClassModel } from '../models/class.model';
 
 @Injectable()
-export class ClassesResolver implements Resolve <ClassModel> {
+export class ClassResolver implements Resolve <ClassModel> {
 
     constructor( private courseService: CourseService, private classService: ClassService, private router: Router ) { }
 
@@ -23,8 +23,8 @@ export class ClassesResolver implements Resolve <ClassModel> {
             this.router.navigate(['/welcome']);
             return Observable.of(null);
         }
-        console.log('In Classes Resolver: id=' + id);
-        return this.classService.getClasses().
+        console.log('In Class Resolver: id=' + id);
+        return this.classService.getClass(id).
         map(thisClass => { if (thisClass) {
             // console.log('This class id: ' + id);
            // console.log('found: ' + JSON.stringify(thisClass));
