@@ -6,7 +6,7 @@ import { UserService } from '../../services/user.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, DoCheck, AfterViewChecked, OnChanges } from '@angular/core';
@@ -24,6 +24,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     tempName: string;
     favoritecolor: FormControl;
     avatarInput: FormControl;
+    firstname: FormControl;
     currentUserId;
     avatarimage: string;
     public uploader: FileUploader;
@@ -38,7 +39,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         private router: Router,
         private _flashMessagesService: FlashMessagesService,
         private activated_route: ActivatedRoute,
-        private sanitizer: DomSanitizer) {}
+        private sanitizer: DomSanitizer, private fb: FormBuilder) {}
 
     myInit() {
         this.user = this.userService.getCurrentUser();
@@ -48,13 +49,46 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     }
 
     ngOnInit () {
-        this.user = this.userService.getCurrentUser();
+        const idFromURL = this.activated_route.snapshot.params['id'];
+        if (idFromURL) {
+            this.userService.getUser(idFromURL).subscribe(
+                user =>  {this.user = user[0];
+                },
+                error => this.errorMessage = <any>error);
+        } else {
+            this.user = this.userService.getCurrentUser();
+        }
+
+        // this.instructorChoices = <FormArray> this.fb.array([ ]);
+        // this.studentChoices = <FormArray> this.fb.array([ ]);
+
+        // this.classForm = this.fb.group({
+        //     title: [ '', [Validators.required, Validators.minLength(3)] ] ,
+        //     description: [ '', [Validators.required ]],
+        //     course: '',
+        //     start: [new Date()],
+        //     end: [new Date()],
+        //     instructor_choices: this.instructorChoices,
+        //     student_choices: this.studentChoices
+        // });
+
+
         this.favoritecolor = new FormControl();
         this.avatarInput = new FormControl();
+        this.firstname = new FormControl();
+
         this.settingsForm = new FormGroup ( {
             favoritecolor: this.favoritecolor,
-            avatar: this.avatarInput
+            avatar: this.avatarInput,
+            firstname: this.firstname
         } );
+
+        // Here I am using the formBuilder to build my form controls
+        // this.settingsForm = this.fb.group( {
+        //     favoritecolor: [''],
+        //     avatar: '',
+        //     firstname: ''
+        // });
 
         this.myInit();
 
@@ -109,7 +143,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     }
 
     ngOnChanges() {
-       
+
     }
 
     cancel() {
@@ -117,6 +151,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     }
     submitSettings() {
         console.log('In submitSettings');
+
 
         // Combine the Form Model with our Data Model
 
@@ -127,6 +162,8 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         settingsObject['id'] = this.currentUserId;
         settingsObject['favoritecolor'] = this.settingsForm.value.favoritecolor;
         settingsObject['avatar_filename'] = JSON.stringify(this.tempName);
+        console.log('settingsObject: ' + JSON.stringify(settingsObject));
+        console.log('settings - avatar filename: ' + settingsObject['avatar_filename']);
         settingsObject['avatar_filename'] = settingsObject['avatar_filename'].substring(1, settingsObject['avatar_filename'].length - 1);
         settingsObject['avatar_path'] = 'http://localhost:3100/avatars/' + this.user.id + '/';
         settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];

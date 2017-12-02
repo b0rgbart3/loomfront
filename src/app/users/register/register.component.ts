@@ -126,9 +126,9 @@ export class RegisterComponent implements OnInit {
       this.admin = false;
       this.editSelf = false;
       this.currentUser = this.userService.getCurrentUser();
-      if (this.user && this.user.id && (this.currentUser.id === this.user.id)) {
-        this.editSelf = true;
-      }
+      // if (this.user && this.user.id && (this.currentUser.id === this.user.id)) {
+      //   this.editSelf = true;
+      // }
       if (this.currentUser && this.currentUser.admin) {
         this.admin = true;
       }

@@ -7,7 +7,7 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { ProfileComponent } from './users/profile.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './_guards/auth.guard';
+// import { AuthGuard } from './_guards/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
 import { AdminComponent } from './admin/admin.component';
@@ -32,6 +32,8 @@ import { BoardComponent } from './discuss/board.component';
 import { SectionsResolver } from './services/sections-resolver.service';
 import { CoursesResolver } from './services/courses-resolver.service';
 import { ClassResolver } from './services/class-resolver.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { UserAuthGuard } from './services/user-auth-guard.service';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -41,33 +43,34 @@ import { ClassResolver } from './services/class-resolver.service';
 
 const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
-{ path: 'register', pathMatch: 'full', component: RegisterComponent, resolve: { user: UserResolver, users: UsersResolver} },
-{ path: 'users/:id/edit', component: RegisterComponent, resolve: { user: UserResolver }},
+{ path: 'register', pathMatch: 'full', component: RegisterComponent,
+resolve: { user: UserResolver, users: UsersResolver} },
+// { path: 'users/:id/edit', component: RegisterComponent, resolve: { user: UserResolver }},
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
-{ path: 'admin', pathMatch: 'full', component: AdminComponent, canActivate: [ AdminRouteActivator ] },
+{ path: 'admin', pathMatch: 'full', component: AdminComponent,
+canActivate: [ AdminRouteActivator ] },
 { path: 'home', pathMatch: 'full', component: HomeComponent },
-{ path: 'courses/:id/edit', component: CourseEditComponent, resolve: { course: CourseResolver, materials: MaterialsResolver} },
-
+{ path: 'courses/:id/edit', component: CourseEditComponent,
+resolve: { course: CourseResolver, materials: MaterialsResolver} },
 { path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, users: UsersResolver,
     possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
-
 { path: 'classes/:id/:section', component: ClassComponent, resolve: {
     thisClass: ClassesResolver, section: SectionsResolver, users: UsersResolver }},
-
-
-
-{ path: 'classes/:id', component: ClassComponent, resolve: { thisClass: ClassesResolver, users: UsersResolver } },
-
-
-{ path: 'users/:id/edit', pathMatch: 'full', component: RegisterComponent },
+{ path: 'classes/:id', component: ClassComponent,
+resolve: { thisClass: ClassesResolver, users: UsersResolver } },
+{ path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
+ canActivate: [ AuthGuard, UserAuthGuard ] },
 { path: 'materials/:id/edit', component: MaterialEditComponent },
 // { path: 'upload', pathMatch: 'full', component: UploadComponent },
-{ path: 'chatroom/:id', component: ChatroomComponent, resolve: { thisClass: ClassesResolver, users: UsersResolver }},
-{ path: 'discussion/:id', component: BoardComponent, resolve: { thisClass: ClassesResolver, users: UsersResolver }},
+{ path: 'chatroom/:id', component: ChatroomComponent,
+resolve: { thisClass: ClassesResolver, users: UsersResolver }},
+{ path: 'discussion/:id', component: BoardComponent,
+resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'usersettings', component: UserSettingsComponent },
-{ path: 'instructorassignments', component: InstructorAssignmentsComponent, resolve: {users: UsersResolver } },
+{ path: 'instructorassignments', component: InstructorAssignmentsComponent,
+resolve: {users: UsersResolver } },
 { path: '404', component: Error404Component },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }

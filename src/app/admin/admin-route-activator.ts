@@ -10,9 +10,12 @@ export class AdminRouteActivator implements CanActivate {
 
     canActivate() {
         const loggedIn = this.userService.isloggedin();
-        if (!loggedIn) {
-            this.router.navigate(['/404']);
+        const admin = this.userService.isAdmin();
+
+        if (loggedIn && admin) {
+            return true; } else {
+                this.router.navigate(['/login']);
+            return false;
         }
-        return loggedIn;
     }
 }

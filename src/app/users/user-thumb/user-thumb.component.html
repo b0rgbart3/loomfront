@@ -2,7 +2,7 @@
 <div [style.width.px]="thumbnail.size" class='userThumb'>
 
 <div *ngIf='thumbnail.editable'>
-<a [routerLink]="['/users', thumbnail.user.id, 'edit']">
+<a [routerLink]="['/usersettings', thumbnail.user.id, 'edit']">
 <img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'>
 </a></div>
 

@@ -16,7 +16,6 @@ import { BoardSettings } from '../models/boardsettings.model';
 export class UserService implements OnInit {
   currentUser: User;
   subscribeduser: User;
-  isLoggedIn = false;
   private highestID;
   private userCount = 0;
   users: User[];
@@ -237,6 +236,8 @@ export class UserService implements OnInit {
         // this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
         return this.currentUser;
      }
+
+
 
      checkAuthenticationStatus() {
         // this.currentUser = JSON.parse( localStorage.getItem('currentUser') );

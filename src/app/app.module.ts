@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './navbar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppComponent } from './app.component';
-import { CanActivateAuthGuard } from './can-activate.service';
+// import { CanActivateAuthGuard } from './can-activate.service';
 import { FormPoster } from './services/form-poster.service';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -16,7 +16,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './_guards/index';
+import { AuthGuard } from './services/auth-guard.service';
 import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UserService } from './services/user.service';
@@ -74,6 +74,7 @@ import { FacebookModule } from 'ngx-facebook';
 import { LoomsFacebookService } from './services/loomsfacebook.service';
 import { CoursesResolver } from './services/courses-resolver.service';
 import { ClassResolver } from './services/class-resolver.service';
+import { UserAuthGuard } from './services/user-auth-guard.service';
 
 @NgModule({
   // External
@@ -153,7 +154,9 @@ import { ClassResolver } from './services/class-resolver.service';
     SectionsResolver,
     UserResolver,
     UsersResolver,
-    UserService
+    UserService,
+    AuthGuard,
+    UserAuthGuard
    ],
   bootstrap: [AppComponent ]
 })

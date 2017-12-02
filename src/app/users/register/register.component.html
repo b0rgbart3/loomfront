@@ -35,7 +35,7 @@
         </mat-form-field>
         <br clear='all'><br>
 
-        <mat-form-field *ngIf="editSelf || !currentUser || !user.id">
+        <mat-form-field *ngIf="!currentUser || !user.id">
         <input  matInput placeholder="password" 
         name="password" formControlName='password'>
         <mat-hint align="start">A combination of at least 8 lower and uppercase letters, at least 1 number, and 1 symbol</mat-hint>     

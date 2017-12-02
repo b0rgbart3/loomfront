@@ -7,7 +7,12 @@
                                 
             <flash-messages></flash-messages>
         
-            <h2>Your Settings: {{ username }}</h2>
+            <h2>{{ user.username }}'s Settings:</h2>
+            <mat-form-field>
+                <input matInput placeholder="First name" 
+                name="firstname" formControlName='firstname' required maxlength="30"
+                value="{{user.firstname}}">
+                </mat-form-field><br clear='all'><br>
 
             <h1>Preferences</h1>
             <div class="form-group">
@@ -27,6 +32,23 @@
                     </div>
                         
             </div> 
+    
+           <!--      <mat-form-field>
+                <input matInput placeholder="Last name" 
+                name="lastname" formControlName='lastname' required minlength="3" maxlength="30">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                <input matInput placeholder="email" name="email" 
+               formControlName='email' required type="email" minlength="7" maxlength="40">
+                </mat-form-field>
+                <mat-form-field>
+                <input matInput placeholder="witchy name" name="username" 
+                formControlName='username' required type="username" minlength="3" maxlength="40">
+                <mat-hint align="start">This will be the name that you login with</mat-hint>
+         
+                </mat-form-field>
+                <br clear='all'><br> -->
 
             <!-- <tbody>
                 <tr *ngFor="let item of uploader.queue">
