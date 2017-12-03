@@ -32,6 +32,7 @@ export class UserService implements OnInit {
   private _instructorsUrl;
   private _studentsUrl;
   private _avatar_image_url;
+  _userSettingsUrl;
 
   constructor (private _http: HttpClient, private globals: Globals) {
     const thisUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -40,6 +41,7 @@ export class UserService implements OnInit {
 
     this.base_path = globals.base_path;
      this._usersUrl = this.base_path + '/api/users';
+     this._userSettingsUrl = this.base_path + '/api/usersettings';
      this._avatarsUrl = this.base_path + '/api/avatars';
      this._classregistrationsUrl = this.base_path + '/api/classregistrations';
      this._instructorsUrl = this.base_path + '/api/instructors';
@@ -215,7 +217,8 @@ export class UserService implements OnInit {
     saveSettings(settingsObject: any): Observable<any> {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
-        return this._http.put(this._usersUrl + '?id=' + settingsObject.id, settingsObject, {headers: myHeaders} );
+        return this._http.put(this._userSettingsUrl + '?id=' +
+            settingsObject.id, settingsObject, {headers: myHeaders, responseType: 'text'} );
 
       }
 

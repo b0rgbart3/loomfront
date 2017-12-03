@@ -11,6 +11,7 @@ import { User } from '../../models/user.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, DoCheck, AfterViewChecked, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
+import { Validators } from '@angular/forms';
 
 @Component({
     moduleId: module.id,
@@ -42,10 +43,22 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         private sanitizer: DomSanitizer, private fb: FormBuilder) {}
 
     myInit() {
-        this.user = this.userService.getCurrentUser();
-        if (this.user) {
-            this.currentUserId = this.user.id;
-        }
+               //  Here I am using the formBuilder to build my form controls
+               this.settingsForm = this.fb.group( {
+                favoritecolor: [''],
+                avatar: '',
+                username: [ this.user.username, [Validators.required, Validators.minLength(3)] ],
+                firstname: [ this.user.firstname, [Validators.required, Validators.minLength(3)] ],
+                lastname: [ this.user.lastname, [Validators.required, Validators.minLength(3)] ],
+                email: [this.user.email, [ Validators.required,
+                    Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')] ],
+            });
+            this.settingsForm.valueChanges.subscribe( value => console.log(value) );
+            console.log('USER: ' + JSON.stringify(this.user));
+        // this.user = this.userService.getCurrentUser();
+        // if (this.user) {
+        //     this.currentUserId = this.user.id;
+        // }
     }
 
     ngOnInit () {
@@ -53,44 +66,16 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         if (idFromURL) {
             this.userService.getUser(idFromURL).subscribe(
                 user =>  {this.user = user[0];
+                    this.myInit();
                 },
                 error => this.errorMessage = <any>error);
         } else {
             this.user = this.userService.getCurrentUser();
+            this.myInit();
         }
 
-        // this.instructorChoices = <FormArray> this.fb.array([ ]);
-        // this.studentChoices = <FormArray> this.fb.array([ ]);
-
-        // this.classForm = this.fb.group({
-        //     title: [ '', [Validators.required, Validators.minLength(3)] ] ,
-        //     description: [ '', [Validators.required ]],
-        //     course: '',
-        //     start: [new Date()],
-        //     end: [new Date()],
-        //     instructor_choices: this.instructorChoices,
-        //     student_choices: this.studentChoices
-        // });
 
 
-        this.favoritecolor = new FormControl();
-        this.avatarInput = new FormControl();
-        this.firstname = new FormControl();
-
-        this.settingsForm = new FormGroup ( {
-            favoritecolor: this.favoritecolor,
-            avatar: this.avatarInput,
-            firstname: this.firstname
-        } );
-
-        // Here I am using the formBuilder to build my form controls
-        // this.settingsForm = this.fb.group( {
-        //     favoritecolor: [''],
-        //     avatar: '',
-        //     firstname: ''
-        // });
-
-        this.myInit();
 
         const urlWithQuery = 'http://localhost:3100/api/avatar?userid=' + this.currentUserId;
         this.uploader = new FileUploader({url: urlWithQuery});
@@ -104,20 +89,19 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
             this.tempName = this.uploader.queue[0].file.name;
             console.log('Done uploading' + JSON.stringify(this.tempName));
+            console.log('USER: ' + JSON.stringify(this.user));
             alert('Your image will be cropped to fit a square aspect ratio.');
             // const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
             // console.log('New name: ' + newfilename);
             // this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
 
             // localStorage.setItem('avatarimage', this.avatarimage);
-            this.localImageUrl = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + this.tempName;
+            this.localImageUrl = 'http://localhost:3100/avatars/' + this.user.id + '/' + this.tempName;
 
             this.uploader.queue[0].remove();
             this.positionCropper();
         };
 
-        this.favoritecolor.valueChanges.subscribe( value => console.log(value) );
-        this.avatarInput.valueChanges.subscribe( value => console.log('value change: ' + value) );
 
     }
 
@@ -151,22 +135,26 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     }
     submitSettings() {
         console.log('In submitSettings');
-
+        console.log('settingsForm.value: ' + JSON.stringify( this.settingsForm.value) );
+        const settingsObject = Object.assign( {}, this.user, this.settingsForm.value);
+        this.userService.resetCurrentUser(settingsObject);
 
         // Combine the Form Model with our Data Model
 
         // The user is submitting their settings changes -
         // so we overwrite the User Object, and then save it back out to the database
 
-        const settingsObject = <User> this.user;
-        settingsObject['id'] = this.currentUserId;
+        // const settingsObject = <User> this.user;
+        // settingsObject['id'] = this.currentUserId;
         settingsObject['favoritecolor'] = this.settingsForm.value.favoritecolor;
-        settingsObject['avatar_filename'] = JSON.stringify(this.tempName);
-        console.log('settingsObject: ' + JSON.stringify(settingsObject));
-        console.log('settings - avatar filename: ' + settingsObject['avatar_filename']);
-        settingsObject['avatar_filename'] = settingsObject['avatar_filename'].substring(1, settingsObject['avatar_filename'].length - 1);
-        settingsObject['avatar_path'] = 'http://localhost:3100/avatars/' + this.user.id + '/';
-        settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];
+
+        if ( this.tempName ) {
+            settingsObject['avatar_filename'] = JSON.stringify(this.tempName);
+            settingsObject['avatar_filename'] =
+                    settingsObject['avatar_filename'].substring(1, settingsObject['avatar_filename'].length - 1);
+            settingsObject['avatar_path'] = 'http://localhost:3100/avatars/' + this.user.id + '/';
+            settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];
+        }
 
         this.userService.resetCurrentUser(settingsObject);
         console.log(JSON.stringify(settingsObject));

@@ -1,5 +1,7 @@
-<div class='loginStuff'>
+
+
     <div class="loomCard">
+        <div class='settingsForm' *ngIf="settingsForm">
         <form [formGroup]="settingsForm" (ngSubmit)="submitSettings()" novalidate
          enctype="multipart/form-data">
         
@@ -7,13 +9,23 @@
                                 
             <flash-messages></flash-messages>
         
-            <h2>{{ user.username }}'s Settings:</h2>
+            <h1>{{ user.username }}'s Settings:</h1>
+            <mat-form-field>
+                <input matInput placeholder="Username" 
+                formControlName="username" value="{{user.username}}">
+                </mat-form-field><br clear='all'><br>
             <mat-form-field>
                 <input matInput placeholder="First name" 
-                name="firstname" formControlName='firstname' required maxlength="30"
-                value="{{user.firstname}}">
+                formControlName="firstname" value="{{user.firstname}}">
                 </mat-form-field><br clear='all'><br>
-
+            <mat-form-field>
+                    <input matInput placeholder="Last name" 
+                    formControlName="lastname" value="{{user.lastname}}">
+                    </mat-form-field><br clear='all'><br>
+            <mat-form-field>
+                    <input matInput placeholder="Email address" 
+                    formControlName="email" value="{{user.email}}">
+                    </mat-form-field><br clear='all'><br>
             <h1>Preferences</h1>
             <div class="form-group">
                     <input class="form-control" placeholder="favoritecolor"
@@ -88,4 +100,5 @@
         
     </div>
     
-    </div>
+ 
+</div>
