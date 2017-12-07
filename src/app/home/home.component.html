@@ -1,25 +1,25 @@
 <div class='loomContainer'>
 <h1>Home</h1>
 <div *ngIf='classObjects' class='loomCard padMe'><h1>Classes you are taking</h1>
-<div *ngFor='let class of classObjects' >
-    <div class='selectorBox group' (click)='goto(class.id)'>
+<div *ngFor='let classobject of classObjects' >
+    <div class='selectorBox group' (click)='goto(classobject.id)'>
         <div class='classInfoSelectionCollection'>
         <div class='classCourseImageThumnail'>
             courseimage
         </div>
-    <h2>{{ class.title }}</h2>
-    {{ class.description }}<br>
-    Starts: {{ class.start }}<br>
-    Ends: {{ class.end }}
+    <h2>{{ classobject.title }}</h2>
+    {{ classobject.description }}<br>
+    Starts: {{ classobject.start }}<br>
+    Ends: {{ classobject.end }}
     </div></div>
 </div></div>
 <div *ngIf='classObjects' class='loomCard padMe'><h1>Classes you are teaching</h1>
-<div *ngFor='let class of instructorClassObjects'>
-        <div class='selectorBox group' (click)='goto(class.id)'>
-        <h2>{{ class.title }}</h2>
-        {{ class.description }}<br><br>
-        Starts: {{ class.start }}<br>
-        Ends: {{ class.end }}
+<div *ngFor='let classobject of instructorClassObjects'>
+        <div class='selectorBox group' (click)='goto(classobject.id)'>
+        <h2>{{ classobject.title }}</h2>
+        {{ classobject.description }}<br><br>
+        Starts: {{ classobject.start }}<br>
+        Ends: {{ classobject.end }}
         </div>
     </div></div>
 </div>

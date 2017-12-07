@@ -20,6 +20,6 @@
 }
 
 .classInfoSelectionCollection {
-
+    border:2px solid red;
     line-height:1.7em;
 }

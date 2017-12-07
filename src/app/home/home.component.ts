@@ -4,6 +4,7 @@ import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Course } from '../models/course.model';
+import { ClassModel } from '../models/class.model';
 
 
 
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
     test: true;
     currentUser: User;
     username: string;
+    classes: ClassModel[];
     classIDs: string[];
     classObjects: Object[];
     courses: Course[];
@@ -42,24 +44,32 @@ export class HomeComponent implements OnInit {
         }
         this.classObjects = [];
         this.instructorClassObjects = [];
-
-        if (this.currentUser) {
-        this.classIDs = this.classService.getClassesByStudentUserid(this.currentUser.id);
-
-        if (this.classIDs && (this.classIDs.length > 0)) {
-          for (let i = 0; i < this.classIDs.length; i++) {
-                this.classObjects.push(this.classService.getClass(this.classIDs[i]));
-            }
-        }
-    }
-        // this.classService
-        //       .getClasses().subscribe(
-        //         classes =>  {
-        //           this.classObjects = classes;
-        //         },
-        //             error => this.errorMessage = <any>error);
+        this.classService.getClasses().subscribe(
+            classes => {this.classes = classes;
+                this.getClassesForCurrentUser(); },
+            error => this.errorMessage = <any>error);
 
         this.loadCourseImages();
+    }
+
+    getClassesForCurrentUser() {
+        this.classService.getStudentClasses(this.currentUser.id);
+        // this.classObjects = [];
+        // if (this.currentUser) {
+        //     this.classIDs = this.classService.getClassesByStudentUserid(this.currentUser.id);
+
+        //     if (this.classIDs && (this.classIDs.length > 0)) {
+        //       for (let i = 0; i < this.classIDs.length; i++) {
+
+
+        //             this.classService.getClass(this.classIDs[i]).subscribe(
+        //             classObj => { this.classObjects.push(classObj);
+        //                 console.log(this.classObjects[i]);
+        //             },
+        //             error => this.errorMessage = <any>error);
+        //         }
+        //     }
+        // }
     }
 
     loadCourseImages() {

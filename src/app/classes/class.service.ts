@@ -15,6 +15,7 @@ import { Globals } from '../globals';
 export class ClassService implements OnInit {
     private _registryUrl;
     private _classesUrl;
+    _studentClassesUrl;
     private classCount = 0;
     private highestID = 0;
     classes: ClassModel[];
@@ -24,31 +25,47 @@ export class ClassService implements OnInit {
     constructor (private _http: HttpClient, private globals: Globals) {
       this._registryUrl = globals.base_path + '/api/classregistrations';
       this._classesUrl = globals.base_path + '/api/classes';
+      this._studentClassesUrl = globals.base_path + '/api/studentClasses';
       console.log('Classes API URL: ' + this._classesUrl);
     }
 
-    ngOnInit() {
+    getClassesNow() {
       this.getClasses().subscribe(
         classes => this.classes = classes,
         error => this.errorMessage = <any>error);
-
+    }
+    ngOnInit() {
+      this.getClassesNow();
     }
 
+    // Rather than returning an array of class ID's from the memory based class objects,
+    // lets call the API and let mongo do the searching, and return to us a list of complete class objects
+
+    getStudentClasses( studentID ): Observable <ClassModel[]> {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+     return this._http.get <ClassModel[]> (this._studentClassesUrl + '?id=' + studentID, {headers: myHeaders});
+
+    }
     // Return an array of class ID's that this user is registered for
-    getClassesByStudentUserid( studentUserID ): string [] {
-      const regClasses = [];
-
-      for (let i = 0; i < this.classCount; i ++) {
-        if ( this.classes[i] && this.classes[i].students) {
-          for (let j = 0; j < this.classes[i].students.length; j++) {
-            if (this.classes[i].students[j].user_id === studentUserID) {
-              regClasses.push(this.classes[i].id);
-            }
-          }
-        }
-      }
-      return regClasses;
-    }
+    // getClassesByStudentUserid( studentUserID ): string [] {
+    //   const regClasses = [];
+    //   console.log('about to look for classes');
+    //   if (this.classes) {
+    //   for (let i = 0; i < this.classCount; i ++) {
+    //     console.log('Class # ' + i);
+    //     if ( this.classes[i] && this.classes[i].students) {
+    //       for (let j = 0; j < this.classes[i].students.length; j++) {
+    //         if (this.classes[i].students[j].user_id === studentUserID) {
+    //           regClasses.push(this.classes[i].id);
+    //         }
+    //       }
+    //     }
+    //   }}
+    //   console.log('Reg Classes: ' + JSON.stringify(regClasses));
+    //   return regClasses;
+    // }
 
    getClasses(): Observable<ClassModel[]> {
      const myHeaders = new HttpHeaders();
