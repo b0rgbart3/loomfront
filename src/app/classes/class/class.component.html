@@ -27,13 +27,34 @@ mainContent padMe group flexcroll' [style.width.px]="contentWidth" [style.height
         class='discussButton'>Discussion</button>    <!-- <button [routerLink]="['/chatroom', thisClass.id ]" class='largeFunButton'>Chatroom</button> -->
 
         <div *ngIf='course'>
+                <!-- <mat-form-field id='sectionMenu'>
+                <mat-select placeholder="Course Sections">
+                        <mat-option *ngFor="let section of this.course.sections; 
+                        let s=index" ><div (click)="navigateTo(s)" >
+                                {{section.title}}</div>
+                              </mat-option>    
+                </mat-select>
+                </mat-form-field> -->
+
+                <div class='classNavBar'>
                 <div class='sectionNavTitle' (click)='showSectionMenu()'>Sections</div>
                 <div id='sectionMenu' class='group' *ngIf='showingSectionMenu'>
+                    <div class='menuLiner group'>
                 <div class='sectionNav' *ngFor='let section of this.course.sections; 
                 let s=index'>
                    <div (click)="navigateTo(s)">
-                       {{section.title}} </div>
-               </div></div>
+                       {{section.title}} </div></div>
+                </div></div>
+
+                
+                <div class='nextSection' (click)='nextSection()' *ngIf="sectionNumber < (course.sections.length-1)"></div>
+                <div class='nextSection hidden' *ngIf="sectionNumber >= (course.sections.length-1)"></div>
+
+                <div class='prevSection' (click)='prevSection()' *ngIf="sectionNumber > 0"></div>
+                <div class='prevSection hidden' *ngIf="sectionNumber < 1"></div>
+                 </div>
+
+
                 <div *ngIf='course.sections' class='section group'>
                     <section [course]=course [section]=section></section>
             </div>

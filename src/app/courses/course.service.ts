@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,18 +13,28 @@ import { Globals } from '../globals';
 
 
 @Injectable()
-export class CourseService {
+export class CourseService implements OnInit {
     private _coursesUrl;
     private _courseImagesUrl;
     private _materialsUrl;
     private courseCount = 0;
     private highestID = 0;
+    errorMessage;
+    courses: Course[];
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     constructor (private _http: HttpClient, private globals: Globals) {
       this._coursesUrl = globals.base_path + '/api/courses';
       this._courseImagesUrl = globals.base_path + '/api/courseimages';
       this._materialsUrl = globals.base_path + '/api/materials';
+    }
+
+    ngOnInit() {
+      this.getCourses().subscribe(
+        courses =>  {this.courses = courses;
+        },
+        error => this.errorMessage = <any>error);
+
     }
 
    getCourses(): Observable<Course[]> {
@@ -72,10 +82,26 @@ export class CourseService {
       .catch (this.handleError);
   }
 
-  getCourseImage(id): Observable<Course> {
+  getCourseImageFromMemory(id) {
+    let courseImage = '';
+
+    if (!this.courses) {
+      this.getCourses();
+      console.log('Courses were not yet loaded');
+      return null; }
+
+    this.courses.forEach ( function(thecourse)  {
+      if (thecourse.id === id) {
+        courseImage = thecourse.image;
+      }
+    });
+    return courseImage;
+  }
+
+  getCourseImage(id): Observable<string> {
     return this._http.get<string> ( this._courseImagesUrl + '?id=' + id )
       .do(data => {
-        // console.log( 'found: ' + JSON.stringify(data) );
+        console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
   }

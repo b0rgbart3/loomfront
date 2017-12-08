@@ -1,3 +1,8 @@
+.navBarWrap {
+background-color:#333333;
+}
+
+
 .myNavWrapper {
 	padding:1px;
 	background-color:rgba(0,0,0,.1);
@@ -34,6 +39,25 @@ width:100%;
 border:2px solid red;
 }
 
+.easyHomeButton {
+	display:inline-block;
+	text-align: center;
+	width:100px;
+	text-transform: uppercase;
+	font-size:1.1em;
+	border:2px solid #333333;
+	background-color:#35353a;
+	border-radius:4px;
+	padding:12px;
+}
+
+a .easyHomeButton {
+	color:#777777;
+}
+
+a:hover .easyHomeButton {
+	background-color:#111111;
+}
 .avatar {
 	width:55px;
 	height:55px;

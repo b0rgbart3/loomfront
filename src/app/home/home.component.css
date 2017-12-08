@@ -6,20 +6,58 @@
 }
 
 .selectorBox:hover {
+    background-color: rgba(200,200,200,.5);
     border-bottom:1px solid black;
     border-right:1px solid black;
 }
 
 .classCourseImageThumnail {
-    width:200px;
-    height:100px;
+    vertical-align: top;
+    width:38%;
+    max-width:650px;
     display:inline-block;
     float:left;
-    margin-right:14px;
+    margin-right:4px;
     margin-bottom: 20px;
 }
 
+.classCourseImageThumnail img {
+    width:100%;
+}
+
 .classInfoSelectionCollection {
-    border:2px solid red;
     line-height:1.7em;
+}
+
+.classInfo {
+    vertical-align: top;
+    padding:12px;
+    width: 58%;
+    display:inline-block;
+    padding-top:0;
+    margin-top:-10px;
+    max-width:800px;
+}
+
+.classDates {
+    color:#dddddd;
+    text-transform: uppercase;
+}
+
+@media (max-width: 840px) {
+    .classCourseImageThumnail {
+        width:100%;
+        display:block;
+        float:none;
+        margin-right:24px;
+        margin-bottom: 20px;
+    }
+
+    .classInfo {
+        width:100%;
+        display:block;
+        float:none;
+        padding:0;
+    }
+
 }

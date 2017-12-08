@@ -92,6 +92,8 @@ export class ClassService implements OnInit {
       .catch( this.handleError );
   }
 
+
+
   getClassFromMemory(queryID): ClassModel {
     // console.log('In getClassFromMemory method: ' + this.classes);
 
@@ -118,7 +120,7 @@ export class ClassService implements OnInit {
       return data; })
       .catch (this.handleError); } else {
         console.log('The ID is zero, so we\'re creating a fresh new Class.');
-        return Observable.of( new ClassModel('', '', '', '', '', '', null, null) );
+        return Observable.of( new ClassModel('', '', '', '', '', '', null, null, null) );
       }
   }
 

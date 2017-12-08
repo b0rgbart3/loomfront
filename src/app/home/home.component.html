@@ -1,16 +1,18 @@
 <div class='loomContainer'>
 <h1>Home</h1>
-<div *ngIf='classObjects' class='loomCard padMe'><h1>Classes you are taking</h1>
-<div *ngFor='let classobject of classObjects' >
+<div *ngIf='studentClasses' class='loomCard padMe'><h1>Classes you are taking</h1>
+<div *ngFor='let classobject of studentClasses; let j = index' >
     <div class='selectorBox group' (click)='goto(classobject.id)'>
-        <div class='classInfoSelectionCollection'>
+        <div class='classInfoSelectionCollection group'>
         <div class='classCourseImageThumnail'>
-            courseimage
+           <img [src]="classobject.courseImageURL">
         </div>
-    <h2>{{ classobject.title }}</h2>
-    {{ classobject.description }}<br>
-    Starts: {{ classobject.start }}<br>
-    Ends: {{ classobject.end }}
+        <div class='classInfo'>
+            <h2>{{ classobject.course }} {{ classobject.title }}</h2>
+            {{ classobject.description }}<br>
+            <p class='classDates'>
+            {{ classobject.start | date:'MMMM dd, yyyy' }} -- {{ classobject.end | date:'MMMM dd, yyyy' }}</p>
+        </div>
     </div></div>
 </div></div>
 <div *ngIf='classObjects' class='loomCard padMe'><h1>Classes you are teaching</h1>
@@ -18,7 +20,7 @@
         <div class='selectorBox group' (click)='goto(classobject.id)'>
         <h2>{{ classobject.title }}</h2>
         {{ classobject.description }}<br><br>
-        Starts: {{ classobject.start }}<br>
+        Starts: {{ classobject.start  | date:'yyyy-MM-dd HH:mm' }}<br>
         Ends: {{ classobject.end }}
         </div>
     </div></div>

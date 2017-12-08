@@ -1,5 +1,6 @@
 import { Instructor } from './instructor.model';
 import { Student } from './student.model';
+import { Course } from './course.model';
 
 export class ClassModel {
   _id?: string;
@@ -12,7 +13,9 @@ export class ClassModel {
       public end: string,
       public id: string,
       public instructors: Instructor[],
-      public students: Student[]
+      public students: Student[],
+      public courseObject: Course,
+      public courseImageURL: string
 
   ) {}
 

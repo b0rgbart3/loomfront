@@ -39,7 +39,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     studentCount= 0;
     materials = [];
     materialsLoaded: boolean;
-    sectionNumber: 0;
+    sectionNumber: number;
     section: Section;
     discussing: boolean;
     widthStyle: string;
@@ -94,7 +94,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.scrollable = '';
         this.contentWidth = window.innerWidth;
         this.initialDocumentHeight = document.body.scrollHeight;
-
+        this.sectionNumber = 0;
         // Refresh the currentUser's info from the DB
         this.userService.getUser( this.userService.currentUser.id ).subscribe ( user => {
             this.currentUser = user[0]; this.persistBoardSettings();
@@ -341,7 +341,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
-            this.courseimageURL = this.globals.courseimages + this.courseID + '/' + this.course.image;
+            this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
 
             if (!this.sectionNumber) { this.sectionNumber = 0; }
             if (this.course && this.course.sections) {
@@ -359,12 +359,25 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         return thumbnailObj;
     }
 
+    nextSection() {
+        this.sectionNumber++;
+        if (this.sectionNumber > (this.course.sections.length - 1)) {
+            this.sectionNumber = ( this.course.sections.length - 1);
+        }
+        this.section = this.course.sections[this.sectionNumber];
+    }
+
+    prevSection() {
+        this.sectionNumber--;
+        if (this.sectionNumber < 0 ) { this.sectionNumber = 0; }
+        this.section = this.course.sections[this.sectionNumber];
+    }
     populateForm() {
 
     }
     ngOnChanges() {
         this.section = this.course.sections[this.sectionNumber];
-        
+
        // this.myInit();
     }
 
