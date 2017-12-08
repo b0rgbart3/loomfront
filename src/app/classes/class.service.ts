@@ -16,6 +16,7 @@ export class ClassService implements OnInit {
     private _registryUrl;
     private _classesUrl;
     _studentClassesUrl;
+    _instructorClassesUrl;
     private classCount = 0;
     private highestID = 0;
     classes: ClassModel[];
@@ -26,6 +27,7 @@ export class ClassService implements OnInit {
       this._registryUrl = globals.base_path + '/api/classregistrations';
       this._classesUrl = globals.base_path + '/api/classes';
       this._studentClassesUrl = globals.base_path + '/api/studentClasses';
+      this._instructorClassesUrl = globals.base_path + '/api/instructorClasses';
       console.log('Classes API URL: ' + this._classesUrl);
     }
 
@@ -48,24 +50,14 @@ export class ClassService implements OnInit {
      return this._http.get <ClassModel[]> (this._studentClassesUrl + '?id=' + studentID, {headers: myHeaders});
 
     }
-    // Return an array of class ID's that this user is registered for
-    // getClassesByStudentUserid( studentUserID ): string [] {
-    //   const regClasses = [];
-    //   console.log('about to look for classes');
-    //   if (this.classes) {
-    //   for (let i = 0; i < this.classCount; i ++) {
-    //     console.log('Class # ' + i);
-    //     if ( this.classes[i] && this.classes[i].students) {
-    //       for (let j = 0; j < this.classes[i].students.length; j++) {
-    //         if (this.classes[i].students[j].user_id === studentUserID) {
-    //           regClasses.push(this.classes[i].id);
-    //         }
-    //       }
-    //     }
-    //   }}
-    //   console.log('Reg Classes: ' + JSON.stringify(regClasses));
-    //   return regClasses;
-    // }
+
+    getInstructorClasses( userID ): Observable <ClassModel[]> {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+     return this._http.get <ClassModel[]> (this._instructorClassesUrl + '?id=' + userID, {headers: myHeaders});
+
+    }
 
    getClasses(): Observable<ClassModel[]> {
      const myHeaders = new HttpHeaders();
@@ -120,7 +112,7 @@ export class ClassService implements OnInit {
       return data; })
       .catch (this.handleError); } else {
         console.log('The ID is zero, so we\'re creating a fresh new Class.');
-        return Observable.of( new ClassModel('', '', '', '', '', '', null, null, null) );
+        return Observable.of( new ClassModel('', '', '', '', '', '', null, null, null, null ) );
       }
   }
 

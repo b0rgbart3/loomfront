@@ -75,6 +75,7 @@ import { LoomsFacebookService } from './services/loomsfacebook.service';
 import { CoursesResolver } from './services/courses-resolver.service';
 import { ClassResolver } from './services/class-resolver.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
+import { CourseImageComponent } from './courses/course-image/course-image.component';
 
 @NgModule({
   // External
@@ -102,6 +103,7 @@ import { UserAuthGuard } from './services/user-auth-guard.service';
     SafeUrlPipe,
     LoginComponent,
     CourseListComponent,
+    CourseImageComponent,
     RegisterComponent,
     AlertComponent,
     WelcomeComponent,

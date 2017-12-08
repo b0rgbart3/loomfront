@@ -33,8 +33,6 @@ public errorMessage: string;
       },
           error => this.errorMessage = <any>error);
 
-    // this.courseService.getCourseImage().subscribe(
-    // )
   }
 
 }

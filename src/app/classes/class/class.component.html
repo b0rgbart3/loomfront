@@ -1,10 +1,12 @@
 
 
-
+<div *ngIf='courseimageURL' class='mainImage'>
+        <img [src]='courseimageURL' class='mainImageImage'>
+    </div><br>
 <div class='loomScroll {{widthStyle}} {{mainStyle}} {{scrollable}} 
-mainContent padMe group flexcroll' [style.width.px]="contentWidth" [style.height.px] = "initialWindowHeight">
+mainContent group flexcroll' [style.width.px]="contentWidth" [style.height.px] = "initialWindowHeight">
 <div class='mainContentInnerWrapper'>
-<div class='padMe'>
+
     <div *ngIf='thisClass'>
     <h1>{{ thisClass.title }}</h1>
         <div class='rollcall group'>
@@ -19,9 +21,7 @@ mainContent padMe group flexcroll' [style.width.px]="contentWidth" [style.height
                     <user-thumb [thumbnail]=student></user-thumb></div>
         </div>
         </div>
-        <div *ngIf='courseimageURL' class='mainImage'>
-            <img [src]='courseimageURL' class='mainImageImage'>
-        </div><br>
+        
         
         <button (click)="openDiscussion()" *ngIf="!discussing" 
         class='discussButton'>Discussion</button>    <!-- <button [routerLink]="['/chatroom', thisClass.id ]" class='largeFunButton'>Chatroom</button> -->
@@ -60,7 +60,7 @@ mainContent padMe group flexcroll' [style.width.px]="contentWidth" [style.height
             </div>
         </div>
     </div>
-</div>
+
 </div>
 </div>
 

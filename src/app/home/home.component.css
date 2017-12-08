@@ -1,28 +1,24 @@
 .selectorBox {
-    background-color: rgba(0,0,0,.1);
-    padding:20px;
+    padding-left:8%;
+    padding-right:8%;
     cursor:pointer;
-    border-radius:8px;
+    margin:0;
 }
 
-.selectorBox:hover {
-    background-color: rgba(200,200,200,.5);
-    border-bottom:1px solid black;
-    border-right:1px solid black;
-}
 
 .classCourseImageThumnail {
     vertical-align: top;
-    width:38%;
+    width:40%;
     max-width:650px;
     display:inline-block;
-    float:left;
     margin-right:4px;
     margin-bottom: 20px;
+
 }
 
 .classCourseImageThumnail img {
     width:100%;
+
 }
 
 .classInfoSelectionCollection {
@@ -31,20 +27,52 @@
 
 .classInfo {
     vertical-align: top;
-    padding:12px;
-    width: 58%;
+    padding-left:12px;
+    width: 50%;
     display:inline-block;
     padding-top:0;
-    margin-top:-10px;
-    max-width:800px;
+    margin-top:-20px;
+    border-bottom:1px solid rgba(255,255,255,.5);
 }
 
 .classDates {
-    color:#dddddd;
+    font-weight: 600;
     text-transform: uppercase;
 }
 
-@media (max-width: 840px) {
+h1.label {
+    font-size:1.4em;
+    letter-spacing: -.04em;
+    font-weight: 400;
+    color:#777777;
+    padding-left:8%;
+    border-bottom:1px solid white;
+    margin:0;
+    margin-bottom:.6em;
+    margin-top:.8em;
+}
+.classInfoSelectionCollection h1 {
+    font-family: 'Josefin Sans';
+    font-weight:300;
+    font-size:2.75em;
+    text-transform: uppercase;
+    letter-spacing: -.05em;
+    line-height: 1.2em;
+    position: relative;
+    padding:0;
+    margin:0;
+    padding-top:12px;
+    box-sizing: border-box;
+    margin-top:.6em;
+    margin-bottom:.2em;
+    color:#000000;
+}
+p {
+    font-family: 'Muli';
+    font-weight:300;
+}
+
+@media (max-width: 740px) {
     .classCourseImageThumnail {
         width:100%;
         display:block;
