@@ -76,6 +76,7 @@ import { CoursesResolver } from './services/courses-resolver.service';
 import { ClassResolver } from './services/class-resolver.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
+import { ClickOutsideDirective } from './_directives/clickOutside.directive';
 
 @NgModule({
   // External
@@ -94,6 +95,7 @@ import { CourseImageComponent } from './courses/course-image/course-image.compon
   ],
   // Internal
   declarations: [
+    ClickOutsideDirective,
     AppComponent,
     DynamicFormComponent, DynamicFormQuestionComponent,
     FileSelectDirective,

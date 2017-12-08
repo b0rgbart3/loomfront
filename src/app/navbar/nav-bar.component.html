@@ -1,11 +1,8 @@
 <div class='navBarWrap'>
 <div (click)="updateMyself()" class='myNavWrapper group'> 
-
 	<button mat-icon-button [matMenuTriggerFor]="menu" class='loomMenu'>
 		<mat-icon>menu</mat-icon>
 	</button>
-
-
 <mat-menu #menu="matMenu">
 	<a href="" [routerLink]="['/welcome']"><button mat-menu-item>Welcome</button></a>
 	<a *ngIf="currentUser" [routerLink]="['/home']">
@@ -20,7 +17,7 @@
 </mat-menu>
 
 <a [routerLink]="['/home']"><div class='easyHomeButton'>
-	Home
+	THE RECLAIMING LOOM
 </div></a>
 <div *ngIf="username" class='userPic'>
 <p>You are logged in as:<br><span class='username'>

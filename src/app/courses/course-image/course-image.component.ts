@@ -7,7 +7,7 @@ import { Globals } from '../../globals';
 @Component({
   selector: 'course-image',
   templateUrl: './course-image.component.html',
-  styleUrls: ['./course-image.component.css']
+  styleUrls: ['./course-image.component.css'],
   providers: [CourseService]
 })
 

@@ -1,48 +1,50 @@
+<div class='loomContainer' >
 
+<div *ngIf='courseimageURL' class='mainImage group'
+[ngStyle]="{ 'background-image': 'url(' + courseimageURL + ')'}">
 
-<div *ngIf='courseimageURL' class='mainImage'>
-        <img [src]='courseimageURL' class='mainImageImage'>
-    </div><br>
-<div class='loomScroll {{widthStyle}} {{mainStyle}} {{scrollable}} 
-mainContent group flexcroll' [style.width.px]="contentWidth" [style.height.px] = "initialWindowHeight">
-<div class='mainContentInnerWrapper'>
-
-    <div *ngIf='thisClass'>
-    <h1>{{ thisClass.title }}</h1>
-        <div class='rollcall group'>
+        <div class='topContent group'>
+            <h2>AXIS MUNDI - BRANCH 1 / LIMB 3</h2>
+            <h1>{{ thisClass.title }}</h1>
+            <p>{{ course.description }}</p>
+            <p class='dates'> {{ thisClass.start | date:'MMMM dd, yyyy' }} - {{ thisClass.end | date:'MMMM dd, yyyy' }}</p>
             <div class='instructors group'>
-                <h2>Instructors:</h2>
-                <div *ngFor='let instructor of instructorThumbnails' class='userThumb'>
-                    <user-thumb [thumbnail]=instructor></user-thumb></div>
-            </div>
+                    <h2>Your Instructors</h2>
+                    <div *ngFor='let instructor of instructorThumbnails' class='userThumb'>
+                        <user-thumb [thumbnail]='instructor'></user-thumb></div>
+                </div>
+        </div>
+</div>
+
+
+
+
+    <div *ngIf='thisClass' class='mainPage'>
+
+        <div class='rollcall group'>
+
         <div class='students group'>
-                <h2>Students:</h2>
+                <h1>Your Fellow Students</h1>
                 <div *ngFor='let student of studentThumbnails' class='userThumb'>
-                    <user-thumb [thumbnail]=student></user-thumb></div>
+                    <user-thumb [thumbnail]='student'></user-thumb></div>
         </div>
         </div>
         
         
-        <button (click)="openDiscussion()" *ngIf="!discussing" 
-        class='discussButton'>Discussion</button>    <!-- <button [routerLink]="['/chatroom', thisClass.id ]" class='largeFunButton'>Chatroom</button> -->
+        <!-- <button (click)="openDiscussion()" *ngIf="!discussing" 
+        class='discussButton'>Discussion</button>   
+         -->
 
         <div *ngIf='course'>
-                <!-- <mat-form-field id='sectionMenu'>
-                <mat-select placeholder="Course Sections">
-                        <mat-option *ngFor="let section of this.course.sections; 
-                        let s=index" ><div (click)="navigateTo(s)" >
-                                {{section.title}}</div>
-                              </mat-option>    
-                </mat-select>
-                </mat-form-field> -->
 
                 <div class='classNavBar'>
-                <div class='sectionNavTitle' (click)='showSectionMenu()'>Sections</div>
+                <div class='sectionNavTitle' (click)='showSectionMenu()'
+                (clickOutside)='hideSectionMenu()' >Sections</div>
                 <div id='sectionMenu' class='group' *ngIf='showingSectionMenu'>
                     <div class='menuLiner group'>
                 <div class='sectionNav' *ngFor='let section of this.course.sections; 
                 let s=index'>
-                   <div (click)="navigateTo(s)">
+                   <div (click)="navigateTo(s)" class='sectionNavItem'>
                        {{section.title}} </div></div>
                 </div></div>
 
@@ -62,8 +64,8 @@ mainContent group flexcroll' [style.width.px]="contentWidth" [style.height.px] =
     </div>
 
 </div>
-</div>
 
+<!-- 
 
 <div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'
  [style.width.px]="boardWidth" [style.height.px] = "initialWindowHeight">
@@ -75,4 +77,5 @@ mainContent group flexcroll' [style.width.px]="contentWidth" [style.height.px] =
         <div (click)='moveRight()' class='roundButton rightButton' *ngIf="boardStyle!='rightSide'"></div>
 
         <discussion></discussion>
-</div>
+</div>  -->
+

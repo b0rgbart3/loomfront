@@ -1,13 +1,17 @@
 .mainImage {
     width:100%;
+    max-width:1100px;
     padding:0;
     margin:0;
     margin-left:auto;
     margin-right:auto;
-    max-width:1200px;
-    height:10px;
-    position: relative;
-    top:-90px;
+    min-width:580px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size:104%;
+    height:600px;
+    background-color:blue;
+
 }
 
 .mainImage img {
@@ -15,11 +19,64 @@
     padding:0;
     margin:0;
 }
+.topContent {
+padding-left:10%;
+padding-top:60px;
+padding-right:4%;
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+64,000000+100&0+61,0.61+100 */
+background: -moz-linear-gradient(top, rgba(0,0,0,0) 61%, rgba(0,0,0,0.05) 64%, rgba(0,0,0,0.61) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(0,0,0,0) 61%,rgba(0,0,0,0.05) 64%,rgba(0,0,0,0.61) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(0,0,0,0) 61%,rgba(0,0,0,0.05) 64%,rgba(0,0,0,0.61) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#9c000000',GradientType=0 ); /* IE6-9 */
+
+padding-bottom:200px;
+}
+
+.topContent h1 {
+    font-family: 'Josefin Sans';
+    font-weight:300;
+    font-size:4em;
+    text-transform: uppercase;
+    letter-spacing: -.05em;
+    line-height: 1.2em;
+    color:white;
+    padding:0;
+    margin:0;
+}
+
+.topContent h2 {
+    font-family: 'Josefin Sans';
+    font-weight:400;
+    font-size:1.2em;
+    text-transform: uppercase;
+    letter-spacing: -.05em;
+    line-height: 1.2em;
+    color:white;
+    padding:0;
+    margin:0;
+}
+
+.topContent p {
+    font-family: 'Muli';
+    font-weight:300;
+    color:white;
+    line-height: 2em;
+    width:80%;
+    text-shadow: 1px 1px 7px #000000;
+}
 
 .rollcall {
-    background-color:rgba(255,255,255,.1);
-    border-radius:8px;
-    padding:8px;
+
+}
+
+.rollcall h1 {
+    font-family: 'Muli';
+    text-transform: uppercase;
+    font-size:1em;
+}
+.rollcall h2 {
+    font-family: 'Josefin Sans';
 }
 
 
@@ -157,9 +214,17 @@ margin:0;
     background-color:#ff4081;
 }
 
+.mainPage {
+    background-color:#cccccc;
+    padding-bottom:300px;
+}
 .classNavBar {
-    background-color:rgba(0,0,0,.1);
+    padding:0;
+    margin:0;
     width:100%;
+    position: relative;
+    padding-left:8%;
+    box-sizing: border-box;
 }
 
 .nextSection {
@@ -206,38 +271,49 @@ margin:0;
     background-color: rgba(255,255,255,1);
     margin-bottom:0px;
     border-radius:0px;
-    padding:4px;
-    padding-top:14px;
-    padding-left:14px;
-    padding-bottom:8px;
+    padding:0px;
     cursor:pointer;
     user-select:none;
-    border-bottom:2px solid rgba(100,100,100,.25);
+    box-sizing: border-box;
+
 }
 
-.sectionNav:hover {
-    background-color:#dddddd;
-    cursor: pointer;
+
+
+.sectionNavItem {
+    width:100%;
+    border-bottom:1px solid #cccccc;
+    padding-left:20px;
+    padding-top:18px;
+    padding-right:10px;
+    padding-bottom:8px;
+    box-sizing: border-box;
+    margin:0;
 }
 
-.sectionNav:active {
-    background-color:#999999;
+.sectionNavItem:hover {
+    background-color:#cccccc;
+}
+.sectionNavItem:active {
+    background-color:#aaaaaa;
 }
 
 .sectionNavTitle {
-  background-color:#999999;
   text-transform: uppercase;
-  color:white;
-  padding-top:15px;
-  padding-bottom:12px;
-  padding-left:14px;
-  margin-top:22px;
-  border-radius:8px 8px 0 0;
-  border-bottom:2px solid #333333;
+  color:black;
   cursor:pointer;
   user-select:none;
-  width:240px;
   display:inline-block;
+  border:2px solid #555555;
+  margin-top:20px;
+  padding-left:14px;
+  padding-right:14px;
+  padding-top:8px;
+  padding-bottom:8px;
+  box-sizing: border-box;
+  font-family: 'Muli';
+  font-weight: 400;
+  font-size:1.3em;
 }
 
 .sectionNavTitle:hover {
@@ -248,63 +324,55 @@ margin:0;
     z-index:200;
 }
 
-.section {
-    background-color:rgba(255,255,255,.89);
-    box-sizing: border-box;
-}
-
-.section h1 {
-    padding-top:40px;
-    font-size:2em !important;
-    margin-top:40px !important;
-    margin-bottom:20px !important;
-    padding-bottom:40px;
-    
-}
-
-.section p {
-    margin-top:40px;
-    margin-bottom:80px;
+.topContent p.dates {
+    font-size:1.4em;
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    margin:0;
 }
 
 .instructors {
     display:inline-block;
-    text-align: center;
-    background-color:rgba(255,255,255,.1);
-    padding:8px;
-    border-radius:8px;
+    margin-top:20px;
 }
 .instructors h2 {
     text-align: left;
     line-height: 0;
     padding:0;
     margin:0;
-    font-size:1.3em;
+    font-size:1em;
     line-height:1.3em;
     margin-bottom:8px;
 }
 .students {
-    background-color:rgba(255,255,255,.1);
-    padding:8px;
-    display:inline-block;
-    text-align: center;
-    border-radius:8px;
+  text-align: center;
+  background-color:#262f35;
+  padding-left:10%;
+  padding-right:10%;
+  padding-top:12px;
+  padding-bottom:22px;
+  box-sizing:border-box;
 }
 
-.students h2 {
+.students h1 {
     text-align: left;
-    line-height: 0;
-    padding:0;
-    margin:0;
-    font-size:1.3em;
-    line-height:1.3em;
-    margin-bottom:8px;
+    font-size:.85em;
+    color:rgba(255,255,255,.6);
 }
 
 .userThumb {
     display:inline-block;
 }
 
+
+
+.students .userThumb {
+    opacity:.6;
+}
+
+.students .userThumb:hover {
+    opacity:1;
+}
   
 
 .slideColumn {
@@ -416,10 +484,68 @@ margin:0;
     float:left;
 }
 
-@media screen and (max-width: 768px) {
-    
+@media screen and (max-width: 990px) {
+    .topContent h1 {
+        font-size:3em;
+        padding-right:0;
+        }
+}
 
-        .mainContent {
+@media screen and (max-width: 960px) {
+    .topContent {
+        padding-top:40px;
+    }
+    .topContent h1 {
+        font-size:2.8em;
+        }
+    .mainImage {
+        background-size:124%;
+        }
+}
 
+@media screen and (max-width: 920px) {
+    .topContent {
+        padding-left:6%;
+        padding-top:40px;
+        padding-right:4%;
+        }
+    .topContent h1 {
+        font-size:2.8em;
+        }
+    .mainImage {
+        background-size:128%;
+        }
+    }  
+
+@media screen and (max-width: 800px) {
+    .mainImage {
+        background-size:130%;
+        }
+    }  
+@media screen and (max-width: 750px) {
+    .mainImage {
+        background-size:140%;
+        }
+    .topContent p { width:80%; }
+    }  
+@media screen and (max-width: 710px) {
+    .mainImage {
+        background-size:150%;
+        }
+     .topContent p { width:90%; }
+          
+    }  
+@media screen and (max-width: 680px) {
+    .mainImage {
+        background-size:170%;
+        }
+    .topContent p { width:94%; }
+    }  
+@media screen and (max-width: 640px) {
+    .topContent h1 {
+        font-size:2.2em;
+        }
+    .mainImage {
+        background-size:180%;
         }
     }  

@@ -138,6 +138,10 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         }
     }
 
+    hideSectionMenu() {
+        this.showingSectionMenu = false;
+    }
+
     showSectionMenu() {
         this.showingSectionMenu = !this.showingSectionMenu;
     }
@@ -313,8 +317,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.students = [];
         this.students = this.classService.getStudents(this.thisClass, this.users);
 
-        this.instructorThumbnails = this.instructors.map(this.createThumbnail);
-        this.studentThumbnails = this.students.map(this.createThumbnail);
+        this.instructorThumbnails = this.instructors.map(this.createInstructorThumbnail);
+        this.studentThumbnails = this.students.map(this.createStudentThumbnail);
 
         this.courseID = this.thisClass.course;
        // console.log('thisClass: ' + this.classID);
@@ -353,9 +357,15 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             },
                 error => this.errorMessage = <any>error);
     }
-    createThumbnail(user) {
+    createInstructorThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 70,  showUsername: true, showInfo: false };
+            size: 100,  showUsername: true, showInfo: false };
+        return thumbnailObj;
+    }
+
+    createStudentThumbnail(user) {
+        const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
+            size: 60,  showUsername: true, showInfo: false };
         return thumbnailObj;
     }
 
@@ -391,7 +401,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     }
 
     navigateTo(sectionNumber) {
-     //   console.log('will navigate to: ' + sectionNumber);
+      console.log('will navigate to: ' + sectionNumber);
      this.showingSectionMenu = false;
         this.router.navigate(['classes', this.classID, sectionNumber]);
     }

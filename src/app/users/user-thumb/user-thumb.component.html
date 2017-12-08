@@ -1,4 +1,4 @@
-
+<div class='userThumbWrapper'>
 <div [style.width.px]="thumbnail.size" class='userThumb'>
 
 <div *ngIf='thumbnail.editable'>
@@ -7,7 +7,8 @@
 </a></div>
 
 <div *ngIf='!thumbnail.editable && thumbnail.user'>
-  <img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'>
+  <img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'
+  [ngStyle]="{ 'width': thumbnail.size, 'height':thumbnail.size }">
 </div>
 
 
@@ -19,3 +20,4 @@
 <p *ngIf='thumbnail.showInfo'> {{thumbnail.user.email}}</p>
 </div></div>
 
+</div>
