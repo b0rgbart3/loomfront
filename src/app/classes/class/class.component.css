@@ -20,7 +20,7 @@
     margin:0;
 }
 .topContent {
-padding-left:10%;
+padding-left:8%;
 padding-top:60px;
 padding-right:4%;
 
@@ -347,8 +347,8 @@ margin:0;
 .students {
   text-align: center;
   background-color:#262f35;
-  padding-left:10%;
-  padding-right:10%;
+  padding-left:8%;
+  padding-right:8%;
   padding-top:12px;
   padding-bottom:22px;
   box-sizing:border-box;
@@ -484,6 +484,37 @@ margin:0;
     float:left;
 }
 
+.discussionIconWrap {
+    width:80%;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    box-sizing: border-box;
+}
+.discussionIcon {
+    background-image:url('../../../assets/images/discuss.svg');
+    background-size:90%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    width:48px;
+    height:48px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:20px;
+    padding-right:20px;
+    background-color:#cccccc;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+}
+
+.discussionIcon:hover {
+    background-image:url('../../../assets/images/discuss_hi.svg');
+}
+.discussionBox {
+    margin-left:8%;
+    margin-right:8%;
+}
 @media screen and (max-width: 990px) {
     .topContent h1 {
         font-size:3em;

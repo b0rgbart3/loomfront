@@ -61,7 +61,26 @@
                     <section [course]=course [section]=section></section>
             </div>
         </div>
+        <div class='discussionIconWrap'>
+        <div class='discussionIcon' (click)="openDiscussion()"></div></div>
+        <div class='discussionBox group' *ngIf='discussing'>
+                <!-- <div class='grabber {{grabberStyle}}' (mousedown)="grab($event)" (mousemove)="trackGrab($event)"
+                (mouseup)="endGrab($event)" (mouseout)="endGrab($event)" id='grabber' *ngIf="boardStyle!='fullSize'"></div> -->
+                <div (click)='closeDiscussion()' class='roundButton closeButton'></div>
+
+                <!-- <div (click)='makeStacked()' class='roundButton stackDownButton'
+                 *ngIf="boardStyle!='fullSize'"></div> -->
+                <!-- <div (click)='moveLeft()' class='roundButton leftButton' *ngIf="boardStyle!='leftSide'"></div>
+                <div (click)='moveRight()' class='roundButton rightButton' *ngIf="boardStyle!='rightSide'"></div>
+         -->
+                <discussion></discussion>
+        </div>  
+
     </div>
+
+
+
+
 
 </div>
 
@@ -69,13 +88,7 @@
 
 <div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'
  [style.width.px]="boardWidth" [style.height.px] = "initialWindowHeight">
-        <div class='grabber {{grabberStyle}}' (mousedown)="grab($event)" (mousemove)="trackGrab($event)"
-        (mouseup)="endGrab($event)" (mouseout)="endGrab($event)" id='grabber' *ngIf="boardStyle!='fullSize'"></div>
-        <div (click)='closeDiscussion()' class='roundButton closeButton'></div>
-        <div (click)='makeStacked()' class='roundButton stackDownButton' *ngIf="boardStyle!='fullSize'"></div>
-        <div (click)='moveLeft()' class='roundButton leftButton' *ngIf="boardStyle!='leftSide'"></div>
-        <div (click)='moveRight()' class='roundButton rightButton' *ngIf="boardStyle!='rightSide'"></div>
 
-        <discussion></discussion>
-</div>  -->
+-->
+
 

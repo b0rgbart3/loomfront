@@ -78,8 +78,6 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.boardWidth = this.initialWindowWidth * .3;
         this.contentWidth = this.initialWindowWidth * .6;
 
-    
-
     }
 
 
@@ -101,6 +99,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         } ,
             error => console.log(error)
         );
+
+       
 
 
     }
@@ -375,12 +375,19 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             this.sectionNumber = ( this.course.sections.length - 1);
         }
         this.section = this.course.sections[this.sectionNumber];
+
+        const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+        this.router.navigate( [routeString] );
     }
 
     prevSection() {
         this.sectionNumber--;
         if (this.sectionNumber < 0 ) { this.sectionNumber = 0; }
         this.section = this.course.sections[this.sectionNumber];
+
+        const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+        this.router.navigate( [routeString] );
+        
     }
     populateForm() {
 

@@ -13,7 +13,8 @@ import { ClassModel } from '../models/class.model';
 @Injectable()
 export class ClassesResolver implements Resolve <ClassModel> {
 
-    constructor( private courseService: CourseService, private classService: ClassService, private router: Router ) { }
+    constructor( private courseService: CourseService, private classService: ClassService,
+        private router: Router ) { }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <ClassModel> {
         const id = route.params['id'];

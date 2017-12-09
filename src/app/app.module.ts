@@ -67,7 +67,7 @@ import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
 import { MaterialComponent } from './materials/material.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
-import { SectionsResolver } from './services/sections-resolver.service';
+import { SectionResolver } from './services/section-resolver.service';
 import { Globals } from './globals';
 import { MatInputModule } from '@angular/material';
 import { FacebookModule } from 'ngx-facebook';
@@ -155,7 +155,7 @@ import { ClickOutsideDirective } from './_directives/clickOutside.directive';
     MaterialsResolver,
     NotificationsService,
     PossibleInstructorsResolver,
-    SectionsResolver,
+    SectionResolver,
     UserResolver,
     UsersResolver,
     UserService,

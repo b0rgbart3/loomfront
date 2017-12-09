@@ -29,7 +29,7 @@ import { PossibleInstructorsResolver } from './services/possible-instructors-res
 import { UserResolver } from './services/user-resolver';
 import { ChatroomComponent } from './chat/chatroom.component';
 import { BoardComponent } from './discuss/board.component';
-import { SectionsResolver } from './services/sections-resolver.service';
+import { SectionResolver } from './services/section-resolver.service';
 import { CoursesResolver } from './services/courses-resolver.service';
 import { ClassResolver } from './services/class-resolver.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -57,7 +57,7 @@ resolve: { course: CourseResolver, materials: MaterialsResolver} },
     thisClass: ClassResolver, users: UsersResolver,
     possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
 { path: 'classes/:id/:section', component: ClassComponent, resolve: {
-    thisClass: ClassResolver, section: SectionsResolver, users: UsersResolver }},
+    thisClass: ClassResolver, section: SectionResolver, users: UsersResolver }},
 { path: 'classes/:id', component: ClassComponent,
 resolve: { thisClass: ClassResolver, users: UsersResolver } },
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,

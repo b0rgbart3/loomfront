@@ -12,17 +12,20 @@ import { ClassModel } from '../models/class.model';
 import { Section } from '../models/section.model';
 
 @Injectable()
-export class SectionsResolver implements Resolve <number> {
+export class SectionResolver implements Resolve <number> {
 
     constructor( private activatedRoute: ActivatedRoute,
         private courseService: CourseService, private classService: ClassService, private router: Router ) { }
 
-    resolve( section ) {
-        const sectionNumber = this.activatedRoute.params['section'];
+    resolve( route: ActivatedRouteSnapshot ) {
+        const sectionNumber = route.params['section'];
 
+        console.log('Section Resolver: ' + sectionNumber);
+        console.log('Route Params: ' + JSON.stringify(this.activatedRoute.params));
         if (isNaN( sectionNumber )) {
             return 0;
         } else {
+       console.log('In Section Resolver: sectionNumber == ' + sectionNumber);
         return sectionNumber; }
     }
 }
