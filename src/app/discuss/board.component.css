@@ -1,10 +1,13 @@
 .largeInput {
     font-size:1.2em;
     padding:10px;
-    width:90%;
-    margin-left:auto;
-    margin-right:auto;
-
+    width:94%;
+    border-radius:6px;
+    border:2px solid white;
+    box-shadow: 0 0 19px rgba(0,0,0,.15);
+}
+table {
+    background-color:rgba(0,0,0,0);
 }
 .deleteThreadButton {
     background-image:url('../../assets/images/kill.svg');
@@ -42,6 +45,9 @@
 .threadContainer {
     padding:0;
     box-sizing: border-box;
+    border-radius: 4px;
+    border:1px dashed #888888;
+    /* border:1px solid red; */
 }
 
 .newTopicButton {
@@ -56,13 +62,11 @@
     padding-right:14px;
     font-size:1em;
     margin-bottom:8px;
-    border:1px solid #333333;
-    border-bottom:1px solid black;
     outline:none;
     cursor: pointer;
     user-select: none;
     text-transform: uppercase;
-    border-radius:2px;
+    border-radius:4px;
     box-shadow:2px 2px 4px rgba(0,0,0,.4);
 }
 .newTopicButton:hover {

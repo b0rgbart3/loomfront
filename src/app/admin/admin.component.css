@@ -1,11 +1,205 @@
+h1 {
+    font-weight: 700;
+    font-size:1em;
+}
 .thumbnailAdmin {
     display:inline-block;
-    float:left;
-    padding-top:0;
+    padding-top:10px;
+}
+
+.userLine {
+    padding:0;
+    overflow: hidden;
+    border:1px solid rgba(0,0,0,0);
+    width:100%;
 }
 
 .main {
+   background-color:#aaaaaa;
+   padding-top:100px;
+   margin-left:auto;
+   margin-right:auto;
+   max-width:1100px;
+   padding-bottom:400px;
+}
+
+.userInfo {
+    color:black;
+    display:inline-block;
+    vertical-align: top;
+    font-family: 'Muli';
+    font-size:.95em;
+    box-sizing:border-box;
+    padding:0;
+    margin:0;
+    min-width:200px;
+}
+
+.userLine:hover {
+    background-color:white;
+}
+
+.userInfo h1 {
     margin:0;
     padding:0;
-    padding-top:100px;
+    text-transform: uppercase;
+    font-family: 'Muli';
+    font-weight: 900;
+    font-size:.8em;
+    
 }
+.suspender {
+    background-color:rgba(116, 116, 116, .3);
+    color:white;
+    width:80px;
+    height:40px;
+    vertical-align: middle;
+    display:inline-block;
+    float:right;
+    margin:0;
+    padding-top:20px;
+    text-transform: uppercase;
+    font-family: 'Muli';
+    text-align:center;
+    user-select: none;
+    font-size:.9em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.suspender:hover {
+    background-color:rgb(50, 58, 92);
+}
+
+.remover {
+    background-color:rgba(116, 116, 116, .3);
+    color:white;
+    width:80px;
+    height:40px;
+    vertical-align: middle;
+    display:inline-block;
+    float:right;
+    margin:0;
+    padding-top:20px;
+    text-transform: uppercase;
+    font-family: 'Muli';
+    text-align:center;
+    user-select: none;
+    font-size:.9em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.remover:hover {
+    background-color:rgb(194, 8, 2);
+}
+
+.note {
+    padding:4px;
+}
+
+.note p {
+    font-family: 'Muli';
+    font-size:.9em;
+    font-style: italic;
+    padding-left:10px;
+}
+
+.userKill {
+    display:inline-block;
+    float:right;
+    width:26px;
+    height:26px;
+    background-image:url(../../assets/images/kill_hi.svg);
+    background-color:#aaaaaa;
+    margin:0;
+  }
+  
+  .collection {
+      background-color:rgba(255,255,255,.5);
+      padding:0;
+      width:100%;
+      margin-top:20px;
+  }
+
+  .collection h1 {
+      user-select: none;
+  }
+
+  .collapsingTitle {
+      font-family: 'Josefin Sans';
+      font-weight: 500;
+      font-size:1.45em;
+      border-bottom:1px solid rgba(0,0,0,.5);
+      text-transform: uppercase;
+      padding:10px;
+      padding-left:20px;
+      padding-top:20px;
+      margin:0;
+      cursor: pointer;
+  }
+
+  .collapsingTitle:hover {
+      background-color:rgba(255,255,255,1);
+  }
+
+  .showing {
+
+    max-height:1200px;
+    transition: max-height 1s ease-out;
+    overflow: hidden;
+  }
+
+  .hiding {
+    transition: max-height .5s;
+    max-height:50px;
+    overflow: hidden;
+  }
+  .alignTop {
+      position: relative;
+      top:-48px;
+      right:4px;
+  }
+  .doubleColumn {
+      column-count: 2;
+      border:1px solid rgba(0,0,0,0);
+      padding:0;
+      margin:0;
+      min-width:500px;
+  }
+
+  .collectionList {
+      border:1px solid rgba(0,0,0,0);
+      padding:0px;
+      margin-left:5%;
+      margin-right:5%;
+      margin-top:10px;
+  }
+  .collectionItem {
+      border:1px solid rgba(0,0,0,0);
+      padding-left:4%;
+      padding-right:4%;
+      margin:0;
+      border-radius: 4px;
+  }
+
+  .collectionItem:hover {
+      background-color: white;
+  }
+  .collectionItem h1 {
+      font-family: 'Josefin Sans';
+      text-transform: uppercase;
+      font-weight:400;
+      font-size:1.2em;
+  }
+
+  .collectionItem p {
+      font-family: 'Muli';
+      font-size:.9em;
+  }
+
+  @media screen and (max-width: 940px) {
+    .doubleColumn {
+       column-count:1;
+        }
+    }  

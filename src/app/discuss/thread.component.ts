@@ -50,7 +50,7 @@ export class ThreadComponent implements OnInit, OnChanges {
     this.userService.getUser(this.thread.user_id).subscribe(
         user => {this.user = user[0];
           this.userThumbnail = { user: this.user, user_id: this.user.id, editable: false,
-            inRoom: true, size: 50, showUsername: false, showInfo: false };
+            inRoom: true, size: 50, showUsername: true, showInfo: false, textColor: '#000000' };
             console.log('got real user info back.');
           this.createReplyThumbnails();
           // console.log('This thread: ' + JSON.stringify(this.thread));
@@ -74,13 +74,13 @@ export class ThreadComponent implements OnInit, OnChanges {
 
   createThumbnail(user) {
     const thumbnailObj = { user: null, user_id: user.user_id, editable: false, inRoom: true,
-      size: 50, showUsername: false, showInfo: false };
+      size: 40, showUsername: false, showInfo: false, textColor: '#000000' };
     return thumbnailObj;
   }
 
   createLiveThumbnail(user) {
     const thumbnailObj = { user: this.currentUser, user_id: user.user_id, editable: false, inRoom: true,
-      size: 50, showUsername: false, showInfo: false };
+      size: 40, showUsername: false, showInfo: false, textColor: '#000000' };
     return thumbnailObj;
   }
 
@@ -123,7 +123,7 @@ export class ThreadComponent implements OnInit, OnChanges {
         (val) => { }, response => {
           // this.threadChange.emit(this.thread);
           this.thread.displayReplyInput = false;
-          
+
           // this.createReplyThumbnails();
         }// console.log('thread saved')
         ,

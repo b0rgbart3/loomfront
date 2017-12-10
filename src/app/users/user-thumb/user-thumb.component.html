@@ -11,13 +11,12 @@
   [ngStyle]="{ 'width': thumbnail.size, 'height':thumbnail.size }">
 </div>
 
-
+</div>
 
 
 <div *ngIf="thumbnail.user">
-<h2 *ngIf='thumbnail.showUsername'> {{thumbnail.user.username}}</h2>
+<h2 *ngIf='thumbnail.showUsername' [style.color]="thumbnail.textColor"> {{thumbnail.user.username}}</h2>
 <p *ngIf='thumbnail.showInfo'> {{ thumbnail.user.firstname }}&nbsp;{{ thumbnail.user.lastname }}</p>
 <p *ngIf='thumbnail.showInfo'> {{thumbnail.user.email}}</p>
 </div></div>
 
-</div>

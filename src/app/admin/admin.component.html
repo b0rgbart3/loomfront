@@ -1,90 +1,104 @@
-<div class='main'>
+<div class='adminContainer main'>
 
-<div class='loomCard group'>
-  <div class='padMe'>  
+<div class='collection group {{ studentsShowing }}'>
+
     <button *ngIf="users" [routerLink]="['/register']" 
-    class='loomRoundButton loomAdd rightAlignMe'></button> 
-    <h1>Users</h1>
-    <!-- <button *ngIf="!userChart" (click)='buildUserChart'>Get User Info</button>   -->
-    <div *ngIf="users">
-      <div *ngFor='let user of userThumbnails'>
-        <div class='thumbnailAdmin'>
-          <button class='simpleKill' 
-          (click)="deleteUser(user.user_id)"></button>
-          <user-thumb [thumbnail]=user ></user-thumb></div>
-    </div>
-  </div>
+    class='loomRoundButton loomAdd rightAlignMe alignTop'></button> 
     
+    <h1 (click)="toggleStudents()" class='collapsingTitle'>All The Peeps</h1>
+
+      <div *ngIf="users" class='doubleColumn'>
+
+      <div *ngFor='let user of userThumbnails' class='userLine' 
+       [routerLink]="['/usersettings/' + user.user_id + '/edit']">
+        <div class='thumbnailAdmin'>
+          <user-thumb [thumbnail]=user ></user-thumb> </div>
+          <div class='userInfo'>
+              <h1>{{ user.user.username }}</h1>
+            {{ user.user.firstname }} &nbsp; {{ user.user.lastname }}<br>
+            {{ user.user.email }}
+          </div>
+            
+              <div class='remover' 
+              (click)="deleteUser(user.user.username, user.user_id)">Delete</div>
+              <div class='suspender'>Suspend</div>
+              
+        </div>
   </div>
+
 </div>
 
-<div class='loomCard group'>
-  <div class='padMe'>
-      <button *ngIf="users" [routerLink]="['/instructorassignments']" 
-      class='loomRoundButton loomAdd rightAlignMe'></button> 
-    <h1>Instructors</h1>
-    <div *ngFor='let instructor of instructorThumbnails'>
-        <user-thumb [thumbnail]=instructor></user-thumb>
+<div class='collection group {{ instructorsShowing }}'>
+    <h1 (click)="toggleInstructors()" class='collapsingTitle'>Instructors</h1>
+    <div *ngIf='instructorThumbnails' class='collectionList'>
+      <div *ngFor='let user of instructorThumbnails' class='userLine'>
+        <div class='thumbnailAdmin'>
+            <user-thumb [thumbnail]=user ></user-thumb> </div>
+            <div class='userInfo'>
+                <h1>{{ user.user.username }}</h1>
+              {{ user.user.firstname }} &nbsp; {{ user.user.lastname }}<br>
+              {{ user.user.email }}
+            </div>
     </div>
-  </div>
-</div>
-<br clear='all'><br>
+    <div class='userLine note'><p>Note: Instructor
+      assigments are added or removed within each Class</p></div>
+</div></div>
 
-    <div class='loomCard group'>
-      <div class='padMe'>
-          <button *ngIf="classes" [routerLink]="['/classes', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
-          <h1>Classes</h1>
-            <ul class="loom-list" *ngIf="classes">
-            <li *ngFor="let class of classes">
-                <button [routerLink]="['/classes', class.id, 'edit']" class='loomRoundButton loomEdit'></button>
-                <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteClass(class.id)"></button>
-              <h2>{{class.title}}</h2>
-              <p>{{class.description}}</p>
-              <p>{{class.course}}</p>
-              <p>Start Date: {{class.start | date: 'yMMMd'}}</p> <!-- jms -->
-              <p>End Date: {{class.end | date: 'yMMMd'}}</p>
-           </li>
-          </ul>
+<div class='collection group {{ classesShowing }}'>
+    <h1 (click)="toggleClasses()" class='collapsingTitle'>Classes</h1>
+      <button *ngIf="classes" [routerLink]="['/classes', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
       
-        <div class="notice" *ngIf="!classes">Currently having trouble accessing the API for class info.</div>
+        <div class="collectionList" *ngIf="classes">
+         
+        <div *ngFor="let class of classes" [routerLink]="['/classes', 
+        class.id, 'edit']" class='collectionItem'>
+              <button class='loomRoundButton loomKill rightAlignMe' 
+              (click)="deleteClass(class.id)"></button>
+          <h1>{{class.title}}</h1>
+          <p>{{class.description}}</p>
+          <p>{{class.course}}</p>
+          <p>Start Date: {{class.start | date: 'yMMMd'}}</p> <!-- jms -->
+          <p>End Date: {{class.end | date: 'yMMMd'}}</p>
+        </div>
       </div>
-    </div>
+  
+    <div class="notice" *ngIf="!classes">Currently having trouble accessing the API for class info.</div>
+  
+</div>
 
 <!--  Course List -->
-    <div class='loomCard group'>
-      <div class='padMe'>
-        <button *ngIf="courses" [routerLink]="['/courses', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>
-          <h1>Courses</h1>
-            <ul class="loom-list" *ngIf="courses">
-            <li *ngFor="let course of courses">
-                <button [routerLink]="['/courses', course.id, 'edit']" class='loomRoundButton loomEdit'></button>  
-                <button class='loomRoundButton loomKill rightAlignMe' (click)="deleteCourse(course.id)"></button>
-              <h2>{{course.title}}</h2>
+    <div class='collection group {{ coursesShowing }}'>
+        <h1 (click)="toggleCourses()" class='collapsingTitle'>Courses</h1>
+        <button *ngIf="courses" [routerLink]="['/courses', '0', 'edit']" 
+          class='loomRoundButton loomAdd rightAlignMe'></button>
+            <div class="collectionList" *ngIf="courses">
+            <div *ngFor="let course of courses" class='collectionItem'> 
+                <button class='loomRoundButton loomKill rightAlignMe'
+                  (click)="deleteCourse(course.id)"></button>
+              <h1>{{course.title}}</h1>
               <p>{{course.description}}</p>
                  
-            </li>
-          </ul>
-      <div class="notice" *ngIf="!courses">Currently having trouble accessing the API for course info.</div>
-    </div>
+            </div>
+          </div>
+      <div class="notice" *ngIf="!courses">Currently 
+        having trouble accessing the API for course info.</div>
 </div>
 
 
 
-<div class='loomCard group'>
-  <div class='padMe'>
+<div class='collection group {{ materialsShowing }}'>
+    <h1 (click)="toggleMaterials()" class='collapsingTitle'>Materials</h1>
     <button [routerLink]="['/materials', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
-    <h1>Materials</h1>
-    <ul class='loom-list' *ngIf='materials'>
-      <li *ngFor='let material of materials'>
-          <button [routerLink]="['/materials', material.id, 'edit']" 
-          class='loomRoundButton loomEdit'></button>  
+
+    <div class='collectionList' *ngIf='materials'>
+      <div *ngFor='let material of materials' class='collectionItem' 
+      [routerLink]="['/materials', material.id, 'edit']">
           <button class='loomRoundButton loomKill rightAlignMe' 
           (click)="deleteMaterial(material.id)"></button>
-          <h2>{{ material.title }}</h2>
+          <h1>{{ material.title }}</h1>
           <p>{{ material.description }} </p>
-      </li>
-    </ul>
-  </div>
+      </div>
+    </div>
 </div>
 
 <!--  Asset List -->

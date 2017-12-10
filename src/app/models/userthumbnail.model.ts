@@ -10,7 +10,8 @@ export class Userthumbnail {
       public inRoom: boolean,
       public size: number,
       public showUsername: boolean,
-      public showInfo: boolean
+      public showInfo: boolean,
+      public textColor: string
 
   ) {}
 

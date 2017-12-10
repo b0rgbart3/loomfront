@@ -359,13 +359,13 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     }
     createInstructorThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 100,  showUsername: true, showInfo: false };
+            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff' };
         return thumbnailObj;
     }
 
     createStudentThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 60,  showUsername: true, showInfo: false };
+            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff' };
         return thumbnailObj;
     }
 

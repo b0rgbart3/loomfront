@@ -160,7 +160,8 @@ import { ClickOutsideDirective } from './_directives/clickOutside.directive';
     UsersResolver,
     UserService,
     AuthGuard,
-    UserAuthGuard
+    UserAuthGuard,
+
    ],
   bootstrap: [AppComponent ]
 })

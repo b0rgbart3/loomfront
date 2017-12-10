@@ -16,7 +16,7 @@ import { Globals } from '../globals';
 @Component({
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  providers: []
+
 })
 
 export class AdminComponent implements OnInit {
@@ -33,7 +33,12 @@ export class AdminComponent implements OnInit {
   public instructorThumbnails: Userthumbnail[];
   public userThumbnails: Userthumbnail[];
   AVATAR_IMAGE_PATH: string;
-
+  public isCollapsedStudents: boolean;
+  public studentsShowing = 'showing';
+  public instructorsShowing = 'showing';
+  public classesShowing = 'showing';
+  public coursesShowing = 'showing';
+  public materialsShowing = 'showing';
 
   constructor(
     private courseService: CourseService,
@@ -43,7 +48,7 @@ export class AdminComponent implements OnInit {
     public userService: UserService, globals: Globals
   ) {
     this.AVATAR_IMAGE_PATH = globals.base_path + '/avatars/';
-
+    this.isCollapsedStudents = false;
   }
 
   ngOnInit() {
@@ -58,13 +63,57 @@ export class AdminComponent implements OnInit {
 
   }
 
+  toggleStudents() {
+     if (this.studentsShowing === 'showing') {
+       this.studentsShowing = 'hiding';
+     } else {
+       this.studentsShowing = 'showing';
+     }
+  }
+
+  toggleInstructors() {
+    if (this.instructorsShowing === 'showing') {
+      this.instructorsShowing = 'hiding';
+    } else {
+      this.instructorsShowing = 'showing';
+    }
+ }
+
+ toggleClasses() {
+  if (this.classesShowing === 'showing') {
+    this.classesShowing = 'hiding';
+  } else {
+    this.classesShowing = 'showing';
+  }
+}
+
+toggleCourses() {
+  if (this.coursesShowing === 'showing') {
+    this.coursesShowing = 'hiding';
+  } else {
+    this.coursesShowing = 'showing';
+  }
+}
+
+toggleMaterials() {
+  if (this.materialsShowing === 'showing') {
+    this.materialsShowing = 'hiding';
+  } else {
+    this.materialsShowing = 'showing';
+  }
+}
+
   createThumbnail(user) {
-    const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true, size: 125, showUsername: true, showInfo: true };
+    const thumbnailObj = { user: user, user_id: user.id,
+      editable: false, inRoom: true, size: 45, showUsername: false,
+      showInfo: false, textColor: '#000000' };
     return thumbnailObj;
   }
 
   createEditableThumbnail(user) {
-    const thumbnailObj = { user: user, user_id: user.id, editable: true, inRoom: true, size: 125, showUsername: true, showInfo: true };
+    const thumbnailObj = { user: user, user_id: user.id, editable: true,
+      inRoom: true, size: 45, showUsername: false,
+      showInfo: false, textColor: '#0000000' };
     return thumbnailObj;
   }
 
@@ -137,8 +186,8 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  deleteUser(userId) {
-    const result = confirm( 'Are you sure you want to delete this user? ');
+  deleteUser(username, userId) {
+    const result = confirm( 'Are you sure you want to completely delete ' + username + '\'s account?');
     if (result) {
     this.userService.deleteUser(userId).subscribe(
       data => {

@@ -1,22 +1,24 @@
 <div class='thread group'>
+       
         <div class='threadSubject group' (click)='toggleThread()'>
-      <div class='dateString'>  {{ thread.post_date | date }}</div>
-<div *ngIf='user'>
-        <user-thumb [thumbnail]=userThumbnail></user-thumb>
+      
+<div *ngIf='user' class='userIdentifier'>
+  
+<user-thumb [thumbnail]=userThumbnail></user-thumb>
 </div>
 <!-- <button *ngIf='thread.user_id===currentUser.id' class='tinyButton' (click)='killThread()'>Delete</button> -->
-<p class='subject'> {{ thread.subject }}</p>
+<div class='subject'> <div class='dateString'>  {{ thread.post_date | date }}</div>
+{{ thread.subject }}</div>
 </div>
- <br clear='all' >
  <div *ngIf="thread.replies && replyThumbnails && !thread.collapsed" class='threadReplies'>
          <div *ngFor="let reply of thread.replies; let r = index" class='threadReply'>
-                 <div *ngIf="replyThumbnails[r]">
+                 <div *ngIf="replyThumbnails[r]" class='replyIdentifier'>
                  <user-thumb [thumbnail]="replyThumbnails[r]"></user-thumb></div>
                         <!-- <user-thumb {[user]='null' [user_id]=reply.user_id 
                         [editable]=false [tiny]=true}></user-thumb> -->
                  
-                 <button *ngIf='reply.user_id===currentUser.id' class='tinyDelete'
-                  (click)='killReply(r)'></button>
+                 <div *ngIf='reply.user_id===currentUser.id' class='tinyDelete'
+                  (click)='killReply(r)'></div>
                     <button *ngIf='reply.user_id===currentUser.id' class='tinyEdit'>Edit</button>
                     <p>{{ reply.reply }} </p><br clear='all'>
          </div>

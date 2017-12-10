@@ -1,14 +1,12 @@
 .thread {
-    border-bottom:1px solid #aaaaaa;
+    /* border:1px solid orange; */
     padding:0px;
-    padding-left:8px;
     margin:0px;
     padding-bottom:0;
-    background-color:rgba(255,255,255,.2);
 }
 
 .reply {
-    background-color:#555555;
+    background-color:#999999;
     color:white;
     float:right;
     margin-right:20px;
@@ -17,23 +15,40 @@
     padding-bottom:6px;
     padding-left:14px;
     padding-right:14px;
-    font-size:1em;
+    font-size:.9em;
     margin-bottom:8px;
-    border:1px solid #333333;
-    border-bottom:1px solid black;
     outline:none;
     cursor: pointer;
     user-select: none;
     text-transform: uppercase;
-    border-radius:2px;
-    box-shadow:2px 2px 4px rgba(0,0,0,.4);
+    border-radius:4px;
+    font-family: 'Muli';
+  
 }
 .reply:hover {
-    background-color:#eeeeee;
-    color:black;
-    border:1px solid #555555;
+    background-color:#555555;
+
 }
 
+.userIdentifier {
+    display:inline-block;
+    padding-right:8px;
+    /* border:1px solid red; */
+    text-align: center;
+    position: relative;
+    top:4px;
+    left:6px;
+}
+
+.replyIdentifier {
+    display:inline-block;
+    float:left;
+    padding-right:8px;
+    padding-left:8px;
+    /* border:1px solid cyan; */
+    width:62px;
+
+}
 .replyInput {
     width:90%;
     font-size:1.2em;
@@ -43,14 +58,13 @@
 }
 
 .threadReplies {
-    border-bottom:2px solid rgba(0,0,0,.2);
     margin-bottom:8px;
     padding-left:30px;
     padding-top:0;
 }
 
 .threadReply {
-    border-top:1px dashed rgba(0,0,0,.2);
+    text-align: left;
     margin-bottom:2px;
     padding:0px;
 }
@@ -60,6 +74,9 @@
     line-height:1.5em;
     padding-left:10px;
     margin-left:10px;
+    font-family: 'Muli';
+    color:#555555;
+    font-size:.9em;
 }
 
 .tinyButton {
@@ -70,12 +87,12 @@
 }
 
 .threadSubject {
-    background-color:rgba(255,255,255,.25);
-    padding-left:10px;
+    padding:4px;
+    margin:0;
     cursor:pointer;
     transition: .5s;
-    font-size:.9em;
-    font-family: Arial;
+    border-radius:4px;
+    /* border:1px solid blue; */
 }
 
 .threadSubject:hover {
@@ -87,7 +104,15 @@
 }
 
 .subject {
-    font-size:1.4em;
+    font-size:.9em;
+    font-family: 'Muli';
+    /* border:1px solid green; */
+    display:inline-block;
+    vertical-align: top;
+    width:72%;
+    padding-left:0px;
+    line-height:1.6em;
+    color:#333333;
 }
 
 
@@ -97,26 +122,28 @@
 
 .dateString {
     color:#555555;
-    padding:4px;
-    font-size:1.2em;
+    padding:0px;
+    font-size:.7em;
+    font-family: "Arial";
+    text-transform: uppercase;
 }
 
 .tinyDelete {
     width:26px;
     height:26px;
     background-image:url('../../assets/images/kill.svg');
-    background-color:#777777;
+
     float:right;
     border-radius:0;
 
 }
 
 .tinyEdit {
-    background-color:#777777;
+    background-color:#999999;
     width:60px;
     height:26px;
     float:right;
-    border-radius:0;
+    border-radius:4px;
     font-size:.8em;
     padding:0;
     vertical-align: top;
@@ -125,4 +152,7 @@
     user-select: none;
     margin-right:4px;
     margin-left:4px;
+    font-family: 'Muli';
+    text-transform: uppercase;
+    color:white;
 }

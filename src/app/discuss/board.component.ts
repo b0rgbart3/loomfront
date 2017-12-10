@@ -75,7 +75,11 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
 
   newThread(): void {
 
+    console.log('About to create new Thread.');
+
     if (this.discussionFormGroup.valid && this.discussionFormGroup.dirty) {
+
+      console.log('Form was valid and dirty.');
     const combinedObject = Object.assign( {}, this.thread, this.discussionFormGroup.value);
     combinedObject.classID = this.classID;
     combinedObject.user_id = this.currentUser.id;
@@ -90,7 +94,8 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
         this.threads.unshift(combinedObject);
         this.discussionFormGroup.reset();
        });
-    }
+    } else {  console.log('Valid:' + this.discussionFormGroup.valid);
+  console.log('Dirty:' + this.discussionFormGroup.dirty ); }
   }
 
   threadChange( thisThread: Thread ) {

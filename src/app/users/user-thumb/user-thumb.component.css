@@ -3,8 +3,10 @@
 .userThumb {
 display:inline-block;
 vertical-align: top;
-box-sizing: border-box;
 text-align: center;
+/* border:1px solid green; */
+padding-left:20px;
+padding-right:20px;
 }
 
 
@@ -34,19 +36,23 @@ opacity: .42;
 
 }
 
-.userThumb h2 {
+ h2 {
     padding:0;
     margin:0;
     margin-top:4px;
     border:1px solid rgba(0,0,0,0);
     font-family: 'Josefin Sans';
-    color:rgba(255,255,255,.76);
     text-transform: uppercase;
     font-size:.8em;
     font-weight: 400;
+    /* border:1px solid blue; */
+    word-wrap: break-word;
+    max-width:120px;
+    margin-left:auto;
+    margin-right:auto;
 }
 .userThumbWrapper {
     border:1px solid rgba(0,0,0,0);
     text-align: center;
-    margin-right:20px;
+    /* border:1px solid red; */
 }
