@@ -77,6 +77,7 @@ import { ClassResolver } from './services/class-resolver.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
 import { ClickOutsideDirective } from './_directives/clickOutside.directive';
+import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
 
 @NgModule({
   // External
@@ -132,7 +133,8 @@ import { ClickOutsideDirective } from './_directives/clickOutside.directive';
     ThreadComponent,
     InfobotComponent,
     NotificationsComponent,
-    MaterialComponent
+    MaterialComponent,
+    MaterialCollectionComponent
 
   ],
 

@@ -16,22 +16,37 @@ export class CourseResolver implements Resolve <Course> {
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
         const id = route.params['id'];
-        console.log('In the course resolver.');
+       // console.log('In the course resolver.');
 
         if (isNaN(id)) {
-            console.log(`Course id was not a number: ${id}`);
+         //   console.log(`Course id was not a number: ${id}`);
             this.router.navigate(['/welcome']);
             return Observable.of(null);
         }
         return this.courseService.getCourse(id).
-        map(course => { if (course) { return course; }
-        console.log(`Course was not found: ${id}`);
+        map(course => { if (course) {
+            return course; }
+            // const delintedCourse = this.deLintMe(course);
+            // return delintedCourse; }
+       // console.log(`Course was not found: ${id}`);
         this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
-        console.log(`Retrieval error: ${error}`);
+      //  console.log(`Retrieval error: ${error}`);
         this.router.navigate(['/welcome']);
         return Observable.of(null);
     });
     }
+
+    // deLintMe( LintedCourse ) {
+    //     if (LintedCourse.sections && LintedCourse.sections.length > 0) {
+    //      for (let lcSection = 0; lcSection < LintedCourse.sections.length; lcSection++) {
+    //           const sc = LintedCourse.sections[lcSection].content;
+    //           const editedSC = sc.replace(/<br>/g, '\n');
+    //           console.log('Looking at: ' + sc );
+    //           LintedCourse.sections[lcSection].content = editedSC;
+    //      } }
+    //     const deLintedCourse = LintedCourse;
+    //     return deLintedCourse;
+    // }
 }

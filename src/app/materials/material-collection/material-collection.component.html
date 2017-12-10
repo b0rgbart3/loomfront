@@ -1,0 +1,31 @@
+
+<div *ngIf="materialcollection">
+
+        
+    <div *ngIf="materialcollection.videos">
+      
+        <div *ngFor="let videoObject of materialcollection.videos">
+            <h1>Video: {{videoObject.title}}</h1>
+            <div>Video goes here.</div>
+        </div>
+    </div>
+
+    <div *ngIf="materialcollection.documents">
+          
+            <div *ngFor="let documentObject of materialcollection.documents"
+             class='documentWrap'>
+                <div class='documentImage' [routerLink]="documentObject.file"></div>
+                <h1>{{documentObject.title}}</h1>
+                <p>{{ documentObject.description }}</p>
+                <p>{{ documentObject.file }}</p>
+            </div>
+        </div>
+
+    <div *ngIf="materialcollection.books">
+     
+            <div *ngFor="let bookObject of materialcollection.books">
+                <h1>Book: {{bookObject.title}}</h1>
+                <div>Book link here.</div>
+            </div>
+        </div>
+</div>

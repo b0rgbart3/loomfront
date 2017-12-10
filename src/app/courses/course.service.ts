@@ -87,7 +87,7 @@ export class CourseService implements OnInit {
 
     if (!this.courses) {
       this.getCourses();
-      console.log('Courses were not yet loaded');
+    //  console.log('Courses were not yet loaded');
       return null; }
 
     this.courses.forEach ( function(thecourse)  {
@@ -101,7 +101,7 @@ export class CourseService implements OnInit {
   getCourseImage(id): Observable<string> {
     return this._http.get<string> ( this._courseImagesUrl + '?id=' + id )
       .do(data => {
-        console.log( 'found: ' + JSON.stringify(data) );
+    //    console.log( 'found: ' + JSON.stringify(data) );
       return data; })
       .catch (this.handleError);
   }

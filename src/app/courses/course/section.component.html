@@ -1,13 +1,16 @@
 <div class='section'>
     <h1> {{ section.title }} </h1>
-    <p> {{ section.content }}</p>
+    <div [innerHTML]= 'section.content'></div>
 </div>
 
     <div *ngIf='materials && materials.length > 0' class='section'>
-        <h3>Reference Materials:</h3>
-    <div *ngFor= 'let material of materials'>
+
+        <div class='materials group'>
+        <material-collection [materialcollection]="materialCollection"></material-collection>
+    <!-- <div *ngFor= 'let material of materials'>
         <material [material]=material></material>
        
-    </div>
+    </div> -->
+</div>
     </div>
 <br><br clear='all'>

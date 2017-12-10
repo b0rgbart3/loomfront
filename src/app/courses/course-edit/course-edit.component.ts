@@ -61,7 +61,9 @@ export class CourseEditComponent implements OnInit {
             sections: this.sectionsFormArray
         });
         this.addCourseImage();
+        this.deLintMe();
         this.buildSections();
+
     }
 
     buildSections() {
@@ -112,18 +114,43 @@ export class CourseEditComponent implements OnInit {
     }
 
     populateForm(): void {
-        this.courseFormGroup.patchValue({'title': this.course.title, 'description': this.course.description });
+        this.courseFormGroup.patchValue({'title': this.course.title,
+        'description': this.course.description });
     }
 
-    getCourse(id: number) {
-        this.courseService.getCourse(id).subscribe(
-            course => {this.course = <Course>course[0];
-                // console.log('got course info :' + JSON.stringify(course) );
-                this.image = this.course.image;
-                this.imageUrl = this.globals.courseimages + '/' + this.course.id + '/' + this.image;
-             },
-            error => this.errorMessage = <any> error
-        );
+    // getCourse(id: number) {
+    //     this.courseService.getCourse(id).subscribe(
+    //         course => {this.course = <Course>course[0];
+    //             // console.log('got course info :' + JSON.stringify(course) );
+    //             this.image = this.course.image;
+    //             this.imageUrl = this.globals.courseimages + '/' + this.course.id + '/' + this.image;
+
+    //         },
+    //         error => this.errorMessage = <any> error
+    //     );
+    // }
+
+    deLintMe() {
+        for (let i = 0; i < this.course.sections.length; i++) {
+            const sc = this.course.sections[i].content;
+            const editedSC = sc.replace(/<br>/g, '\n');
+            this.course.sections[i].content = editedSC;
+        }
+    }
+
+    lintMe( combinedCourseObject ) {
+        let lintedModel = combinedCourseObject;
+        console.log('LINTING: ');
+        for (let i = 0; i < combinedCourseObject.sections.length; i++) {
+            console.log('Linting section: ' + i);
+            const sectionContent = combinedCourseObject.sections[i].content;
+
+            const LintedSectionContent = sectionContent.replace(/\n/g, '<br>');
+            combinedCourseObject.sections[i].content = LintedSectionContent;
+            console.log(combinedCourseObject.sections[i].content);
+        }
+        lintedModel = combinedCourseObject;
+        return lintedModel;
     }
 
     postCourse() {
@@ -131,17 +158,20 @@ export class CourseEditComponent implements OnInit {
         if (this.uploadedCourseImage) {
         this.course.image = this.image; }
          // This is Deborah Korata's way of merging our data model with the form model
-        const combinedCourseObject = Object.assign( {}, this.course, this.courseFormGroup.value);
+        let combinedCourseObject = Object.assign( {}, this.course, this.courseFormGroup.value);
         // const combinedCourseObject = this.courseFormGroup.value;
 
-        console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
+        // console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
+
+        const lintedModel = this.lintMe( combinedCourseObject );
+        combinedCourseObject = lintedModel;
 
         if (this.course.id === '0') {
             this.courseService.createCourse( combinedCourseObject ).subscribe(
                 (val) => {
 
                   },
-                  response => {
+                  response => {this.router.navigate(['/admin']);
                   },
                   () => {
                     this.router.navigate(['/admin']);
@@ -154,7 +184,7 @@ export class CourseEditComponent implements OnInit {
             (val) => {
 
             },
-            response => {
+            response => {this.router.navigate(['/admin']);
             },
             () => {
             this.router.navigate(['/admin']);

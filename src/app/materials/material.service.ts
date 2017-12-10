@@ -9,6 +9,7 @@ import 'rxjs/add/operator/do';
 import { Globals } from '../globals';
 
 import { Material } from '../models/material.model';
+import { MaterialCollection } from '../models/materialcollection.model';
 
 
 @Injectable()
@@ -107,6 +108,33 @@ export class MaterialService {
     private handleError (error: HttpErrorResponse) {
       // console.log( error.message );
       return Observable.throw(error.message);
+
+    }
+
+    sortMaterials( materialsArray ) {
+
+      const videos = [];
+      const docs = [];
+      const books = [];
+
+      for (let i = 0; i < materialsArray.length; i++) {
+        if (materialsArray[i]) {
+        if (materialsArray[i].type === 'video') {
+          videos.push(materialsArray[i]);
+        } else {
+          if (materialsArray[i].type === 'books') {
+            books.push(materialsArray[i]);
+          }  else {
+            if (materialsArray[i].type === 'PDF document') {
+              docs.push(materialsArray[i]);
+            }
+          }
+        }
+      }
+      }
+
+      const sortedMaterials = new MaterialCollection(videos, docs, books);
+      return sortedMaterials;
 
     }
 

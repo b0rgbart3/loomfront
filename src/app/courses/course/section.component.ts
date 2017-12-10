@@ -4,6 +4,7 @@ import { Course } from '../../models/course.model';
 import { MaterialService } from '../../materials/material.service';
 import { Material } from '../../models/material.model';
 import { Section } from '../../models/section.model';
+import { MaterialCollection } from '../../models/materialcollection.model';
 
 
 
@@ -18,6 +19,7 @@ import { Section } from '../../models/section.model';
 export class SectionComponent implements OnInit, OnChanges {
     private _course: Course;
     private _section: Section;
+    materialCollection: MaterialCollection;
     title: string;
     content: string;
 
@@ -59,11 +61,23 @@ export class SectionComponent implements OnInit, OnChanges {
         // this.section = this.course.sections[this.sectionNumber];
         // this.materialRefs = this.section.materials;
         this.loadInMaterials();
+//        this.reLintContent();
     }
+
+        // reLintContent() {
+        // if (this.course.sections && this.course.sections.length > 0) {
+        //  for (let lcSection = 0; lcSection < this.course.sections.length; lcSection++) {
+        //       const sc = this.course.sections[lcSection].content;
+        //       const editedSC = sc.replace(/<br>/g, '\n');
+        //       console.log('Looking at: ' + sc );
+        //       this.course.sections[lcSection].content = editedSC;
+        //  } }
+
+   // }
 
     ngOnChanges() {
         // console.log('changes');
-       
+
         this.loadInMaterials();
      }
 
@@ -76,6 +90,12 @@ export class SectionComponent implements OnInit, OnChanges {
                 this.materialService.getMaterial(id).subscribe(
                     (material) => { // console.log('found a material ' + j);
                     this.materials.push(material[0]);
+                    if (this.materials.length === this.section.materials.length) {
+                        // if these are equal, that means we've loaded in all the material objects
+                        // so now we can sort them.
+                       const sortedMaterials = this.materialService.sortMaterials(this.materials);
+                        this.materialCollection = sortedMaterials;
+                    }
 
                 }
 

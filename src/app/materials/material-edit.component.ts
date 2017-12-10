@@ -176,7 +176,7 @@ export class MaterialEditComponent implements OnInit {
                 (val) => {
                   },
                   response => {
-
+                    this.router.navigate(['/admin']);
                   },
                   () => {
                     this.router.navigate(['/admin']);
@@ -190,7 +190,7 @@ export class MaterialEditComponent implements OnInit {
 
             },
             response => {
-
+                this.router.navigate(['/admin']);
             },
             () => {
 

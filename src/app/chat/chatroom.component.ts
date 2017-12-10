@@ -82,7 +82,7 @@ private _notes: NotificationsService ) {
 
     createThumbnail(user) {
       const thumbnailObj = { user: user, user_id: user.id, editable: false,
-        inRoom: false, size: 90, showUsername: true, showInfo: false };
+        inRoom: false, size: 90, showUsername: true, showInfo: false, textColor: '#000000' };
       return thumbnailObj;
     }
 

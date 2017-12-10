@@ -2,7 +2,9 @@
     padding-left:8%;
     padding-right:8%;
     padding-top:40px;
-    
+    font-family: 'Muli';
+    font-size:1em;
+    line-height: 1.65em;
 }
 
 h2 {
@@ -24,4 +26,8 @@ p {
     font-family: 'Muli';
     font-weight:300;
     line-height: 2em;
+}
+
+.materials {
+    text-align: center;
 }
