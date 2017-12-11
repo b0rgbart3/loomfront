@@ -11,6 +11,7 @@ export class Globals {
  base_path = 'http://localhost:3100';
  threads = 'http://localhost:3100/api/threads';
  chat_server = 'http://localhost:3101';
+ video = 'http://localhost:3100/assets/video';
 
 
 // Live server paths for Deployment
@@ -21,7 +22,7 @@ export class Globals {
 //  base_path = 'https://ddworks.org:3100';
 //  threads = 'https://ddworks.org:3100/api/threads';
 //  chat_server = 'https://ddworks.org:3101';
-
+//  video = 'https://ddworks.org:3100/assets/video';
 
  fb_app_params = {
     appId: '143123396316217',

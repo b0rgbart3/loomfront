@@ -2,18 +2,16 @@
 .videoBox {
     width:55%;
     display:inline-block;
-
     margin-right:14px;
     background-size:120%;
     margin-bottom:1em;
-
     overflow: hidden;
+   
 }
 
 .introImage {
     width:98%;
     min-height:300px;
-    border:2px solid #ffffff;
     background-position: 50% 50%;
     background-color:#000000;
     background-repeat: no-repeat;
@@ -21,26 +19,6 @@
 
 video {
     width:100%;
-}
-
-.centerPlay {
-    width:64px;
-    height:64px;
-    background-image:url('../../../assets/images/right_white.svg');
-    background-position: 56% center;
-    background-size:46px 46px;
-    background-repeat: no-repeat;
-    border:2px solid #ffffff;
-    border-radius:50%;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:90px;
-    background-color:rgba(255,255,255,.1);
-    opacity:.5;
-}
-
-.centerPlay:active {
-  opacity:1;
 }
 
 .videoWrap {
@@ -57,6 +35,8 @@ video {
     text-align: left;
     vertical-align: top;
     max-width:39%;
+    border:1px solid rgba(0,0,0,0);
+   
 }
 
 .videoDeets h1 {
@@ -78,7 +58,6 @@ video {
 }
 
 .videoContainer {
-  border:1px dashed rgba(0,0,0,.1);
   margin-bottom:2em;
   padding-bottom:2em;
 }
@@ -92,7 +71,6 @@ video {
 }
 
 .videoFrame {
-    border:2px solid white;
     padding:0;
     margin:0;
     background-color:black;

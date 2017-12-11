@@ -80,6 +80,11 @@ import { ClickOutsideDirective } from './_directives/clickOutside.directive';
 import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
 import { VideoComponent } from './materials/video/video.component';
 
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+
 @NgModule({
   // External
   imports: [
@@ -93,7 +98,11 @@ import { VideoComponent } from './materials/video/video.component';
     ReactiveFormsModule,
     AppRoutingModule,
     MatInputModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   // Internal
   declarations: [
