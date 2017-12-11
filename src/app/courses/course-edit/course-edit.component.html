@@ -1,72 +1,73 @@
 
 <div class='stuff'>
-             <form [formGroup]="courseFormGroup" novalidate (ngSubmit)="postCourse()">
-             
-                 <div class='loomCard'>
-                         <div class="padMe">
-                     <h1>Course Info:</h1>
-                     <flash-messages></flash-messages>
-     
-                     <mat-form-field>
-                     <input id="title" matInput placeholder="Title" formControlName="title" >
-                     </mat-form-field>
-                     <mat-form-field>
-     
-                     <textarea id="description" matInput placeholder="Description" 
-                     formControlName="description" ></textarea>
-                     </mat-form-field>
-                    <br>
-                     <br><img [src]="existingImage" width='200' height='200' *ngIf='existingImage'><br>
-                     <br><img [src]="imageUrl " width='200' height='200' *ngIf='imageUrl '><br>
-     
-                     <div class="upload-wrap">
-                        Upload Image
-                        <input type="file" class="upload-btn"  name="imageUploader"  
-                        ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
-                        (change)="fileChange($event)" id="imageUploader">
+    <form [formGroup]="courseFormGroup" novalidate (ngSubmit)="postCourse()">
+    
+        <div class='loomCard'>
+                <div class="padMe">
+            <h1>Course Info:</h1>
+            <flash-messages></flash-messages>
+
+            <mat-form-field>
+            <input id="title" matInput placeholder="Title" formControlName="title" >
+            </mat-form-field>
+            <mat-form-field>
+
+            <textarea id="description" matInput placeholder="Description" 
+            formControlName="description" ></textarea>
+            </mat-form-field>
+        <br>
+            <br><img [src]="existingImage" width='200' height='200' *ngIf='existingImage'><br>
+            <br><img [src]="imageUrl " width='200' height='200' *ngIf='imageUrl '><br>
+
+            <div class="upload-wrap">
+            Upload Image
+            <input type="file" class="upload-btn"  name="imageUploader"  
+            ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
+            (change)="fileChange($event)" id="imageUploader">
+        </div>
+
+            <br><div formArrayName='sections' *ngFor='let section of sections.controls; let i = index'>
+                    <div [formGroupName]="i" class='sectionContainer'>
+                        <button class='loomKill rightAlignMe' (click)="killSection(i)"></button>
+                            
+                        <div class='bannerTop'>
+                            <mat-form-field>
+                            <input matInput id="{{ 'title' + i }}" 
+                            placeholder="Title of Section {{ i+1 }} " formControlName="title" >
+                            </mat-form-field>
+                        </div>
+                        <div class='sectionSection'>
+                            <mat-form-field>
+                            <textarea matInput matTextareaAutosize matAutosizeMinRows="2"
+                            id="content" placeholder="Section Content"
+                                formControlName="content"></textarea>
+                            </mat-form-field>
+                            
+                            <div *ngIf='materialFormArray[i]'>
+                            <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
+                                <div class='loomChoice'>
+                                <button class='loomKill rightAlignMe' (click)='killMaterial(i,j)'></button>
+                                <div [formGroupName]="j">
+                                <mat-select placeholder='Material' formControlName="material">
+                                <mat-option *ngFor='let item of materials' mdOption [value]='item.id' 
+                                ng-selected='value'>{{item.title}}</mat-option>
+                            </mat-select></div></div> 
+                        </div></div>
+                        
+
+                    <button md-raised-button (click)="addMaterial(i)" type='button'>Add Material</button>
                     </div>
-     
-                     <br><div formArrayName='sections' *ngFor='let section of sections.controls; let i = index'>
-                             <div [formGroupName]="i" class='sectionContainer'>
-                                 <button class='loomKill rightAlignMe' (click)="killSection(i)"></button>
-                                     
-                                 <div class='bannerTop'>
-                                     <mat-form-field>
-                                     <input matInput id="{{ 'title' + i }}" 
-                                     placeholder="Title of Section {{ i+1 }} " formControlName="title" >
-                                     </mat-form-field>
-                                 </div>
-                                 <div class='sectionSection'>
-                                     <mat-form-field>
-                                     <textarea matInput id="content" placeholder="Section Content"
-                                         formControlName="content"></textarea>
-                                     </mat-form-field>
-                                     
-                                     <div *ngIf='materialFormArray[i]'>
-                                      <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
-                                          <div class='loomChoice'>
-                                          <button class='loomKill rightAlignMe' (click)='killMaterial(i,j)'></button>
-                                         <div [formGroupName]="j">
-                                            <mat-select placeholder='Material' formControlName="material">
-                                         <mat-option *ngFor='let item of materials' mdOption [value]='item.id' 
-                                         ng-selected='value'>{{item.title}}</mat-option>
-                                     </mat-select></div></div> 
-                                    </div></div>
-                                   
-      
-                             <button md-raised-button (click)="addMaterial(i)" type='button'>Add Material</button>
-                             </div>
-                             
-                         </div>
-                     </div>
-                     <br>
-                     <button md-raised-button (click)="addSection()" type='button'>Add Section</button>
-                 </div><button md-raised-button color="primary" class='loomButton' 
-                     type='submit' [disabled]="!courseFormGroup.valid" >Submit changes</button>
-                 
-             </div>
-      
-             </form><br>       <button (click)="showForm()">ShowFormInfo</button>
+                    
+                </div>
+            </div>
+            <br>
+            <button md-raised-button (click)="addSection()" type='button'>Add Section</button>
+        </div><button md-raised-button color="primary" class='loomButton' 
+            type='submit' [disabled]="!courseFormGroup.valid" >Submit changes</button>
+        
+    </div>
+
+    </form><br>       <button (click)="showForm()">ShowFormInfo</button>
      </div>
      
      <div class='debug'>

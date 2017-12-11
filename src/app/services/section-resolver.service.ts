@@ -21,7 +21,7 @@ export class SectionResolver implements Resolve <number> {
         const sectionNumber = route.params['section'];
 
         console.log('Section Resolver: ' + sectionNumber);
-        console.log('Route Params: ' + JSON.stringify(this.activatedRoute.params));
+        console.log('Route Params: ' + JSON.stringify(route.params));
         if (isNaN( sectionNumber )) {
             return 0;
         } else {

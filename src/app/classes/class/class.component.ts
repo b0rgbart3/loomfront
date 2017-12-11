@@ -92,16 +92,13 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.scrollable = '';
         this.contentWidth = window.innerWidth;
         this.initialDocumentHeight = document.body.scrollHeight;
-        this.sectionNumber = 0;
+        if (!this.sectionNumber) { this.sectionNumber = 0; }
         // Refresh the currentUser's info from the DB
         this.userService.getUser( this.userService.currentUser.id ).subscribe ( user => {
             this.currentUser = user[0]; this.persistBoardSettings();
         } ,
             error => console.log(error)
         );
-
-       
-
 
     }
 
@@ -338,11 +335,19 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             console.log ('params changed.');
             this.classID = params['id'];
             this.sectionNumber = params['section'];
+            console.log('New Section# ' + this.sectionNumber);
             if (this.course && this.course.sections) {
+                console.log('Assigning new section # to: ' + this.sectionNumber);
             this.section = this.course.sections[this.sectionNumber];
+
+
             }
         });
+       this.subscribeToCourse();
 
+    }
+
+    subscribeToCourse() {
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
@@ -376,8 +381,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         }
         this.section = this.course.sections[this.sectionNumber];
 
-        const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
-        this.router.navigate( [routeString] );
+        // const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+        // this.router.navigate( [routeString] );
     }
 
     prevSection() {
@@ -385,9 +390,9 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         if (this.sectionNumber < 0 ) { this.sectionNumber = 0; }
         this.section = this.course.sections[this.sectionNumber];
 
-        const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
-        this.router.navigate( [routeString] );
-        
+        // const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+        // this.router.navigate( [routeString] );
+
     }
     populateForm() {
 
@@ -410,7 +415,10 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     navigateTo(sectionNumber) {
       console.log('will navigate to: ' + sectionNumber);
      this.showingSectionMenu = false;
-        this.router.navigate(['classes', this.classID, sectionNumber]);
+     this.sectionNumber = sectionNumber;
+     this.section = this.course.sections[this.sectionNumber];
+    //  const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+    //     this.router.navigate([routeString]);
     }
 
 

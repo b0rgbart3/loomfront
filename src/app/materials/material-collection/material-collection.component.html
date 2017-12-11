@@ -4,9 +4,23 @@
         
     <div *ngIf="materialcollection.videos">
       
-        <div *ngFor="let videoObject of materialcollection.videos">
-            <h1>Video: {{videoObject.title}}</h1>
-            <div>Video goes here.</div>
+        <div *ngFor="let videoObject of materialcollection.videos; let i = index" class='videoWrap'>
+            <div class='videoBox' 
+            [ngStyle]="{ 'background-image': 'url(' + 
+            this.globals.materialimages + '/' + videoObject.id  +
+             '/' + videoObject.image + ')'}" (click)="playVideo(i)">
+             <div *ngIf='videoPlaying===i'>
+                    <video width="320" height="240" controls>
+                            <source src="movie.mp4" type="video/mp4">
+                            <source src="movie.ogg" type="video/ogg">
+                          Your browser does not support the video tag.
+                          </video>
+             </div>
+                <div class='centerPlay'></div>
+            </div>
+            <div class='videoDeets'>
+            <h1>{{videoObject.title}}</h1>
+            <p>{{videoObject.description}}</p></div>
         </div>
     </div>
 
