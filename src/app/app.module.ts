@@ -78,6 +78,7 @@ import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
 import { ClickOutsideDirective } from './_directives/clickOutside.directive';
 import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
+import { VideoComponent } from './materials/video/video.component';
 
 @NgModule({
   // External
@@ -134,7 +135,8 @@ import { MaterialCollectionComponent } from './materials/material-collection/mat
     InfobotComponent,
     NotificationsComponent,
     MaterialComponent,
-    MaterialCollectionComponent
+    MaterialCollectionComponent,
+    VideoComponent
 
   ],
 

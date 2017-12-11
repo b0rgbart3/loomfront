@@ -12,15 +12,13 @@ import { Globals } from '../../globals';
 
 export class MaterialCollectionComponent implements OnInit {
     @Input() materialcollection: MaterialCollection;
-    videoPlaying: number;
+
 
     constructor( private globals: Globals) {    }
 
     ngOnInit() {
+
     }
 
-    playVideo( index ) {
-        console.log('About to play video: ' + index);
-        this.videoPlaying = index;
-    }
+
 }

@@ -1,0 +1,17 @@
+<div class='videoContainer group' *ngIf='videoObject'>
+  <div class='videoBox'>
+    <div class='introImage'
+  [ngStyle]="{ 'background-image': backgroundImage}" (click)="playVideo(i)" *ngIf="!playing">
+  <div class='centerPlay' *ngIf="!playing"></div></div>
+  <div *ngIf='playing'>
+    <div class='videoFrame group'>
+          <video controls autoplay='true'>
+                  <source [src]="videoObject.contenturl" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+      </div>
+</div>
+  <div class='videoDeets'>
+  <h1>{{videoObject.title}}</h1>
+  <p>{{videoObject.description}}</p></div>
+</div>
