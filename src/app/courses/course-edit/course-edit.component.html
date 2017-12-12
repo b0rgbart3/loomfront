@@ -1,8 +1,11 @@
 
-<div class='stuff'>
-    <form [formGroup]="courseFormGroup" novalidate (ngSubmit)="postCourse()">
+<div class='loomContainer group'>
+    <form [formGroup]="courseFormGroup" novalidate (ngSubmit)="postCourse()" class='loomForm'>
     
         <div class='loomCard'>
+                <div class='bigDelete'
+                (click)="deleteCourse(this.course.id)"></div>
+    
                 <div class="padMe">
             <h1>Course Info:</h1>
             <flash-messages></flash-messages>
@@ -43,28 +46,36 @@
                                 formControlName="content"></textarea>
                             </mat-form-field>
                             
-                            <div *ngIf='materialFormArray[i]'>
+                            <div *ngIf='materialFormArray && materialFormArray[i]'>
                             <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
                                 <div class='loomChoice'>
                                 <button class='loomKill rightAlignMe' (click)='killMaterial(i,j)'></button>
                                 <div [formGroupName]="j">
-                                <mat-select placeholder='Material' formControlName="material">
+                                    <mat-form-field>
+                                <mat-select [placeholder]="materialPlaceholder" formControlName="material">
                                 <mat-option *ngFor='let item of materials' mdOption [value]='item.id' 
                                 ng-selected='value'>{{item.title}}</mat-option>
-                            </mat-select></div></div> 
+                            </mat-select></mat-form-field>
+                        </div></div> 
                         </div></div>
                         
 
-                    <button md-raised-button (click)="addMaterial(i)" type='button'>Add Material</button>
+                    <div class='loomButton' (click)="addMaterial(i)">Add Material</div>
                     </div>
                     
                 </div>
             </div>
             <br>
-            <button md-raised-button (click)="addSection()" type='button'>Add Section</button>
-        </div><button md-raised-button color="primary" class='loomButton' 
-            type='submit' [disabled]="!courseFormGroup.valid" >Submit changes</button>
+            <div (click)="addSection()" class='loomButton'>Add Section</div><br clear='all'>
+
         
+        <div class='loomButton loomSubmit' 
+            type='submit' (click)='postCourse()'>Submit changes</div>
+            <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div>
+      
+           
+            <br clear='all'>
+        </div> 
     </div>
 
     </form><br>       <button (click)="showForm()">ShowFormInfo</button>

@@ -16,16 +16,20 @@ export class CourseResolver implements Resolve <Course> {
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
         const id = route.params['id'];
-       // console.log('In the course resolver.');
+       console.log('In the course resolver: ' + id);
 
         if (isNaN(id)) {
-         //   console.log(`Course id was not a number: ${id}`);
+           console.log(`Course id was not a number: ${id}`);
             this.router.navigate(['/welcome']);
             return Observable.of(null);
         }
+        if (id === '0' ) {
+            console.log('creating a new empty course. ');
+            const newCourse = new Course('', '', '0', [], '');
+            return Observable.of( newCourse ); }
         return this.courseService.getCourse(id).
         map(course => { if (course) {
-            return course; }
+            return course[0]; }
             // const delintedCourse = this.deLintMe(course);
             // return delintedCourse; }
        // console.log(`Course was not found: ${id}`);

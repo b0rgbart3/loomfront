@@ -87,6 +87,7 @@ import {VgBufferingModule} from 'videogular2/buffering';
 import { BookService } from './services/book.service';
 import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
+import { CourseBuilderComponent } from './course-builder/course-builder.component';
 
 @NgModule({
   // External
@@ -149,7 +150,8 @@ import { BookEditComponent } from './materials/books/book-edit.component';
     MaterialComponent,
     MaterialCollectionComponent,
     VideoComponent,
-    BookEditComponent
+    BookEditComponent,
+    CourseBuilderComponent
 
   ],
 

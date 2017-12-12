@@ -137,7 +137,8 @@ toggleBooks() {
       instructors =>  {this.instructors = instructors;
         this.instructorThumbnails = this.instructors.map(this.createThumbnail);
         // console.log('Instructors: ' + JSON.stringify(this.instructors ) );
-      console.log(this.instructors.length); },
+     // console.log(this.instructors.length);
+     },
       error => this.errorMessage = <any>error);
     }
 

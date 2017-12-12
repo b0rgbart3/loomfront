@@ -304,13 +304,13 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     }
 
     myInit() {
-      //  console.log('in class Init...');
+        console.log('in class Init...');
         this.classID = this.activated_route.snapshot.params['id'];
-        this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
+        this.thisClass = this.activated_route.snapshot.data['thisClass'];
         this.users = this.activated_route.snapshot.data['users'];
         this.instructors = [];
         this.instructors = this.classService.getInstructors(this.thisClass, this.users);
-      //  console.log('instructors: ' + JSON.stringify(this.users));
+        console.log('instructors: ' + JSON.stringify(this.users));
         this.students = [];
         this.students = this.classService.getStudents(this.thisClass, this.users);
 

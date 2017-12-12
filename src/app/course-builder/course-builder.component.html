@@ -1,0 +1,18 @@
+<div class='loomContainer group'>
+    
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>Courses</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-list>
+        <mat-list-item [routerLink]="['/courses', 0, 'edit']">
+            <mat-icon class="example-icon">add</mat-icon> Add a new Course
+        </mat-list-item>
+        <mat-list-item *ngFor='let course of courses' [routerLink]="['/courses',course.id,'edit']">
+            {{ course.title }}
+        </mat-list-item>
+    </mat-list>
+</mat-expansion-panel>
+
+</div>

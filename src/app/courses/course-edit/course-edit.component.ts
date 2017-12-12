@@ -24,7 +24,7 @@ export class CourseEditComponent implements OnInit {
     sectionReferences: FormGroup[];
     materialReferences: FormArray[];
     course: Course;
-    id: number;
+    id: string;
     errorMessage: string;
     image: string;
     imageUrl = '';
@@ -37,20 +37,29 @@ export class CourseEditComponent implements OnInit {
     existingImage: string;
     uploadedCourseImage: boolean;
     materialFormArrayReferences: FormArray[]; // these are just pointers to the various material form arrays
-
+    materialPlaceholder: string;
     constructor(private router: Router, private activated_route: ActivatedRoute,
         private courseService: CourseService, private fb: FormBuilder,
         private materialService: MaterialService, private globals: Globals ) { }
 
     ngOnInit(): void {
+        this.materialPlaceholder = 'Choose a Material';
+        this.courseService.ngOnInit();
 
         // Get the id from the activated route -- and get the data from the resolvers
         this.id = this.activated_route.snapshot.params['id'];
-        this.course = this.activated_route.snapshot.data['course'][0];
-        this.materials = this.activated_route.snapshot.data['materials'];
 
-        console.log(JSON.stringify(this.materials));
-        this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
+        console.log('About to Edit Course ID: ' + this.id);
+
+          this.course = this.activated_route.snapshot.data['course'];
+          console.log('Course: ' + JSON.stringify(this.course));
+          this.materials = this.activated_route.snapshot.data['materials'];
+
+          if (this.id !== '0' && ( this.course.image !== '' )) {
+          this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
+          }
+
+        // console.log(JSON.stringify(this.materials));
 
         this.uploadedCourseImage = false;
         this.sectionsFormArray = this.fb.array([  ]);
@@ -60,6 +69,7 @@ export class CourseEditComponent implements OnInit {
             imageUploader: '',
             sections: this.sectionsFormArray
         });
+
         this.addCourseImage();
         this.deLintMe();
         this.buildSections();
@@ -67,12 +77,14 @@ export class CourseEditComponent implements OnInit {
     }
 
     buildSections() {
+        console.log('building sections.');
         this.sectionReferences = [];
-         if (this.course.sections) {
+
             this.materialFormArray = [];
+
             for (let i = 0; i < this.course.sections.length; i++) {
                 this.materialFormArray[i] = this.fb.array([]);
-                if (this.course.sections[i].materials) {
+                if (this.course.sections[i] && this.course.sections[i].materials) {
                 for (let j = 0; j < this.course.sections[i].materials.length; j++ ) {
                     this.materialFormArray[i].push(this.buildMaterialsSubSection(this.course.sections[i].materials[j]['material']));
                 } }
@@ -84,7 +96,7 @@ export class CourseEditComponent implements OnInit {
                 this.sectionsFormArray.push(  this.sectionReferences[i] );
 
                 }
-        }
+
         this.populateForm();
     }
 
@@ -132,6 +144,7 @@ export class CourseEditComponent implements OnInit {
 
     deLintMe() {
         for (let i = 0; i < this.course.sections.length; i++) {
+            console.log('delinting the sections');
             const sc = this.course.sections[i].content;
             const editedSC = sc.replace(/<br>/g, '\n');
             this.course.sections[i].content = editedSC;
@@ -161,7 +174,7 @@ export class CourseEditComponent implements OnInit {
         let combinedCourseObject = Object.assign( {}, this.course, this.courseFormGroup.value);
         // const combinedCourseObject = this.courseFormGroup.value;
 
-        // console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
+        console.log( 'Posting course: ' + JSON.stringify(combinedCourseObject) );
 
         const lintedModel = this.lintMe( combinedCourseObject );
         combinedCourseObject = lintedModel;
@@ -198,7 +211,11 @@ export class CourseEditComponent implements OnInit {
     }
 
     addMaterial(i): void {
-        this.materialFormArray[i].push(this.buildMaterialsSubSection(''));
+        if (this.materialFormArray[i]) {
+            this.materialFormArray[i].push(this.buildMaterialsSubSection(''));
+        } else {
+            this.materialFormArray[i] = this.fb.array([]);
+        }
     }
 
     killSection(i) {
@@ -214,7 +231,9 @@ export class CourseEditComponent implements OnInit {
 
 
     addCourseImage() {
-        const urlWithQuery = 'http://localhost:3100/api/courseimages?id=' + this.id;
+
+            console.log('adding course image');
+        const urlWithQuery = this.globals.courseimages + '?id=' + this.id;
         this.uploader = new FileUploader({url: urlWithQuery});
         this.uploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
@@ -230,4 +249,29 @@ export class CourseEditComponent implements OnInit {
             this.uploader.queue[0].remove();
         };
     }
+
+    deleteCourse(courseId) {
+        const result = confirm( 'Are you sure you want to delete this course,' +
+        ' and All of it\'s related sections, width ID: ' + courseId + '? ');
+        if (result) {
+            console.log('Got the ok to delete the course.');
+
+        this.courseService.deleteCourse(courseId).subscribe(
+            (data) => {
+                console.log('Got back from the Course Service.');
+                this.router.navigate(['/coursebuilder']);
+            },
+          error => {
+              this.errorMessage = <any>error;
+              // This is a work-around for a HTTP error message I was getting even when the
+              // course was successfully deleted.
+              if (error.status === 200) {
+                console.log('Got back from the Course Service.');
+                this.router.navigate(['/coursebuilder']);
+              } else {
+             console.log('Error: ' + JSON.stringify(error) ); }
+        } );
+       }
+      }
+
 }

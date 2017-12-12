@@ -51,7 +51,13 @@ export class ClassEditComponent implements OnInit {
     ngOnInit(): void {
 
         const id = this.activated_route.snapshot.params['id'];
-        this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
+        
+        console.log('The ID for this new class is: ' + id);
+
+        this.thisClass = this.activated_route.snapshot.data['thisClass'];
+
+
+
         this.users = this.activated_route.snapshot.data['users'];
         this.courses = this.activated_route.snapshot.data['courses'];
         this.possibleInstructors = this.activated_route.snapshot.data['possibleInstructors'];

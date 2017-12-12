@@ -1,0 +1,23 @@
+
+mat-expansion-panel-header {
+    border-bottom:1px solid black;
+}
+
+mat-panel-title {
+    font-size:1.3em;
+    font-weight:bold;
+}
+
+mat-list-item {
+    cursor: pointer;
+    outline:none;
+}
+mat-list-item:hover {
+    background-color:#eeeeee;
+    outline:none;
+}
+
+mat-list-item:active {
+    background-color:#cccccc;
+    outline:none;
+}

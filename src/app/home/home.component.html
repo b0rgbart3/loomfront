@@ -1,37 +1,38 @@
 <div class='loomContainer'>
-<div *ngIf='studentClasses' class='loomCard padMe'><h1 class='label'>Classes you are taking</h1>
-<div *ngFor='let classobject of studentClasses; let j = index' >
-    <div class='selectorBox group' (click)='goto(classobject.id)'>
-        <div class='classInfoSelectionCollection group'>
-                <h1>{{ classobject.title }}</h1>
-        <div class='classCourseImageThumnail'>         
-           <!-- <img [src]="classobject.courseImageURL"> -->
-           <course-image [courseID]='classobject.course'></course-image>
-        </div>
-        <div class='classInfo'>
-                <p class='classDates'>
-                    {{ classobject.start | date:'MMMM dd, yyyy' }} 
-                    -- {{ classobject.end | date:'MMMM dd, yyyy' }}</p>
-            
-            <p>{{ classobject.description }}</p>
-                    </div>
-    </div></div>
-</div></div>
-
-<div *ngIf='instructorClasses' class='loomCard padMe'><h1 class='label'>Classes you are teaching</h1>
-<div *ngFor='let classobject of instructorClasses'>
+        <div *ngIf='studentClasses' class='loomCard padMe'><h1 class='label'>Classes you are taking</h1>
+        <div *ngFor='let classobject of studentClasses; let j = index' >
         <div class='selectorBox group' (click)='goto(classobject.id)'>
                 <div class='classInfoSelectionCollection group'>
                         <h1>{{ classobject.title }}</h1>
-                <div class='classCourseImageThumnail'>
-                   <course-image [courseID]='classobject.course'></course-image>
+                <div class='classCourseImageThumnail'>         
+                <!-- <img [src]="classobject.courseImageURL"> -->
+                <course-image [courseID]='classobject.course'></course-image>
                 </div>
                 <div class='classInfo'>
                         <p class='classDates'>
-                            {{ classobject.start | date:'MMMM dd, yyyy' }} 
-                            -- {{ classobject.end | date:'MMMM dd, yyyy' }}</p>            
-                    <p>{{ classobject.description }}</p>
-                                    </div>
-            </div></div>
+                        {{ classobject.start | date:'MMMM dd, yyyy' }} 
+                        -- {{ classobject.end | date:'MMMM dd, yyyy' }}</p>
+                
+                <p>{{ classobject.description }}</p>
+                        </div>
         </div></div>
-        </div>
+        </div></div>
+
+        <div *ngIf='instructorClasses' class='loomCard padMe'><h1 class='label'>Classes you are teaching</h1>
+        <div *ngFor='let classobject of instructorClasses'>
+                <div class='selectorBox group' (click)='goto(classobject.id)'>
+                        <div class='classInfoSelectionCollection group'>
+                                <h1>{{ classobject.title }}</h1>
+                        <div class='classCourseImageThumnail'>
+                        <course-image [courseID]='classobject.course'></course-image>
+                        </div>
+                        <div class='classInfo'>
+                                <p class='classDates'>
+                                {{ classobject.start | date:'MMMM dd, yyyy' }} 
+                                -- {{ classobject.end | date:'MMMM dd, yyyy' }}</p>            
+                        <p>{{ classobject.description }}</p>
+                                        </div>
+                </div></div>
+                </div></div>
+
+</div>

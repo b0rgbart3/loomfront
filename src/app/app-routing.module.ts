@@ -36,6 +36,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
+import { CourseBuilderComponent } from './course-builder/course-builder.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -52,11 +53,12 @@ resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
 { path: 'admin', pathMatch: 'full', component: AdminComponent,
 canActivate: [ AdminRouteActivator ] },
+{ path: 'coursebuilder', component: CourseBuilderComponent },
 { path: 'home', pathMatch: 'full', component: HomeComponent },
 { path: 'books/:id/edit', component: BookEditComponent },
 { path: 'courses/:id/edit', component: CourseEditComponent,
 resolve: { course: CourseResolver, materials: MaterialsResolver} },
-{ path: 'classes/:id/:section', component: ClassComponent, resolve: {
+{ path: 'classes/:id/section/:id', component: ClassComponent, resolve: {
     thisClass: ClassResolver, section: SectionResolver, users: UsersResolver }},
 { path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, users: UsersResolver,

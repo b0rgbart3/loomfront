@@ -74,8 +74,8 @@
             <div class="collectionList" *ngIf="courses">
             <div *ngFor="let course of courses" class='collectionItem'
              [routerLink]="['/courses', course.id, 'edit']"> 
-                <button class='loomRoundButton loomKill rightAlignMe'
-                  (click)="deleteCourse(course.id)"></button>
+                <!-- <button class='loomRoundButton loomKill rightAlignMe'
+                  (click)="deleteCourse(course.id)"></button> -->
               <h1>{{course.title}}</h1>
               <p>{{course.description}}</p>
                  

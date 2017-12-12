@@ -55,23 +55,27 @@ export class HomeComponent implements OnInit {
                 this.courseService.getCourses().subscribe(
                     courses => {
                         this.courses = courses;
+                        // console.log('loaded all the coureses.');
                         this.getClassesForCurrentUser();
                     },
                     error => this.errorMessage = <any>error);
 
             },
             error => this.errorMessage = <any>error);
-
+        // console.log('end of home component init method.');
     }
 
     getClassesForCurrentUser() {
+        // console.log('getting classes for the user');
         this.classService.getStudentClasses(this.currentUser.id).subscribe(
             studentClasses => { this.studentClasses = studentClasses;
                 this.loadCourseImages(); },
             error => this.errorMessage = <any>error);
 
         this.classService.getInstructorClasses(this.currentUser.id).subscribe(
-            instructorClasses => { this.instructorClasses = instructorClasses;
+            instructorClasses => {
+                // console.log('Got classes for instructors.');
+                this.instructorClasses = instructorClasses;
                 this.loadCourseImagesForInstructors(); },
             error => this.errorMessage = <any>error);
     }
@@ -79,6 +83,7 @@ export class HomeComponent implements OnInit {
     // This method builds an array of Course Images for the Classes that the student is enrolled in.
     // I wish this was done in the Course Service - or Class Service - but alas, it is not.
     loadCourseImages() {
+        console.log('loading course images');
         this.courseImages = [];
         let tempCourse = null;
         let tempCourseID = '';
@@ -96,12 +101,13 @@ export class HomeComponent implements OnInit {
            // console.log('tempCourse: ' + JSON.stringify(tempCourse));
 
             tempCourseImageUrl = this.globals.courseimages + '/' + this.studentClasses[i].course + '/' + tempCourse[0].image;
-           // console.log(tempCourseImageUrl);
+            // console.log(tempCourseImageUrl);
 
             this.studentClasses[i].courseObject = tempCourse;
             this.studentClasses[i].courseImageURL = tempCourseImageUrl;
 
         }
+      //  console.log('Done loading course images.');
     }
 
     loadCourseImagesForInstructors() {

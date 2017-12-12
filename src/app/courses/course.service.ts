@@ -42,6 +42,7 @@ export class CourseService implements OnInit {
       // debug the flow of data
       .do(data =>  { // console.log('All: ' + JSON.stringify(data));
                     this.courseCount = data.length;
+                    this.courses = data;
             // Loop through all the Courses to find the highest ID#
             for (let i = 0; i < data.length; i++) {
               const foundID = Number(data[i].id);
@@ -106,7 +107,7 @@ export class CourseService implements OnInit {
       .catch (this.handleError);
   }
 
-  deleteCourse(courseId: number): Observable<any> {
+  deleteCourse(courseId: string): Observable<any> {
       return this._http.delete( this._coursesUrl + '?id=' + courseId);
   }
 
@@ -119,11 +120,23 @@ export class CourseService implements OnInit {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       // let thisID = this.courseCount + 1;
-      courseObject.id = this.highestID.toString();
-      // courseObject.id = '' + thisID;
-      const body =  JSON.stringify(courseObject);
-      // console.log( 'Posting Course: ', body   );
-      return this._http.put(this._coursesUrl + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+
+      console.log('Creating Course.');
+
+      /* We HAVE to know what the other courses are before we build a new one (so that we can
+         assign a proper ID to it. )  -- so if we haven't loaded them in yet, lets fucking do
+         it again now.
+      */
+
+      if (this.courses) {
+            courseObject.id = this.highestID.toString();
+            const body =  JSON.stringify(courseObject);
+            console.log( 'Posting Course: ', body   );
+            return this._http.put(this._coursesUrl + '?id=' + courseObject.id,
+              courseObject, {headers: myHeaders});
+      } else {
+        return Observable.of(null);
+      }
    }
 
    updateCourse(courseObject: Course): Observable<any> {
