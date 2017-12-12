@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
+
+
 export class Globals {
 
 // Local paths for Development
 
+
+
  courseimages = 'http://localhost:3100/courseimages';
  materials = 'http://localhost:3100/api/materials';
  materialimages = 'http://localhost:3100/materialimages';
+ materialfiles = 'http://localhost:3100/materialfiles';
  base_path = 'http://localhost:3100';
  threads = 'http://localhost:3100/api/threads';
  chat_server = 'http://localhost:3101';

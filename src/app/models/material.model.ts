@@ -8,7 +8,9 @@ export class Material {
       public contenturl: string,
       public type: string,
       public image: string,
+      public imageURL: string,
       public file: string,
+      public fileURL: string,
       public owner: string   // this is the id of the user who uploaded this
   ) {}
 

@@ -13,10 +13,18 @@
           
             <div *ngFor="let documentObject of materialcollection.documents"
              class='documentWrap'>
-                <div class='documentImage' [routerLink]="documentObject.file"></div>
+           
+                <a href='{{documentObject.fileURL}}' *ngIf='documentObject.imageURL'>
+                <div class='documentImage' 
+                [ngStyle]="{ 'background-image': 'url(' + documentObject.imageURL + ')'}"
+                *ngIf="documentObject.imageURL"></div></a>
+
+
+                <div class='documentImage' [routerLink]="documentObject.fileURL" 
+                *ngIf="!documentObject.imageURL"></div>
                 <h1>{{documentObject.title}}</h1>
                 <p>{{ documentObject.description }}</p>
-                <p>{{ documentObject.file }}</p>
+              
             </div>
         </div>
 

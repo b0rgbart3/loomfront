@@ -14,10 +14,26 @@ export class MaterialCollectionComponent implements OnInit {
     @Input() materialcollection: MaterialCollection;
 
 
+
     constructor( private globals: Globals) {    }
 
     ngOnInit() {
 
+
+        if (this.materialcollection.documents) {
+            console.log('found documents :' + this.materialcollection.documents.length);
+            for (let i = 0; i < this.materialcollection.documents.length; i++) {
+                console.log('document: ' + this.materialcollection.documents[i].title);
+
+                if (this.materialcollection.documents[i].image) {
+                    console.log('found an image: ' + this.materialcollection.documents[i].image);
+                this.materialcollection.documents[i].imageURL = this.globals.materialimages + '/' +
+                  this.materialcollection.documents[i].id + '/' + this.materialcollection.documents[i].image;  }
+                if (this.materialcollection.documents[i].file) {
+                this.materialcollection.documents[i].fileURL = this.globals.materialfiles + '/' +
+                  this.materialcollection.documents[i].id + '/' + this.materialcollection.documents[i].file; }
+            }
+        }
     }
 
 

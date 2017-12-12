@@ -5,7 +5,7 @@
 
     <div *ngIf='materials && materials.length > 0' class='section'>
 
-        <div class='materials group'>
+        <div class='materials group' *ngIf='materialCollection'>
         <material-collection [materialcollection]="materialCollection"></material-collection>
     <!-- <div *ngFor= 'let material of materials'>
         <material [material]=material></material>

@@ -334,12 +334,15 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.activated_route.params.subscribe( params => {
             console.log ('params changed.');
             this.classID = params['id'];
-            this.sectionNumber = params['section'];
-            console.log('New Section# ' + this.sectionNumber);
-            if (this.course && this.course.sections) {
-                console.log('Assigning new section # to: ' + this.sectionNumber);
-            this.section = this.course.sections[this.sectionNumber];
 
+            if (params['section']) {
+                this.sectionNumber = params['section'];
+
+                console.log('New Section# ' + this.sectionNumber);
+                if (this.course && this.course.sections) {
+                    console.log('Assigning new section # to: ' + this.sectionNumber);
+                this.section = this.course.sections[this.sectionNumber];
+            }
 
             }
         });
@@ -381,8 +384,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         }
         this.section = this.course.sections[this.sectionNumber];
 
-        // const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
-        // this.router.navigate( [routeString] );
+        const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+        this.router.navigate( [routeString] );
     }
 
     prevSection() {
@@ -390,8 +393,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         if (this.sectionNumber < 0 ) { this.sectionNumber = 0; }
         this.section = this.course.sections[this.sectionNumber];
 
-        // const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
-        // this.router.navigate( [routeString] );
+        const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+        this.router.navigate( [routeString] );
 
     }
     populateForm() {

@@ -83,9 +83,12 @@ export class SectionComponent implements OnInit, OnChanges {
 
     loadInMaterials() {
             this.materials = [];
+            this.materialCollection = null;
+            console.log('loading in materials for course# ' + this.course.id + ', section: ' + JSON.stringify(this.section));
             if (this.section.materials) {
             for (let j = 0; j < this.section.materials.length; j++) {
                 const id = this.section.materials[j]['material'];
+
 
                 this.materialService.getMaterial(id).subscribe(
                     (material) => { // console.log('found a material ' + j);
@@ -95,6 +98,9 @@ export class SectionComponent implements OnInit, OnChanges {
                         // so now we can sort them.
                        const sortedMaterials = this.materialService.sortMaterials(this.materials);
                         this.materialCollection = sortedMaterials;
+                      //  console.log('Done sorting the materials');
+                       // console.log(JSON.stringify(this.materialCollection));
+
                     }
 
                 }
