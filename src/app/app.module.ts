@@ -84,6 +84,9 @@ import {VgCoreModule} from 'videogular2/core';
 import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
+import { BookService } from './services/book.service';
+import { BookResolver } from './services/book-resolver.service';
+import { BookEditComponent } from './materials/books/book-edit.component';
 
 @NgModule({
   // External
@@ -145,7 +148,8 @@ import {VgBufferingModule} from 'videogular2/buffering';
     NotificationsComponent,
     MaterialComponent,
     MaterialCollectionComponent,
-    VideoComponent
+    VideoComponent,
+    BookEditComponent
 
   ],
 
@@ -174,6 +178,8 @@ import {VgBufferingModule} from 'videogular2/buffering';
     UserService,
     AuthGuard,
     UserAuthGuard,
+    BookService,
+    BookResolver
 
    ],
   bootstrap: [AppComponent ]

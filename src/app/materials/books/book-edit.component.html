@@ -1,0 +1,48 @@
+<div class='stuff'>
+        
+    
+        <form [formGroup]="bookForm" novalidate (ngSubmit)="postBook()">
+                                        
+        <div class='loomCard group'>
+        
+        <div class='padMe'>
+        <h1>Book Reference:</h1>
+        <mat-form-field>
+        <input matInput placeholder="Title" name="title" id='title' formControlName='title'>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput placeholder="Description" name="description" id='description' formControlName='description'>
+            </mat-form-field>
+        <mat-form-field>
+                <input matInput placeholder="Author" name="author" id='author' formControlName='author'>
+                </mat-form-field>
+       
+        <br>
+        <br><img [src]="imageUrl" width='200' height='200' *ngIf='image'><br>
+        
+        <div class="upload-wrap">
+            Include Image
+            <input type="file" class="upload-btn"  name="image"  
+            ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
+            (change)="imageChange($event)" id="image">
+        </div>
+    
+        <br>
+        <mat-form-field>
+            <input matInput placeholder="Purchase Url" name="purchaseURL" id='purchaseURL' 
+            formControlName='purchaseURL'>
+            </mat-form-field>
+    
+        
+    
+    
+    </div>
+    <button md-raised-button color="primary" class='loomButton' 
+    type='submit' >Submit changes</button>
+    
+    </div>
+    
+    </form>    
+    </div>
+    

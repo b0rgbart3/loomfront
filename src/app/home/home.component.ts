@@ -93,10 +93,10 @@ export class HomeComponent implements OnInit {
             */
             tempCourse = this.courses.filter( obj => (obj.id === tempCourseID) );
 
-            console.log('tempCourse: ' + JSON.stringify(tempCourse));
+           // console.log('tempCourse: ' + JSON.stringify(tempCourse));
 
             tempCourseImageUrl = this.globals.courseimages + '/' + this.studentClasses[i].course + '/' + tempCourse[0].image;
-            console.log(tempCourseImageUrl);
+           // console.log(tempCourseImageUrl);
 
             this.studentClasses[i].courseObject = tempCourse;
             this.studentClasses[i].courseImageURL = tempCourseImageUrl;

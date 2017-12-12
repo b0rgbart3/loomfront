@@ -12,6 +12,8 @@ import { MaterialService } from '../materials/material.service';
 import { Material } from '../models/material.model';
 import { Userthumbnail } from '../models/userthumbnail.model';
 import { Globals } from '../globals';
+import { Book } from '../models/book.model';
+import { BookService } from '../services/book.service';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -30,6 +32,7 @@ export class AdminComponent implements OnInit {
   // assets: Asset [];
   username: string;
   materials: Material [];
+  books: Book [];
   public instructorThumbnails: Userthumbnail[];
   public userThumbnails: Userthumbnail[];
   AVATAR_IMAGE_PATH: string;
@@ -39,13 +42,16 @@ export class AdminComponent implements OnInit {
   public classesShowing = 'showing';
   public coursesShowing = 'showing';
   public materialsShowing = 'showing';
+  public booksShowing = 'showing';
 
   constructor(
     private courseService: CourseService,
     private classService: ClassService,
     private materialService: MaterialService,
     private router: Router,
-    public userService: UserService, globals: Globals
+    private userService: UserService,
+    private globals: Globals,
+    private bookService: BookService
   ) {
     this.AVATAR_IMAGE_PATH = globals.base_path + '/avatars/';
     this.isCollapsedStudents = false;
@@ -53,12 +59,13 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.userService.ngOnInit();
+    this.username = localStorage.getItem('username');
     this.getUsers();
     this.getClasses();
     this.getCourses();
     this.getMaterials();
     this.getInstructors();
-    this.username = localStorage.getItem('username');
+    this.getBooks();
 
 
   }
@@ -100,6 +107,14 @@ toggleMaterials() {
     this.materialsShowing = 'hiding';
   } else {
     this.materialsShowing = 'showing';
+  }
+}
+
+toggleBooks() {
+  if (this.booksShowing === 'showing') {
+    this.booksShowing = 'hiding';
+  } else {
+    this.booksShowing = 'showing';
   }
 }
 
@@ -158,6 +173,11 @@ toggleMaterials() {
       error => this.errorMessage = <any>error);
     }
 
+  getBooks() {
+    this.bookService.getBooks(0).subscribe(
+      books => this.books = books,
+      error => this.errorMessage = <any>error);
+  }
   // getAssets() {
   //   this.assetService
   //   .getAssets().subscribe(

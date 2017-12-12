@@ -26,7 +26,7 @@ export class CourseImageComponent implements OnInit {
       this.courseService.getCourse(this.courseID).subscribe(
       course => {
           this.course = course[0];
-          console.log('Loaded course info: ' + JSON.stringify(course));
+         //  console.log('Loaded course info: ' + JSON.stringify(course));
           // Build the image URL by combining the global path with the stored course id and image name
           this.courseImageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
 

@@ -102,6 +102,21 @@
     </div>
 </div>
 
+<div class='collection group {{ booksShowing }}'>
+    <h1 (click)="toggleBooks()" class='collapsingTitle'>Books</h1>
+    <button [routerLink]="['/books', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
+
+    <div class='collectionList' *ngIf='books'>
+      <div *ngFor='let book of books' class='collectionItem' 
+      [routerLink]="['/books', book.id, 'edit']">
+          <button class='loomRoundButton loomKill rightAlignMe' 
+          (click)="deleteBook(book.id)"></button>
+          <h1>{{ book.title }}</h1>
+          <p>{{ book.description }} </p>
+      </div>
+    </div>
+</div>
+
 <!--  Asset List -->
 <!-- <div class='loomCard group'>
     <div class='padMe'>

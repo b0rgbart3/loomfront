@@ -17,7 +17,7 @@ const MATERIALS_FILE_PATH  = 'http://localhost:3100/materialimages/';
 })
 
 export class MaterialEditComponent implements OnInit {
-    material: Material = new Material ( '', '', '0', '', '', '', '', '');
+    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '');
     materialForm: FormGroup;
     types: Array<string>;
     id: string;

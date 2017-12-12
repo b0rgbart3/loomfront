@@ -34,6 +34,8 @@ import { CoursesResolver } from './services/courses-resolver.service';
 import { ClassResolver } from './services/class-resolver.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
+import { BookResolver } from './services/book-resolver.service';
+import { BookEditComponent } from './materials/books/book-edit.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -51,6 +53,7 @@ resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'admin', pathMatch: 'full', component: AdminComponent,
 canActivate: [ AdminRouteActivator ] },
 { path: 'home', pathMatch: 'full', component: HomeComponent },
+{ path: 'books/:id/edit', component: BookEditComponent },
 { path: 'courses/:id/edit', component: CourseEditComponent,
 resolve: { course: CourseResolver, materials: MaterialsResolver} },
 { path: 'classes/:id/:section', component: ClassComponent, resolve: {
@@ -69,8 +72,8 @@ resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'discussion/:id', component: BoardComponent,
 resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'usersettings', component: UserSettingsComponent },
-{ path: 'instructorassignments', component: InstructorAssignmentsComponent,
-resolve: {users: UsersResolver } },
+// { path: 'instructorassignments', component: InstructorAssignmentsComponent,
+// resolve: {users: UsersResolver } },
 { path: '404', component: Error404Component },
 { path: '', component: WelcomeComponent },
 { path: '**', component: WelcomeComponent }
