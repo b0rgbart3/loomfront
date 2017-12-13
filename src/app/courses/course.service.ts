@@ -24,9 +24,9 @@ export class CourseService implements OnInit {
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     constructor (private _http: HttpClient, private globals: Globals) {
-      this._coursesUrl = globals.base_path + '/api/courses';
-      this._courseImagesUrl = globals.base_path + '/api/courseimages';
-      this._materialsUrl = globals.base_path + '/api/materials';
+      this._coursesUrl = globals.basepath + 'api/courses';
+      this._courseImagesUrl = globals.basepath + 'api/courseimages';
+      this._materialsUrl = globals.basepath + 'api/materials';
     }
 
     ngOnInit() {

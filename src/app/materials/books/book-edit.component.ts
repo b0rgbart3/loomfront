@@ -42,7 +42,8 @@ export class BookEditComponent implements OnInit {
              console.log('The highest ID we got back was: ' + this.id );
          }
 
-        const urlWithQuery = this.globals.books + '?id=' + this.id;
+        const urlWithQuery = this.globals.postbookimages + '?id=' + this.id;
+        console.log('urlquery for book image upload: ' + urlWithQuery);
         this.imageUploader = new FileUploader({url: urlWithQuery});
         this.imageUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
@@ -57,7 +58,7 @@ export class BookEditComponent implements OnInit {
 
 
                          this.image = this.tempName;
-                         this.imageUrl = this.globals.books + '/' + this.book.id + '/' + this.image;
+                         this.imageUrl = this.globals.bookimages + '/' + this.book.id + '/' + this.image;
 
                          console.log('Image url: ' + this.imageUrl);
                          this.imageUploader.queue[0].remove();
@@ -80,7 +81,7 @@ export class BookEditComponent implements OnInit {
             book => { this.book = <Book>book[0];
                 console.log('got book ' + id + ' info :' + JSON.stringify(book) );
                 this.image = this.book.image;
-                this.imageUrl = this.globals.books + '/' + this.book.id + '/' + this.image;
+                this.imageUrl = this.globals.bookimages + '/' + this.book.id + '/' + this.image;
                 this.populateForm();
              },
             error => this.errorMessage = <any> error
@@ -102,7 +103,8 @@ export class BookEditComponent implements OnInit {
         this.bookForm.patchValue({
         'title': this.book.title,
         'description': this.book.description,
-        'purchaseURL': this.book.purchaseURL
+        'purchaseURL': this.book.purchaseURL,
+        'author': this.book.author
      });
 
         this.image = this.book.image;
@@ -148,4 +150,29 @@ export class BookEditComponent implements OnInit {
 
 
     }
+
+    deleteBook(bookId) {
+        const result = confirm( 'Are you sure you want to delete this book reference: ' +
+        this.book.title + ',' +
+        ' width ID: ' + bookId + '? ');
+        if (result) {
+            console.log('Got the ok to delete the book.');
+
+        this.bookService.deleteBook(bookId).subscribe(
+            (data) => {
+                console.log('Got back from the Book Service.');
+                this.router.navigate(['/coursebuilder']);
+            },
+          error => {
+              this.errorMessage = <any>error;
+              // This is a work-around for a HTTP error message I was getting even when the
+              // course was successfully deleted.
+              if (error.status === 200) {
+                console.log('Got back from the Course Service.');
+                this.router.navigate(['/coursebuilder']);
+              } else {
+             console.log('Error: ' + JSON.stringify(error) ); }
+        } );
+       }
+      }
 }

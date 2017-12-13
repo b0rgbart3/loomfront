@@ -22,8 +22,8 @@ export class ChatService {
 
 
     constructor (private _http: HttpClient, globals: Globals) {
-        this._chatRegUrl = globals.base_path + '/api/chats/enter';
-        this._chatWhosInUrl = globals.base_path + '/api/chats/whosin';
+        this._chatRegUrl = globals.basepath + 'api/chats/enter';
+        this._chatWhosInUrl = globals.basepath + 'api/chats/whosin';
     }
 
     enterChat( user: User , thisClass: ClassModel ): Observable <boolean> {

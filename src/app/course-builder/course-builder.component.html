@@ -14,5 +14,22 @@
         </mat-list-item>
     </mat-list>
 </mat-expansion-panel>
+<br>
 
+
+<mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Book References</mat-panel-title>
+        </mat-expansion-panel-header>
+    
+        <mat-list>
+            <mat-list-item [routerLink]="['/books', 0, 'edit']">
+                <mat-icon class="example-icon">add</mat-icon> Add a new Book Reference
+            </mat-list-item>
+            <mat-list-item *ngFor='let book of books' [routerLink]="['/books',book.id,'edit']">
+                {{ book.title }}
+            </mat-list-item>
+        </mat-list>
+    </mat-expansion-panel>
+    
 </div>

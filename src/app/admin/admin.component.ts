@@ -53,7 +53,7 @@ export class AdminComponent implements OnInit {
     private globals: Globals,
     private bookService: BookService
   ) {
-    this.AVATAR_IMAGE_PATH = globals.base_path + '/avatars/';
+    this.AVATAR_IMAGE_PATH = globals.basepath + 'avatars/';
     this.isCollapsedStudents = false;
   }
 

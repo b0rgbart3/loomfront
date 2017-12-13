@@ -24,10 +24,10 @@ export class ClassService implements OnInit {
 
 
     constructor (private _http: HttpClient, private globals: Globals) {
-      this._registryUrl = globals.base_path + '/api/classregistrations';
-      this._classesUrl = globals.base_path + '/api/classes';
-      this._studentClassesUrl = globals.base_path + '/api/studentClasses';
-      this._instructorClassesUrl = globals.base_path + '/api/instructorClasses';
+      this._registryUrl = globals.basepath + 'api/classregistrations';
+      this._classesUrl = globals.basepath + 'api/classes';
+      this._studentClassesUrl = globals.basepath + 'api/studentClasses';
+      this._instructorClassesUrl = globals.basepath + 'api/instructorClasses';
       console.log('Classes API URL: ' + this._classesUrl);
     }
 

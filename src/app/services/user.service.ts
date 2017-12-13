@@ -39,13 +39,13 @@ export class UserService implements OnInit {
     this.token = thisUser && thisUser.token;
     this.username = thisUser && thisUser.username;
 
-    this.base_path = globals.base_path;
-     this._usersUrl = this.base_path + '/api/users';
-     this._userSettingsUrl = this.base_path + '/api/usersettings';
-     this._avatarsUrl = this.base_path + '/api/avatars';
-     this._classregistrationsUrl = this.base_path + '/api/classregistrations';
-     this._instructorsUrl = this.base_path + '/api/instructors';
-     this._studentsUrl = this.base_path + '/api/students';
+    this.base_path = globals.basepath;
+     this._usersUrl = this.base_path + 'api/users';
+     this._userSettingsUrl = this.base_path + 'api/usersettings';
+     this._avatarsUrl = this.base_path + 'api/avatars';
+     this._classregistrationsUrl = this.base_path + 'api/classregistrations';
+     this._instructorsUrl = this.base_path + 'api/instructors';
+     this._studentsUrl = this.base_path + 'api/students';
 
      this._avatar_image_url = this.base_path + '/avatars/';
   }

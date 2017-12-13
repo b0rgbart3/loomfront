@@ -7,29 +7,22 @@ export class Globals {
 
 // Local paths for Development
 
+basepath = 'http://localhost:3100/';
 
+// Liveserver basepath:
+// basepath = 'https://ddworks.org:3100/';
 
- courseimages = 'http://localhost:3100/courseimages';
- materials = 'http://localhost:3100/api/materials';
- materialimages = 'http://localhost:3100/materialimages';
- materialfiles = 'http://localhost:3100/materialfiles';
- base_path = 'http://localhost:3100';
- threads = 'http://localhost:3100/api/threads';
+ courseimages =   this.basepath + 'courseimages';
+ materials =      this.basepath + 'api/materials';
+ materialimages = this.basepath + 'materialimages';
+ materialfiles =  this.basepath + 'materialfiles';
+ threads =        this.basepath + 'api/threads';
+ video =          this.basepath + 'assets/video';
+ books =          this.basepath + 'api/books';
+ postbookimages = this.basepath + 'api/bookimages';
+ bookimages =     this.basepath + 'bookimages';
+
  chat_server = 'http://localhost:3101';
- video = 'http://localhost:3100/assets/video';
- books = 'http://localhost:3100/api/books';
-
-
-// Live server paths for Deployment
-
-//  courseimages = 'https://ddworks.org:3100/courseimages';
-//  materials = 'https://ddworks.org:3100/api/materials';
-//  materialimages = 'http://ddworks.org:3100/api/materialimages';
-//  base_path = 'https://ddworks.org:3100';
-//  threads = 'https://ddworks.org:3100/api/threads';
-//  chat_server = 'https://ddworks.org:3101';
-//  video = 'https://ddworks.org:3100/assets/video';
-// books = 'https://ddworks.org:3100/api/books';
 
  fb_app_params = {
     appId: '143123396316217',

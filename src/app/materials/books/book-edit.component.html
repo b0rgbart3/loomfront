@@ -1,11 +1,12 @@
-<div class='stuff'>
+<div class='loomContainer group'>
         
     
-        <form [formGroup]="bookForm" novalidate (ngSubmit)="postBook()">
+        <form [formGroup]="bookForm" novalidate (ngSubmit)="postBook()" class='loomForm group'>
                                         
         <div class='loomCard group'>
-        
-        <div class='padMe'>
+                <div class='bigDelete'
+                (click)="deleteBook(this.book.id)"></div>
+  
         <h1>Book Reference:</h1>
         <mat-form-field>
         <input matInput placeholder="Title" name="title" id='title' formControlName='title'>
@@ -30,17 +31,20 @@
     
         <br>
         <mat-form-field>
-            <input matInput placeholder="Purchase Url" name="purchaseURL" id='purchaseURL' 
+            <input matInput placeholder="URL where this book can be purchased" name="purchaseURL" id='purchaseURL' 
             formControlName='purchaseURL'>
             </mat-form-field>
     
         
     
     
-    </div>
-    <button md-raised-button color="primary" class='loomButton' 
-    type='submit' >Submit changes</button>
+
+ 
     
+    <div class='loomButton loomSubmit' 
+    (click)='postBook()'>Submit changes</div>
+   <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div>
+<br clear='all'>
     </div>
     
     </form>    

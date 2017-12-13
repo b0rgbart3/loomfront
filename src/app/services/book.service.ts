@@ -22,6 +22,13 @@ export class BookService {
 
     constructor (private _http: HttpClient, private globals: Globals) {}
 
+    // getAllBooks(): Observable<Book[]> {
+    //   return this._http.get <Book[]> (this.globals.books).do(data => {
+    //     this.bookCount = data.length;
+    //     this.books = data;
+    //   }).catch(this.handleError);
+    // }
+
     // We want to get all the material objects for the entire course -- but
     // not all the material objects in the entire database -- so we'll grab
     // them using the corresponding course_id.
@@ -72,8 +79,8 @@ export class BookService {
       .catch (this.handleError);
   }
 
-  deleteBook(courseId: number): Observable<any> {
-      return this._http.delete( this.globals.books + '?id=' + courseId);
+  deleteBook(bookId: number): Observable<any> {
+      return this._http.delete( this.globals.books + '?id=' + bookId);
   }
 
   private extractData(res: Response) {
