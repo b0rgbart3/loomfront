@@ -28,8 +28,13 @@
             ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
             (change)="fileChange($event)" id="imageUploader">
         </div>
+            <br>
+            <mat-expansion-panel formArrayName='sections' *ngFor='let section of sections.controls; let i = index'>
 
-            <br><div formArrayName='sections' *ngFor='let section of sections.controls; let i = index'>
+                    <mat-expansion-panel-header>
+                            <mat-panel-title>Section {{i +1}}</mat-panel-title>
+                        </mat-expansion-panel-header>
+
                     <div [formGroupName]="i" class='sectionContainer'>
                         <button class='loomKill rightAlignMe' (click)="killSection(i)"></button>
                             
@@ -45,7 +50,11 @@
                             id="content" placeholder="Section Content"
                                 formControlName="content"></textarea>
                             </mat-form-field>
-                            
+                            <!-- <p>Material List:</p>
+                            <div *ngFor="let material of course.sections[i].materials">
+                                Material: {{ material.title }}
+                            </div> -->
+                            <h1>Materials</h1>
                             <div *ngIf='materialFormArray && materialFormArray[i]'>
                             <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
                                 <div class='loomChoice'>
@@ -57,14 +66,35 @@
                                 ng-selected='value'>{{item.title}}</mat-option>
                             </mat-select></mat-form-field>
                         </div></div> 
-                        </div></div>
+                        </div></div><br clear='all'><br>
                         
+                        <div class='loomButton' (click)="addMaterial(i)">Add Material</div>
+                        <br clear='all'>
+                        <h1>Book References</h1>
+                        <div *ngIf='bookFormArray && bookFormArray[i]'>
+                                <div formArrayName='books' *ngFor="let book of bookFormArray[i].controls;
+                                 let k = index">
+                                    <div class='loomChoice'>
+                                    <button class='loomKill rightAlignMe' (click)='killBook(i,k)'></button>
+                                    <div [formGroupName]="k">
+                                        <mat-form-field>
+                                    <mat-select [placeholder]="bookPlaceholder" formControlName="book">
+                                    <mat-option *ngFor='let item of books' mdOption [value]='item.id' 
+                                    ng-selected='value'>{{item.title}}</mat-option>
+                                </mat-select></mat-form-field>
+                            </div></div> 
+                            </div></div>
 
-                    <div class='loomButton' (click)="addMaterial(i)">Add Material</div>
-                    </div>
+                        <br clear='all'><br>
+                        <div class='loomButton' (click)="addBook(i)">Add Book Reference</div>
+                        <br clear='all'>
+                        </div>
                     
-                </div>
-            </div>
+                    </div>
+                <br>
+            </mat-expansion-panel>
+
+
             <br>
             <div (click)="addSection()" class='loomButton'>Add Section</div><br clear='all'>
 

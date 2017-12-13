@@ -6,8 +6,10 @@ import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } fr
 import { Section } from '../../models/section.model';
 import { FileUploader } from 'ng2-file-upload';
 import { Material } from '../../models/material.model';
+import { Book } from '../../models/book.model';
 import { MaterialService } from '../../materials/material.service';
 import { Globals } from '../../globals';
+import { BookService } from '../../services/book.service';
 
 @Component({
     moduleId: module.id,
@@ -21,6 +23,7 @@ export class CourseEditComponent implements OnInit {
     sectionsFormArray: FormArray;
     sectionFormGroup: FormGroup;
     materialFormArray: FormArray[];
+    bookFormArray: FormArray[];
     sectionReferences: FormGroup[];
     materialReferences: FormArray[];
     course: Course;
@@ -33,17 +36,24 @@ export class CourseEditComponent implements OnInit {
     tempName = '';
     thisFile: File;
     materials: Material[];
+    books: Book[];
     matObjRefArray: Object[];
     existingImage: string;
     uploadedCourseImage: boolean;
     materialFormArrayReferences: FormArray[]; // these are just pointers to the various material form arrays
     materialPlaceholder: string;
+    bookPlaceholder: string;
+    sectionMaterials: Material[][]; // this is an array of the actual Material Objects that are being
+                                    // referenced by the section(s) -- haven't implemented this yet.
+
     constructor(private router: Router, private activated_route: ActivatedRoute,
         private courseService: CourseService, private fb: FormBuilder,
-        private materialService: MaterialService, private globals: Globals ) { }
+        private materialService: MaterialService, private globals: Globals,
+    private bookService: BookService ) { }
 
     ngOnInit(): void {
         this.materialPlaceholder = 'Choose a Material';
+        this.bookPlaceholder = 'Choose a Book Reference';
         this.courseService.ngOnInit();
 
         // Get the id from the activated route -- and get the data from the resolvers
@@ -54,6 +64,8 @@ export class CourseEditComponent implements OnInit {
           this.course = this.activated_route.snapshot.data['course'];
           console.log('Course: ' + JSON.stringify(this.course));
           this.materials = this.activated_route.snapshot.data['materials'];
+
+          this.books = this.activated_route.snapshot.data['books'];
 
           if (this.id !== '0' && ( this.course.image !== '' )) {
           this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
@@ -81,17 +93,26 @@ export class CourseEditComponent implements OnInit {
         this.sectionReferences = [];
 
             this.materialFormArray = [];
+            this.bookFormArray = [];
 
             for (let i = 0; i < this.course.sections.length; i++) {
                 this.materialFormArray[i] = this.fb.array([]);
+                this.bookFormArray[i] = this.fb.array([]);
+
                 if (this.course.sections[i] && this.course.sections[i].materials) {
                 for (let j = 0; j < this.course.sections[i].materials.length; j++ ) {
                     this.materialFormArray[i].push(this.buildMaterialsSubSection(this.course.sections[i].materials[j]['material']));
                 } }
+                if (this.course.sections[i] && this.course.sections[i].books) {
+                    for (let j = 0; j < this.course.sections[i].books.length; j++ ) {
+                        this.bookFormArray[i].push(this.buildBookSubSection(this.course.sections[i].books[j]['book']));
+                    } }
+
                 this.sectionReferences[i] = this.fb.group( {
                     title: this.course.sections[i].title,
                     content: this.course.sections[i].content,
-                    materials: this.materialFormArray[i]
+                    materials: this.materialFormArray[i],
+                    books: this.bookFormArray[i]
                  });
                 this.sectionsFormArray.push(  this.sectionReferences[i] );
 
@@ -116,6 +137,12 @@ export class CourseEditComponent implements OnInit {
         material: value
     });
     }
+
+    buildBookSubSection(value) {
+        return this.fb.group({
+         book: value
+     });
+     }
 
     fileChange(event) {
         const fileList: FileList = event.target.files;
@@ -217,6 +244,14 @@ export class CourseEditComponent implements OnInit {
             this.materialFormArray[i] = this.fb.array([]);
         }
     }
+    addBook(i): void {
+        if (this.bookFormArray[i]) {
+            this.bookFormArray[i].push(this.buildBookSubSection(''));
+        } else {
+            this.bookFormArray[i] = this.fb.array([]);
+            this.bookFormArray[i].push(this.buildBookSubSection(''));
+        }
+    }
 
     killSection(i) {
         const k = confirm('Are you sure you want to delete this whole section, and all the related reference materials?');
@@ -227,6 +262,10 @@ export class CourseEditComponent implements OnInit {
     killMaterial(i, j) {
           //  console.log (' section #' + i + ', material#' + j);
            this.materialFormArray[i].removeAt(j);
+    }
+
+    killBook(i, k) {
+        this.bookFormArray[i].removeAt(k);
     }
 
 

@@ -152,8 +152,8 @@ export class BookEditComponent implements OnInit {
     }
 
     deleteBook(bookId) {
-        const result = confirm( 'Are you sure you want to delete this book reference: ' +
-        this.book.title + ',' +
+        const result = confirm( 'Warning! \n\nAre you sure you want to delete this book reference: ' +
+        this.book.title + ', and all of it\'s related data from the database?' +
         ' width ID: ' + bookId + '? ');
         if (result) {
             console.log('Got the ok to delete the book.');

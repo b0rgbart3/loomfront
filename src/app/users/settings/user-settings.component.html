@@ -1,11 +1,11 @@
 
 
-    <div class="loomCard">
+    <div class="loomContainer group">
         <div class='settingsForm' *ngIf="settingsForm">
         <form [formGroup]="settingsForm" (ngSubmit)="submitSettings()" novalidate
-         enctype="multipart/form-data">
+         enctype="multipart/form-data" class='loomForm'>
         
-            <div class="padMe"> 
+            <div class="loomCard"> 
                                 
             <flash-messages></flash-messages>
         
@@ -95,7 +95,15 @@
                 </tbody> -->
                 
             </div>
-            <button class='loomCancel' (click)="cancel()" type='reset' >Cancel</button><button type='submit' class='loomHalfButton' >Submit</button>
+            <!-- <button class='loomCancel' (click)="cancel()" type='reset' >Cancel</button>
+            <button type='submit' class='loomHalfButton' >Submit</button>
+        -->
+       <br>
+            <div class='loomButton loomSubmit' 
+            (click)='submitSettings()'>Submit changes</div>
+           <div class='loomButton loomCancel' (click)="cancel()">Cancel</div>
+        <br clear='all'>
+
         </form>
         
     </div>

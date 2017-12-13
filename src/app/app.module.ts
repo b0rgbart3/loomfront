@@ -88,6 +88,7 @@ import { BookService } from './services/book.service';
 import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
 import { CourseBuilderComponent } from './course-builder/course-builder.component';
+import { BooksResolver } from './services/books-resolver.service';
 
 @NgModule({
   // External
@@ -181,7 +182,8 @@ import { CourseBuilderComponent } from './course-builder/course-builder.componen
     AuthGuard,
     UserAuthGuard,
     BookService,
-    BookResolver
+    BookResolver,
+    BooksResolver
 
    ],
   bootstrap: [AppComponent ]

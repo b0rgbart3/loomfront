@@ -1,26 +1,26 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Course } from '../models/course.model';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { ContentChart } from '../models/contentchart.model';
-import { ClassService } from '../classes/class.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import { MaterialService } from '../materials/material.service';
+import { Book } from '../models/book.model';
+import { BookService } from './book.service';
 
 @Injectable()
-export class MaterialsResolver implements Resolve <any[]> {
+export class BooksResolver implements Resolve <any[]> {
 
-    constructor( private materialService: MaterialService, private router: Router ) { }
+
+    constructor( private bookService: BookService, private router: Router ) { }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <any[]> {
 
 
 
-        return this.materialService.getMaterials(0).
-        map(materials => { if (materials) { return materials; }
-        console.log(`Materials were not found`);
+        return this.bookService.getBooks(0).
+        map(course => { if (course) { return course; }
+        console.log(`Materialswere not found`);
         this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {

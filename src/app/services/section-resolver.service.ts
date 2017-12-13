@@ -18,7 +18,7 @@ export class SectionResolver implements Resolve <number> {
         private courseService: CourseService, private classService: ClassService, private router: Router ) { }
 
     resolve( route: ActivatedRouteSnapshot ) {
-        const sectionNumber = route.params['section'];
+        const sectionNumber = route.params['id2'];
 
         console.log('Section Resolver: ' + sectionNumber);
         console.log('Route Params: ' + JSON.stringify(route.params));

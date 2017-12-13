@@ -323,8 +323,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     //    this.sectionNumber = this.activated_route.snapshot.params['section'];
     //     if (this.sectionNumber === undefined) { this.sectionNumber = 0; }
 
-        if (this.activated_route.snapshot.params['section']) {
-            this.sectionNumber = this.activated_route.snapshot.params['section']; } else { this.sectionNumber = 0; }
+        if (this.activated_route.snapshot.params['id2']) {
+            this.sectionNumber = this.activated_route.snapshot.params['id2']; } else { this.sectionNumber = 0; }
 
         if (this.sectionNumber === undefined) {
                 this.sectionNumber = 0;
@@ -336,7 +336,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             this.classID = params['id'];
 
             if (params['section']) {
-                this.sectionNumber = params['section'];
+                this.sectionNumber = params['id2'];
 
                 console.log('New Section# ' + this.sectionNumber);
                 if (this.course && this.course.sections) {
@@ -420,8 +420,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
      this.showingSectionMenu = false;
      this.sectionNumber = sectionNumber;
      this.section = this.course.sections[this.sectionNumber];
-    //  const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
-    //     this.router.navigate([routeString]);
+     const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+        this.router.navigate([routeString]);
     }
 
 

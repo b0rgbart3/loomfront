@@ -37,6 +37,7 @@ import { UserAuthGuard } from './services/user-auth-guard.service';
 import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
 import { CourseBuilderComponent } from './course-builder/course-builder.component';
+import { BooksResolver } from './services/books-resolver.service';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
@@ -56,9 +57,9 @@ canActivate: [ AdminRouteActivator ] },
 { path: 'coursebuilder', component: CourseBuilderComponent },
 { path: 'home', pathMatch: 'full', component: HomeComponent },
 { path: 'books/:id/edit', component: BookEditComponent },
-{ path: 'courses/:id/edit', component: CourseEditComponent,
-resolve: { course: CourseResolver, materials: MaterialsResolver} },
-{ path: 'classes/:id/section/:id', component: ClassComponent, resolve: {
+{ path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
+resolve: { course: CourseResolver, materials: MaterialsResolver, books: BooksResolver} },
+{ path: 'classes/:id/:id2', component: ClassComponent, resolve: {
     thisClass: ClassResolver, section: SectionResolver, users: UsersResolver }},
 { path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, users: UsersResolver,
