@@ -70,8 +70,7 @@ export class ClassEditComponent implements OnInit {
         this.studentChoices = <FormArray> this.fb.array([ ]);
 
         this.classForm = this.fb.group({
-            title: [ '', [Validators.required, Validators.minLength(3)] ] ,
-            description: [ '', [Validators.required ]],
+            title: [ '', [ ]] ,
             course: '',
             start: [new Date()],
             end: [new Date()],
@@ -150,7 +149,7 @@ export class ClassEditComponent implements OnInit {
 
         if (this.thisClass) {
             console.log('In Class edit component - about to patch Values to the form: ' + JSON.stringify(this.thisClass));
-        this.classForm.patchValue({'title': this.thisClass.title, 'description': this.thisClass.description,
+        this.classForm.patchValue({'title': this.thisClass.title,
             'course' : this.thisClass.course, 'start' : new Date(this.thisClass.start), 'end' : new Date(this.thisClass.end) });
         } else {
             console.log('ERROR in Class Edit -- no thisClass object!');
@@ -167,8 +166,10 @@ export class ClassEditComponent implements OnInit {
     // }
 
     save(): void {
-        // console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(this.classForm.value)  );
+        console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(this.classForm.value)  );
         if (this.classForm.dirty && this.classForm.valid) {
+
+            console.log('Form was dirty and valid');
 
             // This is Deborah Korata's way of merging our data model with the form model
              const combinedClassObject = Object.assign( {}, this.thisClass, this.classForm.value);

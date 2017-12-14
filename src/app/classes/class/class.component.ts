@@ -335,7 +335,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             console.log ('params changed.');
             this.classID = params['id'];
 
-            if (params['section']) {
+            if (params['id2']) {
                 this.sectionNumber = params['id2'];
 
                 console.log('New Section# ' + this.sectionNumber);

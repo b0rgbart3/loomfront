@@ -89,6 +89,8 @@ import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
 import { CourseBuilderComponent } from './course-builder/course-builder.component';
 import { BooksResolver } from './services/books-resolver.service';
+import { BooksComponent } from './materials/books/books/books.component';
+import { BookComponent } from './materials/books/books/book.component';
 
 @NgModule({
   // External
@@ -152,7 +154,9 @@ import { BooksResolver } from './services/books-resolver.service';
     MaterialCollectionComponent,
     VideoComponent,
     BookEditComponent,
-    CourseBuilderComponent
+    CourseBuilderComponent,
+    BooksComponent,
+    BookComponent
 
   ],
 

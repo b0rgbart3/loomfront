@@ -1,0 +1,23 @@
+<div *ngIf="books">
+        <div class='abovelineShadow'></div>
+    <div class='bookCollection group'>
+
+           
+    <h1>Recommended In-depth reading:</h1>
+
+
+  
+                <div class='collectionContainer group'>
+                      
+                     <div *ngFor="let bookObject of books" class='ccchild'>
+                         <!-- <h2>Book: {{ bookObject.title }}</h2>
+                         <p>Author: {{ bookObject.author }} </p> -->
+                         <book [book]='bookObject'></book>
+                     </div>
+                   
+                 </div>
+       
+    
+</div>
+<div class='underlineShadow'></div>
+</div>

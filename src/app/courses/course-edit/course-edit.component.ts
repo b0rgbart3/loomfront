@@ -69,7 +69,8 @@ export class CourseEditComponent implements OnInit {
 
           if (this.id !== '0' && ( this.course.image !== '' )) {
           this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
-          }
+            console.log('Existing image: ' + this.existingImage);
+        }
 
         // console.log(JSON.stringify(this.materials));
 
@@ -272,7 +273,7 @@ export class CourseEditComponent implements OnInit {
     addCourseImage() {
 
             console.log('adding course image');
-        const urlWithQuery = this.globals.courseimages + '?id=' + this.id;
+        const urlWithQuery = this.globals.postcourseimages + '?id=' + this.id;
         this.uploader = new FileUploader({url: urlWithQuery});
         this.uploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)

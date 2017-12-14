@@ -7,7 +7,6 @@ export class ClassModel {
 
   constructor (
       public title: string,
-      public description: string,
       public course: string,
       public start: string,
       public end: string,

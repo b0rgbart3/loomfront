@@ -59,11 +59,14 @@ canActivate: [ AdminRouteActivator ] },
 { path: 'books/:id/edit', component: BookEditComponent },
 { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
 resolve: { course: CourseResolver, materials: MaterialsResolver, books: BooksResolver} },
-{ path: 'classes/:id/:id2', component: ClassComponent, resolve: {
-    thisClass: ClassResolver, section: SectionResolver, users: UsersResolver }},
-{ path: 'classes/:id/edit', component: ClassEditComponent, resolve: {
+
+{ path: 'classes/:id/edit', pathMatch: 'full', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, users: UsersResolver,
     possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
+
+{ path: 'classes/:id/:id2', component: ClassComponent, resolve: {
+    thisClass: ClassResolver, section: SectionResolver, users: UsersResolver }},
+
 { path: 'classes/:id', component: ClassComponent,
 resolve: { thisClass: ClassResolver, users: UsersResolver } },
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,

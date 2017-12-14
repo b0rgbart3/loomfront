@@ -7,10 +7,19 @@
 
         <div class='materials group' *ngIf='materialCollection'>
         <material-collection [materialcollection]="materialCollection"></material-collection>
+        
     <!-- <div *ngFor= 'let material of materials'>
         <material [material]=material></material>
        
     </div> -->
 </div>
+<!-- {{ loadedBooks | json }} -->
+<div *ngIf="loadedBooks && (loadedBooks.length > 0)">
+<books [books]="loadedBooks"></books>
+</div>
+<!-- <div *ngFor='let book of loadedBooks'>
+    <book [book]='book'></book>
+</div> -->
+
     </div>
 <br><br clear='all'>

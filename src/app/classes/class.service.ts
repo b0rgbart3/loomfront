@@ -112,7 +112,7 @@ export class ClassService implements OnInit {
       return data; })
       .catch (this.handleError); } else {
         console.log('The ID is zero, so we\'re creating a fresh new Class.');
-        return Observable.of( new ClassModel('', '', '', '', '', '', null, null, null, null ) );
+        return Observable.of( new ClassModel('', '', '', '', '', null, null, null, null ) );
       }
   }
 
@@ -163,7 +163,8 @@ export class ClassService implements OnInit {
     const url = this._classesUrl;
     const putString = url + '?id=' + classObject.id;
     console.log('Put string: ' + putString);
-    return this._http.put(putString, classObject, {headers: myHeaders}).map( () => classObject );
+    return this._http.put(putString, classObject, {headers: myHeaders}).map(
+       () => classObject );
 
   }
 

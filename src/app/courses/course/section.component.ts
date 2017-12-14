@@ -5,6 +5,8 @@ import { MaterialService } from '../../materials/material.service';
 import { Material } from '../../models/material.model';
 import { Section } from '../../models/section.model';
 import { MaterialCollection } from '../../models/materialcollection.model';
+import { Book } from '../../models/book.model';
+import { BookService } from '../../services/book.service';
 
 
 
@@ -22,6 +24,8 @@ export class SectionComponent implements OnInit, OnChanges {
     materialCollection: MaterialCollection;
     title: string;
     content: string;
+    booksLoaded: boolean;
+    loadedBooks: any[];
 
 
     @Input() course: Course;
@@ -50,7 +54,8 @@ export class SectionComponent implements OnInit, OnChanges {
     // public content: string;
     // public description: string;
 
-    constructor (private materialService: MaterialService ) {}
+    constructor (private materialService: MaterialService,
+    private bookService: BookService ) {}
 
 
     ngOnInit() {
@@ -61,6 +66,10 @@ export class SectionComponent implements OnInit, OnChanges {
         // this.section = this.course.sections[this.sectionNumber];
         // this.materialRefs = this.section.materials;
         this.loadInMaterials();
+        // this.booksLoaded = false;
+        // this.loadedBooks = null;
+        // this.loadedBooks = [];
+        // this.loadInBooks();
 //        this.reLintContent();
     }
 
@@ -77,14 +86,38 @@ export class SectionComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         // console.log('changes');
-
+        this.loadedBooks = null;
         this.loadInMaterials();
+        this.loadInBooks();
+     }
+
+     loadInBooks() {
+         console.log('LOADING IN BOOKS');
+         this.loadedBooks = null;
+         this.loadedBooks = [];
+         if (this.section.books) {
+
+             this.section.books.map((bookItem) => {
+                this.bookService.getBook(bookItem['book']).subscribe(
+                  (book) => {
+                      console.log('Loaded book: ' + JSON.stringify(book));
+                      this.loadedBooks.push(book[0]);
+                    return; },
+                  error => { console.log('Error loading in book: ' + bookItem['book']);
+              return; }
+              );
+             });
+         }
+
+         console.log('BOOKS: ' + JSON.stringify(this.loadedBooks));
+
      }
 
     loadInMaterials() {
             this.materials = [];
             this.materialCollection = null;
-            console.log('loading in materials for course# ' + this.course.id + ', section: ' + JSON.stringify(this.section));
+            console.log('loading in materials for course# ' +
+            this.course.id + ', section: ' + JSON.stringify(this.section));
             if (this.section.materials) {
             for (let j = 0; j < this.section.materials.length; j++) {
                 const id = this.section.materials[j]['material'];

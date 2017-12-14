@@ -10,8 +10,9 @@ export class Globals {
 basepath = 'http://localhost:3100/';
 
 // Liveserver basepath:
-// basepath = 'https://ddworks.org:3100/';
+// basepath = 'https://ddworks.org:8000/';
 
+ postcourseimages = this.basepath + 'api/courseimages';
  courseimages =   this.basepath + 'courseimages';
  materials =      this.basepath + 'api/materials';
  materialimages = this.basepath + 'materialimages';
@@ -22,7 +23,7 @@ basepath = 'http://localhost:3100/';
  postbookimages = this.basepath + 'api/bookimages';
  bookimages =     this.basepath + 'bookimages';
 
- chat_server = 'http://localhost:3101';
+ chat_server = 'http://localhost:8001';
 
  fb_app_params = {
     appId: '143123396316217',
