@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../models/course.model';
-import { User } from '../models/user.model';
+import { Course } from '../../models/course.model';
+import { User } from '../../models/user.model';
 // import { Asset } from '../models/asset.model';
-import { ClassModel } from '../models/class.model';
-import { CourseService } from '../courses/course.service';
+import { ClassModel } from '../../models/class.model';
+import { CourseService } from '../../courses/course.service';
 import { Router } from '@angular/router';
-import { ClassService } from '../classes/class.service';
-import { UserService } from '../services/user.service';
+import { ClassService } from '../../classes/class.service';
+import { UserService } from '../../services/user.service';
 
-import { MaterialService } from '../materials/material.service';
-import { Material } from '../models/material.model';
-import { Userthumbnail } from '../models/userthumbnail.model';
-import { Globals } from '../globals';
-import { Book } from '../models/book.model';
-import { BookService } from '../services/book.service';
+import { MaterialService } from '../../materials/material.service';
+import { Material } from '../../models/material.model';
+import { Userthumbnail } from '../../models/userthumbnail.model';
+import { Globals } from '../../globals';
+import { Book } from '../../models/book.model';
+import { BookService } from '../../services/book.service';
 
 @Component({
   templateUrl: './admin.component.html',

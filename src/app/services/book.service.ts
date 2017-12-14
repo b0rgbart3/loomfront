@@ -79,7 +79,7 @@ export class BookService {
       .catch (this.handleError);
   }
 
-  deleteBook(bookId: number): Observable<any> {
+  deleteBook(bookId: string): Observable<any> {
       return this._http.delete( this.globals.books + '?id=' + bookId);
   }
 

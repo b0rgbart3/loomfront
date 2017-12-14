@@ -151,14 +151,14 @@ export class BookEditComponent implements OnInit {
 
     }
 
-    deleteBook(bookId) {
+    deleteBook() {
         const result = confirm( 'Warning! \n\nAre you sure you want to delete this book reference: ' +
         this.book.title + ', and all of it\'s related data from the database?' +
-        ' width ID: ' + bookId + '? ');
+        ' width ID: ' + this.book.id + '? ');
         if (result) {
             console.log('Got the ok to delete the book.');
 
-        this.bookService.deleteBook(bookId).subscribe(
+        this.bookService.deleteBook( this.book.id ).subscribe(
             (data) => {
                 console.log('Got back from the Book Service.');
                 this.router.navigate(['/coursebuilder']);
@@ -175,4 +175,8 @@ export class BookEditComponent implements OnInit {
         } );
        }
       }
+
+    closeMe() {
+        this.router.navigate(['/coursebuilder']);
+    }
 }

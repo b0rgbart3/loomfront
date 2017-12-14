@@ -3,8 +3,8 @@
     <form [formGroup]="courseFormGroup" novalidate (ngSubmit)="postCourse()" class='loomForm'>
     
         <div class='loomCard'>
-                <div class='bigDelete'
-                (click)="deleteCourse(this.course.id)"></div>
+                <div class='closer'
+                (click)="returnToCourseBuilder()"></div>
     
                 <div class="padMe">
             <h1>Course Info:</h1>
@@ -98,13 +98,16 @@
             <br>
             <div (click)="addSection()" class='loomButton'>Add Section</div><br clear='all'>
 
-        
+            <br clear='all'><br><hr><br>
         <div class='loomButton loomSubmit' 
              (click)='postCourse()'>Submit changes</div>
             <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div>
       
            
-            <br clear='all'>
+            <br clear='all'><br><hr><br>
+            <div class='loomButton dangerous' (click)="deleteCourse(this.course.id)">
+                <mat-icon>delete</mat-icon><span class='raise'>
+                    Completely Delete This Course</span></div>
         </div> 
     </div>
 

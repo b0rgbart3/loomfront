@@ -290,6 +290,9 @@ export class CourseEditComponent implements OnInit {
         };
     }
 
+    returnToCourseBuilder() {
+        this.router.navigate(['/coursebuilder']);
+    }
     deleteCourse(courseId) {
         const result = confirm( 'Are you sure you want to delete this course,' +
         ' and All of it\'s related sections, width ID: ' + courseId + '? ');

@@ -4,8 +4,8 @@
         <form [formGroup]="bookForm" novalidate (ngSubmit)="postBook()" class='loomForm group'>
                                         
         <div class='loomCard group'>
-                <div class='bigDelete'
-                (click)="deleteBook(this.book.id)"></div>
+                <div class='closer'
+                (click)="closeMe()"></div>
   
         <h1>Book Reference:</h1>
         <mat-form-field>
@@ -46,7 +46,10 @@
    <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div>
 <br clear='all'>
 
-    
+<br clear='all'><br><hr><br>
+<div class='loomButton dangerous' (click)="deleteBook()">
+    <mat-icon>delete</mat-icon><span class='raise'>
+        Delete This Book</span></div>
     </form>    
     </div>
     

@@ -10,14 +10,12 @@ import { LoginComponent } from './login/login.component';
 // import { AuthGuard } from './_guards/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './admin-feature-module/admin/admin.component';
+import { AdminRouteActivator } from './admin-feature-module/admin/admin-route-activator';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { ClassEditComponent } from './classes/class-edit/class-edit.component';
-import { UploadComponent } from './assets/upload.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { Error404Component } from './errors/404component';
-import { AdminRouteActivator } from './admin/admin-route-activator';
-import { MaterialEditComponent } from './materials/material-edit.component';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
 import { CourseResolver } from './services/course-resolver.service';
@@ -38,6 +36,7 @@ import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
 import { CourseBuilderComponent } from './course-builder/course-builder.component';
 import { BooksResolver } from './services/books-resolver.service';
+import { MaterialEditComponent } from './materials/material-edit.component';
 
 // import { CanActivateAuthGuard } from './can-activate.service';
 
