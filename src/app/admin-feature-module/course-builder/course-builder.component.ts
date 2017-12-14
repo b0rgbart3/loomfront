@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../models/course.model';
-import { CourseService } from '../courses/course.service';
-import { BookService } from '../services/book.service';
-import { Book } from '../models/book.model';
+import { Course } from '../../models/course.model';
+import { CourseService } from '../../courses/course.service';
+import { BookService } from '../../services/book.service';
+import { Book } from '../../models/book.model';
 
 @Component ({
     templateUrl: './course-builder.component.html',
@@ -48,6 +48,6 @@ getCourses() {
   //     this.bookCount = this.books.length; },
   //     error => this.errorMessage = <any>error);
   //   }
-  
+
 
 }

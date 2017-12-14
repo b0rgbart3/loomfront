@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassModel } from '../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClassService } from '../class.service';
+import { ClassService } from '../../classes/class.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { CourseService } from '../../courses/course.service';
 import { Course } from '../../models/course.model';
@@ -51,7 +51,7 @@ export class ClassEditComponent implements OnInit {
     ngOnInit(): void {
 
         const id = this.activated_route.snapshot.params['id'];
-        
+
         console.log('The ID for this new class is: ' + id);
 
         this.thisClass = this.activated_route.snapshot.data['thisClass'];

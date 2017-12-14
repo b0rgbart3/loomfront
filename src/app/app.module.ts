@@ -19,7 +19,6 @@ import { ClassListComponent } from './classes/class-list/class-list.component';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { CourseService } from './courses/course.service';
 import { ClassService } from './classes/class.service';
-import { ClassEditComponent } from './classes/class-edit/class-edit.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
@@ -66,7 +65,6 @@ import { VideoComponent } from './materials/video/video.component';
 import { BookService } from './services/book.service';
 import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
-import { CourseBuilderComponent } from './course-builder/course-builder.component';
 import { BooksResolver } from './services/books-resolver.service';
 import { BooksComponent } from './materials/books/books/books.component';
 import { BookComponent } from './materials/books/books/book.component';
@@ -104,7 +102,6 @@ import { MaterialEditComponent } from './materials/material-edit.component';
     ClassListComponent,
     ClassThumbComponent,
     CourseEditComponent,
-    ClassEditComponent,
     UserListComponent,
     HomeComponent,
     UserSettingsComponent,
@@ -120,7 +117,7 @@ import { MaterialEditComponent } from './materials/material-edit.component';
     NotificationsComponent,
     VideoComponent,
     BookEditComponent,
-    CourseBuilderComponent,
+
     BooksComponent,
     BookComponent,
     MaterialEditComponent,

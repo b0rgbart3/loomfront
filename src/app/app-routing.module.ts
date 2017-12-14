@@ -13,7 +13,7 @@ import { RequestresetComponent } from './users/requestreset/requestreset.compone
 import { AdminComponent } from './admin-feature-module/admin/admin.component';
 import { AdminRouteActivator } from './admin-feature-module/admin/admin-route-activator';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
-import { ClassEditComponent } from './classes/class-edit/class-edit.component';
+import { ClassEditComponent } from './admin-feature-module/class-edit/class-edit.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { Error404Component } from './errors/404component';
 import { HomeComponent } from './home/home.component';
@@ -34,7 +34,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { BookResolver } from './services/book-resolver.service';
 import { BookEditComponent } from './materials/books/book-edit.component';
-import { CourseBuilderComponent } from './course-builder/course-builder.component';
+import { CourseBuilderComponent } from './admin-feature-module/course-builder/course-builder.component';
 import { BooksResolver } from './services/books-resolver.service';
 import { MaterialEditComponent } from './materials/material-edit.component';
 
