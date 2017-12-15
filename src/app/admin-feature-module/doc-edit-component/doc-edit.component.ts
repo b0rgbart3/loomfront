@@ -13,16 +13,19 @@ import { DocService } from '../../services/doc.service';
 })
 
 export class DocEditComponent implements OnInit {
-    doc: Doc = new Doc ( '', '', '', '', '', '', '' );
+    doc: Doc = new Doc ( '', '', '', '', '', '', '', '', '');
     id: string;
     errorMessage: string;
     docForm: FormGroup;
     imageUploader: FileUploader;
+    public fileUploader: FileUploader;
     localImageUrl: string;
     tempName: string;
     image: string;
     imageUrl: string;
-    thisFile: File;
+
+    file: string;
+    fileUrl: string;
 
     constructor(private fb: FormBuilder, private activated_route: ActivatedRoute,
         private router: Router,
@@ -70,8 +73,20 @@ export class DocEditComponent implements OnInit {
                     description: [ '', []],
                     author: ['', []],
                     purchaseURL: '',
-                    imageUploader: ''
+                    imageUploader: '',
+                    fileUploader: ''
                 });
+
+                const fileurlWithQuery = this.globals.postdocfiles + '?id=' + this.id;
+        this.fileUploader = new FileUploader({url: fileurlWithQuery});
+        this.fileUploader.onAfterAddingFile = (fileItem) => {
+            const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
+                : (window as any).webkitURL.createObjectURL(fileItem._file);
+
+            this.fileUploader.queue[0].upload();
+
+
+        };
 
     }
 
@@ -92,7 +107,7 @@ export class DocEditComponent implements OnInit {
         if ( fileList.length > 0) {
             const file: File = fileList[0];
             console.log('Got a file: ' + file.name);
-            this.thisFile = file;
+            this.image = file.name;
 
         }
     }
@@ -106,10 +121,23 @@ export class DocEditComponent implements OnInit {
      });
 
         this.image = this.doc.image;
+        this.file = this.doc.file;
+
+    }
+
+    fileChange(event) {
+        const fileList: FileList = event.target.files;
+        if ( fileList.length > 0) {
+            const file: File = fileList[0];
+            console.log('Got a file: ' + file.name);
+            this.file = file.name;
+
+        }
     }
 
     postDoc() {
         this.doc.image = this.image;
+        this.doc.file = this.file;
 
         console.log('posting Doc, with ID of: ' + this.doc.id);
 
@@ -123,10 +151,10 @@ export class DocEditComponent implements OnInit {
                 (val) => {
                   },
                   response => {
-                    this.router.navigate(['/admin']);
+                    this.router.navigate(['/coursebuilder']);
                   },
                   () => {
-                    this.router.navigate(['/admin']);
+                    this.router.navigate(['/coursebuilder']);
                   }
             );
         } else {
@@ -137,11 +165,11 @@ export class DocEditComponent implements OnInit {
 
             },
             response => {
-                this.router.navigate(['/admin']);
+                this.router.navigate(['/coursebuilder']);
             },
             () => {
 
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/coursebuilder']);
             }
         );
         }
@@ -149,6 +177,30 @@ export class DocEditComponent implements OnInit {
 
     }
 
+    deleteDoc() {
+        const result = confirm( 'Warning! \n\nAre you sure you want to delete this pdf document: ' +
+        this.doc.title + ', and it\'s info from the database?' +
+        ' width ID: ' + this.doc.id + '? ');
+        if (result) {
+            console.log('Got the ok to delete the document.');
+
+        this.docService.deleteDoc( this.doc.id ).subscribe(
+            (data) => {
+                console.log('Got back from the Doc Service.');
+                this.router.navigate(['/coursebuilder']);
+            },
+          error => {
+              this.errorMessage = <any>error;
+              // This is a work-around for a HTTP error message I was getting even when the
+              // course was successfully deleted.
+              if (error.status === 200) {
+                console.log('Got back from the Doc Service.');
+                this.router.navigate(['/coursebuilder']);
+              } else {
+             console.log('Error: ' + JSON.stringify(error) ); }
+        } );
+       }
+      }
     closeMe() {
         this.router.navigate(['/coursebuilder']);
     }

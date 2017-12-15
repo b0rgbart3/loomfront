@@ -32,7 +32,15 @@
 
     <br>
 
-
+    <br><br>
+    File:  {{ file }}<br><br>
+    <div class="upload-wrap">
+        Upload Document
+        <input type="file" class="upload-btn"  name="file"  
+        ng2FileSelect [uploader]="fileUploader" formControlName="fileUploader"
+        (change)="fileChange($event)" id="file">
+    </div>
+    
     
 
 
@@ -45,7 +53,7 @@
 <br clear='all'>
 
 <br clear='all'><br><hr><br>
-<div class='loomButton dangerous' (click)="deleteBook()">
+<div class='loomButton dangerous' (click)="deleteDoc()">
 <mat-icon>delete</mat-icon><span class='raise'>
     Delete This PDF Document</span></div>
 </form>    
