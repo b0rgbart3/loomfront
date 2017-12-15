@@ -3,6 +3,8 @@ import { Course } from '../../models/course.model';
 import { CourseService } from '../../courses/course.service';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book.model';
+import { Doc } from '../../models/doc.model';
+import { DocService } from '../../services/doc.service';
 
 @Component ({
     templateUrl: './course-builder.component.html',
@@ -14,17 +16,20 @@ export class CourseBuilderComponent implements OnInit {
 courses: Course[];
 courseCount: number;
 books: Book[];
+docs: Doc[];
 bookCount: number;
 errorMessage: string;
 
 constructor (
 private courseService: CourseService,
-private bookService: BookService
+private bookService: BookService,
+private docService: DocService
 ) {}
 
 ngOnInit() {
   this.getCourses();
   this.getBooks();
+  this.getDocs();
 }
 
 getCourses() {
@@ -41,6 +46,11 @@ getCourses() {
         error => this.errorMessage = <any>error);
     }
 
+    getDocs() {
+      this.docService.getDocs(0).subscribe(
+        docs => this.docs = docs,
+        error => this.errorMessage = <any>error);
+    }
   // getAllBooks() {
   //   this.bookService
   //   .getBooks().subscribe(

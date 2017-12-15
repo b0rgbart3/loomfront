@@ -13,15 +13,18 @@ basepath = 'http://localhost:3100/';
 // basepath = 'https://ddworks.org:8000/';
 
  postcourseimages = this.basepath + 'api/courseimages';
- courseimages =   this.basepath + 'courseimages';
- materials =      this.basepath + 'api/materials';
- materialimages = this.basepath + 'materialimages';
- materialfiles =  this.basepath + 'materialfiles';
- threads =        this.basepath + 'api/threads';
- video =          this.basepath + 'assets/video';
- books =          this.basepath + 'api/books';
- postbookimages = this.basepath + 'api/bookimages';
- bookimages =     this.basepath + 'bookimages';
+ courseimages =     this.basepath + 'courseimages';
+ materials =        this.basepath + 'api/materials';
+ materialimages =   this.basepath + 'materialimages';
+ materialfiles =    this.basepath + 'materialfiles';
+ threads =          this.basepath + 'api/threads';
+ video =            this.basepath + 'assets/video';
+ books =            this.basepath + 'api/books';
+ docs =             this.basepath + 'api/docs';
+ postbookimages =   this.basepath + 'api/bookimages';
+ bookimages =       this.basepath + 'bookimages';
+ postdocimages =    this.basepath + 'api/docimages';
+ docimages =        this.basepath + 'docimages';
 
  chat_server = 'http://localhost:8001';
 

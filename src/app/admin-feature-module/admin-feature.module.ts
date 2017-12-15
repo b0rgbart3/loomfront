@@ -6,27 +6,63 @@ import { AdminRouteActivator } from './admin/admin-route-activator';
 import { ClassEditComponent } from './class-edit/class-edit.component';
 import { CourseBuilderComponent } from './course-builder/course-builder.component';
 import { BookEditComponent } from './book-edit-component/book-edit.component';
+import { Error404Component } from '../errors/404component';
+import { WelcomeComponent } from '../welcome/welcome.component';
+import { CourseEditComponent } from './course-edit/course-edit.component';
+import { CourseResolver } from '../services/course-resolver.service';
+import { MaterialsResolver } from '../services/materials-resolver.service';
+import { BooksResolver } from '../services/books-resolver.service';
+import { MaterialEditComponent } from './material-edit-component/material-edit.component';
+import { DocEditComponent } from './doc-edit-component/doc-edit.component';
+import { ClassResolver } from '../services/class-resolver.service';
+import { UsersResolver } from '../services/users-resolver';
+import { PossibleInstructorsResolver } from '../services/possible-instructors-resolver.service';
+import { CoursesResolver } from '../services/courses-resolver.service';
+
 
 @NgModule ( {
     imports: [
         SharedModule,
         RouterModule.forChild([
-            { path: 'admin', component: AdminComponent }
+            { path: 'admin', pathMatch: 'full', component: AdminComponent,
+                canActivate: [ AdminRouteActivator ] },
+            { path: 'books/:id/edit', component: BookEditComponent },
+            { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
+            resolve: { course: CourseResolver, materials: MaterialsResolver, books: BooksResolver} },
+            { path: 'coursebuilder', component: CourseBuilderComponent },
+            { path: 'classes/:id/edit', pathMatch: 'full', component: ClassEditComponent, resolve: {
+    thisClass: ClassResolver, users: UsersResolver,
+    possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
+            { path: 'docs/:id/edit', component: DocEditComponent },
+            { path: 'materials/:id/edit', component: MaterialEditComponent },
+            { path: '404', component: Error404Component },
+            { path: '', component: WelcomeComponent },
+            { path: '**', component: WelcomeComponent }
         ])
     ],
     declarations: [
        AdminComponent,
        ClassEditComponent,
        CourseBuilderComponent,
+       CourseEditComponent,
        BookEditComponent,
+       MaterialEditComponent,
+       DocEditComponent
     ],
     providers: [
         AdminRouteActivator,
+        ClassResolver,
+        UsersResolver,
+        CourseResolver,
     ],
     exports: [
         AdminComponent,
         ClassEditComponent,
-        CourseBuilderComponent
+        CourseBuilderComponent,
+        CourseEditComponent,
+        BookEditComponent,
+        MaterialEditComponent,
+        DocEditComponent
     ]
 })
 

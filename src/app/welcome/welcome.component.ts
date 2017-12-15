@@ -20,7 +20,7 @@ export class WelcomeComponent implements OnInit {
     dataConnection: boolean;
 
     constructor( private router: Router,
-        private _flashMessagesService: FlashMessagesService, private zone: NgZone,
+     private zone: NgZone,
     private userService: UserService, private classService: ClassService ) {
 
         }

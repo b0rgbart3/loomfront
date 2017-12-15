@@ -32,4 +32,18 @@
         </mat-list>
     </mat-expansion-panel>
     
+<mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>PDF Documents</mat-panel-title>
+        </mat-expansion-panel-header>
+    
+        <mat-list>
+            <mat-list-item [routerLink]="['/docs', 0, 'edit']">
+                <mat-icon class="example-icon">add</mat-icon> Add a new PDF Document
+            </mat-list-item>
+            <mat-list-item *ngFor='let doc of docs' [routerLink]="['/docs',doc.id,'edit']">
+                {{ doc.title }}
+            </mat-list-item>
+        </mat-list>
+    </mat-expansion-panel>
 </div>

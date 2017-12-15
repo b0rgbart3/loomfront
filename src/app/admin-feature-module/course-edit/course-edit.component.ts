@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../course.service';
+import { CourseService } from '../../courses/course.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Section } from '../../models/section.model';
 import { FileUploader } from 'ng2-file-upload';
@@ -18,7 +18,6 @@ import { BookService } from '../../services/book.service';
 })
 
 export class CourseEditComponent implements OnInit {
-
     courseFormGroup: FormGroup;
     sectionsFormArray: FormArray;
     sectionFormGroup: FormGroup;

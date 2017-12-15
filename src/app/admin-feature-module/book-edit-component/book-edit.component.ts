@@ -42,7 +42,9 @@ export class BookEditComponent implements OnInit {
          }
 
         const urlWithQuery = this.globals.postbookimages + '?id=' + this.id;
+
         console.log('urlquery for book image upload: ' + urlWithQuery);
+       
         this.imageUploader = new FileUploader({url: urlWithQuery});
         this.imageUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
@@ -63,8 +65,7 @@ export class BookEditComponent implements OnInit {
                          this.imageUploader.queue[0].remove();
                      };
 
-        this.types = ['Book Reference', 'PDF document', 'video', 'webpage', 'audio file' ];
-        this.bookForm = this.fb.group({
+           this.bookForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', []],
             author: ['', []],

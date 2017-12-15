@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { NavBarComponent } from './navbar/nav-bar.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppComponent } from './app.component';
 import { FormPoster } from './services/form-poster.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -15,15 +14,11 @@ import { RegisterComponent } from './users/register/register.component';
 import { AlertComponent } from './_directives/alert.component';
 import { AlertService } from './services/alert.service';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
-import { ClassListComponent } from './classes/class-list/class-list.component';
-import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { CourseService } from './courses/course.service';
 import { ClassService } from './classes/class.service';
 import { UserListComponent } from './users/user-list/user-list.component';
-import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { SafeUrlPipe } from './shared/safe-url.pipe';
-import { Error404Component } from './errors/404component';
 import { MaterialService } from './materials/material.service';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
@@ -69,7 +64,8 @@ import { BooksComponent } from './materials/books/books/books.component';
 import { BookComponent } from './materials/books/books/book.component';
 import { SharedModule } from './shared/shared.module';
 import { AdminFeatureModule } from './admin-feature-module/admin-feature.module';
-import { MaterialEditComponent } from './materials/material-edit.component';
+import { DocService } from './services/doc.service';
+
 
 @NgModule({
   // External
@@ -85,26 +81,18 @@ import { MaterialEditComponent } from './materials/material-edit.component';
     ClickOutsideDirective,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
-
-    FileDropDirective,
     NavBarComponent,
-    PageNotFoundComponent,
     SafeUrlPipe,
     LoginComponent,
     CourseListComponent,
     CourseImageComponent,
     RegisterComponent,
     AlertComponent,
-    WelcomeComponent,
     RequestresetComponent,
     ClassComponent,
-    ClassListComponent,
-    ClassThumbComponent,
-    CourseEditComponent,
     UserListComponent,
     HomeComponent,
     UserSettingsComponent,
-    Error404Component,
     InstructorAssignmentsComponent,
     DialogComponent,
     CourseComponent,
@@ -117,7 +105,6 @@ import { MaterialEditComponent } from './materials/material-edit.component';
     VideoComponent,
     BooksComponent,
     BookComponent,
-    MaterialEditComponent,
     MaterialCollectionComponent,
 
   ],
@@ -147,7 +134,8 @@ import { MaterialEditComponent } from './materials/material-edit.component';
     UserAuthGuard,
     BookService,
     BookResolver,
-    BooksResolver
+    BooksResolver,
+    DocService
    ],
   bootstrap: [ AppComponent ]
 })

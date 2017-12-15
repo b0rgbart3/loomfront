@@ -13,6 +13,12 @@ import { VgOverlayPlayModule } from 'videogular2/src/overlay-play/overlay-play';
 import { VgBufferingModule } from 'videogular2/src/buffering/buffering';
 import { UserThumbComponent } from '../users/user-thumb/user-thumb.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { Error404Component } from '../errors/404component';
+import { WelcomeComponent } from '../welcome/welcome.component';
+import { ClassListComponent } from '../classes/class-list/class-list.component';
+import { ClassThumbComponent } from '../classes/class-list/class-thumb.component';
+import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import { ClassResolver } from '../services/class-resolver.service';
 
 
 @NgModule ( {
@@ -29,14 +35,19 @@ import { FileSelectDirective } from 'ng2-file-upload';
         VgControlsModule,
         VgOverlayPlayModule,
         VgBufferingModule,
-        CustomMaterialModule,
+        CustomMaterialModule
     ],
     declarations: [
         UserThumbComponent,
         FileSelectDirective,
+        Error404Component,
+        WelcomeComponent,
+        ClassListComponent,
+        ClassThumbComponent,
+        ImageUploaderComponent
     ],
     providers: [
-
+        ClassResolver,
     ],
     exports: [
         CommonModule,
@@ -54,6 +65,11 @@ import { FileSelectDirective } from 'ng2-file-upload';
         CustomMaterialModule,
         UserThumbComponent,
         FileSelectDirective,
+        Error404Component,
+        WelcomeComponent,
+        ClassListComponent,
+        ClassThumbComponent,
+        ImageUploaderComponent
     ]
 
 })

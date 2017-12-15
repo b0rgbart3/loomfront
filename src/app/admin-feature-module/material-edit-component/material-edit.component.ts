@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ClassModel } from '../models/class.model';
+import { ClassModel } from '../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { CourseService } from '../courses/course.service';
-import { Course } from '../models/course.model';
-import { Material } from '../models/material.model';
-import { MaterialService } from './material.service';
+import { CourseService } from '../../courses/course.service';
+import { Course } from '../../models/course.model';
+import { Material } from '../../models/material.model';
+import { MaterialService } from '../../materials/material.service';
 import { FileUploader } from 'ng2-file-upload';
 const MATERIALS_IMAGE_PATH  = 'http://localhost:3100/materialimages/';
 const MATERIALS_FILE_PATH  = 'http://localhost:3100/materialimages/';
