@@ -5,6 +5,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminRouteActivator } from './admin/admin-route-activator';
 import { ClassEditComponent } from './class-edit/class-edit.component';
 import { CourseBuilderComponent } from './course-builder/course-builder.component';
+import { BookEditComponent } from './book-edit-component/book-edit.component';
 
 @NgModule ( {
     imports: [
@@ -17,6 +18,7 @@ import { CourseBuilderComponent } from './course-builder/course-builder.componen
        AdminComponent,
        ClassEditComponent,
        CourseBuilderComponent,
+       BookEditComponent,
     ],
     providers: [
         AdminRouteActivator,

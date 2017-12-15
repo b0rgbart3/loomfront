@@ -64,7 +64,6 @@ import { MaterialCollectionComponent } from './materials/material-collection/mat
 import { VideoComponent } from './materials/video/video.component';
 import { BookService } from './services/book.service';
 import { BookResolver } from './services/book-resolver.service';
-import { BookEditComponent } from './materials/books/book-edit.component';
 import { BooksResolver } from './services/books-resolver.service';
 import { BooksComponent } from './materials/books/books/books.component';
 import { BookComponent } from './materials/books/books/book.component';
@@ -86,7 +85,7 @@ import { MaterialEditComponent } from './materials/material-edit.component';
     ClickOutsideDirective,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
-    FileSelectDirective,
+
     FileDropDirective,
     NavBarComponent,
     PageNotFoundComponent,
@@ -116,8 +115,6 @@ import { MaterialEditComponent } from './materials/material-edit.component';
     InfobotComponent,
     NotificationsComponent,
     VideoComponent,
-    BookEditComponent,
-
     BooksComponent,
     BookComponent,
     MaterialEditComponent,

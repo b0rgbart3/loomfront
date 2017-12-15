@@ -12,6 +12,7 @@ import { VgControlsModule } from 'videogular2/src/controls/controls';
 import { VgOverlayPlayModule } from 'videogular2/src/overlay-play/overlay-play';
 import { VgBufferingModule } from 'videogular2/src/buffering/buffering';
 import { UserThumbComponent } from '../users/user-thumb/user-thumb.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 
 @NgModule ( {
@@ -32,6 +33,7 @@ import { UserThumbComponent } from '../users/user-thumb/user-thumb.component';
     ],
     declarations: [
         UserThumbComponent,
+        FileSelectDirective,
     ],
     providers: [
 
@@ -50,7 +52,8 @@ import { UserThumbComponent } from '../users/user-thumb/user-thumb.component';
         VgOverlayPlayModule,
         VgBufferingModule,
         CustomMaterialModule,
-        UserThumbComponent
+        UserThumbComponent,
+        FileSelectDirective,
     ]
 
 })

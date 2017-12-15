@@ -33,7 +33,7 @@ import { ClassResolver } from './services/class-resolver.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { BookResolver } from './services/book-resolver.service';
-import { BookEditComponent } from './materials/books/book-edit.component';
+import { BookEditComponent } from './admin-feature-module/book-edit-component/book-edit.component';
 import { CourseBuilderComponent } from './admin-feature-module/course-builder/course-builder.component';
 import { BooksResolver } from './services/books-resolver.service';
 import { MaterialEditComponent } from './materials/material-edit.component';
