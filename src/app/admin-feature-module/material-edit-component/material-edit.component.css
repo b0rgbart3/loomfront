@@ -1,0 +1,31 @@
+.choice1 {
+    border:2px solid rgba(0,0,0,.2);
+    border-radius:18px;
+    padding:20px;
+    display:inline-block;
+    width:40%;
+    box-shadow:0 0 8px rgba(0,0,0,.2);
+}
+
+.or {
+    display:inline-block;
+    vertical-align: top;
+    width:40px;
+    padding:10px;
+    padding-top:40px;
+    font-weight:900;
+    font-family: 'Roboto';
+    font-style:italic;
+    color:#555555;
+}
+
+.choice2 {
+    border:2px solid rgba(0,0,0,.2);
+    border-radius:18px;
+    padding:4px;
+    display:inline-block;
+    vertical-align: top;
+    width:40%;
+    box-shadow:0 0 8px rgba(0,0,0,.2);
+    padding-left:24px;
+}

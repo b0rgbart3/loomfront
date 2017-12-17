@@ -6,15 +6,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import { Book } from '../models/book.model';
-import { BookService } from './book.service';
+import { Material } from '../models/material.model';
+import { MaterialService } from '../services/material.service';
 
 @Injectable()
-export class BookResolver implements Resolve <Book> {
+export class BookResolver implements Resolve <Material> {
 
-    constructor( private bookService: BookService,  private router: Router ) { }
+    constructor( private materialService: MaterialService,  private router: Router ) { }
 
-    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Book> {
+    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Material> {
         const id = route.params['id'];
 
         if (isNaN(id)) {
@@ -25,9 +25,9 @@ export class BookResolver implements Resolve <Book> {
             return Observable.of(null);
         }
         console.log('In Book Resolver: id=' + id);
-        return this.bookService.getBook(id).
-        map(book => { if (book) {
-            return book; }
+        return this.materialService.getMaterial(id).
+        map(material => { if (material) {
+            return material; }
         this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {

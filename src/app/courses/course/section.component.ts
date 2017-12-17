@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, Input, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
-import { MaterialService } from '../../materials/material.service';
+import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Section } from '../../models/section.model';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Book } from '../../models/book.model';
 import { BookService } from '../../services/book.service';
+import { Doc } from '../../models/doc.model';
 
 
 
@@ -24,8 +25,8 @@ export class SectionComponent implements OnInit, OnChanges {
     materialCollection: MaterialCollection;
     title: string;
     content: string;
-    booksLoaded: boolean;
-    loadedBooks: any[];
+    // booksLoaded: boolean;
+    // loadedBooks: any[];
 
 
     @Input() course: Course;
@@ -48,14 +49,17 @@ export class SectionComponent implements OnInit, OnChanges {
 
 
     public materials: Material [];
-    public materialRefs: Object [];
+    public books: Material [];
+    public docs: Material [];
+    errorMessage: string;
+
+   // public materialRefs: Object [];
    // public section: Section;
     // public title: string;
     // public content: string;
     // public description: string;
 
-    constructor (private materialService: MaterialService,
-    private bookService: BookService ) {}
+    constructor (private materialService: MaterialService ) {}
 
 
     ngOnInit() {
@@ -86,34 +90,53 @@ export class SectionComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         // console.log('changes');
-        this.loadedBooks = null;
+     //   this.loadedBooks = null;
+        // this.getBooks();
+        // this.getDocs();
+
         this.loadInMaterials();
-        this.loadInBooks();
+       // this.loadInBooks();
      }
 
-     loadInBooks() {
-         console.log('LOADING IN BOOKS');
-         this.loadedBooks = null;
-         this.loadedBooks = [];
-         if (this.section.books) {
+     // loadInBooks() {
+        //  console.log('LOADING IN BOOKS');
+        //  this.loadedBooks = null;
+        //  this.loadedBooks = [];
+        //  if (this.section.books) {
 
-             this.section.books.map((bookItem) => {
-                this.bookService.getBook(bookItem['book']).subscribe(
-                  (book) => {
-                      console.log('Loaded book: ' + JSON.stringify(book));
-                      this.loadedBooks.push(book[0]);
-                    return; },
-                  error => { console.log('Error loading in book: ' + bookItem['book']);
-              return; }
-              );
-             });
-         }
+        //      this.section.books.map((bookItem) => {
+        //         this.bookService.getBook(bookItem['book']).subscribe(
+        //           (book) => {
+        //               console.log('Loaded book: ' + JSON.stringify(book));
+        //               this.loadedBooks.push(book[0]);
+        //             return; },
+        //           error => { console.log('Error loading in book: ' + bookItem['book']);
+        //       return; }
+        //       );
+        //      });
+        //  }
 
-         console.log('BOOKS: ' + JSON.stringify(this.loadedBooks));
+     //    console.log('BOOKS: ' + JSON.stringify(this.loadedBooks));
 
-     }
+   //  }
+
+    //  getBooks() {
+
+    //     this.materialService.getDynamicMaterials(0, 'book').subscribe(
+    //       books => this.books = books,
+    //       error => this.errorMessage = <any> error);
+    //   }
+  
+    //   getDocs() {
+
+    //     this.materialService.getDynamicMaterials(0, 'PDFdocument').subscribe(
+    //       docs => { this.docs = docs;
+    //         console.log('Got docs: ' + JSON.stringify(docs)); },
+    //       error => this.errorMessage = <any> error);
+    //   }
 
     loadInMaterials() {
+
             this.materials = [];
             this.materialCollection = null;
             console.log('loading in materials for course# ' +
@@ -124,15 +147,16 @@ export class SectionComponent implements OnInit, OnChanges {
 
 
                 this.materialService.getMaterial(id).subscribe(
-                    (material) => { // console.log('found a material ' + j);
+                    (material) => {
+                        console.log('found a material ' + j);
                     this.materials.push(material[0]);
                     if (this.materials.length === this.section.materials.length) {
                         // if these are equal, that means we've loaded in all the material objects
                         // so now we can sort them.
                        const sortedMaterials = this.materialService.sortMaterials(this.materials);
                         this.materialCollection = sortedMaterials;
-                      //  console.log('Done sorting the materials');
-                       // console.log(JSON.stringify(this.materialCollection));
+                        console.log('Done sorting the materials');
+                        console.log(JSON.stringify(this.materialCollection));
 
                     }
 
@@ -141,7 +165,7 @@ export class SectionComponent implements OnInit, OnChanges {
                 );
             }
 
-        }
+       }
     }
 
 }

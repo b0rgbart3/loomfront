@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../../courses/course.service';
-import { BookService } from '../../services/book.service';
-import { Book } from '../../models/book.model';
-import { Doc } from '../../models/doc.model';
-import { DocService } from '../../services/doc.service';
+import { MaterialService } from '../../services/material.service';
+import { Material } from '../../models/material.model';
+import { MaterialCollection } from '../../models/materialcollection.model';
+import { Router } from '@angular/router';
 
 @Component ({
     templateUrl: './course-builder.component.html',
@@ -15,21 +15,32 @@ export class CourseBuilderComponent implements OnInit {
 
 courses: Course[];
 courseCount: number;
-books: Book[];
-docs: Doc[];
+books: Material[];
+docs: Material[];
 bookCount: number;
 errorMessage: string;
+assets = ['book', 'PDFdocument', 'video'];
+assetTypes = ['books', 'docs', 'videos'];
+assetLongSingularNames: string[];
+assetLongPluralNames: string[];
+data: MaterialCollection;
+
 
 constructor (
 private courseService: CourseService,
-private bookService: BookService,
-private docService: DocService
-) {}
+private materialService: MaterialService,
+private router: Router
+) {
+
+  this.data = new MaterialCollection([], [], [], []);
+
+}
 
 ngOnInit() {
   this.getCourses();
-  this.getBooks();
-  this.getDocs();
+  this.assets.map(type => this.getAssets(type));
+  this.assetLongPluralNames = ['Books', 'PDF Documents', 'Videos'];
+  this.assetLongSingularNames = ['Book', 'PDF Document', 'Video'];
 }
 
 getCourses() {
@@ -40,24 +51,34 @@ getCourses() {
       error => this.errorMessage = <any>error);
     }
 
-    getBooks() {
-      this.bookService.getBooks(0).subscribe(
-        books => this.books = books,
-        error => this.errorMessage = <any>error);
-    }
+  getAssets(type) {
+    this.materialService.getDynamicMaterials(0, type).subscribe(
+      data => { this.data[type] = data;
+        console.log('');
+        console.log(type + ':');
+                console.log( JSON.stringify( this.data[type]) ); },
+      error => this.errorMessage = <any> error);
+  }
 
-    getDocs() {
-      this.docService.getDocs(0).subscribe(
-        docs => this.docs = docs,
-        error => this.errorMessage = <any>error);
-    }
-  // getAllBooks() {
-  //   this.bookService
-  //   .getBooks().subscribe(
-  //     books =>  {this.books = books;
-  //     this.bookCount = this.books.length; },
-  //     error => this.errorMessage = <any>error);
-  //   }
+  addAsset(typeIndex) {
+    this.router.navigate( [ '/' + this.assetTypes[typeIndex] + '/0/edit'] );
+  }
+  editAsset(typeIndex, assetID) {
+    this.router.navigate( [ '/' + this.assetTypes[typeIndex] + '/' + assetID + '/edit' ]);
+  }
+    // getBooks() {
+    //   this.materialService.getDynamicMaterials(0, 'book').subscribe(
+    //     books => this.books = books,
+    //     error => this.errorMessage = <any> error);
+    // }
+
+    // getDocs() {
+
+    //   this.materialService.getDynamicMaterials(0, 'PDFdocument').subscribe(
+    //     docs => { this.docs = docs;
+    //       console.log('Got docs: ' + JSON.stringify(docs)); },
+    //     error => this.errorMessage = <any> error);
+    // }
 
 
 }

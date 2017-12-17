@@ -17,7 +17,25 @@
 <br>
 
 
-<mat-expansion-panel>
+<div *ngFor='let assetType of assets; let i = index;'>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{ assetLongPluralNames[i] }}</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list>
+            <mat-list-item (click)="addAsset(i)">
+                <mat-icon class='example-icon'>add</mat-icon>
+                Add a new {{ assetLongSingularNames[i] }}
+            </mat-list-item>
+            <mat-list-item *ngFor='let item of data[assetType]' (click)="editAsset(i, item.id)">
+                {{ item.title }}
+            </mat-list-item>
+        </mat-list>
+    </mat-expansion-panel>
+    
+</div>
+<!-- <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>Book References</mat-panel-title>
         </mat-expansion-panel-header>
@@ -46,4 +64,27 @@
             </mat-list-item>
         </mat-list>
     </mat-expansion-panel>
+
+    
+    <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Videos</mat-panel-title>
+            </mat-expansion-panel-header>
+        
+            <mat-list>
+                <mat-list-item [routerLink]="['/videos', 0, 'edit']">
+                    <mat-icon class="example-icon">add</mat-icon> Add a new Video
+                </mat-list-item>
+                <mat-list-item *ngFor='let video of videos' [routerLink]="['/videos',video.id,'edit']">
+                    {{ video.title }}
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+    
+         -->
+
+
+
+
+
 </div>

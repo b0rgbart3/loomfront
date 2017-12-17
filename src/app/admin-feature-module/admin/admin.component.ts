@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { ClassService } from '../../classes/class.service';
 import { UserService } from '../../services/user.service';
 
-import { MaterialService } from '../../materials/material.service';
+import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Userthumbnail } from '../../models/userthumbnail.model';
 import { Globals } from '../../globals';

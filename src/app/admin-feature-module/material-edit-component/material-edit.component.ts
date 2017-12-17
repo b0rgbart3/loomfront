@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassModel } from '../../models/class.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { CourseService } from '../../courses/course.service';
 import { Course } from '../../models/course.model';
 import { Material } from '../../models/material.model';
-import { MaterialService } from '../../materials/material.service';
+import { MaterialService } from '../../services/material.service';
 import { FileUploader } from 'ng2-file-upload';
-const MATERIALS_IMAGE_PATH  = 'http://localhost:3100/materialimages/';
-const MATERIALS_FILE_PATH  = 'http://localhost:3100/materialimages/';
+import { Globals } from '../../globals';
 
 @Component({
     moduleId: module.id,
@@ -17,9 +16,10 @@ const MATERIALS_FILE_PATH  = 'http://localhost:3100/materialimages/';
 })
 
 export class MaterialEditComponent implements OnInit {
-    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '');
+    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '', '', '');
     materialForm: FormGroup;
-    types: Array<string>;
+    type: string;
+    // types: Array<string>;
     id: string;
     errorMessage: string;
     thisFile: File;
@@ -31,70 +31,81 @@ export class MaterialEditComponent implements OnInit {
     imageUrl: string;
     file: string;
     fileUrl: string;
+    urlLabel: string;
+    uploaderNeeded: boolean;
 
-    constructor(private fb: FormBuilder, private activated_route: ActivatedRoute,
-    private materialService: MaterialService, private router: Router ) {    }
+    constructor(private fb: FormBuilder,
+    private activated_route: ActivatedRoute,
+    private materialService: MaterialService,
+    private router: Router,
+    private globals: Globals ) {    }
 
     ngOnInit() {
 
+        // This gets the resource type from the router, as a data parameter
+        // which we will use to dynamically
+        // change our Form Model to accommodate the resource type
+        this.type = this.activated_route.snapshot.data['type'];
+
+        switch (this.type) {
+            case 'book':
+            this.urlLabel = 'Purchase URL';
+            this.uploaderNeeded = false;
+            break;
+            default: this.urlLabel = 'URL';
+            this.uploaderNeeded = true;
+            break;
+        }
         this.id = this.activated_route.snapshot.params['id'];
+        this.material.id = this.id;
 
         if (this.id !== '0') {
             this.getMaterial(this.id);
          } else {
              this.id = this.materialService.getNextId();
-             console.log('The highest ID we got back was: ' + this.id );
+             this.material.id = this.id;
+             console.log('the ID we got was: ' + this.id);
          }
+         this.buildForm();
+    }
 
-        const urlWithQuery = 'http://localhost:3100/api/materialimages?id=' + this.id;
+    buildForm() {
+        const urlWithQuery = this.globals.postmaterialimages + '?id=' + this.id;
         this.imageUploader = new FileUploader({url: urlWithQuery});
         this.imageUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
             this.localImageUrl = url;
-            // this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + ;
-            // this.avatarimage = url;
-            this.imageUploader.queue[0].upload();
-            // console.log("Uploaded: " + JSON.stringify( fileItem._file ) );
 
-        // this.courseForm.patchValue({'image': fileItem._file});
+            this.imageUploader.queue[0].upload();
+
         };
 
         this.imageUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
                         this.tempName = this.imageUploader.queue[0].file.name;
                         console.log('Response from the server: ' + this.tempName);
-
-
                          this.image = this.tempName;
-                         this.imageUrl = MATERIALS_IMAGE_PATH + this.material.id + '/' + this.image;
-
+                         this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
                          console.log('Image url: ' + this.imageUrl);
-
-                        // this.courseForm.patchValue({'image': this.image });
                          this.imageUploader.queue[0].remove();
                      };
 
-        this.types = ['Book Reference', 'PDF document', 'video', 'webpage', 'audio file' ];
+       // this.types = ['book', 'PDFdocument', 'video', 'webpage', 'audio' ];
         this.materialForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', []],
             contenturl: '',
-            type: ['', [ ] ],
             imageUploader: '',
             fileUploader: '',
+            author: ''
         });
 
-        const fileurlWithQuery = 'http://localhost:3100/api/materialfiles?id=' + this.id;
+        const fileurlWithQuery = this.globals.postmaterialfiles + '?id=' + this.id;
         this.fileUploader = new FileUploader({url: fileurlWithQuery});
         this.fileUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
-           // this.localImageUrl = url;
-            // this.avatarimage = 'http://localhost:3100/public/avatars/' + this.currentUserId + '/' + ;
-            // this.avatarimage = url;
             this.fileUploader.queue[0].upload();
-            // console.log("Uploaded: " + JSON.stringify( fileItem._file ) );
-
 
         };
 
@@ -102,17 +113,10 @@ export class MaterialEditComponent implements OnInit {
                         this.tempName = this.fileUploader.queue[0].file.name;
                         console.log('Response from the server: ' + this.tempName);
                         this.file = this.tempName;
-                        this.fileUrl = MATERIALS_FILE_PATH + this.material.id + '/' + this.file;
-
-                         // this.image = this.tempName;
-                         // this.imageUrl = MATERIALS_IMAGE_PATH + this.material.id + '/' + this.image;
-
+                        this.fileUrl = this.globals.postmaterialfiles + '/' + this.material.id + '/' + this.file;
                          console.log('Image url: ' + this.imageUrl);
-
-                        // this.courseForm.patchValue({'image': this.image });
                          this.fileUploader.queue[0].remove();
                      };
-
     }
 
     getMaterial(id: string) {
@@ -120,9 +124,9 @@ export class MaterialEditComponent implements OnInit {
             material => { this.material = <Material>material[0];
                 console.log('got material ' + id + ' info :' + JSON.stringify(material) );
                 this.image = this.material.image;
-                this.imageUrl = MATERIALS_IMAGE_PATH + '/' + this.material.id + '/' + this.image;
+                this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
                 this.file = this.material.file;
-                this.fileUrl = MATERIALS_FILE_PATH + '/' + this.material.id + '/' + this.file;
+                this.fileUrl = this.globals.materialfiles + '/' + this.material.id + '/' + this.file;
                 this.populateForm();
              },
             error => this.errorMessage = <any> error
@@ -154,7 +158,8 @@ export class MaterialEditComponent implements OnInit {
         'title': this.material.title,
         'description': this.material.description,
         'contenturl': this.material.contenturl,
-        'type': this.material.type
+        'type': this.material.type,
+        'author': this.material.author
      });
 
         this.file = this.material.file;
@@ -165,6 +170,7 @@ export class MaterialEditComponent implements OnInit {
         // this.material.image = this.image;
         this.material.image = this.image;
         this.material.file = this.file;
+        this.material.type = this.type;
 
          // This is Deborah Korata's way of merging our data model with the form model
         const combinedObject = Object.assign( {}, this.material, this.materialForm.value);
@@ -176,10 +182,10 @@ export class MaterialEditComponent implements OnInit {
                 (val) => {
                   },
                   response => {
-                    this.router.navigate(['/admin']);
+                    this.router.navigate(['/coursebuilder']);
                   },
                   () => {
-                    this.router.navigate(['/admin']);
+                    this.router.navigate(['/coursebuilder']);
                   }
             );
         } else {
@@ -187,18 +193,47 @@ export class MaterialEditComponent implements OnInit {
             this.materialService
             .updateMaterial( combinedObject ).subscribe(
             (val) => {
-
             },
             response => {
-                this.router.navigate(['/admin']);
+                this.router.navigate(['/coursebuilder']);
             },
             () => {
-
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/coursebuilder']);
             }
         );
         }
 
 
+    }
+
+
+    deleteMaterial() {
+        const result = confirm( 'Warning! \n\nAre you sure you want to delete this' +
+        this.type + ' : ' + this.material.title + ', and all of it\'s related data from the database?' +
+        ' width ID: ' + this.material.id + '? ');
+        if (result) {
+            console.log('Got the ok to delete the book.');
+
+        this.materialService.deleteMaterial( this.material.id ).subscribe(
+            (data) => {
+                console.log('Got back from the Book Service.');
+                this.router.navigate(['/coursebuilder']);
+            },
+          error => {
+              this.errorMessage = <any>error;
+              // This is a work-around for a HTTP error message I was getting even when the
+              // course was successfully deleted.
+              if (error.status === 200) {
+                console.log('Got back from the Course Service.');
+                this.router.navigate(['/coursebuilder']);
+              } else {
+             console.log('Error: ' + JSON.stringify(error) ); }
+        } );
+       }
+      }
+
+
+    closeMe() {
+        this.router.navigate(['/coursebuilder']);
     }
 }

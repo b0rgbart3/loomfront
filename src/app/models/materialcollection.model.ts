@@ -7,13 +7,15 @@ export class MaterialCollection {
   constructor (
       public videos: Material[],
       public documents: Material[],
-      public books: Material[]
+      public books: Material[],
+      public audios: Material[],
 
   ) {
 
     this.videos = videos;
     this.documents = documents;
     this.books = books;
+    this.audios = audios;
 
   }
 

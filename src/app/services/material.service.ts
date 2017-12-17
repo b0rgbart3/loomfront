@@ -15,13 +15,48 @@ import { MaterialCollection } from '../models/materialcollection.model';
 @Injectable()
 export class MaterialService {
 
-    private materialCount = 0;
-    private highestID = 0;
-    private materials: Material[];
+    materialCount = 0;
+    highestID = 0;
+    materials: Material[];
+    material: Material;
+    errorMessage: string;
+    bookArray: Material[];
+    docArray: Material[];
+    allMaterialsByType: Material[][];
+
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     constructor (private _http: HttpClient, private globals: Globals) {}
 
+    getAllMaterialsByType (): Observable<Material[][]> {
+
+       return this._http.get <Material[][]>
+              (this.globals.allmaterialsbytype).do(data => {
+                this.allMaterialsByType = data;
+        }).catch(this.handleError);
+
+    }
+    getDynamicMaterials( id, type ): Observable<Material[]> {
+      if (id === 0) {
+        // get all the objects for this type
+        console.log('\nIn material service / getDM: ' + type + '\n');
+        return this._http.get <Material[]>
+              (this.globals.materials + '?type=' + type).do(data => {
+                console.log( type + ': ' + JSON.stringify( data ) + '\n');
+                // this.materialCount = data.length;
+                  // this.materials = data;
+                  // this.updateIDCount();
+        }).catch(this.handleError);
+      } else {
+        // pass back a single object of this type
+        return this._http.get <Material>
+              (this.globals.materials + '?id=' + id + '&type=' + type).do(data => {
+          // keeping a local copy of the data object
+          // -- though I don't think we do anything with it
+          this.material = data; }).catch( this.handleError );
+        }
+
+    }
     // We want to get all the material objects for the entire course -- but
     // not all the material objects in the entire database -- so we'll grab
     // them using the corresponding course_id.
@@ -42,12 +77,21 @@ export class MaterialService {
                     this.updateIDCount();
             // console.log("Course highest ID: "+ this.highestID);
                   } )
-      .catch( this.handleError ); }
+      .catch( this.handleError );
+     }
+
   }
 
+
   getNextId() {
-    return this.highestID.toString();
+
+        this.updateIDCount();
+        return this.highestID.toString();
+
   }
+
+
+
 
   updateIDCount() {
       // Loop through all the Materials to find the highest ID#
@@ -72,8 +116,8 @@ export class MaterialService {
       .catch (this.handleError);
   }
 
-  deleteMaterial(courseId: number): Observable<any> {
-      return this._http.delete( this.globals.materials + '?id=' + courseId);
+  deleteMaterial(id: string): Observable<any> {
+      return this._http.delete( this.globals.materials + '?id=' + id);
   }
 
   private extractData(res: Response) {
@@ -116,16 +160,17 @@ export class MaterialService {
       const videos = [];
       const docs = [];
       const books = [];
+      const audios = [];
 
       for (let i = 0; i < materialsArray.length; i++) {
         if (materialsArray[i]) {
         if (materialsArray[i].type === 'video') {
           videos.push(materialsArray[i]);
         } else {
-          if (materialsArray[i].type === 'books') {
+          if (materialsArray[i].type === 'book') {
             books.push(materialsArray[i]);
           }  else {
-            if (materialsArray[i].type === 'PDF document') {
+            if (materialsArray[i].type === 'PDFdocument') {
               docs.push(materialsArray[i]);
             }
           }
@@ -133,7 +178,7 @@ export class MaterialService {
       }
       }
 
-      const sortedMaterials = new MaterialCollection(videos, docs, books);
+      const sortedMaterials = new MaterialCollection(videos, docs, books, audios);
       return sortedMaterials;
 
     }

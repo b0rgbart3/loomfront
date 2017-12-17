@@ -53,7 +53,7 @@
                             <div *ngFor="let material of course.sections[i].materials">
                                 Material: {{ material.title }}
                             </div> -->
-                            <h1>Materials</h1>
+                            <!-- <h1>Materials</h1>
                             <div *ngIf='materialFormArray && materialFormArray[i]'>
                             <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
                                 <div class='loomChoice'>
@@ -65,20 +65,22 @@
                                 ng-selected='value'>{{item.title}}</mat-option>
                             </mat-select></mat-form-field>
                         </div></div> 
-                        </div></div><br clear='all'><br>
+                        </div></div><br clear='all'><br> 
                         
-                        <div class='loomButton' (click)="addMaterial(i)">Add Material</div>
+                        <div class='loomButton' (click)="addMaterial(i)">Add Material</div>-->
                         <br clear='all'>
                         <h1>Book References</h1>
                         <div *ngIf='bookFormArray && bookFormArray[i]'>
-                                <div formArrayName='books' *ngFor="let book of bookFormArray[i].controls;
+                                <div formArrayName='books' 
+                                *ngFor="let book of bookFormArray[i].controls;
                                  let k = index">
                                     <div class='loomChoice'>
-                                    <button class='loomKill rightAlignMe' (click)='killBook(i,k)'></button>
+                                    <button class='loomKill rightAlignMe'
+                                     (click)='killBook(i,k)'></button>
                                     <div [formGroupName]="k">
                                         <mat-form-field>
-                                    <mat-select [placeholder]="bookPlaceholder" formControlName="book">
-                                    <mat-option *ngFor='let item of books' mdOption [value]='item.id' 
+                                    <mat-select [placeholder]="bookPlaceholder" formControlName="material">
+                                    <mat-option *ngFor='let item of bookOptions' matOption [value]='item.id' 
                                     ng-selected='value'>{{item.title}}</mat-option>
                                 </mat-select></mat-form-field>
                             </div></div> 
@@ -86,9 +88,33 @@
 
                         <br clear='all'><br>
                         <div class='loomButton' (click)="addBook(i)">Add Book Reference</div>
-                        <br clear='all'>
+                       
+
+
+                        <h1>PDF Documents</h1>
+                        <div *ngIf='docFormArray && docFormArray[i]'>
+                            <div formArrayName='docs' 
+                            *ngFor='let doc of docFormArray[i].controls; let m=index'>
+                                <div class='loomChoice'>
+                                    
+                                    <button class='loomKill rightAlignMe'
+                                     (click)='killDoc(i,m)'></button>
+                                     <div [formGroupName]="m">
+                                         <mat-form-field>
+                                             <mat-select [placeholder]='docPlaceholder' formControlName='material'>
+                                                    <mat-option *ngFor='let item of docOptions' matOption [value]='item.id' 
+                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                             </mat-select>
+                                         </mat-form-field>
+                                     </div>
+                                </div>
+                            </div>
                         </div>
-                    
+                        <br clear='all'><br>
+                        <div class='loomButton' (click)="addDoc(i)">Add PDF Document</div>
+                       
+
+                    </div>
                     </div>
                 <br>
             </mat-expansion-panel>

@@ -19,7 +19,7 @@ import { ClassService } from './classes/class.service';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { SafeUrlPipe } from './shared/safe-url.pipe';
-import { MaterialService } from './materials/material.service';
+import { MaterialService } from './services/material.service';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
 import { CourseResolver } from './services/course-resolver.service';

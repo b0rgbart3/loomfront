@@ -434,10 +434,15 @@ color:white;
   box-shadow:0px 4px 4px rgba(0,0,0,.5);
   overflow: hidden;
   padding:10px;
-  width:140px;
+  width:200px;
   color:white;
   text-transform: uppercase;
   text-align: center;
+  margin-top:12px;
+  margin-bottom:14px;
+  outline:none;
+  cursor: pointer;
+  user-select: none;
 }
 
 .upload-wrap:hover {
@@ -454,10 +459,10 @@ color:white;
   position: absolute;
   top:-20px;
   left: 0;
-  width:200px;
   height:150px;
-
-  padding-top:-20px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
 }
 
 mat-select {
@@ -571,6 +576,12 @@ h2 {
 .raise {
   position: relative;
   top:-.5em;
+}
+
+.instructions {
+  font-family: 'Roboto';
+  font-style:italic;
+  color:#555555;
 }
 
 /*  ClearFix  -----------------------------------------------------------

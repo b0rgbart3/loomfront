@@ -20,21 +20,30 @@ import { PossibleInstructorsResolver } from '../services/possible-instructors-re
 import { CoursesResolver } from '../services/courses-resolver.service';
 
 
+
 @NgModule ( {
     imports: [
         SharedModule,
         RouterModule.forChild([
             { path: 'admin', pathMatch: 'full', component: AdminComponent,
                 canActivate: [ AdminRouteActivator ] },
-            { path: 'books/:id/edit', component: BookEditComponent },
             { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
-            resolve: { course: CourseResolver, materials: MaterialsResolver, books: BooksResolver} },
+            resolve: { course: CourseResolver,
+                materials: MaterialsResolver } },
             { path: 'coursebuilder', component: CourseBuilderComponent },
             { path: 'classes/:id/edit', pathMatch: 'full', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, users: UsersResolver,
     possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
-            { path: 'docs/:id/edit', component: DocEditComponent },
-            { path: 'materials/:id/edit', component: MaterialEditComponent },
+
+            { path: 'books/:id/edit', component: MaterialEditComponent,
+            data: { type: 'book'}, resolve: { MaterialsResolver } },
+
+            { path: 'docs/:id/edit', component:  MaterialEditComponent,
+            data: { type: 'PDFdocument' }, resolve: { MaterialsResolver } },
+
+            { path: 'videos/:id/edit', component:  MaterialEditComponent,
+            data: { type: 'video' }, resolve: { MaterialsResolver } },
+
             { path: '404', component: Error404Component },
             { path: '', component: WelcomeComponent },
             { path: '**', component: WelcomeComponent }

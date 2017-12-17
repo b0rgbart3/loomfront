@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Globals } from '../../globals';
+import { RouterLinkWithHref } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -36,5 +37,7 @@ export class MaterialCollectionComponent implements OnInit {
         }
     }
 
-
+  open_modal(URL) {
+      window.open(URL, '_blank');
+  }
 }

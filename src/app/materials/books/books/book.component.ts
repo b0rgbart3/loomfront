@@ -20,7 +20,7 @@ constructor( private globals: Globals) {}
 
 ngOnInit() {
   console.log('In book component: book = ' + JSON.stringify(this.book));
-  this.imageURL = this.globals.bookimages + '/' + this.book.id + '/' + this.book.image;
+  this.imageURL = this.globals.materialimages + '/' + this.book.id + '/' + this.book.image;
 }
 
 }

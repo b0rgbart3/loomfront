@@ -14,25 +14,31 @@
             <div *ngFor="let documentObject of materialcollection.documents"
              class='documentWrap'>
            
-                <a href='{{documentObject.fileURL}}' *ngIf='documentObject.imageURL'>
+                <!-- <a [href]="documentObject.fileURL" target='_blank'> -->
+                <div (click)='open_modal(documentObject.fileURL)'>
+                <div *ngIf='documentObject.imageURL'>
                 <div class='documentImage' 
                 [ngStyle]="{ 'background-image': 'url(' + documentObject.imageURL + ')'}"
-                *ngIf="documentObject.imageURL"></div></a>
+                *ngIf="documentObject.imageURL"></div></div>
 
 
-                <div class='documentImage' [routerLink]="documentObject.fileURL" 
-                *ngIf="!documentObject.imageURL"></div>
+                <div class='documentImage'  *ngIf="!documentObject.imageURL"></div>
                 <h1>{{documentObject.title}}</h1>
+                <!-- <p>{{ documentObject.fileURL }}</p> -->
                 <p>{{ documentObject.description }}</p>
+            </div>
+        <!-- </a> -->
               
             </div>
         </div>
 
-    <div *ngIf="materialcollection.books">
+    <div *ngIf="materialcollection.books && (materialcollection.books.length > 0)">
      
-            <div *ngFor="let bookObject of materialcollection.books">
+            <books [books]="materialcollection.books"></books>
+
+            <!-- <div *ngFor="let bookObject of materialcollection.books">
                 <h1>Book: {{bookObject.title}}</h1>
                 <div>Book link here.</div>
-            </div>
+            </div> -->
         </div>
 </div>

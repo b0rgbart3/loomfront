@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import { MaterialService } from '../materials/material.service';
+import { MaterialService } from '../services/material.service';
 
 @Injectable()
 export class MaterialsResolver implements Resolve <any[]> {

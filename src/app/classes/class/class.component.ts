@@ -8,7 +8,7 @@ import { ClassService } from '../class.service';
 import { UserService } from '../../services/user.service';
 import { ContentChart } from '../../models/contentchart.model';
 import { Section } from '../../models/section.model';
-import { MaterialService } from '../../materials/material.service';
+import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Student } from '../../models/student.model';
 import { Instructor } from '../../models/instructor.model';
