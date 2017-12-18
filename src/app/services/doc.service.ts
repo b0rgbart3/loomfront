@@ -25,7 +25,7 @@ export class DocService {
    getDocs( doc_id ): Observable<Doc[]> {
      if (doc_id === 0) {
        // get a list of ALL the materials for ALL courses
-        return this._http.get <Doc[]> (this.globals.docs).do(data => {
+        return this._http.get <Doc[]> (this.globals.doc).do(data => {
           this.docCount = data.length;
           this.docs = data;
           this.updateIDCount();
@@ -62,7 +62,7 @@ export class DocService {
 
 
   getDoc(id): Observable<Doc> {
-    return this._http.get<Doc> ( this.globals.docs + '?id=' + id )
+    return this._http.get<Doc> ( this.globals.doc + '?id=' + id )
       .do(data => {
          // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
@@ -70,7 +70,7 @@ export class DocService {
   }
 
   deleteDoc(docId: string): Observable<any> {
-      return this._http.delete( this.globals.docs + '?id=' + docId);
+      return this._http.delete( this.globals.doc + '?id=' + docId);
   }
 
   private extractData(res: Response) {
@@ -91,7 +91,7 @@ export class DocService {
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(docObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this.globals.docs + '?id=' + docObject.id, docObject,
+      return this._http.put(this.globals.doc + '?id=' + docObject.id, docObject,
        {headers: myHeaders} );
    }
 
@@ -100,7 +100,7 @@ export class DocService {
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(docObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this.globals.docs + '?id=' + docObject.id, docObject,
+      return this._http.put(this.globals.doc + '?id=' + docObject.id, docObject,
         {headers: myHeaders} );
    }
 

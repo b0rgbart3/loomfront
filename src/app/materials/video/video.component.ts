@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, Input, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
-import { MaterialService } from '../../materials/material.service';
+import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Video } from '../../models/video.model';
 import { Globals } from '../../globals';

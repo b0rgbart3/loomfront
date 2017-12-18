@@ -47,7 +47,7 @@ export class UserService implements OnInit {
      this._instructorsUrl = this.base_path + 'api/instructors';
      this._studentsUrl = this.base_path + 'api/students';
 
-     this._avatar_image_url = this.base_path + '/avatars/';
+     this._avatar_image_url = this.base_path + 'avatars/';
   }
 
   ngOnInit() {
@@ -140,7 +140,12 @@ export class UserService implements OnInit {
           this.users = data;  // store a local copy - even though this method is usually called
                               // from an outside component
           for (let i = 0; i < this.users.length; i++ ) {
-            if (this.users[i].avatar_URL === undefined) {
+            // If this is not a facebook registration, then let's generate the avatar URL based
+            // on the API server
+            if (!this.users[i].facebookRegistration) {
+              this.users[i].avatar_URL = this._avatar_image_url + this.users[i].id + '/' + this.users[i].avatar_filename;
+            }
+            if ( (this.users[i].avatar_filename === undefined) || (this.users[i].avatar_filename === '')) {
               // console.log('setting placeholder');
               this.users[i].avatar_URL = this._avatar_image_url + 'placeholder.png';
             }

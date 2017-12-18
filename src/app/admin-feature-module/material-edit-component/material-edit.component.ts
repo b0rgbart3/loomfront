@@ -90,7 +90,6 @@ export class MaterialEditComponent implements OnInit {
                          this.imageUploader.queue[0].remove();
                      };
 
-       // this.types = ['book', 'PDFdocument', 'video', 'webpage', 'audio' ];
         this.materialForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
             description: [ '', []],

@@ -120,20 +120,6 @@ export class SectionComponent implements OnInit, OnChanges {
 
    //  }
 
-    //  getBooks() {
-
-    //     this.materialService.getDynamicMaterials(0, 'book').subscribe(
-    //       books => this.books = books,
-    //       error => this.errorMessage = <any> error);
-    //   }
-  
-    //   getDocs() {
-
-    //     this.materialService.getDynamicMaterials(0, 'PDFdocument').subscribe(
-    //       docs => { this.docs = docs;
-    //         console.log('Got docs: ' + JSON.stringify(docs)); },
-    //       error => this.errorMessage = <any> error);
-    //   }
 
     loadInMaterials() {
 
@@ -148,7 +134,7 @@ export class SectionComponent implements OnInit, OnChanges {
 
                 this.materialService.getMaterial(id).subscribe(
                     (material) => {
-                        console.log('found a material ' + j);
+                        console.log('found a material ' + id);
                     this.materials.push(material[0]);
                     if (this.materials.length === this.section.materials.length) {
                         // if these are equal, that means we've loaded in all the material objects

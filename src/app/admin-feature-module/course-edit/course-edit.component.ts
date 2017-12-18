@@ -36,6 +36,8 @@ export class CourseEditComponent implements OnInit {
     thisFile: File;
     materials: Material[];
     books: Material[];
+    videos: Material[];
+    audios: Material[];
     extractedBooks: Material[][];
     extractedDocs: Material[][];
     docs: Material[];
@@ -74,8 +76,10 @@ export class CourseEditComponent implements OnInit {
        //   console.log('Course: ' + JSON.stringify(this.course));
           this.materials = this.activated_route.snapshot.data['materials'];
 
-          this.books = this.materials['books'];
-          this.docs = this.materials['docs'];
+          this.books = this.materials['book'];
+          this.docs = this.materials['doc'];
+          this.videos = this.materials['video'];
+          this.audios = this.materials['audio'];
 
           if (this.id !== '0' && ( this.course.image !== '' )) {
           this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
@@ -213,7 +217,7 @@ export class CourseEditComponent implements OnInit {
         this.extractedBooks[sectionNumber] = [];
         this.extractedBooks[sectionNumber] = this.extract(sectionNumber, 'book');
         this.extractedDocs[sectionNumber] = [];
-        this.extractedDocs[sectionNumber] = this.extract(sectionNumber, 'PDFdocument');
+        this.extractedDocs[sectionNumber] = this.extract(sectionNumber, 'doc');
         console.log('extractedBook Count: ' + this.extractedBooks[sectionNumber].length);
         console.log('extracted books: ' + JSON.stringify(this.extractedBooks[sectionNumber]));
         console.log('extractedDoc Count: ' + this.extractedDocs[sectionNumber].length);
@@ -332,7 +336,7 @@ export class CourseEditComponent implements OnInit {
 
       getDocs() {
 
-        this.materialService.getDynamicMaterials(0, 'PDFdocument').subscribe(
+        this.materialService.getDynamicMaterials(0, 'doc').subscribe(
           docs => { this.docOptions = docs;
            // console.log('Got docs: ' + JSON.stringify(docs));
         },

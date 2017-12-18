@@ -54,7 +54,6 @@ import { CoursesResolver } from './services/courses-resolver.service';
 import { ClassResolver } from './services/class-resolver.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
-import { ClickOutsideDirective } from './_directives/clickOutside.directive';
 import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
 import { VideoComponent } from './materials/video/video.component';
 import { BookService } from './services/book.service';
@@ -78,7 +77,6 @@ import { DocService } from './services/doc.service';
   // Internal
   declarations: [
     AppComponent,
-    ClickOutsideDirective,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
     NavBarComponent,

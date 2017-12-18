@@ -35,7 +35,7 @@ export class BookService {
    getBooks( course_id ): Observable<Book[]> {
      if (course_id === 0) {
        // get a list of ALL the materials for ALL courses
-        return this._http.get <Book[]> (this.globals.books).do(data => {
+        return this._http.get <Book[]> (this.globals.book).do(data => {
           this.bookCount = data.length;
           this.books = data;
           this.updateIDCount();
@@ -72,7 +72,7 @@ export class BookService {
 
 
   getBook(id): Observable<Book> {
-    return this._http.get<Book> ( this.globals.books + '?id=' + id )
+    return this._http.get<Book> ( this.globals.book + '?id=' + id )
       .do(data => {
          // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
@@ -80,7 +80,7 @@ export class BookService {
   }
 
   deleteBook(bookId: string): Observable<any> {
-      return this._http.delete( this.globals.books + '?id=' + bookId);
+      return this._http.delete( this.globals.book + '?id=' + bookId);
   }
 
   private extractData(res: Response) {
@@ -101,7 +101,7 @@ export class BookService {
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this.globals.books + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+      return this._http.put(this.globals.book + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
    updateBook(courseObject: Book): Observable<any> {
@@ -109,7 +109,7 @@ export class BookService {
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this.globals.books + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+      return this._http.put(this.globals.book + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
     private handleError (error: HttpErrorResponse) {

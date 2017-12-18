@@ -163,19 +163,36 @@ export class MaterialService {
       const audios = [];
 
       for (let i = 0; i < materialsArray.length; i++) {
+
         if (materialsArray[i]) {
-        if (materialsArray[i].type === 'video') {
-          videos.push(materialsArray[i]);
-        } else {
-          if (materialsArray[i].type === 'book') {
-            books.push(materialsArray[i]);
-          }  else {
-            if (materialsArray[i].type === 'PDFdocument') {
+          switch (materialsArray[i].type) {
+            case 'video':
+              videos.push(materialsArray[i]);
+              break;
+            case 'book':
+              books.push(materialsArray[i]);
+              break;
+            case 'doc':
               docs.push(materialsArray[i]);
-            }
+              break;
+            case 'audio':
+              audios.push(materialsArray[i]);
+              break;
           }
         }
-      }
+        // if (materialsArray[i]) {
+        // if (materialsArray[i].type === 'video') {
+        //   videos.push(materialsArray[i]);
+        // } else {
+        //   if (materialsArray[i].type === 'book') {
+        //     books.push(materialsArray[i]);
+        //   }  else {
+        //     if (materialsArray[i].type === 'doc') {
+        //       docs.push(materialsArray[i]);
+        //     }
+        //   }
+        // }
+//      }
       }
 
       const sortedMaterials = new MaterialCollection(videos, docs, books, audios);

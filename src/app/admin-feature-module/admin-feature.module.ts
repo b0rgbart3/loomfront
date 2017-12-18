@@ -35,14 +35,17 @@ import { CoursesResolver } from '../services/courses-resolver.service';
     thisClass: ClassResolver, users: UsersResolver,
     possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
 
-            { path: 'books/:id/edit', component: MaterialEditComponent,
+            { path: 'book/:id/edit', component: MaterialEditComponent,
             data: { type: 'book'}, resolve: { MaterialsResolver } },
 
-            { path: 'docs/:id/edit', component:  MaterialEditComponent,
-            data: { type: 'PDFdocument' }, resolve: { MaterialsResolver } },
+            { path: 'doc/:id/edit', component:  MaterialEditComponent,
+            data: { type: 'doc' }, resolve: { MaterialsResolver } },
 
-            { path: 'videos/:id/edit', component:  MaterialEditComponent,
+            { path: 'video/:id/edit', component:  MaterialEditComponent,
             data: { type: 'video' }, resolve: { MaterialsResolver } },
+
+            { path: 'audio/:id/edit', component:  MaterialEditComponent,
+            data: { type: 'audio' }, resolve: { MaterialsResolver } },
 
             { path: '404', component: Error404Component },
             { path: '', component: WelcomeComponent },

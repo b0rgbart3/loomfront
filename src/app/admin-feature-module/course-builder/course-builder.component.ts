@@ -19,8 +19,8 @@ books: Material[];
 docs: Material[];
 bookCount: number;
 errorMessage: string;
-assets = ['book', 'PDFdocument', 'video'];
-assetTypes = ['books', 'docs', 'videos'];
+
+assetTypes: string[];
 assetLongSingularNames: string[];
 assetLongPluralNames: string[];
 data: MaterialCollection;
@@ -38,9 +38,11 @@ private router: Router
 
 ngOnInit() {
   this.getCourses();
-  this.assets.map(type => this.getAssets(type));
-  this.assetLongPluralNames = ['Books', 'PDF Documents', 'Videos'];
-  this.assetLongSingularNames = ['Book', 'PDF Document', 'Video'];
+
+  this.assetTypes = ['book', 'doc', 'video', 'audio'];
+  this.assetLongPluralNames = ['Books', 'PDF Documents', 'Videos', 'Audio Files'];
+  this.assetLongSingularNames = ['Book', 'PDF Document', 'Video', 'Audio File'];
+  this.assetTypes.map(type => this.getAssets(type));
 }
 
 getCourses() {
@@ -66,19 +68,7 @@ getCourses() {
   editAsset(typeIndex, assetID) {
     this.router.navigate( [ '/' + this.assetTypes[typeIndex] + '/' + assetID + '/edit' ]);
   }
-    // getBooks() {
-    //   this.materialService.getDynamicMaterials(0, 'book').subscribe(
-    //     books => this.books = books,
-    //     error => this.errorMessage = <any> error);
-    // }
 
-    // getDocs() {
-
-    //   this.materialService.getDynamicMaterials(0, 'PDFdocument').subscribe(
-    //     docs => { this.docs = docs;
-    //       console.log('Got docs: ' + JSON.stringify(docs)); },
-    //     error => this.errorMessage = <any> error);
-    // }
 
 
 }
