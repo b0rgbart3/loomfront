@@ -21,18 +21,18 @@ export class MaterialCollectionComponent implements OnInit {
     ngOnInit() {
 
 
-        if (this.materialcollection.documents) {
-            console.log('found documents :' + this.materialcollection.documents.length);
-            for (let i = 0; i < this.materialcollection.documents.length; i++) {
-                console.log('document: ' + this.materialcollection.documents[i].title);
+        if (this.materialcollection.docs) {
+            console.log('found documents :' + this.materialcollection.docs.length);
+            for (let i = 0; i < this.materialcollection.docs.length; i++) {
+                console.log('document: ' + this.materialcollection.docs[i].title);
 
-                if (this.materialcollection.documents[i].image) {
-                    console.log('found an image: ' + this.materialcollection.documents[i].image);
-                this.materialcollection.documents[i].imageURL = this.globals.materialimages + '/' +
-                  this.materialcollection.documents[i].id + '/' + this.materialcollection.documents[i].image;  }
-                if (this.materialcollection.documents[i].file) {
-                this.materialcollection.documents[i].fileURL = this.globals.materialfiles + '/' +
-                  this.materialcollection.documents[i].id + '/' + this.materialcollection.documents[i].file; }
+                if (this.materialcollection.docs[i].image) {
+                    console.log('found an image: ' + this.materialcollection.docs[i].image);
+                this.materialcollection.docs[i].imageURL = this.globals.materialimages + '/' +
+                  this.materialcollection.docs[i].id + '/' + this.materialcollection.docs[i].image;  }
+                if (this.materialcollection.docs[i].file) {
+                this.materialcollection.docs[i].fileURL = this.globals.materialfiles + '/' +
+                  this.materialcollection.docs[i].id + '/' + this.materialcollection.docs[i].file; }
             }
         }
     }

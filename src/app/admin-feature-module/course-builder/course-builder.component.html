@@ -17,18 +17,18 @@
 <br>
 
 
-<div *ngFor='let assetType of assetTypes; let i = index;'>
+<div *ngFor='let assetType of globals.materialTypes; let i = index;'>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
-            <mat-panel-title>{{ assetLongPluralNames[i] }}</mat-panel-title>
+            <mat-panel-title>{{ assetType.longName }}</mat-panel-title>
         </mat-expansion-panel-header>
 
         <mat-list>
             <mat-list-item (click)="addAsset(i)">
                 <mat-icon class='example-icon'>add</mat-icon>
-                Add a new {{ assetLongSingularNames[i] }}
+                Add a new {{ assetType.type }}
             </mat-list-item>
-            <mat-list-item *ngFor='let item of data[assetType]' (click)="editAsset(i, item.id)">
+            <mat-list-item *ngFor='let item of data[assetType.type]' (click)="editAsset(i, item.id)">
                 {{ item.title }}
             </mat-list-item>
         </mat-list>

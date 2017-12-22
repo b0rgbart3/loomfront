@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Book } from '../../models/book.model';
-import { BookService } from '../../services/book.service';
 import { FileUploader } from 'ng2-file-upload';
 import { Globals } from '../../globals';
 import { EventEmitter } from '@angular/core';

@@ -13,7 +13,7 @@ import { Material } from '../../models/material.model';
 import { Userthumbnail } from '../../models/userthumbnail.model';
 import { Globals } from '../../globals';
 import { Book } from '../../models/book.model';
-import { BookService } from '../../services/book.service';
+
 
 @Component({
   templateUrl: './admin.component.html',
@@ -51,7 +51,7 @@ export class AdminComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private globals: Globals,
-    private bookService: BookService
+
   ) {
     this.AVATAR_IMAGE_PATH = globals.basepath + 'avatars/';
     this.isCollapsedStudents = false;
@@ -65,7 +65,7 @@ export class AdminComponent implements OnInit {
     this.getCourses();
     this.getMaterials();
     this.getInstructors();
-    this.getBooks();
+   // this.getBooks();
 
 
   }
@@ -174,11 +174,11 @@ toggleBooks() {
       error => this.errorMessage = <any>error);
     }
 
-  getBooks() {
-    this.bookService.getBooks(0).subscribe(
-      books => this.books = books,
-      error => this.errorMessage = <any>error);
-  }
+  // getBooks() {
+  //   this.bookService.getBooks(0).subscribe(
+  //     books => this.books = books,
+  //     error => this.errorMessage = <any>error);
+  // }
   // getAssets() {
   //   this.assetService
   //   .getAssets().subscribe(

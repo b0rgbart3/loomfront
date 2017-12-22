@@ -5,6 +5,7 @@ import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Router } from '@angular/router';
+import { Globals } from '../../globals';
 
 @Component ({
     templateUrl: './course-builder.component.html',
@@ -29,20 +30,18 @@ data: MaterialCollection;
 constructor (
 private courseService: CourseService,
 private materialService: MaterialService,
-private router: Router
+private router: Router,
+private globals: Globals
 ) {
 
-  this.data = new MaterialCollection([], [], [], []);
+  this.data = new MaterialCollection([], [], [], [], [], []);
 
 }
 
 ngOnInit() {
   this.getCourses();
 
-  this.assetTypes = ['book', 'doc', 'video', 'audio'];
-  this.assetLongPluralNames = ['Books', 'PDF Documents', 'Videos', 'Audio Files'];
-  this.assetLongSingularNames = ['Book', 'PDF Document', 'Video', 'Audio File'];
-  this.assetTypes.map(type => this.getAssets(type));
+  this.globals.materialTypes.map( type => this.getAssets(type.type));
 }
 
 getCourses() {
@@ -56,9 +55,10 @@ getCourses() {
   getAssets(type) {
     this.materialService.getDynamicMaterials(0, type).subscribe(
       data => { this.data[type] = data;
-        console.log('');
-        console.log(type + ':');
-                console.log( JSON.stringify( this.data[type]) ); },
+        // console.log('');
+        // console.log(type + ':');
+        // console.log( JSON.stringify( this.data[type]) );
+      },
       error => this.errorMessage = <any> error);
   }
 

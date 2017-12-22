@@ -6,7 +6,6 @@ import { Material } from '../../models/material.model';
 import { Section } from '../../models/section.model';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Book } from '../../models/book.model';
-import { BookService } from '../../services/book.service';
 import { Doc } from '../../models/doc.model';
 
 

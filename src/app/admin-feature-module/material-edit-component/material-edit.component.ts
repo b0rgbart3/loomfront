@@ -32,7 +32,12 @@ export class MaterialEditComponent implements OnInit {
     file: string;
     fileUrl: string;
     urlLabel: string;
+    urlNeeded: boolean;
     uploaderNeeded: boolean;
+    descriptionPlaceholder: string;
+    contentPlaceholder: string;
+    descriptionNeeded: boolean;
+    contentNeeded: boolean;
 
     constructor(private fb: FormBuilder,
     private activated_route: ActivatedRoute,
@@ -51,9 +56,29 @@ export class MaterialEditComponent implements OnInit {
             case 'book':
             this.urlLabel = 'Purchase URL';
             this.uploaderNeeded = false;
+            this.descriptionPlaceholder = 'Description';
+            this.urlNeeded = true;
+            this.descriptionNeeded = true;
+            this.contentNeeded = false;
+            break;
+            case 'quote':
+            this.uploaderNeeded = false;
+            this.contentNeeded = true;
+            this.contentPlaceholder = 'Quotation';
+            this.descriptionNeeded = false;
+            this.urlNeeded = false;
+            break;
+            case 'block':
+            this.uploaderNeeded = false;
+            this.descriptionNeeded = false;
+            this.urlNeeded = false;
+            this.contentPlaceholder = 'HTML Block';
+            this.contentNeeded = true;
             break;
             default: this.urlLabel = 'URL';
             this.uploaderNeeded = true;
+            this.descriptionNeeded = true;
+            this.descriptionPlaceholder = 'Description';
             break;
         }
         this.id = this.activated_route.snapshot.params['id'];
@@ -83,10 +108,10 @@ export class MaterialEditComponent implements OnInit {
 
         this.imageUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
                         this.tempName = this.imageUploader.queue[0].file.name;
-                        console.log('Response from the server: ' + this.tempName);
+                     //    console.log('Response from the server: ' + this.tempName);
                          this.image = this.tempName;
                          this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
-                         console.log('Image url: ' + this.imageUrl);
+                      //   console.log('Image url: ' + this.imageUrl);
                          this.imageUploader.queue[0].remove();
                      };
 
@@ -96,6 +121,7 @@ export class MaterialEditComponent implements OnInit {
             contenturl: '',
             imageUploader: '',
             fileUploader: '',
+            content: '',
             author: ''
         });
 
@@ -110,10 +136,10 @@ export class MaterialEditComponent implements OnInit {
 
         this.fileUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
                         this.tempName = this.fileUploader.queue[0].file.name;
-                        console.log('Response from the server: ' + this.tempName);
+                       // console.log('Response from the server: ' + this.tempName);
                         this.file = this.tempName;
                         this.fileUrl = this.globals.postmaterialfiles + '/' + this.material.id + '/' + this.file;
-                         console.log('Image url: ' + this.imageUrl);
+                        // console.log('Image url: ' + this.imageUrl);
                          this.fileUploader.queue[0].remove();
                      };
     }
@@ -136,7 +162,7 @@ export class MaterialEditComponent implements OnInit {
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-            console.log('Got a file: ' + file.name);
+           // console.log('Got a file: ' + file.name);
             this.thisFile = file;
 
         }
@@ -146,7 +172,7 @@ export class MaterialEditComponent implements OnInit {
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-            console.log('Got a file: ' + file.name);
+            // console.log('Got a file: ' + file.name);
             this.thisFile = file;
 
         }
@@ -158,6 +184,7 @@ export class MaterialEditComponent implements OnInit {
         'description': this.material.description,
         'contenturl': this.material.contenturl,
         'type': this.material.type,
+        'content': this.material.content,
         'author': this.material.author
      });
 
@@ -170,13 +197,17 @@ export class MaterialEditComponent implements OnInit {
         this.material.image = this.image;
         this.material.file = this.file;
         this.material.type = this.type;
+        if (this.type === 'quote') {
+            console.log('posting a quotation: ' + this.materialForm.value['content']);
+            this.materialForm.patchValue({'title': this.materialForm.value['content'].substring(0, 80) + '...' });
+        }
 
          // This is Deborah Korata's way of merging our data model with the form model
         const combinedObject = Object.assign( {}, this.material, this.materialForm.value);
-        console.log( 'Posting material: ' + JSON.stringify( combinedObject ) );
+       // console.log( 'Posting material: ' + JSON.stringify( combinedObject ) );
 
         if (this.material.id === '0') {
-            console.log('Creating material');
+           // console.log('Creating material');
             this.materialService.createMaterial( combinedObject ).subscribe(
                 (val) => {
                   },

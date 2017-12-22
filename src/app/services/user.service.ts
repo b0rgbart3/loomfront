@@ -318,7 +318,7 @@ export class UserService implements OnInit {
 
         const info =  { username: username, password: password };
 
-        return this._http.post(this.base_path + '/api/authenticate', info, {headers: myHeaders} )
+        return this._http.post(this.base_path + 'api/authenticate', info, {headers: myHeaders} )
             .do((response) => {
                     this.currentUser = <User> response;
                     this.username = this.currentUser.username;

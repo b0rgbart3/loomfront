@@ -28,7 +28,7 @@ import { ClassResolver } from './services/class-resolver.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { BookResolver } from './services/book-resolver.service';
-import { BooksResolver } from './services/books-resolver.service';
+
 
 
 const ROUTES: Routes = [

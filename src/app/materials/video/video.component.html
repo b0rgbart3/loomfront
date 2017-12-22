@@ -50,9 +50,9 @@
     </vg-controls>
 
     <video [vgMedia]="master" #master id="masterVideo" [vgMaster]='true' preload="auto" crossorigin
-      poster='http://localhost:3100/materialimages/7/seed_video_still.jpg'>
+      [poster]='posterImage'>
     
-         <source src='http://localhost:3100/assets/video/seed_w_watermark.mp4' type='video/mp4'>
+         <source [src]='videoSource' type='video/mp4'>
       </video>
 </vg-player>
 

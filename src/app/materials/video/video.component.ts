@@ -35,6 +35,7 @@ export class VideoComponent implements OnInit {
     preload = 'auto';
     api: VgAPI;
     started: boolean;
+    videoSource: string;
 
     @Input() videoObject: Material;
     constructor( private globals: Globals ) {
@@ -72,8 +73,8 @@ export class VideoComponent implements OnInit {
         console.log(JSON.stringify(this.videoObject) );
         this.backgroundImage = 'url('  + this.globals.materialimages + '/' + this.videoObject.id  +
         '/' + this.videoObject.image + ')';
-        this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image + ')';
-
+        this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image;
+        this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file;
     }
 
     playVideo( index ) {

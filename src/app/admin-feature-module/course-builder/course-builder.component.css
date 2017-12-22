@@ -1,6 +1,11 @@
 
 mat-expansion-panel-header {
-    border-bottom:1px solid black;
+    border-bottom:2px solid black;
+    background-color:#cccccc;
+}
+
+mat-expansion-panel-header:hover {
+    border-color:blue;
 }
 
 mat-panel-title {
@@ -14,6 +19,7 @@ mat-list-item {
 }
 mat-list-item:hover {
     background-color:#eeeeee;
+    border-bottom:1px solid blue;
     outline:none;
 }
 

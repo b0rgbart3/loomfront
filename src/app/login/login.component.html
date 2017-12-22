@@ -1,5 +1,5 @@
 ﻿
-<div class='loginStuff'>
+<div class='loomContainer'>
                 <flash-messages></flash-messages>
 <div class="loomCardLeft">
 
@@ -34,8 +34,7 @@
                 <br clear='all'>
                     <!-- <button class="bd-full-width-button">LOGIN</button> -->
 
-                </div> <button class='loomButton' 
-                [disabled]="f.form.invalid">LOGIN</button>
+                </div> <button class='loomButton large' (click)='login()' type='submit'>LOGIN</button>
     </form>
 
 </div>

@@ -56,14 +56,10 @@ import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
 import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
 import { VideoComponent } from './materials/video/video.component';
-import { BookService } from './services/book.service';
-import { BookResolver } from './services/book-resolver.service';
-import { BooksResolver } from './services/books-resolver.service';
 import { BooksComponent } from './materials/books/books/books.component';
 import { BookComponent } from './materials/books/books/book.component';
 import { SharedModule } from './shared/shared.module';
 import { AdminFeatureModule } from './admin-feature-module/admin-feature.module';
-import { DocService } from './services/doc.service';
 
 
 @NgModule({
@@ -130,10 +126,7 @@ import { DocService } from './services/doc.service';
     UserService,
     AuthGuard,
     UserAuthGuard,
-    BookService,
-    BookResolver,
-    BooksResolver,
-    DocService
+
    ],
   bootstrap: [ AppComponent ]
 })

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, NgZone } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { User } from '../models/user.model';
@@ -20,7 +20,6 @@ export class WelcomeComponent implements OnInit {
     dataConnection: boolean;
 
     constructor( private router: Router,
-     private zone: NgZone,
     private userService: UserService, private classService: ClassService ) {
 
         }
@@ -33,10 +32,9 @@ export class WelcomeComponent implements OnInit {
             this.dataConnection = false;
             this.classService
             .getClasses().subscribe(
-              classes =>  { this.classes = classes; this.dataConnection = true; },
+              classes =>  { this.classes = classes; this.dataConnection = true; console.log('gotback'); },
               error => this.errorMessage = <any>error);
 
-            // this.username = localStorage.getItem('username');
             this.currentUser = this.userService.getCurrentUser();
 
             if (this.currentUser) {

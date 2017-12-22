@@ -1,4 +1,4 @@
-<img [src]='courseimageURL' class='classThumnailImage'>
+<img [src]='courseimageURL' class='classThumnailImage' *ngIf='courseimageURL'>
 <div class='classDate'>{{classObject.start | date : 'MMMM dd,' }} -
      {{classObject.end | date : 'MMMM dd, yyyy'}}</div>
 <h2>{{classObject.title}}</h2>

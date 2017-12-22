@@ -35,8 +35,7 @@
                         </mat-expansion-panel-header>
 
                     <div [formGroupName]="i" class='sectionContainer'>
-                        <button class='loomKill rightAlignMe' (click)="killSection(i)"></button>
-                            
+             
                         <div class='bannerTop'>
                             <mat-form-field>
                             <input matInput id="{{ 'title' + i }}" 
@@ -69,30 +68,63 @@
                         
                         <div class='loomButton' (click)="addMaterial(i)">Add Material</div>-->
                         <br clear='all'>
-                        <h1>Book References</h1>
-                        <div *ngIf='bookFormArray && bookFormArray[i]'>
-                                <div formArrayName='books' 
-                                *ngFor="let book of bookFormArray[i].controls;
-                                 let k = index">
-                                    <div class='loomChoice'>
+
+                        <!-- <div *ngFor='let materialObject of materialTypes'>
+                            <h1>{{ materialObject.longName }}</h1>
+                            <div class='smallLoomButton' (click)="addMaterial(i)">Add {{materialObject.longName}}</div>
+                        </div><br>
+                        <hr><br><br> -->
+
+
+                        
+                        <div *ngIf='videoFormArray[i].controls && videoFormArray[i].controls.length > 0'>
+                                <h1>Videos</h1>
+                            <div formArrayName='videos' 
+                            *ngFor='let video of videoFormArray[i].controls; let m=index'>
+                                <div class='loomChoice'>
+                                    
                                     <button class='loomKill rightAlignMe'
-                                     (click)='killBook(i,k)'></button>
-                                    <div [formGroupName]="k">
-                                        <mat-form-field>
-                                    <mat-select [placeholder]="bookPlaceholder" formControlName="material">
-                                    <mat-option *ngFor='let item of bookOptions' matOption [value]='item.id' 
-                                    ng-selected='value'>{{item.title}}</mat-option>
-                                </mat-select></mat-form-field>
-                            </div></div> 
-                            </div></div>
-
+                                     (click)='killVideo(i,m)'></button>
+                                     <div [formGroupName]="m">
+                                         <mat-form-field>
+                                             <mat-select [placeholder]='videoPlaceholder' formControlName='material'>
+                                                    <mat-option *ngFor='let item of videoOptions' matOption [value]='item.id' 
+                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                             </mat-select>
+                                         </mat-form-field>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
                         <br clear='all'><br>
-                        <div class='loomButton' (click)="addBook(i)">Add Book Reference</div>
                        
-
-
-                        <h1>PDF Documents</h1>
-                        <div *ngIf='docFormArray && docFormArray[i]'>
+                        <div *ngIf='audioFormArray[i].controls && audioFormArray[i].controls.length > 0'>
+                            <h1>Audios</h1>
+                        
+                            <div formArrayName='audios' 
+                            *ngFor='let audio of audioFormArray[i].controls; let m=index'>
+                                <div class='loomChoice'>
+                                    
+                                    <button class='loomKill rightAlignMe'
+                                     (click)='killAudio(i,m)'></button>
+                                     <div [formGroupName]="m">
+                                         <mat-form-field>
+                                             <mat-select [placeholder]='audioPlaceholder' formControlName='material'>
+                                                    <mat-option *ngFor='let item of audioOptions' matOption [value]='item.id' 
+                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                             </mat-select>
+                                         </mat-form-field>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br clear='all'><br>
+                        
+                        
+                
+                        
+                        <div *ngIf='docFormArray[i].controls && docFormArray[i].controls.length > 0'>
+                                <h1>PDF Documents</h1>
                             <div formArrayName='docs' 
                             *ngFor='let doc of docFormArray[i].controls; let m=index'>
                                 <div class='loomChoice'>
@@ -111,7 +143,38 @@
                             </div>
                         </div>
                         <br clear='all'><br>
-                        <div class='loomButton' (click)="addDoc(i)">Add PDF Document</div>
+                        
+
+                       
+                        <div *ngIf='bookFormArray[i].controls && bookFormArray[i].controls.length > 0'>
+                                <h1>Book References</h1>
+                                <div formArrayName='books' 
+                                *ngFor="let book of bookFormArray[i].controls;
+                                 let k = index">
+                                    <div class='loomChoice'>
+                                    <button class='loomKill rightAlignMe'
+                                     (click)='killBook(i,k)'></button>
+                                    <div [formGroupName]="k">
+                                        <mat-form-field>
+                                    <mat-select [placeholder]="bookPlaceholder" formControlName="material">
+                                    <mat-option *ngFor='let item of bookOptions' matOption [value]='item.id' 
+                                    ng-selected='value'>{{item.title}}</mat-option>
+                                </mat-select></mat-form-field>
+                            </div></div> 
+                            </div></div>
+
+                        <br clear='all'><br>
+                        <div class='smallLoomButton' (click)="addBook(i)">Add Book Reference</div>
+                        <div class='smallLoomButton' (click)="addDoc(i)">Add PDF Document</div>
+                        <div class='smallLoomButton' (click)="addAudio(i)">Add Audio</div>
+                        <div class='smallLoomButton' (click)="addVideo(i)">Add Video</div>
+                        <div class='smallLoomButton' (click)="addQuote(i)">Add a PullQuote</div>
+                        <div class='smallLoomButton' (click)="addBlock(i)">Add an HTML Block</div>
+
+                        <br clear='all'>
+                        <div class='loomButton dangerous' (click)="killSection(i)">
+                                <mat-icon>delete</mat-icon><span class='raise'>
+                                 Delete This Section</span></div>
                        
 
                     </div>

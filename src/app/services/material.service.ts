@@ -39,10 +39,10 @@ export class MaterialService {
     getDynamicMaterials( id, type ): Observable<Material[]> {
       if (id === 0) {
         // get all the objects for this type
-        console.log('\nIn material service / getDM: ' + type + '\n');
+      //  console.log('\nIn material service / getDM: ' + type + '\n');
         return this._http.get <Material[]>
               (this.globals.materials + '?type=' + type).do(data => {
-                console.log( type + ': ' + JSON.stringify( data ) + '\n');
+              //  console.log( type + ': ' + JSON.stringify( data ) + '\n');
                 // this.materialCount = data.length;
                   // this.materials = data;
                   // this.updateIDCount();
@@ -161,6 +161,8 @@ export class MaterialService {
       const docs = [];
       const books = [];
       const audios = [];
+      const quotes = [];
+      const blocks = [];
 
       for (let i = 0; i < materialsArray.length; i++) {
 
@@ -195,7 +197,7 @@ export class MaterialService {
 //      }
       }
 
-      const sortedMaterials = new MaterialCollection(videos, docs, books, audios);
+      const sortedMaterials = new MaterialCollection(videos, docs, books, audios, quotes, blocks);
       return sortedMaterials;
 
     }

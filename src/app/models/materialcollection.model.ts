@@ -6,17 +6,25 @@ export class MaterialCollection {
   // This model is just used internally to organize our list of Materials for each section
   constructor (
       public videos: Material[],
-      public documents: Material[],
+      public docs: Material[],
       public books: Material[],
       public audios: Material[],
+      public blocks: Material[],
+      public quotes: Material[]
 
   ) {
 
     this.videos = videos;
-    this.documents = documents;
+    this.docs = docs;
     this.books = books;
     this.audios = audios;
+    this.blocks = blocks;
+    this.quotes = quotes;
 
+  }
+
+  addToCollection(type, materials) {
+    this[type] = materials;
   }
 
 }
