@@ -1,3 +1,7 @@
+.tabContainer {
+    min-width:560px;
+}
+
 .selectorBox {
     padding-left:8%;
     padding-right:8%;
@@ -5,6 +9,10 @@
     margin:0;
 }
 
+.listOfClasses {
+    background-color:#eeeeee;
+
+}
 
 .classCourseImageThumnail {
     vertical-align: top;
@@ -37,6 +45,54 @@
 .classDates {
     font-weight: 600;
     text-transform: uppercase;
+}
+
+.tabLabel {
+    font-size:1.14em;
+    letter-spacing: -.04em;
+    font-weight: 400;
+    color:#777777;
+    padding-left:4%;
+    padding-right:4%;
+    margin:0;
+    margin-bottom:.6em;
+    margin-top:.8em;
+
+   border-radius:8px 8px 0 0;
+   padding-top:8px;
+   margin-right:10px;
+   border-bottom:0;
+    display:inline-block;
+    float:left;
+    user-select: none;
+    cursor: pointer;
+    background-color:#cccccc;
+    padding-bottom:12px;
+    margin-bottom:0;
+}
+
+.tabLabelChosen {
+    font-size:1.14em;
+    letter-spacing: -.04em;
+    font-weight: 400;
+    color:#777777;
+    padding-left:4%;
+    padding-right:4%;
+    margin:0;
+    margin-bottom:.6em;
+    margin-top:.8em;
+
+   border-radius:8px 8px 0 0;
+   padding-top:8px;
+   margin-right:10px;
+   border-bottom:0;
+    display:inline-block;
+    float:left;
+    user-select: none;
+    cursor: pointer;
+    background-color:#eeeeee;
+    padding-bottom:12px;
+    margin-bottom:0;
 }
 
 h1.label {

@@ -29,6 +29,7 @@ export class CourseEditComponent implements OnInit {
     videoFormArray: FormArray[];
     audioFormArray: FormArray[];
     quoteFormArray: FormArray[];
+    blockFormArray: FormArray[];
 
     sectionReferences: FormGroup[];
     materialReferences: FormArray[];
@@ -51,11 +52,15 @@ export class CourseEditComponent implements OnInit {
     extractedVideos: Material[][];
     extractedAudios: Material[][];
     extractedQuotes: Material[][];
+    extractedBlocks: Material[][];
+
     bookOptions: Material[];
     docOptions: Material[];
     videoOptions: Material[];
     audioOptions: Material[];
     quoteOptions: Material[];
+    blockOptions: Material[];
+
     matObjRefArray: Object[];
     existingImage: string;
     uploadedCourseImage: boolean;
@@ -65,6 +70,8 @@ export class CourseEditComponent implements OnInit {
     videoPlaceholder: string;
     docPlaceholder: string;
     audioPlaceholder: string;
+    blockPlaceholder: string;
+    quotePlaceholder: string;
     materialTypes: Materialtype[];
     sectionMaterials: MaterialCollection[]; // this is an array of the actual Material Objects that are being
                                     // referenced by the section(s) -- haven't implemented this yet.
@@ -88,16 +95,23 @@ export class CourseEditComponent implements OnInit {
         this.docPlaceholder = 'Choose a PDF Document';
         this.audioPlaceholder = 'Choose an audio file';
         this.videoPlaceholder = 'Choose a video file';
+        this.quotePlaceholder = 'Choose a quote';
+        this.blockPlaceholder = 'Choose a block';
+
         this.courseService.ngOnInit();
         this.extractedBooks = [];
         this.extractedDocs = [];
         this.extractedVideos = [];
         this.extractedAudios = [];
+        this.extractedQuotes = [];
+        this.extractedBlocks = [];
+
         this.bookFormArray = [];
         this.docFormArray = [];
         this.videoFormArray = [];
         this.audioFormArray = [];
         this.quoteFormArray = [];
+        this.blockFormArray = [];
 
         // Get the id from the activated route -- and get the data from the resolvers
         this.id = this.activated_route.snapshot.params['id'];
@@ -137,6 +151,7 @@ export class CourseEditComponent implements OnInit {
         this.getPossibleDocs();
         this.getPossibleAudios();
         this.getPossibleQuotes();
+        this.getPossibleBlocks();
        // console.log('gotDocs');
 
         this.addCourseImage();
@@ -155,6 +170,7 @@ export class CourseEditComponent implements OnInit {
             this.videoFormArray = [];
             this.audioFormArray = [];
             this.quoteFormArray = [];
+            this.blockFormArray = [];
 
             for (let i = 0; i < this.course.sections.length; i++) {
                 this.extractStuff(i);
@@ -164,6 +180,7 @@ export class CourseEditComponent implements OnInit {
                 this.videoFormArray[i] = this.fb.array([]);
                 this.audioFormArray[i] = this.fb.array([]);
                 this.quoteFormArray[i] = this.fb.array([]);
+                this.blockFormArray[i] = this.fb.array([]);
 
                 // if (this.course.sections[i] && this.course.sections[i].materials) {
                 // for (let j = 0; j < this.course.sections[i].materials.length; j++ ) {
@@ -187,11 +204,16 @@ export class CourseEditComponent implements OnInit {
                     for (let j = 0; j < this.extractedDocs[i].length; j++ ) {
                         this.docFormArray[i].push(this.buildMaterialsSubSection(this.extractedDocs[i][j]['id']) );
                     } }
-                
+
                 if (this.course.sections[i] && this.extractedQuotes[i] ) {
                     for (let j = 0; j < this.extractedQuotes[i].length; j++ ) {
                         this.quoteFormArray[i].push(this.buildMaterialsSubSection(this.extractedQuotes[i][j]['id']) );
                     } }
+
+                if (this.course.sections[i] && this.extractedBlocks[i] ) {
+                        for (let j = 0; j < this.extractedBlocks[i].length; j++ ) {
+                            this.blockFormArray[i].push(this.buildMaterialsSubSection(this.extractedBlocks[i][j]['id']) );
+                        } }
 
                // this.sectionMaterials[i] = this.materialService.sortMaterials(this.course.sections[i].materials);
 
@@ -203,7 +225,8 @@ export class CourseEditComponent implements OnInit {
                     audios: this.audioFormArray[i],
                     books: this.bookFormArray[i],
                     docs: this.docFormArray[i],
-                    quotes: this.quoteFormArray[i]
+                    quotes: this.quoteFormArray[i],
+                    blocks: this.blockFormArray[i]
 
                  });
                 this.sectionsFormArray.push(  this.sectionReferences[i] );
@@ -284,6 +307,10 @@ export class CourseEditComponent implements OnInit {
         this.extractedVideos[sectionNumber] = this.extract(sectionNumber, 'video');
         this.extractedAudios[sectionNumber] = [];
         this.extractedAudios[sectionNumber] = this.extract(sectionNumber, 'audio');
+        this.extractedQuotes[sectionNumber] = [];
+        this.extractedQuotes[sectionNumber] = this.extract(sectionNumber, 'quote');
+        this.extractedBlocks[sectionNumber] = [];
+        this.extractedBlocks[sectionNumber] = this.extract(sectionNumber, 'block');
 
         console.log('extractedBook Count: ' + this.extractedBooks[sectionNumber].length);
         console.log('extracted books: ' + JSON.stringify(this.extractedBooks[sectionNumber]));
@@ -367,6 +394,9 @@ export class CourseEditComponent implements OnInit {
             const quoteGroup = combinedCourseObject.sections[j].quotes;
             combinedCourseObject.sections[j].materials = combinedCourseObject.sections[j].materials.concat(quoteGroup);
             delete combinedCourseObject.sections[j].quotes;
+            const blockGroup = combinedCourseObject.sections[j].blocks;
+            combinedCourseObject.sections[j].materials = combinedCourseObject.sections[j].materials.concat(blockGroup);
+            delete combinedCourseObject.sections[j].blocks;
 
         //    console.log('Section' + j + ': ' + JSON.stringify(combinedCourseObject.sections[j]) );
         }
@@ -406,7 +436,7 @@ export class CourseEditComponent implements OnInit {
 
     getPossibleQuotes() {
 
-        this.materialService.getDynamicMaterials(0, 'quotes').subscribe(
+        this.materialService.getDynamicMaterials(0, 'quote').subscribe(
           quotes => this.quoteOptions = quotes,
           error => this.errorMessage = <any> error);
       }
@@ -428,7 +458,12 @@ export class CourseEditComponent implements OnInit {
           books => this.bookOptions = books,
           error => this.errorMessage = <any> error);
       }
+    getPossibleBlocks() {
 
+        this.materialService.getDynamicMaterials(0, 'block').subscribe(
+          blocks => this.blockOptions = blocks,
+          error => this.errorMessage = <any> error);
+      }
       getPossibleDocs() {
 
         this.materialService.getDynamicMaterials(0, 'doc').subscribe(
@@ -475,6 +510,14 @@ export class CourseEditComponent implements OnInit {
             this.audioFormArray[i].push(this.buildMaterialsSubSection(''));
         }
     }
+    addBlock(i): void {
+        if (this.blockFormArray[i]) {
+            this.blockFormArray[i].push(this.buildMaterialsSubSection(''));
+        } else {
+            this.blockFormArray[i] = this.fb.array([]);
+            this.blockFormArray[i].push(this.buildMaterialsSubSection(''));
+        }
+    }
     addBook(i): void {
        // console.log('Adding Book to section: ' + i);
 
@@ -517,12 +560,21 @@ export class CourseEditComponent implements OnInit {
         this.bookFormArray[i].removeAt(k);
     }
 
+    killBlock(i, k) {
+        this.blockFormArray[i].removeAt(k);
+    }
+
+
     killDoc(i, k) {
         this.docFormArray[i].removeAt(k);
     }
 
     killVideo(i, k) {
         this.videoFormArray[i].removeAt(k);
+    }
+
+    killQuote(i, k) {
+        this.quoteFormArray[i].removeAt(k);
     }
 
     killAudio(i, k) {

@@ -197,6 +197,9 @@ toggleBooks() {
    }
   }
 
+  newClass() {
+    this.router.navigate(['/classedit/0']);
+  }
   deleteClass(classId) {
     const result = confirm( 'Are you sure you want to delete this class? ');
     if (result) {

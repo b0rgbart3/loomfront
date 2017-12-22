@@ -95,45 +95,48 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         if (!this.sectionNumber) { this.sectionNumber = 0; }
         // Refresh the currentUser's info from the DB
         this.userService.getUser( this.userService.currentUser.id ).subscribe ( user => {
-            this.currentUser = user[0]; this.persistBoardSettings();
+            this.currentUser = user[0];
+            // this.persistBoardSettings();
         } ,
             error => console.log(error)
         );
 
+        this.myInit();
+
     }
 
-    persistBoardSettings() {
-        if (this.currentUser && this.currentUser.boardsettings) {
-            const side = this.currentUser.boardsettings.side;
-            const width = this.currentUser.boardsettings.width;
+    // persistBoardSettings() {
+    //     if (this.currentUser && this.currentUser.boardsettings) {
+    //         const side = this.currentUser.boardsettings.side;
+    //         const width = this.currentUser.boardsettings.width;
 
-            if (this.currentUser && this.currentUser.boardsettings) {
-                if (this.currentUser.boardsettings.discussing === 'true') {
-                    this.discussing = true;
-                } else {
-                    this.discussing = false;
-                }
-            }
+    //         if (this.currentUser && this.currentUser.boardsettings) {
+    //             if (this.currentUser.boardsettings.discussing === 'true') {
+    //                 this.discussing = true;
+    //             } else {
+    //                 this.discussing = false;
+    //             }
+    //         }
 
-            if (this.discussing) {
-           // console.log('side' + side);
-           // console.log('width' + width);
-            switch (side) {
-                case 'leftSide':
-                  this.establishLeft(width);
-                  break;
-                case 'rightSide':
-                  this.establishRight( width );
-                  break;
-                case 'fullSize':
-                  this.establishStack( width );
-                  break;
-                default:
-                  break;
-            }
-          }
-        }
-    }
+    //         if (this.discussing) {
+    //        // console.log('side' + side);
+    //        // console.log('width' + width);
+    //         switch (side) {
+    //             case 'leftSide':
+    //               this.establishLeft(width);
+    //               break;
+    //             case 'rightSide':
+    //               this.establishRight( width );
+    //               break;
+    //             case 'fullSize':
+    //               this.establishStack( width );
+    //               break;
+    //             default:
+    //               break;
+    //         }
+    //       }
+    //     }
+    // }
 
     hideSectionMenu() {
         this.showingSectionMenu = false;
@@ -143,32 +146,33 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.showingSectionMenu = !this.showingSectionMenu;
     }
     closeDiscussion() {
-        this.widthStyle = 'full';
+     //   console.log('closing discussion');
+        // this.widthStyle = 'full';
         this.discussing = false;
-        this.mainStyle = 'full';
-        this.scrollable = '';
-        this.contentWidth = window.innerWidth;
-        this.initialWindowHeight = this.initialDocumentHeight;
-        this.saveMyBoardSettings();
+        // this.mainStyle = 'full';
+        // this.scrollable = '';
+        // this.contentWidth = window.innerWidth;
+        // this.initialWindowHeight = this.initialDocumentHeight;
+        // this.saveMyBoardSettings();
     }
 
     openDiscussion() {
-        this.boardWidth = window.innerWidth * .3;
-        this.contentWidth = window.innerWidth - this.boardWidth - 20;
+       // this.boardWidth = window.innerWidth * .3;
+        // this.contentWidth = window.innerWidth - this.boardWidth - 20;
         // console.log('contentWidth should be: ' + window.screen.width);
-        this.widthStyle = 'divided';
+       //  this.widthStyle = 'divided';
         this.discussing = true;
-        this.scrollable = 'scrollable';
-        this.initialWindowHeight = window.innerHeight;
+      //  this.scrollable = 'scrollable';
+       // this.initialWindowHeight = window.innerHeight;
 
-        if (this.boardStyle === 'rightSide') {
-            this.moveRight();
-        } else {
-            if (this.boardStyle === 'leftSide') {
-                this.moveLeft();
-            }
-        }
-        this.saveMyBoardSettings();
+        // if (this.boardStyle === 'rightSide') {
+        //     this.moveRight();
+        // } else {
+        //     if (this.boardStyle === 'leftSide') {
+        //         this.moveLeft();
+        //     }
+        // }
+        // this.saveMyBoardSettings();
     }
 
     moveRight() {
@@ -258,7 +262,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
         // console.log( 'offset x: ' + this.offsetX + ', clientX: ' + this.clientX );
        // console.log('width: ' + this.grabberWidth + ', diff: ' + this.diff);
-       console.log('adjustment: ' + this.adjustment );
+     //  console.log('adjustment: ' + this.adjustment );
        // console.log(this.clientX);
        // this.boardWidth = 500;
       }
@@ -290,27 +294,27 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
         if ( this.tracking ) {
         this.tracking = false;
-        this.saveMyBoardSettings();
+        // this.saveMyBoardSettings();
       }
     }
 
       saveMyBoardSettings() {
-        if (this.boardWidth) {
-            const boardSettings = <BoardSettings> { 'discussing' : this.discussing.toString(),
-             'side' : this.boardStyle, 'width' : this.boardWidth.toString() };
-             // I'm not really doing anything with the data that comes from this subscription.
-            this.userService.storeBoardSettings( boardSettings ).subscribe( params => params, error => console.log(error) );
-            }
+        // if (this.boardWidth) {
+        //     const boardSettings = <BoardSettings> { 'discussing' : this.discussing.toString(),
+        //      'side' : this.boardStyle, 'width' : this.boardWidth.toString() };
+        //      // I'm not really doing anything with the data that comes from this subscription.
+        //   //  this.userService.storeBoardSettings( boardSettings ).subscribe( params => params, error => console.log(error) );
+        //     }
     }
 
     myInit() {
-        console.log('in class Init...');
+    //    console.log('in class Init...');
         this.classID = this.activated_route.snapshot.params['id'];
         this.thisClass = this.activated_route.snapshot.data['thisClass'];
         this.users = this.activated_route.snapshot.data['users'];
         this.instructors = [];
         this.instructors = this.classService.getInstructors(this.thisClass, this.users);
-        console.log('instructors: ' + JSON.stringify(this.users));
+      //  console.log('instructors: ' + JSON.stringify(this.users));
         this.students = [];
         this.students = this.classService.getStudents(this.thisClass, this.users);
 
@@ -332,15 +336,15 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
          }
          //   console.log('activated route section# ' + this.sectionNumber);
         this.activated_route.params.subscribe( params => {
-            console.log ('params changed.');
+         //   console.log ('params changed.');
             this.classID = params['id'];
 
             if (params['id2']) {
                 this.sectionNumber = params['id2'];
 
-                console.log('New Section# ' + this.sectionNumber);
+              //  console.log('New Section# ' + this.sectionNumber);
                 if (this.course && this.course.sections) {
-                    console.log('Assigning new section # to: ' + this.sectionNumber);
+                 //   console.log('Assigning new section # to: ' + this.sectionNumber);
                 this.section = this.course.sections[this.sectionNumber];
             }
 

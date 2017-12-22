@@ -74,10 +74,52 @@
                             <div class='smallLoomButton' (click)="addMaterial(i)">Add {{materialObject.longName}}</div>
                         </div><br>
                         <hr><br><br> -->
-
-
+                        <div *ngIf='blockFormArray[i].controls && blockFormArray[i].controls.length > 0' class='group'>
+                                <h1>HTML Blocks</h1>
+                            <div formArrayName='blocks' 
+                            *ngFor='let block of blockFormArray[i].controls; let m=index'>
+                                <div class='loomChoice'>
+                                    
+                                    <button class='loomKill rightAlignMe'
+                                     (click)='killBlock(i,m)'></button>
+                                     <div [formGroupName]="m">
+                                         <mat-form-field>
+                                             <mat-select [placeholder]='blockPlaceholder' formControlName='material'>
+                                                    <mat-option *ngFor='let item of blockOptions' matOption [value]='item.id' 
+                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                             </mat-select>
+                                         </mat-form-field>
+                                     </div>
+                                </div>
+                            </div>
+                            <br clear='all'>
+                        </div>
                         
-                        <div *ngIf='videoFormArray[i].controls && videoFormArray[i].controls.length > 0'>
+
+
+                        <div *ngIf='quoteFormArray[i].controls && quoteFormArray[i].controls.length > 0' class='group'>
+                                <h1>Pull Quotes</h1>
+                            <div formArrayName='quotes' 
+                            *ngFor='let quote of quoteFormArray[i].controls; let m=index'>
+                                <div class='loomChoice'>
+                                    
+                                    <button class='loomKill rightAlignMe'
+                                     (click)='killQuote(i,m)'></button>
+                                     <div [formGroupName]="m">
+                                         <mat-form-field>
+                                             <mat-select [placeholder]='quotePlaceholder' formControlName='material'>
+                                                    <mat-option *ngFor='let item of quoteOptions' matOption [value]='item.id' 
+                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                             </mat-select>
+                                         </mat-form-field>
+                                     </div>
+                                </div>
+                            </div>
+                            <br clear='all'>
+                        </div>
+                        
+                        
+                        <div *ngIf='videoFormArray[i].controls && videoFormArray[i].controls.length > 0' class='group'>
                                 <h1>Videos</h1>
                             <div formArrayName='videos' 
                             *ngFor='let video of videoFormArray[i].controls; let m=index'>
@@ -95,10 +137,11 @@
                                      </div>
                                 </div>
                             </div>
+                            <br clear='all'><br>
                         </div>
-                        <br clear='all'><br>
+                        
                        
-                        <div *ngIf='audioFormArray[i].controls && audioFormArray[i].controls.length > 0'>
+                        <div *ngIf='audioFormArray[i].controls && audioFormArray[i].controls.length > 0' class='group'>
                             <h1>Audios</h1>
                         
                             <div formArrayName='audios' 
@@ -117,13 +160,14 @@
                                      </div>
                                 </div>
                             </div>
+                            <br clear='all'><br>
                         </div>
-                        <br clear='all'><br>
+                        
                         
                         
                 
                         
-                        <div *ngIf='docFormArray[i].controls && docFormArray[i].controls.length > 0'>
+                        <div *ngIf='docFormArray[i].controls && docFormArray[i].controls.length > 0' class='group'>
                                 <h1>PDF Documents</h1>
                             <div formArrayName='docs' 
                             *ngFor='let doc of docFormArray[i].controls; let m=index'>
@@ -141,12 +185,13 @@
                                      </div>
                                 </div>
                             </div>
+                            <br clear='all'><br>
                         </div>
-                        <br clear='all'><br>
+                        
                         
 
                        
-                        <div *ngIf='bookFormArray[i].controls && bookFormArray[i].controls.length > 0'>
+                        <div *ngIf='bookFormArray[i].controls && bookFormArray[i].controls.length > 0' class='group'>
                                 <h1>Book References</h1>
                                 <div formArrayName='books' 
                                 *ngFor="let book of bookFormArray[i].controls;

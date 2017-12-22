@@ -1,3 +1,5 @@
 <!-- <p> Passed CourseID: {{ courseID }}</p>
 <p> Course Image URL: {{ courseImageURL }} </p> -->
+<div *ngIf='courseImageURL'>
 <img [src]="courseImageURL">
+</div>

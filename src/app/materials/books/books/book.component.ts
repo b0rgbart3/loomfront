@@ -20,14 +20,14 @@ export class BookComponent implements OnInit {
 constructor( private globals: Globals, private router: Router) {}
 
 ngOnInit() {
-  console.log('In book component: book = ' + JSON.stringify(this.book));
+ // console.log('In book component: book = ' + JSON.stringify(this.book));
   this.imageURL = this.globals.materialimages + '/' + this.book.id + '/' + this.book.image;
   this.big = false;
 }
 
 goBig(event) {
     this.big = !this.big;
-    console.log('in goBig');
+   // console.log('in goBig');
     event.stopPropagation();
 }
 

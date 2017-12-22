@@ -34,6 +34,7 @@ basepath = 'http://localhost:3100/';
  postmaterialfiles =  this.basepath + 'api/materialfiles';
  allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
  threads =            this.basepath + 'api/threads';
+
 //  videos =             this.basepath + 'api/videos';
 //  boosk =              this.basepath + 'api/books';
 //  docs =               this.basepath + 'api/docs';

@@ -35,7 +35,7 @@ import { UserResolver } from './services/user-resolver';
 import { CourseComponent } from './courses/course/course.component';
 import { SectionComponent } from './courses/course/section.component';
 import { ChatroomComponent } from './chat/chatroom.component';
-import { BoardComponent } from './discuss/board.component';
+import { DiscussionComponent } from './discuss/discussion.component';
 import { DiscussionService } from './services/discussion.service';
 import { ThreadComponent } from './discuss/thread.component';
 import { ChatService } from './chat/chat.service';
@@ -92,7 +92,7 @@ import { AdminFeatureModule } from './admin-feature-module/admin-feature.module'
     CourseComponent,
     SectionComponent,
     ChatroomComponent,
-    BoardComponent,
+    DiscussionComponent,
     ThreadComponent,
     InfobotComponent,
     NotificationsComponent,

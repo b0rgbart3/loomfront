@@ -22,7 +22,6 @@ export class User {
         public status: string[],
         public favoritecolor: string,
         public avatar_filename: string,
-        public avatar_path: string,
         public avatar_URL: string,
         public completed_classes: string[],
         public completed_series: string[],

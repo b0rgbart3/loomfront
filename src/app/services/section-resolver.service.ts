@@ -20,12 +20,12 @@ export class SectionResolver implements Resolve <number> {
     resolve( route: ActivatedRouteSnapshot ) {
         const sectionNumber = route.params['id2'];
 
-        console.log('Section Resolver: ' + sectionNumber);
-        console.log('Route Params: ' + JSON.stringify(route.params));
+      //  console.log('Section Resolver: ' + sectionNumber);
+      //  console.log('Route Params: ' + JSON.stringify(route.params));
         if (isNaN( sectionNumber )) {
             return 0;
         } else {
-       console.log('In Section Resolver: sectionNumber == ' + sectionNumber);
+    //   console.log('In Section Resolver: sectionNumber == ' + sectionNumber);
         return sectionNumber; }
     }
 }

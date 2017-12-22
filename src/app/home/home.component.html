@@ -1,5 +1,10 @@
 <div class='loomContainer'>
-        <div *ngIf='studentClasses' class='loomCard padMe'><h1 class='label'>Classes you are taking</h1>
+        <div class='loomCard padMe'>
+                <div class='tabContainer'>
+                <div [class]='takingLabel' (click)='taking()'>Classes you are taking</div>
+                <div [class]='teachingLabel' (click)='teaching()'>Classes you are teaching</div></div>
+        <br clear='all'>
+        <div *ngIf='studentClasses && showTaking' class='listOfClasses'>
         <div *ngFor='let classobject of studentClasses; let j = index' >
         <div class='selectorBox group' (click)='goto(classobject.id)'>
                 <div class='classInfoSelectionCollection group'>
@@ -18,7 +23,8 @@
         </div></div>
         </div></div>
 
-        <div *ngIf='instructorClasses' class='loomCard padMe'><h1 class='label'>Classes you are teaching</h1>
+        <div *ngIf='instructorClasses && showTeaching' class='listOfClasses'>
+
         <div *ngFor='let classobject of instructorClasses'>
                 <div class='selectorBox group' (click)='goto(classobject.id)'>
                         <div class='classInfoSelectionCollection group'>
@@ -34,5 +40,5 @@
                                         </div>
                 </div></div>
                 </div></div>
-
+        </div>
 </div>

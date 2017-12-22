@@ -23,9 +23,9 @@ export class ClassResolver implements Resolve <ClassModel> {
             this.router.navigate(['/welcome']);
             return Observable.of(null);
         }
-        console.log('In Class Resolver: id=' + id);
+       // console.log('In Class Resolver: id=' + id);
         if (id === '0') {
-            console.log('CREATING NEW EMPTY CLASSMODEL');
+           // console.log('CREATING NEW EMPTY CLASSMODEL');
             const newClass = new ClassModel('', '', '', '', '0', [], [], null, '');
             return Observable.of(newClass); } else {
         return this.classService.getClass(id).

@@ -7,16 +7,17 @@ import { UserService } from '../services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Thread } from '../models/thread.model';
 import { DiscussionService } from '../services/discussion.service';
+import { Section } from '../models/section.model';
 
 
 @Component({
   selector: 'discussion',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css'],
+  templateUrl: './discussion.component.html',
+  styleUrls: ['./discussion.component.css'],
   providers: [ClassService]
 })
 
-export class BoardComponent implements OnInit, OnChanges, DoCheck {
+export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
 
   classes: ClassModel[];
   selectedClass: {};
@@ -24,14 +25,16 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
   currentUser: User;
   admin: boolean;
   classID: string;
-  thisClass: ClassModel;
   users: User[];
   discussionFormGroup: FormGroup;
   thread: Thread;
   threads: Thread[];
 
 
-  @Input() class: ClassModel;
+  @Input() thisClass: ClassModel;
+  @Input() students: User[];
+  @Input() instructors: User[];
+  @Input() sectionNumber: number;
 
   constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -41,14 +44,15 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
     private ds: DiscussionService ) {}
 
   ngOnInit() {
-    this.classID = this.activated_route.snapshot.params['id'];
-    this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
-    this.users = this.activated_route.snapshot.data['users'];
+    // this.classID = this.activated_route.snapshot.params['id'];
+    // this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
+    // this.users = this.activated_route.snapshot.data['users'];
+    console.log('discussion initing: ' + this.thisClass.id + ', ' + this.sectionNumber);
     this.currentUser = this.userService.getCurrentUser();
 
-    this.discussionFormGroup = this.fb.group( { 'subject': ['', [Validators.required, Validators.minLength(13)] ] } );
+    this.discussionFormGroup = this.fb.group( { 'subject': ['', [Validators.required ] ] } );
 
-    this.ds.getThreads().subscribe(
+    this.ds.getThreads( this.thisClass.id, this.sectionNumber ).subscribe(
       threads => this.threads = threads,
       error => this.errorMessage = <any>error);
 
@@ -66,7 +70,10 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
     this.router.navigate(['/classes']);
   }
   ngOnChanges() {
-    console.log('ch ch changin');
+    console.log('ch ch changin ' + this.thisClass.id + ', ' + this.sectionNumber);
+    this.ds.getThreads( this.thisClass.id, this.sectionNumber ).subscribe(
+      threads => this.threads = threads,
+      error => this.errorMessage = <any>error);
   }
   ngDoCheck() {
     // console.log('Do checking!');
@@ -81,21 +88,34 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
 
       console.log('Form was valid and dirty.');
     const combinedObject = Object.assign( {}, this.thread, this.discussionFormGroup.value);
-    combinedObject.classID = this.classID;
+    combinedObject.classID = this.thisClass.id;
     combinedObject.user_id = this.currentUser.id;
     combinedObject.post_date = new Date( Date.now());
+    combinedObject.sectionNumber = this.sectionNumber;
+
+    this.threads.unshift(combinedObject);
 
     // console.log('About to post: ' + JSON.stringify( combinedObject ) );
 
     this.ds.newThread( combinedObject ).subscribe(
-      (val) => { }, response => console.log('thread saved')
+      (val) => { }, response => {console.log('thread saved');
+
+     // console.log('Threads before: ' + JSON.stringify(this.threads));
+      // this.threads.unshift(combinedObject);
+      this.discussionFormGroup.reset(); }
       ,
         () => { console.log('finished');
-        this.threads.unshift(combinedObject);
+       // this.threads.unshift(combinedObject);
         this.discussionFormGroup.reset();
        });
     } else {  console.log('Valid:' + this.discussionFormGroup.valid);
   console.log('Dirty:' + this.discussionFormGroup.dirty ); }
+
+  // this.ds.getThreads( this.thisClass.id ).subscribe(
+  //   threads => { this.threads = threads; console.log('Got new set of threads.');
+  //   console.log('Threads after: ' + JSON.stringify(this.threads));
+  // },
+  //   error => this.errorMessage = <any>error);
   }
 
   threadChange( thisThread: Thread ) {
@@ -106,21 +126,23 @@ export class BoardComponent implements OnInit, OnChanges, DoCheck {
     // console.log('About to post: ' + JSON.stringify( combinedObject ) );
 
     this.ds.updateThread( combinedObject ).subscribe(
-          (val) => { }, response => console.log('thread saved')
+          (val) => { }, response => { console.log('thread saved'); }
           ,
             () => { console.log('finished'); });
 
-    this.ds.getThreads().subscribe(
-              (val) => {}, response => { this.threads = response; }, () => {});
+    this.ds.getThreads( this.thisClass.id, this.sectionNumber ).subscribe(
+              threads => { this.threads = threads; console.log('Got new set of threads.'); },
+              error => this.errorMessage = <any>error);
 
   }
  deleteThread ( thisThread: Thread) {
    const conf = confirm('Are you sure you want to delete this discussion topic, and all of it\'s replies?');
    if (conf) {
   this.ds.deleteThread( thisThread ).subscribe(
-    (val) => { }, response => console.log('thread saved')
+    (val) => { console.log('thread being deleted.'); }, response => {console.log('thread deletion.');
+    this.removeThread(thisThread); }
     ,
-      () => { console.log('finished'); this.removeThread(thisThread); });
+      () => { console.log('thread deletion finished'); this.removeThread(thisThread); });
   }
  }
 

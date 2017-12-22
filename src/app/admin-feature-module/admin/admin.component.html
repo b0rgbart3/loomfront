@@ -1,9 +1,6 @@
-<div class='adminContainer main'>
-
+<div class='loomContainer'>
+<div class='adminForm'>
 <div class='collection group {{ studentsShowing }}'>
-
-    <button *ngIf="users" [routerLink]="['/register']" 
-    class='loomRoundButton loomAdd rightAlignMe alignTop'></button> 
     
     <h1 (click)="toggleStudents()" class='collapsingTitle'>All The Peeps</h1>
 
@@ -46,25 +43,27 @@
 
 <div class='collection group {{ classesShowing }}'>
     <h1 (click)="toggleClasses()" class='collapsingTitle'>Classes</h1>
-      <button *ngIf="classes" [routerLink]="['/classes', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
-      
+
         <div class="collectionList" *ngIf="classes">
          
-        <div *ngFor="let class of classes" [routerLink]="['/classes', 
-        class.id, 'edit']" class='collectionItem'>
-              <button class='loomRoundButton loomKill rightAlignMe' 
-              (click)="deleteClass(class.id)"></button>
-          <h1>{{class.title}}</h1>
-          <p>{{class.course}}</p>
-          <p>Start Date: {{class.start | date: 'yMMMd'}}</p> <!-- jms -->
-          <p>End Date: {{class.end | date: 'yMMMd'}}</p>
+        <div *ngFor="let class of classes" [routerLink]="['/classedit', 
+        class.id]" class='collectionItem'>
+     
+          <table><tr>
+            <td>{{class.title}}</td>
+            <td> <p> {{class.start | date: 'yMMMd'}}</p> <!-- jms --></td>
+            <td><p> {{class.end | date: 'yMMMd'}}</p></td>
+          </tr></table>
+    
+          
         </div>
       </div>
-  
+      <div *ngIf="classes" (click)='newClass()' class='basicButton'>Add a new Class</div>  
+      
     <div class="notice" *ngIf="!classes">Currently having trouble accessing the API for class info.</div>
   
 </div>
-
+</div>
 <!-- 
     <div class='collection group {{ coursesShowing }}'>
         <h1 (click)="toggleCourses()" class='collapsingTitle'>Courses</h1>
@@ -85,7 +84,7 @@
 
 -->
 
-<div class='collection group {{ materialsShowing }}'>
+<!-- <div class='collection group {{ materialsShowing }}'>
     <h1 (click)="toggleMaterials()" class='collapsingTitle'>Materials</h1>
     <button [routerLink]="['/materials', '0', 'edit']" class='loomRoundButton loomAdd rightAlignMe'></button>  
 
@@ -98,7 +97,7 @@
           <p>{{ material.description }} </p>
       </div>
     </div>
-</div>
+</div> -->
 
 <!--
 <div class='collection group {{ booksShowing }}'>

@@ -32,6 +32,11 @@ export class HomeComponent implements OnInit {
     studentClasses: ClassModel[];
     instructorClasses: ClassModel[];
     courseImages: {} [];
+    showTaking: boolean;
+    showTeaching: boolean;
+    takingLabel: string;
+    teachingLabel: string;
+
     constructor (
         private userService: UserService,
         private classService: ClassService,
@@ -43,6 +48,10 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.test = true;
+        this.showTaking = true;
+        this.showTeaching = false;
+        this.takingLabel = 'tabLabelChosen';
+        this.teachingLabel = 'tabLabel';
         this.currentUser = this.userService.getCurrentUser();
         if (this.currentUser) {
         this.username = this.currentUser.username; } else {
@@ -65,6 +74,20 @@ export class HomeComponent implements OnInit {
         // console.log('end of home component init method.');
     }
 
+    taking() {
+        console.log('change to taking.');
+        this.showTaking = true;
+        this.showTeaching = false;
+        this.takingLabel = 'tabLabelChosen';
+        this.teachingLabel = 'tabLabel';
+    }
+    teaching() {
+        console.log('change to teaching.');
+        this.showTaking = false;
+        this.showTeaching = true;
+        this.takingLabel = 'tabLabel';
+        this.teachingLabel = 'tabLabelChosen';
+    }
     getClassesForCurrentUser() {
         // console.log('getting classes for the user');
         this.classService.getStudentClasses(this.currentUser.id).subscribe(

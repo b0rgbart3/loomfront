@@ -152,8 +152,8 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
             settingsObject['avatar_filename'] = JSON.stringify(this.tempName);
             settingsObject['avatar_filename'] =
                     settingsObject['avatar_filename'].substring(1, settingsObject['avatar_filename'].length - 1);
-            settingsObject['avatar_path'] = 'http://localhost:3100/avatars/' + this.user.id + '/';
-            settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];
+            // settingsObject['avatar_path'] = 'http://localhost:3100/avatars/' + this.user.id + '/';
+            // settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];
         }
 
         this.userService.resetCurrentUser(settingsObject);

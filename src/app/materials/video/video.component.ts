@@ -69,8 +69,8 @@ export class VideoComponent implements OnInit {
     ngOnInit() {
         this.playing = false;
         this.started = false;
-        console.log('Video Object: ');
-        console.log(JSON.stringify(this.videoObject) );
+      //  console.log('Video Object: ');
+      //  console.log(JSON.stringify(this.videoObject) );
         this.backgroundImage = 'url('  + this.globals.materialimages + '/' + this.videoObject.id  +
         '/' + this.videoObject.image + ')';
         this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image;
@@ -78,7 +78,7 @@ export class VideoComponent implements OnInit {
     }
 
     playVideo( index ) {
-        console.log('About to play video: ' + index);
+      //  console.log('About to play video: ' + index);
         this.videoPlaying = index;
         this.playing = true;
     }

@@ -28,7 +28,8 @@ import { CoursesResolver } from '../services/courses-resolver.service';
             resolve: { course: CourseResolver,
                 materials: MaterialsResolver } },
             { path: 'coursebuilder', component: CourseBuilderComponent },
-            { path: 'classes/:id/edit', pathMatch: 'full', component: ClassEditComponent, resolve: {
+
+            { path: 'classedit/:id', pathMatch: 'full', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, users: UsersResolver,
     possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
 

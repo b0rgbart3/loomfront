@@ -22,12 +22,12 @@ export class MaterialCollectionComponent implements OnInit {
 
 
         if (this.materialcollection.docs) {
-            console.log('found documents :' + this.materialcollection.docs.length);
+          //  console.log('found documents :' + this.materialcollection.docs.length);
             for (let i = 0; i < this.materialcollection.docs.length; i++) {
-                console.log('document: ' + this.materialcollection.docs[i].title);
+               // console.log('document: ' + this.materialcollection.docs[i].title);
 
                 if (this.materialcollection.docs[i].image) {
-                    console.log('found an image: ' + this.materialcollection.docs[i].image);
+                  //  console.log('found an image: ' + this.materialcollection.docs[i].image);
                 this.materialcollection.docs[i].imageURL = this.globals.materialimages + '/' +
                   this.materialcollection.docs[i].id + '/' + this.materialcollection.docs[i].image;  }
                 if (this.materialcollection.docs[i].file) {

@@ -51,17 +51,17 @@ export class ThreadComponent implements OnInit, OnChanges {
         user => {this.user = user[0];
           this.userThumbnail = { user: this.user, user_id: this.user.id, editable: false,
             inRoom: true, size: 50, showUsername: true, showInfo: false, textColor: '#000000' };
-            console.log('got real user info back.');
+            // console.log('got real user info back.');
           this.createReplyThumbnails();
           // console.log('This thread: ' + JSON.stringify(this.thread));
         },
         error => this.errorMessage = <any>error);
 
         this.replyFormGroup = this.fb.group( { reply : '' } );
-      console.log('current state: ' + this.thread.displayReplyInput);
+      // console.log('current state: ' + this.thread.displayReplyInput);
     }
   ngOnChanges() {
-    console.log('thread changed.');
+    // console.log('thread changed.');
   }
 
   createReplyThumbnails() {
@@ -137,7 +137,7 @@ export class ThreadComponent implements OnInit, OnChanges {
 
 
     } else {
-      console.log('couldnt find the current user');
+     //  console.log('couldnt find the current user');
     }
 
   }

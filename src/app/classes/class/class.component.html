@@ -73,7 +73,7 @@
                 <!-- <div (click)='moveLeft()' class='roundButton leftButton' *ngIf="boardStyle!='leftSide'"></div>
                 <div (click)='moveRight()' class='roundButton rightButton' *ngIf="boardStyle!='rightSide'"></div>
          -->
-                <discussion></discussion>
+                <discussion [thisClass]="thisClass" [students]='students' [instructors]='instructors' [sectionNumber]='sectionNumber'></discussion>
         </div>  
 
     </div>

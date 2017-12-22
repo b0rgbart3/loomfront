@@ -18,7 +18,7 @@ export class BooksComponent implements OnInit {
 constructor() {}
 
 ngOnInit() {
-  console.log('In books comonent: books = ' + JSON.stringify(this.books));
+ // console.log('In books comonent: books = ' + JSON.stringify(this.books));
 }
 
 }

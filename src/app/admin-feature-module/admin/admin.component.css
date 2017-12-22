@@ -1,3 +1,11 @@
+.adminForm {
+    width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#bbbbbb;
+}
+
+
 h1 {
     font-weight: 700;
     font-size:1em;
@@ -27,7 +35,7 @@ h1 {
     color:black;
     display:inline-block;
     vertical-align: top;
-    font-family: 'Muli';
+    font-family: 'Roboto';
     font-size:.95em;
     box-sizing:border-box;
     padding:0;
@@ -43,7 +51,7 @@ h1 {
     margin:0;
     padding:0;
     text-transform: uppercase;
-    font-family: 'Muli';
+    font-family: 'Roboto';
     font-weight: 900;
     font-size:.8em;
     
@@ -127,11 +135,10 @@ h1 {
   }
 
   .collapsingTitle {
-      font-family: 'Josefin Sans';
-      font-weight: 500;
+      font-family: 'Roboto';
+      font-weight: 700;
       font-size:1.45em;
       border-bottom:1px solid rgba(0,0,0,.5);
-      text-transform: uppercase;
       padding:10px;
       padding-left:20px;
       padding-top:20px;
@@ -171,30 +178,29 @@ h1 {
   .collectionList {
       border:1px solid rgba(0,0,0,0);
       padding:0px;
-      margin-left:5%;
-      margin-right:5%;
       margin-top:10px;
+      user-select: none;
+      cursor:pointer;
   }
   .collectionItem {
       border:1px solid rgba(0,0,0,0);
-      padding-left:4%;
-      padding-right:4%;
+      padding:0;
       margin:0;
-      border-radius: 4px;
+      padding-left:20px;
   }
 
   .collectionItem:hover {
       background-color: white;
   }
   .collectionItem h1 {
-      font-family: 'Josefin Sans';
-      text-transform: uppercase;
+      font-family: 'Roboto';
+
       font-weight:400;
       font-size:1.2em;
   }
 
   .collectionItem p {
-      font-family: 'Muli';
+      font-family: 'Roboto';
       font-size:.9em;
   }
 

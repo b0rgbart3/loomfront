@@ -24,9 +24,9 @@ export class DiscussionService implements OnInit, OnChanges {
     constructor (private _http: HttpClient, private globals: Globals) {}
 
     ngOnInit() {
-      this.getThreads().subscribe(
-        threads => this.threads = threads,
-        error => this.errorMessage = <any>error);
+      // this.getThreads().subscribe(
+      //   threads => this.threads = threads,
+      //   error => this.errorMessage = <any>error);
 
     }
 
@@ -34,15 +34,15 @@ export class DiscussionService implements OnInit, OnChanges {
 
     }
 
-   getThreads(): Observable<Thread[]> {
+   getThreads( classID, sectionNumber ): Observable<Thread[]> {
      const myHeaders = new HttpHeaders();
      myHeaders.append('Content-Type', 'application/json');
 
-    return this._http.get <Thread[]> (this.globals.threads, {headers: myHeaders})
+    return this._http.get <Thread[]> (this.globals.threads + '?classID=' + classID + '&sectionNumber=' +
+     sectionNumber, {headers: myHeaders})
       // debug the flow of data
       .do(data => {// console.log('All: ' + JSON.stringify(data));
       this.threads = data;
-      this.classCount = data.length;
 
       // Loop through all the Classes to find the highest ID#
       for (let i = 0; i < data.length; i++) {

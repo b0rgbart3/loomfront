@@ -21,9 +21,6 @@ docs: Material[];
 bookCount: number;
 errorMessage: string;
 
-assetTypes: string[];
-assetLongSingularNames: string[];
-assetLongPluralNames: string[];
 data: MaterialCollection;
 
 
@@ -63,10 +60,14 @@ getCourses() {
   }
 
   addAsset(typeIndex) {
-    this.router.navigate( [ '/' + this.assetTypes[typeIndex] + '/0/edit'] );
+    console.log('Adding an asset of type: ' + this.globals.materialTypes[typeIndex].type);
+    const addAssetString = '/' + this.globals.materialTypes[typeIndex].type + '/0/edit';
+    console.log('add asset string: ' + addAssetString);
+    this.router.navigate( [ addAssetString ] );
   }
   editAsset(typeIndex, assetID) {
-    this.router.navigate( [ '/' + this.assetTypes[typeIndex] + '/' + assetID + '/edit' ]);
+    const editAssetString = '/' + this.globals.materialTypes[typeIndex].type + '/' + assetID + '/edit' ;
+    this.router.navigate( [ editAssetString]);
   }
 
 
