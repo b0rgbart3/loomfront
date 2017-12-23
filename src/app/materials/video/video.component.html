@@ -51,7 +51,7 @@
         <!-- <vg-fullscreen></vg-fullscreen> -->  
     </vg-controls>
   
-    <video [vgMedia]="master" #master id="masterVideo" [vgMaster]='true' preload="auto" crossorigin
+    <video [vgMedia]="master" #master id="masterVideo" [vgMaster]='true' preload="auto" crossOrigin="anonymous"
       [poster]='posterImage'>
     
          <source [src]='videoSource' type='video/mp4'>

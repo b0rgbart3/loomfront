@@ -7,9 +7,10 @@
     <div [innerHTML]= 'section.content'></div>
 </div>
 
-    <div *ngIf='materials && materials.length > 0'>
+    <div *ngIf='materialCollection'>
 
-        <div class='materials group' *ngIf='materialCollection'>
+        <div class='materials group'>
+            <!-- <p>{{ section.materials.length }}</p> -->
         <material-collection [materialcollection]="materialCollection"></material-collection>
         
         </div>

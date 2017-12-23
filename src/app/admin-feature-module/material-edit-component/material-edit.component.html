@@ -10,7 +10,7 @@
     
  
     <h1>{{ type }}</h1>
-    <mat-form-field *ngIf="!type==='quote'">
+    <mat-form-field *ngIf="type!=='quote'">
     <input matInput placeholder="Title" name="title" id='title' formControlName='title'>
     </mat-form-field>
 
@@ -54,7 +54,7 @@
 <br clear='all'>
 <img [src]="imageUrl" width='200' height='200' *ngIf='image'><br>
 
-<div class="upload-wrap" *ngIf="!type==='quote'">
+<div class="upload-wrap" *ngIf="type!=='quote'">
     Include Thumbnail Image
     <input type="file" class="upload-btn"  name="image"  
     ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"

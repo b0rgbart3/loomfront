@@ -62,7 +62,7 @@ export class SectionComponent implements OnInit, OnChanges {
 
 
     ngOnInit() {
-
+        this.materialCollection = null;
         // this.title = this.course.title;
         // this.description = this.course.description;
         // console.log('sectionNumber: ' + this.section);
@@ -88,6 +88,7 @@ export class SectionComponent implements OnInit, OnChanges {
    // }
 
     ngOnChanges() {
+        this.materialCollection = null;
         // console.log('changes');
      //   this.loadedBooks = null;
         // this.getBooks();
@@ -127,6 +128,8 @@ export class SectionComponent implements OnInit, OnChanges {
            // console.log('loading in materials for course# ' +
             // this.course.id + ', section: ' + JSON.stringify(this.section));
             if (this.section.materials) {
+               // console.log('material count: ' + this.section.materials.length);
+
             for (let j = 0; j < this.section.materials.length; j++) {
                 const id = this.section.materials[j]['material'];
 
@@ -134,15 +137,20 @@ export class SectionComponent implements OnInit, OnChanges {
                 this.materialService.getMaterial(id).subscribe(
                     (material) => {
                        // console.log('found a material ' + id);
-                    this.materials.push(material[0]);
+
+                    if (this.materials.length < this.section.materials.length) {
+                        this.materials.push(material[0]); }
+
                     if (this.materials.length === this.section.materials.length) {
                         // if these are equal, that means we've loaded in all the material objects
                         // so now we can sort them.
+                      //  console.log('this.materials length: ' + this.materials.length);
                        const sortedMaterials = this.materialService.sortMaterials(this.materials);
                         this.materialCollection = sortedMaterials;
-                       console.log('Done sorting the materials');
-                       console.log(JSON.stringify(this.materials));
-
+                       // console.log('Sorted books Length' + sortedMaterials.books.length);
+                      // console.log('Done sorting the materials');
+                     //  console.log(JSON.stringify(this.materialCollection.books));
+                      //  console.log(this.materialCollection.books.length);
                     }
 
                 }

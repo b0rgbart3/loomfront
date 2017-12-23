@@ -167,12 +167,15 @@ export class MaterialService {
       for (let i = 0; i < materialsArray.length; i++) {
 
         if (materialsArray[i]) {
+         // console.log('through the loop: ' + i);
           switch (materialsArray[i].type) {
             case 'video':
               videos.push(materialsArray[i]);
               break;
             case 'book':
               books.push(materialsArray[i]);
+              // console.log(materialsArray[i]);
+              // console.log('Found a book: ' + i);
               break;
             case 'doc':
               docs.push(materialsArray[i]);
@@ -181,11 +184,13 @@ export class MaterialService {
               audios.push(materialsArray[i]);
               break;
             case 'quote':
-              console.log('found a quote.');
+              // console.log('found a quote.');
               quotes.push(materialsArray[i]);
               break;
             case 'block':
               blocks.push(materialsArray[i]);
+              break;
+            default:
               break;
           }
         }
@@ -205,8 +210,8 @@ export class MaterialService {
       }
 
       const sortedMaterials = new MaterialCollection(videos, docs, books, audios, blocks, quotes);
-      console.log('quotes: ' + JSON.stringify(quotes));
-      console.log('Sorted Mats: ' + JSON.stringify(sortedMaterials.quotes));
+      // console.log('quotes: ' + JSON.stringify(quotes));
+      // console.log('Sorted Mats: ' + JSON.stringify(sortedMaterials.quotes));
       return sortedMaterials;
 
     }

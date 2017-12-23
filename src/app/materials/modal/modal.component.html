@@ -1,5 +1,6 @@
 <div class='blocker'>
-    <iframe [src]='modalURL'>
+    <div class='closer' (click)='close()'></div>
+    <iframe [src]='modalURL | safe'>
 
     </iframe>
 </div>

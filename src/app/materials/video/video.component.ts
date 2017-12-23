@@ -12,6 +12,8 @@ import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
 import {VgAPI} from 'videogular2/core';
 
+import { DomSanitizer } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 
 @Component({
     moduleId: module.id,
@@ -32,12 +34,13 @@ export class VideoComponent implements OnInit {
     preload = 'auto';
     api: VgAPI;
     started: boolean;
-    videoSource: string;
+    videoSource: SafeResourceUrl;
     videoBoxClass: string;
     videoDeetsClass: string;
+    safeVideoSource: SafeResourceUrl;
 
     @Input() videoObject: Material;
-    constructor( private globals: Globals ) {
+    constructor( private globals: Globals, private domSanitizer: DomSanitizer ) {
 
     }
 
@@ -68,12 +71,18 @@ export class VideoComponent implements OnInit {
     ngOnInit() {
         this.playing = false;
         this.started = false;
+        this.safeVideoSource = null;
       //  console.log('Video Object: ');
       //  console.log(JSON.stringify(this.videoObject) );
         this.backgroundImage = 'url('  + this.globals.materialimages + '/' + this.videoObject.id  +
         '/' + this.videoObject.image + ')';
         this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image;
-        this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file;
+        if (this.videoObject.contenturl) {
+            console.log('my dirty url: ' + this.videoObject.contenturl);
+            this.videoSource = this.cleanUpMyURL(this.videoObject.contenturl);
+            // <string> this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoObject.contenturl);
+        } else {
+        this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file; }
         this.videoBoxClass = 'videoBox';
         this.videoDeetsClass = 'videoDeets';
     }
@@ -82,6 +91,10 @@ export class VideoComponent implements OnInit {
       //  console.log('About to play video: ' + index);
         this.videoPlaying = index;
         this.playing = true;
+    }
+
+    cleanUpMyURL(dirtyURL) {
+        return this.domSanitizer.bypassSecurityTrustResourceUrl(dirtyURL);
     }
 
     theatre() {

@@ -20,7 +20,7 @@ export class QuoteComponent implements OnInit {
 
     ngOnInit() {
 
-        console.log('mat collection: ' + JSON.stringify( this.materialcollection['quotes'] ));
+       //  console.log('mat collection: ' + JSON.stringify( this.materialcollection['quotes'] ));
 
     }
 

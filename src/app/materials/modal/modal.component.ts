@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Globals } from '../../globals';
@@ -13,15 +13,18 @@ import { Globals } from '../../globals';
 
 export class ModalComponent implements OnInit {
     @Input() modalURL: string;
-
+    @Output() closeMe = new EventEmitter<boolean>();
 
 
     constructor( private globals: Globals) {    }
 
     ngOnInit() {
 
-       
+
     }
 
+    close() {
+        this.closeMe.emit(true);
+    }
 
 }

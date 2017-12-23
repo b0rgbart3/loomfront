@@ -33,7 +33,7 @@
         </div>
 
     <div *ngIf="materialcollection.books && (materialcollection.books.length > 0)">
-     
+      <!-- Length: {{ materialcollection.books.length }} -->
             <books [books]="materialcollection.books"></books>
 
             <!-- <div *ngFor="let bookObject of materialcollection.books">
@@ -44,5 +44,30 @@
 </div>
 
 <div *ngIf='displayModal' class='modal'>
-    <modal [modalURL]='modalURL'></modal>
+    <modal [modalURL]='modalURL' (closeMe)="closeModal($event)"></modal>
+
+    <!-- <modal  title="Modal title"
+        cancelButtonLabel="cancel"
+        submitButtonLabel="submit"
+        modalClass="modal-lg modal-sm any-other-css-class"
+        [hideCloseButton]="true|false"
+        [closeOnEscape]="true|false"
+        [closeOnOutsideClick]="true|false"
+        (onOpen)="actionOnOpen()"
+        (onClose)="actionOnClose()"
+        (onSubmit)="actionOnSubmit()">
+ 
+    <modal-header>
+        Modal header content goes there.
+    </modal-header>
+ 
+    <modal-content>
+        Modal body content goes there.
+    </modal-content>
+ 
+    <modal-footer>
+        Modal footer content goes there.
+    </modal-footer>
+        
+</modal> -->
     </div>

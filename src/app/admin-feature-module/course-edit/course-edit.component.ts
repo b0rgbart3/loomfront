@@ -269,7 +269,7 @@ export class CourseEditComponent implements OnInit {
 
                     const matObj = this.course.sections[sectionNumber].materials[j];
                  //   console.log('mat: ' + JSON.stringify(matObj));
-
+                    if (matObj) {
                     const foundObj = this.materials.find( materialObject => (materialObject.id === matObj['material'] ) );
 
                     if (foundObj) {
@@ -278,6 +278,7 @@ export class CourseEditComponent implements OnInit {
                             extractedArray.push(foundObj);
                         }
                     }
+                  }
                     // if (this.course.sections[sectionNumber].materials[j]['type'] === type) {
                     //     // found one
                     //     const foundObject = this.course.sections[sectionNumber].materials[j];
@@ -312,10 +313,10 @@ export class CourseEditComponent implements OnInit {
         this.extractedBlocks[sectionNumber] = [];
         this.extractedBlocks[sectionNumber] = this.extract(sectionNumber, 'block');
 
-        console.log('extractedBook Count: ' + this.extractedBooks[sectionNumber].length);
-        console.log('extracted books: ' + JSON.stringify(this.extractedBooks[sectionNumber]));
-        console.log('extractedDoc Count: ' + this.extractedDocs[sectionNumber].length);
-        console.log('extracted docs: ' + JSON.stringify( this.extractedDocs[sectionNumber] ) );
+        // console.log('extractedBook Count: ' + this.extractedBooks[sectionNumber].length);
+        // console.log('extracted books: ' + JSON.stringify(this.extractedBooks[sectionNumber]));
+        // console.log('extractedDoc Count: ' + this.extractedDocs[sectionNumber].length);
+        // console.log('extracted docs: ' + JSON.stringify( this.extractedDocs[sectionNumber] ) );
 
        }
 

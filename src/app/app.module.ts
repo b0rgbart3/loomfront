@@ -18,7 +18,7 @@ import { CourseService } from './courses/course.service';
 import { ClassService } from './classes/class.service';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
-import { SafeUrlPipe } from './shared/safe-url.pipe';
+import { SafePipe } from './shared/safe.pipe';
 import { MaterialService } from './services/material.service';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
@@ -78,7 +78,6 @@ import { ModalComponent } from './materials/modal/modal.component';
     DynamicFormComponent,
     DynamicFormQuestionComponent,
     NavBarComponent,
-    SafeUrlPipe,
     LoginComponent,
     CourseListComponent,
     CourseImageComponent,
@@ -103,7 +102,8 @@ import { ModalComponent } from './materials/modal/modal.component';
     BookComponent,
     MaterialCollectionComponent,
     QuoteComponent,
-    ModalComponent,
+    SafePipe,
+    ModalComponent
 
   ],
   providers: [
