@@ -14,12 +14,16 @@ import { RouterLinkWithHref } from '@angular/router';
 export class MaterialCollectionComponent implements OnInit {
     @Input() materialcollection: MaterialCollection;
 
+    displayModal: boolean;
+    modalURL: string;
 
 
     constructor( private globals: Globals) {    }
 
     ngOnInit() {
 
+      this.displayModal = false;
+      this.modalURL = '';
 
         if (this.materialcollection.docs) {
           //  console.log('found documents :' + this.materialcollection.docs.length);
@@ -38,6 +42,9 @@ export class MaterialCollectionComponent implements OnInit {
     }
 
   open_modal(URL) {
-      window.open(URL, '_blank');
+     // window.open(URL, '_blank');
+
+     this.displayModal = true;
+     this.modalURL = URL;
   }
 }

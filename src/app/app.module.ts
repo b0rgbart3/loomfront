@@ -61,6 +61,7 @@ import { BookComponent } from './materials/books/books/book.component';
 import { QuoteComponent } from './materials/quote/quote.component';
 import { SharedModule } from './shared/shared.module';
 import { AdminFeatureModule } from './admin-feature-module/admin-feature.module';
+import { ModalComponent } from './materials/modal/modal.component';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import { AdminFeatureModule } from './admin-feature-module/admin-feature.module'
     BookComponent,
     MaterialCollectionComponent,
     QuoteComponent,
+    ModalComponent,
 
   ],
   providers: [
