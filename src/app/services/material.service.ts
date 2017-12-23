@@ -180,6 +180,13 @@ export class MaterialService {
             case 'audio':
               audios.push(materialsArray[i]);
               break;
+            case 'quote':
+              console.log('found a quote.');
+              quotes.push(materialsArray[i]);
+              break;
+            case 'block':
+              blocks.push(materialsArray[i]);
+              break;
           }
         }
         // if (materialsArray[i]) {
@@ -197,7 +204,9 @@ export class MaterialService {
 //      }
       }
 
-      const sortedMaterials = new MaterialCollection(videos, docs, books, audios, quotes, blocks);
+      const sortedMaterials = new MaterialCollection(videos, docs, books, audios, blocks, quotes);
+      console.log('quotes: ' + JSON.stringify(quotes));
+      console.log('Sorted Mats: ' + JSON.stringify(sortedMaterials.quotes));
       return sortedMaterials;
 
     }

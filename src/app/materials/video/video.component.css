@@ -1,12 +1,20 @@
 
 .videoBox {
-    width:55%;
+    width:45%;
     display:inline-block;
-    margin-right:14px;
+    margin-right:2%;
     background-size:120%;
     margin-bottom:1em;
     overflow: hidden;
-   
+   margin-left:6%;
+   transition:all 1s;
+}
+
+.theatreBox {
+    width:100%;
+    display:block;
+    margin-bottom:14px;
+    transition:all 1s;
 }
 
 .introImage {
@@ -34,12 +42,23 @@ video {
     display:inline-block;
     text-align: left;
     vertical-align: top;
-    max-width:39%;
+    width:30%;
     border:1px solid rgba(0,0,0,0);
-   
+    margin-right:6%;
+    margin-left:2%;
 }
 
-.videoDeets h1 {
+.theatreDeets {
+    padding:20px;
+    display:block;
+    text-align: left;
+    vertical-align: top;
+    border:1px solid rgba(0,0,0,0);
+    padding-left:6%;
+    padding-right:6%;
+}
+
+ h1 {
     padding:0;
     margin:0;
     line-height: 1.07em;
@@ -49,7 +68,7 @@ video {
     letter-spacing: -.05em;
 }
 
-.videoDeets p {
+ p {
     font-family: Muli;
     font-size:.9em;
     line-height: 2em !important;
@@ -77,14 +96,58 @@ video {
     overflow: hidden;
 }
 
+.theatreIcon {
+    overflow: visible;
+    z-index: 300;
+    display:inline-block;
+    float:right;
+    position: relative;
+    background-color:black;
+    top:-51px;
+    width:19.8%;
+    user-select: none;
+    cursor:pointer;
+    color:white;
+    background-image:url('../../../assets/images/expand.svg');
+    background-size:30px 30px;
+    background-position: 50% 50%;
+    background-repeat:no-repeat;
+    border:2px solid black;
+    height:48px;
+    border-top:1px solid black;
+}
+
+.controlWrapper {
+    border:2px solid orange;
+    width:100%;
+}
+vg-fullscreen {
+    width:140px;
+}
+vg-volume {
+    padding-right:2%;
+}
+
+vg-controls {
+    background-color:black;
+    outline:none;
+    width:80%;
+    border-top:1px solid black;
+}
+vg-controls:focus {
+    outline:none;
+    padding-right:10px;
+}
+
+
 @media screen and (max-width: 840px) {
     .videoDeets { 
         display:block;
-        width:100%;
-        max-width:100%;
-
+        width:84%;
+        padding-left:6%;
+        padding-right:6%;
     }
-    .videoDeets h1 {
+    h1 {
         text-align: center;
     }
     .videoBox {

@@ -12,9 +12,6 @@ import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
 import {VgAPI} from 'videogular2/core';
 
-const MATERIAL_PATH = 'http://localhost:3100/materialfiles/';
-
-
 
 @Component({
     moduleId: module.id,
@@ -36,6 +33,8 @@ export class VideoComponent implements OnInit {
     api: VgAPI;
     started: boolean;
     videoSource: string;
+    videoBoxClass: string;
+    videoDeetsClass: string;
 
     @Input() videoObject: Material;
     constructor( private globals: Globals ) {
@@ -75,11 +74,23 @@ export class VideoComponent implements OnInit {
         '/' + this.videoObject.image + ')';
         this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image;
         this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file;
+        this.videoBoxClass = 'videoBox';
+        this.videoDeetsClass = 'videoDeets';
     }
 
     playVideo( index ) {
       //  console.log('About to play video: ' + index);
         this.videoPlaying = index;
         this.playing = true;
+    }
+
+    theatre() {
+        if (this.videoBoxClass === 'videoBox') {
+        this.videoBoxClass = 'theatreBox';
+        this.videoDeetsClass = 'theatreDeets';
+    } else {
+            this.videoBoxClass = 'videoBox';
+            this.videoDeetsClass = 'videoDeets';
+        }
     }
 }

@@ -1,6 +1,7 @@
 
 <div class='videoContainer group' *ngIf='videoObject'>
-  <div class='videoBox'>
+  <div [class]='videoBoxClass'>
+
     <!-- <div class='introImage'
   [ngStyle]="{ 'background-image': backgroundImage}" (click)="playVideo(i)" *ngIf="!playing">
   <div class='centerPlay' *ngIf="!playing"></div></div> -->
@@ -27,6 +28,7 @@
     <vg-buffering></vg-buffering>
 
     <vg-controls *ngIf="!playing && started">
+           
         <vg-play-pause></vg-play-pause>
         <!-- <vg-playback-button></vg-playback-button> -->
 
@@ -46,9 +48,9 @@
         <vg-mute></vg-mute>
         <vg-volume></vg-volume>
 
-        <vg-fullscreen></vg-fullscreen>
+        <!-- <vg-fullscreen></vg-fullscreen> -->  
     </vg-controls>
-
+  
     <video [vgMedia]="master" #master id="masterVideo" [vgMaster]='true' preload="auto" crossorigin
       [poster]='posterImage'>
     
@@ -59,11 +61,11 @@
 
 
 <!-- </div> -->
-
+<div class='theatreIcon' *ngIf='started && !playing' (click)='theatre()'></div>
 </div>
 
 
-<div class='videoDeets'>
+<div [class]='videoDeetsClass'>
     <h1>{{videoObject.title}}</h1>
     <p>{{videoObject.description}}</p>
 </div>

@@ -1,0 +1,11 @@
+
+<div *ngIf="materialcollection">
+
+    <div *ngIf="materialcollection.quotes">
+        
+        <div *ngFor='let quote of materialcollection.quotes'>
+            <div class='pullQuote'>{{ quote.content }}</div>
+            <p> {{ quote.author}} </p>
+        </div>
+    </div>
+</div>

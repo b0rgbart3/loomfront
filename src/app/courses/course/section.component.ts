@@ -140,8 +140,8 @@ export class SectionComponent implements OnInit, OnChanges {
                         // so now we can sort them.
                        const sortedMaterials = this.materialService.sortMaterials(this.materials);
                         this.materialCollection = sortedMaterials;
-                       // console.log('Done sorting the materials');
-                       // console.log(JSON.stringify(this.materialCollection));
+                       console.log('Done sorting the materials');
+                       console.log(JSON.stringify(this.materials));
 
                     }
 

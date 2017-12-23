@@ -58,6 +58,7 @@ import { MaterialCollectionComponent } from './materials/material-collection/mat
 import { VideoComponent } from './materials/video/video.component';
 import { BooksComponent } from './materials/books/books/books.component';
 import { BookComponent } from './materials/books/books/book.component';
+import { QuoteComponent } from './materials/quote/quote.component';
 import { SharedModule } from './shared/shared.module';
 import { AdminFeatureModule } from './admin-feature-module/admin-feature.module';
 
@@ -100,6 +101,7 @@ import { AdminFeatureModule } from './admin-feature-module/admin-feature.module'
     BooksComponent,
     BookComponent,
     MaterialCollectionComponent,
+    QuoteComponent,
 
   ],
   providers: [
