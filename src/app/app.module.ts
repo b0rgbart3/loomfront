@@ -62,7 +62,7 @@ import { QuoteComponent } from './materials/quote/quote.component';
 import { SharedModule } from './shared/shared.module';
 import { AdminFeatureModule } from './admin-feature-module/admin-feature.module';
 import { ModalComponent } from './materials/modal/modal.component';
-
+import { EmbedVideo } from 'ngx-embed-video';
 
 @NgModule({
   // External
@@ -71,6 +71,7 @@ import { ModalComponent } from './materials/modal/modal.component';
     SharedModule,
     AdminFeatureModule,
     FacebookModule.forRoot(),
+    EmbedVideo.forRoot()
   ],
   // Internal
   declarations: [

@@ -1,6 +1,10 @@
 
 <div class='videoContainer group' *ngIf='videoObject'>
-  <div [class]='videoBoxClass'>
+
+        <div *ngIf='externalVideo'>
+                <div [innerHtml]="iframe_html"></div>
+        </div>
+  <div [class]='videoBoxClass' *ngIf='!externalVideo'>
 
     <!-- <div class='introImage'
   [ngStyle]="{ 'background-image': backgroundImage}" (click)="playVideo(i)" *ngIf="!playing">
@@ -56,6 +60,7 @@
     
          <source [src]='videoSource' type='video/mp4'>
       </video>
+
 </vg-player>
 
 

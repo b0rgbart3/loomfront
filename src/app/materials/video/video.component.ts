@@ -14,6 +14,7 @@ import {VgAPI} from 'videogular2/core';
 
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
+import { EmbedVideoService } from 'ngx-embed-video';
 
 @Component({
     moduleId: module.id,
@@ -23,6 +24,7 @@ import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sani
 })
 
 export class VideoComponent implements OnInit {
+
 
     public icon: string;
     public reference: string;
@@ -37,10 +39,12 @@ export class VideoComponent implements OnInit {
     videoSource: SafeResourceUrl;
     videoBoxClass: string;
     videoDeetsClass: string;
-    safeVideoSource: SafeResourceUrl;
+    externalVideo: boolean;
+    iframe_html: any;
 
     @Input() videoObject: Material;
-    constructor( private globals: Globals, private domSanitizer: DomSanitizer ) {
+    constructor( private globals: Globals, private domSanitizer: DomSanitizer,
+        private embedService: EmbedVideoService ) {
 
     }
 
@@ -71,7 +75,7 @@ export class VideoComponent implements OnInit {
     ngOnInit() {
         this.playing = false;
         this.started = false;
-        this.safeVideoSource = null;
+        this.externalVideo = false;
       //  console.log('Video Object: ');
       //  console.log(JSON.stringify(this.videoObject) );
         this.backgroundImage = 'url('  + this.globals.materialimages + '/' + this.videoObject.id  +
@@ -79,9 +83,15 @@ export class VideoComponent implements OnInit {
         this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image;
         if (this.videoObject.contenturl) {
             console.log('my dirty url: ' + this.videoObject.contenturl);
-            this.videoSource = this.cleanUpMyURL(this.videoObject.contenturl);
+            // this.videoSource = this.videoObject.contenturl; // this.cleanUpMyURL(this.videoObject.contenturl);
+            // console.log(this.videoSource);
+            this.externalVideo = true;
+            this.iframe_html = this.embedService.embed('https://youtu.be/1myxBzwbVnI', { query: { modestbranding : 1,
+        showinfo: 0, controls: 0 } });
+            console.log('treated: ' + this.embedService.embed(this.videoObject.contenturl));
             // <string> this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoObject.contenturl);
         } else {
+            this.externalVideo = false;
         this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file; }
         this.videoBoxClass = 'videoBox';
         this.videoDeetsClass = 'videoDeets';
