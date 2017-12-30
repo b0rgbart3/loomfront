@@ -81,18 +81,22 @@ export class VideoComponent implements OnInit {
         this.backgroundImage = 'url('  + this.globals.materialimages + '/' + this.videoObject.id  +
         '/' + this.videoObject.image + ')';
         this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image;
-        if (this.videoObject.contenturl) {
-            console.log('my dirty url: ' + this.videoObject.contenturl);
-            // this.videoSource = this.videoObject.contenturl; // this.cleanUpMyURL(this.videoObject.contenturl);
-            // console.log(this.videoSource);
-            this.externalVideo = true;
-            this.iframe_html = this.embedService.embed('https://youtu.be/1myxBzwbVnI', { query: { modestbranding : 1,
-        showinfo: 0, controls: 0 } });
-            console.log('treated: ' + this.embedService.embed(this.videoObject.contenturl));
-            // <string> this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoObject.contenturl);
-        } else {
+        // if (this.videoObject.contenturl) {
+        //     console.log('my dirty url: ' + this.videoObject.contenturl);
+        //     // this.videoSource = this.videoObject.contenturl; // this.cleanUpMyURL(this.videoObject.contenturl);
+        //     // console.log(this.videoSource);
+        //     this.externalVideo = true;
+        //     this.iframe_html = this.embedService.embed('https://youtu.be/1myxBzwbVnI', {
+        //         query: { modestbranding : 0,
+        //                  showinfo: 0,
+        //                  fs: 0,
+        //                  fullscreen: 0,
+        //                  controls: 1 } });
+        //     console.log('treated: ' + this.embedService.embed(this.videoObject.contenturl));
+        //     // <string> this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoObject.contenturl);
+        // } else {
             this.externalVideo = false;
-        this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file; }
+        this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file; // }
         this.videoBoxClass = 'videoBox';
         this.videoDeetsClass = 'videoDeets';
     }

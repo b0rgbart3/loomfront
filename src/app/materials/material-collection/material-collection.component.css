@@ -14,11 +14,25 @@
 
 .documentWrap {
     width:200px;
-    border:1px solid rgba(0,0,0,.5);
+    margin:0;
+    border-left:2px solid rgba(0,0,0,.3);
     border-top:0;
     border-bottom:0;
     padding:10px;
+    padding-bottom:30px;
     display:inline-block;
+    vertical-align: top;
+    height:300px;
+}
+
+.endPiece {
+    width:1px;
+    height:300px;
+    display:inline-block;
+    vertical-align: top;
+    border-right:2px solid rgba(0,0,0,.3);
+    padding-top:10px;
+    padding-bottom:30px;
 }
 
 .documentWrap h1 {
@@ -28,6 +42,13 @@
     letter-spacing: -.05em;
 }
 
+.documentWrap h2 {
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    font-size:.9em;
+    letter-spacing: -.05em;
+    color:rgba(0,0,0,.3);
+}
 .documentWrap p {
     font-family: 'Muli';
     font-size:.9em;

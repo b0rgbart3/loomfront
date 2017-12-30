@@ -9,9 +9,17 @@
         </div>
     </div>
 
+    <div *ngIf="materialcollection.audios">
+     
+        <div *ngFor="let audioObject of materialcollection.audios; let i = index" class='audioWrap'>
+            
+            <audio-component [audioObject]="audioObject"></audio-component>
+        </div>
+    </div>
+
     <div *ngIf="materialcollection.docs">
           
-            <div *ngFor="let documentObject of materialcollection.docs"
+            <div *ngFor="let documentObject of materialcollection.docs; let i = index"
              class='documentWrap'>
            
                 <!-- <a [href]="documentObject.fileURL" target='_blank'> -->
@@ -24,12 +32,14 @@
 
                 <div class='documentImage'  *ngIf="!documentObject.imageURL"></div>
                 <h1>{{documentObject.title}}</h1>
+                <h2>{{documentObject.author}}</h2>
                 <!-- <p>{{ documentObject.fileURL }}</p> -->
                 <p>{{ documentObject.description }}</p>
             </div>
+           
         <!-- </a> -->
               
-            </div>
+            </div> <div class='endPiece'></div>
         </div>
 
     <div *ngIf="materialcollection.books && (materialcollection.books.length > 0)">

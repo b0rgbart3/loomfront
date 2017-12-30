@@ -139,9 +139,6 @@ vg-controls:focus {
     padding-right:10px;
 }
 
-.ytp-chrome-controls .ytp-button.ytp-youtube-button {
-    display:none !important;
-}
 
 @media screen and (max-width: 840px) {
     .videoDeets { 

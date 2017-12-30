@@ -24,7 +24,7 @@
                 <input matInput [placeholder]="contentPlaceholder" name="content" id='content' formControlName='content'>
                 </mat-form-field></div>
 
-    <mat-form-field *ngIf="type==='book' || type==='doc' || type==='quote'">
+    <mat-form-field *ngIf="type==='book' || type==='doc' || type==='quote' || type==='audio' || type==='video'">
         <input matInput placeholder="Author" name='author' id='author' formControlName='author'>
     </mat-form-field>
 

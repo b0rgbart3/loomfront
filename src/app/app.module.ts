@@ -63,6 +63,7 @@ import { SharedModule } from './shared/shared.module';
 import { AdminFeatureModule } from './admin-feature-module/admin-feature.module';
 import { ModalComponent } from './materials/modal/modal.component';
 import { EmbedVideo } from 'ngx-embed-video';
+import { AudioComponent } from './materials/audio/audio.component';
 
 @NgModule({
   // External
@@ -104,7 +105,8 @@ import { EmbedVideo } from 'ngx-embed-video';
     MaterialCollectionComponent,
     QuoteComponent,
     SafePipe,
-    ModalComponent
+    ModalComponent,
+    AudioComponent
 
   ],
   providers: [
