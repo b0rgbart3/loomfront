@@ -38,8 +38,14 @@
                    
                      <div class="upload-wrap">
                         Upload New Avatar Image
-                        <input type="file" class="upload-btn"  name="avatar"  
+
+                        <!-- <input type="file" class="upload-btn"  name="avatar"  
                         ng2FileSelect [uploader]="uploader" formControlName="avatar"
+                        (change)="fileChange($event)" id="avatar">
+
+                         -->
+                        <input type="file" class="upload-btn"  name="avatar"  
+                        ng2FileSelect formControlName="avatar"
                         (change)="fileChange($event)" id="avatar">
                     </div>
                         
