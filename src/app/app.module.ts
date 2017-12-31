@@ -43,7 +43,7 @@ import { ChatSocketService } from './services/chatsocket.service';
 import { InfobotComponent } from './infobot/infobot.component';
 import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
-import { MaterialComponent } from './materials/material.component';
+// import { MaterialComponent } from './materials/material.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 import { SectionResolver } from './services/section-resolver.service';
 import { Globals } from './globals';

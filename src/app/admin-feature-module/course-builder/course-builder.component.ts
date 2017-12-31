@@ -22,7 +22,7 @@ bookCount: number;
 errorMessage: string;
 
 data: MaterialCollection;
-
+types: any[];
 
 constructor (
 private courseService: CourseService,
@@ -39,6 +39,8 @@ ngOnInit() {
   this.getCourses();
 
   this.globals.materialTypes.map( type => this.getAssets(type.type));
+
+  this.types = this.globals.materialTypes;
 }
 
 getCourses() {

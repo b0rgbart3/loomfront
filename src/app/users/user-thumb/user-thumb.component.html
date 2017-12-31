@@ -6,7 +6,7 @@
 <img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'>
 </a></div>
 
-<div *ngIf='!thumbnail.editable && thumbnail.user'>
+<div *ngIf='!thumbnail.editable && (thumbnail.user !== undefined)'>
   <img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'
   [ngStyle]="{ 'width': thumbnail.size, 'height':thumbnail.size }">
 </div>

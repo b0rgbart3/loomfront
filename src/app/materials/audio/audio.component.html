@@ -1,7 +1,7 @@
 <h1>{{ audioObject.title }}</h1>
 <h2>{{ audioObject.author }}</h2>
 <p>{{ audioObject.description }}</p>
-<audio controls controlsList="nodownload"  (contextmenu)="onRightClick($event)">
+<audio controls controlsList="nodownload"  (contextmenu)="onRightClick()">
 
         <source [src]="audioSource" type="audio/mpeg">
       Your browser does not support the audio element.

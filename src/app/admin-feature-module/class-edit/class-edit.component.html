@@ -11,7 +11,13 @@
         </mat-form-field>
 
         <mat-form-field>
-        <mat-select placeholder="Coursework for this class" name="course" formControlName='course' [(value)]="selected">
+
+                <!-- <mat-select placeholder="Coursework for this class" name="course"
+                formControlName='course' [(value)]="selected"> -->
+
+
+        <mat-select placeholder="Coursework for this class" name="course"
+          formControlName='course'>
             <mat-option>None</mat-option>
             <mat-option *ngFor="let course of courseSelections" [value]="course.value" ng-selected="course.value">
         {{ course.viewValue }}
