@@ -5,7 +5,7 @@ import { RegisterComponent } from './users/register/register.component';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 // import { ProfileComponent } from './users/profile.component';
-import { ContactListComponent } from './contacts/contact-list/contact-list.component';
+// import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
