@@ -4,9 +4,7 @@ import { Course } from '../models/course.model';
 import { MaterialService } from '../services/material.service';
 import { Material } from '../models/material.model';
 import { Section } from '../models/section.model';
-const MATERIAL_PATH = 'http://localhost:3100/materialfiles/';
-
-
+import { Globals } from '../globals';
 
 @Component({
     moduleId: module.id,
@@ -22,7 +20,7 @@ export class MaterialComponent implements OnInit {
     public iconref: string;
 
     @Input() material: Material;
-    constructor() {
+    constructor(private globals: Globals) {
 
     }
 
@@ -30,7 +28,7 @@ export class MaterialComponent implements OnInit {
         if (this.material.contenturl) {
             this.reference = this.material.contenturl;
          } else {
-             this.reference = MATERIAL_PATH + this.material.id + '/' + this.material.file;
+             this.reference = this.globals.materialfiles + this.material.id + '/' + this.material.file;
          }
 
         if (this.material.type) {
