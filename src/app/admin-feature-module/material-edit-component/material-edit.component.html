@@ -45,8 +45,13 @@
 <div class='choice2'>
     <div class="upload-wrap">
         Upload Document
-        <input type="file" class="upload-btn"  name="file"  
+
+        <!-- <input type="file" class="upload-btn"  name="file"  
         ng2FileSelect [uploader]="fileUploader" formControlName="fileUploader"
+        (change)="fileChange($event)" id="file"> -->
+
+        <input type="file" class="upload-btn"  name="file"  
+        ng2FileSelect formControlName="fileUploader"
         (change)="fileChange($event)" id="file">
     </div>
     File:  {{ file }}<br><br>
