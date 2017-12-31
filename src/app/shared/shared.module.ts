@@ -66,7 +66,6 @@ import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
         VgBufferingModule,
         CustomMaterialModule,
         UserThumbComponent,
-        FileSelectDirective,
         Error404Component,
         WelcomeComponent,
         ClassListComponent,
