@@ -19,6 +19,7 @@ import { ClassThumbComponent } from '../classes/class-list/class-thumb.component
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { ClassResolver } from '../services/class-resolver.service';
 import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 
 @NgModule ( {
@@ -44,7 +45,8 @@ import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
         ClassListComponent,
         ClassThumbComponent,
         ImageUploaderComponent,
-        ClickOutsideDirective
+        ClickOutsideDirective,
+        PageNotFoundComponent
     ],
     providers: [
         ClassResolver,
