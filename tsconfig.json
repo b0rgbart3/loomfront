@@ -13,7 +13,7 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "lib": [
+    "lib": ["es5", "dom",
       "es2017",
       "dom"
     ]
