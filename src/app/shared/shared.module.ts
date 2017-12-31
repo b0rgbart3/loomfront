@@ -12,7 +12,6 @@ import { VgControlsModule } from 'videogular2/src/controls/controls';
 import { VgOverlayPlayModule } from 'videogular2/src/overlay-play/overlay-play';
 import { VgBufferingModule } from 'videogular2/src/buffering/buffering';
 import { UserThumbComponent } from '../users/user-thumb/user-thumb.component';
-import { FileSelectDirective } from 'ng2-file-upload';
 import { Error404Component } from '../errors/404component';
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { ClassListComponent } from '../classes/class-list/class-list.component';
@@ -40,7 +39,6 @@ import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
     ],
     declarations: [
         UserThumbComponent,
-        FileSelectDirective,
         Error404Component,
         WelcomeComponent,
         ClassListComponent,
