@@ -61,8 +61,14 @@
 
 <div class="upload-wrap" *ngIf="type!=='quote'">
     Include Thumbnail Image
-    <input type="file" class="upload-btn"  name="image"  
+
+    <!-- <input type="file" class="upload-btn"  name="image"  
     ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
+    (change)="imageChange($event)" id="image">
+
+     -->
+    <input type="file" class="upload-btn"  name="image"  
+    ng2FileSelect formControlName="imageUploader"
     (change)="imageChange($event)" id="image">
 </div>
 
