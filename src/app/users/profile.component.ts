@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+// import { Component, OnInit } from '@angular/core';
 
-@Component({
-  selector: 'users',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
-})
+// @Component({
+//   selector: 'users',
+//   templateUrl: './profile.component.html',
+//   styleUrls: ['./profile.component.css'],
+// })
 
-export class ProfileComponent {}
+// export class ProfileComponent {}
