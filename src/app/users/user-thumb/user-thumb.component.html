@@ -3,7 +3,7 @@
 
 <div *ngIf='thumbnail.editable'>
 <a [routerLink]="['/usersettings', thumbnail.user.id, 'edit']">
-<img [src]="thumbnail.user.avatar_URL" *ngIf='thumbnail.user.avatar_URL'>
+<img [src]="avatarImageURL" *ngIf='avatarImageURL'>
 </a></div>
 
 <div *ngIf='!thumbnail.editable && (thumbnail.user !== undefined)'>

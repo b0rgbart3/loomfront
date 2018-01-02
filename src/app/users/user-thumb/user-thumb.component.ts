@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Userthumbnail } from '../../models/userthumbnail.model';
+import { Globals } from '../../globals';
 
 @Component({
   selector: 'user-thumb',
@@ -19,7 +20,9 @@ export class UserThumbComponent implements OnInit {
   errorMessage: string;
   inClass: string;
 
-  constructor ( private userService: UserService) { }
+  avatarImageURL: string;
+
+  constructor ( private userService: UserService, private globals: Globals) { }
 
   ngOnInit() {
 
@@ -35,8 +38,11 @@ export class UserThumbComponent implements OnInit {
         error => this.errorMessage = <any>error);
       }
       // console.log( 'User: ' + JSON.stringify(this.user));
+
+      this.avatarImageURL = this.globals.avatars + '/' + this.thumbnail.user.id + this.thumbnail.user.avatar_filename;
     if (this.thumbnail.user && this.thumbnail.user.avatar_URL === '' ) {
-        this.thumbnail.user.avatar_URL = 'http://localhost:3100/avatars/placeholder.png';
+        this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
+        this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
   }
 

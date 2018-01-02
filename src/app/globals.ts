@@ -36,6 +36,7 @@ basepath = 'https://young-bastion-45095.herokuapp.com/';
  postmaterialfiles =  this.basepath + 'api/materialfiles';
  allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
  threads =            this.basepath + 'api/threads';
+ avatars =            this.basepath + 'avatars';
 
 //  videos =             this.basepath + 'api/videos';
 //  boosk =              this.basepath + 'api/books';
