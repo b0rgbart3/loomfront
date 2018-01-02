@@ -23,9 +23,9 @@ export class Globals {
 // basepath = 'http://localhost:3100/';
 
 // Liveserver basepath:
-// basepath = 'https://ddworks.org:8000/';
+ basepath = 'https://ddworks.org:8000/';
 
-basepath = 'https://young-bastion-45095.herokuapp.com/';
+// basepath = 'https://young-bastion-45095.herokuapp.com/';
 
  postcourseimages =   this.basepath + 'api/courseimages';
  courseimages =       this.basepath + 'courseimages';
