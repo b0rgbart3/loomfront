@@ -28,7 +28,7 @@ export class Globals {
 basepath = 'https://young-bastion-45095.herokuapp.com/';
 
  postcourseimages =   this.basepath + 'api/courseimages';
- courseimages =       this.basepath + 'api/courseimages';
+ courseimages =       this.basepath + 'courseimages';
  materials =          this.basepath + 'api/materials';
  postmaterialimages = this.basepath + 'api/materialimages';
  materialimages =     this.basepath + 'materialimages';
