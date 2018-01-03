@@ -38,6 +38,7 @@ awspath = 'https://recloom.s3.amazonaws.com/';
  postmaterialfiles =  this.basepath + 'api/materialfiles';
  allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
  threads =            this.basepath + 'api/threads';
+ postavatars =        this.basepath + 'api/avatars';
  avatars =            this.awspath + 'avatars';
 
 //  videos =             this.basepath + 'api/videos';

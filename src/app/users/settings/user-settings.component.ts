@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, DoCheck, AfterViewChecked, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
 import { Validators } from '@angular/forms';
+import { Globals } from '../../globals';
 
 @Component({
     moduleId: module.id,
@@ -40,7 +41,8 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         private router: Router,
         private _flashMessagesService: FlashMessagesService,
         private activated_route: ActivatedRoute,
-        private sanitizer: DomSanitizer, private fb: FormBuilder) {}
+        private sanitizer: DomSanitizer, private fb: FormBuilder,
+        private globals: Globals) {}
 
     myInit() {
                //  Here I am using the formBuilder to build my form controls
@@ -77,7 +79,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
 
 
-        const urlWithQuery = 'http://localhost:3100/api/avatar?userid=' + this.currentUserId;
+        const urlWithQuery = this.globals.postavatars + '?userid=' + this.currentUserId;
         this.uploader = new FileUploader({url: urlWithQuery});
         this.uploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
@@ -96,7 +98,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
             // this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
 
             // localStorage.setItem('avatarimage', this.avatarimage);
-            this.localImageUrl = 'http://localhost:3100/avatars/' + this.user.id + '/' + this.tempName;
+            this.localImageUrl = this.globals.avatars + this.user.id + '/' + this.tempName;
 
             this.uploader.queue[0].remove();
             this.positionCropper();
