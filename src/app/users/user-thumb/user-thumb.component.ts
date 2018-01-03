@@ -39,8 +39,9 @@ export class UserThumbComponent implements OnInit {
       }
       // console.log( 'User: ' + JSON.stringify(this.user));
 
-      this.avatarImageURL = this.globals.avatars + '/' + this.thumbnail.user.id + '/' + this.thumbnail.user.avatar_filename;
-    if (this.thumbnail.user && this.thumbnail.user.avatar_URL === '' ) {
+      this.avatarImageURL = this.globals.avatars + '/' +
+        this.thumbnail.user.id + '/' + this.thumbnail.user.avatar_filename;
+    if (this.thumbnail.user && this.thumbnail.user.avatar_filename === '' ) {
         this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
