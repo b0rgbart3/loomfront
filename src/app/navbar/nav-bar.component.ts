@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FacebookService } from 'ngx-facebook/dist/esm/providers/facebook';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'nav-bar',
@@ -29,7 +30,8 @@ export class NavBarComponent implements OnInit, DoCheck {
     private _router: Router,
     public userService: UserService,
     private sanitizer: DomSanitizer,
-    private FB: FacebookService
+    private FB: FacebookService,
+    private globals: Globals
   ) {
   }
 
@@ -59,6 +61,7 @@ export class NavBarComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.updateMyself();
     this.username = localStorage.getItem('username');
+    this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
   }
 
  ngDoCheck() {
