@@ -45,6 +45,10 @@ export class UserThumbComponent implements OnInit {
         this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
+    if (this.thumbnail.user.avatar_filename === undefined) {
+      this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
+        this.avatarImageURL = this.thumbnail.user.avatar_URL;
+    }
   }
 
 }
