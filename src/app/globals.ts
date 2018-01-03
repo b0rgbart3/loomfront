@@ -23,20 +23,22 @@ export class Globals {
 // basepath = 'http://localhost:3100/';
 
 // Liveserver basepath:
- basepath = 'https://ddworks.org:8000/';
+// basepath = 'https://ddworks.org:8000/';
 
-// basepath = 'https://young-bastion-45095.herokuapp.com/';
+ basepath = 'https://young-bastion-45095.herokuapp.com/';
+
+awspath = 'https://recloom.s3.amazonaws.com/';
 
  postcourseimages =   this.basepath + 'api/courseimages';
- courseimages =       this.basepath + 'courseimages';
+ courseimages =       this.awspath + 'courseimages';
  materials =          this.basepath + 'api/materials';
  postmaterialimages = this.basepath + 'api/materialimages';
- materialimages =     this.basepath + 'materialimages';
+ materialimages =     this.awspath + 'materialimages';
  materialfiles =      this.basepath + 'materialfiles';
  postmaterialfiles =  this.basepath + 'api/materialfiles';
  allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
  threads =            this.basepath + 'api/threads';
- avatars =            this.basepath + 'avatars';
+ avatars =            this.awspath + 'avatars';
 
 //  videos =             this.basepath + 'api/videos';
 //  boosk =              this.basepath + 'api/books';
