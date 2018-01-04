@@ -131,6 +131,8 @@ export class SectionComponent implements OnInit, OnChanges {
                // console.log('material count: ' + this.section.materials.length);
 
             for (let j = 0; j < this.section.materials.length; j++) {
+
+                if (this.section.materials[j]) {
                 const id = this.section.materials[j]['material'];
 
 
@@ -156,6 +158,7 @@ export class SectionComponent implements OnInit, OnChanges {
                 }
 
                 );
+              }
             }
 
        }
