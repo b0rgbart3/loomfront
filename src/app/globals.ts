@@ -25,8 +25,10 @@ export class Globals {
 // Liveserver basepath:
 // basepath = 'https://ddworks.org:8000/';
 
- basepath = 'https://young-bastion-45095.herokuapp.com/';
+// This points to the API
+basepath = 'https://young-bastion-45095.herokuapp.com/';
 
+// This points to where the images and other assets are stored
 awspath = 'https://recloom.s3.amazonaws.com/';
 
  postcourseimages =   this.basepath + 'api/courseimages';
