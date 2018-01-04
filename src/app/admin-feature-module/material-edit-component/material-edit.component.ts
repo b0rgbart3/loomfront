@@ -149,7 +149,9 @@ export class MaterialEditComponent implements OnInit {
             material => { this.material = <Material>material[0];
                 console.log('got material ' + id + ' info :' + JSON.stringify(material) );
                 this.image = this.material.image;
-                this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
+                if (this.image) {
+                  this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
+                } else { this.imageUrl = null; }
                 this.file = this.material.file;
                 this.fileUrl = this.globals.materialfiles + '/' + this.material.id + '/' + this.file;
                 this.populateForm();
