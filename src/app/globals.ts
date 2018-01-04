@@ -20,13 +20,13 @@ export class Globals {
 
 // Local paths for Development
 
-// basepath = 'http://localhost:3100/';
+ basepath = 'http://localhost:3100/';
 
 // Liveserver basepath:
 // basepath = 'https://ddworks.org:8000/';
 
 // This points to the API
-basepath = 'https://young-bastion-45095.herokuapp.com/';
+// basepath = 'https://young-bastion-45095.herokuapp.com/';
 
 // This points to where the images and other assets are stored
 awspath = 'https://recloom.s3.amazonaws.com/';
