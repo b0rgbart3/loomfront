@@ -441,6 +441,8 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             this.materials[i] = [];
             if (matArray) {
             for (let j = 0; j < matArray.length; j++) {
+
+                if (matArray[j]) {
                 const id = matArray[j]['material'];
 
                 this.materialService.getMaterial(id).subscribe(
@@ -455,6 +457,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
                 }
 
                 );
+              }
             }
           }
         }
