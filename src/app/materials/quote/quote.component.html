@@ -4,8 +4,10 @@
     <div *ngIf="materialcollection.quotes">
         
         <div *ngFor='let quote of materialcollection.quotes'>
-            <div class='pullQuote'>{{ quote.content }}</div>
-            <p> {{ quote.author}} </p>
+            <div class='pullQuote'>{{ quote.content }}
+                <p> -{{ quote.author}} </p>
+            </div>
+           
         </div>
     </div>
 </div>
