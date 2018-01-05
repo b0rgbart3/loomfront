@@ -15,13 +15,15 @@ import { ClassResolver } from '../services/class-resolver.service';
 import { UsersResolver } from '../services/users-resolver';
 import { PossibleInstructorsResolver } from '../services/possible-instructors-resolver.service';
 import { CoursesResolver } from '../services/courses-resolver.service';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
+
 
 
 
 @NgModule ( {
     imports: [
         SharedModule,
+        FileUploadModule,
         RouterModule.forChild([
             { path: 'admin', pathMatch: 'full', component: AdminComponent,
                 canActivate: [ AdminRouteActivator ] },
@@ -62,8 +64,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
        ClassEditComponent,
        CourseBuilderComponent,
        CourseEditComponent,
-       MaterialEditComponent,
-//       FileSelectDirective
+       MaterialEditComponent
 
     ],
     providers: [
