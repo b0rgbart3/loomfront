@@ -63,7 +63,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
        CourseBuilderComponent,
        CourseEditComponent,
        MaterialEditComponent,
-       FileSelectDirective
+//       FileSelectDirective
 
     ],
     providers: [
