@@ -33,8 +33,9 @@
      
                      <h1>Your Avatar Image:</h1>
 
-                   <br><img [src]="user.avatar_URL" width='200' height='200' *ngIf="user && user.avatar_URL"><br>
-                   <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br>
+                   <!-- <br><img [src]="user.avatar_URL" width='200' height='200' *ngIf="user && user.avatar_URL"><br>
+                   <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br> -->
+                   <img [src]="avatar" class="avatar">
                    
                      <div class="upload-wrap">
                         Upload New Avatar Image

@@ -34,6 +34,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     errorMessage: string;
     url: string;
     localImageUrl: string;
+    avatar: string;
 
     constructor(
         private _http: HttpClient,
@@ -64,10 +65,12 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     }
 
     ngOnInit () {
+
         const idFromURL = this.activated_route.snapshot.params['id'];
         if (idFromURL) {
             this.userService.getUser(idFromURL).subscribe(
                 user =>  {this.user = user[0];
+                    this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
                     this.myInit();
                 },
                 error => this.errorMessage = <any>error);
