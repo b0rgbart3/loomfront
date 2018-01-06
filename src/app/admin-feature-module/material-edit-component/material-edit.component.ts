@@ -173,10 +173,11 @@ export class MaterialEditComponent implements OnInit {
     }
 
     fileChange(event) {
+        console.log('File changed.');
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-            // console.log('Got a file: ' + file.name);
+            console.log('Got a file: ' + file.name);
             this.thisFile = file;
 
         }
