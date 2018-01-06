@@ -63,6 +63,7 @@ export class MaterialService {
    getMaterials( course_id ): Observable<Material[]> {
      if (course_id === 0) {
        // get a list of ALL the materials for ALL courses
+       console.log('sending get request for materials');
         return this._http.get <Material[]> (this.globals.materials).do(data => {
           this.materialCount = data.length;
           this.materials = data;
