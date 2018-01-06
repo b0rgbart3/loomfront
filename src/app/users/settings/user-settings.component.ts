@@ -76,6 +76,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
                 error => this.errorMessage = <any>error);
         } else {
             this.user = this.userService.getCurrentUser();
+            this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
             this.myInit();
         }
 
