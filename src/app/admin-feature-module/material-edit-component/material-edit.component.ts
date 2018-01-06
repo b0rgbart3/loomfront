@@ -16,7 +16,7 @@ import { Globals } from '../../globals';
 })
 
 export class MaterialEditComponent implements OnInit {
-    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '', '', '');
+    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '', '', '', '');
     materialForm: FormGroup;
     type: string;
     // types: Array<string>;
@@ -122,7 +122,8 @@ export class MaterialEditComponent implements OnInit {
             imageUploader: '',
             fileUploader: '',
             content: '',
-            author: ''
+            author: '',
+            length: ''
         });
 
         const fileurlWithQuery = this.globals.postmaterialfiles + '?id=' + this.id;

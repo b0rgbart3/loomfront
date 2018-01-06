@@ -13,6 +13,7 @@ export class Material {
       public fileURL: string,
       public content: string,
       public author: string,
+      public length: string, // time based for audio and video -- or # of pages for documents
       public owner: string   // this is the id of the user who uploaded this
   ) {}
 
