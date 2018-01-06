@@ -131,8 +131,9 @@ export class MaterialEditComponent implements OnInit {
         this.fileUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
+            console.log('About to upload');
             this.fileUploader.queue[0].upload();
-
+            console.log('Upload request sent');
         };
 
         this.fileUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
