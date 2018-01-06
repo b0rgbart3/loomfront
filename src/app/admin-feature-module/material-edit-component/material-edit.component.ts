@@ -140,8 +140,8 @@ export class MaterialEditComponent implements OnInit {
                         this.tempName = this.fileUploader.queue[0].file.name;
                         console.log('Response from the server: ' + this.tempName);
                         this.file = this.tempName;
-                        this.fileUrl = this.globals.postmaterialfiles + '/' + this.material.id + '/' + this.file;
-                        console.log('Image url: ' + this.imageUrl);
+                        this.fileUrl = this.globals.materialfiles + '/' + this.material.id + '/' + this.file;
+                        // console.log('Image url: ' + this.imageUrl);
                          this.fileUploader.queue[0].remove();
                      };
     }
@@ -177,9 +177,9 @@ export class MaterialEditComponent implements OnInit {
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-            console.log('Got a file: ' + file.name);
+            
             this.thisFile = file;
-
+            console.log('Got a file: ' + file.name);
         }
     }
 
