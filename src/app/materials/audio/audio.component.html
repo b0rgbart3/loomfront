@@ -2,6 +2,7 @@
 <h1>{{ audioObject.title }}</h1>
 <h2>{{ audioObject.author }}</h2>
 <p>{{ audioObject.description }}</p>
+<p class='length'>{{ audioObject.length }}</p>
 <audio controls controlsList="nodownload"  (contextmenu)="onRightClick()">
 
         <source [src]="audioSource" type="audio/mpeg">

@@ -58,9 +58,22 @@
     line-height: 1.4em;
     width:90%;
     margin:auto;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 .materialCollection {
     margin-top:20px;
    padding-top:20px;
 }
+
+
+.documentWrap p.length {
+    color:#888888;
+    font-weight: bold;
+    border-top:1px solid #555555;
+    margin-top:30px;
+    max-width:100px;
+    text-align: center;
+    margin-top:14px;
+  }

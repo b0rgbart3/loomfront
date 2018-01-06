@@ -188,7 +188,8 @@ export class MaterialEditComponent implements OnInit {
         'contenturl': this.material.contenturl,
         'type': this.material.type,
         'content': this.material.content,
-        'author': this.material.author
+        'author': this.material.author,
+        'length': this.material.length
      });
 
         this.file = this.material.file;

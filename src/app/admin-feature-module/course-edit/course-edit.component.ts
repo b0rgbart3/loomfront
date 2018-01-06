@@ -81,7 +81,7 @@ export class CourseEditComponent implements OnInit {
         private materialService: MaterialService, private globals: Globals ) { }
 
     ngOnInit(): void {
-        this.materialTypes = [ { 'type': 'video', 'longName': 'Vidoes', 'pluralName': 'videos' },
+        this.materialTypes = [ { 'type': 'video', 'longName': 'Videos', 'pluralName': 'videos' },
         { 'type': 'audio', 'longName' : 'Audio Files', 'pluralName' : 'audios' },
         { 'type': 'doc', 'longName' : 'PDF Documents', 'pluralName' : 'docs' },
         { 'type': 'quote', 'longName' : 'Quotations', 'pluralName' : 'quotes' },
