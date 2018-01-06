@@ -1,11 +1,12 @@
-h1 {
+.bookCollection > h1 {
     font-family: 'Josefin Sans';
     font-weight:400;
     font-size:1.4em;
     text-transform: uppercase;
-
     padding-bottom:0;
     margin-top:20px;
+    font-weight: 400;
+    letter-spacing: -.05em;
 }
 
 .bookCollection {

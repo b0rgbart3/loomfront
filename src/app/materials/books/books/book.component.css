@@ -87,3 +87,21 @@
     background-color:#888888;
     border:2px solid black;
 }
+
+.bookInfoContainer > h1 {
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: -.05em;
+    margin-bottom:0;
+    font-size:1em;
+}
+
+.bookInfoContainer > h2 {
+  font-family: 'Muli';
+  text-transform: uppercase;
+  margin-bottom:0;
+  color:#888888;
+  font-size:.94em;
+  margin-top:10px;
+}

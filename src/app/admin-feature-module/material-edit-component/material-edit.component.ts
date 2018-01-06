@@ -137,10 +137,10 @@ export class MaterialEditComponent implements OnInit {
 
         this.fileUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
                         this.tempName = this.fileUploader.queue[0].file.name;
-                       // console.log('Response from the server: ' + this.tempName);
+                        console.log('Response from the server: ' + this.tempName);
                         this.file = this.tempName;
                         this.fileUrl = this.globals.postmaterialfiles + '/' + this.material.id + '/' + this.file;
-                        // console.log('Image url: ' + this.imageUrl);
+                        console.log('Image url: ' + this.imageUrl);
                          this.fileUploader.queue[0].remove();
                      };
     }
