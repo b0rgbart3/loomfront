@@ -1,8 +1,12 @@
 <div class='blocker'>
     <div class='closer' (click)='close()'></div>
-    <iframe [src]='modalURL | safe'>
+    <!-- <iframe [src]='modalURL | safe'>
 
-    </iframe>
+    </iframe> -->
+
+
+    <iframe [src]="modalURL | safe" 
+    style="width:600px; height:500px;" frameborder="0"></iframe>
 
     <!-- <object [data]="modalURL | safe" type="application/pdf">
         <embed [src]="modalURL | safe" type="application/pdf" />
