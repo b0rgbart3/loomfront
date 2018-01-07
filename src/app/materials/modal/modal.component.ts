@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export class ModalComponent implements OnInit {
     @Input() modalURL: string;
-    @Output() closeModal = new EventEmitter<boolean>();
+    @Output() closeMe = new EventEmitter<boolean>();
     safeURL: any;
 
     constructor( private globals: Globals, private domSanitizer: DomSanitizer) {    }
@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit {
 
     close() {
         console.log('emitting a closeMe truth.');
-        this.closeModal.emit(true);
+        this.closeMe.emit(true);
     }
 
 }
