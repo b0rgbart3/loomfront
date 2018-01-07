@@ -4,8 +4,8 @@
 
     </iframe> -->
 
-    <object [data]="modalURL" type="application/pdf">
-        <embed [src]="modalURL" type="application/pdf" />
+    <object [data]="modalURL | safe" type="application/pdf">
+        <embed [src]="modalURL | safe" type="application/pdf" />
       </object>
 
 </div>
