@@ -19,7 +19,7 @@ export class ModalComponent implements OnInit {
     constructor( private globals: Globals) {    }
 
     ngOnInit() {
-        this.modalURL = this.modalURL + '&embedded=true';
+        this.modalURL = this.modalURL;
 
     }
 
