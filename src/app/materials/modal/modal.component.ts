@@ -17,9 +17,11 @@ export class ModalComponent implements OnInit {
     safeURL: any;
 
     constructor( private globals: Globals, private domSanitizer: DomSanitizer) {    }
-
+ 
+    // 'https://docs.google.com/gview?url=' +
+    
     ngOnInit() {
-        const fullURL = 'https://docs.google.com/gview?url=' + this.modalURL + '&embeeded=true';
+        const fullURL = this.modalURL + '&embeeded=true';
         this.modalURL = <string> this.domSanitizer.bypassSecurityTrustResourceUrl(fullURL);
     }
 
