@@ -65,7 +65,8 @@ export class HomeComponent implements OnInit {
                     courses => {
                         this.courses = courses;
                         // console.log('loaded all the coureses.');
-                        this.getClassesForCurrentUser();
+                        if (this.currentUser) {
+                            this.getClassesForCurrentUser(); }
                     },
                     error => this.errorMessage = <any>error);
 
