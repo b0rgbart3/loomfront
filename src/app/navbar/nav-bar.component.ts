@@ -37,10 +37,10 @@ export class NavBarComponent implements OnInit, DoCheck {
 
   updateMyself() {
     this.currentUser = this.userService.getCurrentUser();
-    // console.log('In navbar: ' + JSON.stringify(this.currentUser));
+    console.log('In navbar: ' + JSON.stringify(this.currentUser));
     if (this.currentUser) {
       this.username = this.currentUser.username;
-      // console.log('username: ' + this.username);
+      console.log('username: ' + this.username);
     }
     if (this.currentUser && this.currentUser.admin) {
       this.admin = true;
@@ -61,7 +61,9 @@ export class NavBarComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.updateMyself();
     this.username = localStorage.getItem('username');
-    this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
+    if (this.currentUser) {
+      this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
+    }
   }
 
  ngDoCheck() {
