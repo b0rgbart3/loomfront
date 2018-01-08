@@ -19,7 +19,7 @@
     <div class="loomCard" >
             <button class='loomButton' (click)="login()" 
             *ngIf="!currentUser">Login</button>
-            <class-list></class-list>
+            <class-list *ngIf='currentUser'></class-list>
     </div>
 
     </div>
