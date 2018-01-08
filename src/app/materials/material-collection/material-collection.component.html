@@ -20,7 +20,7 @@
     <div *ngIf="materialcollection.docs">
           
             <div *ngFor="let documentObject of materialcollection.docs; let i = index"
-             class='documentWrap'>
+             class='documentWrap group'>
            
                 <!-- <a [href]="documentObject.fileURL" target='_blank'> -->
                 <div (click)='open_modal(documentObject.fileURL)'>
