@@ -91,6 +91,8 @@ export class HomeComponent implements OnInit {
     }
     getClassesForCurrentUser() {
         // console.log('getting classes for the user');
+
+        if (this.currentUser) {
         this.classService.getStudentClasses(this.currentUser.id).subscribe(
             studentClasses => { this.studentClasses = studentClasses;
                 this.loadCourseImages(); },
@@ -102,7 +104,7 @@ export class HomeComponent implements OnInit {
                 this.instructorClasses = instructorClasses;
                 this.loadCourseImagesForInstructors(); },
             error => this.errorMessage = <any>error);
-    }
+    }}
 
     // This method builds an array of Course Images for the Classes that the student is enrolled in.
     // I wish this was done in the Course Service - or Class Service - but alas, it is not.
