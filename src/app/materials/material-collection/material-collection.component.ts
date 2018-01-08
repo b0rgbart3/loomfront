@@ -30,11 +30,11 @@ export class MaterialCollectionComponent implements OnInit {
             for (let i = 0; i < this.materialcollection.docs.length; i++) {
                // console.log('document: ' + this.materialcollection.docs[i].title);
 
-                if (this.materialcollection.docs[i].image) {
+                if (this.materialcollection.docs[i].image && (this.materialcollection.docs[i].image !== undefined)) {
                   //  console.log('found an image: ' + this.materialcollection.docs[i].image);
                 this.materialcollection.docs[i].imageURL = this.globals.materialimages + '/' +
                   this.materialcollection.docs[i].id + '/' + encodeURI(this.materialcollection.docs[i].image); }
-                if (this.materialcollection.docs[i].file) {
+                if (this.materialcollection.docs[i].file && ( this.materialcollection.docs[i].file !== undefined)) {
                 this.materialcollection.docs[i].fileURL = this.globals.materialfiles + '/' +
                   this.materialcollection.docs[i].id + '/' + this.materialcollection.docs[i].file; }
             }
