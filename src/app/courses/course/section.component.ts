@@ -147,9 +147,11 @@ export class SectionComponent implements OnInit, OnChanges {
                         // if these are equal, that means we've loaded in all the material objects
                         // so now we can sort them.
                       //  console.log('this.materials length: ' + this.materials.length);
-                       const sortedMaterials = this.materialService.sortMaterials(this.materials);
-                        this.materialCollection = sortedMaterials;
-                       // console.log('Sorted books Length' + sortedMaterials.books.length);
+                
+                      //    const sortedMaterials = this.materialService.sortMaterials(this.materials);
+                    //     this.materialCollection = sortedMaterials;
+                
+                    // console.log('Sorted books Length' + sortedMaterials.books.length);
                       // console.log('Done sorting the materials');
                      //  console.log(JSON.stringify(this.materialCollection.books));
                       //  console.log(this.materialCollection.books.length);
