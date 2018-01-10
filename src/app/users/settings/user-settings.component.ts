@@ -29,7 +29,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     firstname: FormControl;
     currentUserId;
     avatarimage: string;
-    public uploader: FileUploader;
+    public avatarUploader: FileUploader;
     settingsForm: FormGroup;
     errorMessage: string;
     url: string;
@@ -84,16 +84,16 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
 
         const urlWithQuery = this.globals.postavatars + '?userid=' + this.currentUserId;
-        this.uploader = new FileUploader({url: urlWithQuery});
-        this.uploader.onAfterAddingFile = (fileItem) => {
+        this.avatarUploader = new FileUploader({url: urlWithQuery});
+        this.avatarUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
             // this.localImageUrl = url;
-            this.uploader.queue[0].upload();
+            this.avatarUploader.queue[0].upload();
          };
-         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+         this.avatarUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 
-            this.tempName = this.uploader.queue[0].file.name;
+            this.tempName = this.avatarUploader.queue[0].file.name;
             console.log('Done uploading' + JSON.stringify(this.tempName));
             console.log('USER: ' + JSON.stringify(this.user));
             alert('Your image will be cropped to fit a square aspect ratio.');
@@ -104,7 +104,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
             // localStorage.setItem('avatarimage', this.avatarimage);
             this.localImageUrl = this.globals.avatars + this.user.id + '/' + this.tempName;
 
-            this.uploader.queue[0].remove();
+            this.avatarUploader.queue[0].remove();
             this.positionCropper();
         };
 
@@ -112,7 +112,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     }
 
 
-    fileChange(event) {
+    avatarChange(event) {
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
