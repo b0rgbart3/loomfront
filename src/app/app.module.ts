@@ -75,7 +75,6 @@ import {  FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule
     FacebookModule.forRoot(),
     EmbedVideo.forRoot(),
     FileUploadModule,
-    FileSelectDirective,
   ],
   // Internal
   declarations: [
