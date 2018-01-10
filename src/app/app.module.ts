@@ -135,7 +135,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     UserService,
     AuthGuard,
     UserAuthGuard,
-    
+    FileUploadModule,
    ],
   bootstrap: [ AppComponent ]
 })
