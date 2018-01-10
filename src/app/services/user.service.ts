@@ -120,8 +120,10 @@ export class UserService implements OnInit {
     // Return an array of Users that are enrolled as instructors for this class ID
     getInstructors( class_id ): Observable <User[]> {
       if (class_id === 0) {
+        // Get All the instructors...
         return this._http.get < User[] >( this._instructorsUrl);
       }  else {
+        // get a specific instructor
       return this._http.get < User[] >( this._instructorsUrl + '?id=' + class_id);
       }
     }

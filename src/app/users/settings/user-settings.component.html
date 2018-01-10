@@ -46,7 +46,7 @@
 
                          -->
                         <input type="file" class="upload-btn"  name="avatar"  
-                        ng2FileSelect formControlName="avatar"
+                        ng2FileSelect [uploader]="avatar" formControlName="avatar"
                         (change)="fileChange($event)" id="avatar">
                     </div>
                         
