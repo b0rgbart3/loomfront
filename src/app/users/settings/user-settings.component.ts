@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router, ActivatedRoute } from '@angular/router';
-import { FileUploader} from 'ng2-file-upload';
 import { UserService } from '../../services/user.service';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, DoCheck, AfterViewChecked, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
 import { Validators } from '@angular/forms';
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Globals } from '../../globals';
 
 @Component({
