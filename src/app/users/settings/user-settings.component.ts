@@ -83,7 +83,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
 
 
-        const urlWithQuery = this.globals.postavatars + '?userid=' + this.currentUserId;
+        const urlWithQuery = this.globals.postavatars + '?userid=' + this.user.id;
         this.avatarUploader = new FileUploader({url: urlWithQuery});
         this.avatarUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
