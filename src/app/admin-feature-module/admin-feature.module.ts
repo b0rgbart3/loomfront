@@ -23,7 +23,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 @NgModule ( {
     imports: [
         SharedModule,
-       
+        FileUploadModule,
         RouterModule.forChild([
             { path: 'admin', pathMatch: 'full', component: AdminComponent,
                 canActivate: [ AdminRouteActivator ] },
