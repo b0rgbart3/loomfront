@@ -64,6 +64,7 @@ import { AdminFeatureModule } from './admin-feature-module/admin-feature.module'
 import { ModalComponent } from './materials/modal/modal.component';
 import { EmbedVideo } from 'ngx-embed-video';
 import { AudioComponent } from './materials/audio/audio.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   // External
@@ -72,7 +73,8 @@ import { AudioComponent } from './materials/audio/audio.component';
     SharedModule,
     AdminFeatureModule,
     FacebookModule.forRoot(),
-    EmbedVideo.forRoot()
+    EmbedVideo.forRoot(),
+    FileUploadModule,
   ],
   // Internal
   declarations: [
@@ -133,7 +135,7 @@ import { AudioComponent } from './materials/audio/audio.component';
     UserService,
     AuthGuard,
     UserAuthGuard,
-
+    
    ],
   bootstrap: [ AppComponent ]
 })
