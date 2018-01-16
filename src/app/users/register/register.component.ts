@@ -264,7 +264,7 @@ export class RegisterComponent implements OnInit {
                     // This is Deborah Korata's way of merging our data model with the form model
                      const combinedObject = Object.assign( {}, this.user, this.regFormGroup.value);
 
-        if (this.user.id === '0') {
+        if (this.user.id === '0' || this.user.id === undefined) {
 
           console.log('About to create a new user');
 
