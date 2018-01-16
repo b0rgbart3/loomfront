@@ -103,7 +103,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
             // this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
 
             // localStorage.setItem('avatarimage', this.avatarimage);
-            this.localImageUrl = this.globals.avatars + this.user.id + '/' + this.tempName;
+            this.localImageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.tempName;
 
             this.avatarUploader.queue[0].remove();
             this.positionCropper();
