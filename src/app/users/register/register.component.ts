@@ -154,7 +154,7 @@ export class RegisterComponent implements OnInit {
       });
 
       this.alreadyConnectedThruFB = false;
-      this.initFB();
+     // this.initFB();
      // this.loginWithFacebook();
     }
 
