@@ -7,8 +7,10 @@
 </a></div>
 
 <div *ngIf='!thumbnail.editable && (thumbnail.user !== undefined)'>
+  <!-- <img [src]="avatarImageURL" *ngIf='avatarImageURL'
+  [ngStyle]="{ 'width': thumbnail.size, 'height':thumbnail.size }"> -->
   <img [src]="avatarImageURL" *ngIf='avatarImageURL'
-  [ngStyle]="{ 'width': thumbnail.size, 'height':thumbnail.size }">
+  [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" >
 </div>
 
 </div>
