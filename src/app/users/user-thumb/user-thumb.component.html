@@ -1,5 +1,5 @@
 <div class='userThumbWrapper'>
-<div [style.width.px]="thumbnail.size" class='userThumb'>
+<div [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" class='userThumb'>
 
 <div *ngIf='thumbnail.editable'>
 <a [routerLink]="['/usersettings', thumbnail.user.id, 'edit']">
