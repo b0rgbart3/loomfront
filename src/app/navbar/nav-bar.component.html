@@ -7,7 +7,7 @@
 	<a href="" [routerLink]="['/welcome']"><button mat-menu-item>Welcome</button></a>
 	<a *ngIf="currentUser" [routerLink]="['/home']">
 		<button mat-menu-item>Home</button></a>
-	<button mat-menu-item [routerLink]="['/coursebuilder']">Course Builder</button>
+	<a *ngIf='admin' [routerLink]="['/coursebuilder']"><button mat-menu-item>Course Builder</button></a>
 	<a *ngIf='admin' [routerLink]="['/admin']"><button mat-menu-item>Admin</button></a>
 	<a  *ngIf="currentUser" [routerLink]="['/usersettings']"><button mat-menu-item>My Settings</button></a>
 	<a *ngIf="currentUser" (click)="logout()"><button mat-menu-item>Logout</button></a>
