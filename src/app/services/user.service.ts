@@ -47,7 +47,7 @@ export class UserService implements OnInit {
      this._instructorsUrl = this.base_path + 'api/instructors';
      this._studentsUrl = this.base_path + 'api/students';
 
-     this._avatar_image_url = this.base_path + 'avatars/';
+     this._avatar_image_url = this.globals.avatars;
   }
 
   ngOnInit() {
