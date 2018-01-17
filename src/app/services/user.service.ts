@@ -149,7 +149,7 @@ export class UserService implements OnInit {
             }
             if ( (this.users[i].avatar_filename === undefined) || (this.users[i].avatar_filename === '')) {
               // console.log('setting placeholder');
-              this.users[i].avatar_URL = this._avatar_image_url + 'placeholder.png';
+              this.users[i].avatar_URL = this.globals.avatars + 'placeholder.png';
             }
           }
           // console.log('All: ' + JSON.stringify(data));
