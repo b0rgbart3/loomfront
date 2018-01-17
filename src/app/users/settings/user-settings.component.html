@@ -37,7 +37,7 @@
                    <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br> -->
                    <img [src]="localImageUrl" class="avatar">
                    
-                     <div class="upload-wrap">
+                     <div class="upload-wrap" *ngIf="!user.facebookRegistration">
                         Upload New Avatar Image
 
                         <!-- <input type="file" class="upload-btn"  name="avatar"  
