@@ -146,10 +146,11 @@ export class UserService implements OnInit {
             // on the API server
             if (!this.users[i].facebookRegistration) {
               this.users[i].avatar_URL = this._avatar_image_url + this.users[i].id + '/' + this.users[i].avatar_filename;
-            }
+
             if ( (this.users[i].avatar_filename === undefined) || (this.users[i].avatar_filename === '')) {
               // console.log('setting placeholder');
               this.users[i].avatar_URL = this.globals.avatars + 'placeholder.png';
+            }
             }
           }
           // console.log('All: ' + JSON.stringify(data));
