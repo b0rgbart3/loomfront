@@ -63,8 +63,10 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.username = localStorage.getItem('username');
     if (this.currentUser) {
       if (this.currentUser.facebookRegistration) {
+        console.log('This was a fb reg.');
         this.avatarimage = this.currentUser.avatar_URL;
       } else {
+        console.log('This was not a fb reg.');
       this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename; }
     }
   }
