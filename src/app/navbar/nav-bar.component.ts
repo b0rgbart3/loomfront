@@ -61,6 +61,10 @@ export class NavBarComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.updateMyself();
     this.username = localStorage.getItem('username');
+    this.updateAvatar();
+  }
+
+  updateAvatar() {
     if (this.currentUser) {
       if (this.currentUser.facebookRegistration) {
         console.log('This was a fb reg.');
@@ -81,7 +85,7 @@ export class NavBarComponent implements OnInit, DoCheck {
       this.username = this.currentUser.username;
     }
   }
-
+  this.updateAvatar();
  }
 
 }
