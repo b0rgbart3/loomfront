@@ -1,5 +1,5 @@
 ﻿
-<div class='stuff'>
+<div class='loomContainer group'>
     <div *ngIf="!dataConnection">
         <div class='warning'>
         <h1>Experiencing Technical Difficulties:</h1>
@@ -12,14 +12,15 @@
     </div>
     
     <div *ngIf="dataConnection">
-    <div>
-        <h1> Welcome back to the Reclaiming Loom {{ username }}</h1>
+    <div class='branding'>
+        <h1> Welcome to the Reclaiming Loom {{ username }}</h1>
+        <div class='loginButton' (click)="login()" 
+        *ngIf="!currentUser">Login</div>
     </div>
 
     <div class="loomCard" >
-            <button class='loomButton' (click)="login()" 
-            *ngIf="!currentUser">Login</button>
-            <class-list *ngIf='currentUser'></class-list>
+           
+            <class-list></class-list>
     </div>
 
     </div>

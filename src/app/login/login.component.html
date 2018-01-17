@@ -1,51 +1,56 @@
 ﻿
 <div class='loomContainer'>
                 <flash-messages></flash-messages>
-<div class="loomCardLeft">
+<div class="loginBox">
 
-           <form name="form" (ngSubmit)="f.form.valid &&
-            login()" #f="ngForm" novalidate><div class="padMe"> 
+
     <!-- <div class="alert alert-info">
     </div> -->
 
-
-    <h2>Loom Private Login</h2>
-  
-      
+<div class='branding'>
+    <h1>Log in</h1>
+  <br>
+  <p>Having trouble signing in?</p>
+  <p><a [routerLink]="['/requestreset']">Request a password reset, via email.</a></p>
+</div>
+<div class='credsBox'>
+        
+                <form name="form" (ngSubmit)="f.form.valid &&
+                login()" #f="ngForm" novalidate>
+                <div class='creds'>
             <mat-form-field>
-                    <input #username="ngModel" matInput placeholder="Witchy name" 
+                    <input #username="ngModel" matInput placeholder="USERNAME" 
                     name="usernane" [(ngModel)]="model.username" 
                     required maxlength="30" minlength="3">
             </mat-form-field>
-                    <mat-hint align="start">Note: these are case 
-                            sensitive.</mat-hint><br>
+              <br>
                     <br>
                    
                     
             <mat-form-field>
                     <input #password="ngModel" type="password" 
-                    matInput placeholder="Password" 
+                    matInput placeholder="PASSWORD" 
                     name="pasword" [(ngModel)]="model.password" 
                     required maxlength="30" minlength="3">
                     </mat-form-field><br>
         
-                <br>
+                <br></div>
                
                 <br clear='all'>
                     <!-- <button class="bd-full-width-button">LOGIN</button> -->
 
-                </div> <button class='loomButton large' (click)='login()' type='submit'>LOGIN</button>
+                <div class='loginButton' (click)='login()' type='submit'>LOG IN</div>
     </form>
-
 </div>
-<div class='loomDivider'></div>
-<div class='loomFloatRight group'>
-        <div class='fbLoginButton' (click)="StartFBLogin()">Login with Facebook</div>
+</div>
+
+<div class='fbLoginBox group'>
+        <div class='fbLoginButton' (click)="StartFBLogin()">Sign up and Login using Facebook</div>
 </div>
 <br clear='all'>
-<p>New to the Loom? <a [routerLink]="['/register']">&nbsp; &#10148;&nbsp;Register today!</a></p>
+<p>New to the Loom? <a [routerLink]="['/register']">&nbsp; &#10148;&nbsp;Sign up today!</a></p>
 <br>
-<p>Forgot your password? <a [routerLink]="['/requestreset']">&nbsp; &#10148;&nbsp;Request a password reset, via email.</a></p>
+
 </div>
 <!-- <div class='debug'>
 Form Valid: {{ model.error }}

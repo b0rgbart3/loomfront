@@ -15,6 +15,26 @@ p {
 .classDate {
     font-weight: 900;
     font-size:1.2em;
-    color: #cccccc;
+    color: #000000;
     text-transform: uppercase;
+    position:relative;
 }
+
+h1 {
+    font-family: 'Josefin Sans';
+    font-size:2em;
+    text-transform: uppercase;
+    position: relative;
+    color:white;
+    top:-300px;
+    line-height:1.5em;
+    font-weight: 500;
+    text-shadow: 0 0 20px rgba(0,0,0,1);
+}
+
+@media (max-width: 600px) {
+    h1 {
+        top:-200px;
+    }
+  }
+

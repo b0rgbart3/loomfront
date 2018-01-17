@@ -7,72 +7,113 @@
     padding-left:40px;
     padding-right:40px;
     padding-bottom:20px;
-    width:40%;
     color:black;
-    background-color:#2c44af;
+    background-color:#2f507c;
     margin-left:auto;
     margin-right:auto;
-    margin-top:100px;
     color:white;
     font-weight: bold;
-    border-radius:8px;
+    border-radius:5px;
     box-shadow:2px 2px 8px rgba(0,0,0,.4);
     user-select: none;
     cursor: pointer;
 }
 
-.fbLoginButton:hover {
-    background-color:#344fca;
-}
 
 .fbLoginButton:active {
-    background-color:#3b5efd;
+    background-color:#3b95fd;
     position:relative;
     top:1px;
     left:1px;
     box-shadow:2px 2px 4px rgba(0,0,0,.9);
 }
 
-.loomCardLeft {
+.loginBox {
     text-align: left;
-    background-color:#bbbbbb;
-    margin-left:2%;
+    margin-left:auto;
     margin-right:auto;
-    width:55%;
+    width:60%;
     padding:0px;
     margin-top:20px;
     box-sizing: border-box;
+    border-radius:4px;
+    overflow: hidden;
+    font-family: 'Roboto';
+    margin-top:80px;
+    background-color:#a2aab3;
+    min-width:640px;
+  }
+.branding {
+    width:35%;
     display:inline-block;
     float:left;
-    border-radius:8px;
-    overflow: hidden;
-  }
-.loomFloatRight {
-  display:inline-block;
-  width:36%;
-  float:right;
-  margin-right:2%;
-  vertical-align: top;
+    background-color:#3c4b5a;
+    height:300px;
+    margin:0;
+    padding:20px;
+    color:white;
+    box-sizing:border-box;
+    padding-top:80px;
+}
+.branding h1 {
+
+    font-weight: 300;
+    margin-bottom:40px;
+}
+.fbLoginBox {
+  width:60%;
+  margin-left:auto;
+  margin-right:auto;
   background-color:#333333;
   border-radius:8px;
   text-align:center;
-  height:340px;
-  margin-top:20px;
-  margin-left:2%;
+  padding:20px;
+  box-sizing: border-box;
+  margin-top:40px;
+  min-width:640px;
 }
-.loomDivider {
-  width:4px;
-  background-color:rgba(0,0,0,.4);
-  height:320px;
-  display:inline-block;
-  float:left;
-  vertical-align: top;
-  margin-left:1.6%;
-  margin-top:30px;
+.credsBox {
+
+    display:inline-block;
+    float:right;
+    width:64.9%;
+    box-sizing: border-box;
+    padding-top:50px;
+    height:300px;
+   
+}
+.creds {
+    padding:10px;
+    box-sizing: border-box;
 }
 
 .large {
     width:80%;
     margin:20px;
     margin-top:0;
+}
+
+p {
+    color:#eeeeee;
+    text-align: center;
+}
+
+.mat-input-element {
+    color:white;
+}
+
+.loginButton {
+    width:102%;
+    height:60px;
+    background-color: #3e607c;
+    color:white;
+    margin:0;
+    text-align: center;
+    font-weight: 500;
+    font-size:1.2em;
+    font-family: 'Muli';
+    padding:20px;
+    box-sizing: border-box;
+    position: relative;
+    left:-1px;
 }

@@ -28,7 +28,7 @@ public errorMessage: string;
     this.courseID = this.classObject.course;
     this.courseService.getCourse(this.courseID).subscribe(
       course =>  {this.course = course[0];
-      this.courseimageURL = this.globals.basepath + 'courseimages/' + this.courseID + '/' + this.course.image;
+      this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
 
       },
           error => this.errorMessage = <any>error);

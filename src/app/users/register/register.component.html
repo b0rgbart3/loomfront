@@ -1,17 +1,13 @@
 
 
     <div class="loomContainer group">
-    <h1>Reclaiming Loom Registration:</h1>
-<div *ngIf='!regChoice && !alreadyConnectedThruFB'>
-    
-<button class='bigchoice' (click)='revealForm()'>Register directly with the Loom</button>
-<button class='bigchoice' (click)='registerWithFacebook()'>Register using my Facebook account info</button>
-</div>
-<div  *ngIf="regChoice === 'direct'">
-<form novalidate (ngSubmit)="registerUser()" [formGroup]="regFormGroup">
+
+
+
+<form novalidate (ngSubmit)="registerUser()" [formGroup]="regFormGroup" class='loomForm'>
     <div class='loomCard'>
             <div class="padMe">
-        <h2 *ngIf='!admin'>Register</h2>
+        <h2 *ngIf='!admin'>Register a new account</h2><br>
         <h2 *ngIf='admin'>Edit User</h2>
         <flash-messages></flash-messages>
         <mat-form-field>
@@ -74,7 +70,7 @@
 
     </div>
 
-</form></div>
+</form>
 <!-- <div *ngIf="alreadyConnectedThruFB">
     You are already registered and connected through FaceBook, as: {{ FBProfile.name }}
 </div> -->

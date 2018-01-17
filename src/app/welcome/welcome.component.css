@@ -40,3 +40,42 @@
 .contactAdmin {
     color:#dddddd;
 }
+
+.branding {
+    padding:40px;
+    background-image:url('../../assets/images/branding1.jpg');
+    background-position: 50% -100px;
+    height:400px;
+
+}
+
+.branding h1 {
+    font-family: 'Muli';
+    color:white;
+    font-style:italic;
+    font-size:3em;
+    font-weight: 300;
+    text-shadow:2px 2px 14px rgba(0,0,0,1);
+}
+
+.loginButton {
+    background-color:white;
+    border-radius:14px;
+    font-family: 'Muli';
+    font-weight: 700;
+    font-size:1.4em;
+    width:100px;
+    padding:14px;
+    text-align: center;
+    padding-top:14px;
+    text-transform: uppercase;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(0,0,0,1);
+}
+
+.loginButton:active {
+    background-color:#01c0e2;
+}
+
+
