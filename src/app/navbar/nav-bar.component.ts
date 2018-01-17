@@ -65,6 +65,8 @@ export class NavBarComponent implements OnInit, DoCheck {
       if (this.currentUser.facebookRegistration) {
         console.log('This was a fb reg.');
         this.avatarimage = this.currentUser.avatar_URL;
+        console.log('The avatar url is: ' + this.avatarimage);
+
       } else {
         console.log('This was not a fb reg.');
       this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename; }
