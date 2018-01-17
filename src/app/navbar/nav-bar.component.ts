@@ -36,6 +36,7 @@ export class NavBarComponent implements OnInit, DoCheck {
   }
 
   updateMyself() {
+    this.admin = false;
     this.currentUser = this.userService.getCurrentUser();
     console.log('In navbar: ' + JSON.stringify(this.currentUser));
     if (this.currentUser) {
@@ -44,6 +45,8 @@ export class NavBarComponent implements OnInit, DoCheck {
     }
     if (this.currentUser && this.currentUser.admin) {
       this.admin = true;
+    } else {
+      this.admin = false;
     }
 
   }
@@ -62,6 +65,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.updateMyself();
     this.username = localStorage.getItem('username');
     this.updateAvatar();
+  
   }
 
   updateAvatar() {
