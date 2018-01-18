@@ -2,6 +2,11 @@
     text-align: center;
 }
 
+p {
+    color:#eeeeee;
+    text-align: center;
+}
+
 .fbLoginButton{
     padding-top:20px;
     padding-left:40px;
@@ -11,8 +16,7 @@
     background-color:#2f507c;
     margin-left:auto;
     margin-right:auto;
-    color:white;
-    font-weight: bold;
+    color:#dddddd;
     border-radius:5px;
     box-shadow:2px 2px 8px rgba(0,0,0,.4);
     user-select: none;
@@ -54,6 +58,11 @@
     color:white;
     box-sizing:border-box;
     padding-top:80px;
+    text-align: left;
+    user-select: none;
+}
+.branding p {
+    text-align: left;
 }
 .branding h1 {
 
@@ -64,10 +73,8 @@
   width:60%;
   margin-left:auto;
   margin-right:auto;
-  background-color:#333333;
   border-radius:8px;
   text-align:center;
-  padding:20px;
   box-sizing: border-box;
   margin-top:40px;
   min-width:640px;
@@ -80,11 +87,13 @@
     box-sizing: border-box;
     padding-top:50px;
     height:300px;
-   
+
 }
 .creds {
     padding:10px;
     box-sizing: border-box;
+
+    margin-bottom:10px;
 }
 
 .large {
@@ -93,9 +102,35 @@
     margin-top:0;
 }
 
-p {
-    color:#eeeeee;
-    text-align: center;
+.human {
+    display:inline-block;
+    float:left;
+    width:40px;
+    height:40px;
+    background-image:url(../../assets/images/human.svg);
+    background-position: 50% 50%;
+    background-size:100%;
+    margin-left:4px;
+}
+.key {
+    display:inline-block;
+    float:left;
+    width:40px;
+    height:40px;
+    background-image:url(../../assets/images/key.svg);
+    background-position: 50% 50%;
+    background-size:100%;
+    margin-left:4px;
+}
+
+.credField {
+    display:inline-block;
+    float:left;
+    vertical-align: top;
+    width:80%;
+    margin-right:10px;
+    margin-left:10px;
+    margin-bottom:10px;
 }
 
 .mat-input-element {
@@ -116,4 +151,8 @@ p {
     box-sizing: border-box;
     position: relative;
     left:-1px;
+}
+
+.loginButton:active {
+    background-color:#4783b4;
 }

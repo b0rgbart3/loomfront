@@ -1,7 +1,7 @@
 import { NgModule, Input } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './users/register/register.component';
+import { SignupComponent } from './users/signup/signup.component';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 // import { ProfileComponent } from './users/profile.component';
@@ -33,7 +33,7 @@ import { BookResolver } from './services/book-resolver.service';
 
 const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
-{ path: 'register', pathMatch: 'full', component: RegisterComponent,
+{ path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },

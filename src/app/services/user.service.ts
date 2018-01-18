@@ -294,7 +294,7 @@ export class UserService implements OnInit {
                       if ( this.currentUser && this.currentUser.username) {
                       this.username = this.currentUser.username;
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
-                    } else { console.log('user not yet registered.'); }
+                    } else { console.log('user not yet signed up.'); }
                      },
            (error) => { this.errorMessage = error; }
          );

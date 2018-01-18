@@ -171,7 +171,7 @@ export class LoginComponent implements OnInit {
        If it's unique, then we'll go ahead and create a new user.
     */
     registerFBUser( newFBUser: User) {
-      console.log('about to register the user');
+      console.log('about to signup the user');
 
               const existingUser = this.userService.findUserByEmail ( newFBUser.email );
               if (existingUser === null) {

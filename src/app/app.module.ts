@@ -10,7 +10,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UserService } from './services/user.service';
 import { CourseListComponent } from './courses/course-list/course-list.component';
-import { RegisterComponent } from './users/register/register.component';
+import { SignupComponent } from './users/signup/signup.component';
 import { AlertComponent } from './_directives/alert.component';
 import { AlertService } from './services/alert.service';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
@@ -85,7 +85,7 @@ import {  FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule
     LoginComponent,
     CourseListComponent,
     CourseImageComponent,
-    RegisterComponent,
+    SignupComponent,
     AlertComponent,
     RequestresetComponent,
     ClassComponent,

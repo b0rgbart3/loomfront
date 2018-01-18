@@ -4,10 +4,10 @@
 
 
 
-<form novalidate (ngSubmit)="registerUser()" [formGroup]="regFormGroup" class='loomForm'>
+<form novalidate (ngSubmit)="signupUser()" [formGroup]="regFormGroup" class='loomForm'>
     <div class='loomCard'>
             <div class="padMe">
-        <h2 *ngIf='!admin'>Register a new account</h2><br>
+        <h2 *ngIf='!admin'>Create a new account</h2><br>
         <h2 *ngIf='admin'>Edit User</h2>
         <flash-messages></flash-messages>
         <mat-form-field>
@@ -64,7 +64,7 @@
 
     <br>
     <div class='loomButton loomSubmit' 
-    (click)='registerUser()'>Submit Registration</div>
+    (click)='registerUser()'>Create Account</div>
    <div class='loomButton loomCancel' (click)="cancel()">Cancel</div>
 <br clear='all'>
 
@@ -107,9 +107,9 @@
     <p> {{ FBUser | json }}</p>
 </div>
 <div *ngIf="!regChoice">
-<button class='already' (click)="already()">
-If you've already registered, you can <span class='just'>just Login!</span>
-</button>
+<div class='already' (click)="already()">
+If you've already signed up, you can <span class='just'>just Login!</span>
+</div>
 </div>
 <!-- <div class='debug'>
     {{ regFormGroup.value | json }}

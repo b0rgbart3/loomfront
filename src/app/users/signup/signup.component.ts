@@ -13,11 +13,11 @@ import { Globals } from '../../globals';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'register.component.html',
-    styleUrls: ['register.component.css']
+    templateUrl: 'signup.component.html',
+    styleUrls: ['signup.component.css']
 })
 
-export class RegisterComponent implements OnInit {
+export class SignupComponent implements OnInit {
 
     startDate = new Date();
     hasPrimaryLanguageError = false;
@@ -257,8 +257,8 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['/welcome']);  });
     }
 
-    registerUser() {
-      console.log('About to register user');
+    signupUser() {
+      console.log('About to signup user');
       if (this.regFormGroup.dirty && this.regFormGroup.valid) {
         console.log('Form is valid.');
                     // This is Deborah Korata's way of merging our data model with the form model
@@ -273,7 +273,7 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['/welcome']); },
           response => {console.log('POST call in error', response); },
           () => {console.log('The POST observable is now completed.');
-            this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
+            this.alertService.success('Thank you for signing up with the Reclaiming Loom. ' +
               ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
               this.router.navigate(['/welcome']);  });
         } else {
