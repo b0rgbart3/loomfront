@@ -50,6 +50,12 @@ export class LoginComponent implements OnInit {
       this.initFB();
     }
 
+    keyDownFunction(event) {
+      if (event.keyCode === 13) {
+       this.login();
+      }
+    }
+
     login() {
         console.log('In login method');
         this.loading = true;
@@ -88,9 +94,15 @@ export class LoginComponent implements OnInit {
                 }
             },
         err => {
-            console.log('NOT AUTHENTICATED!');
-            this.error = 'Username or password is incorrect';
-            this._flashMessagesService.show('Username or password was incorrect.',
+
+            const foundUser = this.userService.findUserByUsername(this.model.username);
+            if (foundUser) {
+              this.error = 'Your Password is incorrect';
+            } else {
+              this.error = 'We didn\'t find that username in our system.';
+            }
+
+            this._flashMessagesService.show(this.error,
             { cssClass: 'alert-warning', timeout: 7000 });
             this.loading = false;
             return;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../courses/course.service';
@@ -11,6 +11,7 @@ import { MaterialService } from '../../services/material.service';
 import { Globals } from '../../globals';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Materialtype } from '../../models/materialtype.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     moduleId: module.id,
@@ -78,7 +79,8 @@ export class CourseEditComponent implements OnInit {
 
     constructor(private router: Router, private activated_route: ActivatedRoute,
         private courseService: CourseService, private fb: FormBuilder,
-        private materialService: MaterialService, private globals: Globals ) { }
+        private materialService: MaterialService, private globals: Globals,
+    private _sanitizer: DomSanitizer ) { }
 
     ngOnInit(): void {
         this.materialTypes = [ { 'type': 'video', 'longName': 'Videos', 'pluralName': 'videos' },
@@ -597,10 +599,16 @@ export class CourseEditComponent implements OnInit {
          this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             this.tempName = this.uploader.queue[0].file.name;
             this.image = this.tempName;
-            this.imageUrl = this.globals.courseimages + '/' +  this.course.id + '/' + this.image;
+            this.imageUrl = this.globals.courseimages + '/' +
+              this.course.id + '/' + this.image;
             this.uploader.queue[0].remove();
         };
     }
+
+    escapeHtml(unsafe) {
+        return unsafe.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                     .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+      }
 
     returnToCourseBuilder() {
         this.router.navigate(['/coursebuilder']);

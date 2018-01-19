@@ -82,6 +82,19 @@ export class UserService implements OnInit {
     return avatar.id === queryID;
   }
 
+  findUserByUsername(queryName): User {
+    let foundUser = <User>null;
+
+    if (this.users) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].username === queryName ) {
+          foundUser = this.users[i];
+        }
+      }
+    }
+
+    return foundUser;
+  }
   findUserByEmail(queryEmail): User {
     let foundUser = <User>null;
     if (this.users) {
@@ -93,6 +106,7 @@ export class UserService implements OnInit {
     }
     return foundUser;
   }
+
   findUserById(queryId): User {
     let foundUser = <User>{};
     if (this.users) {

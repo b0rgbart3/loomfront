@@ -38,7 +38,7 @@ export class NavBarComponent implements OnInit, DoCheck {
   updateMyself() {
     this.admin = false;
     this.currentUser = this.userService.getCurrentUser();
-    console.log('In navbar: ' + JSON.stringify(this.currentUser));
+    // console.log('In navbar: ' + JSON.stringify(this.currentUser));
     if (this.currentUser) {
       this.username = this.currentUser.username;
       console.log('username: ' + this.username);

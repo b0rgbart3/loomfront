@@ -76,14 +76,14 @@ export class HomeComponent implements OnInit {
     }
 
     taking() {
-        console.log('change to taking.');
+        // console.log('change to taking.');
         this.showTaking = true;
         this.showTeaching = false;
         this.takingLabel = 'tabLabelChosen';
         this.teachingLabel = 'tabLabel';
     }
     teaching() {
-        console.log('change to teaching.');
+        // console.log('change to teaching.');
         this.showTaking = false;
         this.showTeaching = true;
         this.takingLabel = 'tabLabel';
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
 
         this.classService.getInstructorClasses(this.currentUser.id).subscribe(
             instructorClasses => {
-                // console.log('Got classes for instructors.');
+                console.log('Got classes for instructors.' + JSON.stringify(instructorClasses));
                 this.instructorClasses = instructorClasses;
                 this.loadCourseImagesForInstructors(); },
             error => this.errorMessage = <any>error);

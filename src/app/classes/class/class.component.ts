@@ -358,7 +358,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
-
+           console.log('This course image: ' + this.courseimageURL);
             if (!this.sectionNumber) { this.sectionNumber = 0; }
             if (this.course && this.course.sections) {
                 this.section = this.course.sections[this.sectionNumber]; }

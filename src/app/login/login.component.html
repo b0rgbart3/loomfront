@@ -16,40 +16,40 @@
 <div class='credsBox'>
        
                 <form name="form" (ngSubmit)="f.form.valid &&
-                login()" #f="ngForm" novalidate>
+                login()" #f="ngForm" novalidate (keydown)="keyDownFunction($event)">
                 <div class='creds'>
                         <div class='human'></div>
                         <div class='credField'>
-                    <mat-form-field>
-                    <input #username="ngModel" matInput placeholder="USERNAME" 
+                    
+                    <input #username="ngModel"  placeholder="USERNAME" 
                     name="usernane" [(ngModel)]="model.username" 
                     required maxlength="30" minlength="3">
-            </mat-form-field></div>
-              <br>
-                    <br>
+</div>
+        
                    
                     <div class='key'></div>
                     <div class='credField'>
-            <mat-form-field>
+  
                     <input #password="ngModel" type="password" 
-                    matInput placeholder="PASSWORD" 
+                     placeholder="PASSWORD" 
                     name="pasword" [(ngModel)]="model.password" 
                     required maxlength="30" minlength="3">
-                    </mat-form-field></div><br>
+               </div><br>
         
                 <br></div>
                
-                <br clear='all'>
+                <br clear='all'><br>
                     <!-- <button class="bd-full-width-button">LOGIN</button> -->
 
                 <div class='loginButton' (click)='login()' type='submit'>LOG IN</div>
+                
     </form>
 </div>
 </div>
 
-<div class='fbLoginBox group'>
+
         <div class='fbLoginButton' (click)="StartFBLogin()">Sign up and Login using Facebook</div>
-</div>
+
 <br clear='all'>
 <p>New to the Loom? <a [routerLink]="['/signup']">&nbsp; &#10148;&nbsp;Sign up today!</a></p>
 <br>

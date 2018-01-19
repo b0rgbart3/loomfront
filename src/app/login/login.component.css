@@ -3,7 +3,7 @@
 }
 
 p {
-    color:#eeeeee;
+    color:#cccccc;
     text-align: center;
 }
 
@@ -21,6 +21,11 @@ p {
     box-shadow:2px 2px 8px rgba(0,0,0,.4);
     user-select: none;
     cursor: pointer;
+    text-align: center;
+    width:100%;
+    max-width:640px;
+    box-sizing: border-box;
+    margin-top:40px;
 }
 
 
@@ -44,7 +49,7 @@ p {
     overflow: hidden;
     font-family: 'Roboto';
     margin-top:80px;
-    background-color:#a2aab3;
+    background-color:#34414e;
     min-width:640px;
   }
 .branding {
@@ -69,16 +74,7 @@ p {
     font-weight: 300;
     margin-bottom:40px;
 }
-.fbLoginBox {
-  width:60%;
-  margin-left:auto;
-  margin-right:auto;
-  border-radius:8px;
-  text-align:center;
-  box-sizing: border-box;
-  margin-top:40px;
-  min-width:640px;
-}
+
 .credsBox {
 
     display:inline-block;
@@ -105,22 +101,24 @@ p {
 .human {
     display:inline-block;
     float:left;
-    width:40px;
-    height:40px;
+    width:35px;
+    height:35px;
     background-image:url(../../assets/images/human.svg);
     background-position: 50% 50%;
     background-size:100%;
     margin-left:4px;
+    margin-top:10px;
 }
 .key {
     display:inline-block;
     float:left;
-    width:40px;
-    height:40px;
+    width:35px;
+    height:35px;
     background-image:url(../../assets/images/key.svg);
     background-position: 50% 50%;
     background-size:100%;
     margin-left:4px;
+    margin-top:10px;
 }
 
 .credField {
@@ -130,17 +128,14 @@ p {
     width:80%;
     margin-right:10px;
     margin-left:10px;
-    margin-bottom:10px;
+    margin-bottom:25px;
 }
 
-.mat-input-element {
-    color:white;
-}
 
 .loginButton {
     width:102%;
-    height:60px;
-    background-color: #3e607c;
+    height:70px;
+    background-color: #326996;
     color:white;
     margin:0;
     text-align: center;
@@ -151,8 +146,96 @@ p {
     box-sizing: border-box;
     position: relative;
     left:-1px;
+    margin-top:10px;
 }
 
 .loginButton:active {
     background-color:#4783b4;
 }
+
+.credField input {
+    width:300px;
+    height:50px;
+    box-sizing:border-box;
+    font-family: 'Roboto';
+    font-size:1.5em;
+    font-weight: 900;
+    color:#a7b1bd;
+    font-weight: 400;
+    border-radius:4px;
+    background-color:rgba(255,255,255,0);
+    outline:none;
+    border:0;
+    border-bottom:2px solid rgba(167, 177, 189,.5);
+    border-radius: 0;
+    margin-left:10px;
+    letter-spacing: .05em;
+    padding-top:20px;
+}
+
+.credField input:focus {
+    border-bottom:2px solid rgba(167, 177, 189,1);
+}
+
+.credField input:focus::-webkit-input-placeholder {
+    position: relative;
+    top:-28px;
+    font-size:.5em;
+    transition: all .65s;
+ 
+}
+
+.credField input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #a7b1bd;
+    font-size:.6em;
+    font-family:'Muli';
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding-bottom:0;
+    padding-top:18px;
+    position:relative;
+    top:-5px;
+  }
+  .credField input:focus::-moz-placeholder {
+    position: relative;
+    top:-28px;
+    font-size:.5em;
+    transition: all .65s;
+  
+  }
+
+  .credField input::-moz-placeholder { /* Firefox 19+ */
+    color: #a7b1bd;
+    font-size:.6em;
+    font-family:'Muli';
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding-bottom:0;
+    padding-top:18px;
+    position:relative;
+    top:-5px;
+  }
+
+  .credField input:-ms-input-placeholder { /* IE 10+ */
+    color: #a7b1bd;
+    font-size:.6em;
+    font-family:'Muli';
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding-bottom:0;
+    padding-top:18px;
+    position:relative;
+    top:-5px;
+  }
+
+  .credField input:-moz-placeholder { /* Firefox 18- */
+    color: #a7b1bd;
+    font-size:.6em;
+    font-family:'Muli';
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding-bottom:0;
+    padding-top:18px;
+    position:relative;
+    top:-5px;
+  }

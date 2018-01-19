@@ -23,12 +23,12 @@
 
             <div class="upload-wrap">
             Upload Image
-            <!-- <input type="file" class="upload-btn"  name="imageUploader"  
-            ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
-            (change)="fileChange($event)" id="imageUploader"> -->
             <input type="file" class="upload-btn"  name="imageUploader"  
-            ng2FileSelect formControlName="imageUploader"
+            ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
             (change)="fileChange($event)" id="imageUploader">
+            <!-- <input type="file" class="upload-btn"  name="imageUploader"  
+            ng2FileSelect formControlName="imageUploader"
+            (change)="fileChange($event)" id="imageUploader"> -->
         </div>
             <br>
             <mat-expansion-panel formArrayName='sections' *ngFor='let section of sections.controls; let i = index'>
