@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { trigger, state, style, animate, transition
 } from '@angular/animations';
-import { ClassService } from '../classes/class.service';
+import { ClassService } from '../services/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
 import { ActivatedRoute } from '@angular/router';

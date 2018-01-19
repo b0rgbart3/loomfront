@@ -5,7 +5,7 @@ import { User } from '../../models/user.model';
 import { ClassModel } from '../../models/class.model';
 import { CourseService } from '../../courses/course.service';
 import { Router } from '@angular/router';
-import { ClassService } from '../../classes/class.service';
+import { ClassService } from '../../services/class.service';
 import { UserService } from '../../services/user.service';
 
 import { MaterialService } from '../../services/material.service';

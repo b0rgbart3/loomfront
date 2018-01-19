@@ -29,6 +29,7 @@ export class ClassService implements OnInit {
       this._studentClassesUrl = globals.basepath + 'api/studentClasses';
       this._instructorClassesUrl = globals.basepath + 'api/instructorClasses';
       console.log('Classes API URL: ' + this._classesUrl);
+      console.log('InstructorClasses URL: ' + this._instructorClassesUrl );
     }
 
     getClassesNow() {

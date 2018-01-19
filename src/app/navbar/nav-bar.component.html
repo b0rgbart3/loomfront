@@ -22,7 +22,8 @@
 </div></a>
 <div *ngIf="username" class='userPic'>
 <p>You are logged in as:<br><span class='username'>
-	{{ username }}</span></p>
+	{{ username }}</span>&nbsp; {{  currentUser.id }}
+</p>
 
 	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
 

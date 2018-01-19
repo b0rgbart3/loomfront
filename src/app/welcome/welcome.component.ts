@@ -4,7 +4,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { User } from '../models/user.model';
 import { ClassModel } from '../models/class.model';
 import { UserService } from '../services/user.service';
-import { ClassService } from '../classes/class.service';
+import { ClassService } from '../services/class.service';
 
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassModel } from '../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClassService } from '../../classes/class.service';
+import { ClassService } from '../../services/class.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { CourseService } from '../../courses/course.service';
 import { Course } from '../../models/course.model';
@@ -104,10 +104,10 @@ export class ClassEditComponent implements OnInit {
     }
 
     buildInstructorChoice( user, isSelected ): FormGroup {
-        return this.fb.group({value: isSelected, username: user.username, user_id: user.id });
+        return this.fb.group({value: isSelected, username: user.username, user_id: <string> user.id });
     }
     buildStudentChoice( user, isSelected ): FormGroup {
-        return this.fb.group({value: isSelected, username: user.username, user_id: user.id });
+        return this.fb.group({value: isSelected, username: user.username, user_id: <string> user.id });
     }
     buildStudentChoices() {
         for (let i = 0; i < this.possibleStudents.length; i++) {

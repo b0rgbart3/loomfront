@@ -90,7 +90,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         } else {
         this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename; }
 
-        if (this.localImageUrl === '' || this.localImageUrl === undefined) {
+        if (this.user.avatar_filename === '' || this.user.avatar_filename === undefined) {
             this.localImageUrl = this.globals.avatars + '/' + 'placeholder.png';
         }
 

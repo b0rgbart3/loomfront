@@ -65,7 +65,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.updateMyself();
     this.username = localStorage.getItem('username');
     this.updateAvatar();
-  
+
   }
 
   updateAvatar() {
@@ -77,7 +77,11 @@ export class NavBarComponent implements OnInit, DoCheck {
 
       } else {
        // console.log('This was not a fb reg.');
-      this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename; }
+       if (this.currentUser.avatar_filename) {
+        this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename; } else {
+        this.avatarimage = this.globals.avatars + '/placeholder.png';
+        }
+      }
     }
   }
 

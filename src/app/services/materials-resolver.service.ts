@@ -2,7 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { Course } from '../models/course.model';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { ContentChart } from '../models/contentchart.model';
-import { ClassService } from '../classes/class.service';
+import { ClassService } from '../services/class.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';

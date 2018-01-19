@@ -9,14 +9,14 @@
 
 <div class='branding'>
     <h1>Log in</h1>
-  <br>
+  <div class='trouble'>
   <p>Having trouble signing in?</p>
-  <p><a [routerLink]="['/requestreset']">Request a password reset, via email.</a></p>
+  <p><a [routerLink]="['/requestreset']">Request a password reset, via email.</a></p></div>
 </div>
 <div class='credsBox'>
        
                 <form name="form" (ngSubmit)="f.form.valid &&
-                login()" #f="ngForm" novalidate (keydown)="keyDownFunction($event)">
+                login()" #f="ngForm" novalidate (keydown)="keyDownFunction($event)" class='loginform'>
                 <div class='creds'>
                         <div class='human'></div>
                         <div class='credField'>
@@ -24,7 +24,7 @@
                     <input #username="ngModel"  placeholder="USERNAME" 
                     name="usernane" [(ngModel)]="model.username" 
                     required maxlength="30" minlength="3">
-</div>
+</div><br clear='all'>
         
                    
                     <div class='key'></div>

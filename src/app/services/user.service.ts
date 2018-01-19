@@ -203,7 +203,7 @@ export class UserService implements OnInit {
 
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
-      userObject.id = this.highestID; // toString();
+      userObject.id = <string> '' + this.highestID; // toString();
       const body =  JSON.stringify(userObject);
       console.log('Highest ID: ' + this.highestID );
       // console.log('In postUser.');

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { ClassService } from '../classes/class.service';
+import { ClassService } from '../services/class.service';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
@@ -90,11 +90,14 @@ export class HomeComponent implements OnInit {
         this.teachingLabel = 'tabLabelChosen';
     }
     getClassesForCurrentUser() {
-        // console.log('getting classes for the user');
+        console.log('getting classes for the user');
 
         if (this.currentUser) {
+            console.log('we have a current user: ' + this.currentUser.id );
         this.classService.getStudentClasses(this.currentUser.id).subscribe(
-            studentClasses => { this.studentClasses = studentClasses;
+            studentClasses => {
+                console.log('Got classes for students: ' + JSON.stringify(studentClasses));
+                this.studentClasses = studentClasses;
                 this.loadCourseImages(); },
             error => this.errorMessage = <any>error);
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
-import { ClassService } from '../classes/class.service';
+import { ClassService } from '../services/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';

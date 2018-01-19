@@ -15,7 +15,7 @@ import { AlertComponent } from './_directives/alert.component';
 import { AlertService } from './services/alert.service';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
 import { CourseService } from './courses/course.service';
-import { ClassService } from './classes/class.service';
+import { ClassService } from './services/class.service';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { SafePipe } from './shared/safe.pipe';

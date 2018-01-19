@@ -4,7 +4,7 @@ import { CourseService } from '../../courses/course.service';
 import { User } from '../../models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassModel } from '../../models/class.model';
-import { ClassService } from '../class.service';
+import { ClassService } from '../../services/class.service';
 import { UserService } from '../../services/user.service';
 import { ContentChart } from '../../models/contentchart.model';
 import { Section } from '../../models/section.model';
