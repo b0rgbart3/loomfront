@@ -90,20 +90,20 @@ export class HomeComponent implements OnInit {
         this.teachingLabel = 'tabLabelChosen';
     }
     getClassesForCurrentUser() {
-        console.log('getting classes for the user');
+      //  console.log('getting classes for the user');
 
         if (this.currentUser) {
-            console.log('we have a current user: ' + this.currentUser.id );
+         //   console.log('we have a current user: ' + this.currentUser.id );
         this.classService.getStudentClasses(this.currentUser.id).subscribe(
             studentClasses => {
-                console.log('Got classes for students: ' + JSON.stringify(studentClasses));
+               // console.log('Got classes for students: ' + JSON.stringify(studentClasses));
                 this.studentClasses = studentClasses;
                 this.loadCourseImages(); },
             error => this.errorMessage = <any>error);
 
         this.classService.getInstructorClasses(this.currentUser.id).subscribe(
             instructorClasses => {
-                console.log('Got classes for instructors.' + JSON.stringify(instructorClasses));
+               // console.log('Got classes for instructors.' + JSON.stringify(instructorClasses));
                 this.instructorClasses = instructorClasses;
                 this.loadCourseImagesForInstructors(); },
             error => this.errorMessage = <any>error);
@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
     // This method builds an array of Course Images for the Classes that the student is enrolled in.
     // I wish this was done in the Course Service - or Class Service - but alas, it is not.
     loadCourseImages() {
-        console.log('loading course images');
+     //   console.log('loading course images');
         this.courseImages = [];
         let tempCourse = null;
         let tempCourseID = '';

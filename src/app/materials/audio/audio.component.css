@@ -42,6 +42,7 @@ p {
   box-sizing: border-box;
   padding-left:12px;
   padding-right:12px;
+
 }
 
 .length {
@@ -51,4 +52,12 @@ p {
   margin-top:30px;
   max-width:100px;
   text-align: center;
+}
+
+.audioImage {
+  width:100%;
+}
+
+.audioImageContainer {
+  width:100%;
 }

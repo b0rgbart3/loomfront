@@ -22,7 +22,7 @@ export class UserResolver implements Resolve <User[]> {
         // console.log('In the Users resolver.');
         if (id) {
         return this.userService.getUser(id).
-        map(course => { if (course) { return course; }
+        map(user => { if (user) { return user; }
         console.log(`user was not found:`);
         this.router.navigate(['/welcome']);
         return null; })

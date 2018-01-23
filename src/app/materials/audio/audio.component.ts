@@ -16,6 +16,7 @@ import { Globals } from '../../globals';
 export class AudioComponent implements OnInit {
 
     audioSource: string;
+    imageURL: string;
 
     @Input() audioObject: Material;
     constructor( private globals: Globals  ) {
@@ -24,7 +25,7 @@ export class AudioComponent implements OnInit {
 
     ngOnInit(): void {
         this.audioSource = this.globals.materialfiles + '/' + this.audioObject.id + '/' + this.audioObject.file; // }
-
+        this.imageURL = this.globals.materialimages + '/' + this.audioObject.id + '/' + this.audioObject.image;
     }
 
     onRightClick() {

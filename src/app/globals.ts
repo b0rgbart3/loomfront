@@ -42,6 +42,7 @@ awspath = 'https://recloom.s3.amazonaws.com/';
  threads =            this.basepath + 'api/threads';
  postavatars =        this.basepath + 'api/avatars';
  avatars =            this.awspath + 'avatars';
+ series =             this.basepath + 'api/series';
 
 //  videos =             this.basepath + 'api/videos';
 //  boosk =              this.basepath + 'api/books';

@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { User } from '../../models/user.model';
-// import { Asset } from '../models/asset.model';
 import { ClassModel } from '../../models/class.model';
 import { CourseService } from '../../courses/course.service';
 import { Router } from '@angular/router';
 import { ClassService } from '../../services/class.service';
 import { UserService } from '../../services/user.service';
-
 import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Userthumbnail } from '../../models/userthumbnail.model';
 import { Globals } from '../../globals';
 import { Book } from '../../models/book.model';
-
+import { Series } from '../../models/series.model';
+import { SeriesService } from '../../services/series.service';
 
 @Component({
   templateUrl: './admin.component.html',
@@ -43,6 +42,8 @@ export class AdminComponent implements OnInit {
   public coursesShowing = 'showing';
   public materialsShowing = 'showing';
   public booksShowing = 'showing';
+  public seriesShowing = 'showing';
+  series: Series[];
 
   constructor(
     private courseService: CourseService,
@@ -50,6 +51,7 @@ export class AdminComponent implements OnInit {
     private materialService: MaterialService,
     private router: Router,
     private userService: UserService,
+    private seriesService: SeriesService,
     private globals: Globals,
 
   ) {
@@ -65,9 +67,7 @@ export class AdminComponent implements OnInit {
     this.getCourses();
     this.getMaterials();
     this.getInstructors();
-   // this.getBooks();
-
-
+    this.getSeries();
   }
 
   toggleStudents() {
@@ -115,6 +115,14 @@ toggleBooks() {
     this.booksShowing = 'hiding';
   } else {
     this.booksShowing = 'showing';
+  }
+}
+
+toggleSeries() {
+  if (this.seriesShowing === 'showing') {
+    this.seriesShowing = 'hiding';
+  } else {
+    this.seriesShowing = 'showing';
   }
 }
 
@@ -174,6 +182,13 @@ toggleBooks() {
       error => this.errorMessage = <any>error);
     }
 
+  getSeries() {
+    this.seriesService.getSeries(0).subscribe(
+      series => {this.series = series;
+        console.log('Got Series: ' + JSON.stringify(series));
+      },
+      error => this.errorMessage = <any>error);
+  }
   // getBooks() {
   //   this.bookService.getBooks(0).subscribe(
   //     books => this.books = books,
@@ -200,6 +215,15 @@ toggleBooks() {
   newClass() {
     this.router.navigate(['/classedit/0']);
   }
+
+  newSeries() {
+    this.router.navigate(['/series/0/edit']);
+  }
+
+  editSeries(series_id) {
+    this.router.navigate(['/series/' + series_id + '/edit']);
+  }
+
   deleteClass(classId) {
     const result = confirm( 'Are you sure you want to delete this class? ');
     if (result) {

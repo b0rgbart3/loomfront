@@ -1,0 +1,44 @@
+h1 {
+    font-family: 'Josefin Sans';
+    font-size:1.6em;
+    font-weight: 400;
+    letter-spacing: -.05em;
+    text-transform: uppercase;
+    padding:10px;
+    background-color:white;
+    box-sizing: border-box;
+    width:100%;
+    border-bottom:2px solid rgba(0,0,0,.3);
+    margin-top:0;
+    padding-top:24px;
+    user-select: none;
+    cursor: pointer;
+    padding-left:20px;
+}
+
+.blockContainer {
+    border:2px solid rgba(0,0,0,.3);
+    border-radius:14px 14px 0 0;
+    overflow: hidden;
+    width:80%;
+    box-sizing: border-box;
+    margin-left:auto;
+    margin-right:auto;
+    padding:0;
+    background-color:white;
+    text-align: left;
+}
+
+.blockBody {
+    padding:30px;
+    padding-top:8px;
+
+}
+
+.blockContent {
+    padding:24px;
+}
+
+.blockHeader {
+    text-transform: uppercase;
+}

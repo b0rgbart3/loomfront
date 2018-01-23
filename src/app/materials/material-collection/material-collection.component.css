@@ -22,18 +22,16 @@
     padding-bottom:30px;
     display:inline-block;
     vertical-align: top;
-    height:300px;
 
 }
 
 .endPiece {
-    width:1px;
-    height:300px;
-    display:inline-block;
-    vertical-align: top;
-    border-right:2px solid rgba(0,0,0,.3);
-    padding-top:10px;
-    padding-bottom:30px;
+
+   border-right:2px solid rgba(0,0,0,.3);
+   display:inline-block;
+   margin-left:auto;
+   margin-right:auto;
+
 }
 
 .documentWrap h1 {
@@ -78,3 +76,4 @@
     padding-top:8px;
     
   }
+

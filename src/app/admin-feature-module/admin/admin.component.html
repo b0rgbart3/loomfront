@@ -63,7 +63,31 @@
     <div class="notice" *ngIf="!classes">Currently having trouble accessing the API for class info.</div>
   
 </div>
+
+<div class='collection group {{ seriesShowing }}'>
+    <h1 (click)="toggleSeries()" class='collapsingTitle'>Series of Classes</h1>
+
+    <div class="collectionList" *ngIf="classes">
+         
+        <div *ngFor="let serie of series" (click)="editSeries(serie.id)" class='collectionItem'>
+     
+          <table><tr>
+            <td>{{serie.title}}</td>
+          </tr></table>
+    
+          
+        </div>
+      </div>
+      <div *ngIf="classes" (click)='newSeries()' class='basicButton'>Add a new Series</div>  
+      
+    <div class="notice" *ngIf="!series">Currently having trouble accessing the API for series info.</div>
+
+
+  </div>
+
 </div>
+
+
 <!-- 
     <div class='collection group {{ coursesShowing }}'>
         <h1 (click)="toggleCourses()" class='collapsingTitle'>Courses</h1>

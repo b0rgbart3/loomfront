@@ -1,0 +1,23 @@
+<div class='loomContainer group'>
+
+        <form [formGroup]="seriesForm" novalidate (ngSubmit)="save()" class='loomForm group'>
+                                        
+        <div class='padMe'>
+                <h1>Series Info:</h1>
+          
+                <mat-form-field>
+                <input matInput  formControlName='title' placeholder="Title" 
+                        name="title">
+                </mat-form-field>
+
+                <mat-form-field>
+                     <input matInput  formControlName='description' placeholder="Description" 
+                            name="description" >
+            </mat-form-field>
+        </div>
+                 
+        <div class='loomButton loomSubmit' (click)="save()">Submit Changes</div>
+        <div class='loomButton loomCancel' [routerLink]="['/admin']" type='reset' >Cancel</div>  
+        
+                </form>
+</div>

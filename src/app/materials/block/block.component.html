@@ -1,0 +1,8 @@
+<div class='blockContainer'>
+<div class='blockTitleBar' (click)="toggleDisplay()"><h1>{{ block.title }}</h1></div>
+<div class='blockBody' *ngIf='display'>
+<div [innerHTML]='block.content' class='blockContent'></div>
+</div>
+</div>
+
+

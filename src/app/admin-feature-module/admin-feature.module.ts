@@ -16,8 +16,8 @@ import { UsersResolver } from '../services/users-resolver';
 import { PossibleInstructorsResolver } from '../services/possible-instructors-resolver.service';
 import { CoursesResolver } from '../services/courses-resolver.service';
 import { FileUploadModule } from 'ng2-file-upload';
-
-
+import { SeriesEditComponent } from './series-edit/series-edit.component';
+import { SeriesResolver } from '../services/series-resolver.service';
 
 
 @NgModule ( {
@@ -35,6 +35,8 @@ import { FileUploadModule } from 'ng2-file-upload';
             { path: 'classedit/:id', pathMatch: 'full', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, users: UsersResolver,
     possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
+
+            { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { series: SeriesResolver} },
 
             { path: 'book/:id/edit', component: MaterialEditComponent,
             data: { type: 'book'}, resolve: { MaterialsResolver } },
@@ -55,8 +57,8 @@ import { FileUploadModule } from 'ng2-file-upload';
             data: { type: 'block' }, resolve: { MaterialsResolver } },
 
             { path: '404', component: Error404Component },
-            { path: '', component: WelcomeComponent },
-            { path: '**', component: WelcomeComponent }
+       //     { path: '', component: WelcomeComponent },
+        //    { path: '**', component: WelcomeComponent }
         ])
     ],
     declarations: [
@@ -64,7 +66,8 @@ import { FileUploadModule } from 'ng2-file-upload';
        ClassEditComponent,
        CourseBuilderComponent,
        CourseEditComponent,
-       MaterialEditComponent
+       MaterialEditComponent,
+       SeriesEditComponent
 
     ],
     providers: [
@@ -79,7 +82,7 @@ import { FileUploadModule } from 'ng2-file-upload';
         CourseBuilderComponent,
         CourseEditComponent,
         MaterialEditComponent,
-
+        SeriesEditComponent
     ]
 })
 

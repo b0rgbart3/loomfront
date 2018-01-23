@@ -65,6 +65,9 @@ import { ModalComponent } from './materials/modal/modal.component';
 import { EmbedVideo } from 'ngx-embed-video';
 import { AudioComponent } from './materials/audio/audio.component';
 import {  FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule } from 'ng2-file-upload';
+import { SeriesService } from './services/series.service';
+import { SeriesResolver } from './services/series-resolver.service';
+import { BlockComponent } from './materials/block/block.component';
 
 @NgModule({
   // External
@@ -108,7 +111,8 @@ import {  FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule
     QuoteComponent,
     SafePipe,
     ModalComponent,
-    AudioComponent
+    AudioComponent,
+    BlockComponent
 
   ],
   providers: [
@@ -135,7 +139,9 @@ import {  FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule
     UserService,
     AuthGuard,
     UserAuthGuard,
-    
+    SeriesService,
+    SeriesResolver
+
    ],
   bootstrap: [ AppComponent ]
 })

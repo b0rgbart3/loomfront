@@ -1,4 +1,7 @@
-<div class='audioPiece'>
+<div class='audioPiece group'>
+  <div *ngIf='audioObject.image' class='audioImageContainer'>
+    <img [src]='imageURL' class='audioImage'>
+  </div>
 <h1>{{ audioObject.title }}</h1>
 <h2>{{ audioObject.author }}</h2>
 <p>{{ audioObject.description }}</p>
