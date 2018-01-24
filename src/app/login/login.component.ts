@@ -217,6 +217,9 @@ export class LoginComponent implements OnInit {
                           console.log('Found new FBUser in the DB by their email name: ' + newFBUser.email);
                           this.userService.loginFBUser( newFBUser );
                           this._router.navigate(['/home']);
+
+            this._flashMessagesService.show('Welcome to The Loom',
+              { cssClass: 'alert-success', timeout: 7000 });
                          },
                         (error) => console.log(error)
 
