@@ -88,10 +88,11 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         if (this.user.facebookRegistration) {
             this.localImageUrl = this.user.avatar_URL;
         } else {
-        this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename; }
+             this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename; 
 
-        if (this.user.avatar_filename === '' || this.user.avatar_filename === undefined) {
-            this.localImageUrl = this.globals.avatars + '/' + 'placeholder.png';
+            if (this.user.avatar_filename === '' || this.user.avatar_filename === undefined) {
+                this.localImageUrl = this.globals.avatars + '/' + 'placeholder.png';
+            }
         }
 
         this.avatarUploader.onAfterAddingFile = (fileItem) => {
