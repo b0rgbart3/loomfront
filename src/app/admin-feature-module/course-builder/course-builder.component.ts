@@ -18,6 +18,7 @@ courses: Course[];
 courseCount: number;
 books: Material[];
 docs: Material[];
+images: Material[];
 bookCount: number;
 errorMessage: string;
 
@@ -31,7 +32,7 @@ private router: Router,
 private globals: Globals
 ) {
 
-  this.data = new MaterialCollection([], [], [], [], [], []);
+  this.data = new MaterialCollection([], [], [], [], [], [], []);
 
 }
 

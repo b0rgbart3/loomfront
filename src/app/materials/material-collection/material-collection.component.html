@@ -1,7 +1,8 @@
 
 <div *ngIf="materialcollection" class='materialCollection'>
 
-        
+
+
     <div *ngIf="materialcollection.videos">
       
         <div *ngFor="let vid of materialcollection.videos; let i = index" class='videoWrap'>
@@ -16,7 +17,12 @@
             <audio-component [audioObject]="audioObject"></audio-component>
         </div>
     </div>
-
+    <div *ngIf="materialcollection.images">
+    
+            <div *ngFor="let thisImage of materialcollection.images; let i = index" class='videoWrap'>
+                <image-component [imageObject]="thisImage"></image-component>
+            </div>
+        </div>    
     <div *ngIf="materialcollection.docs" class='endPiece'>
           
             <div *ngFor="let documentObject of materialcollection.docs; let i = index"

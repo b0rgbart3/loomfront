@@ -112,7 +112,6 @@ export class HomeComponent implements OnInit {
     // This method builds an array of Course Images for the Classes that the student is enrolled in.
     // I wish this was done in the Course Service - or Class Service - but alas, it is not.
     loadCourseImages() {
-     //   console.log('loading course images');
         this.courseImages = [];
         let tempCourse = null;
         let tempCourseID = '';
@@ -120,27 +119,55 @@ export class HomeComponent implements OnInit {
         let tempCourseImageUrl = '';
         for (let i = 0; i < this.studentClasses.length; i++) {
 
-            console.log(this.studentClasses[i].course);
+            // console.log(this.studentClasses[i].course);
             tempCourseID = this.studentClasses[i].course;
 
             /*  I'm using the fully loaded courses array, to look for a course with this ID #.
             */
             tempCourse = this.courses.filter( obj => (obj.id === tempCourseID) );
 
-           // console.log('tempCourse: ' + JSON.stringify(tempCourse));
-
             tempCourseImageUrl = this.globals.courseimages + '/' + this.studentClasses[i].course + '/' + tempCourse[0].image;
-            // console.log(tempCourseImageUrl);
 
-            this.studentClasses[i].courseObject = tempCourse;
             this.studentClasses[i].courseImageURL = tempCourseImageUrl;
+            this.courseService.getCourse(this.studentClasses[i].course).subscribe(
+              course => {
+                this.studentClasses[i].courseObject = course[0];
+                this.studentClasses[i].description = course[0].description;
+
+              },
+              error => this.errorMessage = <any>error);
 
         }
-      //  console.log('Done loading course images.');
+
     }
 
     loadCourseImagesForInstructors() {
+        this.courseImages = [];
+        let tempCourse = null;
+        let tempCourseID = '';
 
+        let tempCourseImageUrl = '';
+        for (let i = 0; i < this.instructorClasses.length; i++) {
+
+            // console.log(this.studentClasses[i].course);
+            tempCourseID = this.instructorClasses[i].course;
+
+            /*  I'm using the fully loaded courses array, to look for a course with this ID #.
+            */
+            tempCourse = this.courses.filter( obj => (obj.id === tempCourseID) );
+
+            tempCourseImageUrl = this.globals.courseimages + '/' + this.instructorClasses[i].course + '/' + tempCourse[0].image;
+
+            this.instructorClasses[i].courseImageURL = tempCourseImageUrl;
+            this.courseService.getCourse(this.instructorClasses[i].course).subscribe(
+              course => {
+                this.instructorClasses[i].courseObject = course[0];
+                this.instructorClasses[i].description = course[0].description;
+
+              },
+              error => this.errorMessage = <any>error);
+
+        }
     }
 
       goto( queryID ) {

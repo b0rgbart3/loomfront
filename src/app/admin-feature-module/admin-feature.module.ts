@@ -41,6 +41,9 @@ import { SeriesResolver } from '../services/series-resolver.service';
             { path: 'book/:id/edit', component: MaterialEditComponent,
             data: { type: 'book'}, resolve: { MaterialsResolver } },
 
+            { path: 'image/:id/edit', component: MaterialEditComponent,
+            data: { type: 'image'}, resolve: { MaterialsResolver } },
+
             { path: 'doc/:id/edit', component:  MaterialEditComponent,
             data: { type: 'doc' }, resolve: { MaterialsResolver } },
 

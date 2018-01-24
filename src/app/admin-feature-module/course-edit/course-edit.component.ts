@@ -25,6 +25,7 @@ export class CourseEditComponent implements OnInit {
     sectionFormGroup: FormGroup;
     // materialFormArray: FormArray[];
 
+    imageFormArray: FormArray[];
     bookFormArray: FormArray[];
     docFormArray: FormArray[];
     videoFormArray: FormArray[];
@@ -54,6 +55,7 @@ export class CourseEditComponent implements OnInit {
     extractedAudios: Material[][];
     extractedQuotes: Material[][];
     extractedBlocks: Material[][];
+    extractedImages: Material[][];
 
     bookOptions: Material[];
     docOptions: Material[];
@@ -61,6 +63,7 @@ export class CourseEditComponent implements OnInit {
     audioOptions: Material[];
     quoteOptions: Material[];
     blockOptions: Material[];
+    imageOptions: Material[];
 
     matObjRefArray: Object[];
     existingImage: string;
@@ -73,6 +76,8 @@ export class CourseEditComponent implements OnInit {
     audioPlaceholder: string;
     blockPlaceholder: string;
     quotePlaceholder: string;
+    imagePlaceholder: string;
+
     materialTypes: Materialtype[];
     sectionMaterials: MaterialCollection[]; // this is an array of the actual Material Objects that are being
                                     // referenced by the section(s) -- haven't implemented this yet.
@@ -83,15 +88,16 @@ export class CourseEditComponent implements OnInit {
     private _sanitizer: DomSanitizer ) { }
 
     ngOnInit(): void {
-        this.materialTypes = [ { 'type': 'video', 'longName': 'Videos', 'pluralName': 'videos' },
-        { 'type': 'audio', 'longName' : 'Audio Files', 'pluralName' : 'audios' },
-        { 'type': 'doc', 'longName' : 'PDF Documents', 'pluralName' : 'docs' },
-        { 'type': 'quote', 'longName' : 'Quotations', 'pluralName' : 'quotes' },
-        { 'type': 'contentblock', 'longName' : 'HTML Content Block', 'pluralName' : 'contentblocks' },
-        { 'type': 'book', 'longName' : 'Book References', 'pluralName' : 'books' },
+//         this.materialTypes = [
+//         { 'type': 'video', 'longName': 'Videos', 'pluralName': 'videos' },
+//         { 'type': 'audio', 'longName' : 'Audio Files', 'pluralName' : 'audios' },
+//         { 'type': 'doc', 'longName' : 'PDF Documents', 'pluralName' : 'docs' },
+//         { 'type': 'quote', 'longName' : 'Quotations', 'pluralName' : 'quotes' },
+//         { 'type': 'contentblock', 'longName' : 'HTML Content Block', 'pluralName' : 'contentblocks' },
+//         { 'type': 'book', 'longName' : 'Book References', 'pluralName' : 'books' },
+//   ];
 
-                        ];
-
+        this.materialTypes = this.globals.materialTypes;
         this.materialPlaceholder = 'Choose a Material';
         this.bookPlaceholder = 'Choose a Book Reference';
         this.docPlaceholder = 'Choose a PDF Document';
@@ -99,6 +105,7 @@ export class CourseEditComponent implements OnInit {
         this.videoPlaceholder = 'Choose a video file';
         this.quotePlaceholder = 'Choose a quote';
         this.blockPlaceholder = 'Choose a block';
+        this.imagePlaceholder = 'Choose an image';
 
         this.courseService.ngOnInit();
         this.extractedBooks = [];
@@ -107,7 +114,9 @@ export class CourseEditComponent implements OnInit {
         this.extractedAudios = [];
         this.extractedQuotes = [];
         this.extractedBlocks = [];
+        this.extractedImages = [];
 
+        this.imageFormArray = [];
         this.bookFormArray = [];
         this.docFormArray = [];
         this.videoFormArray = [];
@@ -148,6 +157,7 @@ export class CourseEditComponent implements OnInit {
         });
       //  console.log('Built course form');
 
+        this.getPossibleImages();
         this.getPossibleVideos();
         this.getPossibleBooks();
         this.getPossibleDocs();
@@ -162,11 +172,78 @@ export class CourseEditComponent implements OnInit {
         // this.extractedCollections = [];
     }
 
+    buildNewSection(i) {
+
+        this.extractStuff(i);
+        //  this.materialFormArray[i] = this.fb.array([]);
+        this.imageFormArray[i] = this.fb.array([]);
+         this.bookFormArray[i] = this.fb.array([]);
+         this.docFormArray[i] = this.fb.array([]);
+         this.videoFormArray[i] = this.fb.array([]);
+         this.audioFormArray[i] = this.fb.array([]);
+         this.quoteFormArray[i] = this.fb.array([]);
+         this.blockFormArray[i] = this.fb.array([]);
+
+         // if (this.course.sections[i] && this.course.sections[i].materials) {
+         // for (let j = 0; j < this.course.sections[i].materials.length; j++ ) {
+         //     this.materialFormArray[i].push(this.buildMaterialsSubSection(this.course.sections[i].materials[j]['material']));
+         // }
+         // }
+         if (this.course.sections[i] && this.extractedImages[i] ) {
+             for (let j = 0; j < this.extractedImages[i].length; j++ ) {
+                 this.imageFormArray[i].push(this.buildMaterialsSubSection(this.extractedImages[i][j]['id'] ));
+             } }
+         if (this.course.sections[i] && this.extractedVideos[i] ) {
+             for (let j = 0; j < this.extractedVideos[i].length; j++ ) {
+                 this.videoFormArray[i].push(this.buildMaterialsSubSection(this.extractedVideos[i][j]['id'] ));
+             } }
+         if (this.course.sections[i] && this.extractedAudios[i] ) {
+                 for (let j = 0; j < this.extractedAudios[i].length; j++ ) {
+                     this.audioFormArray[i].push(this.buildMaterialsSubSection(this.extractedAudios[i][j]['id'] ));
+                 } }
+         if (this.course.sections[i] && this.extractedBooks[i] ) {
+             for (let j = 0; j < this.extractedBooks[i].length; j++ ) {
+                 this.bookFormArray[i].push(this.buildMaterialsSubSection(this.extractedBooks[i][j]['id'] ));
+             } }
+
+         if (this.course.sections[i] && this.extractedDocs[i] ) {
+             for (let j = 0; j < this.extractedDocs[i].length; j++ ) {
+                 this.docFormArray[i].push(this.buildMaterialsSubSection(this.extractedDocs[i][j]['id']) );
+             } }
+
+         if (this.course.sections[i] && this.extractedQuotes[i] ) {
+             for (let j = 0; j < this.extractedQuotes[i].length; j++ ) {
+                 this.quoteFormArray[i].push(this.buildMaterialsSubSection(this.extractedQuotes[i][j]['id']) );
+             } }
+
+         if (this.course.sections[i] && this.extractedBlocks[i] ) {
+                 for (let j = 0; j < this.extractedBlocks[i].length; j++ ) {
+                     this.blockFormArray[i].push(this.buildMaterialsSubSection(this.extractedBlocks[i][j]['id']) );
+                 } }
+
+        // this.sectionMaterials[i] = this.materialService.sortMaterials(this.course.sections[i].materials);
+
+         this.sectionReferences[i] = this.fb.group( {
+             title: this.course.sections[i].title,
+             content: this.course.sections[i].content,
+             // materials: this.materialFormArray[i],
+             images: this.imageFormArray[i],
+             videos: this.videoFormArray[i],
+             audios: this.audioFormArray[i],
+             books: this.bookFormArray[i],
+             docs: this.docFormArray[i],
+             quotes: this.quoteFormArray[i],
+             blocks: this.blockFormArray[i]
+
+          });
+         this.sectionsFormArray.push(  this.sectionReferences[i] );
+    }
     buildSections() {
        // console.log('building sections.');
         this.sectionReferences = [];
 
             // this.materialFormArray = [];
+            this.imageFormArray = [];
             this.bookFormArray = [];
             this.docFormArray = [];
             this.videoFormArray = [];
@@ -175,63 +252,8 @@ export class CourseEditComponent implements OnInit {
             this.blockFormArray = [];
 
             for (let i = 0; i < this.course.sections.length; i++) {
-                this.extractStuff(i);
-               //  this.materialFormArray[i] = this.fb.array([]);
-                this.bookFormArray[i] = this.fb.array([]);
-                this.docFormArray[i] = this.fb.array([]);
-                this.videoFormArray[i] = this.fb.array([]);
-                this.audioFormArray[i] = this.fb.array([]);
-                this.quoteFormArray[i] = this.fb.array([]);
-                this.blockFormArray[i] = this.fb.array([]);
 
-                // if (this.course.sections[i] && this.course.sections[i].materials) {
-                // for (let j = 0; j < this.course.sections[i].materials.length; j++ ) {
-                //     this.materialFormArray[i].push(this.buildMaterialsSubSection(this.course.sections[i].materials[j]['material']));
-                // }
-                // }
-                if (this.course.sections[i] && this.extractedVideos[i] ) {
-                    for (let j = 0; j < this.extractedVideos[i].length; j++ ) {
-                        this.videoFormArray[i].push(this.buildMaterialsSubSection(this.extractedVideos[i][j]['id'] ));
-                    } }
-                if (this.course.sections[i] && this.extractedAudios[i] ) {
-                        for (let j = 0; j < this.extractedAudios[i].length; j++ ) {
-                            this.audioFormArray[i].push(this.buildMaterialsSubSection(this.extractedAudios[i][j]['id'] ));
-                        } }
-                if (this.course.sections[i] && this.extractedBooks[i] ) {
-                    for (let j = 0; j < this.extractedBooks[i].length; j++ ) {
-                        this.bookFormArray[i].push(this.buildMaterialsSubSection(this.extractedBooks[i][j]['id'] ));
-                    } }
-
-                if (this.course.sections[i] && this.extractedDocs[i] ) {
-                    for (let j = 0; j < this.extractedDocs[i].length; j++ ) {
-                        this.docFormArray[i].push(this.buildMaterialsSubSection(this.extractedDocs[i][j]['id']) );
-                    } }
-
-                if (this.course.sections[i] && this.extractedQuotes[i] ) {
-                    for (let j = 0; j < this.extractedQuotes[i].length; j++ ) {
-                        this.quoteFormArray[i].push(this.buildMaterialsSubSection(this.extractedQuotes[i][j]['id']) );
-                    } }
-
-                if (this.course.sections[i] && this.extractedBlocks[i] ) {
-                        for (let j = 0; j < this.extractedBlocks[i].length; j++ ) {
-                            this.blockFormArray[i].push(this.buildMaterialsSubSection(this.extractedBlocks[i][j]['id']) );
-                        } }
-
-               // this.sectionMaterials[i] = this.materialService.sortMaterials(this.course.sections[i].materials);
-
-                this.sectionReferences[i] = this.fb.group( {
-                    title: this.course.sections[i].title,
-                    content: this.course.sections[i].content,
-                    // materials: this.materialFormArray[i],
-                    videos: this.videoFormArray[i],
-                    audios: this.audioFormArray[i],
-                    books: this.bookFormArray[i],
-                    docs: this.docFormArray[i],
-                    quotes: this.quoteFormArray[i],
-                    blocks: this.blockFormArray[i]
-
-                 });
-                this.sectionsFormArray.push(  this.sectionReferences[i] );
+                this.buildNewSection(i);
 
                 }
 
@@ -245,7 +267,14 @@ export class CourseEditComponent implements OnInit {
     buildSection(): FormGroup {
         return this.fb.group( {
             title: '',
-            content: ''
+            content: '',
+            images: [],
+            videos: [],
+            audios: [],
+            books: [],
+            docs: [],
+            quotes: [],
+            blocks: []
         });
    }
 
@@ -302,6 +331,8 @@ export class CourseEditComponent implements OnInit {
      // so we look through all of the materials for this section, and extract the ones that are 'books'
      extractStuff(sectionNumber) {
 
+        this.extractedImages[sectionNumber] = [];
+        this.extractedImages[sectionNumber] = this.extract(sectionNumber, 'image');
         this.extractedBooks[sectionNumber] = [];
         this.extractedBooks[sectionNumber] = this.extract(sectionNumber, 'book');
         this.extractedDocs[sectionNumber] = [];
@@ -382,6 +413,7 @@ export class CourseEditComponent implements OnInit {
 
         // I want to consolidate all the materials into one array for each section
         for (let j = 0; j < combinedCourseObject.sections.length; j++) {
+
             combinedCourseObject.sections[j].materials = [];
             const audioGroup = combinedCourseObject.sections[j].audios;
             combinedCourseObject.sections[j].materials = combinedCourseObject.sections[j].materials.concat(audioGroup);
@@ -400,6 +432,8 @@ export class CourseEditComponent implements OnInit {
             const blockGroup = combinedCourseObject.sections[j].blocks;
             combinedCourseObject.sections[j].materials = combinedCourseObject.sections[j].materials.concat(blockGroup);
             delete combinedCourseObject.sections[j].blocks;
+            const imageGroup = combinedCourseObject.sections[j].images;
+            combinedCourseObject.sections[j].materials = combinedCourseObject.sections[j].materials.concat(imageGroup);
 
         //    console.log('Section' + j + ': ' + JSON.stringify(combinedCourseObject.sections[j]) );
         }
@@ -443,6 +477,12 @@ export class CourseEditComponent implements OnInit {
           quotes => this.quoteOptions = quotes,
           error => this.errorMessage = <any> error);
       }
+
+    getPossibleImages() {
+        this.materialService.getDynamicMaterials(0, 'image').subscribe(
+            images => this.imageOptions = images,
+            error => this.errorMessage = <any> error);
+    }
     getPossibleVideos() {
 
         this.materialService.getDynamicMaterials(0, 'video').subscribe(
@@ -477,16 +517,41 @@ export class CourseEditComponent implements OnInit {
       }
 
     addSection(): void {
-      this.sectionsFormArray.push(this.buildSection());
+        const newSection = this.course.sections.length;
+        this.course.sections.push(new Section( '', '', '', [], [], newSection) );
+
+        this.buildNewSection(this.course.sections.length - 1);
+    // this.sectionsFormArray.push(this.buildSection());
+
+    //   const newSection = this.course.sections.length;
+    //   console.log('creating section #' + newSection);
+
+    //   this.imageFormArray[newSection] = this.fb.array([]);
+    //     this.bookFormArray[newSection] = this.fb.array([]);
+    //     this.docFormArray[newSection] = this.fb.array([]);
+    //     this.videoFormArray[newSection] = this.fb.array([]);
+    //     this.audioFormArray[newSection] = this.fb.array([]);
+    //     this.quoteFormArray[newSection] = this.fb.array([]);
+    //     this.blockFormArray[newSection] = this.fb.array([]);
+
+    //     this.sectionReferences[newSection] = this.fb.group( {
+    //         title: '',
+    //         content: '',
+    //         // materials: this.materialFormArray[i],
+    //         images: this.imageFormArray[newSection],
+    //         videos: this.videoFormArray[newSection],
+    //         audios: this.audioFormArray[newSection],
+    //         books: this.bookFormArray[newSection],
+    //         docs: this.docFormArray[newSection],
+    //         quotes: this.quoteFormArray[newSection],
+    //         blocks: this.blockFormArray[newSection]
+
+    //      });
+    //     this.sectionsFormArray.push(  this.sectionReferences[newSection] );
+        
+
     }
 
-    // addMaterial(i): void {
-    //     if (this.materialFormArray[i]) {
-    //         this.materialFormArray[i].push(this.buildMaterialsSubSection(''));
-    //     } else {
-    //         this.materialFormArray[i] = this.fb.array([]);
-    //     }
-    // }
 
     addQuote(i): void {
         if (this.quoteFormArray[i]) {
@@ -494,6 +559,15 @@ export class CourseEditComponent implements OnInit {
         } else {
             this.quoteFormArray[i] = this.fb.array([]);
             this.quoteFormArray[i].push(this.buildMaterialsSubSection(''));
+        }
+    }
+
+    addImage(i): void {
+        if (this.imageFormArray[i]) {
+            this.imageFormArray[i].push(this.buildMaterialsSubSection(''));
+        } else {
+            this.imageFormArray[i] = this.fb.array([]);
+            this.imageFormArray[i].push(this.buildMaterialsSubSection(''));
         }
     }
 
@@ -567,6 +641,9 @@ export class CourseEditComponent implements OnInit {
         this.blockFormArray[i].removeAt(k);
     }
 
+    killImage(i, k) {
+        this.imageFormArray[i].removeAt(k);
+    }
 
     killDoc(i, k) {
         this.docFormArray[i].removeAt(k);

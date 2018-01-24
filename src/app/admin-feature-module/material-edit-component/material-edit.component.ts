@@ -38,6 +38,7 @@ export class MaterialEditComponent implements OnInit {
     contentPlaceholder: string;
     descriptionNeeded: boolean;
     contentNeeded: boolean;
+    lengthNeeded: boolean;
 
     constructor(private fb: FormBuilder,
     private activated_route: ActivatedRoute,
@@ -60,6 +61,7 @@ export class MaterialEditComponent implements OnInit {
             this.urlNeeded = true;
             this.descriptionNeeded = true;
             this.contentNeeded = false;
+            this.lengthNeeded = true;
             break;
             case 'quote':
             this.uploaderNeeded = false;
@@ -67,6 +69,7 @@ export class MaterialEditComponent implements OnInit {
             this.contentPlaceholder = 'Quotation';
             this.descriptionNeeded = false;
             this.urlNeeded = false;
+            this.lengthNeeded = false;
             break;
             case 'block':
             this.uploaderNeeded = false;
@@ -74,10 +77,15 @@ export class MaterialEditComponent implements OnInit {
             this.urlNeeded = false;
             this.contentPlaceholder = 'HTML Block';
             this.contentNeeded = true;
+            this.lengthNeeded = false;
+            break;
+            case 'image':
+            this.lengthNeeded = false;
             break;
             default: this.urlLabel = 'URL';
             this.uploaderNeeded = true;
             this.descriptionNeeded = true;
+            this.lengthNeeded = true;
             this.descriptionPlaceholder = 'Description';
             break;
         }

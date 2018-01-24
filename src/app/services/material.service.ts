@@ -164,6 +164,7 @@ export class MaterialService {
       const audios = [];
       const quotes = [];
       const blocks = [];
+      const images = [];
 
       for (let i = 0; i < materialsArray.length; i++) {
 
@@ -172,6 +173,9 @@ export class MaterialService {
           switch (materialsArray[i].type) {
             case 'video':
               videos.push(materialsArray[i]);
+              break;
+            case 'image':
+              images.push(materialsArray[i]);
               break;
             case 'book':
               books.push(materialsArray[i]);
@@ -210,7 +214,7 @@ export class MaterialService {
 //      }
       }
 
-      const sortedMaterials = new MaterialCollection(videos, docs, books, audios, blocks, quotes);
+      const sortedMaterials = new MaterialCollection(images, videos, docs, books, audios, blocks, quotes);
       // console.log('quotes: ' + JSON.stringify(quotes));
       // console.log('Sorted Mats: ' + JSON.stringify(sortedMaterials.quotes));
       return sortedMaterials;

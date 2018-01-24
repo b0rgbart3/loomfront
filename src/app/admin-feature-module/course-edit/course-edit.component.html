@@ -77,6 +77,31 @@
                             <div class='smallLoomButton' (click)="addMaterial(i)">Add {{materialObject.longName}}</div>
                         </div><br>
                         <hr><br><br> -->
+
+                        <div *ngIf='imageFormArray[i].controls && imageFormArray[i].controls.length > 0' class='group'>
+                                <h1>Images</h1>
+                            <div formArrayName='images' 
+                            *ngFor='let thisImage of imageFormArray[i].controls; let m=index'>
+                                <div class='loomChoice'>
+                                    
+                                    <button class='loomKill rightAlignMe'
+                                     (click)='killImage(i,m)'></button>
+                                     <div [formGroupName]="m">
+                                         <mat-form-field>
+                                             <mat-select [placeholder]='imagePlaceholder' formControlName='material'>
+                                                    <mat-option *ngFor='let item of imageOptions' matOption [value]='item.id' 
+                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                             </mat-select>
+                                         </mat-form-field>
+                                     </div>
+                                </div>
+                            </div>
+                            <br clear='all'><br>
+                        </div>
+
+
+
+
                         <div *ngIf='blockFormArray[i].controls && blockFormArray[i].controls.length > 0' class='group'>
                                 <h1>HTML Blocks</h1>
                             <div formArrayName='blocks' 
@@ -212,6 +237,7 @@
                             </div></div>
 
                         <br clear='all'><br>
+                        <div class='smallLoomButton' (click)="addImage(i)">Add Image</div>
                         <div class='smallLoomButton' (click)="addBook(i)">Add Book Reference</div>
                         <div class='smallLoomButton' (click)="addDoc(i)">Add PDF Document</div>
                         <div class='smallLoomButton' (click)="addAudio(i)">Add Audio</div>

@@ -33,7 +33,7 @@
         <input matInput placeholder="Author" name='author' id='author' formControlName='author'>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field *ngIf="lengthNeeded">
         <input matInput placeholder="Length (minutes or # of pages)" name='length' id='length' formControlName='length'>
     </mat-form-field>
 

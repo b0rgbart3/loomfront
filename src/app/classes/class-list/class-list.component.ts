@@ -50,7 +50,7 @@ export class ClassListComponent implements OnInit {
   createNewClass() {
     const classObject: ClassModel = {
       title: '', course: '', start: '', end: '', id: '0',
-        instructors: [], students: [], courseObject: null, courseImageURL: ''
+        description: '', instructors: [], students: [], courseObject: null, courseImageURL: ''
     };
 
     // By default, a newly-created course will have the selected state.

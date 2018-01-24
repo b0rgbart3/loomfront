@@ -10,6 +10,7 @@ export class Globals {
 //  assetLongSingularNames = ['Book', 'PDF Document', 'Video', 'Audio File', 'Pull Quote', 'HTML Block'];
 
  materialTypes = [
+        { 'type': 'image',   'longName' : 'Images',          'pluralName' : 'images' },
         { 'type': 'video',   'longName' : 'Videos',          'pluralName' : 'videos' },
         { 'type': 'audio',   'longName' : 'Audio Files',     'pluralName' : 'audios' },
         { 'type': 'doc',     'longName' : 'PDF Documents',   'pluralName' : 'docs' },

@@ -8,28 +8,21 @@ import { Material } from '../../models/material.model';
 
 @Component({
     moduleId: module.id,
-    selector: 'block',
-    templateUrl: 'block.component.html',
-    styleUrls: ['block.component.css'],
+    selector: 'image-component',
+    templateUrl: 'image.component.html',
+    styleUrls: ['image.component.css'],
 })
 
-export class BlockComponent implements OnInit {
-    @Input() block: Material;
+export class ImageComponent implements OnInit {
+    @Input() imageObject: Material;
     imageURL: string;
-    display: boolean;
-    big: boolean;
+
 constructor( private globals: Globals, private router: Router) {}
 
 ngOnInit() {
  // console.log('In book component: book = ' + JSON.stringify(this.book));
-  this.imageURL = this.globals.materialimages +
-     '/' + this.block.id + '/' + this.block.image;
-  this.display = false;
-}
-
-toggleDisplay() {
-    this.display = !this.display;
-}
+  this.imageURL = this.globals.materialfiles + '/' + this.imageObject.id + '/' + this.imageObject.file;
 
 }
 
+}

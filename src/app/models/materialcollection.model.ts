@@ -5,6 +5,7 @@ export class MaterialCollection {
 
   // This model is just used internally to organize our list of Materials for each section
   constructor (
+    public images: Material[],
       public videos: Material[],
       public docs: Material[],
       public books: Material[],
@@ -14,6 +15,7 @@ export class MaterialCollection {
 
   ) {
 
+    this.images = images;
     this.videos = videos;
     this.docs = docs;
     this.books = books;
