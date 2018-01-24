@@ -201,16 +201,8 @@ export class LoginComponent implements OnInit {
       console.log('About to create a user: ' + JSON.stringify(newFBUser));
 
                 this.userService.createUser( newFBUser ).subscribe(
-                  (val) => { console.log('POST call successful value returned in body ', val[0]);
+                  (val) => { console.log('POST call successful value returned in body ', val);
                 //  this.userService.loginFBUser( val[0].id );
-                  this.userService.findUserByEmailFromDB(newFBUser.email).subscribe(
-                    (newUser) => {
-                      this.userService.loginFBUser( newUser );
-                      this._router.navigate(['/home']);
-                     },
-                    (error) => console.log(error)
-
-                   );
                 },
                   (error) => {console.log('POST call in error', error);
 
@@ -219,6 +211,17 @@ export class LoginComponent implements OnInit {
                   () => {console.log('The POST observable is now completed.');
                     this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
                       ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
+
+                      this.userService.findUserByEmailFromDB(newFBUser.email).subscribe(
+                        (newUser) => {
+                          console.log('Found new FBUser in the DB by their email name: ' + newFBUser.email);
+                          this.userService.loginFBUser( newUser );
+                          this._router.navigate(['/home']);
+                         },
+                        (error) => console.log(error)
+
+                       );
+
                       this._router.navigate(['/welcome']);  });
               }
 
