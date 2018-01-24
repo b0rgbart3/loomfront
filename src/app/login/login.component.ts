@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     alreadyConnectedThruFB: boolean;
     connectedThruFB: boolean;
     FBProfile: any;
+    currentUser: User;
     newFBUser: User;
     users: User [];
     errorMessage: string;
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
          ) { }
 
     ngOnInit() {
+
       this.userService.getUsers().subscribe(
         users =>  {this.users = users;
         },
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
       // Yes, we are starting right off the bat with checking the FB login status
       // We are therefore forever linked and connected to the evil empire
       this.initFB();
+      this.currentUser = this.userService.getCurrentUser();
     }
 
     keyDownFunction(event) {
@@ -217,9 +220,10 @@ export class LoginComponent implements OnInit {
                           console.log('Found new FBUser in the DB by their email name: ' + newFBUser.email);
                           this.userService.loginFBUser( newFBUser );
                           // this._router.navigate(['/home']);
+                          this.currentUser = newFBUser;
 
-                          this._flashMessagesService.show('Welcome to The Loom',
-                          { cssClass: 'alert-success', timeout: 7000 });
+                          this._flashMessagesService.show('Welcome to The Loom, ' + newFBUser.firstname,
+                          { cssClass: 'alert-success', timeout: 14000 });
                          },
                         (error) => console.log(error)
 

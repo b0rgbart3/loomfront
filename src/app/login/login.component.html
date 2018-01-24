@@ -1,6 +1,8 @@
 ﻿
 <div class='loomContainer'>
                 <flash-messages></flash-messages>
+
+ <div class='loginStuff' *ngIf='!currentUser'>             
 <div class="loginBox">
 
 
@@ -53,8 +55,16 @@
 <br clear='all'>
 <p>New to the Loom? <a [routerLink]="['/signup']">&nbsp; &#10148;&nbsp;Sign up today!</a></p>
 <br>
+</div>  
+
+
+<div class='loginStuff' *ngIf='currentUser'>  
+<p>    Now that you have signed up, you can register for upcoming classes! </p>
 
 </div>
+
+</div>
+
 <!-- <div class='debug'>
 Form Valid: {{ model.error }}
 </div> -->
