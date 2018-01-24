@@ -202,7 +202,16 @@ export class LoginComponent implements OnInit {
 
                 this.userService.createUser( newFBUser ).subscribe(
                   (val) => { console.log('POST call successful value returned in body ', val[0]);
-                  this.userService.loginFBUser( val[0].id ); },
+                //  this.userService.loginFBUser( val[0].id );
+                  this.userService.findUserByEmailFromDB(newFBUser.email).subscribe(
+                    (newUser) => {
+                      this.userService.loginFBUser( newUser );
+                      this._router.navigate(['/home']);
+                     },
+                    (error) => console.log(error)
+
+                   );
+                },
                   (error) => {console.log('POST call in error', error);
 
                   this._router.navigate(['/home']);

@@ -324,7 +324,7 @@ export class UserService implements OnInit {
         this.username = this.currentUser.username;
         console.log('Found username: ' + this.username);
         localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
-       return <User> response;
+       return <User> response[0];
       });
     }
 
