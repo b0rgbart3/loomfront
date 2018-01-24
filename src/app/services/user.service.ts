@@ -322,6 +322,7 @@ export class UserService implements OnInit {
       return this._http.get(this.base_path + 'api/finduser?email=' + email , {headers: myHeaders} ).do((response) => {
         this.currentUser = <User> response;
         this.username = this.currentUser.username;
+        console.log('Found username: ' + this.username);
         localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
        return <User> response;
       });
