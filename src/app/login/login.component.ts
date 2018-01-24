@@ -189,8 +189,8 @@ export class LoginComponent implements OnInit {
               if (existingUser === null) {
                 console.log('no user found, so creating one.');
                 this.createFBUser(newFBUser);
-                this.userService.loginFBUser( newFBUser );
-                this._router.navigate(['/home']);
+                // this.userService.loginFBUser( newFBUser );
+                // this._router.navigate(['/home']);
               } else {
                 this.userService.loginFBUser( newFBUser );
                 this._router.navigate(['/home']);
@@ -201,9 +201,10 @@ export class LoginComponent implements OnInit {
       console.log('About to create a user: ' + JSON.stringify(newFBUser));
 
                 this.userService.createUser( newFBUser ).subscribe(
-                  (val) => { console.log('POST call successful value returned in body ', val); },
-                  (response) => {console.log('POST call in error', response);
-                  this.userService.loginFBUser( newFBUser );
+                  (val) => { console.log('POST call successful value returned in body ', val);
+                  this.userService.loginFBUser( val[0] ); },
+                  (error) => {console.log('POST call in error', error);
+
                   this._router.navigate(['/home']);
                 },
                   () => {console.log('The POST observable is now completed.');
