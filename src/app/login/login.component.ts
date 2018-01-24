@@ -215,7 +215,7 @@ export class LoginComponent implements OnInit {
                       this.userService.findUserByEmailFromDB(newFBUser.email).subscribe(
                         (newUser) => {
                           console.log('Found new FBUser in the DB by their email name: ' + newFBUser.email);
-                          this.userService.loginFBUser( newUser );
+                          this.userService.loginFBUser( newFBUser );
                           this._router.navigate(['/home']);
                          },
                         (error) => console.log(error)
