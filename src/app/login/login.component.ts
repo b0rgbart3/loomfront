@@ -189,6 +189,8 @@ export class LoginComponent implements OnInit {
               if (existingUser === null) {
                 console.log('no user found, so creating one.');
                 this.createFBUser(newFBUser);
+                this.userService.loginFBUser( newFBUser );
+                this._router.navigate(['/home']);
               } else {
                 this.userService.loginFBUser( newFBUser );
                 this._router.navigate(['/home']);
