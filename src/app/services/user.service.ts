@@ -320,7 +320,7 @@ export class UserService implements OnInit {
       myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
       return this._http.get(this.base_path + 'api/finduser?email=' + email , {headers: myHeaders} ).do((response) => {
-        this.currentUser = <User> response;
+        this.currentUser = <User> response[0];
         this.username = this.currentUser.username;
         console.log('Found username: ' + this.username);
         localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
