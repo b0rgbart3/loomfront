@@ -290,12 +290,12 @@ export class UserService implements OnInit {
           If it doesn't find it -- then it calls the database.
       */
 
-      console.log('IN User Service:, calling find by Email');
+      console.log('IN User Service:, calling find by Email:' + User.email);
 
-       const FBUser = this.findUserByEmail ( User.email );
-       if (FBUser !== null) {
+       // const FBUser = this.findUserByEmail ( User.email );
+       if (User !== null) {
         console.log('IN User Service:, found user by Email');
-         this.currentUser = <User> FBUser;
+         this.currentUser = <User> User;
          this.username = this.currentUser.username;
          localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
        } else {
