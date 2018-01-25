@@ -26,6 +26,8 @@ export class RequestresetComponent {
 
 
     sendResetRequest() {
-        this.userService.sendResetRequest(this.model.email);
+        this.userService.sendResetRequest(this.model.email).subscribe(
+            (value) => console.log(JSON.stringify(value)) ,
+        (error) => console.log('Error: ' + error) );
     }
 }
