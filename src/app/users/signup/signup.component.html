@@ -1,42 +1,60 @@
 
 
     <div class="loomContainer group">
+<div class='signupBox'>
 
-
-
-<form novalidate (ngSubmit)="signupUser()" [formGroup]="regFormGroup" class='loomForm'>
-    <div class='loomCard'>
-            <div class="padMe">
-        <h2 *ngIf='!admin'>Create a new account</h2><br>
-        <h2 *ngIf='admin'>Edit User</h2>
-        <flash-messages></flash-messages>
-        <mat-form-field>
-        <input matInput placeholder="First name" 
+<div class='branding'>
+        <h1 *ngIf='!admin'>Create your account on The Reclaiming Loom</h1><br>
+</div>
+<form novalidate [formGroup]="regFormGroup" class='regForm' *ngIf='!success'>
+      
+       
+       
+        <div class='infoBox'>
+      
+        <label for='firstname'>First Name</label>
+        <input class='register' 
         name="firstname" formControlName='firstname' required maxlength="30">
-        </mat-form-field><br>
-        <mat-form-field>
-        <input matInput placeholder="Last name" 
+        
+       <br>
+  
+       <label for='lastname'>Last Name</label>
+        <input  class='register'
         name="lastname" formControlName='lastname' required minlength="3" maxlength="30">
-        </mat-form-field>
+  
         <br>
-        <mat-form-field>
-        <input matInput placeholder="email" name="email" 
+        <label for='email'>email address</label>
+        <input class='register' id="email" name="email" 
        formControlName='email' required type="email" minlength="7" maxlength="40">
-        </mat-form-field>
-        <mat-form-field>
-        <input matInput placeholder="witchy name" name="username" 
+       <span class='help-block' *ngIf='emailMessage'>
+           {{ emailMessage }}
+       </span>
+       <br clear='all'>
+        <div class='validation-error' 
+        *ngIf='regFormGroup.get("email").errors && regFormGroup.dirty && regFormGroup.get("email").errors.emailExists'>
+                That email address is already associated with an account in our system.
+    </div>
+        <br>
+        <label for='username'>username</label>
+        <input  name="username" class='register'
         formControlName='username' required type="username" minlength="3" maxlength="40">
-        <mat-hint align="start">This will be the name that you login with</mat-hint>
- 
-        </mat-form-field>
-        <br clear='all'><br>
+        <div class='hint'>This will be the name that you login with</div>
+        
+        <br clear='all'>
+        <div class='validation-error' 
+        *ngIf='regFormGroup.get("username").errors && regFormGroup.dirty && regFormGroup.get("username").errors.usernameExists'>
+                That username already exists.  Please choose another.
+        </div>
+            <br>
 
-        <mat-form-field *ngIf="!currentUser || !user.id">
-        <input  matInput placeholder="password" 
-        name="password" formControlName='password'>
-        <mat-hint align="start">A combination of at least 8 lower and uppercase letters, at least 1 number, and 1 symbol</mat-hint>     
-        </mat-form-field>
-
+            <label for='password'>password</label>
+        <input class='register'
+        name="password" formControlName='password' type='password'>
+        <br>
+        <div class='validation-error'
+        *ngIf='regFormGroup.get("password").touched && regFormGroup.get("password").dirty && regFormGroup.get("password").errors'>
+       Please include at least 6 letters, and at least 1 number</div>
+    
         <br clear='all'><br>
         <br><div *ngIf='admin'>
                 <mat-checkbox formControlName='student'>
@@ -47,8 +65,14 @@
             </mat-checkbox>
             <mat-checkbox formControlName='admin'>
                     Admin&nbsp;&nbsp;
-                </mat-checkbox>
-<br clear='all'><br>
+                </mat-checkbox></div>
+
+
+<div class='createAccount' 
+(click)='signupUser()' *ngIf='regFormGroup.valid'>Create Account</div>
+<br clear='all'>
+
+
     </div>
 
             <!-- <mat-checkbox [(ngModel)]='checkBox' name='checkBox'>Instructor</mat-checkbox>
@@ -59,16 +83,12 @@
         {{editSelf}} -->
 
         
-    </div>
+   
 
 
     <br>
-    <div class='loomButton loomSubmit' 
-    (click)='signupUser()'>Create Account</div>
-   <div class='loomButton loomCancel' (click)="cancel()">Cancel</div>
-<br clear='all'>
 
-    </div>
+  
 
 </form>
 <!-- <div *ngIf="alreadyConnectedThruFB">
@@ -106,12 +126,12 @@
 <div *ngIf="FBUser">
     <p> {{ FBUser | json }}</p>
 </div>
-<div *ngIf="!regChoice">
-<div class='already' (click)="already()">
-If you've already signed up, you can <span class='just'>just Login!</span>
-</div>
-</div>
-<!-- <div class='debug'>
-    {{ regFormGroup.value | json }}
 
-</div> -->
+</div>
+
+<br>
+<div *ngIf="!regChoice">
+        <div class='already' (click)="already()">
+        If you've already signed up, you can simply <span class='just'>LOG IN!</span>
+        </div>
+        </div>

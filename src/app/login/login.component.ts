@@ -7,6 +7,7 @@ import { LoomsFacebookService } from '../services/loomsfacebook.service';
 import { LoginResponse, FacebookService, InitParams } from 'ngx-facebook';
 import { AlertService } from '../services/alert.service';
 import { Globals } from '../globals';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
     newFBUser: User;
     users: User [];
     errorMessage: string;
+    loginForm: FormGroup;
 
     constructor(
         private alertService: AlertService,
@@ -38,7 +40,8 @@ export class LoginComponent implements OnInit {
         private _router: Router,
         private userService: UserService,
         private FB: FacebookService,
-        private globals: Globals
+        private globals: Globals,
+        private formBuilder: FormBuilder
          ) { }
 
     ngOnInit() {
@@ -51,19 +54,24 @@ export class LoginComponent implements OnInit {
       // We are therefore forever linked and connected to the evil empire
       this.initFB();
       this.currentUser = this.userService.getCurrentUser();
-    }
 
-    keyDownFunction(event) {
-      if (event.keyCode === 13) {
-       this.login();
-      }
+      this.loginForm = this.formBuilder.group( {
+        username: ['', Validators.required ],
+      password: ['', Validators.required ] });
+
+  }
+
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+     this.login();
     }
+  }
 
     login() {
         console.log('In login method');
         this.loading = true;
 
-        this.userService.login(this.model.username, this.model.password)
+        this.userService.login(this.loginForm.get('username').value, this.loginForm.get('password').value)
             .subscribe(result => {
 
                 if (result) {
@@ -97,8 +105,9 @@ export class LoginComponent implements OnInit {
                 }
             },
         err => {
-
-            const foundUser = this.userService.findUserByUsername(this.model.username);
+           const tempUserName = this.loginForm.get('username').value;
+            console.log(tempUserName);
+            const foundUser = this.userService.findUserByUsername(tempUserName);
             if (foundUser) {
               this.error = 'Your Password is incorrect';
             } else {

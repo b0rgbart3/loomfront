@@ -46,7 +46,7 @@ export class NotificationsComponent implements OnInit {
 
             setTimeout(() => {
            // this.hide.bind(this)(note); }, 3000);
-           this.state = 'inactive'; }, 5000);
+           this.state = 'inactive'; }, note.delay);
         });
     }
     ngOnInit() {

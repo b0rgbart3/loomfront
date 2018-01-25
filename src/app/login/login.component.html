@@ -1,13 +1,9 @@
 ﻿
 <div class='loomContainer'>
-                <flash-messages></flash-messages>
+        <flash-messages></flash-messages>
 
  <div class='loginStuff' *ngIf='!currentUser'>             
 <div class="loginBox">
-
-
-    <!-- <div class="alert alert-info">
-    </div> -->
 
 <div class='branding'>
     <h1>Log in</h1>
@@ -17,25 +13,23 @@
 </div>
 <div class='credsBox'>
        
-                <form name="form" (ngSubmit)="f.form.valid &&
-                login()" #f="ngForm" novalidate (keydown)="keyDownFunction($event)" class='loginform'>
+        <form novalidate [formGroup]="loginForm" class='loginForm' (keydown)="keyDownFunction($event)">
+   
                 <div class='creds'>
                         <div class='human'></div>
                         <div class='credField'>
                     
-                    <input #username="ngModel"  placeholder="USERNAME" 
-                    name="usernane" [(ngModel)]="model.username" 
-                    required maxlength="30" minlength="3">
+                    <input placeholder="USERNAME" 
+                    name="usernane" formControlName='username'>
 </div><br clear='all'>
         
                    
                     <div class='key'></div>
                     <div class='credField'>
   
-                    <input #password="ngModel" type="password" 
+                    <input type="password" 
                      placeholder="PASSWORD" 
-                    name="pasword" [(ngModel)]="model.password" 
-                    required maxlength="30" minlength="3">
+                    name="pasword" formControlName='password'>
                </div><br>
         
                 <br></div>
@@ -48,9 +42,9 @@
     </form>
 </div>
 </div>
+<div class='orMessage' *ngIf='!loginForm.touched'></div>
 
-
-        <div class='fbLoginButton' (click)="StartFBLogin()">Sign up and Login using Facebook</div>
+        <div class='fbLoginButton' (click)="StartFBLogin()" *ngIf='!loginForm.touched' > Sign up and Login using Facebook ( instead )</div>
 
 <br clear='all'>
 <p>New to the Loom? <a [routerLink]="['/signup']">&nbsp; &#10148;&nbsp;Sign up today!</a></p>

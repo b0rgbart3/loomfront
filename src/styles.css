@@ -189,6 +189,11 @@ body {
     margin-bottom:30px;
   }
 
+  .alert-error {
+    background-color:#d4908e;
+    border:2px solid #7c0000;
+    color:#800000;
+  }
   .alert-success
   {
     background-color:#8CE2A6;
@@ -206,6 +211,10 @@ body {
     margin-bottom:30px;
   }
 
+  .validation-error {
+    color: red;
+  }
+  
   button {
     padding:10px;
     font-size:1.2em;
@@ -622,7 +631,7 @@ h2 {
 }
 
 .notifications {
-  left: calc(50% - 150px);
+  left: calc(50% - 200px);
   position: fixed;
   top: 10%; }
   .notifications div {
@@ -632,9 +641,10 @@ h2 {
     cursor: pointer;
     margin-bottom: .5em;
     min-height: 3em;
-    padding: 1em;
+    padding: 2em;
     text-align: center;
-    width: 300px; }
+    line-height:1.5em;
+    width: 400px; }
     .notifications div.success {
       background-color: #dff2bf;
       border-color: #9fd840;

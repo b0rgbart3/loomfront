@@ -85,8 +85,10 @@ export class UserService implements OnInit {
   findUserByUsername(queryName): User {
     let foundUser = <User>null;
 
+    console.log('searching for a user with a username of: ' + queryName);
     if (this.users) {
       for (let i = 0; i < this.users.length; i++) {
+        console.log(this.users[i].username);
         if (this.users[i].username === queryName ) {
           foundUser = this.users[i];
         }
@@ -199,7 +201,7 @@ export class UserService implements OnInit {
 
     createUser(userObject: User): Observable<any> {
       this.subscribeToUsers();
-      console.log('Made it to the createUser method.');
+      // console.log('Made it to the createUser method.');
 
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
@@ -210,8 +212,20 @@ export class UserService implements OnInit {
       // console.log( 'Posting User: ', body   );
       // console.log(this._usersUrl);
 
-      return this._http.put(this._usersUrl + '?id=0', userObject, {headers: myHeaders} );
+      // Let's double check to make sure this username or email doesn't already exist
+      if (this.findUserByUsername(userObject.username) != null) {
+        return Observable.of('We\'re sorry, but an account with that Username already exists.' +
+      'Please choose a different Username.');
+      } else {
+
+        if (this.findUserByEmail(userObject.email) != null) {
+          return Observable.of('We\'re sorry but an account with that Email address already exists.');
+        } else {
+        return this._http.put(this._usersUrl + '?id=0', userObject, {headers: myHeaders} ); }
+      }
+
     }
+
 
     updateUser(userObject: User): Observable<any> {
       // console.log('Made it to the updateUser method.');

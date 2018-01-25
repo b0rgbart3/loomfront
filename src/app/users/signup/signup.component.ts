@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model';
-import { NgForm, FormControl, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { NgForm, FormControl, FormBuilder,
+  FormGroup, FormArray, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 
 import { UserService } from '../../services/user.service';
 import { AlertService } from '../../services/alert.service';
@@ -9,7 +10,46 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { FacebookService, InitParams, LoginResponse, LoginStatus } from 'ngx-facebook';
 import { BoardSettings } from '../../models/boardsettings.model';
 import { Globals } from '../../globals';
+import { AbstractClassPart } from '@angular/compiler/src/output/output_ast';
+import { NotificationsService } from '../../services/notifications.service';
+import { Notification } from '../../models/notifications.model';
 
+// These are my custom validation methods for the signup form
+function uniqueUsername( users: User[]): ValidatorFn {
+  return (c: AbstractControl): {[key: string]: boolean} | null => {
+
+
+
+  if (c.value !== undefined) {
+    const foundValue = users.find(obj => obj.username === c.value);
+    console.log('Found Value: ' + JSON.stringify(foundValue) );
+
+    if ( foundValue ) {
+    return { 'usernameExists': true };
+    }
+
+  return null;
+  }
+};
+}
+
+function uniqueEmail( users: User[]): ValidatorFn {
+  return (c: AbstractControl): {[key: string]: boolean} | null => {
+
+
+
+  if (c.value !== undefined) {
+    const foundValue = users.find(obj => obj.email === c.value);
+    console.log('Found Value: ' + JSON.stringify(foundValue) );
+
+    if ( foundValue ) {
+    return { 'emailExists': true };
+    }
+
+  return null;
+  }
+};
+}
 
 @Component({
     moduleId: module.id,
@@ -43,18 +83,25 @@ export class SignupComponent implements OnInit {
     FBProfile: any;
     newFBUser: User;
     FBUser: any;
- 
+    success: boolean;
+    emailMessage: string;
 
     constructor(
-      public userService: UserService,
+      private userService: UserService,
       private router: Router,
       private alertService: AlertService,
       private _flashMessagesService: FlashMessagesService,
       private activated_route: ActivatedRoute,
       private formBuilder: FormBuilder,
       private FB: FacebookService,
-      private globals: Globals) {
+      private globals: Globals,
+      private _notes: NotificationsService ) {
       }
+
+     private validationMessages = {
+       required: 'Please enter your email address.',
+       pattern: 'Please enter a valid email address.'
+     };
 
     registerWithFacebook(): void {
       console.log('checking Login status');
@@ -112,7 +159,7 @@ export class SignupComponent implements OnInit {
 
     ngOnInit() {
 
-
+      this.success = false;
       this.connectedThruFB = false;
       const id = this.activated_route.snapshot.params['id'];
       if (id) {
@@ -122,6 +169,8 @@ export class SignupComponent implements OnInit {
       if (this.user && this.user.instructor) {
         this.isInstructor = true;
       }
+
+
 
       this.admin = false;
       this.editSelf = false;
@@ -142,22 +191,42 @@ export class SignupComponent implements OnInit {
         firstname: [this.user.firstname, [ Validators.required, Validators.maxLength(20), ] ],
         lastname: [this.user.lastname, [ Validators.required, Validators.maxLength(40)] ],
         email: [this.user.email, [ Validators.required,
-          Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')] ],
-        username: [this.user.username, [ Validators.required ]],
-        // password: [this.user.password, [Validators.required,
-        //   Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')]]
+          Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'),
+        uniqueEmail(this.users)] ],
+        username: [this.user.username, [ Validators.required, uniqueUsername( this.users ) ]],
         password: [ this.user.password, [ Validators.required,
-          Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]],
+          Validators.pattern('^(?=.*?[0-9]).{6,}$')]],
           student: this.user.student,
         instructor: this.user.instructor,
         admin: this.user.admin
       });
 
+      // Original Pattern:  '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
+
       this.alreadyConnectedThruFB = false;
      // this.initFB();
      // this.loginWithFacebook();
+
+     const emailControl = this.regFormGroup.get('email');
+     emailControl.valueChanges.subscribe(value =>
+      this.setMessage(emailControl));
     }
 
+    setMessage(c: AbstractControl): void {
+
+      if (this.regFormGroup.get('email').touched && this.regFormGroup.get('email').dirty) {
+        this.emailMessage = '';
+      if (this.regFormGroup.get('email').errors) {
+        
+      if (this.regFormGroup.get('email').errors.required) {
+        this.emailMessage = 'Please include an email address.';
+      }
+      if (this.regFormGroup.get('email').errors.pattern) {
+        this.emailMessage = 'Please include a valid email address.';
+      }
+      }
+      }
+    }
     // Here the user has finished clicking on the Login with Facebook Button
     // and filling in their FB credentials into the FB generated Popup.
     // So we now need to take their login info and "create a registration".
@@ -270,12 +339,27 @@ export class SignupComponent implements OnInit {
 
         this.userService.createUser( combinedObject ).subscribe(
           (val) => { console.log('POST call successful value returned in body ', val);
-            this.router.navigate(['/welcome']); },
+          // if (val) {
+          //   this._flashMessagesService.show(JSON.stringify(val),
+          //   { cssClass: 'alert-error', timeout: 18000 });
+          //   console.log('Received a return value of: ' + val);
+          // } else {
+          //   this.success = true;
+          //   this._flashMessagesService.show('Thank you for signing up with the Reclaiming Loom.' +
+          // ' Now, please check your email, and use the verification code to verify your account. Thank you.',
+          //   { cssClass: 'alert-success', timeout: 18000 });
+          // }
+          this._notes.add(new Notification('success', 'Welcome to the ReclaimingLoom, ' + this.regFormGroup.get('username').value +
+        '! -- Now you can login using the credentials you just created.', 10000));
+            // this.router.navigate(['/welcome']);
+           },
           response => {console.log('POST call in error', response); },
-          () => {console.log('The POST observable is now completed.');
-            this.alertService.success('Thank you for signing up with the Reclaiming Loom. ' +
-              ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
-              this.router.navigate(['/welcome']);  });
+          () => {
+
+          console.log('The POST observable is now completed.');
+
+               this.router.navigate(['/login']);
+             });
         } else {
           this.userService
           .updateUser( combinedObject ).subscribe(

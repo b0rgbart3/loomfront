@@ -7,6 +7,14 @@ p {
     text-align: center;
 }
 
+.orMessage {
+    height:100px;
+    background-image:url('../../assets/images/or_message.gif');
+    background-position: 50% 50%;
+    background-size:200px;
+    background-repeat: no-repeat;
+}
+
 .fbLoginButton{
     padding-top:20px;
     padding-left:40px;
@@ -25,7 +33,7 @@ p {
     width:100%;
     max-width:640px;
     box-sizing: border-box;
-    margin-top:40px;
+    margin-top:0px;
 }
 
 
@@ -177,7 +185,7 @@ p {
 }
 
 .credField input:focus {
-    border-bottom:2px solid rgba(167, 177, 189,1);
+    border-bottom:1px solid rgba(167, 177, 189,1);
 }
 
 .credField input:focus::-webkit-input-placeholder {

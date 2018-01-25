@@ -1,36 +1,220 @@
-.registerStuff {
-    text-align: center;
-}
-.bigchoice {
-    width:40%;
-    height:200px;
-    background-color:rgba(255,255,255,.15);
-    border-radius:10px;
-    vertical-align: top;
-    display:inline-block;
-    cursor: pointer;
-    user-select: none;
-    padding:20px;
-    outline:none;
+h1 { font-family: 'Roboto';
+font-size:1.7em;
+color: white;
+font-weight: 300;
+line-height: 1.25em;
 }
 
-.bigchoice:hover {
-    background-color:rgba(255,255,255,.25);
+.signupBox {
+    background-color:#34414e;
+    overflow: hidden;
+    height:540px;
+    margin-top:20px;
+    padding:0;
 }
+
+.branding {
+    width:24%;
+    display:inline-block;
+    float:left;
+    background-color:#3c4b5a;
+    padding:40px;
+    box-sizing: border-box;
+    height:800px;
+    padding-top:80px;
+}
+
+.infoBox {
+  border:1px solid rgba(0,0,0,0);
+  display:inline-block;
+  float:left;
+  vertical-align: top;
+  padding-top:30px;
+  margin-left:0px;
+  width:75.7%;
+  overflow: visible;
+}
+
 
 .already {
-    width:80%;
+    width:100%;
     margin-top:10px;
-    background-color:rgba(255,255,255,.1);
+    background-color:rgba(255,255,255,.31);
     padding-top:20px;
     padding-bottom:20px;
     outline:none;
-    border-radius:10px;
     cursor:pointer;
     user-select:none;
+    padding-left:40px;
+    box-sizing: border-box;
 }
 
 .just {
     color:#cccccc;
 
+}
+
+input.register {
+    height:50px;
+    box-sizing:border-box;
+    font-family: 'Roboto';
+    font-size:2.7em;
+    color:#a7b1bd;
+    font-weight: 300;
+    border-radius:4px;
+    background-color:rgba(255,255,255,0);
+    outline:none;
+    border:0;
+    border-bottom:1px solid rgba(167, 177, 189,.25);
+    border-radius: 0;
+    margin-left:10px;
+    padding-top:20px;
+    padding-bottom:14px;
+    display:block;
+    box-sizing: border-box;
+    margin-left:200px;
+    transition:all .5s;
+    width:500px;
+}
+
+label {
+    padding-top:20px;
+    box-sizing:border-box;
+    font-family: 'Roboto';
+    font-size:.45em;
+    font-size:1.2em;
+    text-align: right;
+    display:inline-block;
+    float:left;
+    min-width:170px;
+    margin-right:20px;
+    text-transform: uppercase;
+    color: rgba(167, 177, 189,.7);
+}
+
+#email {
+    font-size:1.9em;
+}
+
+input.register:focus {
+    border-bottom:2px solid white;
+}
+
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #34414e inset;
+    border-bottom:2px solid rgba(200,200,200,1);
+    color:#a7b1bd;
+    -webkit-text-fill-color: #a7b1bd;
+    border-bottom:1px solid rgba(167, 177, 189,.25);
+}
+
+
+.hint {
+color:rgb(141, 156, 158);
+font-family: 'Roboto'; 
+margin-top:12px;
+margin-left:200px;
+opacity:.8;
+font-style:italic;   
+}
+
+.validation-error {
+    color:#ffdf88;
+    margin-left:200px;
+    font-weight: normal;
+    font-size:.9em;
+    padding-top:4px;
+    max-width:680px;
+    line-height:1.6em;
+}
+
+
+.createAccount{
+    background-color:#2f507c;
+    padding:10px;
+    color:white;
+    width:100%;
+    text-align: center;
+    padding-top:20px;
+    padding-bottom:30px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    user-select: none;
+    cursor: pointer;
+}
+
+
+.createAccount:active {
+    background-color:#3b95fd;
+
+}
+
+
+@media (max-width: 950px) {
+
+    .branding {
+        width:100%;
+        display:block;
+        float:none;
+        padding-top:20px;
+        height:140px;
+    }
+
+    .infoBox {
+        display:block;
+        width:100%;
+        float:none;
+    }
+
+    .signupBox {
+        height:680px;
+    }
+}
+
+@media (max-width: 740px) {
+
+    label {
+        padding-top:20px;
+        box-sizing:border-box;
+        font-family: 'Roboto';
+        font-size:.95em;
+        text-align: right;
+        display:inline-block;
+        float:left;
+        min-width:120px;
+        margin-right:2px;
+    }
+
+    input.register {
+        width:350px;
+        height:50px;
+        box-sizing:border-box;
+        font-family: 'Roboto';
+        font-size:2.7em;
+        font-weight: 900;
+        color:#a7b1bd;
+        font-weight: 400;
+        border-radius:4px;
+        background-color:rgba(255,255,255,0);
+        outline:none;
+        border:0;
+        border-bottom:1px solid rgba(167, 177, 189,.25);
+        border-radius: 0;
+        margin-left:2px;
+        padding-top:20px;
+        padding-bottom:14px;
+        display:block;
+        box-sizing: border-box;
+        margin-left:130px;
+        font-weight:500;
+        transition:all .5s;
+    }
+    .validation-error {
+margin-left:130px;
+    }
+
+    .hint {
+        margin-left:130px;
+    }
 }

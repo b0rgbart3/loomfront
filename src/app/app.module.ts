@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { NavBarComponent } from './navbar/nav-bar.component';
 import { AppComponent } from './app.component';
 import { FormPoster } from './services/form-poster.service';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -73,7 +72,6 @@ import { ImageComponent } from './materials/image/image.component';
 @NgModule({
   // External
   imports: [
-    FlashMessagesModule,
     SharedModule,
     AdminFeatureModule,
     FacebookModule.forRoot(),

@@ -20,7 +20,7 @@ import { ClassThumbComponent } from '../classes/class-list/class-thumb.component
 import { ClassResolver } from '../services/class-resolver.service';
 import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 @NgModule ( {
     imports: [
@@ -36,7 +36,8 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
         VgControlsModule,
         VgOverlayPlayModule,
         VgBufferingModule,
-        CustomMaterialModule
+        CustomMaterialModule,
+        FlashMessagesModule
     ],
     declarations: [
         UserThumbComponent,
@@ -71,7 +72,8 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
         ClassListComponent,
         ClassThumbComponent,
         // ImageUploaderComponent,
-        ClickOutsideDirective
+        ClickOutsideDirective,
+        FlashMessagesModule
     ]
 
 })
