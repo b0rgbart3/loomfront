@@ -264,10 +264,10 @@ export class UserService implements OnInit {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        // console.log('In authentication service, sending a reset request' + emailObjectString);
+       console.log('In user service, sending a reset request' + emailObjectString);
 
         return this._http.post(this.base_path + '/api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
-            // console.log('Got back from http request.');
+             console.log('Got back from http request.');
     });
     }
 

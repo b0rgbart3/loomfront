@@ -60,8 +60,8 @@ import { SeriesResolver } from '../services/series-resolver.service';
             data: { type: 'block' }, resolve: { MaterialsResolver } },
 
             { path: '404', component: Error404Component },
-       //     { path: '', component: WelcomeComponent },
-        //    { path: '**', component: WelcomeComponent }
+           { path: '', component: WelcomeComponent },
+            { path: '**', component: WelcomeComponent }
         ])
     ],
     declarations: [
