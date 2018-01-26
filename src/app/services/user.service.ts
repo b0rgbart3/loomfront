@@ -266,7 +266,7 @@ export class UserService implements OnInit {
 
        console.log('In user service, sending a reset request' + emailObjectString);
 
-        return this._http.post(this.base_path + 'api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
+       return this._http.post(this.base_path + 'api/reset', emailObjectString, {headers: myHeaders}).map((response) => {
              console.log('Got back from http request.');
     });
     }
