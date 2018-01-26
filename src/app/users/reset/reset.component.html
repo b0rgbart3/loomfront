@@ -1,0 +1,36 @@
+<div class='loomContainer'>
+        <div class="loomCard">
+            <div class="padMe">
+  
+            <h2>Reset your registered password</h2>
+            <form name="form" (ngSubmit)="f.form.valid && 
+            sendReset()" #f="ngForm" novalidate>
+                     
+                <mat-form-field>
+                <input #email="ngModel" matInput placeholder="email" name="email" 
+                [(ngModel)]="model.email" required type="email" 
+                minlength="7" maxlength="40" 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                </mat-form-field>
+
+                <mat-form-field>
+                        <input #password="ngModel" matInput placeholder="your new password" name="password" 
+                        [(ngModel)]="model.password" required type="password">
+                        </mat-form-field>
+        
+            <mat-form-field>
+                    <input #password="ngModel" matInput placeholder="please confirm your new password" name="password_confirmation" 
+                    [(ngModel)]="model.password_confirmation" required type="password">
+                    </mat-form-field>
+
+                        <br>
+                        <button mat-raised-button color="primary" 
+                        class='rightAlignMe'
+                         [disabled]="f.form.invalid">OK</button>
+                        <br clear='all'>
+        
+            
+            </form>
+        </div>
+        </div>
+        

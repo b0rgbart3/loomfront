@@ -28,6 +28,7 @@ import { ClassResolver } from './services/class-resolver.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { BookResolver } from './services/book-resolver.service';
+import { ResetComponent } from './users/reset/reset.component';
 
 
 
@@ -51,7 +52,7 @@ resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'discussion/:id', component: DiscussionComponent,
 resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'usersettings', component: UserSettingsComponent },
-
+{ path: 'reset', component: ResetComponent },
 ];
 
 

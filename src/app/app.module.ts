@@ -68,6 +68,7 @@ import { SeriesService } from './services/series.service';
 import { SeriesResolver } from './services/series-resolver.service';
 import { BlockComponent } from './materials/block/block.component';
 import { ImageComponent } from './materials/image/image.component';
+import { ResetComponent } from './users/reset/reset.component';
 
 @NgModule({
   // External
@@ -112,7 +113,8 @@ import { ImageComponent } from './materials/image/image.component';
     ModalComponent,
     AudioComponent,
     BlockComponent,
-    ImageComponent
+    ImageComponent,
+    ResetComponent
 
   ],
   providers: [
