@@ -10,7 +10,7 @@ import { Notification } from '../models/notifications.model';
     <div class="notifications" *ngFor='let note of _notes'>
         <div (click)="hide(note)" class="{{ note.type }}" [@noteState]="state"
         (@noteState.done)='handleDone(note)'>
-            {{ note.message }}
+            <p *ngFor='let line of note.message'>{{ line }}</p>
         </div>
     </div>
     `,

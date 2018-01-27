@@ -35,7 +35,9 @@ export class RequestresetComponent {
             },
         () => {
             this._notes.add(
-                new Notification('success', 'Please check your email, and follow the link to reset your password.  Thank you..', 10000));
+                new Notification('success', ['Please check your email for a message from the loom' +
+                '-- and then follow the link inside that email to reset your password.  Thank you..',
+            'Please note: it may take a few minutes for the email to arrive in your inbox.'], 10000));
             this._router.navigate(['/welcome']);
         } );
     }
