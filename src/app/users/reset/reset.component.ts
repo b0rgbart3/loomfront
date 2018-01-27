@@ -68,7 +68,7 @@ export class ResetComponent implements OnInit {
           () => {
             console.log('The POST observable is now completed.');
             this._notes.add(
-                new Notification('success', 'Your password has now been reset.', 10000));
+                new Notification('success', ['Your password has now been reset.'], 10000));
             this._router.navigate(['/login']);
             }
           );

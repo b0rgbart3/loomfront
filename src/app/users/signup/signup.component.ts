@@ -349,8 +349,9 @@ export class SignupComponent implements OnInit {
           // ' Now, please check your email, and use the verification code to verify your account. Thank you.',
           //   { cssClass: 'alert-success', timeout: 18000 });
           // }
-          this._notes.add(new Notification('success', 'Welcome to the ReclaimingLoom, ' + this.regFormGroup.get('username').value +
-        '! -- Now you can login using the credentials you just created.', 10000));
+          this._notes.add(new Notification('success', ['Welcome to the ReclaimingLoom, ' +
+          this.regFormGroup.get('username').value + '!', 
+          'Now you can login using the credentials you just created.'], 10000));
             // this.router.navigate(['/welcome']);
            },
           response => {console.log('POST call in error', response); },
