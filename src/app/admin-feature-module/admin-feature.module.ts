@@ -30,6 +30,7 @@ import { SeriesResolver } from '../services/series-resolver.service';
             { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
             resolve: { course: CourseResolver,
                 materials: MaterialsResolver } },
+                
             { path: 'coursebuilder', component: CourseBuilderComponent },
 
             { path: 'classedit/:id', pathMatch: 'full', component: ClassEditComponent, resolve: {

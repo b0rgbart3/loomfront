@@ -52,7 +52,7 @@ resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'discussion/:id', component: DiscussionComponent,
 resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'usersettings', component: UserSettingsComponent },
-{ path: 'reset*', component: ResetComponent },
+{ path: 'reset', pathMatch: 'full', component: ResetComponent },
 ];
 
 
