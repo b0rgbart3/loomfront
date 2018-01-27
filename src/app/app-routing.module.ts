@@ -4,8 +4,6 @@ import { AppComponent } from './app.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { UserListComponent } from './users/user-list/user-list.component';
-// import { ProfileComponent } from './users/profile.component';
-// import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
@@ -34,7 +32,6 @@ import { ResetComponent } from './users/reset/reset.component';
 
 const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
-{ path: 'resets', pathMatch: 'full', component: ResetComponent },
 { path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
@@ -53,7 +50,7 @@ resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'discussion/:id', component: DiscussionComponent,
 resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 { path: 'usersettings', component: UserSettingsComponent },
-{ path: 'reset', pathMatch: 'full', component: ResetComponent },
+{ path: 'reset*', component: ResetComponent },
 ];
 
 
