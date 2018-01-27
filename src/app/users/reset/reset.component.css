@@ -1,0 +1,14 @@
+.sendReset {
+
+    background-color:#2f507c;
+    padding:10px;
+    color:white;
+    width:100%;
+    text-align: center;
+    padding-top:20px;
+    padding-bottom:30px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    user-select: none;
+    cursor: pointer;
+}

@@ -10,6 +10,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Enrollment } from '../models/enrollment.model';
 import { Globals } from '../globals';
 import { BoardSettings } from '../models/boardsettings.model';
+import { Reset } from '../models/reset.model';
 
 
 @Injectable()
@@ -27,6 +28,7 @@ export class UserService implements OnInit {
 
   private base_path;
   private _usersUrl;
+  resetUrl;
   private _avatarsUrl;
   private _classregistrationsUrl;
   private _instructorsUrl;
@@ -46,6 +48,7 @@ export class UserService implements OnInit {
      this._classregistrationsUrl = this.base_path + 'api/classregistrations';
      this._instructorsUrl = this.base_path + 'api/instructors';
      this._studentsUrl = this.base_path + 'api/students';
+     this.resetUrl = this.base_path + 'api/reset';
 
      this._avatar_image_url = this.globals.avatars;
   }
@@ -266,9 +269,17 @@ export class UserService implements OnInit {
 
        console.log('In user service, sending a reset request' + emailObjectString);
 
-       return this._http.post(this.base_path + 'api/reset', emailObject, {headers: myHeaders}).map((response) => {
+       return this._http.post(this.base_path + 'api/requestreset', emailObject, {headers: myHeaders}).map((response) => {
              console.log('Got back from http request.');
     });
+    }
+
+    resetPassword( resetObject: Reset ):Observable<any> {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+      return this._http.put(this.resetUrl, resetObject, {headers: myHeaders} );
+
     }
 
     loggedInUser(): User {
