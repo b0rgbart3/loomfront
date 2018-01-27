@@ -62,11 +62,8 @@ export class ResetComponent implements OnInit {
 
         this.userService
           .resetPassword( combinedObject ).subscribe(
-          (val) => {
-            console.log('POST call successful value returned in body ', val);
-          },
-          (error) => {
-            console.log('POST call in error', error);
+          (err) => {
+            console.log('POST call error ', err);
           },
           () => {
             console.log('The POST observable is now completed.');
