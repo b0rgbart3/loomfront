@@ -6,7 +6,8 @@ import { UserService } from '../../services/user.service';
 import { NgForm, FormControl, FormBuilder,
     FormGroup, FormArray, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Reset } from '../../models/reset.model';
-  
+import { NotificationsService } from '../../services/notifications.service';
+import { Notification } from '../../models/notifications.model';
 
 @Component({
     moduleId: module.id,
@@ -29,6 +30,7 @@ export class ResetComponent implements OnInit {
         private _router: Router,
         private formBuilder: FormBuilder,
         private _activatedRoute: ActivatedRoute,
+        private _notes: NotificationsService
          ) { }
 
 
@@ -68,6 +70,9 @@ export class ResetComponent implements OnInit {
           },
           () => {
             console.log('The POST observable is now completed.');
+            this._notes.add(
+                new Notification('success', 'Please check your email for a link to reset your password.', 10000));
+            this._router.navigate(['/home']);
             }
           );
     }
