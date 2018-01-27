@@ -5,6 +5,7 @@ export class Reset {
     _id?: string;
 
     constructor (
+        public resetKey: string,
         public email: string,
         public password: string,
         public password_confirmation: string,
