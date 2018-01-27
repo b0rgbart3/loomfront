@@ -2,12 +2,14 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+var httpsRedirect = require('express-https-redirect');
+
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist'));
-app.get("*", function (req, res, next) {
-  res.redirect("https://" + req.headers.host + "/" + req.path);
-});
+
+app.use('/', httpsRedirect());
+
 
 app.get('/*', function(req, res){
 
