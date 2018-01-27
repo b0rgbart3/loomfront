@@ -34,6 +34,7 @@ import { ResetComponent } from './users/reset/reset.component';
 
 const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent },
+{ path: 'resets', pathMatch: 'full', component: ResetComponent },
 { path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
