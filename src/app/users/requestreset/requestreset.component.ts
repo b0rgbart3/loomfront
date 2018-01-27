@@ -3,6 +3,8 @@ import { User } from '../../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { NotificationsService } from '../../services/notifications.service';
+import { Notification } from '../../models/notifications.model';
 
 
 @Component({
@@ -20,14 +22,19 @@ export class RequestresetComponent {
     constructor(
         private userService: UserService,
         private _flashMessagesService: FlashMessagesService,
-        private _router: Router
+        private _router: Router,
+        private _notes: NotificationsService
          ) { }
 
 
 
     sendResetRequest() {
         this.userService.sendResetRequest(this.model.email).subscribe(
-            (value) => console.log(JSON.stringify(value)) ,
+            (value) => { console.log(JSON.stringify(value) ); 
+                this._notes.add(
+                    new Notification('success', 'Please check your email, and follow the link to reset your password.  Thank you..', 10000));
+                this._router.navigate(['/welcome']);
+            },
         (error) => console.log('Error: ' + JSON.stringify(error) ) );
     }
 }
