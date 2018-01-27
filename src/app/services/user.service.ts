@@ -261,11 +261,11 @@ export class UserService implements OnInit {
 
       }
 
-      sendResetRequest(email: string) {
+    sendResetRequest(email: string) {
         const emailObject = {'email': email};
         const emailObjectString = JSON.stringify(emailObject);
         const myHeaders = new HttpHeaders();
-        myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+        myHeaders.append('Content-Type', 'application/json');
 
        console.log('In user service, sending a reset request' + emailObjectString);
 

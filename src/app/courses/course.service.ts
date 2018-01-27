@@ -119,7 +119,7 @@ export class CourseService implements OnInit {
   createCourse(courseObject: Course): Observable<any> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
-      // let thisID = this.courseCount + 1;
+        // let thisID = this.courseCount + 1;
 
       console.log('Creating Course.');
 
