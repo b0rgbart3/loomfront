@@ -1,0 +1,11 @@
+.request {
+    background-color:rgba(255,255,255,.65);
+    padding:50px;
+    margin:40px;
+    border-radius:4px;
+    max-width:840px;
+}
+
+p {
+    line-height:1.8em;
+}

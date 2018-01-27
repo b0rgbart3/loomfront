@@ -1,15 +1,23 @@
 <div class='loomContainer'>
-        <div class="loomCard">
-            <div class="padMe">
+
+            <div class="request">
             <!-- <div class="alert alert-info">
             </div> -->
             <flash-messages></flash-messages>   
-            <h2>Request a reset of your registered password</h2>
+            <h2>Request a <span style='color:rgb(0, 106, 177);'>reset</span> of your registered password</h2>
+            <p>Passwords are a pain in the neck, right??</p>
+            <p>We agree - but it's the best way we have of protecting your information.
+                Using them also helps us protect everyone else's information.</p>
+            <p>If you do not remember your password, or you would simply like to change it, 
+                please enter the email address you initially used to open your Loom account, and we will send you an email
+            with a link that will allow you to set a new password on your account.  It may take a few minutes for the email 
+            to travel through the interwebs before it reaches your inbox, so please be patient.</p>
+            <p>If for some reason you don't receive an email allowing you to reset your password, please try again, or contact the administrator.</p>
             <form name="form" (ngSubmit)="f.form.valid && 
             sendResetRequest()" #f="ngForm" novalidate>
                      
                 <mat-form-field>
-                <input #email="ngModel" matInput placeholder="email" name="email" 
+                <input #email="ngModel" matInput placeholder="Your email address" name="email" 
                 [(ngModel)]="model.email" required type="email" 
                 minlength="7" maxlength="40" 
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
@@ -18,12 +26,14 @@
                         <br>
                         <button mat-raised-button color="primary" 
                         class='rightAlignMe'
-                         [disabled]="f.form.invalid">OK</button>
+                         [disabled]="f.form.invalid">Submit</button>
                         <br clear='all'>
                             <!-- <button class="bd-full-width-button">LOGIN</button> -->
         
             
             </form>
         </div>
-        </div>
+        
+    
+    </div>
         
