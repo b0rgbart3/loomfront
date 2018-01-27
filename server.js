@@ -9,7 +9,7 @@ const app = express();
 //     res.sendFile(__dirname + '/dist');
 //   });
   
-  const app = express(),
+  //const app = express(),
   staticServe = express.static(`${ __dirname }/public`);
 
 app.use("/", staticServe);
