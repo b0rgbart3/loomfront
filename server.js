@@ -10,7 +10,7 @@ const app = express();
 //   });
   
   //const app = express(),
-  staticServe = express.static(`${ __dirname }/public`);
+  staticServe = express.static(`${ __dirname }/dist`);
 
 app.use("/", staticServe);
 app.use("*", staticServe);
