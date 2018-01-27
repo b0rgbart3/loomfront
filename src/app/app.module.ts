@@ -71,6 +71,7 @@ import { ImageComponent } from './materials/image/image.component';
 import { ResetComponent } from './users/reset/reset.component';
 import { HttpModule } from '@angular/http';
 
+
 @NgModule({
   // External
   imports: [
@@ -79,7 +80,8 @@ import { HttpModule } from '@angular/http';
     FacebookModule.forRoot(),
     EmbedVideo.forRoot(),
     FileUploadModule,
-    HttpModule
+    HttpModule,
+  
   ],
   // Internal
   declarations: [
