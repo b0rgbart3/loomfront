@@ -48,7 +48,7 @@ export class ResetComponent implements OnInit {
         // Complete the circle - but sending this reset request BACK to the API
 
         // put this var into an object so we can combine it with the form data
-        const keyObject = { resetKey: this.resetKey };
+        const keyObject = { 'resetKey': this.resetKey };
 
          // This is Deborah Korata's way of merging our data model with the form model
          const combinedObject = Object.assign( {}, keyObject, this.resetForm.value);
