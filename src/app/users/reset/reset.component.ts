@@ -38,6 +38,9 @@ export class ResetComponent implements OnInit {
 
         this.resetKey = this.activatedRoute.snapshot.params['key'];
 
+        console.log( ' This reset key == ' + this.resetKey );
+
+
         this.resetForm = this.formBuilder.group( {
             email: [ '' , [ Validators.required ] ],
             password: ['', [ Validators.required ] ],
@@ -51,8 +54,10 @@ export class ResetComponent implements OnInit {
         const keyObject = { 'resetKey': this.resetKey };
 
          // This is Deborah Korata's way of merging our data model with the form model
-         const combinedObject = Object.assign( {}, keyObject, this.resetForm.value);
+        const combinedObject = Object.assign( {}, keyObject, this.resetForm.value);
 
+        console.log("The combined object: " + combinedObject);
+        
         this.userService
           .resetPassword( combinedObject ).subscribe(
           (val) => {
