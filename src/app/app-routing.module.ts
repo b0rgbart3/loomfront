@@ -57,7 +57,7 @@ resolve: { thisClass: ClassesResolver, users: UsersResolver }},
 
 
 @NgModule ({
-    imports: [RouterModule.forRoot(ROUTES, { useHash: true })],
+    imports: [RouterModule.forRoot(ROUTES, { useHash: false })],
     exports: [RouterModule]
 })
 
