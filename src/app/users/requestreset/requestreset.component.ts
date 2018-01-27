@@ -31,10 +31,12 @@ export class RequestresetComponent {
     sendResetRequest() {
         this.userService.sendResetRequest(this.model.email).subscribe(
             (value) => { console.log(JSON.stringify(value) ); 
-                this._notes.add(
-                    new Notification('success', 'Please check your email, and follow the link to reset your password.  Thank you..', 10000));
-                this._router.navigate(['/welcome']);
+
             },
-        (error) => console.log('Error: ' + JSON.stringify(error) ) );
+        () => {
+            this._notes.add(
+                new Notification('success', 'Please check your email, and follow the link to reset your password.  Thank you..', 10000));
+            this._router.navigate(['/welcome']);
+        } );
     }
 }
