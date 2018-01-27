@@ -58,15 +58,15 @@ export class ResetComponent implements OnInit {
          // This is Deborah Korata's way of merging our data model with the form model
         const combinedObject = Object.assign( {}, keyObject, this.resetForm.value);
 
-        console.log("The combined object: " + combinedObject);
+        console.log("The combined object: " + JSON.stringify(combinedObject) );
 
         this.userService
           .resetPassword( combinedObject ).subscribe(
           (val) => {
             console.log('POST call successful value returned in body ', val);
           },
-          response => {
-            console.log('POST call in error', response);
+          (error) => {
+            console.log('POST call in error', error);
           },
           () => {
             console.log('The POST observable is now completed.');
