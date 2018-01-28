@@ -123,17 +123,18 @@ export class UserService implements OnInit {
     return foundUser;
 }
 
-    getUser( id ): Observable<User[]> {
+    getUser( id:string ): Observable<any> {
 
-      return this._http.get<User[]> ( this._usersUrl + '?id=' + id )
+      return this._http.get<User> ( this._usersUrl + '?id=' + id )
       .do(data => {
         if (data[0].avatar_URL === null) {
           data[0].avatar_URL = this._avatar_image_url + 'placeholder.jpg';
           // console.log('setting placeholder');
         }
         // console.log( 'found: ' + JSON.stringify(data) );
-      return data; })
-      .catch (this.handleError);
+      return data; }).catch( this.handleError );
+      
+      ;
     }
 
     // Return an array of Users that are enrolled as instructors for this class ID
@@ -152,7 +153,7 @@ export class UserService implements OnInit {
       return this._http.get < User[] >( this._studentsUrl + '?id=' + class_id);
     }
 
-    getUsers(): Observable<User[]> {
+    getUsers(): Observable<any> {
       // console.log ('In user service, gettingUsers');
       return this._http.get <User[]> (this._usersUrl)
         // debug the flow of data
@@ -240,8 +241,8 @@ export class UserService implements OnInit {
 
 
     private handleError (error: HttpErrorResponse) {
-      // console.log( error.message );
-      return Observable.throw(error.message);
+      console.log( error.message );
+      return Observable.of(error.message);
     }
 
     storeBoardSettings( boardSettings: BoardSettings ): Observable<any> {
@@ -261,7 +262,7 @@ export class UserService implements OnInit {
 
       }
 
-    sendResetRequest(email: string) {
+    sendResetRequest(email: string): Observable<any> {
         const emailObject = {'email': email};
         const emailObjectString = JSON.stringify(emailObject);
         const myHeaders = new HttpHeaders();
@@ -269,9 +270,10 @@ export class UserService implements OnInit {
 
        console.log('In user service, sending a reset request' + emailObjectString);
 
-       return this._http.post(this.base_path + 'api/requestreset', emailObject, {headers: myHeaders}).map((response) => {
-             console.log('Got back from http request.');
-    });
+       return this._http.post(this.base_path + 'api/requestreset', emailObject, {headers: myHeaders})
+        .do( data => console.log('Got data back from request reset post') )
+        .catch (this.handleError);
+  
     }
 
     resetPassword( resetObject: Reset ):Observable<any> {

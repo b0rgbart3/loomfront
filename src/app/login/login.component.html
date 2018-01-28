@@ -2,7 +2,9 @@
 <div class='loomContainer'>
         <flash-messages></flash-messages>
 
- <div class='loginStuff' *ngIf='!currentUser'>             
+ <div class='loginStuff' *ngIf='!currentUser'>   <br>   
+                <p>New to the Loom? <a [routerLink]="['/signup']">&nbsp; &#10148;&nbsp;Sign up today!</a></p>
+                       
 <div class="loginBox">
 
 <div class='branding'>
@@ -47,8 +49,7 @@
         <div class='fbLoginButton' (click)="StartFBLogin()" *ngIf='!loginForm.touched' > Sign up and Login using Facebook ( instead )</div>
 
 <br clear='all'>
-<p>New to the Loom? <a [routerLink]="['/signup']">&nbsp; &#10148;&nbsp;Sign up today!</a></p>
-<br>
+
 </div>  
 
 

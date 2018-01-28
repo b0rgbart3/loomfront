@@ -30,10 +30,10 @@ export class RequestresetComponent {
 
     sendResetRequest() {
         this.userService.sendResetRequest(this.model.email).subscribe(
-            (value) => { console.log(JSON.stringify(value) ); 
-
-            },
+            (value) => { console.log('In sendResetRequest, got back: ' + JSON.stringify(value)); }, 
+ 
         () => {
+            console.log('Finished the sendResetRequest...');
             this._notes.add(
                 new Notification('success', ['Please check your email for a message from the loom' +
                 '-- and then follow the link inside that email to reset your password.  Thank you..',

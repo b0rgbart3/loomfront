@@ -32,7 +32,7 @@ export class WelcomeComponent implements OnInit {
             this.dataConnection = false;
             this.classService
             .getClasses().subscribe(
-              classes =>  { this.classes = classes; this.dataConnection = true; console.log('gotback'); },
+              classes =>  { this.classes = classes; this.dataConnection = true; },
               error => this.errorMessage = <any>error);
 
             this.currentUser = this.userService.getCurrentUser();
