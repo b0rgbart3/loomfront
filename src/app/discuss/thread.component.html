@@ -1,6 +1,6 @@
 <div class='thread group'>
        
-        <div class='threadSubject group' (click)='toggleThread()'>
+        <div [class]='threadSubjectClass' (click)='toggleThread()'>
       
 <div *ngIf='user' class='userIdentifier'>
   
@@ -14,11 +14,9 @@
          <div *ngFor="let reply of thread.replies; let r = index" class='threadReply'>
                  <div *ngIf="replyThumbnails[r]" class='replyIdentifier'>
                  <user-thumb [thumbnail]="replyThumbnails[r]"></user-thumb></div>
-                        <!-- <user-thumb {[user]='null' [user_id]=reply.user_id 
-                        [editable]=false [tiny]=true}></user-thumb> -->
                  
                  <div *ngIf='reply.user_id===currentUser.id' class='tinyDelete'
-                  (click)='killReply(r)'></div>
+                  (click)='killReply(r)'>DELETE THIS REPLY</div>
                     <button *ngIf='reply.user_id===currentUser.id' class='tinyEdit'>Edit</button>
                     <p>{{ reply.reply }} </p><br clear='all'>
          </div>

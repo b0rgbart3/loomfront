@@ -15,6 +15,9 @@ import { Instructor } from '../../models/instructor.model';
 import { Userthumbnail } from '../../models/userthumbnail.model';
 import { BoardSettings } from '../../models/boardsettings.model';
 import { Globals } from '../../globals';
+import { MaterialCollection } from '../../models/materialcollection.model';
+import { DiscussionSettings } from '../../models/discussionsettings.model';
+import { DiscussionService } from '../../services/discussion.service';
 
 
 @Component({
@@ -41,7 +44,6 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     materialsLoaded: boolean;
     sectionNumber: number;
     section: Section;
-    discussing: boolean;
     widthStyle: string;
     boardStyle: string;
     mainStyle: string;
@@ -67,13 +69,17 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     adjustment;
     COURSE_IMAGE_PATH: string;
     AVATAR_IMAGE_PATH: string;
+    materialCollection: MaterialCollection;
+    discussionSettings: DiscussionSettings;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
     private classService: ClassService,
     private courseService: CourseService,
     private userService: UserService,
-    private materialService: MaterialService, private globals: Globals ) {
+    private materialService: MaterialService,
+    private discussionService: DiscussionService,
+    private globals: Globals ) {
         this.initialWindowWidth = window.screen.width;
         this.boardWidth = this.initialWindowWidth * .3;
         this.contentWidth = this.initialWindowWidth * .6;
@@ -83,15 +89,15 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
     ngOnInit() {
 
-        this.myInit();
-        this.discussing = false;
-        this.widthStyle = 'full';
-        this.boardStyle = 'leftSide';
-        this.mainStyle = 'full';
-        this.grabberStyle = 'grabRight';
-        this.scrollable = '';
-        this.contentWidth = window.innerWidth;
-        this.initialDocumentHeight = document.body.scrollHeight;
+       // this.myInit();
+
+        // this.widthStyle = 'full';
+        // this.boardStyle = 'leftSide';
+        // this.mainStyle = 'full';
+        // this.grabberStyle = 'grabRight';
+        // this.scrollable = '';
+        // this.contentWidth = window.innerWidth;
+        // this.initialDocumentHeight = document.body.scrollHeight;
         if (!this.sectionNumber) { this.sectionNumber = 0; }
         // Refresh the currentUser's info from the DB
         this.userService.getUser( this.userService.currentUser.id ).subscribe ( user => {
@@ -101,6 +107,9 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
             error => console.log(error)
         );
 
+        this.classID = this.activated_route.snapshot.params['id'];
+        this.thisClass = this.activated_route.snapshot.data['thisClass'];
+        this.users = this.activated_route.snapshot.data['users'];
         this.myInit();
 
     }
@@ -145,173 +154,137 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     showSectionMenu() {
         this.showingSectionMenu = !this.showingSectionMenu;
     }
-    closeDiscussion() {
-     //   console.log('closing discussion');
-        // this.widthStyle = 'full';
-        this.discussing = false;
-        // this.mainStyle = 'full';
-        // this.scrollable = '';
-        // this.contentWidth = window.innerWidth;
-        // this.initialWindowHeight = this.initialDocumentHeight;
-        // this.saveMyBoardSettings();
-    }
-
-    openDiscussion() {
-       // this.boardWidth = window.innerWidth * .3;
-        // this.contentWidth = window.innerWidth - this.boardWidth - 20;
-        // console.log('contentWidth should be: ' + window.screen.width);
-       //  this.widthStyle = 'divided';
-        this.discussing = true;
-      //  this.scrollable = 'scrollable';
-       // this.initialWindowHeight = window.innerHeight;
-
-        // if (this.boardStyle === 'rightSide') {
-        //     this.moveRight();
-        // } else {
-        //     if (this.boardStyle === 'leftSide') {
-        //         this.moveLeft();
-        //     }
-        // }
-        // this.saveMyBoardSettings();
-    }
-
-    moveRight() {
-        if (this.boardWidth < (window.innerWidth * .2)) {
-        this.boardWidth = window.innerWidth * .3; }
-        if (this.boardWidth > (window.innerWidth * .9)) {
-            this.boardWidth = window.innerWidth * .3;
-        }
-        this.contentWidth = window.innerWidth - this.boardWidth - 20;
-        this.boardStyle = 'rightSide';
-        this.scrollable = 'scrollable';
-        this.mainStyle = 'mainLeft';
-        this.grabberStyle = 'grabLeft';
-        this.initialWindowHeight = window.innerHeight;
-        this.saveMyBoardSettings();
-    }
-
-    establishRight( newWidth ) {
-        this.discussing = true;
-        this.boardWidth = newWidth;
-        this.contentWidth = window.innerWidth - this.boardWidth - 20;
-        this.boardStyle = 'rightSide';
-        this.scrollable = 'scrollable';
-        this.mainStyle = 'mainLeft';
-        this.grabberStyle = 'grabLeft';
-        this.initialWindowHeight = window.innerHeight;
-    }
-
-    moveLeft() {
-        this.boardWidth = window.innerWidth * .3;
-        this.contentWidth = window.innerWidth - this.boardWidth - 20;
-        this.boardStyle = 'leftSide';
-        this.mainStyle = 'mainRight';
-        this.scrollable = 'scrollable';
-        this.grabberStyle = 'grabRight';
-        this.initialWindowHeight = window.innerHeight;
-        this.saveMyBoardSettings();
-    }
-
-    establishLeft( newWidth ) {
-        this.discussing = true;
-        this.boardWidth = newWidth - 20;
-        this.contentWidth = window.innerWidth - this.boardWidth - 20;
-        this.boardStyle = 'leftSide';
-        this.mainStyle = 'mainRight';
-        this.scrollable = 'scrollable';
-        this.grabberStyle = 'grabRight';
-        this.initialWindowHeight = window.innerHeight;
-    }
-
-    makeStacked() {
-        this.boardStyle = 'fullSize';
-        this.mainStyle = 'full';
-        this.scrollable = 'scrollable';
-        this.boardWidth = window.innerWidth - 20;
-        this.contentWidth = window.innerWidth - 20;
-        this.saveMyBoardSettings();
-    }
-
-    establishStack( newWidth ) {
-        this.discussing = true;
-        this.boardStyle = 'fullSize';
-        this.mainStyle = 'full';
-        this.scrollable = 'scrollable';
-        this.boardWidth = window.innerWidth - 20;
-        this.contentWidth = window.innerWidth - 20;
-        this.initialWindowHeight = window.innerHeight;
-        this.saveMyBoardSettings();
-    }
 
 
-    grab(event: MouseEvent) {
-        this.tracking = true;
-        this.clientX = event.clientX;
-        this.clientY = event.clientY;
-        this.startX = this.clientX;
-        this.offsetX = document.getElementById('grabber').offsetLeft;
-        this.grabberWidth = document.getElementById('grabber').clientWidth;
-        this.diff = 0;
-        if (this.offsetX) {
-            this.diff = this.offsetX - this.clientX;
-            if (this.boardStyle === 'leftSide') {
-            this.adjustment = this.grabberWidth + this.diff + 20; } else {
-                this.adjustment = 0 - (this.grabberWidth + this.diff);
-            }
-        }
+
+    // moveRight() {
+    //     if (this.boardWidth < (window.innerWidth * .2)) {
+    //     this.boardWidth = window.innerWidth * .3; }
+    //     if (this.boardWidth > (window.innerWidth * .9)) {
+    //         this.boardWidth = window.innerWidth * .3;
+    //     }
+    //     this.contentWidth = window.innerWidth - this.boardWidth - 20;
+    //     this.boardStyle = 'rightSide';
+    //     this.scrollable = 'scrollable';
+    //     this.mainStyle = 'mainLeft';
+    //     this.grabberStyle = 'grabLeft';
+    //     this.initialWindowHeight = window.innerHeight;
+    //     this.saveMyBoardSettings();
+    // }
+
+    // establishRight( newWidth ) {
+    //     this.discussing = true;
+    //     this.boardWidth = newWidth;
+    //     this.contentWidth = window.innerWidth - this.boardWidth - 20;
+    //     this.boardStyle = 'rightSide';
+    //     this.scrollable = 'scrollable';
+    //     this.mainStyle = 'mainLeft';
+    //     this.grabberStyle = 'grabLeft';
+    //     this.initialWindowHeight = window.innerHeight;
+    // }
+
+    // moveLeft() {
+    //     this.boardWidth = window.innerWidth * .3;
+    //     this.contentWidth = window.innerWidth - this.boardWidth - 20;
+    //     this.boardStyle = 'leftSide';
+    //     this.mainStyle = 'mainRight';
+    //     this.scrollable = 'scrollable';
+    //     this.grabberStyle = 'grabRight';
+    //     this.initialWindowHeight = window.innerHeight;
+    //     this.saveMyBoardSettings();
+    // }
+
+    // establishLeft( newWidth ) {
+    //     this.discussing = true;
+    //     this.boardWidth = newWidth - 20;
+    //     this.contentWidth = window.innerWidth - this.boardWidth - 20;
+    //     this.boardStyle = 'leftSide';
+    //     this.mainStyle = 'mainRight';
+    //     this.scrollable = 'scrollable';
+    //     this.grabberStyle = 'grabRight';
+    //     this.initialWindowHeight = window.innerHeight;
+    // }
+
+    // makeStacked() {
+    //     this.boardStyle = 'fullSize';
+    //     this.mainStyle = 'full';
+    //     this.scrollable = 'scrollable';
+    //     this.boardWidth = window.innerWidth - 20;
+    //     this.contentWidth = window.innerWidth - 20;
+    //     this.saveMyBoardSettings();
+    // }
+
+    // establishStack( newWidth ) {
+    //     this.discussing = true;
+    //     this.boardStyle = 'fullSize';
+    //     this.mainStyle = 'full';
+    //     this.scrollable = 'scrollable';
+    //     this.boardWidth = window.innerWidth - 20;
+    //     this.contentWidth = window.innerWidth - 20;
+    //     this.initialWindowHeight = window.innerHeight;
+    //     this.saveMyBoardSettings();
+    // }
+
+
+    // grab(event: MouseEvent) {
+    //     this.tracking = true;
+    //     this.clientX = event.clientX;
+    //     this.clientY = event.clientY;
+    //     this.startX = this.clientX;
+    //     this.offsetX = document.getElementById('grabber').offsetLeft;
+    //     this.grabberWidth = document.getElementById('grabber').clientWidth;
+    //     this.diff = 0;
+    //     if (this.offsetX) {
+    //         this.diff = this.offsetX - this.clientX;
+    //         if (this.boardStyle === 'leftSide') {
+    //         this.adjustment = this.grabberWidth + this.diff + 20; } else {
+    //             this.adjustment = 0 - (this.grabberWidth + this.diff);
+    //         }
+    //     }
 
         // console.log( 'offset x: ' + this.offsetX + ', clientX: ' + this.clientX );
        // console.log('width: ' + this.grabberWidth + ', diff: ' + this.diff);
      //  console.log('adjustment: ' + this.adjustment );
        // console.log(this.clientX);
        // this.boardWidth = 500;
-      }
+      // }
 
-      trackGrab(event: MouseEvent) {
+    //   trackGrab(event: MouseEvent) {
 
-          if (this.tracking) {
-           // console.log('tracking' + event.clientX);
-            this.clientX = event.clientX;
-            this.clientY = event.clientY;
+    //       if (this.tracking) {
+    //        // console.log('tracking' + event.clientX);
+    //         this.clientX = event.clientX;
+    //         this.clientY = event.clientY;
 
-            if (this.boardStyle === 'leftSide') {
-                this.boardWidth = this.clientX + this.adjustment;
-                if (this.boardWidth < this.minBoardWidth) {
-                     this.boardWidth = this.minBoardWidth;
-                 }
-                // console.log('boardWidth: ' + this.boardWidth);
-                 this.contentWidth = window.innerWidth - this.boardWidth - 20;
-            } else {
-              if (this.boardStyle === 'rightSide') {
-                this.boardWidth = window.innerWidth - this.clientX - this.adjustment;
-                this.contentWidth = window.innerWidth - this.boardWidth - 20;
-              }
-          }
-        }
-      }
+    //         if (this.boardStyle === 'leftSide') {
+    //             this.boardWidth = this.clientX + this.adjustment;
+    //             if (this.boardWidth < this.minBoardWidth) {
+    //                  this.boardWidth = this.minBoardWidth;
+    //              }
+    //             // console.log('boardWidth: ' + this.boardWidth);
+    //              this.contentWidth = window.innerWidth - this.boardWidth - 20;
+    //         } else {
+    //           if (this.boardStyle === 'rightSide') {
+    //             this.boardWidth = window.innerWidth - this.clientX - this.adjustment;
+    //             this.contentWidth = window.innerWidth - this.boardWidth - 20;
+    //           }
+    //       }
+    //     }
+    //   }
 
-      endGrab(event: MouseEvent) {
+    //   endGrab(event: MouseEvent) {
 
-        if ( this.tracking ) {
-        this.tracking = false;
-        // this.saveMyBoardSettings();
-      }
-    }
+    //     if ( this.tracking ) {
+    //     this.tracking = false;
+    //     // this.saveMyBoardSettings();
+    //   }
+    // }
 
-      saveMyBoardSettings() {
-        // if (this.boardWidth) {
-        //     const boardSettings = <BoardSettings> { 'discussing' : this.discussing.toString(),
-        //      'side' : this.boardStyle, 'width' : this.boardWidth.toString() };
-        //      // I'm not really doing anything with the data that comes from this subscription.
-        //   //  this.userService.storeBoardSettings( boardSettings ).subscribe( params => params, error => console.log(error) );
-        //     }
-    }
+
 
     myInit() {
-    //    console.log('in class Init...');
-        this.classID = this.activated_route.snapshot.params['id'];
-        this.thisClass = this.activated_route.snapshot.data['thisClass'];
-        this.users = this.activated_route.snapshot.data['users'];
+       // console.log('in class Init...');
+
         this.instructors = [];
         this.instructors = this.classService.getInstructors(this.thisClass, this.users);
       //  console.log('instructors: ' + JSON.stringify(this.users));
@@ -350,25 +323,31 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
             }
         });
-       this.subscribeToCourse();
+      this.subscribeToCourse();
 
+      // this.course = this.thisClass.courseObject;
+
+      // console.log('In Class Init: ' + JSON.stringify(this.course));
     }
 
     subscribeToCourse() {
         this.courseService.getCourse(this.courseID).subscribe(
             course =>  {this.course = course[0];
             this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
-           console.log('This course image: ' + this.courseimageURL);
+         //  console.log('This course image: ' + this.courseimageURL);
             if (!this.sectionNumber) { this.sectionNumber = 0; }
             if (this.course && this.course.sections) {
                 this.section = this.course.sections[this.sectionNumber]; }
+                this.loadMaterials();
+
 
              //   console.log(' section Number ' + this.sectionNumber);
-            this.loadInMaterials();
+            // this.loadInMaterials();
 
             },
                 error => this.errorMessage = <any>error);
     }
+
     createInstructorThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
             size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff' };
@@ -389,7 +368,9 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
         this.section = this.course.sections[this.sectionNumber];
 
         const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
+       // console.log('next');
         this.router.navigate( [routeString] );
+        this.loadMaterials();
     }
 
     prevSection() {
@@ -399,7 +380,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
 
         const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
         this.router.navigate( [routeString] );
-
+        this.loadMaterials();
     }
     populateForm() {
 
@@ -407,7 +388,7 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     ngOnChanges() {
         this.section = this.course.sections[this.sectionNumber];
 
-       // this.myInit();
+        this.myInit();
     }
 
     ngDoCheck() {
@@ -420,48 +401,73 @@ export class ClassComponent implements OnInit, DoCheck, OnChanges {
     }
 
     navigateTo(sectionNumber) {
-      console.log('will navigate to: ' + sectionNumber);
+   //   console.log('will navigate to: ' + sectionNumber);
      this.showingSectionMenu = false;
      this.sectionNumber = sectionNumber;
      this.section = this.course.sections[this.sectionNumber];
+     this.loadMaterials();
      const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
         this.router.navigate([routeString]);
     }
 
+    loadMaterials() {
+
+        const materialArray = [];
+        for (let i = 0; i < this.section.materials.length; i++) {
+            // console.log('Loading in material # ' + i);
+            const thisMatID = this.section.materials[i]['material'];
+            // console.log('Material ID: ' + thisMatID);
+            materialArray.push(thisMatID);
+
+
+        }
+            // Now we have an array of just Material ID#s -- so I'm hoping we can make one single API
+            // call to load them all in.
+       // console.log(' materialArray: ' + JSON.stringify(materialArray));
+
+      // console.log('About to get the full batch');
+            this.materialService.getBatchMaterials( materialArray ).subscribe(
+                (materials) => {
+                   // console.log('asynchronous material loaded.');
+                    this.materials = materials;
+                },
+                (err) => {
+                    console.log('Error getting batch: ' + err);
+                },
+                () => {
+                 //   console.log('Done loading the full material Array');
+                }
+            );
+    }
 
     // This method takes a section object, and creates a contentChart - which includes
     // all the content from the section, as well as all the material info - so that it's
     // neatly in one data object.  This requires loading in all the material info from
     // references that are stored in the section arrays in the db for the course.
 
-    loadInMaterials() {
-        for (let i = 0; i < this.course.sections.length; i++) {
-            const matArray = this.course.sections[i].materials;
+    // loadInMaterials() {
+    //     for (let i = 0; i < this.course.sections.length; i++) {
+    //         const matArray = this.course.sections[i].materials;
 
-            this.materials[i] = [];
-            if (matArray) {
-            for (let j = 0; j < matArray.length; j++) {
+    //         this.materials[i] = [];
+    //         if (matArray) {
+    //         for (let j = 0; j < matArray.length; j++) {
 
-                if (matArray[j]) {
-                const id = matArray[j]['material'];
+    //             if (matArray[j]) {
+    //             const id = matArray[j]['material'];
 
-                this.materialService.getMaterial(id).subscribe(
-                    (material) => { // console.log('found a material ' + j);
-                    this.materials[i].push(material[0]);
+    //             this.materialService.getMaterial(id).subscribe(
+    //                 (material) => { // console.log('found a material ' + j);
+    //                 this.materials[i].push(material[0]);
 
-                    // if ((i + 1 === this.course.sections.length) && (j + 1 === matArray.length)) {
-                    //     this.materialsLoaded = true;
-                    //     console.log('Done loading materials: ' + JSON.stringify( this.materials ) );
-                    // }
+    //             }
 
-                }
-
-                );
-              }
-            }
-          }
-        }
-    }
+    //             );
+    //           }
+    //         }
+    //       }
+    //     }
+    // }
 
 
 

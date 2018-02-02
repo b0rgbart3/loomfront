@@ -28,7 +28,7 @@ export class MaterialService {
 
     constructor (private _http: HttpClient, private globals: Globals) {}
 
-    getAllMaterialsByType (): Observable<Material[][]> {
+    getAllMaterialsByType (): Observable<any> {
 
        return this._http.get <Material[][]>
               (this.globals.allmaterialsbytype).do(data => {
@@ -36,7 +36,7 @@ export class MaterialService {
         }).catch(this.handleError);
 
     }
-    getDynamicMaterials( id, type ): Observable<Material[]> {
+    getDynamicMaterials( id, type ): Observable<any> {
       if (id === 0) {
         // get all the objects for this type
       //  console.log('\nIn material service / getDM: ' + type + '\n');
@@ -57,13 +57,25 @@ export class MaterialService {
         }
 
     }
+
+    getBatchMaterials( list ): Observable<any> {
+
+      const queryString = '?materials=';
+      const serialized = list.toString();
+     //  console.log('In Material Service, getting Batch Materials, serialized =' + serialized);
+      return this._http.get <any> ( this.globals.batchmaterials + queryString + serialized ).do (
+        data => {
+          return data;
+        }).catch(this.handleError);
+
+    }
     // We want to get all the material objects for the entire course -- but
     // not all the material objects in the entire database -- so we'll grab
     // them using the corresponding course_id.
-   getMaterials( course_id ): Observable<Material[]> {
+   getMaterials( course_id ): Observable<any> {
      if (course_id === 0) {
        // get a list of ALL the materials for ALL courses
-       console.log('sending get request for materials');
+       // console.log('sending get request for materials');
         return this._http.get <Material[]> (this.globals.materials).do(data => {
           this.materialCount = data.length;
           this.materials = data;
@@ -109,7 +121,7 @@ export class MaterialService {
   }
 
 
-  getMaterial(id): Observable<Material> {
+  getMaterial(id): Observable<any> {
     return this._http.get<Material> ( this.globals.materials + '?id=' + id )
       .do(data => {
          // console.log( 'found: ' + JSON.stringify(data) );
@@ -152,7 +164,7 @@ export class MaterialService {
 
     private handleError (error: HttpErrorResponse) {
       // console.log( error.message );
-      return Observable.throw(error.message);
+      return Observable.of(error.message);
 
     }
 
@@ -175,6 +187,8 @@ export class MaterialService {
               videos.push(materialsArray[i]);
               break;
             case 'image':
+              materialsArray[i].imageURL = this.globals.materialimages + '/' + materialsArray[i].id + '/' + materialsArray[i].image;
+            //  console.log('Processing image: ' + JSON.stringify( materialsArray[i] ) );
               images.push(materialsArray[i]);
               break;
             case 'book':
@@ -183,6 +197,8 @@ export class MaterialService {
               // console.log('Found a book: ' + i);
               break;
             case 'doc':
+              materialsArray[i].imageURL = this.globals.materialimages + '/' + materialsArray[i].id + '/' + materialsArray[i].image;
+              materialsArray[i].fileURL = this.globals.materialfiles + '/' + materialsArray[i].id + '/' + materialsArray[i].file;
               docs.push(materialsArray[i]);
               break;
             case 'audio':

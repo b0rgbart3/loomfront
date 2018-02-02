@@ -17,6 +17,10 @@ export class ClassResolver implements Resolve <ClassModel> {
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <ClassModel> {
         const id = route.params['id'];
+        const sectionNumber = route.params['id2'];
+
+       // console.log('In class resolver, id: ' + id);
+       // console.log('In class resolver, section: ' + sectionNumber);
 
         if (isNaN(id)) {
             // console.log(`Class id was not a number: ${id}`);
@@ -30,9 +34,10 @@ export class ClassResolver implements Resolve <ClassModel> {
             return Observable.of(newClass); } else {
         return this.classService.getClass(id).
         map(thisClass => { if (thisClass) {
-            // console.log('This class id: ' + id);
-           // console.log('found: ' + JSON.stringify(thisClass));
-            return thisClass[0]; }
+         // console.log('This class id: ' + id);
+          // console.log('found: ' + JSON.stringify(thisClass));
+            return thisClass[0];
+        }
         // console.log(`Class was not found: ${id}`);
         this.router.navigate(['/welcome']);
         return null; })

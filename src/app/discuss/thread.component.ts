@@ -29,9 +29,11 @@ export class ThreadComponent implements OnInit, OnChanges {
   display_date: string;
   public userThumbnail: Userthumbnail;
   public replyThumbnails: Userthumbnail[];
+  threadSubjectClass: string;
 
   @Input() thread: Thread;
   @Output() threadChange = new EventEmitter<Thread>();
+  @Output() deleteReply = new EventEmitter<Thread>();
 
   constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,
@@ -47,46 +49,49 @@ export class ThreadComponent implements OnInit, OnChanges {
     // console.log('Current User: ' + JSON.stringify(this.currentUser));
     // console.log('thread: ' + JSON.stringify(this.thread));
     this.thread.displayReplyInput = false;
-    this.userService.getUser(this.thread.user_id).subscribe(
-        user => {this.user = user[0];
-          this.userThumbnail = { user: this.user, user_id: this.user.id, editable: false,
-            inRoom: true, size: 50, showUsername: true, showInfo: false, textColor: '#000000' };
-            // console.log('got real user info back.');
-          this.createReplyThumbnails();
-          // console.log('This thread: ' + JSON.stringify(this.thread));
-        },
-        error => this.errorMessage = <any>error);
+    this.user = this.userService.getUserFromMemoryById(this.thread.user_id);
+    this.createReplyThumbnails();
+    this.userThumbnail = this.createLiveThumbnail( this.thread.user_id );
+    this.threadSubjectClass = 'threadSubjectClass group';
 
+    if (this.thread.replies && this.thread.replies.length > 0) {
+      this.threadSubjectClass = 'threadSubject threadSubjectCollapseable group';
+    }
         this.replyFormGroup = this.fb.group( { reply : '' } );
       // console.log('current state: ' + this.thread.displayReplyInput);
     }
   ngOnChanges() {
-    // console.log('thread changed.');
+   // console.log('thread changed.');
   }
 
   createReplyThumbnails() {
     this.replyThumbnails = [];
     if (this.thread.replies) {
-    this.replyThumbnails = this.thread.replies.map(this.createThumbnail); }
-   //  console.log('thread.replies:' + JSON.stringify(this.thread.replies));
+    this.replyThumbnails = this.thread.replies.map(
+      reply => { return { user: this.userService.getUserFromMemoryById(reply.user_id),
+         user_id: reply.user_id, editable: false, inRoom: true,
+      size: 40, showUsername: false, showInfo: false, textColor: '#000000' };  }); }
+   // console.log('thread.replies:' + JSON.stringify(this.thread.replies));
    // console.log('replyThumbnails: ' + JSON.stringify(this.replyThumbnails));
   }
 
-  createThumbnail(user) {
-    const thumbnailObj = { user: null, user_id: user.user_id, editable: false, inRoom: true,
-      size: 40, showUsername: false, showInfo: false, textColor: '#000000' };
-    return thumbnailObj;
-  }
+  // createThumbnail(reply) {
+  //   const thumbnailObj = { user: null, user_id: reply.user_id, editable: false, inRoom: true,
+  //     size: 40, showUsername: false, showInfo: false, textColor: '#000000' };
+  //   return thumbnailObj;
+  // }
 
-  createLiveThumbnail(user) {
-    const thumbnailObj = { user: this.currentUser, user_id: user.user_id, editable: false, inRoom: true,
+  createLiveThumbnail(user_id) {
+    const thisUser = this.userService.getUserFromMemoryById(user_id);
+    const thumbnailObj = { user: thisUser, user_id: user_id, editable: false, inRoom: true,
       size: 40, showUsername: false, showInfo: false, textColor: '#000000' };
     return thumbnailObj;
   }
 
   reply(thread) {
+    this.thread.collapsed = false;
     this.thread.displayReplyInput = true;
-    // this.threadChange.emit(this.thread);
+   // this.threadChange.emit(this.thread);
   }
 
   cancel(thread) {
@@ -95,6 +100,16 @@ export class ThreadComponent implements OnInit, OnChanges {
 
   toggleThread() {
     this.thread.collapsed = !this.thread.collapsed;
+
+    if (this.thread.collapsed) {
+      if (this.thread.replies && this.thread.replies.length > 0) {
+        this.threadSubjectClass = 'threadSubject threadSubjectExpandable group';
+      }
+    } else {
+      if (this.thread.replies && this.thread.replies.length > 0) {
+        this.threadSubjectClass = 'threadSubject threadSubjectCollapseable group';
+      }
+    }
   }
 
   killReply(r) {
@@ -103,33 +118,42 @@ export class ThreadComponent implements OnInit, OnChanges {
       if (cd) {
       this.thread.replies.splice(r, 1); }
     }
-    this.threadChange.emit(this.thread);
+    console.log('About to delete the Reply');
+    this.deleteReply.emit(this.thread);
   }
 
 
   submitReply(thread) {
     // console.log(this.replyFormGroup.get('reply').value);
     const reply = this.replyFormGroup.get('reply').value;
-    if (!this.thread.replies) {
-      this.thread.replies = [];
+
+
+  //  console.log('ABOUT TO SUBMIT REPLY');
+   // console.log(JSON.stringify( thread ));
+
+
+    if (!thread.replies) {
+      thread.replies = [];
     }
     if (this.currentUser) {
       const replyObject = { user_id: this.currentUser.id, reply: reply };
-      this.thread.replies.push(replyObject);
+
+      thread.replies.push(replyObject);
       this.replyThumbnails.push(this.createLiveThumbnail(this.currentUser.id));
-      this.thread.displayReplyInput = false;
+      thread.displayReplyInput = false;
 
-      this.ds.updateThread( this.thread ).subscribe(
+      this.ds.updateThread( thread ).subscribe(
         (val) => { }, response => {
-          // this.threadChange.emit(this.thread);
-          this.thread.displayReplyInput = false;
 
+          this.threadChange.emit(thread);
+          thread.displayReplyInput = false;
+  
           // this.createReplyThumbnails();
         }// console.log('thread saved')
         ,
           () => { // console.log('finished');
           this.replyFormGroup.reset();
-        this.thread.displayReplyInput = false;
+        thread.displayReplyInput = false;
         // this.createReplyThumbnails();
        });
 

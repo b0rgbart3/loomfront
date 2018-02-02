@@ -7,6 +7,10 @@ import { Section } from '../../models/section.model';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Book } from '../../models/book.model';
 import { Doc } from '../../models/doc.model';
+import { ClassModel } from '../../models/class.model';
+import { UserService } from '../../services/user.service';
+import { DiscussionService } from '../../services/discussion.service';
+
 
 
 
@@ -18,153 +22,105 @@ import { Doc } from '../../models/doc.model';
     styleUrls: ['section.component.css']
 })
 
+
 export class SectionComponent implements OnInit, OnChanges {
-    private _course: Course;
-    private _section: Section;
     materialCollection: MaterialCollection;
     title: string;
     content: string;
-    // booksLoaded: boolean;
-    // loadedBooks: any[];
+    discussing: boolean;
+    discussionIconClass: string;
 
-
+    @Input() thisClass: ClassModel;
     @Input() course: Course;
-    // set course(course: Course) {
-    //     this._course = course;
-    //     console.log('course Updated');
-    //   }
-
-    // get course(): Course { return this.course; }
-
-    @Input() section: Section;
-    // set section(section: Section) {
-    //     this._section = section;
-    //     this.title = this._section.title;
-    //     this.content = this._section.content;
-    //     console.log('section updated');
-    // }
-
-    // get section(): Section { return this.section; }
-
-
-    public materials: Material [];
+    @Input() materials: Material[];
+    @Input() sectionNumber: number;
     public books: Material [];
     public docs: Material [];
     errorMessage: string;
+    section: Section;
 
-   // public materialRefs: Object [];
-   // public section: Section;
-    // public title: string;
-    // public content: string;
-    // public description: string;
-
-    constructor (private materialService: MaterialService ) {}
-
+    constructor (private materialService: MaterialService,
+        private discussionService: DiscussionService,
+        private userService: UserService ) {}
 
     ngOnInit() {
-        this.materialCollection = null;
-        // this.title = this.course.title;
-        // this.description = this.course.description;
-        // console.log('sectionNumber: ' + this.section);
-        // this.section = this.course.sections[this.sectionNumber];
-        // this.materialRefs = this.section.materials;
-        this.loadInMaterials();
-        // this.booksLoaded = false;
-        // this.loadedBooks = null;
-        // this.loadedBooks = [];
-        // this.loadInBooks();
-//        this.reLintContent();
+
+        this.initMe();
     }
 
-        // reLintContent() {
-        // if (this.course.sections && this.course.sections.length > 0) {
-        //  for (let lcSection = 0; lcSection < this.course.sections.length; lcSection++) {
-        //       const sc = this.course.sections[lcSection].content;
-        //       const editedSC = sc.replace(/<br>/g, '\n');
-        //       console.log('Looking at: ' + sc );
-        //       this.course.sections[lcSection].content = editedSC;
-        //  } }
+    initMe() {
+        this.discussionIconClass = 'discussionIcon';
+        this.materialCollection = null;
+       // this.discussing = false;
+        this.section = this.course.sections[this.sectionNumber];
 
-   // }
+        const sortedMaterials = this.materialService.sortMaterials(this.materials);
+        this.materialCollection = sortedMaterials;
+        this.loadUserDiscussionSettings();
+       // console.log('course: ' + this.course.title);
+       // console.log('sectionNumber: ' + this.sectionNumber);
+    }
 
     ngOnChanges() {
-        this.materialCollection = null;
-        // console.log('changes');
-     //   this.loadedBooks = null;
-        // this.getBooks();
-        // this.getDocs();
-
-        this.loadInMaterials();
-       // this.loadInBooks();
+       // console.log('CHANGE');
+        this.initMe();
      }
 
-     // loadInBooks() {
-        //  console.log('LOADING IN BOOKS');
-        //  this.loadedBooks = null;
-        //  this.loadedBooks = [];
-        //  if (this.section.books) {
+  toggleDiscussion() {
+      if (this.discussing) {
+          this.closeDiscussion();
+      } else {
+          this.openDiscussion();
+      }
+  }
+   openDiscussion() {
+     this.discussing = true;
+     this.saveDiscussionSettings();
+     this.discussionService.introduceMyself( this.userService.currentUser, this.thisClass.id, this.sectionNumber);
+     this.discussionIconClass = 'closeDiscussionIcon';
+ }
 
-        //      this.section.books.map((bookItem) => {
-        //         this.bookService.getBook(bookItem['book']).subscribe(
-        //           (book) => {
-        //               console.log('Loaded book: ' + JSON.stringify(book));
-        //               this.loadedBooks.push(book[0]);
-        //             return; },
-        //           error => { console.log('Error loading in book: ' + bookItem['book']);
-        //       return; }
-        //       );
-        //      });
-        //  }
+ closeDiscussion() {
+       this.discussing = false;
+       this.saveDiscussionSettings();
+       this.discussionIconClass = 'discussionIcon';
+   }
 
-     //    console.log('BOOKS: ' + JSON.stringify(this.loadedBooks));
+   saveDiscussionSettings() {
+    const discussionSettingsObject = { 'user_id': this.userService.currentUser.id,
+        'classID': this.thisClass.id, 'section': this.sectionNumber, 'discussing': this.discussing };
+    this.discussionService.storeDiscussionSettings(discussionSettingsObject).subscribe(
+        data => console.log('done storing discussion settings.'), error => {
+            console.log('ERROR trying to store the settings!');
+            console.log(error); } );
 
-   //  }
+   }
 
-
-    loadInMaterials() {
-
-            this.materials = [];
-            this.materialCollection = null;
-           // console.log('loading in materials for course# ' +
-            // this.course.id + ', section: ' + JSON.stringify(this.section));
-            if (this.section.materials) {
-               // console.log('material count: ' + this.section.materials.length);
-
-            for (let j = 0; j < this.section.materials.length; j++) {
-
-                if (this.section.materials[j]) {
-                const id = this.section.materials[j]['material'];
-
-
-                this.materialService.getMaterial(id).subscribe(
-                    (material) => {
-                       // console.log('found a material ' + id);
-
-                    if (this.materials.length < this.section.materials.length) {
-                        this.materials.push(material[0]); }
-
-                    if (this.materials.length === this.section.materials.length) {
-                        // if these are equal, that means we've loaded in all the material objects
-                        // so now we can sort them.
-                      //  console.log('this.materials length: ' + this.materials.length);
-                
-                         const sortedMaterials = this.materialService.sortMaterials(this.materials);
-                        this.materialCollection = sortedMaterials;
-                
-                    // console.log('Sorted books Length' + sortedMaterials.books.length);
-                      // console.log('Done sorting the materials');
-                     //  console.log(JSON.stringify(this.materialCollection.books));
-                      //  console.log(this.materialCollection.books.length);
-                    }
-
-                }
-
-                );
-              }
+   loadUserDiscussionSettings() {
+    this.discussionService.getDiscussionSettings( this.userService.currentUser.id, this.thisClass.id, this.sectionNumber ).subscribe(
+        (data) => {
+            this.discussing = false;
+           if (data) { this.discussing = data.discussing;
+            if (data.discussing) { this.discussionIconClass = 'closeDiscussionIcon'; } else {
+                this.discussionIconClass = 'discussionIcon';
             }
+        }
+           // console.log('DISCUSSION OBJECT:');
+          //  console.log( JSON.stringify(data));
 
-       }
-    }
+        }, (error) => console.log(error) );
+
+}
+   saveMyBoardSettings() {
+    // if (this.boardWidth) {
+    //     const boardSettings = <BoardSettings> { 'discussing' : this.discussing.toString(),
+    //      'side' : this.boardStyle, 'width' : this.boardWidth.toString() };
+    //      // I'm not really doing anything with the data that comes from this subscription.
+    //   //  this.userService.storeBoardSettings( boardSettings ).subscribe( params => params, error => console.log(error) );
+    //     }
+}
+
+
 
 }
 

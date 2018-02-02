@@ -12,6 +12,41 @@ import { Globals } from '../globals';
 import { BoardSettings } from '../models/boardsettings.model';
 import { Reset } from '../models/reset.model';
 
+/*   Methods in this Service 
+-------------------------------------
+getUserId()
+isloggedin()
+isAdmin()
+logout()
+login()
+findUserByEmailFromDB()
+loginFBUser ()
+resetCurrentUser()
+getCurrentUser()
+checkAuthenticationStatus()
+loggedInUser()
+resetPassword()
+sendResetRequest()
+saveSettings()
+storeBoardSettings() 
+handleError()
+findUserById()
+subscribeToUsers()
+subscribeToUser()
+findMatchingAvatar()
+findUserByUsername()
+findUserByEmail()
+getUsers()
+getStudents()
+getInstructors()
+getUsersettings()
+createUser()
+deleteUser()
+getInMemoryUsers()
+getUserFromMemoryById()
+
+-------------------------------------
+*/
 
 @Injectable()
 export class UserService implements OnInit {
@@ -123,6 +158,13 @@ export class UserService implements OnInit {
     return foundUser;
 }
 
+
+getUserFromMemoryById( queryID:string): User {
+  
+  const foundUser = this.users.find( function( user) { return user.id === queryID; } )
+
+  return foundUser;
+}
     getUser( id:string ): Observable<any> {
 
       return this._http.get<User> ( this._usersUrl + '?id=' + id )
@@ -151,6 +193,12 @@ export class UserService implements OnInit {
 
     getStudents( class_id ): Observable <User[]> {
       return this._http.get < User[] >( this._studentsUrl + '?id=' + class_id);
+    }
+
+    // This returns the array of current users -- without pinging the database
+    getInMemoryUsers(): User[] {
+      return this.users;
+
     }
 
     getUsers(): Observable<any> {

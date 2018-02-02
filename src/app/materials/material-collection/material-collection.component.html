@@ -29,13 +29,14 @@
              class='documentWrap group'>
            
                 <!-- <a [href]="documentObject.fileURL" target='_blank'> -->
-                <div (click)='open_modal(documentObject.fileURL)' class='group'>
+                <div (click)='open_modal(documentObject)' class='group'>
                     <div *ngIf='documentObject.imageURL'>
                          <div class='documentImage' 
                 [ngStyle]="{ 'background-image': 'url(' + documentObject.imageURL + ')'}"
                 *ngIf="documentObject.imageURL"></div>
                         <div class='documentImage'  *ngIf="!documentObject.imageURL"></div>
                         </div>
+                       
                         <h1>{{documentObject.title}}</h1>
                         <h2>{{documentObject.author}}</h2>
                          <!-- <p>{{ documentObject.fileURL }}</p> -->

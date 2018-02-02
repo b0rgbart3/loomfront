@@ -34,3 +34,93 @@ p {
 
 }
 
+
+.discussButton {
+    /* -ms-transform: rotate(90deg); 
+    -webkit-transform: rotate(90deg); 
+    transform: rotate(90deg); */
+    padding:20px;
+    width:200px;
+    height:100px;
+    margin-bottom:0px;
+    background-color:#4254ae;
+    color:white;
+    text-transform: uppercase;
+    margin-right:10px;
+    outline:none;
+    cursor:pointer;
+    box-shadow:8px -8px 8px rgba(0,0,0,.5);
+}
+
+
+
+.discussionIconWrap {
+    width:80%;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    box-sizing: border-box;
+    overflow: visible;
+    height:52px;
+    z-index: 3;
+    position: relative;
+    top:20px;
+}
+.discussionIcon {
+    background-image:url('../../../assets/images/discuss.svg');
+    background-size:80%;
+    background-position: 50% 55%;
+    background-repeat: no-repeat;
+    width:60px;
+    height:60px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:20px;
+    padding-right:20px;
+    background-color:#cccccc;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+    border-radius:50%;
+    opacity:.65;
+}
+
+.discussionIcon:hover {
+    opacity:1;
+}
+
+.discussionIcon:active {
+   box-shadow:0 0 20px white;
+}
+.discussionBox {
+    margin-left:8%;
+    margin-right:8%;
+    text-align: center;
+    padding:0;
+    margin-top:0;
+    margin-bottom:0;
+
+}
+
+
+.closeDiscussionIcon {
+    background-image:url('../../../assets/images/close.svg');
+    background-repeat: no-repeat;
+    background-size:40% 40%;
+    background-position: center;
+    margin-left:auto;
+    margin-right:auto;
+    width:50px;
+    height:50px;
+    position: relative;
+    border-radius:50%;
+    background-color:rgba(190,190,190,1);
+}
+
+.closeDiscussionIcon:hover {
+    background-color:rgba(150,150,150,1);
+}
+
+.closeDiscussionIcon:active {
+    background-color:rgba(120,120,120,1);
+}

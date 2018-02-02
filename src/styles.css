@@ -535,6 +535,7 @@ h2 {
   background-position: 50% 0;
   height:30px;
   opacity:.2;
+  z-index: 0;
 }
 .abovelineShadow {
   background-image:url('./assets/images/shadow_top.png');
@@ -544,6 +545,7 @@ h2 {
   background-position: 50% 0;
   height:40px;
   opacity:.4;
+  z-index: 0;
 }
 
 .dangerous {
@@ -633,7 +635,9 @@ h2 {
 .notifications {
   left: calc(50% - 200px);
   position: fixed;
-  top: 10%; }
+  top: 10%;
+  z-index: 200;
+}
   .notifications div {
     border: 1px solid;
     border-radius: 4px;

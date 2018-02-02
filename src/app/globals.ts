@@ -27,23 +27,30 @@ export class Globals {
 // basepath = 'https://ddworks.org:8000/';
 
 // This points to the API
-basepath = 'https://young-bastion-45095.herokuapp.com/';
+basepath = 'http://localhost:3100/';
+// basepath = 'https://young-bastion-45095.herokuapp.com/';
 
 // This points to where the images and other assets are stored
 awspath = 'https://recloom.s3.amazonaws.com/';
 
  postcourseimages =   this.basepath + 'api/courseimages';
- courseimages =       this.awspath + 'courseimages';
+ courseimages =       this.awspath  + 'courseimages';
  materials =          this.basepath + 'api/materials';
  postmaterialimages = this.basepath + 'api/materialimages';
- materialimages =     this.awspath + 'materialimages';
- materialfiles =      this.awspath + 'materialfiles';
+ materialimages =     this.awspath  + 'materialimages';
+ materialfiles =      this.awspath  + 'materialfiles';
  postmaterialfiles =  this.basepath + 'api/materialfiles';
  allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
  threads =            this.basepath + 'api/threads';
  postavatars =        this.basepath + 'api/avatars';
- avatars =            this.awspath + 'avatars';
+ avatars =            this.awspath  + 'avatars';
  series =             this.basepath + 'api/series';
+ batchmaterials =     this.basepath + 'api/batchmaterials';
+ discusssettings =    this.basepath + 'api/discussion/settings';
+
+ enterdiscussion =    this.basepath + 'api/discussion/enter';
+ whosin =             this.basepath + 'api/discussion/whosin';
+
 
 //  videos =             this.basepath + 'api/videos';
 //  boosk =              this.basepath + 'api/books';
@@ -56,7 +63,7 @@ awspath = 'https://recloom.s3.amazonaws.com/';
 //  postdocimages =      this.basepath + 'api/docimages';
 //  docimages =          this.basepath + 'docimages';
 
- chat_server = 'http://localhost:8001';
+ // chat_server = 'http://localhost:8001';
 
  fb_app_params = {
     appId: '143123396316217',

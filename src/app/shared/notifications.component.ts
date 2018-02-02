@@ -60,7 +60,7 @@ export class NotificationsComponent implements OnInit {
     }
     handleDone(note): void {
        // this.hide.bind(this)(note);
-       console.log('animation done' + JSON.stringify(note));
+     //  console.log('animation done' + JSON.stringify(note));
        // this.hide(note);
        if (this.state === 'inactive') {
            this.hide(note);

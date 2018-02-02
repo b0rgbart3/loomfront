@@ -40,16 +40,16 @@ resolve: { user: UserResolver, users: UsersResolver} },
 
 { path: 'classes/:id/:id2', pathMatch: 'full', component: ClassComponent, resolve: {
     thisClass: ClassResolver, section: SectionResolver, users: UsersResolver }},
-{ path: 'classes/:id', pathMatch: 'full', component: ClassComponent,
-resolve: { thisClass: ClassResolver, users: UsersResolver } },
+// { path: 'classes/:id', pathMatch: 'full', component: ClassComponent,
+// resolve: { thisClass: ClassResolver, users: UsersResolver } },
 
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
  canActivate: [ AuthGuard, UserAuthGuard ] },
-{ path: 'chatroom/:id', component: ChatroomComponent,
-resolve: { thisClass: ClassesResolver, users: UsersResolver }},
-{ path: 'discussion/:id', component: DiscussionComponent,
-resolve: { thisClass: ClassesResolver, users: UsersResolver }},
-{ path: 'usersettings', component: UserSettingsComponent },
+// { path: 'chatroom/:id', component: ChatroomComponent,
+// resolve: { thisClass: ClassesResolver, users: UsersResolver }},
+// { path: 'discussion/:id', component: DiscussionComponent,
+// resolve: { thisClass: ClassesResolver, users: UsersResolver }},
+// { path: 'usersettings', component: UserSettingsComponent },
 { path: 'reset/:key', component: ResetComponent },
 ];
 

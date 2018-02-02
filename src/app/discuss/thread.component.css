@@ -92,7 +92,10 @@
     cursor:pointer;
     transition: .5s;
     border-radius:4px;
+    text-align: left;
     /* border:1px solid blue; */
+    border:2px solid rgba(0,0,0,0);
+    background-position: 4px 14px;
 }
 
 .threadSubject:hover {
@@ -103,6 +106,18 @@
     border:2px solid white;
 }
 
+.threadSubjectCollapseable:active {
+    background-image:url('../../assets/images/uparrow.svg');
+    background-repeat: no-repeat;
+    background-position: 4px 14px;
+    background-size:20px 20px;
+}
+.threadSubjectExpandable:hover {
+    background-image:url('../../assets/images/downarrow.svg');
+    background-repeat: no-repeat;
+    background-position: 4px 14px;
+    background-size:20px 20px;
+}
 .subject {
     font-size:.9em;
     font-family: 'Muli';
@@ -129,12 +144,26 @@
 }
 
 .tinyDelete {
-    width:26px;
-    height:26px;
-    background-image:url('../../assets/images/kill.svg');
-
+    background-color:#555555;
+    color:white;
     float:right;
-    border-radius:0;
+    margin-right:20px;
+    display:inline-block;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:12px;
+    padding-right:12px;
+    margin-bottom:8px;
+    outline:none;
+    cursor: pointer;
+    user-select: none;
+    text-transform: uppercase;
+    border-radius:5px;
+    font-size:.8em;
+    opacity:.8;
+    letter-spacing:.05em;
+    border:2px solid rgba(0,0,0,0);
+    margin:10px;
 
 }
 

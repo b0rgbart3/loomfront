@@ -46,6 +46,42 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         private globals: Globals) {}
 
     myInit() {
+    
+        const urlWithQuery = this.globals.postavatars + '?userid=' + this.user.id;
+        this.avatarUploader = new FileUploader({url: urlWithQuery});
+        if (this.user.facebookRegistration) {
+            this.localImageUrl = this.user.avatar_URL;
+        } else {
+             this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename; 
+
+            if (this.user.avatar_filename === '' || this.user.avatar_filename === undefined) {
+                this.localImageUrl = this.globals.avatars + '/' + 'placeholder.png';
+            }
+        }
+
+        this.avatarUploader.onAfterAddingFile = (fileItem) => {
+            const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
+                : (window as any).webkitURL.createObjectURL(fileItem._file);
+            // this.localImageUrl = url;
+            this.avatarUploader.queue[0].upload();
+         };
+         this.avatarUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+
+            this.tempName = this.avatarUploader.queue[0].file.name;
+            console.log('Done uploading' + JSON.stringify(this.tempName));
+            console.log('USER: ' + JSON.stringify(this.user));
+            alert('Your image will be cropped to fit a square aspect ratio.');
+            // const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
+            // console.log('New name: ' + newfilename);
+            // this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
+
+            // localStorage.setItem('avatarimage', this.avatarimage);
+            this.localImageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.tempName;
+
+            this.avatarUploader.queue[0].remove();
+            this.positionCropper();
+        };
+
                //  Here I am using the formBuilder to build my form controls
                this.settingsForm = this.fb.group( {
                 favoritecolor: [''],
@@ -82,42 +118,9 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
 
 
+     
 
-        const urlWithQuery = this.globals.postavatars + '?userid=' + this.user.id;
-        this.avatarUploader = new FileUploader({url: urlWithQuery});
-        if (this.user.facebookRegistration) {
-            this.localImageUrl = this.user.avatar_URL;
-        } else {
-             this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename; 
-
-            if (this.user.avatar_filename === '' || this.user.avatar_filename === undefined) {
-                this.localImageUrl = this.globals.avatars + '/' + 'placeholder.png';
-            }
-        }
-
-        this.avatarUploader.onAfterAddingFile = (fileItem) => {
-            const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
-                : (window as any).webkitURL.createObjectURL(fileItem._file);
-            // this.localImageUrl = url;
-            this.avatarUploader.queue[0].upload();
-         };
-         this.avatarUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-
-            this.tempName = this.avatarUploader.queue[0].file.name;
-            console.log('Done uploading' + JSON.stringify(this.tempName));
-            console.log('USER: ' + JSON.stringify(this.user));
-            alert('Your image will be cropped to fit a square aspect ratio.');
-            // const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
-            // console.log('New name: ' + newfilename);
-            // this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
-
-            // localStorage.setItem('avatarimage', this.avatarimage);
-            this.localImageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.tempName;
-
-            this.avatarUploader.queue[0].remove();
-            this.positionCropper();
-        };
-
+      
 
     }
 
@@ -153,7 +156,11 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         console.log('In submitSettings');
         console.log('settingsForm.value: ' + JSON.stringify( this.settingsForm.value) );
         const settingsObject = Object.assign( {}, this.user, this.settingsForm.value);
-        this.userService.resetCurrentUser(settingsObject);
+
+        // If the logged in user is the same as the user being edit - then let's update the model
+        // so that the loggged in user model has the new info
+        if ( this.userService.getCurrentUser().id === this.user.id)
+        { this.userService.resetCurrentUser(settingsObject); }
 
         // Combine the Form Model with our Data Model
 
@@ -172,7 +179,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
             // settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];
         }
 
-        this.userService.resetCurrentUser(settingsObject);
+        // this.userService.resetCurrentUser(settingsObject);
         console.log(JSON.stringify(settingsObject));
         this.userService.saveSettings( settingsObject ).subscribe(
             (val) => {

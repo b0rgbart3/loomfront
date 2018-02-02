@@ -177,26 +177,7 @@ margin:0;
 
 }
     
-.discussButton {
-    /* -ms-transform: rotate(90deg); 
-    -webkit-transform: rotate(90deg); 
-    transform: rotate(90deg); */
-    padding:20px;
-    width:200px;
-    height:100px;
-    margin-bottom:10px;
-    background-color:#4254ae;
-    color:white;
-    text-transform: uppercase;
-    margin-right:10px;
-    outline:none;
-    cursor:pointer;
-    box-shadow:8px -8px 8px rgba(0,0,0,.5);
-}
 
-.discussButton:active {
-    background-color:red;
-}
 
 .largeFunButton {
     padding:20px;
@@ -408,26 +389,7 @@ margin:0;
     float:none;
 }
 
-.roundButton {
-    background-position: 50% 50%;
-    background-size:48%;
-    background-repeat: no-repeat;
-    width:45px;
-    height:45px;
-    display:inline-block;
-    padding:4px;
-    box-sizing: border-box;
-    background-color:rgba(0,0,0,.1);
-    border-radius:50%;
-    opacity:.7;
-    margin-top:14px;
-    margin-left:8px;
-    margin-bottom:14px;
-}
-.roundButton:hover {
-    opacity:1;
-    background-color:rgba(0,0,0,.3);
-}
+
 
 .leftButton {
     background-image:url('../../../assets/images/left.svg');
@@ -442,14 +404,9 @@ margin:0;
     background-image:url('../../../assets/images/stack_down.svg');
 }
 
-.closeButton {
-    background-image:url('../../../assets/images/close.svg');
-    float:right;
-    margin-right:4px;
-}
 
 
-.grabber {
+/* .grabber {
     width:74px;
     height:32px;
     background-color:#777777;
@@ -496,39 +453,8 @@ margin:0;
 
 .grabLeft {
     float:left;
-}
+} */
 
-.discussionIconWrap {
-    width:80%;
-    text-align: center;
-    margin-left:auto;
-    margin-right:auto;
-    box-sizing: border-box;
-}
-.discussionIcon {
-    background-image:url('../../../assets/images/discuss.svg');
-    background-size:90%;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    width:48px;
-    height:48px;
-    margin-left:auto;
-    margin-right:auto;
-    padding-left:20px;
-    padding-right:20px;
-    background-color:#cccccc;
-    box-sizing: border-box;
-    cursor: pointer;
-    user-select: none;
-}
-
-.discussionIcon:hover {
-    background-image:url('../../../assets/images/discuss_hi.svg');
-}
-.discussionBox {
-    margin-left:8%;
-    margin-right:8%;
-}
 @media screen and (max-width: 990px) {
     .topContent h1 {
         font-size:3em;

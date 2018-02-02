@@ -9,7 +9,7 @@ export class ChatSocketService implements OnInit {
   private socket: SocketIOClient.Socket; // The client instance of socket.io
 
   constructor(private _notes: NotificationsService, private globals: Globals ) {
-    this.socket = io(globals.chat_server);
+    //this.socket = io(globals.chat_server);
     // this.socket.connect('http://localhost:3101');
 
     // we connected with the chatserver

@@ -41,11 +41,12 @@ export class MaterialCollectionComponent implements OnInit {
     }
 
 
-  open_modal(URL) {
+  open_modal( object ) {
      // window.open(URL, '_blank');
 
+     console.log('Opening modal: ' + JSON.stringify( object ));
      this.displayModal = true;
-     this.modalURL = URL;
+     this.modalURL = object.fileURL;
   }
 
   closeModal( truth ) {

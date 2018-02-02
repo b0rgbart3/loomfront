@@ -172,6 +172,7 @@ export class HomeComponent implements OnInit {
 
       goto( queryID ) {
           const queryString = '/classes/' + queryID + '/0';
+          console.log('Routing to: ' + queryString );
         this._router.navigate( [queryString] );
       }
 }

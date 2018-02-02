@@ -37,8 +37,6 @@ import { ChatroomComponent } from './chat/chatroom.component';
 import { DiscussionComponent } from './discuss/discussion.component';
 import { DiscussionService } from './services/discussion.service';
 import { ThreadComponent } from './discuss/thread.component';
-import { ChatService } from './chat/chat.service';
-import { ChatSocketService } from './services/chatsocket.service';
 import { InfobotComponent } from './infobot/infobot.component';
 import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
@@ -122,8 +120,6 @@ import { ResetComponent } from './users/reset/reset.component';
   providers: [
     AlertService,
     AuthGuard,
-    ChatService,
-    ChatSocketService,
     ClassService,
     ClassResolver,
     ClassesResolver,

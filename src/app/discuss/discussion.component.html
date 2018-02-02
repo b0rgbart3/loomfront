@@ -1,4 +1,6 @@
-<p>Discussion for ClassID: {{thisClass.id}}, section# {{ sectionNumber }}</p>
+<div class='discussionFramer group'>
+<!-- <p>Discussion for ClassID: {{thisClass.id}}, section# {{ sectionNumber }}</p> -->
+<p>What are your thoughts on: {{ section.title }}?</p>
 <div class='group '>
         
         <!-- <button [routerLink]="['/classes', thisClass.id ]" class='backButton'>Back to Course Material</button>
@@ -20,13 +22,15 @@
         <div *ngIf='threads'>
                 <div *ngFor='let thread of threads' class='threadContainer group'>
                         <div *ngIf="currentUser.id === thread.user_id" 
-                        class='deleteThreadButton' (click)="deleteThread(thread)"></div>
-                       <thread [thread]=thread (threadChange)="threadChange($event)" (threadKill)="threadKill($event)"></thread>
+                        class='deleteThreadButton' (click)="deleteThread(thread)">delete</div>
+                       <thread [thread]=thread (threadChange)="threadChange($event)" (deleteReply)="deleteReply($event)"
+                       (threadKill)="threadKill($event)"></thread>
                 </div>
         </div>
 </div>        
 </div>
 
-<div class='debug'>
+<!-- <div class='debug'>
         {{ discussionFormGroup.value | json }}
+</div> -->
 </div>

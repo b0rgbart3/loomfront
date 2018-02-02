@@ -20,8 +20,9 @@ export class ImageComponent implements OnInit {
 constructor( private globals: Globals, private router: Router) {}
 
 ngOnInit() {
+    this.imageURL = this.imageObject.imageURL;
  // console.log('In book component: book = ' + JSON.stringify(this.book));
-  this.imageURL = this.globals.materialfiles + '/' + this.imageObject.id + '/' + this.imageObject.file;
+ // this.imageURL = this.globals.materialfiles + '/' + this.imageObject.id + '/' + this.imageObject.file;
 
 }
 
