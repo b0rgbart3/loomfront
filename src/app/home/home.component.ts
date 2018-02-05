@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit {
             this.courseService.getCourse(this.studentClasses[i].course).subscribe(
               course => {
                 this.studentClasses[i].courseObject = course[0];
-                this.studentClasses[i].description = course[0].description;
+                // this.studentClasses[i].description = course[0].description;
 
               },
               error => this.errorMessage = <any>error);
@@ -162,7 +162,7 @@ export class HomeComponent implements OnInit {
             this.courseService.getCourse(this.instructorClasses[i].course).subscribe(
               course => {
                 this.instructorClasses[i].courseObject = course[0];
-                this.instructorClasses[i].description = course[0].description;
+                // this.instructorClasses[i].description = course[0].description;
 
               },
               error => this.errorMessage = <any>error);

@@ -151,7 +151,8 @@ export class MaterialService {
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this.globals.materials + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+      return this._http.put(this.globals.materials + '?id=' +
+       courseObject.id, courseObject, {headers: myHeaders} );
    }
 
    updateMaterial(courseObject: Material): Observable<any> {
@@ -159,7 +160,8 @@ export class MaterialService {
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this.globals.materials + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+      return this._http.put(this.globals.materials + '?id=' +
+       courseObject.id, courseObject, {headers: myHeaders} );
    }
 
     private handleError (error: HttpErrorResponse) {

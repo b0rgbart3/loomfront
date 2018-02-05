@@ -48,36 +48,36 @@ private _notes: NotificationsService ) {
  }
 
   ngOnInit() {
-    this.msg = 'test this';
-    this.classID = this.activated_route.snapshot.params['id'];
-    this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
-    this.users = this.activated_route.snapshot.data['users'];
+    // this.msg = 'test this';
+    // this.classID = this.activated_route.snapshot.params['id'];
+    // this.thisClass = this.activated_route.snapshot.data['thisClass'][0];
+    // this.users = this.activated_route.snapshot.data['users'];
 
-    this.instructors = [];
-    this.instructors = this.classService.getInstructors(this.thisClass, this.users);
-    this.students = [];
-    this.students = this.classService.getStudents(this.thisClass, this.users);
-    this.studentThumbnails = this.students.map(this.createThumbnail);
+    // this.instructors = [];
+    // this.instructors = this.classService.getInstructors(this.thisClass, this.users);
+    // this.students = [];
+    // this.students = this.classService.getStudents(this.thisClass, this.users);
+    // this.studentThumbnails = this.students.map(this.createThumbnail);
 
-    console.log('Student thumbnails' + JSON.stringify(this.studentThumbnails));
+    // console.log('Student thumbnails' + JSON.stringify(this.studentThumbnails));
 
-    this.currentUser = this.userService.getCurrentUser();
+    // this.currentUser = this.userService.getCurrentUser();
 
-    this.chatService.enterChat(this.currentUser, this.thisClass).subscribe(
-      chatEntry =>  {this.chatEntry = chatEntry;
-       },
-      error => this.errorMessage = <any>error);
+    // this.chatService.enterChat(this.currentUser, this.thisClass).subscribe(
+    //   chatEntry =>  {this.chatEntry = chatEntry;
+    //    },
+    //   error => this.errorMessage = <any>error);
 
-    this.chatService.whosIn(this.thisClass).subscribe(
-      whosIn =>  {this.whosIn = whosIn.userIDs;
-        console.log('Whos in: ' + JSON.stringify(this.whosIn) );
-        this.displayWhosIn();
+    // this.chatService.whosIn(this.thisClass).subscribe(
+    //   whosIn =>  {this.whosIn = whosIn.userIDs;
+    //     console.log('Whos in: ' + JSON.stringify(this.whosIn) );
+    //     this.displayWhosIn();
 
-       },
-      error => this.errorMessage = <any>error);
+    //    },
+    //   error => this.errorMessage = <any>error);
 
-    //  this._notes.add(new Notification('success', 'Welcome to the chatroom, ' + this.currentUser.username));
-      this.chatSocketService.introduceMyself(this.currentUser, this.thisClass.id );
+    // //  this._notes.add(new Notification('success', 'Welcome to the chatroom, ' + this.currentUser.username));
+    //   this.chatSocketService.introduceMyself(this.currentUser, this.thisClass.id );
     }
 
     createThumbnail(user) {

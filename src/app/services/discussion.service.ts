@@ -15,6 +15,16 @@ import { User } from '../models/user.model';
 import { NotificationsService } from '../services/notifications.service';
 import { Notification } from '../models/notifications.model';
 import { DiscussionSettings } from '../models/discussionsettings.model';
+import { HttpParamsOptions } from '@angular/common/http/src/params';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { catchError } from 'rxjs/operators';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  }),
+  responseType: 'text'
+};
 
 @Injectable()
 
@@ -27,12 +37,14 @@ export class DiscussionService implements OnInit, OnChanges {
     threads: Thread[];
     errorMessage: string;
 
+
     public entered: EventEmitter <User>;
     private socket: SocketIOClient.Socket;
     threadAdded: EventEmitter <Thread>;
     threadDeleted: EventEmitter <Thread>;
     userEntered: EventEmitter <Thread>;
     threadUpdated: EventEmitter <Thread>;
+    headerOptions: {};
 
     constructor (private _http: HttpClient,
       private notes: NotificationsService,
@@ -54,7 +66,9 @@ export class DiscussionService implements OnInit, OnChanges {
     });
 
     this.socket.on('updatethread', (data) => {
-     // console.log('GOT A THREAD UPDATE');
+      console.log('GOT A THREAD UPDATE');
+      console.log( JSON.stringify(data));
+
       this.threadUpdated.emit(data);
     });
 
@@ -70,10 +84,12 @@ export class DiscussionService implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-      // this.getThreads().subscribe(
-      //   threads => this.threads = threads,
-      //   error => this.errorMessage = <any>error);
-
+      this.headerOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+        }),
+        responseType: 'text'
+      };
 
     }
 
@@ -81,26 +97,29 @@ export class DiscussionService implements OnInit, OnChanges {
 
     }
 
-    storeDiscussionSettings( discussionObject ): Observable <any> {
+    storeDiscussionSettings( discussionSettingsObject ): Observable <any> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-      console.log('Storing settings: ' + JSON.stringify(discussionObject));
+      // console.log('Storing settings: ' + JSON.stringify(discussionSettingsObject));
       // return this._http.put <DiscussionSettings> (this.globals.discusssettings, {headers: myHeaders} )
       //  .do (data => { console.log('Got Discussion Settings back from the API' + JSON.stringify(data)); })
       //  .catch ( this.handleError );
 
-       return this._http.put(this.globals.discusssettings, discussionObject,
+      if (!discussionSettingsObject.folds) {
+        discussionSettingsObject.folds = [];
+      }
+       return this._http.put(this.globals.discusssettings, discussionSettingsObject,
        {headers: myHeaders}).map( () => console.log('DONE') );
 
 
     }
-    getDiscussionSettings( user_id, classID, sectionNumber ): Observable <any> {
+    getDiscussionSettings( user_id, class_id, section): Observable <any> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-      return this._http.get <DiscussionSettings> (this.globals.discusssettings +
-          '?user_id=' + user_id + '&classID=' + classID + '&section=' + sectionNumber, {headers: myHeaders} )
+       return this._http.get <DiscussionSettings> (this.globals.discusssettings +
+          '?user_id=' + user_id + '&class_id=' + class_id + '&section=' + section, {headers: myHeaders} )
       .do (data => {
        //  console.log('Got Discussion Settings back from the API' + JSON.stringify(data));
     })
@@ -122,12 +141,13 @@ export class DiscussionService implements OnInit, OnChanges {
           }
     }
 
-   getThreads( classID, sectionNumber ): Observable<any> {
+   getThreads( class_id, section ): Observable<any> {
      const myHeaders = new HttpHeaders();
      myHeaders.append('Content-Type', 'application/json');
 
-    return this._http.get <Thread[]> (this.globals.threads + '?classID=' + classID + '&sectionNumber=' +
-     sectionNumber, {headers: myHeaders})
+  //   console.log('Looking to load threads for class: ' + class_id + ', and section: ' + section);
+    return this._http.get <Thread[]> (this.globals.threads + '?class_id=' + class_id + '&section=' +
+     section, {headers: myHeaders})
       // debug the flow of data
       .do(data => {
        // console.log('All: ' + JSON.stringify(data));
@@ -183,9 +203,7 @@ export class DiscussionService implements OnInit, OnChanges {
 
   }
 
-  updateThread(thread): Observable<Thread> {
-
-        this.socket.emit('updatethread', thread );
+  updateThread(thread): Observable<any> {
 
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
@@ -193,36 +211,55 @@ export class DiscussionService implements OnInit, OnChanges {
 
         // Note: I'm not passing the id as part of the url -- because it's inside the classObject
         const url = this.globals.threads;
-        return this._http.put(url + '?id=' + thread.id, thread, {headers: myHeaders}).map( () => thread );
+        return this._http.put(url + '?id=' + thread.id,
+        thread, {headers: myHeaders}).do( data => {
+          console.log('Successfully Put the UPDATE to the thread: ' + JSON.stringify(thread));
+
+          this.socket.emit('updatethread', thread );
+          } ).catch(this.handleError );
 
       }
 
     private handleError (error: HttpErrorResponse) {
-    //  console.log('ERROR:');
-    //  console.log( error.message );
+     console.log('ERROR:');
+     console.log( JSON.stringify(error) );
       return Observable.of(error.message);
 
     }
 
+    private handleErrors(error: HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        // A client-side or network error occurred. Handle it accordingly.
+        console.error('An error occurred:', error.error.message);
+      } else {
+        // The backend returned an unsuccessful response code.
+        // The response body may contain clues as to what went wrong,
+        console.error(
+          `Backend returned code ${error.status}, ` +
+          `body was: ${ JSON.stringify(error.error)}`);
+      }
+      // return an ErrorObservable with a user-facing error message
+      return new ErrorObservable(
+        'Something bad happened; please try again later.');
+    }
 
-    enterDiscussion( user: User , thisClass: ClassModel, sectionNumber: number): Observable <any> {
+    enterDiscussion( user: User , thisClass: ClassModel, section: number): Observable <any> {
      // return Observable.of(null);
     //  console.log('entering the discussion: ');
-
-      const enterDiscussionObject = { 'user': user, 'classID': thisClass.id, 'sectionNumber': sectionNumber };
-      return this._http.put ( this.globals.enterdiscussion, enterDiscussionObject ).do( data => {
-     //   console.log('Got back from the putting of the enterdiscussion api request.');
-      }).catch ( this.handleError );
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('Content-Type', 'application/json');
+      const enterDiscussionObject = { 'user_id': user.id, 'class_id': thisClass.id, 'section': section };
+      return this._http.put ( this.globals.enterdiscussion, enterDiscussionObject, this.headerOptions );
   }
 
   // return an array of ID's of who's currently in the chatroom
 
-  whosIn( thisClass: ClassModel, sectionNumber: number ): Observable <any> {
+  whosIn( thisClass: ClassModel, section: number ): Observable <any> {
       // console.log('Discussion service is requesting whos in the discussion.' + thisClass.id);
       let whosIn = [];
       const whosInObject = { classID: thisClass.id };
       return this._http.get <any[]> ( this.globals.whosin + '?id=' +
-        thisClass.id + '&section=' + sectionNumber  ).do( data => {whosIn = data;
+        thisClass.id + '&section=' + section  ).do( data => {whosIn = data;
      // console.log('got the whosin data: ' + JSON.stringify( data ) );
      }).catch(this.handleError );
   }
@@ -231,10 +268,10 @@ export class DiscussionService implements OnInit, OnChanges {
 
     }
 
-  introduceMyself(user, classID, sectionNumber) {
+  introduceMyself(user, classID, section) {
       this.sendNotice( {type: 'info', message: ['Welcome to the discussion, ' + user.username ], delay: 2000} );
 
-      this.socket.emit('enter', user, classID, sectionNumber);
+      this.socket.emit('enter', user, classID, section);
 
     }
 

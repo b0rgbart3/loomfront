@@ -13,17 +13,17 @@ export class ChatSocketService implements OnInit {
     // this.socket.connect('http://localhost:3101');
 
     // we connected with the chatserver
-    this.socket.on('chatsocketconnect', (data) => {
-      console.log(data.hello); // this worked!!!
-      // this.sendNotice();
-     // this.sendSocketNotice(data);
-    });
+    // this.socket.on('chatsocketconnect', (data) => {
+    //   console.log(data.hello); // this worked!!!
+    //   // this.sendNotice();
+    //  // this.sendSocketNotice(data);
+    // });
 
-    // respond to broadcast messages from the chatserver
-    this.socket.on('message', (data) => {
-      console.log(data);
-      this.sendSocketNotice(data);
-    });
+    // // respond to broadcast messages from the chatserver
+    // this.socket.on('message', (data) => {
+    //   console.log(data);
+    //   this.sendSocketNotice(data);
+    // });
   }
 
   ngOnInit() {
@@ -32,14 +32,14 @@ export class ChatSocketService implements OnInit {
   // sendNotice() {
   //   this._notes.add(<Notification> {type: 'success', message: 'New Client joined the Chat!'});
   // }
-  sendSocketNotice(data) {
-    this._notes.add(<Notification> {type: 'info', message: data});
-  }
+  // sendSocketNotice(data) {
+  //   this._notes.add(<Notification> {type: 'info', message: data});
+  // }
 
-  introduceMyself(user, classID) {
-    this.sendSocketNotice('Welcome to the chatroom, ' + user.username);
-    this.socket.emit('enter', user, classID);
-  }
+  // introduceMyself(user, classID) {
+  //   this.sendSocketNotice('Welcome to the chatroom, ' + user.username);
+  //   this.socket.emit('enter', user, classID);
+  // }
   // Emit: message saved event
   // emitEventOnMessageSaved(messageSaved) {
   //     this.socket.emit('messageSaved', messageSaved);

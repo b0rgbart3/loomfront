@@ -67,7 +67,7 @@ import { SeriesResolver } from './services/series-resolver.service';
 import { BlockComponent } from './materials/block/block.component';
 import { ImageComponent } from './materials/image/image.component';
 import { ResetComponent } from './users/reset/reset.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   // External
@@ -77,7 +77,7 @@ import { ResetComponent } from './users/reset/reset.component';
     FacebookModule.forRoot(),
     EmbedVideo.forRoot(),
     FileUploadModule,
-  
+    HttpClientModule,
   ],
   // Internal
   declarations: [

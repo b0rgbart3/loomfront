@@ -26,7 +26,6 @@ export class User {
         public completed_classes: string[],
         public completed_series: string[],
         public enrollments: Enrollment[],
-        public boardsettings: BoardSettings
 
     ) {}
 

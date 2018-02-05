@@ -185,7 +185,7 @@ export class SignupComponent implements OnInit {
       if (!this.user) {
         this.boardSettings = new BoardSettings('', '', '');
         this.user = <User> {};
-        this.user.boardsettings = this.boardSettings;
+       // this.user.boardsettings = this.boardSettings;
       }
       this.regFormGroup = this.formBuilder.group( {
         firstname: [this.user.firstname, [ Validators.required, Validators.maxLength(20), ] ],
@@ -217,7 +217,7 @@ export class SignupComponent implements OnInit {
       if (this.regFormGroup.get('email').touched && this.regFormGroup.get('email').dirty) {
         this.emailMessage = '';
       if (this.regFormGroup.get('email').errors) {
-        
+
       if (this.regFormGroup.get('email').errors.required) {
         this.emailMessage = 'Please include an email address.';
       }
@@ -257,7 +257,7 @@ export class SignupComponent implements OnInit {
     }
 
     processFBLoginStatusResponse() {
- 
+
       console.log('FACEBOOK Initial Status: ');
       console.log(JSON.stringify(this.fbStatusResponseObject) );
 

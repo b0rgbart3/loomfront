@@ -5,7 +5,8 @@ export class DiscussionSettings {
         public user_id: string,
         public class_id: string,
         public section: number,
-        public discussing: boolean
+        public discussing: boolean,
+        public folds: boolean[]
 
     ) {}
 

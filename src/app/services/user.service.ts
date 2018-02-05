@@ -159,13 +159,13 @@ export class UserService implements OnInit {
 }
 
 
-getUserFromMemoryById( queryID:string): User {
-  
+getUserFromMemoryById( queryID: string): User {
+
   const foundUser = this.users.find( function( user) { return user.id === queryID; } )
 
   return foundUser;
 }
-    getUser( id:string ): Observable<any> {
+    getUser( id: string ): Observable<any> {
 
       return this._http.get<User> ( this._usersUrl + '?id=' + id )
       .do(data => {
@@ -175,8 +175,8 @@ getUserFromMemoryById( queryID:string): User {
         }
         // console.log( 'found: ' + JSON.stringify(data) );
       return data; }).catch( this.handleError );
-      
-      ;
+
+
     }
 
     // Return an array of Users that are enrolled as instructors for this class ID
@@ -297,7 +297,6 @@ getUserFromMemoryById( queryID:string): User {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-      this.currentUser.boardsettings = boardSettings;
       return this._http.put(this._usersUrl + '?id=' + this.currentUser.id, this.currentUser, {headers: myHeaders} );
 
     }
@@ -321,7 +320,6 @@ getUserFromMemoryById( queryID:string): User {
        return this._http.post(this.base_path + 'api/requestreset', emailObject, {headers: myHeaders})
         .do( data => console.log('Got data back from request reset post') )
         .catch (this.handleError);
-  
     }
 
     resetPassword( resetObject: Reset ):Observable<any> {

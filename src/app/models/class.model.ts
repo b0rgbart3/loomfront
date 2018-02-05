@@ -11,7 +11,6 @@ export class ClassModel {
       public start: string,
       public end: string,
       public id: string,
-      public description: string,
       public instructors: Instructor[],
       public students: Student[],
       public courseObject: Course,

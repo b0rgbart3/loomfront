@@ -32,8 +32,10 @@ export class ThreadComponent implements OnInit, OnChanges {
   threadSubjectClass: string;
 
   @Input() thread: Thread;
+  @Input() collapsed: boolean;
   @Output() threadChange = new EventEmitter<Thread>();
   @Output() deleteReply = new EventEmitter<Thread>();
+  @Output() foldChange = new EventEmitter<Thread>();
 
   constructor( private activated_route: ActivatedRoute,
     private classService: ClassService,
@@ -42,6 +44,14 @@ export class ThreadComponent implements OnInit, OnChanges {
     private ds: DiscussionService ) {}
 
   ngOnInit() {
+
+    // console.log('In the INIT of the thread component.');
+   // console.log('My collapsed value == ' + this.collapsed);
+
+    // not quite sure why I have both of these
+    // but let's at least get them in sync
+    this.thread.collapsed = this.collapsed;
+
     this.post_date = this.thread.post_date;
     if (this.post_date) {
     this.display_date = this.post_date.toString(); }
@@ -89,6 +99,10 @@ export class ThreadComponent implements OnInit, OnChanges {
   }
 
   reply(thread) {
+    if (this.thread.collapsed) {
+      this.thread.collapsed = false;
+      this.foldChange.emit(thread);
+    }
     this.thread.collapsed = false;
     this.thread.displayReplyInput = true;
    // this.threadChange.emit(this.thread);
@@ -100,6 +114,8 @@ export class ThreadComponent implements OnInit, OnChanges {
 
   toggleThread() {
     this.thread.collapsed = !this.thread.collapsed;
+
+    this.foldChange.emit(this.thread);
 
     if (this.thread.collapsed) {
       if (this.thread.replies && this.thread.replies.length > 0) {
@@ -118,7 +134,7 @@ export class ThreadComponent implements OnInit, OnChanges {
       if (cd) {
       this.thread.replies.splice(r, 1); }
     }
-    console.log('About to delete the Reply');
+    // console.log('About to delete the Reply');
     this.deleteReply.emit(this.thread);
   }
 
@@ -142,16 +158,21 @@ export class ThreadComponent implements OnInit, OnChanges {
       this.replyThumbnails.push(this.createLiveThumbnail(this.currentUser.id));
       thread.displayReplyInput = false;
 
+   //   console.log('Thread component: About to submit a reply.');
+   //   console.log( JSON.stringify( thread ));
+
       this.ds.updateThread( thread ).subscribe(
         (val) => { }, response => {
 
+          console.log('In thread component:DONE UPDATING THE THREAD- after posting a reply');
           this.threadChange.emit(thread);
           thread.displayReplyInput = false;
-  
+
           // this.createReplyThumbnails();
         }// console.log('thread saved')
         ,
-          () => { // console.log('finished');
+          () => {
+
           this.replyFormGroup.reset();
         thread.displayReplyInput = false;
         // this.createReplyThumbnails();

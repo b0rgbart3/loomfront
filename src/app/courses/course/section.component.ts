@@ -10,6 +10,7 @@ import { Doc } from '../../models/doc.model';
 import { ClassModel } from '../../models/class.model';
 import { UserService } from '../../services/user.service';
 import { DiscussionService } from '../../services/discussion.service';
+import { DiscussionSettings } from '../../models/discussionsettings.model';
 
 
 
@@ -29,6 +30,8 @@ export class SectionComponent implements OnInit, OnChanges {
     content: string;
     discussing: boolean;
     discussionIconClass: string;
+    folds: boolean[];
+    discussionSettings: DiscussionSettings;
 
     @Input() thisClass: ClassModel;
     @Input() course: Course;
@@ -57,8 +60,7 @@ export class SectionComponent implements OnInit, OnChanges {
         const sortedMaterials = this.materialService.sortMaterials(this.materials);
         this.materialCollection = sortedMaterials;
         this.loadUserDiscussionSettings();
-       // console.log('course: ' + this.course.title);
-       // console.log('sectionNumber: ' + this.sectionNumber);
+
     }
 
     ngOnChanges() {
@@ -87,9 +89,12 @@ export class SectionComponent implements OnInit, OnChanges {
    }
 
    saveDiscussionSettings() {
-    const discussionSettingsObject = { 'user_id': this.userService.currentUser.id,
-        'classID': this.thisClass.id, 'section': this.sectionNumber, 'discussing': this.discussing };
-    this.discussionService.storeDiscussionSettings(discussionSettingsObject).subscribe(
+   this.discussionSettings = { 'user_id': this.userService.currentUser.id,
+        'class_id': this.thisClass.id, 'section': this.sectionNumber,
+        'discussing': this.discussing, 'folds': this.folds };
+      //  console.log('About to save Discussion Settings from the section component.');
+      //  console.log( JSON.stringify(this.discussionSettings));
+        this.discussionService.storeDiscussionSettings(this.discussionSettings).subscribe(
         data => console.log('done storing discussion settings.'), error => {
             console.log('ERROR trying to store the settings!');
             console.log(error); } );
@@ -99,8 +104,12 @@ export class SectionComponent implements OnInit, OnChanges {
    loadUserDiscussionSettings() {
     this.discussionService.getDiscussionSettings( this.userService.currentUser.id, this.thisClass.id, this.sectionNumber ).subscribe(
         (data) => {
+            this.discussionSettings = data;
+           // console.log('Loaded discussion settings: ');
+           // console.log( JSON.stringify(data));
             this.discussing = false;
            if (data) { this.discussing = data.discussing;
+            this.folds = data.folds;
             if (data.discussing) { this.discussionIconClass = 'closeDiscussionIcon'; } else {
                 this.discussionIconClass = 'discussionIcon';
             }
