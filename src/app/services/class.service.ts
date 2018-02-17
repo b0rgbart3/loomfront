@@ -24,12 +24,6 @@ export class ClassService implements OnInit {
 
 
     constructor (private _http: HttpClient, private globals: Globals) {
-      this._registryUrl = globals.basepath + 'api/classregistrations';
-      this._classesUrl = globals.basepath + 'api/classes';
-      this._studentClassesUrl = globals.basepath + 'api/studentClasses';
-      this._instructorClassesUrl = globals.basepath + 'api/instructorClasses';
-    //  console.log('Classes API URL: ' + this._classesUrl);
-    //  console.log('InstructorClasses URL: ' + this._instructorClassesUrl );
     }
 
     getClassesNow() {
@@ -44,27 +38,28 @@ export class ClassService implements OnInit {
     // Rather than returning an array of class ID's from the memory based class objects,
     // lets call the API and let mongo do the searching, and return to us a list of complete class objects
 
-    getStudentClasses( studentID ): Observable <ClassModel[]> {
+    getStudentEnrollments( studentID ): Observable <ClassModel[]> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-     return this._http.get <ClassModel[]> (this._studentClassesUrl + '?id=' + studentID, {headers: myHeaders});
+     return this._http.get <ClassModel[]> (this.globals.studentenrollments + '?id=' + studentID, {headers: myHeaders});
 
     }
 
-    getInstructorClasses( userID ): Observable <ClassModel[]> {
+    getInstructorAssignments( userID ): Observable <ClassModel[]> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-     return this._http.get <ClassModel[]> (this._instructorClassesUrl + '?id=' + userID, {headers: myHeaders});
+     return this._http.get <ClassModel[]> (this.globals.instructorassignments + '?id=' + userID, {headers: myHeaders});
 
     }
 
    getClasses(): Observable<ClassModel[]> {
+     console.log('In class service, getClasses.');
      const myHeaders = new HttpHeaders();
      myHeaders.append('Content-Type', 'application/json');
 
-    return this._http.get <ClassModel[]> (this._classesUrl, {headers: myHeaders})
+    return this._http.get <ClassModel[]> (this.globals.classes, {headers: myHeaders})
       // debug the flow of data
       .do(data => {// console.log('All: ' + JSON.stringify(data));
       this.classes = data;
@@ -107,13 +102,13 @@ export class ClassService implements OnInit {
     const idNumber = parseInt(id, 10);
     if (idNumber > 0 ) {
      // console.log('The ID wasn\'t zero, so we\'re gettin the class from the api.');
-    return this._http.get<ClassModel[]> ( this._classesUrl + '?id=' + id )
+    return this._http.get<ClassModel[]> ( this.globals.classes + '?id=' + id )
       .do(data => {
 
       return data; })
       .catch (this.handleError); } else {
        // console.log('The ID is zero, so we\'re creating a fresh new Class.');
-        return Observable.of( new ClassModel('', '', '', '', '', null, null, null, null ) );
+        return Observable.of( new ClassModel('', '', '', '', '', null, null ) );
       }
   }
 
@@ -121,36 +116,36 @@ export class ClassService implements OnInit {
   // and returns an array of full User Objects for this class
   // -- because the classObject stores user info objects - but not
   // user objects.
-  getStudents(classObject, users): User[] {
-    const students = <User[]> [];
-    for (let i = 0; i < classObject.students.length; i++) {
-      const student_id = classObject.students[i].user_id;
+  // getStudents(classObject, users): User[] {
+  //   const students = <User[]> [];
+  //   for (let i = 0; i < classObject.students.length; i++) {
+  //     const student_id = classObject.students[i].user_id;
 
-      if (users) {
-      for (let j = 0; j < users.length; j++) {
-          if (users[j].id === student_id) {
-              students.push(users[j]);
-          }
-      }}
-    }
-    return students;
-  }
+  //     if (users) {
+  //     for (let j = 0; j < users.length; j++) {
+  //         if (users[j].id === student_id) {
+  //             students.push(users[j]);
+  //         }
+  //     }}
+  //   }
+  //   return students;
+  // }
 
-  // Similarly here - we're colleting an array of User objects
-  // of the instructors for this class
-  getInstructors(classObject, users): User[] {
-      const instructors = <User[]> [];
-         for (let i = 0; i < classObject.instructors.length; i++) {
-            const inst_id = classObject.instructors[i].user_id;
+  // // Similarly here - we're colleting an array of User objects
+  // // of the instructors for this class
+  // getInstructors(classObject, users): User[] {
+  //     const instructors = <User[]> [];
+  //        for (let i = 0; i < classObject.instructors.length; i++) {
+  //           const inst_id = classObject.instructors[i].user_id;
 
-            if (users) { for (let j = 0; j < users.length; j++) {
-                if (users[j].id === inst_id) {
-                    instructors.push(users[j]);
-                }
-            }}
-        }
-        return instructors;
-  }
+  //           if (users) { for (let j = 0; j < users.length; j++) {
+  //               if (users[j].id === inst_id) {
+  //                   instructors.push(users[j]);
+  //               }
+  //           }}
+  //       }
+  //       return instructors;
+  // }
 
  createClass(classObject): Observable<ClassModel> {
 

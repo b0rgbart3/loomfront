@@ -1,0 +1,63 @@
+                <div class="padMe">
+                    <h1>Student Enrollments:</h1>
+                    <div *ngFor='let classGroup of classes'>
+                        <h3>{{ classGroup.title }}  {{ classGroup.id}}</h3>
+                        <div *ngFor='let enrollment of enrollments; let i=index'>
+
+                        <div *ngIf='enrollment.class_id === classGroup.id && enrollment.participation ==="student"' class='listItem'>
+                        <div class='tableRow'>
+                            <div class='tableCell'>
+                                {{ enrollment.this_user.username}} {{ enrollment.this_user.id}}
+                            </div>
+                            <div class='tableCell'>{{ enrollment.this_user.firstname}}  </div>
+                                <div class='tableCell'>{{ enrollment.this_user.lastname}}  </div>
+                                    <div class='tableCell'>{{ enrollment.this_user.email}}  </div>
+                                    <div class='tableCell'><div class='tinytrash' (click)='trash(i)'></div></div>
+                        </div></div>
+                        </div>
+                    </div>
+                  
+
+                    <form [formGroup]="enrollmentForm" novalidate class='loomForm group'>
+
+                        <span class='feedback'>{{ feedback }}
+                            </span>
+                        <h2>New Student Enrollment:</h2>
+                
+                        
+                        <div class='selectContainer'>
+                        <mat-form-field>
+                            <mat-select placeholder='Student' mdSelect formControlName='user_id'>
+                                 <mat-option *ngFor='let student of users' mdOption [value]='student.id'>
+                                   {{ student.username }}</mat-option>
+                             </mat-select></mat-form-field>
+                             <span class='help-block' *ngIf="(enrollmentForm.touched) && enrollmentForm.get('user_id').errors">
+                                <span *ngIf="enrollmentForm.get('user_id').errors">You need to choose the student</span>
+                             </span>
+                           
+                            </div>
+                            <div class='selectContainer'>
+                             <mat-form-field>          
+                            <mat-select placeholder='Class' mdSelect formControlName='class_id'>
+                                 <mat-option *ngFor='let classModel of classes' mdOption [value]='classModel.id'>
+                                   {{ classModel.title }} </mat-option>
+                             </mat-select></mat-form-field>
+                             <span class='help-block' *ngIf="(enrollmentForm.touched) && enrollmentForm.get('class_id').errors">
+                                    <span *ngIf="enrollmentForm.get('class_id').errors">You need to choose the class</span>
+                                 </span>
+                            </div>
+                             <div class='loomButton loomSubmit' 
+                             (click)='postEnrollment()' [ngClass]="{'disabled': (!enrollmentForm.valid)}" >Submit</div>
+                            
+           
+                    </form>
+                    <div class='debug'>
+                        Form touched: {{ enrollmentForm.touched }}<br>
+                        Form dirty: {{ enrollmentForm.dirty }}<br>
+                        Form valid: {{ enrollmentForm.valid }}<br>
+                       touched:        {{ enrollmentForm.get('user_id').touched }}<br>
+                       dirty: {{ enrollmentForm.get('user_id').dirty }} <br>
+                       errors: {{ enrollmentForm.get('user_id').errors  | json }}<br>
+                            {{ enrollmentForm.value | json}}
+                         </div>
+                </div>

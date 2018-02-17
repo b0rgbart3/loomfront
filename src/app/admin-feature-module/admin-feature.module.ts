@@ -18,6 +18,15 @@ import { CoursesResolver } from '../services/courses-resolver.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SeriesEditComponent } from './series-edit/series-edit.component';
 import { SeriesResolver } from '../services/series-resolver.service';
+import { EnrollmentEditComponent } from './enrollments/enrollment-edit.component';
+import { ClassesResolver } from '../services/classes-resolver.service';
+import { EnrollmentsResolver } from '../services/enrollments-resolver';
+import { EnrollmentStudentTabComponent } from './enrollments/enrollment-student-tab.component';
+import { EnrollmentInstructorTabComponent } from './enrollments/enrollment-instructor-tab.component';
+import { StudentEnrollmentsResolver } from '../services/studentenrollments-resolver.service';
+import { InstructorAssignmentsResolver } from '../services/instructorassignments-resolver.service';
+import { AllStudentEnrollmentsResolver } from '../services/allstudentenrollments-resolver.service';
+import { AllInstructorAssignmentsResolver } from '../services/allinstructorassignments-resolver.service';
 
 
 @NgModule ( {
@@ -29,13 +38,24 @@ import { SeriesResolver } from '../services/series-resolver.service';
                 canActivate: [ AdminRouteActivator ] },
             { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
             resolve: { course: CourseResolver,
-                materials: MaterialsResolver } },
-                
+                materials: MaterialsResolver }},
+
             { path: 'coursebuilder', component: CourseBuilderComponent },
 
+            { path: 'enrollments', component: EnrollmentEditComponent, resolve: {
+                users: UsersResolver, classes: ClassesResolver, enrollments: EnrollmentsResolver
+            },
+                children: [
+                { path: '', redirectTo: 'students', pathMatch: 'full' },
+                { path: 'students', component: EnrollmentStudentTabComponent, resolve: {
+                    users: UsersResolver, classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver
+                } },
+                { path: 'instructors', component: EnrollmentInstructorTabComponent, resolve: {
+                    users: UsersResolver, classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver
+                } }
+            ]  },
             { path: 'classedit/:id', pathMatch: 'full', component: ClassEditComponent, resolve: {
-    thisClass: ClassResolver, users: UsersResolver,
-    possibleInstructors: PossibleInstructorsResolver, courses: CoursesResolver } },
+    thisClass: ClassResolver, courses: CoursesResolver  } },
 
             { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { series: SeriesResolver} },
 
@@ -71,8 +91,10 @@ import { SeriesResolver } from '../services/series-resolver.service';
        CourseBuilderComponent,
        CourseEditComponent,
        MaterialEditComponent,
-       SeriesEditComponent
-
+       SeriesEditComponent,
+       EnrollmentEditComponent,
+       EnrollmentStudentTabComponent,
+       EnrollmentInstructorTabComponent,
     ],
     providers: [
         AdminRouteActivator,
@@ -86,7 +108,8 @@ import { SeriesResolver } from '../services/series-resolver.service';
         CourseBuilderComponent,
         CourseEditComponent,
         MaterialEditComponent,
-        SeriesEditComponent
+        SeriesEditComponent,
+        EnrollmentEditComponent
     ]
 })
 

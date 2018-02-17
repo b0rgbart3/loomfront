@@ -12,7 +12,7 @@ import { Globals } from '../globals';
 import { BoardSettings } from '../models/boardsettings.model';
 import { Reset } from '../models/reset.model';
 
-/*   Methods in this Service 
+/*   Methods in this Service
 -------------------------------------
 getUserId()
 isloggedin()
@@ -28,7 +28,7 @@ loggedInUser()
 resetPassword()
 sendResetRequest()
 saveSettings()
-storeBoardSettings() 
+storeBoardSettings()
 handleError()
 findUserById()
 subscribeToUsers()
@@ -161,8 +161,19 @@ export class UserService implements OnInit {
 
 getUserFromMemoryById( queryID: string): User {
 
-  const foundUser = this.users.find( function( user) { return user.id === queryID; } )
+  console.log('In getUserFromMemory: user: ' + queryID);
 
+  let foundUser = null;
+  if (this.users) {
+    foundUser = this.users.find( function( user) { return user.id === queryID; } );
+  } else {
+    console.log('No users in memory.');
+  }
+  console.log('done filtering for user.');
+
+  if (foundUser) { console.log('found user: ' + JSON.stringify(foundUser)); } else {
+    console.log('USERS: ' + JSON.stringify(this.users));
+  }
   return foundUser;
 }
     getUser( id: string ): Observable<any> {
@@ -185,7 +196,7 @@ getUserFromMemoryById( queryID: string): User {
         // Get All the instructors...
         return this._http.get < User[] >( this._instructorsUrl);
       }  else {
-        // get a specific instructor
+        // get a instructors of a particular class
       return this._http.get < User[] >( this._instructorsUrl + '?id=' + class_id);
       }
     }

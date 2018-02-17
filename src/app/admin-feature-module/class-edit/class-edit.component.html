@@ -43,27 +43,27 @@
             </mat-form-field>
         </div> 
         <br clear='all'>
-        <br><h1>Instructors</h1>
+        <!-- <br><h1>Instructors</h1> -->
 
         <!-- These are the list of possible instructors -->
-        <div formArrayName='instructor_choices' *ngFor='let instructor of instructor_choices.controls; let j = index'>
+        <!-- <div formArrayName='instructor_choices' *ngFor='let instructor of instructor_choices.controls; let j = index'>
             <div [formGroupName]='j' class='loomCheckBox'>
 
                 <mat-checkbox formControlName='value' id="{{'instructor'+j}}">{{instructor.value.username}}</mat-checkbox>
 
             </div>
-        </div>
+        </div> -->
 
         <br clear='all'>
-        <br><h1>Students</h1>
+        <!-- <br><h1>Students</h1> -->
         <!-- These are the list of possible students -->
-        <div formArrayName='student_choices' *ngFor='let student of student_choices.controls; let k = index'>
+        <!-- <div formArrayName='student_choices' *ngFor='let student of student_choices.controls; let k = index'>
                 <div [formGroupName]='k' class='loomCheckBox'>
             
                     <mat-checkbox formControlName='value' id="{{'student'+k}}">{{student.value.username}}</mat-checkbox>
             
                 </div>
-        </div>
+        </div> -->
         <br clear='all'>
 
         <br clear='all'><br>

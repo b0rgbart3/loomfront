@@ -1,0 +1,70 @@
+h3 {
+    margin:0;
+    padding:0;
+    color:#555555;
+    font-weight: 600;
+    border-bottom:1px solid #aaaaaa;
+    margin-bottom:8px;
+    margin-top:1em;
+}
+
+.loomForm {
+    background-color:white;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.4);
+    margin-top:30px;
+    border-radius:3px;
+    padding:20px;
+
+}
+
+.tableCell {
+display:inline-block;
+min-width:16%;
+padding-bottom:5px;
+box-sizing: border-box;
+vertical-align: bottom;
+color:rgba(0,0,0,.5);
+}
+
+.tableRow {
+    padding-top:4px;
+    border-bottom:1px dotted rgba(100,100,100,.3);
+    padding-left:10px;
+    padding-bottom:2px;
+}
+
+.feedback {
+    color:red;
+}
+
+.tinytrash {
+    background-image:url('../../../assets/images/trash.svg');
+    background-position: 50% 50%;
+    background-size: 22px 28px;
+    background-repeat: no-repeat;
+    width:30px;
+    height:28px;
+    /* border:1px solid blue; */
+    padding-top:4px;
+    box-sizing:border-box;
+    margin-bottom:-4px;
+    border-radius:50%;
+    border:2px solid rgba(121, 0, 0, 0);
+    margin-left:10px;
+    opacity:.4;
+  }
+
+  .tinytrash:active {
+    background-image:url('../../../assets/images/trash_red.svg');
+    background-color:white;
+    border-radius:50%;
+    border:2px solid rgba(194, 1, 0,0 );
+    box-shadow:0 0 4px rgba(0,0,0,.5);
+    opacity:1;
+  }
+
+
+  .help-block {
+      font-style:italic;
+      color:red;
+  }

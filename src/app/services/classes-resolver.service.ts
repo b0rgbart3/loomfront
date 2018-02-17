@@ -17,14 +17,16 @@ export class ClassesResolver implements Resolve <ClassModel> {
         private router: Router ) { }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <ClassModel> {
-        const id = route.params['id'];
+//        const id = route.params['id'];
 
-        if (isNaN(id)) {
-            // console.log(`Class id was not a number: ${id}`);
-            this.router.navigate(['/welcome']);
-            return Observable.of(null);
-        }
-        console.log('In Classes Resolver: id=' + id);
+       // console.log('In the classes Resolver');
+
+        // if (isNaN(id)) {
+        //     // console.log(`Class id was not a number: ${id}`);
+        //     this.router.navigate(['/welcome']);
+        //     return Observable.of(null);
+        // }
+  //      console.log('In Classes Resolver: id=' + id);
         return this.classService.getClasses().
         map(thisClass => { if (thisClass) {
             // console.log('This class id: ' + id);

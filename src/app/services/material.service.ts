@@ -10,6 +10,7 @@ import { Globals } from '../globals';
 
 import { Material } from '../models/material.model';
 import { MaterialCollection } from '../models/materialcollection.model';
+import { Course } from '../models/course.model';
 
 
 @Injectable()
@@ -58,6 +59,13 @@ export class MaterialService {
 
     }
 
+    // getCourseMaterials ( currentCourse: Course ): Observable <any> {
+
+    //   for (let i = 0; i < currentCourse.sections.length; i++) {
+    //     const matIDs = currentCourse.sections[i].materials;
+
+    //   }
+    // }
     getBatchMaterials( list ): Observable<any> {
 
       const queryString = '?materials=';

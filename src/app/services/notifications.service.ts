@@ -12,4 +12,8 @@ export class NotificationsService {
     public add(notification: Notification) {
         this._notifications.next(notification);
     }
+
+    public sendNotice(data) {
+        this.add( new Notification( data.type, data.message, data.delay ) );
+      }
 }

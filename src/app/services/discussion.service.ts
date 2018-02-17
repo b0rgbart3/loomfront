@@ -121,7 +121,8 @@ export class DiscussionService implements OnInit, OnChanges {
        return this._http.get <DiscussionSettings> (this.globals.discusssettings +
           '?user_id=' + user_id + '&class_id=' + class_id + '&section=' + section, {headers: myHeaders} )
       .do (data => {
-       //  console.log('Got Discussion Settings back from the API' + JSON.stringify(data));
+         console.log('Got Discussion Settings back from the API' + JSON.stringify(data));
+         return data;
     })
       .catch ( this.handleError );
     }
@@ -243,7 +244,7 @@ export class DiscussionService implements OnInit, OnChanges {
         'Something bad happened; please try again later.');
     }
 
-    enterDiscussion( user: User , thisClass: ClassModel, section: number): Observable <any> {
+    enterDiscussion( user: User , thisClass: ClassModel, section: string): Observable <any> {
      // return Observable.of(null);
     //  console.log('entering the discussion: ');
     const myHeaders = new HttpHeaders();

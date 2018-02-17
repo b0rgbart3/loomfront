@@ -88,14 +88,6 @@ export class CourseEditComponent implements OnInit {
     private _sanitizer: DomSanitizer ) { }
 
     ngOnInit(): void {
-//         this.materialTypes = [
-//         { 'type': 'video', 'longName': 'Videos', 'pluralName': 'videos' },
-//         { 'type': 'audio', 'longName' : 'Audio Files', 'pluralName' : 'audios' },
-//         { 'type': 'doc', 'longName' : 'PDF Documents', 'pluralName' : 'docs' },
-//         { 'type': 'quote', 'longName' : 'Quotations', 'pluralName' : 'quotes' },
-//         { 'type': 'contentblock', 'longName' : 'HTML Content Block', 'pluralName' : 'contentblocks' },
-//         { 'type': 'book', 'longName' : 'Book References', 'pluralName' : 'books' },
-//   ];
 
         this.materialTypes = this.globals.materialTypes;
         this.materialPlaceholder = 'Choose a Material';
@@ -133,13 +125,6 @@ export class CourseEditComponent implements OnInit {
        //   console.log('Course: ' + JSON.stringify(this.course));
           this.materials = this.activated_route.snapshot.data['materials'];
 
-          // this.sectionMaterials = this.materialService.sortMaterials(this.materials);
-
-        //   this.books = this.materials['book'];
-        //   this.docs = this.materials['doc'];
-        //   this.videos = this.materials['video'];
-        //   this.audios = this.materials['audio'];
-
           if (this.id !== '0' && ( this.course.image !== '' )) {
           this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
             console.log('Existing image: ' + this.existingImage);
@@ -169,13 +154,12 @@ export class CourseEditComponent implements OnInit {
         this.addCourseImage();
         this.deLintMe();
         this.buildSections();
-        // this.extractedCollections = [];
+
     }
 
     buildNewSection(i) {
 
         this.extractStuff(i);
-        //  this.materialFormArray[i] = this.fb.array([]);
         this.imageFormArray[i] = this.fb.array([]);
          this.bookFormArray[i] = this.fb.array([]);
          this.docFormArray[i] = this.fb.array([]);
@@ -184,11 +168,6 @@ export class CourseEditComponent implements OnInit {
          this.quoteFormArray[i] = this.fb.array([]);
          this.blockFormArray[i] = this.fb.array([]);
 
-         // if (this.course.sections[i] && this.course.sections[i].materials) {
-         // for (let j = 0; j < this.course.sections[i].materials.length; j++ ) {
-         //     this.materialFormArray[i].push(this.buildMaterialsSubSection(this.course.sections[i].materials[j]['material']));
-         // }
-         // }
          if (this.course.sections[i] && this.extractedImages[i] ) {
              for (let j = 0; j < this.extractedImages[i].length; j++ ) {
                  this.imageFormArray[i].push(this.buildMaterialsSubSection(this.extractedImages[i][j]['id'] ));
@@ -284,11 +263,7 @@ export class CourseEditComponent implements OnInit {
     });
     }
 
-    // buildBookSubSection(value) {
-    //     return this.fb.group({
-    //      material: value
-    //  });
-    //  }
+
 
     extract( sectionNumber, type) {
         const extractedArray = [];
@@ -310,17 +285,8 @@ export class CourseEditComponent implements OnInit {
                         }
                     }
                   }
-                    // if (this.course.sections[sectionNumber].materials[j]['type'] === type) {
-                    //     // found one
-                    //     const foundObject = this.course.sections[sectionNumber].materials[j];
-                    //     extractedArray.push(foundObject);
-                    // }
+
                 }
-                // for (let j = 0; j < this.course.sections[sectionNumber].materials.length; j++) {
-                //     const bookID = this.course.sections[sectionNumber].materials[j];
-                //     const foundArray = this.materials.find( materialObject =>  (materialObject.type === type ) );
-                //     extractedArray = foundArray;
-                // }
 
 
         }
@@ -346,11 +312,6 @@ export class CourseEditComponent implements OnInit {
         this.extractedBlocks[sectionNumber] = [];
         this.extractedBlocks[sectionNumber] = this.extract(sectionNumber, 'block');
 
-        // console.log('extractedBook Count: ' + this.extractedBooks[sectionNumber].length);
-        // console.log('extracted books: ' + JSON.stringify(this.extractedBooks[sectionNumber]));
-        // console.log('extractedDoc Count: ' + this.extractedDocs[sectionNumber].length);
-        // console.log('extracted docs: ' + JSON.stringify( this.extractedDocs[sectionNumber] ) );
-
        }
 
 
@@ -366,18 +327,6 @@ export class CourseEditComponent implements OnInit {
         this.courseFormGroup.patchValue({'title': this.course.title,
         'description': this.course.description });
     }
-
-    // getCourse(id: number) {
-    //     this.courseService.getCourse(id).subscribe(
-    //         course => {this.course = <Course>course[0];
-    //             // console.log('got course info :' + JSON.stringify(course) );
-    //             this.image = this.course.image;
-    //             this.imageUrl = this.globals.courseimages + '/' + this.course.id + '/' + this.image;
-
-    //         },
-    //         error => this.errorMessage = <any> error
-    //     );
-    // }
 
     deLintMe() {
         for (let i = 0; i < this.course.sections.length; i++) {
@@ -517,39 +466,9 @@ export class CourseEditComponent implements OnInit {
       }
 
     addSection(): void {
-        const newSection = this.course.sections.length;
-        this.course.sections.push(new Section( '', '', '', [], [], newSection) );
-
+        const newSection = this.course.sections.length + '';
+        this.course.sections.push(new Section( '', '', '', [], null, newSection) );
         this.buildNewSection(this.course.sections.length - 1);
-    // this.sectionsFormArray.push(this.buildSection());
-
-    //   const newSection = this.course.sections.length;
-    //   console.log('creating section #' + newSection);
-
-    //   this.imageFormArray[newSection] = this.fb.array([]);
-    //     this.bookFormArray[newSection] = this.fb.array([]);
-    //     this.docFormArray[newSection] = this.fb.array([]);
-    //     this.videoFormArray[newSection] = this.fb.array([]);
-    //     this.audioFormArray[newSection] = this.fb.array([]);
-    //     this.quoteFormArray[newSection] = this.fb.array([]);
-    //     this.blockFormArray[newSection] = this.fb.array([]);
-
-    //     this.sectionReferences[newSection] = this.fb.group( {
-    //         title: '',
-    //         content: '',
-    //         // materials: this.materialFormArray[i],
-    //         images: this.imageFormArray[newSection],
-    //         videos: this.videoFormArray[newSection],
-    //         audios: this.audioFormArray[newSection],
-    //         books: this.bookFormArray[newSection],
-    //         docs: this.docFormArray[newSection],
-    //         quotes: this.quoteFormArray[newSection],
-    //         blocks: this.blockFormArray[newSection]
-
-    //      });
-    //     this.sectionsFormArray.push(  this.sectionReferences[newSection] );
-        
-
     }
 
 
@@ -628,10 +547,6 @@ export class CourseEditComponent implements OnInit {
         this.sections.removeAt(i); }
     }
 
-    // killMaterial(i, j) {
-    //       //  console.log (' section #' + i + ', material#' + j);
-    //        this.materialFormArray[i].removeAt(j);
-    // }
 
     killBook(i, k) {
         this.bookFormArray[i].removeAt(k);

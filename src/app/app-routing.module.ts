@@ -27,6 +27,11 @@ import { AuthGuard } from './services/auth-guard.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { BookResolver } from './services/book-resolver.service';
 import { ResetComponent } from './users/reset/reset.component';
+import { DiscussionSettingsResolver } from './services/discussion-settings-resolver';
+import { ClassCourseResolver } from './services/class-course-resolver.service';
+import { StudentEnrollmentsResolver } from './services/studentenrollments-resolver.service';
+import { InstructorAssignmentsResolver } from './services/instructorassignments-resolver.service';
+import { EnrollmentsResolver } from './services/enrollments-resolver';
 
 
 
@@ -36,20 +41,23 @@ const ROUTES: Routes = [
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
-{ path: 'home', pathMatch: 'full', component: HomeComponent },
+{ path: 'home', component: HomeComponent, resolve: { users: UsersResolver,
+    classes: ClassesResolver, courses: CoursesResolver,
+     studentenrollments: StudentEnrollmentsResolver,
+     instructorassignments: InstructorAssignmentsResolver
+} },
 
-{ path: 'classes/:id/:id2', pathMatch: 'full', component: ClassComponent, resolve: {
-    thisClass: ClassResolver, section: SectionResolver, users: UsersResolver }},
-// { path: 'classes/:id', pathMatch: 'full', component: ClassComponent,
-// resolve: { thisClass: ClassResolver, users: UsersResolver } },
+// This is a component-less parent route that only has one child (so far)
+// but this allows me to resolve the class data before loading the child (section)
+{ path: 'classes/:id', resolve: { thisClass: ClassResolver, users: UsersResolver, enrollments: EnrollmentsResolver},
+  children: [ {
+      path: ':id2', pathMatch: 'full', component: ClassComponent,
+resolve: {
+    discussionSettings: DiscussionSettingsResolver  } }]
+},
 
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
  canActivate: [ AuthGuard, UserAuthGuard ] },
-// { path: 'chatroom/:id', component: ChatroomComponent,
-// resolve: { thisClass: ClassesResolver, users: UsersResolver }},
-// { path: 'discussion/:id', component: DiscussionComponent,
-// resolve: { thisClass: ClassesResolver, users: UsersResolver }},
-// { path: 'usersettings', component: UserSettingsComponent },
 { path: 'reset/:key', component: ResetComponent },
 ];
 

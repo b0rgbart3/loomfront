@@ -1,3 +1,9 @@
+<br><br>
+<p>Discussion:{{ settings.section }}</p>
+    <div class='discussionIconWrap'> 
+            <div [class]='discussionIconClass' (click)="toggleDiscussion()"></div></div>
+            <div class='discussionBox group' *ngIf='settings && settings.discussing'>
+
 <div class='discussionFramer group' *ngIf='ready2display'>
 
 <p>What are your thoughts on: {{ section.title }}?</p>

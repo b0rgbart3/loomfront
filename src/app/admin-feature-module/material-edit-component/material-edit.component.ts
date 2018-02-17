@@ -185,7 +185,7 @@ export class MaterialEditComponent implements OnInit {
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-            
+
             this.thisFile = file;
             console.log('Got a file: ' + file.name);
         }

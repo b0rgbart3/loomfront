@@ -267,9 +267,11 @@ body {
   user-select: none;
   margin-right: 10px;
   background-color:white;
+  border:2px solid #555555;
+  border-radius:4px;
 }
 .loomButton:hover {
-  background-color: #ff4081;
+  background-color: #6dff40;
 }
 .loomCancel {
 background-color:#bbbbbb;
@@ -279,8 +281,19 @@ color:white;
 
 .loomSubmit {
   background-color:#3c3c9b;
+  background-color:white;
   float:right;
   color:white;
+  color:black;
+  font-weight: bold;
+}
+
+.disabled {
+  opacity:.24;
+}
+
+.disabled:hover {
+  background-color:white;
 }
 
 .loomDate {
@@ -458,8 +471,11 @@ color:white;
 
 mat-select {
   width:250px !important;
-  margin-top:10px;
   margin-bottom:10px;
+  border-bottom:1px dashed rgba(0,0,0,.3);
+  height:30px;
+  padding:8px;
+  box-sizing: border-box;
 }
 
 .loomCheckBox  {
@@ -471,6 +487,7 @@ mat-select {
   margin-bottom:10px;
 
 }
+
 
 .padMe {
   padding:20px;
@@ -507,6 +524,8 @@ h2 {
   margin:8px;
   opacity:.5;
   background-color:rgba(255,255,255,0);
+  margin-top:0;
+  margin-right:0;
 }
 
 .closer:hover {
@@ -665,4 +684,98 @@ h2 {
       background-color: #bde5f8;
       border-color: #33afe9;
       color: #1175a5; }
+
+
+      .selectContainer {
+        display:inline-block;
+        float:left;
+        overflow: hidden;
+        width:300px;
+      }
+
+      .reminder {
+        color:rgb(71, 80, 134);
+        font-family: 'Georgia';
+        font-style:italic;
+      }
+
+
+      /**
+ * Slanted tabs with CSS 3D transforms
+ * See http://lea.verou.me/2013/10/slanted-tabs-with-css-3d-transforms/
+ */
+
+
+nav {
+  margin-top:10px;
+	position: relative;
+	z-index: 1;
+    white-space: nowrap;
+    padding-left:10px;
+    max-width:83%;
+}
+
+nav a {
+	position: relative;
+	display: inline-block;
+	padding: 1.5em 1.5em 1em;
+	color: inherit;
+	text-decoration: none;
+  margin: 0 -7px;
+} 
+
+nav a::before,
+main {
+
+}
+
+nav a::before {
+	content: ''; /* To generate the box */
+	position: absolute;
+	top: 0; right: 0; bottom: .5em; left: 0;
+	z-index: -1;
+	border-bottom: none;
+	border-radius: 4px 4px 0 0;
+	background: #bbb;
+	box-shadow: 2px 2px 3px rgba(255,255,255,.9) inset;
+	transform: perspective(8px) rotateX(2deg);
+	transform-origin: bottom;
+}
+
+nav.left a {
+  padding: 1.5em 2em 1em 1em;
+}
+
+nav.left a::before {
+	transform-origin: bottom left;
+}
+
+nav.right a {
+	padding: 1.5em 1em 1em 2em;
+}
+
+nav.right a::before {
+	transform-origin: bottom right;
+}
+
+nav a.selected {
+	z-index: 2;
+}
+
+nav a.selected::before {
+	margin-bottom: -1px;
+	border-top-width: 1px;
+}
+
+nav a.selected::before,
+main {
+	background: #eee;
+}
+
+main {
+	display: block;
+	margin: -8px 0 0px 0;
+	padding: 1em;
+	border-radius: 6px 6px 0 0;
+}
 

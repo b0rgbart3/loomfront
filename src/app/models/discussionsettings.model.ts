@@ -4,7 +4,7 @@ export class DiscussionSettings {
     constructor (
         public user_id: string,
         public class_id: string,
-        public section: number,
+        public section: string,
         public discussing: boolean,
         public folds: boolean[]
 

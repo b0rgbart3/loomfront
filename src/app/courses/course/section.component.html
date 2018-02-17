@@ -1,26 +1,19 @@
+
 <div class='section'>
     <h1> {{ section.title }} </h1>
+
     <div *ngIf='materialCollection && materialCollection.quotes && (materialCollection.quotes.length > 0)'>
             <quote [materialcollection]='materialCollection' *ngIf='materialCollection'></quote>
     </div>
+
     <div [innerHTML]= 'section.content'></div>
-</div>
 
     <div *ngIf='materialCollection'>
         <div class='materials group'>
         <material-collection [materialcollection]="materialCollection"></material-collection>
         </div>
-
-
     </div>
-<br><br>
-    <div class='discussionIconWrap'> 
-            <div [class]='discussionIconClass' (click)="toggleDiscussion()"></div></div>
-            <div class='discussionBox group' *ngIf='discussing'>
-                    
-                    <discussion [thisClass]="thisClass" 
-                    [students]='students' [instructors]='instructors' 
-                    [section]='section' [sectionNumber]='sectionNumber'
-                    [folds]='folds'
-                    [discussionSettings]='discussionSettings'></discussion>
-            </div>  
+<p>section:{{ section.sectionNumber }}</p>
+    <discussion [thisClass]="thisClass" [students]='students' [instructors]='instructors' 
+    [section]='section' [settings]='discussionSettings'></discussion>
+</div>

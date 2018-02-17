@@ -1,12 +1,12 @@
 <div class='loomContainer' >
-<div *ngIf= 'course'>
+<div *ngIf= 'currentCourse'>
 <div *ngIf='courseimageURL' class='mainImage group'
 [ngStyle]="{ 'background-image': 'url(\' ' + courseimageURL + ' \')'}">
 
         <div class='topContent group'>
             <h2>AXIS MUNDI - BRANCH 1 / LIMB 3</h2>
             <h1>{{ thisClass.title }}</h1>
-            <p>{{ course.description }}</p>
+            <p>{{ currentCourse.description }}</p>
             <p class='dates'> {{ thisClass.start | date:'MMMM dd, yyyy' }} - {{ thisClass.end | date:'MMMM dd, yyyy' }}</p>
             <div class='instructors group'>
                     <h2>Your Instructors</h2>
@@ -19,7 +19,7 @@
 
 
 
-    <div *ngIf='thisClass' class='mainPage'>
+    <div *ngIf='thisClass && materialCollections' class='mainPage'>
 
         <div class='rollcall group'>
 
@@ -35,7 +35,7 @@
         class='discussButton'>Discussion</button>   
          -->
 
-        <div *ngIf='course'>
+        <div *ngIf='currentCourse'>
 
                 <div class='classNavBar'>
                 <div class='sectionNavTitle' (click)='showSectionMenu()'
@@ -49,17 +49,27 @@
                 </div></div>
 
                 
-                <div class='nextSection' (click)='nextSection()' *ngIf="sectionNumber < (course.sections.length-1)"></div>
-                <div class='nextSection hidden' *ngIf="sectionNumber >= (course.sections.length-1)"></div>
+                <div class='nextSection' (click)='nextSection()'
+                *ngIf="sectionNumber < (currentCourse.sections.length-1)"></div>
+                <div class='nextSection hidden'
+                *ngIf="sectionNumber >= (currentCourse.sections.length-1)"></div>
 
                 <div class='prevSection' (click)='prevSection()' *ngIf="sectionNumber > 0"></div>
                 <div class='prevSection hidden' *ngIf="sectionNumber < 1"></div>
                  </div>
 
 
-                 
-                <div *ngIf='course.sections' class='section group'>
-                    <section [course]='course' [sectionNumber]='sectionNumber' [thisClass]='thisClass' [materials]='materials'></section>
+                
+                <div *ngIf='currentCourse.sections' class='section group'>
+                    <section 
+                    [thisClass]='thisClass' 
+                    [course]='currentCourse' 
+                    [section]='section'
+                    [students]='students'
+                    [instructors]='instructors'
+                    [materialCollection]='materialCollections[sectionNumber]'
+                    [discussionSettings] = 'discussionSettings'>
+                </section>
             </div>
         </div>
         

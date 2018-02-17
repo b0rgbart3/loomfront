@@ -41,7 +41,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     // console.log('In navbar: ' + JSON.stringify(this.currentUser));
     if (this.currentUser) {
       this.username = this.currentUser.username;
-      console.log('username: ' + this.username);
+     // console.log('username: ' + this.username);
     }
     if (this.currentUser && this.currentUser.admin) {
       this.admin = true;

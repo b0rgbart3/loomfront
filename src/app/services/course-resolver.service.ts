@@ -9,6 +9,16 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
+/*
+ *
+ *
+ *  NOTE:  This resolver is designed to work with the Course Edit Component -- so it
+ *  resolves the course data based on the id of the URL.
+ *  Note however that this does NOT work for the Student view - which has url
+ *  params of Class ID and section ID.  In that case the course ID is nested
+ *  in the Class Object
+ */
+
 @Injectable()
 export class CourseResolver implements Resolve <Course> {
 

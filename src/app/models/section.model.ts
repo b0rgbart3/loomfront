@@ -9,9 +9,8 @@ export class Section {
       public id: string,
       public content: string,
       public materials: Array <Materialreference>,
-     // public materialCollection: MaterialCollection,
-      public books: Array <Object>,
-      public sectionNumber: number
+      public materialCollection: MaterialCollection,
+      public sectionNumber: string
   ) {}
 
 }

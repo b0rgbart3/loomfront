@@ -1,11 +1,11 @@
 <div class='loomContainer'>
         <div class='loomCard padMe'>
-                <div class='tabContainer'>
+                <div class='tabContainer' *ngIf='showTabs'>
                 <div [class]='takingLabel' (click)='taking()'>Classes you are taking</div>
                 <div [class]='teachingLabel' (click)='teaching()'>Classes you are teaching</div></div>
         <br clear='all'>
-        <div *ngIf='studentClasses && showTaking' class='listOfClasses'>
-        <div *ngFor='let classobject of studentClasses; let j = index' >
+        <div *ngIf='classesTaking && showTaking' class='listOfClasses'>
+        <div *ngFor='let classobject of classesTaking; let j = index' >
         <div class='selectorBox group' (click)='goto(classobject.id)'>
                 <div class='classInfoSelectionCollection group'>
                         <h1>{{ classobject.title }}</h1>
@@ -23,10 +23,10 @@
         </div></div>
         </div></div>
 
-        <div *ngIf='instructorClasses && showTeaching' class='listOfClasses'>
+        <div *ngIf='classesTeaching && showTeaching' class='listOfClasses'>
 
-        <div *ngFor='let classobject of instructorClasses'>
-                <div class='selectorBox group' (click)='goto(classobject.id)'>
+        <div *ngFor='let classobject of classesTeaching'>
+                <div class='selectorBox group' (click)='goto(classobject.id)' *ngIf='classobject'>
                         <div class='classInfoSelectionCollection group'>
                                 <h1>{{ classobject.title }}</h1>
                         <div class='classCourseImageThumnail'>
@@ -40,5 +40,10 @@
                                         </div>
                 </div></div>
                 </div></div>
+                <div *ngIf='!showTeaching && !showTaking'>
+                        <p>It looks like you are not yet enrolled in any courses, or assigned to teach any courses yet.</p>
+                </div>
         </div>
+
+
 </div>

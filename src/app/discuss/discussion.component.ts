@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ClassService } from '../services/class.service';
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
@@ -21,34 +21,38 @@ import { DiscussionSettings } from '../models/discussionsettings.model';
   providers: [ClassService]
 })
 
-export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
+export class DiscussionComponent implements OnInit, OnChanges {
 
+  // local vars
+  discussing: boolean;
+  folds: boolean[];
+  discussionIconClass: string;
+  thread: Thread;
+  entry: boolean;
+  ready2display: boolean;
+
+  // form model
+  discussionFormGroup: FormGroup;
+
+  // local copies of service data
   classes: ClassModel[];
   selectedClass: {};
   errorMessage: string;
   currentUser: User;
   admin: boolean;
-  class_id: string;
   users: User[];
-  discussionFormGroup: FormGroup;
-  thread: Thread;
   threads: Thread[];
   newThreads: Thread[];
-  entry: boolean;
   whosIn: any[];
-  discussing: boolean;
-  ready2display: boolean;
-
 
   @Input() thisClass: ClassModel;
+  @Input() section: Section;
   @Input() students: User[];
   @Input() instructors: User[];
-  @Input() section: Section;
-  @Input() sectionNumber: number;
-  @Input() folds: boolean[];
-  @Input() discussionSettings: DiscussionSettings;
+  @Input() settings: DiscussionSettings;
 
-  constructor( private router: Router,
+  constructor(
+    private router: Router,
     private activated_route: ActivatedRoute,
     private classService: ClassService,
     private userService: UserService,
@@ -57,32 +61,25 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
     private notes: NotificationsService,
  ) {}
 
- sendNotice(data) {
-  this.notes.add( new Notification( data.type, data.message, data.delay ) );
-
-}
-
   ngOnInit() {
-   // console.log('At Init of discussion component: ');
-   // console.log('Folds: ' + JSON.stringify(this.folds));
+    console.log('In discussion component: settings: ' + JSON.stringify( this.settings ));
 
+    this.discussionIconClass = 'discussionIcon';
     this.ready2display = false;
     this.discussing = false;
     this.currentUser = this.userService.getCurrentUser();
     this.discussionFormGroup = this.fb.group( { 'subject': ['', [Validators.required ] ] } );
 
-    if (!this.folds) { this.folds = []; }
-    // console.log('In discussion Component INIT: ');
-    // console.log('discussionSettings: ' + JSON.stringify(this.discussionSettings));
-    // console.log('this.thisClass.id: ' + this.thisClass.id);
+ 
 
-    this.ds.getThreads( this.thisClass.id, this.discussionSettings.section ).subscribe(
+    if (this.settings) {
+      if (!this.settings.folds) { this.settings.folds = []; }
+    this.ds.getThreads( this.thisClass.id, this.settings.section ).subscribe(
       data => { this.threads = data;
-      //  console.log('DONE loading threads: ' + JSON.stringify(threads));
         this.checkSequenceAndFolds();
       },
       error => this.errorMessage = <any>error);
-
+    }
     // Here we are 'subscribing' to the event notifications that are being broadcast from the API
     // Perhaps these subscriptions should be in the ds service instead
     // of putting them here?
@@ -90,8 +87,8 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
     this.ds.userEntered.subscribe( data => {
      //  console.log('User entered: ' + JSON.stringify(data) );
 
-      if ( (data.class_id === this.thisClass.id) && (data.section === this.discussionSettings.section)  ) {
-        this.sendNotice( {type: 'info', message:
+      if ( (data.class_id === this.thisClass.id) && (data.section === this.settings.section)  ) {
+        this.ds.sendNotice( {type: 'info', message:
         [ data.user.username + ' has entered the discussion.' ], delay: 2000} );
       }
     });
@@ -100,7 +97,7 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
        console.log('thread added: ' + JSON.stringify(thread) );
        console.log('thread.section =' + thread.section);
        console.log('this.section =' + JSON.stringify( this.section) );
-      if ((this.thisClass.id === thread.class_id) && (thread.section === this.sectionNumber)
+      if ((this.thisClass.id === thread.class_id) && (thread.section === this.section.sectionNumber)
        ) {
          console.log('responding to that.');
       this.threads.unshift(thread);
@@ -129,7 +126,7 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
 
    });
 
-    this.ds.enterDiscussion(this.currentUser, this.thisClass, this.discussionSettings.section).subscribe(
+    this.ds.enterDiscussion(this.currentUser, this.thisClass, this.section.sectionNumber).subscribe(
       Entry =>  { this.entry = Entry;
        },
       error => {this.errorMessage = <any> error;
@@ -140,6 +137,59 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
       });
 
   }
+
+  toggleDiscussion() {
+    if (this.discussing) {
+        this.closeDiscussion();
+    } else {
+        this.openDiscussion();
+    }
+}
+ openDiscussion() {
+   this.settings.discussing = true;
+   this.saveDiscussionSettings();
+   this.ds.introduceMyself( this.userService.currentUser, this.thisClass.id, this.section.sectionNumber);
+   this.discussionIconClass = 'closeDiscussionIcon';
+}
+
+closeDiscussion() {
+     this.settings.discussing = false;
+     this.saveDiscussionSettings();
+     this.discussionIconClass = 'discussionIcon';
+ }
+
+ saveDiscussionSettings() {
+  // this.settings = { 'user_id': this.userService.currentUser.id,
+  //      'class_id': this.thisClass.id, 'section': this.section.sectionNumber,
+  //      'discussing': this.discussing, 'folds': this.folds };
+     //  console.log('About to save Discussion Settings from the section component.');
+     //  console.log( JSON.stringify(this.discussionSettings));
+       this.ds.storeDiscussionSettings(this.settings).subscribe(
+       data => console.log('done storing discussion settings.'), error => {
+           console.log('ERROR trying to store the settings!');
+           console.log(error); } );
+
+  }
+
+//   loadUserDiscussionSettings() {
+//    this.ds.getDiscussionSettings( this.userService.currentUser.id, this.thisClass.id, this.section.sectionNumber ).subscribe(
+//        (data) => {
+//            this.settings = data;
+//           // console.log('Loaded discussion settings: ');
+//           // console.log( JSON.stringify(data));
+//            this.discussing = false;
+//           if (data) { this.discussing = data.discussing;
+//            this.folds = data.folds;
+//            if (data.discussing) { this.discussionIconClass = 'closeDiscussionIcon'; } else {
+//                this.discussionIconClass = 'discussionIcon';
+//            }
+//        }
+//           // console.log('DISCUSSION OBJECT:');
+//          //  console.log( JSON.stringify(data));
+
+//        }, (error) => console.log(error) );
+
+// }
 
   checkSequenceAndFolds() {
     // Let's compare the order of the threads against their timestamps to
@@ -153,12 +203,12 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
       }
     }
 
-    if (!this.folds) {
-      this.folds = [];
+    if (!this.settings.folds) {
+      this.settings.folds = [];
     }
-    while (this.folds.length < this.threads.length)  {
+    while (this.settings.folds.length < this.threads.length)  {
       // Make sure the folds array is as big as the threads array
-      this.folds.push(false);
+      this.settings.folds.push(false);
     }
     this.ready2display = true;
   }
@@ -167,7 +217,7 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
   reDisplay() {
    // console.log('Got emitted message.');
 
-    this.ds.getThreads( this.thisClass.id, this.discussionSettings.section ).subscribe(
+    this.ds.getThreads( this.thisClass.id, this.settings.section ).subscribe(
       threads => {
         this.newThreads = threads;
      //   console.log('Existing Threads: ');
@@ -187,12 +237,11 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
   }
   ngOnChanges() {
 
-    this.ds.getThreads( this.thisClass.id, this.discussionSettings.section ).subscribe(
+    if (this.settings) {
+    this.ds.getThreads( this.thisClass.id, this.settings.section ).subscribe(
       threads => this.threads = threads,
       error => this.errorMessage = <any>error);
-  }
-  ngDoCheck() {
-    // console.log('Do checking!');
+    }
   }
 
 
@@ -207,7 +256,7 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
     combinedObject.class_id = this.thisClass.id;
     combinedObject.user_id = this.currentUser.id;
     combinedObject.post_date = new Date( Date.now());
-    combinedObject.section = this.discussionSettings.section;
+    combinedObject.section = this.settings.section;
     combinedObject.id = 0;
 
     this.threads.unshift(combinedObject);
@@ -252,24 +301,12 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
     }
   }
 
-  // foldCollapse( thisThread: Thread) {
-  //   // find the index of this thread so that we can
-  //   // update the folds array with the same index
-  //   // Note the folds array is a record of collapsed states of the threads
-  //   // in this section, relative to the current user
-  //   const index = this.threads.findIndex( obj =>  obj.id === thisThread.id  );
-  //   this.folds[index] = true;
-  // }
-  // foldExpand( thisThread: Thread) {
-  //   const index = this.threads.findIndex( obj =>  obj.id === thisThread.id  );
-  //   this.folds[index] = false;
-  // }
 
   foldChange( thisThread: Thread ) {
     const index = this.threads.findIndex( obj =>  obj.id === thisThread.id  );
     this.folds[index] = !this.folds[index] ;  // toggle it
-    this.discussionSettings.folds = this.folds;
-    this.ds.storeDiscussionSettings( this.discussionSettings ).subscribe(
+    this.settings.folds = this.folds;
+    this.ds.storeDiscussionSettings( this.settings ).subscribe(
       data => {},
       err => {},
       () => {
@@ -282,10 +319,10 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
   threadChange( thisThread: Thread ) {
     console.log('got the emission');
     const combinedObject = thisThread;
-    combinedObject.class_id = this.class_id;
+    combinedObject.class_id = this.thisClass.id;
     combinedObject.user_id = this.currentUser.id;
 
-    this.ds.getThreads( this.thisClass.id, this.discussionSettings.section ).subscribe(
+    this.ds.getThreads( this.thisClass.id, this.settings.section ).subscribe(
               threads => { this.threads = threads;
                // console.log('Got new set of threads.');
                },
@@ -305,7 +342,7 @@ export class DiscussionComponent implements OnInit, OnChanges, DoCheck {
   }
     ,
       () => {
-        // console.log('thread deletion finished'); this.removeThread(thisThread); 
+        // console.log('thread deletion finished'); this.removeThread(thisThread);
       });
   }
  }

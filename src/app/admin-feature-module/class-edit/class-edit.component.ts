@@ -8,8 +8,7 @@ import { Course } from '../../models/course.model';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Enrollment } from '../../models/enrollment.model';
-import { Student } from '../../models/student.model';
-import { Instructor } from '../../models/instructor.model';
+
 
 @Component({
     moduleId: module.id,
@@ -24,29 +23,28 @@ export class ClassEditComponent implements OnInit {
     id: string;
     errorMessage: string;
     courses: Course[];
-    instructorCount = 0;
-    studentCount = 0;
-    students: Student[];
-    instructors: Instructor[];
-    possibleInstructors: User[];
-    possibleStudents: User[];
+   // instructorCount = 0;
+  //  studentCount = 0;
+// students: User[];
+  //  possibleInstructors: User[];
+  //  possibleStudents: User[];
     courseSelections: Object[];
     showDialog = false;
-    users: User[];
+  //  users: User[];
     instructorChoices: FormArray;
-    studentChoices: FormArray;
+   // studentChoices: FormArray;
 
     constructor( private activated_route: ActivatedRoute, private classService: ClassService,
         private router: Router, private courseService: CourseService,
         private userService: UserService, private fb: FormBuilder ) {   }
 
-    get instructor_choices(): FormArray{
-            return <FormArray> this.classForm.get('instructor_choices');
-        }
+    // get instructor_choices(): FormArray{
+    //         return <FormArray> this.classForm.get('instructor_choices');
+    //     }
 
-    get student_choices(): FormArray{
-        return <FormArray> this.classForm.get('student_choices');
-    }
+    // get student_choices(): FormArray{
+    //     return <FormArray> this.classForm.get('student_choices');
+    // }
 
     ngOnInit(): void {
 
@@ -55,35 +53,35 @@ export class ClassEditComponent implements OnInit {
         console.log('The ID for this new class is: ' + id);
 
         this.thisClass = this.activated_route.snapshot.data['thisClass'];
+        // this.students = this.thisClass.students;
 
 
-
-        this.users = this.activated_route.snapshot.data['users'];
+     //   this.users = this.activated_route.snapshot.data['users'];
         this.courses = this.activated_route.snapshot.data['courses'];
-        this.possibleInstructors = this.activated_route.snapshot.data['possibleInstructors'];
+      //  this.possibleInstructors = this.activated_route.snapshot.data['possibleInstructors'];
         // console.log('in init: poss.Instructors: ' + JSON.stringify(this.possibleInstructors));
 
         console.log('In Class Edit Component: thisClass = ' + JSON.stringify(this.thisClass));
 
-        this.possibleStudents = this.activated_route.snapshot.data['users'];
-        this.instructorChoices = <FormArray> this.fb.array([ ]);
-        this.studentChoices = <FormArray> this.fb.array([ ]);
+        // this.possibleStudents = this.activated_route.snapshot.data['users'];
+        // this.instructorChoices = <FormArray> this.fb.array([ ]);
+        // this.studentChoices = <FormArray> this.fb.array([ ]);
 
         this.classForm = this.fb.group({
             title: [ '', [ ]] ,
             course: '',
             start: [new Date()],
             end: [new Date()],
-            instructor_choices: this.instructorChoices,
-            student_choices: this.studentChoices
+          //  instructor_choices: this.instructorChoices,
+            // student_choices: this.studentChoices
         });
 
-        if (this.thisClass && this.thisClass.instructors) {
-        this.instructors = this.thisClass.instructors; } else { this.instructors = null; }
+        // if (this.thisClass && this.thisClass.instructors) {
+        // this.instructors = this.thisClass.instructors; } else { this.instructors = null; }
 
-        if (this.thisClass && this.thisClass.students) {this.students = this.thisClass.students; } else {
-            this.students = null;
-        }
+        // if (this.thisClass && this.thisClass.students) {this.students = this.thisClass.students; } else {
+        //     this.students = null;
+        // }
 
         this.courseSelections = [];
 
@@ -98,52 +96,52 @@ export class ClassEditComponent implements OnInit {
             console.log('course selections: ' + JSON.stringify(this.courseSelections) );
         }
 
-        this.buildInstructorChoices();
-        this.buildStudentChoices();
+       // this.buildInstructorChoices();
+       // this.buildStudentChoices();
         this.populateForm();
     }
 
-    buildInstructorChoice( user, isSelected ): FormGroup {
-        return this.fb.group({value: isSelected, username: user.username, user_id: <string> user.id });
-    }
-    buildStudentChoice( user, isSelected ): FormGroup {
-        return this.fb.group({value: isSelected, username: user.username, user_id: <string> user.id });
-    }
-    buildStudentChoices() {
-        for (let i = 0; i < this.possibleStudents.length; i++) {
-            let match = false;
+    // buildInstructorChoice( user, isSelected ): FormGroup {
+    //     return this.fb.group({value: isSelected, username: user.username, user_id: <string> user.id });
+    // }
+    // buildStudentChoice( user, isSelected ): FormGroup {
+    //     return this.fb.group({value: isSelected, username: user.username, user_id: <string> user.id });
+    // }
+    // buildStudentChoices() {
+    //     for (let i = 0; i < this.possibleStudents.length; i++) {
+    //         let match = false;
 
-            // The Instructors array contains the folks whose enrollments include this class
-            // with the role of instructor.  We compare that against the full list of possible Instructors
-            // in order to determine which Controls to check as selected.
-            // If there's a match in the two lists, then we build the control with the value of true.
-            if (this.students) {
-            for (let j = 0; j < this.students.length; j++) {
-                if (this.students[j].user_id === this.possibleStudents[i].id) {
-                    match = true;
-                }
-            }}
-            this.student_choices.push(this.buildStudentChoice(this.possibleStudents[i], match) );
-        }
-    }
+    //         // The Instructors array contains the folks whose enrollments include this class
+    //         // with the role of instructor.  We compare that against the full list of possible Instructors
+    //         // in order to determine which Controls to check as selected.
+    //         // If there's a match in the two lists, then we build the control with the value of true.
+    //         if (this.students) {
+    //         for (let j = 0; j < this.students.length; j++) {
+    //             if (this.students[j].id === this.possibleStudents[i]) {
+    //                 match = true;
+    //             }
+    //         }}
+    //         this.student_choices.push(this.buildStudentChoice(this.possibleStudents[i], match) );
+    //     }
+    // }
 
-    buildInstructorChoices() {
-        for (let i = 0; i < this.possibleInstructors.length; i++) {
-            let match = false;
+    // buildInstructorChoices() {
+    //     for (let i = 0; i < this.possibleInstructors.length; i++) {
+    //         let match = false;
 
-            // The Instructors array contains the folks whose enrollments include this class
-            // with the role of instructor.  We compare that against the full list of possible Instructors
-            // in order to determine which Controls to check as selected.
-            // If there's a match in the two lists, then we build the control with the value of true.
-            if (this.instructors) {
-            for (let j = 0; j < this.instructors.length; j++) {
-                if (this.instructors[j].user_id === this.possibleInstructors[i].id) {
-                    match = true;
-                }
-            } }
-            this.instructor_choices.push(this.buildInstructorChoice(this.possibleInstructors[i], match) );
-        }
-    }
+    //         // The Instructors array contains the folks whose enrollments include this class
+    //         // with the role of instructor.  We compare that against the full list of possible Instructors
+    //         // in order to determine which Controls to check as selected.
+    //         // If there's a match in the two lists, then we build the control with the value of true.
+    //         if (this.instructors) {
+    //         for (let j = 0; j < this.instructors.length; j++) {
+    //             if (this.instructors[j].user_id === this.possibleInstructors[i].id) {
+    //                 match = true;
+    //             }
+    //         } }
+    //         this.instructor_choices.push(this.buildInstructorChoice(this.possibleInstructors[i], match) );
+    //     }
+    // }
 
     populateForm() {
 
@@ -177,31 +175,31 @@ export class ClassEditComponent implements OnInit {
             // we need to build the "instructors" array from the instructor_choices because
             // we only want to save the ones who are selected
             const tempInstructor_choices = combinedClassObject.instructor_choices;
-            console.log('instructor_choices: ' + JSON.stringify(combinedClassObject.instructor_choices));
+      //      console.log('instructor_choices: ' + JSON.stringify(combinedClassObject.instructor_choices));
 
-            const instructors = [];
-            for (let i = 0; i < tempInstructor_choices.length; i++) {
-                const saveableInstructor = tempInstructor_choices[i];
+            // const instructors = [];
+            // for (let i = 0; i < tempInstructor_choices.length; i++) {
+            //     const saveableInstructor = tempInstructor_choices[i];
 
-                if (saveableInstructor.value === true) {
+            //     if (saveableInstructor.value === true) {
 
-                    instructors.push(saveableInstructor);
-                }
-            }
-            combinedClassObject.instructors = instructors;
-            delete combinedClassObject.instructor_choices;
-            const tempStudent_choices = combinedClassObject.student_choices;
+            //         instructors.push(saveableInstructor);
+            //     }
+            // }
+            // combinedClassObject.instructors = instructors;
+            // delete combinedClassObject.instructor_choices;
+            // const tempStudent_choices = combinedClassObject.student_choices;
 
-            const students = [];
-            for (let i = 0; i < tempStudent_choices.length; i++) {
-                const saveableStudent = tempStudent_choices[i];
-                if (saveableStudent.value === true) {
-                    students.push(saveableStudent);
-                }
-            }
-            combinedClassObject.students = students;
-            delete combinedClassObject.student_choices;
-            console.log('in save: ' + JSON.stringify(combinedClassObject) );
+            // const students = [];
+            // for (let i = 0; i < tempStudent_choices.length; i++) {
+            //     const saveableStudent = tempStudent_choices[i];
+            //     if (saveableStudent.value === true) {
+            //         students.push(saveableStudent);
+            //     }
+            // }
+            // combinedClassObject.students = students;
+            // delete combinedClassObject.student_choices;
+            // console.log('in save: ' + JSON.stringify(combinedClassObject) );
 
             // This sends the newly formed class Object to the API
             const id_as_number = parseInt(this.thisClass.id, 10);

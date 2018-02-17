@@ -31,7 +31,6 @@ import { InstructorAssignmentsComponent } from './users/instructors/instructoras
 import { DialogComponent } from './classes/dialog.component';
 import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
 import { UserResolver } from './services/user-resolver';
-import { CourseComponent } from './courses/course/course.component';
 import { SectionComponent } from './courses/course/section.component';
 import { ChatroomComponent } from './chat/chatroom.component';
 import { DiscussionComponent } from './discuss/discussion.component';
@@ -68,6 +67,15 @@ import { BlockComponent } from './materials/block/block.component';
 import { ImageComponent } from './materials/image/image.component';
 import { ResetComponent } from './users/reset/reset.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DiscussionSettingsResolver } from './services/discussion-settings-resolver';
+import { ClassCourseResolver } from './services/class-course-resolver.service';
+import { CourseComponent } from './courses/course/course.component';
+import { EnrollmentsResolver } from './services/enrollments-resolver';
+import { EnrollmentsService } from './services/enrollments.service';
+import { StudentEnrollmentsResolver } from './services/studentenrollments-resolver.service';
+import { InstructorAssignmentsResolver } from './services/instructorassignments-resolver.service';
+import { AllStudentEnrollmentsResolver } from './services/allstudentenrollments-resolver.service';
+import { AllInstructorAssignmentsResolver } from './services/allinstructorassignments-resolver.service';
 
 @NgModule({
   // External
@@ -97,7 +105,6 @@ import { HttpClientModule } from '@angular/common/http';
     UserSettingsComponent,
     InstructorAssignmentsComponent,
     DialogComponent,
-    CourseComponent,
     SectionComponent,
     ChatroomComponent,
     DiscussionComponent,
@@ -114,7 +121,9 @@ import { HttpClientModule } from '@angular/common/http';
     AudioComponent,
     BlockComponent,
     ImageComponent,
-    ResetComponent
+    ResetComponent,
+    CourseComponent,
+
 
   ],
   providers: [
@@ -140,7 +149,15 @@ import { HttpClientModule } from '@angular/common/http';
     AuthGuard,
     UserAuthGuard,
     SeriesService,
-    SeriesResolver
+    SeriesResolver,
+    DiscussionSettingsResolver,
+    ClassCourseResolver,
+    EnrollmentsService,
+    EnrollmentsResolver,
+    StudentEnrollmentsResolver,
+    AllStudentEnrollmentsResolver,
+    InstructorAssignmentsResolver,
+    AllInstructorAssignmentsResolver
 
    ],
   bootstrap: [ AppComponent ]

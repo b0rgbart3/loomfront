@@ -25,7 +25,7 @@ export class User {
         public avatar_URL: string,
         public completed_classes: string[],
         public completed_series: string[],
-        public enrollments: Enrollment[],
+
 
     ) {}
 
