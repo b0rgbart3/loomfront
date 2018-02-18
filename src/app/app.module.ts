@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NavBarComponent } from './navbar/nav-bar.component';
 import { AppComponent } from './app.component';
-import { FormPoster } from './services/form-poster.service';
 import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -13,7 +12,7 @@ import { SignupComponent } from './users/signup/signup.component';
 import { AlertComponent } from './_directives/alert.component';
 import { AlertService } from './services/alert.service';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
-import { CourseService } from './courses/course.service';
+import { CourseService } from './services/course.service';
 import { ClassService } from './services/class.service';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
@@ -21,16 +20,16 @@ import { SafePipe } from './shared/safe.pipe';
 import { MaterialService } from './services/material.service';
 import { HomeComponent } from './home/home.component';
 import { ClassComponent } from './classes/class/class.component';
-import { CourseResolver } from './services/course-resolver.service';
+import { CourseResolver } from './resolvers/course-resolver.service';
 import { DynamicFormComponent } from './shared/dynamic-form.component';
 import { DynamicFormQuestionComponent } from './shared/dynamic-form-question.component';
-import { MaterialsResolver } from './services/materials-resolver.service';
-import { ClassesResolver } from './services/classes-resolver.service';
-import { UsersResolver } from './services/users-resolver';
+import { MaterialsResolver } from './resolvers/materials-resolver.service';
+import { ClassesResolver } from './resolvers/classes-resolver.service';
+import { UsersResolver } from './resolvers/users-resolver';
 import { InstructorAssignmentsComponent } from './users/instructors/instructorassignments.component';
 import { DialogComponent } from './classes/dialog.component';
-import { PossibleInstructorsResolver } from './services/possible-instructors-resolver.service';
-import { UserResolver } from './services/user-resolver';
+import { PossibleInstructorsResolver } from './resolvers/possible-instructors-resolver.service';
+import { UserResolver } from './resolvers/user-resolver';
 import { SectionComponent } from './courses/course/section.component';
 import { ChatroomComponent } from './chat/chatroom.component';
 import { DiscussionComponent } from './discuss/discussion.component';
@@ -41,13 +40,13 @@ import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
 // import { MaterialComponent } from './materials/material.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
-import { SectionResolver } from './services/section-resolver.service';
+import { SectionResolver } from './resolvers/section-resolver.service';
 import { Globals } from './globals';
 import { MatInputModule } from '@angular/material';
 import { FacebookModule } from 'ngx-facebook';
 import { LoomsFacebookService } from './services/loomsfacebook.service';
-import { CoursesResolver } from './services/courses-resolver.service';
-import { ClassResolver } from './services/class-resolver.service';
+import { CoursesResolver } from './resolvers/courses-resolver.service';
+import { ClassResolver } from './resolvers/class-resolver.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
 import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
@@ -62,20 +61,21 @@ import { EmbedVideo } from 'ngx-embed-video';
 import { AudioComponent } from './materials/audio/audio.component';
 import {  FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule } from 'ng2-file-upload';
 import { SeriesService } from './services/series.service';
-import { SeriesResolver } from './services/series-resolver.service';
+import { SeriesResolver } from './resolvers/series-resolver.service';
 import { BlockComponent } from './materials/block/block.component';
 import { ImageComponent } from './materials/image/image.component';
 import { ResetComponent } from './users/reset/reset.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DiscussionSettingsResolver } from './services/discussion-settings-resolver';
-import { ClassCourseResolver } from './services/class-course-resolver.service';
+import { DiscussionSettingsResolver } from './resolvers/discussion-settings-resolver';
+import { ClassCourseResolver } from './resolvers/class-course-resolver.service';
 import { CourseComponent } from './courses/course/course.component';
-import { EnrollmentsResolver } from './services/enrollments-resolver';
+import { EnrollmentsResolver } from './resolvers/enrollments-resolver';
 import { EnrollmentsService } from './services/enrollments.service';
-import { StudentEnrollmentsResolver } from './services/studentenrollments-resolver.service';
-import { InstructorAssignmentsResolver } from './services/instructorassignments-resolver.service';
-import { AllStudentEnrollmentsResolver } from './services/allstudentenrollments-resolver.service';
-import { AllInstructorAssignmentsResolver } from './services/allinstructorassignments-resolver.service';
+import { StudentEnrollmentsResolver } from './resolvers/studentenrollments-resolver.service';
+import { InstructorAssignmentsResolver } from './resolvers/instructorassignments-resolver.service';
+import { AllStudentEnrollmentsResolver } from './resolvers/allstudentenrollments-resolver.service';
+import { AllInstructorAssignmentsResolver } from './resolvers/allinstructorassignments-resolver.service';
+import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.service';
 
 @NgModule({
   // External
@@ -157,7 +157,8 @@ import { AllInstructorAssignmentsResolver } from './services/allinstructorassign
     StudentEnrollmentsResolver,
     AllStudentEnrollmentsResolver,
     InstructorAssignmentsResolver,
-    AllInstructorAssignmentsResolver
+    AllInstructorAssignmentsResolver,
+    ClassMaterialsResolver
 
    ],
   bootstrap: [ AppComponent ]

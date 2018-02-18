@@ -8,25 +8,25 @@ import { CourseBuilderComponent } from './course-builder/course-builder.componen
 import { Error404Component } from '../errors/404component';
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
-import { CourseResolver } from '../services/course-resolver.service';
-import { MaterialsResolver } from '../services/materials-resolver.service';
+import { CourseResolver } from '../resolvers/course-resolver.service';
+import { MaterialsResolver } from '../resolvers/materials-resolver.service';
 import { MaterialEditComponent } from './material-edit-component/material-edit.component';
-import { ClassResolver } from '../services/class-resolver.service';
-import { UsersResolver } from '../services/users-resolver';
-import { PossibleInstructorsResolver } from '../services/possible-instructors-resolver.service';
-import { CoursesResolver } from '../services/courses-resolver.service';
+import { ClassResolver } from '../resolvers/class-resolver.service';
+import { UsersResolver } from '../resolvers/users-resolver';
+import { PossibleInstructorsResolver } from '../resolvers/possible-instructors-resolver.service';
+import { CoursesResolver } from '../resolvers/courses-resolver.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SeriesEditComponent } from './series-edit/series-edit.component';
-import { SeriesResolver } from '../services/series-resolver.service';
+import { SeriesResolver } from '../resolvers/series-resolver.service';
 import { EnrollmentEditComponent } from './enrollments/enrollment-edit.component';
-import { ClassesResolver } from '../services/classes-resolver.service';
-import { EnrollmentsResolver } from '../services/enrollments-resolver';
+import { ClassesResolver } from '../resolvers/classes-resolver.service';
+import { EnrollmentsResolver } from '../resolvers/enrollments-resolver';
 import { EnrollmentStudentTabComponent } from './enrollments/enrollment-student-tab.component';
 import { EnrollmentInstructorTabComponent } from './enrollments/enrollment-instructor-tab.component';
-import { StudentEnrollmentsResolver } from '../services/studentenrollments-resolver.service';
-import { InstructorAssignmentsResolver } from '../services/instructorassignments-resolver.service';
-import { AllStudentEnrollmentsResolver } from '../services/allstudentenrollments-resolver.service';
-import { AllInstructorAssignmentsResolver } from '../services/allinstructorassignments-resolver.service';
+import { StudentEnrollmentsResolver } from '../resolvers/studentenrollments-resolver.service';
+import { InstructorAssignmentsResolver } from '../resolvers/instructorassignments-resolver.service';
+import { AllStudentEnrollmentsResolver } from '../resolvers/allstudentenrollments-resolver.service';
+import { AllInstructorAssignmentsResolver } from '../resolvers/allinstructorassignments-resolver.service';
 
 
 @NgModule ( {

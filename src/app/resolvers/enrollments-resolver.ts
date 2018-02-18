@@ -5,9 +5,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { Enrollment } from '../models/enrollment.model';
-import { EnrollmentsService } from './enrollments.service';
-import { UserService } from './user.service';
-import { ClassService } from './class.service';
+import { EnrollmentsService } from '../services/enrollments.service';
+import { UserService } from '../services/user.service';
+import { ClassService } from '../services/class.service';
 
 
 @Injectable()

@@ -16,7 +16,7 @@ export class PossibleInstructorsResolver implements Resolve <User[]> {
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <User[]> {
 
         console.log('In the possible instructors resolver.');
-        
+
         return this.userService.getInstructors(0).
         map(course => { if (course) { return course; }
         console.log(`Possible-Instructors not found`);

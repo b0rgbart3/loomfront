@@ -6,7 +6,7 @@ import { UserService } from '../services/user.service';
 import { Course } from '../models/course.model';
 import { ClassModel } from '../models/class.model';
 import { Globals } from '../globals';
-import { CourseService } from '../courses/course.service';
+import { CourseService } from '../services/course.service';
 import { Enrollment } from '../models/enrollment.model';
 
 

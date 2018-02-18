@@ -161,18 +161,20 @@ export class UserService implements OnInit {
 
 getUserFromMemoryById( queryID: string): User {
 
-  console.log('In getUserFromMemory: user: ' + queryID);
+  // console.log('In getUserFromMemory: user: ' + queryID);
 
   let foundUser = null;
   if (this.users) {
     foundUser = this.users.find( function( user) { return user.id === queryID; } );
   } else {
-    console.log('No users in memory.');
+   //  console.log('No users in memory.');
   }
-  console.log('done filtering for user.');
+//  console.log('done filtering for user.');
 
-  if (foundUser) { console.log('found user: ' + JSON.stringify(foundUser)); } else {
-    console.log('USERS: ' + JSON.stringify(this.users));
+  if (foundUser) {
+    // console.log('found user: ' + JSON.stringify(foundUser));
+     } else {
+  //  console.log('USERS: ' + JSON.stringify(this.users));
   }
   return foundUser;
 }
@@ -270,7 +272,7 @@ getUserFromMemoryById( queryID: string): User {
       myHeaders.append('Content-Type', 'application/json');
       userObject.id = <string> '' + this.highestID; // toString();
       const body =  JSON.stringify(userObject);
-      console.log('Highest ID: ' + this.highestID );
+    //  console.log('Highest ID: ' + this.highestID );
       // console.log('In postUser.');
       // console.log( 'Posting User: ', body   );
       // console.log(this._usersUrl);
@@ -326,7 +328,7 @@ getUserFromMemoryById( queryID: string): User {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
 
-       console.log('In user service, sending a reset request' + emailObjectString);
+     //  console.log('In user service, sending a reset request' + emailObjectString);
 
        return this._http.post(this.base_path + 'api/requestreset', emailObject, {headers: myHeaders})
         .do( data => console.log('Got data back from request reset post') )
@@ -374,25 +376,27 @@ getUserFromMemoryById( queryID: string): User {
           If it doesn't find it -- then it calls the database.
       */
 
-      console.log('IN User Service:, calling find by Email:' + User.email);
+   //   console.log('IN User Service:, calling find by Email:' + User.email);
 
        // const FBUser = this.findUserByEmail ( User.email );
        if (User !== null) {
-        console.log('IN User Service:, found user by Email');
+   //     console.log('IN User Service:, found user by Email');
          this.currentUser = <User> User;
          this.username = this.currentUser.username;
          localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
        } else {
-         console.log('In USER SERVICE, in the loginFBUser method, didnt find the user by email');
+      //   console.log('In USER SERVICE, in the loginFBUser method, didnt find the user by email');
          this.logout();
-         console.log('In USER SERVICE, looking for the user by email: ' + User.email );
+       //  console.log('In USER SERVICE, looking for the user by email: ' + User.email );
          return this.findUserByEmailFromDB( User.email ).subscribe(
            (val) => { this.currentUser = <User> val[0];
-               console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
+         //      console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
                       if ( this.currentUser && this.currentUser.username) {
                       this.username = this.currentUser.username;
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
-                    } else { console.log('user not yet signed up.'); }
+                    } else {
+                      //console.log('user not yet signed up.'); 
+                    }
                      },
            (error) => { this.errorMessage = error; }
          );
@@ -406,7 +410,7 @@ getUserFromMemoryById( queryID: string): User {
       return this._http.get(this.base_path + 'api/finduser?email=' + email , {headers: myHeaders} ).do((response) => {
         this.currentUser = <User> response[0];
         this.username = this.currentUser.username;
-        console.log('Found username: ' + this.username);
+      //  console.log('Found username: ' + this.username);
         localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
        return <User> response[0];
       });

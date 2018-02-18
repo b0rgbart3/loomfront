@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ClassModel } from '../../models/class.model';
 import { ClassService } from '../../services/class.service';
 import { User } from '../../models/user.model';
-import { CourseService } from '../../courses/course.service';
+import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
 import { Globals } from '../../globals';
 

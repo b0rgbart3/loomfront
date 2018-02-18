@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
-import { CourseService } from '../course.service';
+import { CourseService } from '../../services/course.service';
 import { Globals } from '../../globals';
 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { Course } from '../../models/course.model';
-import { CourseService } from '../../courses/course.service';
+import { CourseService } from '../../services/course.service';
 import { User } from '../../models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClassModel } from '../../models/class.model';
@@ -50,8 +50,8 @@ export class ClassComponent implements OnInit {
     currentUser: User;
     COURSE_IMAGE_PATH: string;
     AVATAR_IMAGE_PATH: string;
-    materialCollections: MaterialCollection[];
     discussionSettings: DiscussionSettings;
+    classMaterials: MaterialCollection[];
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -86,13 +86,6 @@ export class ClassComponent implements OnInit {
 
         if (!this.sectionNumber) { this.sectionNumber = 0; }
 
-        this.userService.getUser( this.userService.currentUser.id ).subscribe ( user => {
-            this.currentUser = user[0];
-        } ,
-            error => console.log(error)
-        );
-
-
         // Grab the data from the Route
         this.classID = this.activated_route.snapshot.params['id'];
         this.thisClass = this.activated_route.snapshot.data['thisClass'];
@@ -109,8 +102,8 @@ export class ClassComponent implements OnInit {
         this.instructorIDList = this.clean(this.instructorIDList, undefined);
         this.instructors = this.instructorIDList.map( instructor => this.userService.getUserFromMemoryById(instructor));
 
-        console.log('Students: ' + JSON.stringify(this.studentIDList) );
-        console.log('Instructors: ' + JSON.stringify(this.instructorIDList) );
+       // console.log('Students: ' + JSON.stringify(this.studentIDList) );
+       // console.log('Instructors: ' + JSON.stringify(this.instructorIDList) );
         this.instructorThumbnails = this.instructors.map( instructor => this.createInstructorThumbnail(instructor) );
         this.studentThumbnails = this.students.map( student => this.createStudentThumbnail(student) );
 
@@ -120,7 +113,16 @@ export class ClassComponent implements OnInit {
         // will get re-invoked if the user changes classes, so it's ok if we
         // only subscribe to it once, I think.)
 
-        this.loadCourse();
+        this.currentCourse = this.activated_route.snapshot.data['thisCourse'];
+        this.courseimageURL = this.globals.courseimages + '/' + this.currentCourse.id
+        + '/' + this.currentCourse.image;
+        console.log('currentCourse: ' + JSON.stringify(this.currentCourse));
+       // this.loadCourse();
+       // this.loadMaterials();
+
+        this.classMaterials = this.activated_route.snapshot.data['classMaterials'];
+
+        console.log('Class Materials' + JSON.stringify(this.classMaterials));
 
         this.activated_route.params.subscribe( params => {
 
@@ -140,69 +142,66 @@ export class ClassComponent implements OnInit {
 
     }
 
-    loadCourse() {
-        this.courseService.getCourse( this.thisClass.course).subscribe ( course => {
-            this.currentCourse = course[0];
-            this.courseimageURL = this.globals.courseimages + '/' + this.currentCourse.id
-             + '/' + this.currentCourse.image;
-             this.section = this.currentCourse.sections[this.sectionNumber];
+    // loadMaterials() {
+    //     console.log('In loadMaterials()');
+    //     console.log('currentCourse: ' + JSON.stringify(this.currentCourse.image));
 
-             // Here I will asynchronously load in all the materials -- and store them in
-             // materialCollection arrays.  I can't use the generic 'getMaterials'
-             // method from the material Service because that will load in all the
-             // materials for the entire course in an un-organized manner.
-             // So I guess I need to the getBatchMaterials method, which will
-             // load in a whole array of Materials by putting their id's on the query
-             // I should be able to do this for each section, and then create Collections
-             // out of them, for each section.
 
-             console.log('getting materials for course id: ' + this.currentCourse.id);
+    //          // It doesn't make sense to me to try to load in the materials based on the course ID
+    //          // because the course ID is not stored in the material objects in the DB
+    //          // (this was done intentionally so that the materials could be used in more
+    //         // than one course -- so they are course agnostic shall we say).
+    //         // Instead what we have is a list of ID's in each section, that need to get
+    //         // their associated Material Objects loaded in.
 
-             this.materialService.getMaterials(this.currentCourse.id).subscribe (
-                 courseMaterials => {
-                     console.log('data from aPI:');
-                     console.log(JSON.stringify(courseMaterials));
-                    // this is a full, un-organized array of all the materials used in this course
-                    this.courseMaterials = courseMaterials;
 
-                    // the next step is to organize all of that courseMaterial into materialCollections
-                    // based on section #
-                    this.buildMaterialCollections();
-                // since we've just loaded in the courseMaterials, let's go ahead and
-                // organize them into collections for each section
+    //        //  console.log('getting materials for course id: ' + this.currentCourse.id);
 
-                }, error => console.log(error) ); } );
-    }
+    //         //  this.materialService.getMaterials(this.currentCourse.id).subscribe (
+    //         //      courseMaterials => {
+    //         //          console.log('data from aPI:');
+    //         //          console.log(JSON.stringify(courseMaterials));
+    //         //         // this is a full, un-organized array of all the materials used in this course
+    //         //         this.courseMaterials = courseMaterials;
 
-    buildMaterialCollections() {
-        console.log('Materials: ');
-        console.log(JSON.stringify(this.materials));
-        this.materialCollections = [];
-        for (let i = 0; i < this.currentCourse.sections.length; i++ ) {
-            const thisSection = this.currentCourse.sections[i];
-            const thisSectionList = [];
-            for (let j = 0; j < thisSection.materials.length; j++ ) {
-                const thisMatID = thisSection.materials[j].reference;
+    //         //         // the next step is to organize all of that courseMaterial into materialCollections
+    //         //         // based on section #
+    //         //         this.buildMaterialCollections();
+    //         //     // since we've just loaded in the courseMaterials, let's go ahead and
+    //         //     // organize them into collections for each section
 
-                // now look for and grab the material object that has this id # from our components main material array,
-                // and copy it into our collection-list for this section.
-                for (let k = 0; k < this.courseMaterials.length; k++) {
-                    if (this.courseMaterials[k].id === thisMatID) {
-                        // found it.
-                        thisSectionList.push(this.courseMaterials[i]); // copy it
-                    }
-                }
-            }
-            // after we've grouped all of the materials for this section into a list,
-            // now we can send that list to the material Service to organize it into
-            // a tidy material collection, which we will store in our component's array (MaterialCollections)
+    //         //     }, error => console.log(error) ); } );
+    // }
 
-            if (thisSectionList) {
-            const thisMaterialCollection = this.materialService.sortMaterials(thisSectionList);
-            this.materialCollections.push(thisMaterialCollection);
-            }
-        }
-    }
+    // buildMaterialCollections() {
+    //     console.log('Materials: ');
+    //     console.log(JSON.stringify(this.materials));
+    //     this.materialCollections = [];
+    //     for (let i = 0; i < this.currentCourse.sections.length; i++ ) {
+    //         const thisSection = this.currentCourse.sections[i];
+    //         const thisSectionList = [];
+    //         for (let j = 0; j < thisSection.materials.length; j++ ) {
+    //             const thisMatID = thisSection.materials[j];
+
+    //             // now look for and grab the material object that has this id # from our components main material array,
+    //             // and copy it into our collection-list for this section.
+    //             for (let k = 0; k < this.courseMaterials.length; k++) {
+    //                 if (this.courseMaterials[k].id === thisMatID) {
+    //                     // found it.
+    //                     thisSectionList.push(this.courseMaterials[i]); // copy it
+    //                 }
+    //             }
+    //         }
+    //         // after we've grouped all of the materials for this section into a list,
+    //         // now we can send that list to the material Service to organize it into
+    //         // a tidy material collection, which we will store in our component's array (MaterialCollections)
+
+    //         if (thisSectionList) {
+    //         const thisMaterialCollection = this.materialService.sortMaterials(thisSectionList);
+    //         this.materialCollections.push(thisMaterialCollection);
+    //         }
+    //     }
+    // }
     onSectionChange(newSectionNumber) {
         this.sectionNumber = newSectionNumber;
     }

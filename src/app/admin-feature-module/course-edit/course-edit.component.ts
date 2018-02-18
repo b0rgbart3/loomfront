@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../courses/course.service';
+import { CourseService } from '../../services/course.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Section } from '../../models/section.model';
 import { FileUploader } from 'ng2-file-upload';
@@ -44,7 +44,7 @@ export class CourseEditComponent implements OnInit {
     localImageUrl = '';
     tempName = '';
     thisFile: File;
-    materials: Material[];
+    allpossiblematerials: Material[];
     docs: Material[];
     books: Material[];
     videos: Material[];
@@ -119,11 +119,11 @@ export class CourseEditComponent implements OnInit {
         // Get the id from the activated route -- and get the data from the resolvers
         this.id = this.activated_route.snapshot.params['id'];
 
-    //   console.log('About to Edit Course ID: ' + this.id);
+       console.log('About to Edit Course ID: ' + this.id);
 
           this.course = this.activated_route.snapshot.data['course'];
-       //   console.log('Course: ' + JSON.stringify(this.course));
-          this.materials = this.activated_route.snapshot.data['materials'];
+          console.log('Course: ' + JSON.stringify(this.course));
+          this.allpossiblematerials = this.activated_route.snapshot.data['materials'];
 
           if (this.id !== '0' && ( this.course.image !== '' )) {
           this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
@@ -273,10 +273,10 @@ export class CourseEditComponent implements OnInit {
 
                 for ( let j = 0; j < this.course.sections[sectionNumber].materials.length; j++) {
 
-                    const matObj = this.course.sections[sectionNumber].materials[j];
+                    const matID = this.course.sections[sectionNumber].materials[j];
                  //   console.log('mat: ' + JSON.stringify(matObj));
-                    if (matObj) {
-                    const foundObj = this.materials.find( materialObject => (materialObject.id === matObj['material'] ) );
+                    if (matID) {
+                    const foundObj = this.allpossiblematerials.find( materialObject => (materialObject.id === matID ) );
 
                     if (foundObj) {
                     //    console.log( ' Found: ' + JSON.stringify(foundObj));
@@ -383,6 +383,26 @@ export class CourseEditComponent implements OnInit {
             delete combinedCourseObject.sections[j].blocks;
             const imageGroup = combinedCourseObject.sections[j].images;
             combinedCourseObject.sections[j].materials = combinedCourseObject.sections[j].materials.concat(imageGroup);
+
+            delete combinedCourseObject.sections[j].audios;
+            delete combinedCourseObject.sections[j].videos;
+            delete combinedCourseObject.sections[j].books;
+            delete combinedCourseObject.sections[j].docs;
+            delete combinedCourseObject.sections[j].quotes;
+            delete combinedCourseObject.sections[j].blocks;
+            delete combinedCourseObject.sections[j].images;
+
+            // I also want to strip out the individual objects and just store an array of ID #s.
+
+            const IDArray = combinedCourseObject.sections[j].materials.map( material => {
+                return material.material;
+            });
+            combinedCourseObject.sections[j].materials = IDArray;
+
+            // we also need to store the SectionNumber -- although this might eventually already be part of the model
+            // after / if we add the ability to move sections around.  For now - we'll just store the index.
+            combinedCourseObject.sections[j].sectionNumber = j;
+
 
         //    console.log('Section' + j + ': ' + JSON.stringify(combinedCourseObject.sections[j]) );
         }

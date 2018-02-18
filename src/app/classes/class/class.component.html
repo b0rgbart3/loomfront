@@ -19,7 +19,7 @@
 
 
 
-    <div *ngIf='thisClass && materialCollections' class='mainPage'>
+    <div class='mainPage'>
 
         <div class='rollcall group'>
 
@@ -42,7 +42,7 @@
                 (clickOutside)='hideSectionMenu()' >Sections</div>
                 <div id='sectionMenu' class='group' *ngIf='showingSectionMenu'>
                     <div class='menuLiner group'>
-                <div class='sectionNav' *ngFor='let section of this.course.sections; 
+                <div class='sectionNav' *ngFor='let section of this.currentCourse.sections; 
                 let s=index'>
                    <div (click)="navigateTo(s)" class='sectionNavItem'>
                        {{section.title}} </div></div>
@@ -67,7 +67,7 @@
                     [section]='section'
                     [students]='students'
                     [instructors]='instructors'
-                    [materialCollection]='materialCollections[sectionNumber]'
+                    [materialCollection]='classMaterials[sectionNumber]'
                     [discussionSettings] = 'discussionSettings'>
                 </section>
             </div>

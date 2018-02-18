@@ -74,6 +74,19 @@ export class CourseService implements OnInit {
   //   return this._http.get('http://localhost:3100/api/courseimages?id=' + queryID, {headers: myHeaders} );
   // }
 
+  getCourseFromMemory(queryID): Course {
+
+    if (this.courses) {
+      // console.log('looking: ' + this.classes.length);
+      for (let i = 0; i < this.courses.length; i++) {
+
+        if (this.courses[i].id === queryID ) {
+          return this.courses[i];
+        }
+      }
+    }
+    return null;
+  }
 
   getCourse(id): Observable<Course> {
     return this._http.get<Course> ( this._coursesUrl + '?id=' + id )

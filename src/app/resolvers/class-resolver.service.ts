@@ -2,8 +2,8 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { Course } from '../models/course.model';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute } from '@angular/router';
 import { ContentChart } from '../models/contentchart.model';
-import { CourseService } from '../courses/course.service';
-import { ClassService } from './class.service';
+import { CourseService } from '../services/course.service';
+import { ClassService } from '../services/class.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -20,17 +20,17 @@ export class ClassResolver implements Resolve <ClassModel> {
     resolve( route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable <ClassModel> {
         const id = route.params['id'];
-        console.log('In class resolver, id: ' + id);
+      //  console.log('In class resolver, id: ' + id);
 
         if (id === '0') {
-            console.log('CREATING NEW EMPTY CLASSMODEL');
+        //    console.log('CREATING NEW EMPTY CLASSMODEL');
             const newClass = new ClassModel('', '', '', '', '0', null, '');
             return Observable.of(newClass); } else {
 
         return this.classService.getClass(id).
         map(thisClass => { if (thisClass) {
-          console.log('This class id: ' + id);
-           console.log('found: ' + JSON.stringify(thisClass));
+       //   console.log('This class id: ' + id);
+        //   console.log('found: ' + JSON.stringify(thisClass));
          //  const foundClass = this.classLinter(thisClass[0]);
          // this.activatedRoute.snapshot.data['thisClass'] = thisClass[0];
             return thisClass[0];

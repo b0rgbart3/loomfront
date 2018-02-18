@@ -8,7 +8,7 @@ export class Section {
       public title: string,
       public id: string,
       public content: string,
-      public materials: Array <Materialreference>,
+      public materials: string[],
       public materialCollection: MaterialCollection,
       public sectionNumber: string
   ) {}

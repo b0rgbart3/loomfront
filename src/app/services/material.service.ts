@@ -27,6 +27,20 @@ export class MaterialService {
 
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
+    /* Methods in this service:
+    getDynamicMaterials( id, type )
+    getAllMaterialsByType ()
+    getBatchMaterials( list )
+    getMaterials( course_id ):
+    sortMaterials()
+     getNextId()
+     updateIDCount()
+     getMaterial(id):
+     deleteMaterial(id: string):
+     createMaterial(courseObject: Material):
+     updateMaterial(courseObject: Material):
+    */
+
     constructor (private _http: HttpClient, private globals: Globals) {}
 
     getAllMaterialsByType (): Observable<any> {
@@ -59,13 +73,28 @@ export class MaterialService {
 
     }
 
-    // getCourseMaterials ( currentCourse: Course ): Observable <any> {
+    getBatchMaterialsFromMemory(list): Material[] {
+      let matArray = [];
+      if (list) {
+        console.log('LIST: ' + JSON.stringify(list));
+        matArray = list.map( id => this.getMaterialFromMemory(id) ); }
+      return matArray;
+    }
 
-    //   for (let i = 0; i < currentCourse.sections.length; i++) {
-    //     const matIDs = currentCourse.sections[i].materials;
+    getMaterialFromMemory(queryID): Material {
 
-    //   }
-    // }
+      if (this.materials) {
+        // console.log('looking: ' + this.classes.length);
+        for (let i = 0; i < this.materials.length; i++) {
+
+          if (this.materials[i].id === queryID ) {
+            return this.materials[i];
+          }
+        }
+      }
+      return null;
+    }
+
     getBatchMaterials( list ): Observable<any> {
 
       const queryString = '?materials=';
@@ -92,7 +121,8 @@ export class MaterialService {
      } else {
     return this._http.get <Material[]> (this.globals.materials + '?id=' + course_id )
       // debug the flow of data
-      .do(data =>  { // console.log('All: ' + JSON.stringify(data));
+      .do(data =>  {
+         console.log('All materials for course: ' + course_id + ': ' + JSON.stringify(data));
                     this.materialCount = data.length;
                     this.materials = data;
                     this.updateIDCount();

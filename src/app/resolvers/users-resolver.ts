@@ -2,25 +2,28 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { Course } from '../models/course.model';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { ContentChart } from '../models/contentchart.model';
-import { CourseService } from '../courses/course.service';
+import { CourseService } from '../services/course.service';
 import { ClassService } from '../services/class.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Injectable()
-export class CoursesResolver implements Resolve <Course> {
+export class UsersResolver implements Resolve <User[]> {
 
-    constructor( private courseService: CourseService, private router: Router ) { }
+    constructor( private userService: UserService, private router: Router ) { }
 
-    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
+    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <User[]> {
 
-        console.log('In the course(s) resolver.');
-        return this.courseService.getCourses().
-        map(courses => { if (courses) {
-            // console.log('got courses back from the api: ' + JSON.stringify(courses));
-            return courses; }
+       // console.log('In the Users resolver.');
+
+        return this.userService.getUsers().
+        map(course => { if (course) { return course; }
+        console.log(`users were not found:`);
+        this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
         console.log(`Retrieval error: ${error}`);

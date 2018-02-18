@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { Series } from '../models/series.model';
-import { SeriesService } from './series.service';
+import { SeriesService } from '../services/series.service';
 
 @Injectable()
 export class SeriesResolver implements Resolve <Series> {

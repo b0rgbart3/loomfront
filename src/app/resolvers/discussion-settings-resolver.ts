@@ -6,9 +6,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { DiscussionSettings } from '../models/discussionsettings.model';
-import { DiscussionService } from './discussion.service';
-import { ClassService } from './class.service';
-import { UserService } from './user.service';
+import { DiscussionService } from '../services/discussion.service';
+import { ClassService } from '../services/class.service';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 

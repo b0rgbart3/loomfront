@@ -3,7 +3,7 @@ import { ClassModel } from '../../models/class.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClassService } from '../../services/class.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { CourseService } from '../../courses/course.service';
+import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';

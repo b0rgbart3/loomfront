@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClassModel } from '../../models/class.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { CourseService } from '../../courses/course.service';
+import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
 import { Material } from '../../models/material.model';
 import { MaterialService } from '../../services/material.service';

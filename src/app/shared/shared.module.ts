@@ -17,7 +17,7 @@ import { WelcomeComponent } from '../welcome/welcome.component';
 import { ClassListComponent } from '../classes/class-list/class-list.component';
 import { ClassThumbComponent } from '../classes/class-list/class-thumb.component';
 // import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
-import { ClassResolver } from '../services/class-resolver.service';
+import { ClassResolver } from '../resolvers/class-resolver.service';
 import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
