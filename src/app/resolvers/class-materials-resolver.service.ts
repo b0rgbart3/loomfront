@@ -51,17 +51,17 @@ export class ClassMaterialsResolver implements Resolve <any> {
     resolve( route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable <any> {
 
-     //   console.log('In the class-materials-resolver.');
+        console.log('In the class-materials-resolver.');
 
         this.allMaterials = route.parent.data['allMaterials'];
        // Get ALL the friggin materials -- from the parent resolver
 
        this.thisCourseID = route.parent.data['thisClass'].course;
-      // console.log('This CourseID: ' + JSON.stringify(this.thisCourseID));
+       console.log('This CourseID: ' + JSON.stringify(this.thisCourseID));
        this.thisCourse = this.courseService.getCourseFromMemory(this.thisCourseID);
 
-      // console.log('This COURSE: ' + JSON.stringify(this.thisCourse));
-      // console.log('---------------');
+     // console.log('This COURSE: ' + JSON.stringify(this.thisCourse));
+      console.log('---------------');
 
 
       // OK - we have the Class, we have the Course -- we have ALL the materials.

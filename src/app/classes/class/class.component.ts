@@ -92,6 +92,8 @@ export class ClassComponent implements OnInit {
         this.users = this.activated_route.snapshot.data['users'];
         this.sectionNumber = this.activated_route.snapshot.data['sectionNumber'];
         this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
+        console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
+
         this.studentIDList = [];
         this.studentIDList = this.enrollmentService.getStudentsInClass(this.thisClass.id);
         this.studentIDList = this.clean(this.studentIDList, undefined);
@@ -116,13 +118,13 @@ export class ClassComponent implements OnInit {
         this.currentCourse = this.activated_route.snapshot.data['thisCourse'];
         this.courseimageURL = this.globals.courseimages + '/' + this.currentCourse.id
         + '/' + this.currentCourse.image;
-        console.log('currentCourse: ' + JSON.stringify(this.currentCourse));
+        // console.log('currentCourse: ' + JSON.stringify(this.currentCourse));
        // this.loadCourse();
        // this.loadMaterials();
 
         this.classMaterials = this.activated_route.snapshot.data['classMaterials'];
 
-        console.log('Class Materials' + JSON.stringify(this.classMaterials));
+        // console.log('Class Materials' + JSON.stringify(this.classMaterials));
 
         this.activated_route.params.subscribe( params => {
 
@@ -135,6 +137,12 @@ export class ClassComponent implements OnInit {
                 if (this.currentCourse && this.currentCourse.sections) {
 
                 this.section = this.currentCourse.sections[this.sectionNumber];
+                // this.discussionService.getDiscussionSettings
+                // tslint:disable-next-line:comment-format
+                //(this.userService.currentUser.id, this.classID, this.sectionNumber).subscribe(
+                //     data => {if (data) { this.discussionSettings = data[0]; } },
+                //     error => console.log('errror getting discussion settings.')
+                // );
             }
 
             }
@@ -204,6 +212,7 @@ export class ClassComponent implements OnInit {
     // }
     onSectionChange(newSectionNumber) {
         this.sectionNumber = newSectionNumber;
+        this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
     }
 
     onDataRetrieved(newClassObject) {

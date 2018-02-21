@@ -265,6 +265,7 @@ export class DiscussionService implements OnInit, OnChanges {
      }).catch(this.handleError );
   }
   sendNotice(data) {
+    console.log('In Discussion service, about to send notice.');
       this.notes.add( new Notification( data.type, data.message, data.delay ) );
 
     }

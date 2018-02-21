@@ -17,7 +17,7 @@ export class MaterialsResolver implements Resolve <any[]> {
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <any[]> {
 
 
-
+        console.log('In the materials-resolver');
         return this.materialService.getMaterials(0).
         map(materials => { if (materials) { return materials; }
         console.log(`Materials were not found`);

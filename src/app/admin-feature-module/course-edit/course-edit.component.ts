@@ -12,6 +12,7 @@ import { Globals } from '../../globals';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Materialtype } from '../../models/materialtype.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import _ from 'lodash';
 
 @Component({
     moduleId: module.id,
@@ -119,15 +120,15 @@ export class CourseEditComponent implements OnInit {
         // Get the id from the activated route -- and get the data from the resolvers
         this.id = this.activated_route.snapshot.params['id'];
 
-       console.log('About to Edit Course ID: ' + this.id);
+       // console.log('About to Edit Course ID: ' + this.id);
 
           this.course = this.activated_route.snapshot.data['course'];
-          console.log('Course: ' + JSON.stringify(this.course));
+          // console.log('Course: ' + JSON.stringify(this.course));
           this.allpossiblematerials = this.activated_route.snapshot.data['materials'];
 
           if (this.id !== '0' && ( this.course.image !== '' )) {
           this.existingImage = this.globals.courseimages + '/' + this.id + '/' + this.course.image;
-            console.log('Existing image: ' + this.existingImage);
+          //  console.log('Existing image: ' + this.existingImage);
         }
 
         // console.log(JSON.stringify(this.materials));
@@ -290,6 +291,9 @@ export class CourseEditComponent implements OnInit {
 
 
         }
+  
+
+  //      console.log('my extracted Array: ' + JSON.stringify(extractedArray));
         return extractedArray;
 
     }
@@ -443,46 +447,57 @@ export class CourseEditComponent implements OnInit {
     getPossibleQuotes() {
 
         this.materialService.getDynamicMaterials(0, 'quote').subscribe(
-          quotes => this.quoteOptions = quotes,
+          quotes => { this.quoteOptions = this.sortObjs(quotes); },
           error => this.errorMessage = <any> error);
       }
 
     getPossibleImages() {
         this.materialService.getDynamicMaterials(0, 'image').subscribe(
-            images => this.imageOptions = images,
+            images => { this.imageOptions = this.sortObjs(images); },
             error => this.errorMessage = <any> error);
     }
     getPossibleVideos() {
 
         this.materialService.getDynamicMaterials(0, 'video').subscribe(
-          videos => this.videoOptions = videos,
+          videos => { this.videoOptions = this.sortObjs(videos); },
           error => this.errorMessage = <any> error);
       }
     getPossibleAudios() {
 
         this.materialService.getDynamicMaterials(0, 'audio').subscribe(
-          audios => this.audioOptions = audios,
+          audios => { this.audioOptions = this.sortObjs(audios); },
           error => this.errorMessage = <any> error);
       }
     getPossibleBooks() {
 
         this.materialService.getDynamicMaterials(0, 'book').subscribe(
-          books => this.bookOptions = books,
+          books => {
+            this.bookOptions = this.sortObjs(books);
+        },
           error => this.errorMessage = <any> error);
       }
     getPossibleBlocks() {
 
         this.materialService.getDynamicMaterials(0, 'block').subscribe(
-          blocks => this.blockOptions = blocks,
+          blocks => {
+              this.blockOptions = this.sortObjs(blocks);
+          },
           error => this.errorMessage = <any> error);
       }
       getPossibleDocs() {
 
         this.materialService.getDynamicMaterials(0, 'doc').subscribe(
-          docs => { this.docOptions = docs;
-           // console.log('Got docs: ' + JSON.stringify(docs));
+          docs => {
+            this.docOptions = this.sortObjs(docs);
+            console.log('possible docs: ');
+            this.docOptions.map( doc => console.log(doc.title));
         },
           error => this.errorMessage = <any> error);
+      }
+
+   sortObjs( objs) {
+        const sortedObjs = _.sortBy(objs, item => item.title);
+        return sortedObjs;
       }
 
     addSection(): void {

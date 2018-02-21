@@ -3,34 +3,39 @@
         <div [class]='threadSubjectClass' (click)='toggleThread()'>
       
 <div *ngIf='user' class='userIdentifier'>
-  
 <user-thumb [thumbnail]=userThumbnail></user-thumb>
 </div>
-<!-- <button *ngIf='thread.user_id===currentUser.id' class='tinyButton' (click)='killThread()'>Delete</button> -->
+
 <div class='subject'> <div class='dateString'>  {{ thread.post_date | date }}</div>
 {{ thread.subject }}</div>
 </div>
- <div *ngIf="thread.replies && replyThumbnails && !thread.collapsed" class='threadReplies'>
-         <div *ngFor="let reply of thread.replies; let r = index" class='threadReply'>
+ <div *ngIf="thread.replies && replyThumbnails && !thread.collapsed" class='threadReplies group'>
+         <div *ngFor="let reply of thread.replies; let r = index" class='threadReply group'>
                  <div *ngIf="replyThumbnails[r]" class='replyIdentifier'>
                  <user-thumb [thumbnail]="replyThumbnails[r]"></user-thumb></div>
                  
-                 <div *ngIf='reply.user_id===currentUser.id' class='tinyDelete'
-                  (click)='killReply(r)'>DELETE THIS REPLY</div>
-                    <button *ngIf='reply.user_id===currentUser.id' class='tinyEdit'>Edit</button>
-                    <p>{{ reply.reply }} </p><br clear='all'>
-         </div>
+                 <div class='replyText group'>
+                         <p>{{ reply.reply }}</p>
+                </div>
+
+                 <div class='buttonBox group'>
+                        <div *ngIf='reply.user_id===currentUser.id' class='tinytrash deleteReplyButton'
+                  (click)='killReply(r)'></div><br>
+                    <!-- <button *ngIf='reply.user_id===currentUser.id' class='tinyEdit'>Edit</button> -->
+                </div>
+                 
+         </div><br clear='all'>
  </div>
- <div *ngIf="thread.displayReplyInput">
+ <div>
         <form [formGroup]="replyFormGroup" (ngSubmit)="submitReply(thread)">
                 <table width='100%' class='showTable'>
                 <tr>
-                <td width='80%'><input type='text' autofocus class='replyInput' formControlName='reply'></td>
-                <td width='10%'><button type='submit' class='basicButton nobr'>Post Reply</button></td>
-                <td><button type='cancel' (click)='cancel(thread)'>Cancel</button></td>
+                <td width='84%'><input type='text' class='replyInput' formControlName='reply'></td>
+                <td width='1%'><div class='replyButton' (click)='submitReply(thread)'></div></td>
+                <td width='15%'>&nbsp;</td>
                  </tr>
                 </table>
         </form> 
 </div>
- <button (click)="reply(thread)" class='reply' *ngIf="!thread.displayReplyInput">Reply</button>
+ <!-- <button (click)="reply(thread)" class='reply' *ngIf="!thread.displayReplyInput">Reply</button> -->
 </div><br clear='all'>

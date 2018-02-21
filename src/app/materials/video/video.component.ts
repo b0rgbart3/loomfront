@@ -96,7 +96,10 @@ export class VideoComponent implements OnInit {
         //     // <string> this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoObject.contenturl);
         // } else {
             this.externalVideo = false;
-        this.videoSource = this.globals.materialfiles + '/' + this.videoObject.id + '/' + this.videoObject.file; // }
+
+        if (this.videoObject.file) {
+        this.videoSource = this.globals.materialfiles + '/' +
+            this.videoObject.id + '/' + this.videoObject.file; } else { this.videoSource = null; }
         this.videoBoxClass = 'videoBox';
         this.videoDeetsClass = 'videoDeets';
     }

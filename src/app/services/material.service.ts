@@ -11,7 +11,7 @@ import { Globals } from '../globals';
 import { Material } from '../models/material.model';
 import { MaterialCollection } from '../models/materialcollection.model';
 import { Course } from '../models/course.model';
-
+import _ from 'lodash';
 
 @Injectable()
 export class MaterialService {
@@ -57,10 +57,16 @@ export class MaterialService {
       //  console.log('\nIn material service / getDM: ' + type + '\n');
         return this._http.get <Material[]>
               (this.globals.materials + '?type=' + type).do(data => {
-              //  console.log( type + ': ' + JSON.stringify( data ) + '\n');
-                // this.materialCount = data.length;
-                  // this.materials = data;
-                  // this.updateIDCount();
+
+               // console.log('docs:');
+              //  data.map( doc => console.log(doc.title));
+                // Let's alphabetize this list of Materials before we send it back
+                // const sortedObjs = _.sortBy(data, item => item.title );
+
+                // console.log('sorted docs: ');
+                // sortedObjs.map( doc => console.log(doc.title));
+
+                return data;
         }).catch(this.handleError);
       } else {
         // pass back a single object of this type
@@ -68,7 +74,7 @@ export class MaterialService {
               (this.globals.materials + '?id=' + id + '&type=' + type).do(data => {
           // keeping a local copy of the data object
           // -- though I don't think we do anything with it
-          this.material = data; }).catch( this.handleError );
+          return data; }).catch( this.handleError );
         }
 
     }
@@ -76,7 +82,7 @@ export class MaterialService {
     getBatchMaterialsFromMemory(list): Material[] {
       let matArray = [];
       if (list) {
-        console.log('LIST: ' + JSON.stringify(list));
+        // console.log('LIST: ' + JSON.stringify(list));
         matArray = list.map( id => this.getMaterialFromMemory(id) ); }
       return matArray;
     }
@@ -112,7 +118,7 @@ export class MaterialService {
    getMaterials( course_id ): Observable<any> {
      if (course_id === 0) {
        // get a list of ALL the materials for ALL courses
-       // console.log('sending get request for materials');
+      console.log('sending get request for materials');
         return this._http.get <Material[]> (this.globals.materials).do(data => {
           this.materialCount = data.length;
           this.materials = data;
@@ -122,7 +128,7 @@ export class MaterialService {
     return this._http.get <Material[]> (this.globals.materials + '?id=' + course_id )
       // debug the flow of data
       .do(data =>  {
-         console.log('All materials for course: ' + course_id + ': ' + JSON.stringify(data));
+        // console.log('All materials for course: ' + course_id + ': ' + JSON.stringify(data));
                     this.materialCount = data.length;
                     this.materials = data;
                     this.updateIDCount();

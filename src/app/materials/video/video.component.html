@@ -1,4 +1,4 @@
-
+<div *ngIf='!videoSource' class='oops'>Oops --The source file for this video is missing.</div>
 <div class='videoContainer group' *ngIf='videoObject'>
 
         <div *ngIf='externalVideo'>
@@ -20,7 +20,7 @@
              -->
 
 
-<vg-player class='videoFrame group' (onPlayerReady)="onPlayerReady($event)">
+<vg-player class='videoFrame group' (onPlayerReady)="onPlayerReady($event)" *ngIf='videoSource'>
     <vg-overlay-play>
 
         <!-- <div class='introImage'

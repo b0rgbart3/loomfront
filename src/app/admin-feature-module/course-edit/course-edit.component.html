@@ -114,7 +114,7 @@
                                          <mat-form-field>
                                              <mat-select [placeholder]='blockPlaceholder' formControlName='material'>
                                                     <mat-option *ngFor='let item of blockOptions' matOption [value]='item.id' 
-                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                                    ng-selected='value'>{{item.title}}- by: {{item.author}}</mat-option>
                                              </mat-select>
                                          </mat-form-field>
                                      </div>
@@ -137,7 +137,7 @@
                                          <mat-form-field>
                                              <mat-select [placeholder]='quotePlaceholder' formControlName='material'>
                                                     <mat-option *ngFor='let item of quoteOptions' matOption [value]='item.id' 
-                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                                    ng-selected='value'>{{item.title}}- by: {{item.author}}</mat-option>
                                              </mat-select>
                                          </mat-form-field>
                                      </div>
@@ -159,7 +159,7 @@
                                          <mat-form-field>
                                              <mat-select [placeholder]='videoPlaceholder' formControlName='material'>
                                                     <mat-option *ngFor='let item of videoOptions' matOption [value]='item.id' 
-                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                                    ng-selected='value'>{{item.title}}- by: {{item.author}}</mat-option>
                                              </mat-select>
                                          </mat-form-field>
                                      </div>
@@ -182,7 +182,7 @@
                                          <mat-form-field>
                                              <mat-select [placeholder]='audioPlaceholder' formControlName='material'>
                                                     <mat-option *ngFor='let item of audioOptions' matOption [value]='item.id' 
-                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                                    ng-selected='value'>{{item.title}}- by: {{item.author}}</mat-option>
                                              </mat-select>
                                          </mat-form-field>
                                      </div>
@@ -207,7 +207,7 @@
                                          <mat-form-field>
                                              <mat-select [placeholder]='docPlaceholder' formControlName='material'>
                                                     <mat-option *ngFor='let item of docOptions' matOption [value]='item.id' 
-                                                    ng-selected='value'>{{item.title}}</mat-option>
+                                                    ng-selected='value'>{{item.title}}- by: {{item.author}}</mat-option>
                                              </mat-select>
                                          </mat-form-field>
                                      </div>
@@ -231,7 +231,7 @@
                                         <mat-form-field>
                                     <mat-select [placeholder]="bookPlaceholder" formControlName="material">
                                     <mat-option *ngFor='let item of bookOptions' matOption [value]='item.id' 
-                                    ng-selected='value'>{{item.title}}</mat-option>
+                                    ng-selected='value'>{{item.title}}- by: {{item.author}}</mat-option>
                                 </mat-select></mat-form-field>
                             </div></div> 
                             </div></div>

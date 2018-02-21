@@ -24,6 +24,7 @@
     z-index: 3;
     position: relative;
     top:20px;
+    /* border:1px solid blue; */
 }
 .discussionIcon {
     background-image:url('../../assets/images/discuss.svg');
@@ -52,13 +53,12 @@
    box-shadow:0 0 20px white;
 }
 .discussionBox {
-    margin-left:8%;
-    margin-right:8%;
-    text-align: center;
+    margin-left:0%;
+    margin-right:0%;
     padding:0;
     margin-top:0;
     margin-bottom:0;
-
+    /* border:2px solid green; */
 }
 
 
@@ -98,22 +98,17 @@ table {
     background-color:rgba(0,0,0,0);
 }
 .deleteThreadButton {
-    background-color:#555555;
-    color:white;
+
     float:right;
     margin-right:20px;
     display:inline-block;
-    padding-top:6px;
-    padding-bottom:6px;
-    padding-left:14px;
-    padding-right:14px;
     font-size:1em;
     margin-bottom:8px;
     outline:none;
     cursor: pointer;
     user-select: none;
     text-transform: uppercase;
-    border-radius:5px;
+    border-radius:50%;
     font-size:.9em;
     opacity:.8;
     letter-spacing:.05em;
@@ -121,12 +116,6 @@ table {
     margin:10px;
 }
 
-
-.deleteThreadButton:active {
-    background-color:#ff1d1d;
-    color:white;
-    border:2px solid #960039;
-}
 .fancyPostButton {
     background-color:#ce00bd;
     color:white;
@@ -156,7 +145,7 @@ table {
     background-color:#555555;
     color:white;
     float:right;
-    margin-right:20px;
+    margin-left:10px;
     display:inline-block;
     padding-top:6px;
     padding-bottom:6px;
@@ -170,6 +159,8 @@ table {
     text-transform: uppercase;
     border-radius:4px;
     box-shadow:2px 2px 4px rgba(0,0,0,.4);
+    position: relative;
+    top:6px;
 }
 .newTopicButton:hover {
     background-color:#eeeeee;
@@ -181,7 +172,28 @@ table {
     background-color: rgba(255,255,255,.5);
     border-radius: 6px;
     box-shadow:0 0 20px rgba(0,0,0,.25);
-    padding-top:40px;
-    padding-bottom:30px;
+    padding-top:20px;
+    padding-bottom:10px;
     margin-top:0;
+    padding-left:20px;
+    padding-right:20px;
+    margin-left:5%;
+    margin-right:5%;
+    /* border:2px solid red; */
+}
+
+.discussionFramer p {
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+    .discussionBox {
+        margin-left:0%;
+        margin-right:0%;
+        padding:0;
+        margin-top:0;
+        margin-bottom:0;
+    
+    }
+    
 }

@@ -49,7 +49,8 @@ export class SectionComponent implements OnInit, OnChanges {
 
     initMe() {
 
-        console.log('In section init: discussionSettings: ' + JSON.stringify(this.discussionSettings));
+        console.log('In section init: discussionSettings: ' +
+         JSON.stringify(this.discussionSettings));
         // this.materialCollection = null;
         this.section = this.course.sections[this.section.sectionNumber];
 

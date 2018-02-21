@@ -32,10 +32,10 @@ export class DiscussionSettingsResolver implements Resolve <DiscussionSettings> 
         return dsObject; } else {
                 console.log('did not find ds object, so creating one.');
                 const newDSObject = new DiscussionSettings( user_id, class_id, section, false, []);
-        const returnableArray = [];
-        returnableArray.push(newDSObject);
-        console.log('returning: ' + JSON.stringify(returnableArray));
-        return returnableArray;
+        // const returnableArray = [];
+        // returnableArray.push(newDSObject);
+       // console.log('returning: ' + JSON.stringify(returnableArray));
+        return newDSObject;
             }
          })
     .catch( error => {

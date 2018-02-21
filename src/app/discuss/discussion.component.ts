@@ -26,7 +26,6 @@ export class DiscussionComponent implements OnInit, OnChanges {
   // local vars
   discussing: boolean;
   folds: boolean[];
-  discussionIconClass: string;
   thread: Thread;
   entry: boolean;
   ready2display: boolean;
@@ -62,9 +61,9 @@ export class DiscussionComponent implements OnInit, OnChanges {
  ) {}
 
   ngOnInit() {
-    console.log('In discussion component: settings: ' + JSON.stringify( this.settings ));
+    console.log('In discussion component: settings: ' +
+      JSON.stringify( this.settings ));
 
-    this.discussionIconClass = 'discussionIcon';
     this.ready2display = false;
     this.discussing = false;
     this.currentUser = this.userService.getCurrentUser();
@@ -73,7 +72,11 @@ export class DiscussionComponent implements OnInit, OnChanges {
  
 
     if (this.settings) {
-      if (!this.settings.folds) { this.settings.folds = []; }
+      console.log('I have a settings object.');
+     
+      if (!this.settings.folds) {
+        console.log('creating folds array.');
+        this.settings.folds = []; }
     this.ds.getThreads( this.thisClass.id, this.settings.section ).subscribe(
       data => { this.threads = data;
         this.checkSequenceAndFolds();
@@ -85,9 +88,18 @@ export class DiscussionComponent implements OnInit, OnChanges {
     // of putting them here?
 
     this.ds.userEntered.subscribe( data => {
-     //  console.log('User entered: ' + JSON.stringify(data) );
-
-      if ( (data.class_id === this.thisClass.id) && (data.section === this.settings.section)  ) {
+       console.log('User entered: ' + JSON.stringify(data) );
+      if (data.classID === this.thisClass.id) {
+        console.log('class IDs match');
+      }
+      if (+data.sectionNumber === +this.settings.section) {
+        console.log('sectionNumbers match');
+      } else {
+        console.log('Data.sectionNumber: ' + data.sectionNumber);
+        console.log('this.settings.section: ' + this.settings.section);
+      }
+      if ( (data.classID === this.thisClass.id) && (+data.sectionNumber === +this.settings.section)  ) {
+        console.log('About to send notice.');
         this.ds.sendNotice( {type: 'info', message:
         [ data.user.username + ' has entered the discussion.' ], delay: 2000} );
       }
@@ -97,7 +109,7 @@ export class DiscussionComponent implements OnInit, OnChanges {
        console.log('thread added: ' + JSON.stringify(thread) );
        console.log('thread.section =' + thread.section);
        console.log('this.section =' + JSON.stringify( this.section) );
-      if ((this.thisClass.id === thread.class_id) && (thread.section === this.section.sectionNumber)
+      if ((this.thisClass.id === thread.class_id) && (+thread.section === +this.section.sectionNumber)
        ) {
          console.log('responding to that.');
       this.threads.unshift(thread);
@@ -138,32 +150,28 @@ export class DiscussionComponent implements OnInit, OnChanges {
 
   }
 
-  toggleDiscussion() {
-    if (this.discussing) {
-        this.closeDiscussion();
-    } else {
-        this.openDiscussion();
-    }
-}
+//   toggleDiscussion() {
+//     if (this.discussing) {
+//         this.closeDiscussion();
+//     } else {
+//         this.openDiscussion();
+//     }
+// }
  openDiscussion() {
    this.settings.discussing = true;
    this.saveDiscussionSettings();
    this.ds.introduceMyself( this.userService.currentUser, this.thisClass.id, this.section.sectionNumber);
-   this.discussionIconClass = 'closeDiscussionIcon';
+
 }
 
 closeDiscussion() {
      this.settings.discussing = false;
      this.saveDiscussionSettings();
-     this.discussionIconClass = 'discussionIcon';
+
  }
 
  saveDiscussionSettings() {
-  // this.settings = { 'user_id': this.userService.currentUser.id,
-  //      'class_id': this.thisClass.id, 'section': this.section.sectionNumber,
-  //      'discussing': this.discussing, 'folds': this.folds };
-     //  console.log('About to save Discussion Settings from the section component.');
-     //  console.log( JSON.stringify(this.discussionSettings));
+
        this.ds.storeDiscussionSettings(this.settings).subscribe(
        data => console.log('done storing discussion settings.'), error => {
            console.log('ERROR trying to store the settings!');
@@ -171,25 +179,7 @@ closeDiscussion() {
 
   }
 
-//   loadUserDiscussionSettings() {
-//    this.ds.getDiscussionSettings( this.userService.currentUser.id, this.thisClass.id, this.section.sectionNumber ).subscribe(
-//        (data) => {
-//            this.settings = data;
-//           // console.log('Loaded discussion settings: ');
-//           // console.log( JSON.stringify(data));
-//            this.discussing = false;
-//           if (data) { this.discussing = data.discussing;
-//            this.folds = data.folds;
-//            if (data.discussing) { this.discussionIconClass = 'closeDiscussionIcon'; } else {
-//                this.discussionIconClass = 'discussionIcon';
-//            }
-//        }
-//           // console.log('DISCUSSION OBJECT:');
-//          //  console.log( JSON.stringify(data));
 
-//        }, (error) => console.log(error) );
-
-// }
 
   checkSequenceAndFolds() {
     // Let's compare the order of the threads against their timestamps to
@@ -220,10 +210,7 @@ closeDiscussion() {
     this.ds.getThreads( this.thisClass.id, this.settings.section ).subscribe(
       threads => {
         this.newThreads = threads;
-     //   console.log('Existing Threads: ');
-      //  console.log( JSON.stringify( this.threads ));
-      //  console.log('New Threads: ');
-     //   console.log( JSON.stringify(this.newThreads));
+
       },
       error => {this.errorMessage = <any>error; },
       () => { console.log('FINISHED'); });
@@ -303,9 +290,15 @@ closeDiscussion() {
 
 
   foldChange( thisThread: Thread ) {
+    console.log('Got a fold change event in the discussion component.');
+    console.log('thisThread.id: ' + thisThread.id);
+
     const index = this.threads.findIndex( obj =>  obj.id === thisThread.id  );
-    this.folds[index] = !this.folds[index] ;  // toggle it
-    this.settings.folds = this.folds;
+    console.log('found index: ' + index);
+    console.log('this.folds' + JSON.stringify(this.settings.folds));
+
+    this.settings.folds[index] = !this.settings.folds[index] ;  // toggle it
+    // this.settings.folds = this.folds;
     this.ds.storeDiscussionSettings( this.settings ).subscribe(
       data => {},
       err => {},

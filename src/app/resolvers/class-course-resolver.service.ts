@@ -29,15 +29,15 @@ export class ClassCourseResolver implements Resolve <any> {
 
     resolve( route: ActivatedRouteSnapshot): Observable <any> {
 
-        console.log('In the class-course resolver.');
+       // console.log('In the class-course resolver.');
         const thisClass = route.parent.data['thisClass'];
-        console.log('Activated route snapshot ClassObject: ' + JSON.stringify(thisClass));
+       // console.log('Activated route snapshot ClassObject: ' + JSON.stringify(thisClass));
         return this.courseService.getCourse(thisClass.course).map( thisCourse => { if (thisCourse[0]) {
           this.thisCourse = thisCourse[0];
-        console.log('Loaded course Info in the resolver: ' + JSON.stringify(this.thisCourse));
+      //  console.log('Loaded course Info in the resolver: ' + JSON.stringify(this.thisCourse));
         return thisCourse[0];
         }   } ).catch( error => {
-        console.log( ' Retrieval error: course reslover. ');
+       // console.log( ' Retrieval error: course reslover. ');
     return error; });
 
 

@@ -98,21 +98,22 @@ export class ThreadComponent implements OnInit, OnChanges {
     return thumbnailObj;
   }
 
-  reply(thread) {
-    if (this.thread.collapsed) {
-      this.thread.collapsed = false;
-      this.foldChange.emit(thread);
-    }
-    this.thread.collapsed = false;
-    this.thread.displayReplyInput = true;
-   // this.threadChange.emit(this.thread);
-  }
+  // reply(thread) {
+  //   if (this.thread.collapsed) {
+  //     this.thread.collapsed = false;
+  //     this.foldChange.emit(thread);
+  //   }
+  //   this.thread.collapsed = false;
+  //   this.thread.displayReplyInput = true;
+  //  // this.threadChange.emit(this.thread);
+  // }
 
   cancel(thread) {
     this.thread.displayReplyInput = false;
   }
 
   toggleThread() {
+    console.log('toggle Thread.');
     this.thread.collapsed = !this.thread.collapsed;
 
     this.foldChange.emit(this.thread);
@@ -143,6 +144,8 @@ export class ThreadComponent implements OnInit, OnChanges {
     // console.log(this.replyFormGroup.get('reply').value);
     const reply = this.replyFormGroup.get('reply').value;
 
+    if (reply) {
+    thread.collapsed = false;
 
   //  console.log('ABOUT TO SUBMIT REPLY');
    // console.log(JSON.stringify( thread ));
@@ -187,6 +190,6 @@ export class ThreadComponent implements OnInit, OnChanges {
 
   }
 
-
+}
 
 }

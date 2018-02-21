@@ -1,7 +1,8 @@
-<br><br>
-<p>Discussion:{{ settings.section }}</p>
+
     <div class='discussionIconWrap'> 
-            <div [class]='discussionIconClass' (click)="toggleDiscussion()"></div></div>
+            <div class='discussionIcon' (click)="openDiscussion()" *ngIf='!settings.discussing'></div>
+            <div class='closeDiscussionIcon' (click)="closeDiscussion()" *ngIf='settings.discussing'></div>
+    </div>
             <div class='discussionBox group' *ngIf='settings && settings.discussing'>
 
 <div class='discussionFramer group' *ngIf='ready2display'>
@@ -15,21 +16,23 @@
                 <form [formGroup]='discussionFormGroup' (ngSubmit)='newThread()'>
                 <table width='100%' class='showTable'>
                    <tr>
-                <td width='90%'><input formControlName='subject' id='subject' 
-                        autofocus name='subject' type='text' class='largeInput'></td>
-                <td>
-                <button type='submit' class='newTopicButton'>Post</button></td>
+                <td width='86%'><input formControlName='subject' id='subject' 
+                 name='subject' type='text' class='largeInput'></td>
+                <td width='1%'>
+                <button type='submit' class='newTopicButton'>post</button></td>
+                <td width='8%'></td>
                 </tr>
                 </table>
         </form>
 
         <br clear='all'><br>
+<img src='../../assets/images/divider.svg'><br>
 
         <div *ngIf='threads'>
                 <div *ngFor='let thread of threads; let i = index' class='threadContainer group'>
                         <div *ngIf="currentUser.id === thread.user_id" 
-                        class='deleteThreadButton' (click)="deleteThread(thread)">delete</div>
-                       <thread [thread]=thread [collapsed]='folds[i]' (foldChange)="foldChange($event)"
+                        class='tinytrash deleteThreadButton' (click)="deleteThread(thread)"></div>
+                       <thread [thread]=thread [collapsed]='settings.folds[i]' (foldChange)="foldChange($event)"
                         (threadChange)="threadChange($event)" (deleteReply)="deleteReply($event)"
                        (threadKill)="threadKill($event)"></thread>
                 </div>
