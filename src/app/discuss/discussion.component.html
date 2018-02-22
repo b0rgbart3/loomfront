@@ -2,6 +2,7 @@
     <div class='discussionIconWrap'> 
             <div class='discussionIcon' (click)="openDiscussion()" *ngIf='!settings.discussing'></div>
             <div class='closeDiscussionIcon' (click)="closeDiscussion()" *ngIf='settings.discussing'></div>
+            <p *ngIf='!settings.discussing'>Join the Discussion</p>
     </div>
             <div class='discussionBox group' *ngIf='settings && settings.discussing'>
 

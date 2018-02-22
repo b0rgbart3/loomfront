@@ -5,37 +5,40 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import { DiscussionSettings } from '../models/discussionsettings.model';
-import { DiscussionService } from '../services/discussion.service';
+
 import { ClassService } from '../services/class.service';
 import { UserService } from '../services/user.service';
+import { NotesSettings } from '../models/notessettings.model';
+import { NotesService } from '../services/notes.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 
-export class DiscussionSettingsResolver implements Resolve <DiscussionSettings> {
+export class NotesSettingsResolver implements Resolve <NotesSettings> {
 
-    constructor( private ds: DiscussionService,
+    constructor( private notesService: NotesService,
         private classService: ClassService, private router: Router,
     private userService: UserService ) { }
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable <DiscussionSettings> {
+    Observable <NotesSettings> {
         const class_id = route.params['id'];
         const user_id = this.userService.currentUser.id;
-        const section = route.params['id2'];
-       // console.log('In the discussion settings resolver - class: ' + class_id +
-      //      ', section: ' + section + ', user: ' + user_id);
+        const section = route.params['id2'] + '';
+        console.log('In the notes settings resolver - class: ' + class_id +
+            ', section: ' + section + ', user: ' + user_id);
 
-        return this.ds.getDiscussionSettings(user_id, class_id, section).
-        map(dsObject => { if (dsObject) {
-        //    console.log('found existing ds object.');
-        return dsObject; } else {
-           //     console.log('did not find ds object, so creating one.');
-                const newDSObject = new DiscussionSettings( user_id, class_id, section, false, []);
+        return this.notesService.getNotesSettings(user_id, class_id, section).
+        map(nsObject => { if (nsObject) {
+            console.log('found existing ns object.');
+        return nsObject; } else {
+            const newNSObject = new NotesSettings( user_id, class_id, section, true, []);
+                console.log('did not find ns object, so creating one:' + JSON.stringify(newNSObject));
+
         // const returnableArray = [];
         // returnableArray.push(newDSObject);
        // console.log('returning: ' + JSON.stringify(returnableArray));
-        return newDSObject;
+        return newNSObject;
             }
          })
     .catch( error => {
@@ -43,5 +46,6 @@ export class DiscussionSettingsResolver implements Resolve <DiscussionSettings> 
         return Observable.of(null);
     });
     }
+
 
 }

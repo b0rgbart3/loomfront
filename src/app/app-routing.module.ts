@@ -33,6 +33,7 @@ import { StudentEnrollmentsResolver } from './resolvers/studentenrollments-resol
 import { InstructorAssignmentsResolver } from './resolvers/instructorassignments-resolver.service';
 import { EnrollmentsResolver } from './resolvers/enrollments-resolver';
 import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.service';
+import { NotesSettingsResolver } from './resolvers/notes-settings-resolver';
 
 
 
@@ -55,7 +56,9 @@ resolve: { user: UserResolver, users: UsersResolver} },
   children: [ {
       path: ':id2', pathMatch: 'full', component: ClassComponent,
 resolve: {
-    thisCourse: ClassCourseResolver, classMaterials: ClassMaterialsResolver, discussionSettings: DiscussionSettingsResolver  } }]
+    thisCourse: ClassCourseResolver, classMaterials: ClassMaterialsResolver,
+    discussionSettings: DiscussionSettingsResolver,
+    notesSettings: NotesSettingsResolver  } }]
 },
 
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,

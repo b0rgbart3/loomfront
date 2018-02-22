@@ -12,6 +12,7 @@ import { UserService } from '../../services/user.service';
 import { DiscussionService } from '../../services/discussion.service';
 import { DiscussionSettings } from '../../models/discussionsettings.model';
 import { User } from '../../models/user.model';
+import { NotesSettings } from '../../models/notessettings.model';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class SectionComponent implements OnInit, OnChanges {
     @Input() students: User[];
     @Input() instructors: User[];
     @Input() discussionSettings: DiscussionSettings;
+    @Input() notesSettings: NotesSettings;
     @Input() materialCollection: MaterialCollection;
 
     public books: Material [];
@@ -49,7 +51,7 @@ export class SectionComponent implements OnInit, OnChanges {
 
     initMe() {
 
-        console.log('In section init: discussionSettings: ' +
+     //   console.log('In section init: discussionSettings: ' +
          JSON.stringify(this.discussionSettings));
         // this.materialCollection = null;
         this.section = this.course.sections[this.section.sectionNumber];

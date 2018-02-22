@@ -48,6 +48,7 @@ awspath = 'https://recloom.s3.amazonaws.com/';
  series =             this.basepath + 'api/series';
  batchmaterials =     this.basepath + 'api/batchmaterials';
  discusssettings =    this.basepath + 'api/discussion/settings';
+ notessettings =      this.basepath + 'api/notes/settings';
  enterdiscussion =    this.basepath + 'api/discussion/enter';
  whosin =             this.basepath + 'api/discussion/whosin';
  // the entire db listing of enrollment objects

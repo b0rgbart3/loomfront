@@ -61,21 +61,21 @@ export class DiscussionComponent implements OnInit, OnChanges {
  ) {}
 
   ngOnInit() {
-    console.log('In discussion component: settings: ' +
-      JSON.stringify( this.settings ));
+   // console.log('In discussion component: settings: ' +
+   //   JSON.stringify( this.settings ));
 
     this.ready2display = false;
     this.discussing = false;
     this.currentUser = this.userService.getCurrentUser();
     this.discussionFormGroup = this.fb.group( { 'subject': ['', [Validators.required ] ] } );
 
- 
+
 
     if (this.settings) {
-      console.log('I have a settings object.');
-     
+     //  console.log('I have a settings object.');
+
       if (!this.settings.folds) {
-        console.log('creating folds array.');
+       // console.log('creating folds array.');
         this.settings.folds = []; }
     this.ds.getThreads( this.thisClass.id, this.settings.section ).subscribe(
       data => { this.threads = data;
@@ -88,30 +88,30 @@ export class DiscussionComponent implements OnInit, OnChanges {
     // of putting them here?
 
     this.ds.userEntered.subscribe( data => {
-       console.log('User entered: ' + JSON.stringify(data) );
+      // console.log('User entered: ' + JSON.stringify(data) );
       if (data.classID === this.thisClass.id) {
-        console.log('class IDs match');
+      //  console.log('class IDs match');
       }
       if (+data.sectionNumber === +this.settings.section) {
-        console.log('sectionNumbers match');
+       // console.log('sectionNumbers match');
       } else {
-        console.log('Data.sectionNumber: ' + data.sectionNumber);
-        console.log('this.settings.section: ' + this.settings.section);
+        // console.log('Data.sectionNumber: ' + data.sectionNumber);
+        // console.log('this.settings.section: ' + this.settings.section);
       }
       if ( (data.classID === this.thisClass.id) && (+data.sectionNumber === +this.settings.section)  ) {
-        console.log('About to send notice.');
+        // console.log('About to send notice.');
         this.ds.sendNotice( {type: 'info', message:
         [ data.user.username + ' has entered the discussion.' ], delay: 2000} );
       }
     });
 
     this.ds.threadAdded.subscribe( thread => {
-       console.log('thread added: ' + JSON.stringify(thread) );
-       console.log('thread.section =' + thread.section);
-       console.log('this.section =' + JSON.stringify( this.section) );
+      // console.log('thread added: ' + JSON.stringify(thread) );
+      // console.log('thread.section =' + thread.section);
+      // console.log('this.section =' + JSON.stringify( this.section) );
       if ((this.thisClass.id === thread.class_id) && (+thread.section === +this.section.sectionNumber)
        ) {
-         console.log('responding to that.');
+     //    console.log('responding to that.');
       this.threads.unshift(thread);
       this.ds.threads = this.threads;
       this.ds.updatehighestID();
@@ -213,7 +213,9 @@ closeDiscussion() {
 
       },
       error => {this.errorMessage = <any>error; },
-      () => { console.log('FINISHED'); });
+      () => {
+        // console.log('FINISHED');
+      });
 
 
 
@@ -243,7 +245,7 @@ closeDiscussion() {
     combinedObject.class_id = this.thisClass.id;
     combinedObject.user_id = this.currentUser.id;
     combinedObject.post_date = new Date( Date.now());
-    combinedObject.section = this.settings.section;
+    combinedObject.section = this.settings.section + '';
     combinedObject.id = 0;
 
     this.threads.unshift(combinedObject);
@@ -290,12 +292,12 @@ closeDiscussion() {
 
 
   foldChange( thisThread: Thread ) {
-    console.log('Got a fold change event in the discussion component.');
-    console.log('thisThread.id: ' + thisThread.id);
+  //  console.log('Got a fold change event in the discussion component.');
+  //  console.log('thisThread.id: ' + thisThread.id);
 
     const index = this.threads.findIndex( obj =>  obj.id === thisThread.id  );
-    console.log('found index: ' + index);
-    console.log('this.folds' + JSON.stringify(this.settings.folds));
+  //  console.log('found index: ' + index);
+  //  console.log('this.folds' + JSON.stringify(this.settings.folds));
 
     this.settings.folds[index] = !this.settings.folds[index] ;  // toggle it
     // this.settings.folds = this.folds;

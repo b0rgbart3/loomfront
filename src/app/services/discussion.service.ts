@@ -121,7 +121,7 @@ export class DiscussionService implements OnInit, OnChanges {
        return this._http.get <DiscussionSettings> (this.globals.discusssettings +
           '?user_id=' + user_id + '&class_id=' + class_id + '&section=' + section, {headers: myHeaders} )
       .do (data => {
-         console.log('Got Discussion Settings back from the API' + JSON.stringify(data));
+        // console.log('Got Discussion Settings back from the API' + JSON.stringify(data));
          return data;
     })
       .catch ( this.handleError );

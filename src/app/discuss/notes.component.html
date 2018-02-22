@@ -1,0 +1,10 @@
+
+<div class='notesWrap group'> 
+        <div class='notesIcon' (click)="openNotes()" *ngIf='!settings.reading'></div>
+        <div class='closeNotesIcon' (click)="closeNotes()" *ngIf='settings.reading'></div>
+        <p class='iconTitle'>Notes from your instructors.</p>
+</div>
+
+<div class='notesBox' *ngIf='settings.reading'>
+    Notes here.
+</div>

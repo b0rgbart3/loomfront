@@ -17,6 +17,7 @@ import { MaterialCollection } from '../../models/materialcollection.model';
 import { DiscussionSettings } from '../../models/discussionsettings.model';
 import { DiscussionService } from '../../services/discussion.service';
 import { EnrollmentsService } from '../../services/enrollments.service';
+import { NotesSettings } from '../../models/notessettings.model';
 
 
 @Component({
@@ -52,6 +53,8 @@ export class ClassComponent implements OnInit {
     AVATAR_IMAGE_PATH: string;
     discussionSettings: DiscussionSettings;
     classMaterials: MaterialCollection[];
+    notesSettings: NotesSettings;
+    messaging: boolean;
 
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
@@ -75,7 +78,7 @@ export class ClassComponent implements OnInit {
       }
 
     ngOnInit() {
-
+        this.messaging = false;
         this.activated_route.params.subscribe(params => {
             this.onSectionChange(params['id2']);
         });
@@ -92,7 +95,9 @@ export class ClassComponent implements OnInit {
         this.users = this.activated_route.snapshot.data['users'];
         this.sectionNumber = this.activated_route.snapshot.data['sectionNumber'];
         this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
-        console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
+        this.notesSettings = this.activated_route.snapshot.data['notesSettings'];
+       // console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
+       console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
 
         this.studentIDList = [];
         this.studentIDList = this.enrollmentService.getStudentsInClass(this.thisClass.id);
@@ -150,6 +155,13 @@ export class ClassComponent implements OnInit {
 
     }
 
+    openMessaging() {
+        this.messaging = true;
+    }
+
+    closeMessaging() {
+        this.messaging = false;
+    }
     // loadMaterials() {
     //     console.log('In loadMaterials()');
     //     console.log('currentCourse: ' + JSON.stringify(this.currentCourse.image));
@@ -213,6 +225,7 @@ export class ClassComponent implements OnInit {
     onSectionChange(newSectionNumber) {
         this.sectionNumber = newSectionNumber;
         this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
+        this.notesSettings = this.activated_route.snapshot.data['notesSettings'];
     }
 
     onDataRetrieved(newClassObject) {

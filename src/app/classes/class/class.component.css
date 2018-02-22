@@ -207,7 +207,7 @@ margin:0;
     margin:0;
     width:100%;
     position: relative;
-    padding-left:8%;
+    padding-left:20px;
     box-sizing: border-box;
 }
 
@@ -455,6 +455,53 @@ margin:0;
 .grabLeft {
     float:left;
 } */
+
+.messagesButtonContainer {
+background-color:rgb(25, 25, 37);
+height:104px;
+text-align:center;
+}
+
+.courseworkButton {
+    background-image:url('../../../assets/images/coursework.svg');
+    background-size:50px 50px;
+    width:60px;
+    height:60px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display:inline-block;
+    vertical-align: top;
+
+    border-radius:50%;
+    margin-top:8px;
+}
+.messagesButton {
+    background-image:url('../../../assets/images/messages.svg');
+    background-size:50px 50px;
+    width:60px;
+    height:60px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display:inline-block;
+    vertical-align: top;
+
+    border-radius:50%;
+    margin-top:8px;
+}
+
+.messagesButtonContainer p {
+    font-family: 'Josefin Sans';
+    color:white;
+    text-transform: uppercase;
+    font-size:.9em;
+    margin-top:4px;
+    text-align:center;
+}
+
+.messagesButton:active {
+    background-image:url('../../../assets/images/messages_hi.svg');
+    background-size:60px 60px;
+}
 
 @media screen and (max-width: 990px) {
     .topContent h1 {

@@ -85,6 +85,11 @@ export class NavBarComponent implements OnInit, DoCheck {
     }
   }
 
+  gotoSettings() {
+    const navigationString = '/usersettings/' + this.userService.currentUser.id + '/edit';
+    this._router.navigate([navigationString]);
+  }
+
  ngDoCheck() {
   this.username = localStorage.getItem('username');
   if (!this.username || this.username === '') {

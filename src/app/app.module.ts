@@ -76,6 +76,10 @@ import { InstructorAssignmentsResolver } from './resolvers/instructorassignments
 import { AllStudentEnrollmentsResolver } from './resolvers/allstudentenrollments-resolver.service';
 import { AllInstructorAssignmentsResolver } from './resolvers/allinstructorassignments-resolver.service';
 import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.service';
+import { NotesComponent } from './discuss/notes.component';
+import { NotesSettingsResolver } from './resolvers/notes-settings-resolver';
+import { NotesService } from './services/notes.service';
+import { MessagingComponent } from './discuss/messaging.component';
 
 @NgModule({
   // External
@@ -123,6 +127,8 @@ import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.ser
     ImageComponent,
     ResetComponent,
     CourseComponent,
+    NotesComponent,
+    MessagingComponent
 
 
   ],
@@ -158,7 +164,9 @@ import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.ser
     AllStudentEnrollmentsResolver,
     InstructorAssignmentsResolver,
     AllInstructorAssignmentsResolver,
-    ClassMaterialsResolver
+    ClassMaterialsResolver,
+    NotesService,
+    NotesSettingsResolver
 
    ],
   bootstrap: [ AppComponent ]
