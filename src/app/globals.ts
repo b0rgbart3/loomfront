@@ -58,6 +58,9 @@ awspath = 'https://recloom.s3.amazonaws.com/';
  // the instructor assignment objects for the current user
  instructorassignments = this.basepath + 'api/instructorassignments';
 
+ messages =              this.basepath + 'api/messages';
+ freshmessages =         this.basepath + 'api/messages/fresh';
+
 //  videos =             this.basepath + 'api/videos';
 //  boosk =              this.basepath + 'api/books';
 //  docs =               this.basepath + 'api/docs';

@@ -57,13 +57,13 @@ export class DiscussionService implements OnInit, OnChanges {
       this.socket = io(this.globals.basepath);
 
       // respond to broadcast messages from the chatserver
-      this.socket.on('userentering', (data) => {
-        // console.log('GOT A THREAD UPDATE');
+    //   this.socket.on('userentering', (data) => {
+    //     // console.log('GOT A THREAD UPDATE');
 
-      // this.sendNotice( {type: 'info', message: [ data.user.username + ' has entered the discussion.' ], delay: 2000} ); 
-      this.userEntered.emit(data);
+    //   // this.sendNotice( {type: 'info', message: [ data.user.username + ' has entered the discussion.' ], delay: 2000} );
+    //   this.userEntered.emit(data);
 
-    });
+    // });
 
     this.socket.on('updatethread', (data) => {
       console.log('GOT A THREAD UPDATE');

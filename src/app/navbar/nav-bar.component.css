@@ -1,10 +1,10 @@
 .navBarWrap {
-  height:70px;
+  height:80px;
   position: fixed;
   z-index: 200;
   width:100%;
   margin:0;
-  min-width:550px;
+  min-width:598px;
   background-color:#393f45;
 }
 
@@ -54,8 +54,12 @@ border:2px solid red;
 	text-transform: uppercase;
 	font-size:1.1em;
 	padding:12px;
-	padding-top:18px;
+	padding-top:16px;
+	box-sizing: border-box;
+	vertical-align: top;
+	margin-top:17px;
 	font-family: 'Josefin Sans';
+	border:2px solid rgba(255,255,255,.2);
 }
 
 a .easyHomeButton {
@@ -73,17 +77,18 @@ a:hover .easyHomeButton {
 }
 
 .userPic {
-	float:right !important;
+	float:right;
 	display:inline-block;
 	right:0;
 	vertical-align: top;
 	color:rgba(255,255,255,.6);
-	padding:4px 0 0 12px;
+	padding:4px 0 0 6px;
 	border-radius:2px;
 	text-align: right;
 	line-height: 25px;
-	margin-right:20px;
+	margin-right:4px;
 	box-sizing: border-box;
+
 }
 
 .userPic p {
@@ -91,10 +96,12 @@ a:hover .easyHomeButton {
 	margin-bottom:0px;
 	display:inline-block;
 	padding-bottom:0px;
+	width:140px;
 
 }
 .userPic img {
 	margin-left:10px;
+	margin-top:8px;
 }
 .username {
 	color:rgba(255,255,255,.8);
@@ -111,15 +118,141 @@ a:hover .easyHomeButton {
 .loomMenu {
 	color:white;
 	margin:6px;
-	width:60px;
-	height:60px;
-	border:2px solid rgba(0,0,0,.1);
+	width:54px;
+	height:54px;
+	box-sizing:border-box;
+	border:2px solid rgba(255,255,255,.2);
 	padding:0;
 	text-align: left;
-	padding-left:14px;
-	
+	padding-left:10px;
+	display:inline-block;
+	vertical-align: top;
+	margin-top:15px;
 }
 
 mat-icon {
 	font-size:30px;
+}
+
+.messageListContainer {
+    border:1px #555555;
+	box-shadow:0 6px 14px rgba(50,50,50,.5);
+	position: relative;
+	top:-6px;
+	right:210px;
+	width:240px;
+}
+.messageList {
+    background-color:white;
+	width:260px;
+	min-height:50px;
+    margin-left:auto;
+	margin-right:auto;
+	border:1px solid #555555;
+	border-radius:4px 4px 4px 4px;
+	overflow: hidden;
+	border-top:none;
+}
+
+.messageList p {
+	padding:8px;
+	user-select: none;
+}
+.quickMessageDoc {
+	float:right;
+  display:inline-block;
+  width:72px;
+  height:72px;
+  border:1px solid rgba(0,0,0,0);
+  padding-top:8px;
+  padding-left:8px;
+  box-sizing: border-box;
+}
+
+.quickMessagesButton {
+    background-image:url('../../assets/images/messages.svg');
+    background-size:60px 62px;
+    width:60px;
+    height:62px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display:inline-block;
+}
+
+.quickMessagesButtonFresh {
+	background-image:url('../../assets/images/messages_new.svg');
+    background-size:60px 62px;
+    width:60px;
+    height:62px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display:inline-block;
+}
+
+
+.quickMessagesButton_hi {
+	background-image:url('../../assets/images/messages_hi.svg');
+    background-size:60px 60px;
+    width:60px;
+    height:64px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display:inline-block;
+}
+
+.listThumb {
+	display:inline-block;
+	float:left;
+	width:60px;
+	height:60px;
+	/* border:1px solid red; */
+	padding:0;
+}
+
+.msgLine {
+	border:1px solid #999999;
+	background-color:#eeeeee;
+	padding:0;
+	box-sizing: border-box;
+	padding-top:8px;
+
+}
+
+.msgLine:active {
+	border:1px solid #ffffff;
+	background-color:white;
+}
+
+.message {
+	width:190px;
+	/* border:2px solid yellow; */
+	display:inline-block;
+	float:right;
+	box-sizing: border-box;
+	padding:2px;
+	padding-top:6px;
+	height:60px;
+	overflow: hidden;
+	user-select: none;
+}
+
+.message h1 {
+	font-family: 'Josefin Sans';
+	text-transform:uppercase;
+	font-size:14px;
+	color:#555555;
+	padding:0;
+	line-height:14px;
+	margin:0;
+	margin-bottom:5px;
+	user-select: none;
+}
+
+.message p {
+	padding:0;
+	margin:0;
+	line-height:15px;
+	font-size:14px;
+	color:black;
+	user-select: none;
 }

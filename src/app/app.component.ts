@@ -1,6 +1,7 @@
-import { Component, Output, OnInit } from '@angular/core';
+import { Component, Output, OnInit, Input } from '@angular/core';
 import {Http} from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
+
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
 })
 export class AppComponent {
 
-  constructor( ) {}
+
+  constructor( ) {
+  }
+
+
 
 }
 

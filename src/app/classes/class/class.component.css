@@ -126,8 +126,8 @@ margin:0;
     position: relative;
     top:-8px;
     left:0px;
-    z-index: 200;
     transition:all .5s;
+    z-index:10;
 }
 
 .menuLiner {
@@ -205,10 +205,18 @@ margin:0;
 .classNavBar {
     padding:0;
     margin:0;
-    width:100%;
-    position: relative;
-    padding-left:20px;
     box-sizing: border-box;
+    position: relative;
+}
+
+.thumbButton {
+    background:none;
+    background-color:rgba(0,0,0,0);
+    outline:none;
+}
+
+.thumbButton:active {
+    outline:none;
 }
 
 .nextSection {
@@ -282,6 +290,15 @@ margin:0;
     background-color:#aaaaaa;
 }
 
+.navArrows {
+    display:inline-block;
+    width:200px;
+    float:right;
+    vertical-align: top;
+    position:absolute;
+    top:0;
+    right:0;
+}
 .sectionNavTitle {
   text-transform: uppercase;
   color:black;
@@ -290,6 +307,7 @@ margin:0;
   display:inline-block;
   border:2px solid #555555;
   margin-top:20px;
+  margin-left:14px;
   padding-left:14px;
   padding-right:14px;
   padding-top:8px;
@@ -304,9 +322,6 @@ margin:0;
     background-color:#eeeeee;
 }
 
-#sectionMenu {
-    z-index:200;
-}
 
 .topContent p.dates {
     font-size:1.2em;
@@ -357,6 +372,8 @@ margin:0;
 .userThumb {
     display:inline-block;
     vertical-align: top;
+    padding-left:10px;
+    padding-right:10px;
 }
 
 
@@ -456,6 +473,8 @@ margin:0;
     float:left;
 } */
 
+
+/* 
 .messagesButtonContainer {
 background-color:rgb(25, 25, 37);
 height:104px;
@@ -501,6 +520,45 @@ text-align:center;
 .messagesButton:active {
     background-image:url('../../../assets/images/messages_hi.svg');
     background-size:60px 60px;
+} */
+
+.tipContainer {
+    position: relative;
+    top:0px;
+    z-index: 50;
+    width:80px;
+    height:1px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:rgba(0,0,0,0);
+    border:0;
+}
+.tip {
+    padding:6px;
+    color:white;
+    user-select: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-size:.8em;
+    width:100px;
+    height:28px;
+    border-radius:6px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+    top:-45px;
+    left:-10px;
+    background-color:white;
+    color:black;
+    padding-bottom:16px;
+    border:2px solid black;
+    transition: all .5s;
+}
+
+.tip:active {
+    background-color:rgb(12, 171, 245);
+    color:black;
+    border:2px solid black;
 }
 
 @media screen and (max-width: 990px) {

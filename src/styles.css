@@ -521,6 +521,28 @@ h2 {
 .buffer {
   height:100px;
 }
+
+.smallCloser {
+  background-image:url('./assets/images/closer_white.svg');
+  background-size:60%;
+  background-position:50% 50%;
+  background-repeat: no-repeat;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.8);
+  display:inline-block;
+  float:right;
+  vertical-align: top;
+  margin:0;
+  position: relative;
+  top:-4px;
+  right:4px;
+}
+
+.smallCloser:active {
+  background-color:#555555;
+}
 .closer {
   background-image:url('./assets/images/closer_white.svg');
   background-size:90%;
@@ -605,6 +627,8 @@ h2 {
   font-style:italic;
   color:#555555;
 }
+
+
 
 /*  ClearFix  -----------------------------------------------------------
 */

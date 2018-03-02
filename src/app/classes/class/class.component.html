@@ -1,3 +1,4 @@
+
 <div class='loomContainer' >
 <div *ngIf= 'currentCourse'>
 <div *ngIf='courseimageURL' class='mainImage group'
@@ -10,8 +11,13 @@
             <p class='dates'> {{ thisClass.start | date:'MMMM dd, yyyy' }} - {{ thisClass.end | date:'MMMM dd, yyyy' }}</p>
             <div class='instructors group'>
                     <h2>Your Instructors</h2>
-                    <div *ngFor='let instructor of instructorThumbnails' class='userThumb'>
-                        <user-thumb [thumbnail]='instructor'></user-thumb></div>
+                    <div *ngFor='let instructor of instructorThumbnails' class='userThumb' (click)='showIntructorMenu(instructor)'
+                    (clickOutside)='hideMenu(instructor)'>
+                        <user-thumb [thumbnail]='instructor'></user-thumb>
+                        <div class='tipContainer group'>
+                                <div class='tip' *ngIf='instructor.hot' (click)='message(instructor)'>send message</div>
+                            </div>
+                    </div>
                 </div>
         </div>
 </div>
@@ -25,15 +31,26 @@
 
         <div class='students group'>
                 <h1>Your Fellow Students</h1>
-                <div *ngFor='let student of studentThumbnails' class='userThumb'>
-                    <user-thumb [thumbnail]='student'></user-thumb></div> </div>
+                <div *ngFor='let student of studentThumbnails' class='userThumb' 
+                (click)='showMenu(student)' (clickOutside)='hideMenu(student)'>
+                <!-- <button [matMenuTriggerFor]="menu2" class='thumbButton'> -->
+                    <user-thumb [thumbnail]='student'></user-thumb>
+                    <!-- </button>
+                        <mat-menu #menu2="matMenu">
+                            <a href="" [routerLink]="['/welcome']">
+                                <button mat-menu-item>send a message to {{student.user.username}}</button></a>
+                        </mat-menu> -->
+                        <div class='tipContainer group'>
+                    <div class='tip' *ngIf='student.hot' (click)='message(student)'>send message</div>
+                </div>
+                </div> 
         </div>
   
-        <div class='messagesButtonContainer group'>
+        <!-- <div class='messagesButtonContainer group'>
         <div class='messagesButton' (click)='openMessaging()' *ngIf='!messaging'></div><p  *ngIf='!messaging' >Messages</p>
         <div class='courseworkButton' (click)='closeMessaging()' *ngIf='messaging' ></div><p  *ngIf='messaging'>
             Coursework</p>
-        </div>    
+        </div>     -->
         
 
 
@@ -50,7 +67,7 @@
                        {{section.title}} </div></div>
                 </div></div>
 
-                
+                <div class='navArrows'>
                 <div class='nextSection' (click)='nextSection()'
                 *ngIf="sectionNumber < (currentCourse.sections.length-1)"></div>
                 <div class='nextSection hidden'
@@ -59,6 +76,7 @@
                 <div class='prevSection' (click)='prevSection()' *ngIf="sectionNumber > 0"></div>
                 <div class='prevSection hidden' *ngIf="sectionNumber < 1"></div>
                  </div>
+                </div>
 
         
                 
@@ -77,13 +95,13 @@
                  </div>
         </div>
 
-        <div *ngIf='messaging'>
+        <!-- <div *ngIf='messaging'>
             <messaging
                     [thisClass]='thisClass' 
                     [students]='students'
                     [instructors]='instructors'
             ></messaging>
-        </div>
+        </div> -->
         
 
     </div>

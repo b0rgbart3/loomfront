@@ -21,14 +21,42 @@
 <a [routerLink]="['/welcome']"><div class='easyHomeButton'>
 	THE RECLAIMING LOOM
 </div></a>
+
+<div class='quickMessageDoc'>
+		<div [class]='messageListStyle' 
+		(click)='checkFresh();openMessageList()' (clickOutside)='closeMessageList()'></div>
+	<div class='messageListContainer group' *ngIf='showingMessageList'>
+			<div class='messageList group'>
+				<div *ngIf='!freshList'>
+				<p>No new messages.</p>	
+				</div>
+				<div *ngIf='freshList'>
+					<div *ngFor='let msg of freshList' class='msgLine group'
+					 (click)="openMsg(msg.thumbnail)">
+						<user-thumb [thumbnail]='msg.thumbnail' class='listThumb'></user-thumb>
+						<div class='message'>
+						<h1>{{ msg.thumbnail.user.username }}</h1>
+						<p>{{ msg.last_message}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+
+	
+	
 <div *ngIf="username" class='userPic'>
-<p>You are logged in as:<br><span class='username'>
-	{{ username }}</span>&nbsp; {{  currentUser.id }}
+<p>You are logged in as:<span class='username'>
+	{{ username }}</span>
 </p>
 
 	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
 
 
 </div>
+
+
+
 </div>
 </div>

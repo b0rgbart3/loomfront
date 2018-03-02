@@ -395,7 +395,7 @@ getUserFromMemoryById( queryID: string): User {
                       this.username = this.currentUser.username;
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
                     } else {
-                      //console.log('user not yet signed up.'); 
+                      // console.log('user not yet signed up.'); 
                     }
                      },
            (error) => { this.errorMessage = error; }

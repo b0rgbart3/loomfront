@@ -21,6 +21,7 @@ import { ClassResolver } from '../resolvers/class-resolver.service';
 import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { MessageService } from '../services/message.service';
 
 @NgModule ( {
     imports: [
@@ -47,10 +48,12 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
         ClassThumbComponent,
       //   ImageUploaderComponent,
         ClickOutsideDirective,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+
     ],
     providers: [
         ClassResolver,
+        MessageService
     ],
     exports: [
         CommonModule,

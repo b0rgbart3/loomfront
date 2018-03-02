@@ -150,13 +150,7 @@ export class DiscussionComponent implements OnInit, OnChanges {
 
   }
 
-//   toggleDiscussion() {
-//     if (this.discussing) {
-//         this.closeDiscussion();
-//     } else {
-//         this.openDiscussion();
-//     }
-// }
+
  openDiscussion() {
    this.settings.discussing = true;
    this.saveDiscussionSettings();

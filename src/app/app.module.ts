@@ -79,7 +79,10 @@ import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.ser
 import { NotesComponent } from './discuss/notes.component';
 import { NotesSettingsResolver } from './resolvers/notes-settings-resolver';
 import { NotesService } from './services/notes.service';
-import { MessagingComponent } from './discuss/messaging.component';
+import { MessageComponent } from './discuss/message.component';
+import { MessagesResolver } from './resolvers/messages-resolver';
+import { MessageService } from './services/message.service';
+import { Ng2ScrollableModule } from 'ng2-scrollable';
 
 @NgModule({
   // External
@@ -90,6 +93,7 @@ import { MessagingComponent } from './discuss/messaging.component';
     EmbedVideo.forRoot(),
     FileUploadModule,
     HttpClientModule,
+    Ng2ScrollableModule
   ],
   // Internal
   declarations: [
@@ -128,8 +132,7 @@ import { MessagingComponent } from './discuss/messaging.component';
     ResetComponent,
     CourseComponent,
     NotesComponent,
-    MessagingComponent
-
+    MessageComponent,
 
   ],
   providers: [
@@ -166,7 +169,9 @@ import { MessagingComponent } from './discuss/messaging.component';
     AllInstructorAssignmentsResolver,
     ClassMaterialsResolver,
     NotesService,
-    NotesSettingsResolver
+    NotesSettingsResolver,
+    MessageService,
+    MessagesResolver
 
    ],
   bootstrap: [ AppComponent ]

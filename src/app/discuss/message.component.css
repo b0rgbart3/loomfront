@@ -1,0 +1,148 @@
+.messageContainer {
+    background-color:white;
+    border:1px solid #777777;
+    border-radius:3px;
+    overflow: hidden;
+    box-shadow:0 0px 20px rgba(10,10,10,1);
+    position: fixed;
+   bottom:10px;
+   right:10px;
+   width:340px;
+   height:380px;
+   z-index:40;
+   font-family:'Roboto', sans-serif;
+}
+
+.toolbar {
+    height:29px;
+    background-color:#cccccc;
+    padding-top:6px;
+    padding-left:6px;
+    box-sizing: border-box;
+    font-size:.85em;
+}
+
+.footer {
+    height: 40px;
+    position:fixed;
+    bottom:20px;
+    background-color:#cccccc;
+    width:100%;
+}
+
+.msgInput {
+    width:200px;
+    height:40px;
+    padding:4px;
+    box-sizing: border-box;
+    font-size:1em;
+    outline:none;
+    border:none;
+    background-color:white;
+    border-radius:4px;
+    box-shadow: 0 0 4px rgba(0,0,0,.5);
+    display:inline-block;
+    float:left;
+}
+
+.replyButton {
+    background-image:url('../../assets/images/post.svg');
+    width:40px;
+    height:40px;
+    background-size:40px 40px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius:50%;
+    border:2px solid rgba(0,0,0,0);
+    transition:all .5s;
+    display:inline-block;
+    float:left;
+    vertical-align: top;
+}
+
+.replyButton:active {
+    background-color:white;
+    box-shadow:0 0 8px rgba(0,0,0,.5);
+
+}
+
+.msgReplies {
+}
+
+.bubleContainer {
+    width:340px;
+    height:300px;
+    position: relative;
+    overflow:auto;
+}
+
+.bubble {
+    margin-bottom:0px;
+    padding:12px;
+    box-sizing: border-box;
+    width:80%;
+    border-radius:8px;
+    font-size:.9em;
+
+}
+
+.speaker {
+    background-color:rgb(209, 209, 209);
+    float:right;
+    margin:0;
+    margin-right:12px;
+    
+}
+
+.speaker_tail {
+    margin:0;
+    padding:0;
+    background-image:url('../../assets/images/speaker_tail.svg');
+    background-size:30px 10px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    width:30px;
+    height:10px;
+    float:right;
+    display:block;
+    border-radius:0;
+    border:none;
+}
+
+.other {
+    background-color:#88dd99;
+    float:left;
+    margin:0;
+    margin-left:12px;
+
+}
+
+.other_tail {
+    margin:0;
+    padding:0;
+    background-image:url('../../assets/images/other_tail.svg');
+    background-size:30px 10px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    width:30px;
+    height:10px;
+    float:left;
+    display:block;
+    border-radius:0;
+    border:none;
+}
+
+#s3 {
+    width:100%;
+    height:40px;
+    margin-bottom:10px;
+}
+
+.bubbleLine {
+    padding-bottom:18px;
+    box-sizing: border-box;
+  }
+
+.heavy {
+    font-weight: 900;
+}

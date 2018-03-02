@@ -1,0 +1,28 @@
+<div class='messageContainer' *ngIf='display'>
+    <div class='toolbar'>
+        Message To: <span class='heavy'> {{toUser.username }}</span>
+        <div class='smallCloser' (click)='closeMsgr()'></div>
+    </div>
+    
+    <div *ngIf='currentMessage' class='bubleContainer scrollable' id="v-scrollable" ng2-scrollable (click)='scrollMe()'>
+
+        <div class='msgReplies' *ngFor='let reply of currentMessage.msgList'>
+            <div class='bubbleLine' *ngIf='reply.user_id === userService.currentUser.id' >
+            <div class='bubble speaker'>{{ reply.message }}</div><br clear='all'>
+            <div class='speaker_tail'></div></div>
+            <div class='bubbleLine' *ngIf='reply.user_id !== userService.currentUser.id'>
+            <div class='bubble other'>{{ reply.message }}</div><br clear='all'>
+            <div class='bubble other_tail'></div></div>
+        </div>
+
+        <div id='s3'></div>
+    </div>
+
+    <div class='footer'>
+        <form [formGroup]="msgForm">
+                <input id="msg"  placeholder="your message..." formControlName="msg" class='msgInput' (click)="scrollMe()">
+                <div class='replyButton' (click)='sendMsg()'></div>
+        </form>
+    </div>
+</div>
+

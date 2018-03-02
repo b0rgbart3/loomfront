@@ -34,6 +34,7 @@ import { InstructorAssignmentsResolver } from './resolvers/instructorassignments
 import { EnrollmentsResolver } from './resolvers/enrollments-resolver';
 import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.service';
 import { NotesSettingsResolver } from './resolvers/notes-settings-resolver';
+import { MessagesResolver } from './resolvers/messages-resolver';
 
 
 
@@ -46,19 +47,20 @@ resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'home', component: HomeComponent, resolve: { users: UsersResolver,
     classes: ClassesResolver, courses: CoursesResolver,
      studentenrollments: StudentEnrollmentsResolver,
-     instructorassignments: InstructorAssignmentsResolver
+     instructorassignments: InstructorAssignmentsResolver,
+     messages: MessagesResolver
 } },
 
 // This is a component-less parent route that only has one child (so far)
 // but this allows me to resolve the class data before loading the child (section)
 { path: 'classes/:id', resolve: { thisClass: ClassResolver, users: UsersResolver,
-    enrollments: EnrollmentsResolver, allMaterials: MaterialsResolver, courses: CoursesResolver},
+    enrollments: EnrollmentsResolver, allMaterials: MaterialsResolver, courses: CoursesResolver, messages: MessagesResolver},
   children: [ {
       path: ':id2', pathMatch: 'full', component: ClassComponent,
 resolve: {
     thisCourse: ClassCourseResolver, classMaterials: ClassMaterialsResolver,
     discussionSettings: DiscussionSettingsResolver,
-    notesSettings: NotesSettingsResolver  } }]
+    notesSettings: NotesSettingsResolver, messages: MessagesResolver  } }]
 },
 
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
@@ -72,6 +74,10 @@ resolve: {
     exports: [RouterModule]
 })
 
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+
+
+ }
 
 

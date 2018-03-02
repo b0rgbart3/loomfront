@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
+import { Component, OnInit, DoCheck, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../../services/course.service';
 import { User } from '../../models/user.model';
@@ -18,7 +18,8 @@ import { DiscussionSettings } from '../../models/discussionsettings.model';
 import { DiscussionService } from '../../services/discussion.service';
 import { EnrollmentsService } from '../../services/enrollments.service';
 import { NotesSettings } from '../../models/notessettings.model';
-
+import { ClickOutsideDirective } from '../../_directives/clickOutside.directive';
+import { MessageService } from '../../services/message.service';
 
 @Component({
 
@@ -28,6 +29,8 @@ import { NotesSettings } from '../../models/notessettings.model';
 })
 
 export class ClassComponent implements OnInit {
+
+   // @Output() sendMsg: EventEmitter<{}> = new EventEmitter<{}>();
     classID: string;
     thisClass: ClassModel;
     errorMessage: string;
@@ -64,6 +67,7 @@ export class ClassComponent implements OnInit {
     private materialService: MaterialService,
     private discussionService: DiscussionService,
     private enrollmentService: EnrollmentsService,
+    private messageService: MessageService,
     private globals: Globals ) {
     }
 
@@ -111,8 +115,10 @@ export class ClassComponent implements OnInit {
 
        // console.log('Students: ' + JSON.stringify(this.studentIDList) );
        // console.log('Instructors: ' + JSON.stringify(this.instructorIDList) );
-        this.instructorThumbnails = this.instructors.map( instructor => this.createInstructorThumbnail(instructor) );
-        this.studentThumbnails = this.students.map( student => this.createStudentThumbnail(student) );
+        this.instructorThumbnails = this.instructors.map(
+            instructor => this.createInstructorThumbnail(instructor) );
+        this.studentThumbnails = this.students.map( student =>
+            this.createStudentThumbnail(student) );
 
         // Since we can't load the course data in a resolver (no way to access the
         // course ID # from the class object except inside a component), we
@@ -155,13 +161,43 @@ export class ClassComponent implements OnInit {
 
     }
 
-    openMessaging() {
-        this.messaging = true;
+    message(student) {
+        this.hideMenu(student);
+        console.log('sending message');
+        // this.messageService.launchMsg(student);
+        // this.sendMsg.emit(student);
+        this.messageService.sendMessage(student);
     }
 
-    closeMessaging() {
-        this.messaging = false;
+    showIntructorMenu(instructor) {
+        if (!instructor.hot) {
+            this.instructorThumbnails.map( thumbnail => thumbnail.hot = false );
+            if (this.userService.currentUser.id !== instructor.user.id) {
+            instructor.hot = true; }
+            console.log('showing menu');
+            }
     }
+    showMenu(student) {
+        if (!student.hot) {
+        this.studentThumbnails.map( thumbnail => thumbnail.hot = false );
+        if (this.userService.currentUser.id !== student.user.id) {
+        student.hot = true;
+        }
+        console.log('showing menu');
+        }
+    }
+
+    hideMenu(student) {
+        student.hot = false;
+    }
+
+    // openMessaging() {
+    //     this.messaging = true;
+    // }
+
+    // closeMessaging() {
+    //     this.messaging = false;
+    // }
     // loadMaterials() {
     //     console.log('In loadMaterials()');
     //     console.log('currentCourse: ' + JSON.stringify(this.currentCourse.image));
@@ -242,13 +278,13 @@ export class ClassComponent implements OnInit {
 
     createInstructorThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff' };
+            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false };
         return thumbnailObj;
     }
 
     createStudentThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff' };
+            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false };
         return thumbnailObj;
     }
 
