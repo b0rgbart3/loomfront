@@ -56,13 +56,13 @@ export class UserService implements OnInit {
   private userCount = 0;
   users: User[];
   errorMessage: string;
+  usersLoaded: boolean;
 
   public token: string;
   public username;
   public color: string;
 
   private base_path;
-  private _usersUrl;
   resetUrl;
   private _avatarsUrl;
   private _classregistrationsUrl;
@@ -77,7 +77,7 @@ export class UserService implements OnInit {
     this.username = thisUser && thisUser.username;
 
     this.base_path = globals.basepath;
-     this._usersUrl = this.base_path + 'api/users';
+    // this._usersUrl = this.base_path + 'api/users';
      this._userSettingsUrl = this.base_path + 'api/usersettings';
      this._avatarsUrl = this.base_path + 'api/avatars';
      this._classregistrationsUrl = this.base_path + 'api/classregistrations';
@@ -98,6 +98,7 @@ export class UserService implements OnInit {
 
     // Apparently this lifecycle hook doesn't work for 'services'.
     // console.log ('In user service, ngOnInit');
+    this.usersLoaded = false;
     this.subscribeToUsers();
     this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
   }
@@ -105,6 +106,9 @@ export class UserService implements OnInit {
   subscribeToUsers() {
     this.getUsers().subscribe(
       users =>  {this.users = users;
+        if (this.users && this.users.length > 1) {
+          this.usersLoaded = true;
+        } else { this.usersLoaded = false; }
       },
       error => this.errorMessage = <any>error);
     }
@@ -180,7 +184,7 @@ getUserFromMemoryById( queryID: string): User {
 }
     getUser( id: string ): Observable<any> {
 
-      return this._http.get<User> ( this._usersUrl + '?id=' + id )
+      return this._http.get<User> ( this.globals.users + '?id=' + id )
       .do(data => {
         if (data[0].avatar_URL === null) {
           data[0].avatar_URL = this._avatar_image_url + 'placeholder.jpg';
@@ -216,10 +220,15 @@ getUserFromMemoryById( queryID: string): User {
 
     getUsers(): Observable<any> {
       // console.log ('In user service, gettingUsers');
-      return this._http.get <User[]> (this._usersUrl)
+      return this._http.get <User[]> (this.globals.users)
         // debug the flow of data
         .do(data => {
-          // console.log('Got Users data.');
+
+          if (typeof data === 'string') {
+            // if we got a string back instead of an object  -then it's ACTUALLY an error.
+            return data;
+          } else {
+          console.log('Got Users data.');
           this.users = data;  // store a local copy - even though this method is usually called
                               // from an outside component
           for (let i = 0; i < this.users.length; i++ ) {
@@ -250,18 +259,20 @@ getUserFromMemoryById( queryID: string): User {
           // console.log('hightestID: ' + this.highestID );
          }
          // console.log('Users\'s highest ID: ' + this.highestID);
-        return this.users;
+         if (this.users && this.users.length > 0) {
+        return this.users; } else { return null; }
+         }
         }
         )
         .catch( this.handleError );
     }
 
     getUsersettings(id): Observable<any> {
-      return this._http.get( this._usersUrl + '?id=' + id);
+      return this._http.get( this.globals.users + '?id=' + id);
     }
 
     deleteUser(userId: number): Observable<any> {
-      return this._http.delete( this._usersUrl + '?id=' + userId);
+      return this._http.delete( this.globals.users + '?id=' + userId);
     }
 
     createUser(userObject: User): Observable<any> {
@@ -286,7 +297,7 @@ getUserFromMemoryById( queryID: string): User {
         if (this.findUserByEmail(userObject.email) != null) {
           return Observable.of('We\'re sorry but an account with that Email address already exists.');
         } else {
-        return this._http.put(this._usersUrl + '?id=0', userObject, {headers: myHeaders} ); }
+        return this._http.put(this.globals.users + '?id=0', userObject, {headers: myHeaders} ); }
       }
 
     }
@@ -297,7 +308,7 @@ getUserFromMemoryById( queryID: string): User {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(userObject);
-      return this._http.put(this._usersUrl + '?id=' + userObject.id , userObject, {headers: myHeaders} );
+      return this._http.put(this.globals.users + '?id=' + userObject.id , userObject, {headers: myHeaders} );
     }
 
 
@@ -310,7 +321,7 @@ getUserFromMemoryById( queryID: string): User {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-      return this._http.put(this._usersUrl + '?id=' + this.currentUser.id, this.currentUser, {headers: myHeaders} );
+      return this._http.put(this.globals.users + '?id=' + this.currentUser.id, this.currentUser, {headers: myHeaders} );
 
     }
 
@@ -335,7 +346,7 @@ getUserFromMemoryById( queryID: string): User {
         .catch (this.handleError);
     }
 
-    resetPassword( resetObject: Reset ):Observable<any> {
+    resetPassword( resetObject: Reset ): Observable<any> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
@@ -395,7 +406,7 @@ getUserFromMemoryById( queryID: string): User {
                       this.username = this.currentUser.username;
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
                     } else {
-                      // console.log('user not yet signed up.'); 
+                      // console.log('user not yet signed up.');
                     }
                      },
            (error) => { this.errorMessage = error; }

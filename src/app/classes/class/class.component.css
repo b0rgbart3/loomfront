@@ -136,7 +136,7 @@ margin:0;
     box-shadow: 4px 4px 4px rgba(0,0,0,.5);
 }
 
-.flexcroll {
+/* .flexcroll {
 
 }
 .flexcroll::-webkit-scrollbar {
@@ -148,9 +148,9 @@ margin:0;
     border-radius: 0px;
     background: #363636; 
     -webkit-box-shadow: inset 4px 4px 6px rgba(0,0,0,0.5); 
-}
+} */
 /* Handle */
-.flexcroll::-webkit-scrollbar-thumb {
+/* .flexcroll::-webkit-scrollbar-thumb {
     -webkit-border-radius: 12px;
     background: #545a7a;
     border:2px solid #1b2035;
@@ -176,7 +176,7 @@ margin:0;
 .full {
 
 }
-    
+     */
 
 
 .largeFunButton {
@@ -267,10 +267,7 @@ margin:0;
     cursor:pointer;
     user-select:none;
     box-sizing: border-box;
-
 }
-
-
 
 .sectionNavItem {
     width:100%;
@@ -362,33 +359,10 @@ margin:0;
     color:rgba(255,255,255,.6);
 }
 
-.instructors .userThumb {
- margin-left:0;
- margin-right:.5%;
- position: relative;
- left:-20px;
-}
 
-.userThumb {
-    display:inline-block;
-    vertical-align: top;
-    padding-left:10px;
-    padding-right:10px;
-}
-
-
-
-.students .userThumb {
-    opacity:.6;
-    margin-bottom:8px;
-}
-
-.students .userThumb:hover {
-    opacity:1;
-}
   
 
-.slideColumn {
+/* .slideColumn {
     display:inline-block;
     background-color:rgba(100,100,100,1);
 }
@@ -408,7 +382,6 @@ margin:0;
 }
 
 
-
 .leftButton {
     background-image:url('../../../assets/images/left.svg');
   
@@ -420,146 +393,8 @@ margin:0;
 
 .stackDownButton {
     background-image:url('../../../assets/images/stack_down.svg');
-}
-
-
-
-/* .grabber {
-    width:74px;
-    height:32px;
-    background-color:#777777;
-    display:inline-block;
-    vertical-align: top;
-    border-radius:0px 0px 0px 8px;
-    cursor:pointer;
-    user-select: none;
-    border-left: 2px solid #aaaaaa;
-    border-top: 2px solid #aaaaaa;
-    border-bottom:2px solid #333333;
-    border-right:2px solid #333333;
-    box-shadow: 4px 4px 4px rgba(0,0,0,.4);
-    background-image:url('../../../assets/images/brail.svg');
-    background-size:40px 20px;
-    background-repeat: no-repeat;
-    position:relative;
-    top:-2px;
-    left:-1px;
-    background-position: 4px 4px;
-}
-
-.grabber:hover {
-    background-color:#bbbbbb;
-    
-    
-}
-
-.grabber:active {
-  background-color: #444444;
-  position: relative;
-  border:2px solid black;
-  top:0px;
-  left:1px;
-}
-
-.grabber:active {
-    color:black;
-}
-
-.grabRight {
-    float:right;
-}
-
-.grabLeft {
-    float:left;
 } */
 
-
-/* 
-.messagesButtonContainer {
-background-color:rgb(25, 25, 37);
-height:104px;
-text-align:center;
-}
-
-.courseworkButton {
-    background-image:url('../../../assets/images/coursework.svg');
-    background-size:50px 50px;
-    width:60px;
-    height:60px;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    display:inline-block;
-    vertical-align: top;
-
-    border-radius:50%;
-    margin-top:8px;
-}
-.messagesButton {
-    background-image:url('../../../assets/images/messages.svg');
-    background-size:50px 50px;
-    width:60px;
-    height:60px;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    display:inline-block;
-    vertical-align: top;
-
-    border-radius:50%;
-    margin-top:8px;
-}
-
-.messagesButtonContainer p {
-    font-family: 'Josefin Sans';
-    color:white;
-    text-transform: uppercase;
-    font-size:.9em;
-    margin-top:4px;
-    text-align:center;
-}
-
-.messagesButton:active {
-    background-image:url('../../../assets/images/messages_hi.svg');
-    background-size:60px 60px;
-} */
-
-.tipContainer {
-    position: relative;
-    top:0px;
-    z-index: 50;
-    width:80px;
-    height:1px;
-    margin-left:auto;
-    margin-right:auto;
-    background-color:rgba(0,0,0,0);
-    border:0;
-}
-.tip {
-    padding:6px;
-    color:white;
-    user-select: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-size:.8em;
-    width:100px;
-    height:28px;
-    border-radius:6px;
-    margin-left:auto;
-    margin-right:auto;
-    position:relative;
-    top:-45px;
-    left:-10px;
-    background-color:white;
-    color:black;
-    padding-bottom:16px;
-    border:2px solid black;
-    transition: all .5s;
-}
-
-.tip:active {
-    background-color:rgb(12, 171, 245);
-    color:black;
-    border:2px solid black;
-}
 
 @media screen and (max-width: 990px) {
     .topContent h1 {

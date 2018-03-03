@@ -10,28 +10,25 @@
 	<a *ngIf='admin' [routerLink]="['/coursebuilder']"><button mat-menu-item>Course Builder</button></a>
 	<a *ngIf='admin' [routerLink]="['/enrollments']"><button mat-menu-item>Enrollments</button></a>
 	<a *ngIf='admin' [routerLink]="['/admin']"><button mat-menu-item>Admin</button></a>
-	<a  *ngIf="currentUser" (click)="gotoSettings()"><button mat-menu-item>My Settings</button></a>
-	<a *ngIf="currentUser" (click)="logout()"><button mat-menu-item>Logout</button></a>
-
 	<a  *ngIf="!currentUser" [routerLink]="['/signup']"><button mat-menu-item>Sign up</button></a>
 	<a   *ngIf="!currentUser" [routerLink]="['/login']">
 		<button mat-menu-item>Login</button></a>
 </mat-menu>
 
-<a [routerLink]="['/welcome']"><div class='easyHomeButton'>
+<a [routerLink]="['/home']"><div class='easyHomeButton'>
 	THE RECLAIMING LOOM
 </div></a>
 
-<div class='quickMessageDoc'>
+<div class='quickMessageDoc' *ngIf='userService.currentUser'>
 		<div [class]='messageListStyle' 
 		(click)='checkFresh();openMessageList()' (clickOutside)='closeMessageList()'></div>
 	<div class='messageListContainer group' *ngIf='showingMessageList'>
 			<div class='messageList group'>
-				<div *ngIf='!freshList'>
-				<p>No new messages.</p>	
+				<div *ngIf='!freshList && !list'>
+				<p>No messages found.</p>	
 				</div>
 				<div *ngIf='freshList'>
-					<div *ngFor='let msg of freshList' class='msgLine group'
+					<div *ngFor='let msg of freshList' class='msgFreshLine group'
 					 (click)="openMsg(msg.thumbnail)">
 						<user-thumb [thumbnail]='msg.thumbnail' class='listThumb'></user-thumb>
 						<div class='message'>
@@ -40,21 +37,37 @@
 						</div>
 					</div>
 				</div>
+				<div *ngIf='list'>
+						<div *ngFor='let msg of list' class='msgLine group'
+						 (click)="openMsg(msg.thumbnail)">
+							<user-thumb [thumbnail]='msg.thumbnail' class='listThumb'></user-thumb>
+							<div class='message'>
+							<h1>{{ msg.thumbnail.user.username }}</h1>
+							<p>{{ msg.last_message}}</p>
+							</div>
+						</div>
+					</div>
 			</div>
 	</div>
 </div>
 
-	
-	
-<div *ngIf="username" class='userPic'>
-<p>You are logged in as:<span class='username'>
-	{{ username }}</span>
-</p>
-
-	<img *ngIf="avatarimage" [src]="avatarimage" class='avatar'>
-
-
+<div class='avatarMenuDoc'>
+		<img *ngIf="avatarimage" [src]="avatarimage" class='avatar' 
+		(click)='openAvatarMenu()' (clickOutside)='closeAvatarMenu()'>
+<div class='avatarMenu' *ngIf='showAvatarMenu'>
+	<div class='avatarMenuItem' *ngIf='userService.currentUser' (click)="gotoSettings()">
+		My Settings
+	</div>
+	<div class='avatarMenuItem' *ngIf='userService.currentUser' (click)="logout()">
+		Logout
+		</div>
 </div>
+</div>
+
+<p *ngIf='username' class='userName'>
+	<span id='logLabel'>You are logged in as:</span><br>
+	<span class='usernameOnly'>{{ username }}</span>
+</p>
 
 
 

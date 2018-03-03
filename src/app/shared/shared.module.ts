@@ -22,6 +22,7 @@ import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { MessageService } from '../services/message.service';
+import { ConnectionComponent } from './connection.component';
 
 @NgModule ( {
     imports: [
@@ -49,6 +50,7 @@ import { MessageService } from '../services/message.service';
       //   ImageUploaderComponent,
         ClickOutsideDirective,
         PageNotFoundComponent,
+        ConnectionComponent
 
     ],
     providers: [
@@ -76,7 +78,8 @@ import { MessageService } from '../services/message.service';
         ClassThumbComponent,
         // ImageUploaderComponent,
         ClickOutsideDirective,
-        FlashMessagesModule
+        FlashMessagesModule,
+        ConnectionComponent
     ]
 
 })

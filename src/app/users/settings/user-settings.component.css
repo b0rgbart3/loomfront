@@ -4,8 +4,18 @@
     margin-left:auto;
     margin-right:auto;
     background-color:#cccccc;
+
 }
 
 .avatar {
     width:200px;
+}
+
+.bioArea {
+    background-color:rgba(255,255,255,.5);
+    padding:10px;
+    line-height:1.6em;
+    width:97%;
+    font-size:.95em;
+    border-radius:4px;
 }

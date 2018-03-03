@@ -24,7 +24,7 @@ import { MessageService } from '../../services/message.service';
 @Component({
 
   templateUrl: './class.component.html',
-  styleUrls: ['./class.component.css'],
+  styleUrls: ['./class.component.css', './bios.css'],
   providers: [CourseService]
 })
 
@@ -50,6 +50,7 @@ export class ClassComponent implements OnInit {
     section: Section;
     instructorThumbnails: Userthumbnail[];
     studentThumbnails: Userthumbnail[];
+    studentBioThumbnails: Userthumbnail[];
     showingSectionMenu: boolean;
     currentUser: User;
     COURSE_IMAGE_PATH: string;
@@ -120,6 +121,9 @@ export class ClassComponent implements OnInit {
         this.studentThumbnails = this.students.map( student =>
             this.createStudentThumbnail(student) );
 
+        this.studentBioThumbnails = this.students.map( student =>
+        this.createStudentBioThumbnail(student) );
+
         // Since we can't load the course data in a resolver (no way to access the
         // course ID # from the class object except inside a component), we
         // instead, will subscribe to the course data here (this ngOnInit method
@@ -148,12 +152,7 @@ export class ClassComponent implements OnInit {
                 if (this.currentCourse && this.currentCourse.sections) {
 
                 this.section = this.currentCourse.sections[this.sectionNumber];
-                // this.discussionService.getDiscussionSettings
-                // tslint:disable-next-line:comment-format
-                //(this.userService.currentUser.id, this.classID, this.sectionNumber).subscribe(
-                //     data => {if (data) { this.discussionSettings = data[0]; } },
-                //     error => console.log('errror getting discussion settings.')
-                // );
+
             }
 
             }
@@ -163,9 +162,6 @@ export class ClassComponent implements OnInit {
 
     message(student) {
         this.hideMenu(student);
-        console.log('sending message');
-        // this.messageService.launchMsg(student);
-        // this.sendMsg.emit(student);
         this.messageService.sendMessage(student);
     }
 
@@ -191,73 +187,7 @@ export class ClassComponent implements OnInit {
         student.hot = false;
     }
 
-    // openMessaging() {
-    //     this.messaging = true;
-    // }
 
-    // closeMessaging() {
-    //     this.messaging = false;
-    // }
-    // loadMaterials() {
-    //     console.log('In loadMaterials()');
-    //     console.log('currentCourse: ' + JSON.stringify(this.currentCourse.image));
-
-
-    //          // It doesn't make sense to me to try to load in the materials based on the course ID
-    //          // because the course ID is not stored in the material objects in the DB
-    //          // (this was done intentionally so that the materials could be used in more
-    //         // than one course -- so they are course agnostic shall we say).
-    //         // Instead what we have is a list of ID's in each section, that need to get
-    //         // their associated Material Objects loaded in.
-
-
-    //        //  console.log('getting materials for course id: ' + this.currentCourse.id);
-
-    //         //  this.materialService.getMaterials(this.currentCourse.id).subscribe (
-    //         //      courseMaterials => {
-    //         //          console.log('data from aPI:');
-    //         //          console.log(JSON.stringify(courseMaterials));
-    //         //         // this is a full, un-organized array of all the materials used in this course
-    //         //         this.courseMaterials = courseMaterials;
-
-    //         //         // the next step is to organize all of that courseMaterial into materialCollections
-    //         //         // based on section #
-    //         //         this.buildMaterialCollections();
-    //         //     // since we've just loaded in the courseMaterials, let's go ahead and
-    //         //     // organize them into collections for each section
-
-    //         //     }, error => console.log(error) ); } );
-    // }
-
-    // buildMaterialCollections() {
-    //     console.log('Materials: ');
-    //     console.log(JSON.stringify(this.materials));
-    //     this.materialCollections = [];
-    //     for (let i = 0; i < this.currentCourse.sections.length; i++ ) {
-    //         const thisSection = this.currentCourse.sections[i];
-    //         const thisSectionList = [];
-    //         for (let j = 0; j < thisSection.materials.length; j++ ) {
-    //             const thisMatID = thisSection.materials[j];
-
-    //             // now look for and grab the material object that has this id # from our components main material array,
-    //             // and copy it into our collection-list for this section.
-    //             for (let k = 0; k < this.courseMaterials.length; k++) {
-    //                 if (this.courseMaterials[k].id === thisMatID) {
-    //                     // found it.
-    //                     thisSectionList.push(this.courseMaterials[i]); // copy it
-    //                 }
-    //             }
-    //         }
-    //         // after we've grouped all of the materials for this section into a list,
-    //         // now we can send that list to the material Service to organize it into
-    //         // a tidy material collection, which we will store in our component's array (MaterialCollections)
-
-    //         if (thisSectionList) {
-    //         const thisMaterialCollection = this.materialService.sortMaterials(thisSectionList);
-    //         this.materialCollections.push(thisMaterialCollection);
-    //         }
-    //     }
-    // }
     onSectionChange(newSectionNumber) {
         this.sectionNumber = newSectionNumber;
         this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
@@ -277,14 +207,19 @@ export class ClassComponent implements OnInit {
     }
 
     createInstructorThumbnail(user) {
-        const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false };
+        const thumbnailObj = { user: user, user_id: user.id, online: false,
+            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
         return thumbnailObj;
     }
 
     createStudentThumbnail(user) {
-        const thumbnailObj = { user: user, user_id: user.id, editable: false, inRoom: true,
-            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false };
+        const thumbnailObj = { user: user, user_id: user.id, online: false,
+            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
+        return thumbnailObj;
+    }
+    createStudentBioThumbnail(user) {
+        const thumbnailObj =  { user: user, user_id: user.id, online: false,
+            size: 200,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'square' };
         return thumbnailObj;
     }
 

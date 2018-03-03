@@ -23,35 +23,28 @@
 </div>
 
 
-
-
     <div class='mainPage'>
 
         <div class='rollcall group'>
 
         <div class='students group'>
                 <h1>Your Fellow Students</h1>
-                <div *ngFor='let student of studentThumbnails' class='userThumb' 
+                <div *ngFor='let student of studentThumbnails; let i = index;' class='userThumb' 
                 (click)='showMenu(student)' (clickOutside)='hideMenu(student)'>
-                <!-- <button [matMenuTriggerFor]="menu2" class='thumbButton'> -->
-                    <user-thumb [thumbnail]='student'></user-thumb>
-                    <!-- </button>
-                        <mat-menu #menu2="matMenu">
-                            <a href="" [routerLink]="['/welcome']">
-                                <button mat-menu-item>send a message to {{student.user.username}}</button></a>
-                        </mat-menu> -->
+                        <user-thumb [thumbnail]='student' class='button'></user-thumb>
+
                         <div class='tipContainer group'>
-                    <div class='tip' *ngIf='student.hot' (click)='message(student)'>send message</div>
-                </div>
-                </div> 
-        </div>
+                            <div class='popBio' *ngIf='student.hot'>
+                                <user-thumb [thumbnail]='studentBioThumbnails[i]' class='popThumb'></user-thumb>    
+                                <div class='userBio'>
+                                    {{ student.user.bio }}
+                                    <div class='tip' *ngIf='student.hot' (click)='message(student)'>send message</div>
+                                </div>
+                            </div>
+                        </div>
+                </div> <!-- end of thumbnails -->
+        </div> <!-- end of student group -->
   
-        <!-- <div class='messagesButtonContainer group'>
-        <div class='messagesButton' (click)='openMessaging()' *ngIf='!messaging'></div><p  *ngIf='!messaging' >Messages</p>
-        <div class='courseworkButton' (click)='closeMessaging()' *ngIf='messaging' ></div><p  *ngIf='messaging'>
-            Coursework</p>
-        </div>     -->
-        
 
 
         <div *ngIf='currentCourse && !messaging'>
@@ -63,8 +56,13 @@
                     <div class='menuLiner group'>
                 <div class='sectionNav' *ngFor='let section of this.currentCourse.sections; 
                 let s=index'>
-                   <div (click)="navigateTo(s)" class='sectionNavItem'>
-                       {{section.title}} </div></div>
+                   <div (click)="navigateTo(s)" class='sectionNavItem' *ngIf='s>0'>
+                          {{section.title}} 
+                    </div>
+                    <div (click)="navigateTo(s)" class='sectionNavItem' *ngIf='s===0'>
+                            Welcome
+                      </div>
+                </div>
                 </div></div>
 
                 <div class='navArrows'>
@@ -95,14 +93,6 @@
                  </div>
         </div>
 
-        <!-- <div *ngIf='messaging'>
-            <messaging
-                    [thisClass]='thisClass' 
-                    [students]='students'
-                    [instructors]='instructors'
-            ></messaging>
-        </div> -->
-        
 
     </div>
 
@@ -111,12 +101,4 @@
 </div>
 
 </div>
-
-<!-- 
-
-<div class='slideColumn {{boardStyle}} {{scrollable}} group flexcroll' *ngIf='discussing'
- [style.width.px]="boardWidth" [style.height.px] = "initialWindowHeight">
-
--->
-
 

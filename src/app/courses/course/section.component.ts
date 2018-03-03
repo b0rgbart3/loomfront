@@ -14,12 +14,11 @@ import { DiscussionSettings } from '../../models/discussionsettings.model';
 import { User } from '../../models/user.model';
 import { NotesSettings } from '../../models/notessettings.model';
 
-
 @Component({
     moduleId: module.id,
     selector: 'section',
     templateUrl: 'section.component.html',
-    styleUrls: ['section.component.css']
+    styleUrls: ['section.component.css'],
 })
 
 
@@ -42,7 +41,8 @@ export class SectionComponent implements OnInit, OnChanges {
     errorMessage: string;
     constructor (private materialService: MaterialService,
         private discussionService: DiscussionService,
-        private userService: UserService ) {}
+        private userService: UserService,
+        ) {}
 
     ngOnInit() {
 

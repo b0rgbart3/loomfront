@@ -1,7 +1,9 @@
 <!-- Section: {{ section.sectionNumber }}
 Notes Settings: Reading {{ notesSettings.reading }} -->
-<notes [settings]='notesSettings'></notes>
-<div class='section'>
+
+<div class='section' *ngIf='section.sectionNumber > 0'>
+    {{ section.sectionNumber }}
+    <notes [settings]='notesSettings'></notes>
     <h1> {{ section.title }} </h1>
 
     <div *ngIf='materialCollection && materialCollection.quotes && (materialCollection.quotes.length > 0)'>
@@ -17,7 +19,25 @@ Notes Settings: Reading {{ notesSettings.reading }} -->
     </div>
 <!-- <p>section:{{ section.sectionNumber }}</p> -->
 
-</div>
-
 <discussion [thisClass]="thisClass" [students]='students' [instructors]='instructors' 
 [section]='section' [settings]='discussionSettings'></discussion>
+
+</div>
+
+<div *ngIf='section.sectionNumber===0' class='section'>
+    <h1>Welcome</h1>
+    <p>Welcome to the {{thisClass.title}} course.  Your instructors and your fellow students are listed above.  
+        You can click on any of their avatars to find out more about them, and to send them a message.</p>
+        <p> Please review the Calendar and the Syllabus, as listed below, and if you have any questions, please send a message to your instructor. 
+        Thank you, and enjoy {{ thisClass.title}}!
+        </p><br>
+   <h1>Calendar</h1>
+   <p>These are the main dates you need to be aware of in order to follow along with the class. If your instructor adds or changes meeting dates, 
+       this page should have the most up-to-date information.</p>
+   <p><span class='calLabel'>Starts:</span>  {{ thisClass.start |  date }}</p>
+   <p><span class='calLabel'>Ends:</span> {{ thisClass.end | date }}</p>
+   <hr>
+    <h1>Syllabus</h1>
+    <h2>Section Title</h2>
+    <p>This is dummy content - where the syllabus information will go.  This is lorem ipsum text, designed to mimic what a real paragraph of actual content would look like.</p>
+</div>

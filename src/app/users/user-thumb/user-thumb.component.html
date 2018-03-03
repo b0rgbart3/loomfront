@@ -1,24 +1,16 @@
 <div class='userThumbWrapper'>
-<div [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" class='userThumb'>
+  <div [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" [ngClass]='thumbnail.shape'>
+    <div *ngIf='thumbnail.user !== undefined'>
+      <img [src]="avatarImageURL" *ngIf='avatarImageURL'
+        [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" >
+    </div>
+  </div>
 
-<div *ngIf='thumbnail.editable'>
-<a [routerLink]="['/usersettings', thumbnail.user.id, 'edit']">
-<img [src]="avatarImageURL" *ngIf='avatarImageURL'  [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size">
-</a></div>
 
-<div *ngIf='!thumbnail.editable && (thumbnail.user !== undefined)'>
-  <!-- <img [src]="avatarImageURL" *ngIf='avatarImageURL'
-  [ngStyle]="{ 'width': thumbnail.size, 'height':thumbnail.size }"> -->
-  <img [src]="avatarImageURL" *ngIf='avatarImageURL'
-  [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" >
+  <div *ngIf="thumbnail.user">
+    <h2 *ngIf='thumbnail.showUsername' [style.color]="thumbnail.textColor"> {{thumbnail.user.username}}</h2>
+    <p *ngIf='thumbnail.showInfo'> {{ thumbnail.user.firstname }}&nbsp;{{ thumbnail.user.lastname }}</p>
+    <p *ngIf='thumbnail.showInfo'> {{thumbnail.user.email}}</p>
+  </div>
 </div>
-
-</div>
-
-
-<div *ngIf="thumbnail.user">
-<h2 *ngIf='thumbnail.showUsername' [style.color]="thumbnail.textColor"> {{thumbnail.user.username}}</h2>
-<p *ngIf='thumbnail.showInfo'> {{ thumbnail.user.firstname }}&nbsp;{{ thumbnail.user.lastname }}</p>
-<p *ngIf='thumbnail.showInfo'> {{thumbnail.user.email}}</p>
-</div></div>
 

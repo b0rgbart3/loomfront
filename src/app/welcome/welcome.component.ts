@@ -38,7 +38,7 @@ export class WelcomeComponent implements OnInit {
             this.currentUser = this.userService.getCurrentUser();
 
             if (this.currentUser) {
-                this.router.navigate(['/home']);
+               // this.router.navigate(['/home']);
             this.username = this.currentUser.username; } else {
                 this.username = '';
             }

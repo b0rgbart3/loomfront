@@ -19,6 +19,7 @@ export class UserThumbComponent implements OnInit {
   selectedUser: User;
   errorMessage: string;
   inClass: string;
+  shapeClass: string;
 
   avatarImageURL: string;
 
@@ -26,18 +27,13 @@ export class UserThumbComponent implements OnInit {
 
   ngOnInit() {
 
-    if (this.thumbnail.inRoom) {this.inClass = 'userThumb inDaHouse'; } else {
-      this.inClass = 'userThumb notInDaHouse';
-    }
     if (!this.thumbnail.user) {
-      // console.log('loading in the user: ' + this.thumbnail.user_id);
+
      this.userService.getUser(this.thumbnail.user_id).subscribe(
         user =>  {this.thumbnail.user = user[0];
-          // console.log('found user: ' + JSON.stringify(this.thumbnail.user));
         },
         error => this.errorMessage = <any>error);
       }
-      // console.log( 'User: ' + JSON.stringify(this.user));
 
       this.avatarImageURL = this.globals.avatars + '/' +
         this.thumbnail.user_id + '/' + this.thumbnail.user.avatar_filename;
@@ -49,6 +45,9 @@ export class UserThumbComponent implements OnInit {
       this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
+
+    this.shapeClass = this.thumbnail.shape;
+
   }
 
 }

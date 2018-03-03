@@ -38,7 +38,9 @@ export class NavBarComponent implements OnInit, DoCheck {
   showingMessageList: boolean;
   messageListStyle: string;
   freshList: {}[];
+  list: {}[];
   private socket: SocketIOClient.Socket;
+  private showAvatarMenu: boolean;
 
   constructor (
     private _flashMessagesService: FlashMessagesService,
@@ -51,6 +53,12 @@ export class NavBarComponent implements OnInit, DoCheck {
   ) {
   }
 
+  openAvatarMenu() {
+    this.showAvatarMenu = true;
+  }
+  closeAvatarMenu() {
+    this.showAvatarMenu = false;
+  }
   updateMyself() {
     this.admin = false;
     this.currentUser = this.userService.currentUser;
@@ -68,6 +76,7 @@ export class NavBarComponent implements OnInit, DoCheck {
   }
 
   logout() {
+    this.showAvatarMenu = false;
     this.username = null;
     this.avatarimage = '';
     this.userService.logout();
@@ -78,7 +87,9 @@ export class NavBarComponent implements OnInit, DoCheck {
 
 
   ngOnInit() {
+    this.showAvatarMenu = false;
     this.updateMyself();
+    this.userService.getUsers();
     this.username = localStorage.getItem('username');
     this.updateAvatar();
     this.showingMessageList = false;
@@ -90,35 +101,46 @@ export class NavBarComponent implements OnInit, DoCheck {
     // });
     // this.getMessages();
     if (this.userService.currentUser) {
+      this.userService.getUsers();
       this.checkFresh();
     }
 
     this.socket.on('messageChanged', (message) => {
 
-      console.log('NavBar noticed a message was sent.');
+    //  console.log('NavBar noticed a message was sent.');
       // this.msgChanged.emit(message);
 
       this.checkFresh();
 
-  });
+      });
   }
 
   checkFresh() {
-    this.messageService.getMessagesForUser(this.userService.currentUser).
+    console.log('About to check messages for: ' +
+     this.userService.currentUser.id);
+
+    this.messageService.getMessagesForUser(this.userService.currentUser.id).
      subscribe(
-      data => { this.messages = data; },
+      data => {
+        // console.log('got messages for user: ' + JSON.stringify(data));
+      this.messages = data;
+      if (this.messages && this.messages.length > 0) {
+        this.buildMessageList();
+      }
+    },
       error => { console.log('error getting messages.'); }
      );
     this.messageService.getFreshList( this.userService.currentUser.id ).
       subscribe(
-        data => { console.log('got fresh list: ' + JSON.stringify(data));
+        data => {
+          // console.log('got fresh list: ' + JSON.stringify(data));
         this.freshMessages = data;
         if (this.freshMessages && this.freshMessages.length > 0) {
         this.buildFreshMessageList();
         this.messageListStyle = 'quickMessagesButtonFresh';
         } else {
           this.freshList = null;
-          this.messageListStyle = 'quickMessagesButton';
+         // this.messageListStyle = 'quickMessagesButton';
         }
       },
         error => { console.log('error getting fresh list.'); }
@@ -132,6 +154,7 @@ export class NavBarComponent implements OnInit, DoCheck {
 
   buildMsgLine(msg) {
     // copy the users array
+    console.log('About to build, based on: ' + JSON.stringify(msg));
     const userArray = msg.users;
     const originalMsg = new Message(msg.id, msg.users, msg.freshness, msg.msgList);
 
@@ -153,20 +176,55 @@ export class NavBarComponent implements OnInit, DoCheck {
     // add the current user back into the array (because we need both for messaging to work)
     userArray.push(this.userService.currentUser.id);
     // not sure about all these thumbnail parameters -- certainly don't use most of them, most of the time.
-    const thumbnailObj = <Userthumbnail> { user: otherUser, user_id: otherUser.id, editable: false, inRoom: true,
-          size: 40,  showUsername: true, showInfo: false, textColor: 'rgba(0,0,0,0)', hot: false };
+    const thumbnailObj = <Userthumbnail> { user: otherUser, user_id: otherUser_id, online: false,
+          size: 40,  showUsername: true, showInfo: false, textColor: 'rgba(0,0,0,0)', hot: false, shape: 'circle' };
 
-    console.log('Building MSGLine: ' + JSON.stringify(msg));
+    // console.log('Building MSGLine: ' + JSON.stringify(msg));
 
     return { 'thumbnail' : thumbnailObj, 'msg': originalMsg, 'last_message' : msg.msgList[ msg.msgList.length - 1].message };
   }
 
+  buildMessageList() {
+    if (this.userService.usersLoaded) {
+    console.log('In build Message List: ' + JSON.stringify(this.messages));
+    if (this.messages) {
+      console.log('mapping');
+      this.list = this.messages.map( msg => this.buildMsgLine(msg) );
+    }
+    }
+  }
   buildFreshMessageList() {
-
+    if (this.userService.usersLoaded) {
+    console.log('About to build freshList, based on: ' + JSON.stringify( this.freshMessages ) );
     if (this.freshMessages) {
 
        this.freshList = this.freshMessages.map( msg => this.buildMsgLine(msg) );
+
+       this.checkForDups();
+      }
     }
+  }
+
+  checkForDups() {
+    console.log('In checkForDups');
+    if (this.freshList && this.freshList.length > 0) {
+      // remove the items that are in both lists, from the main list
+
+      this.freshList.map( msgItem => this.removeItemFromMainList(msgItem));
+    }
+  }
+
+  removeItemFromMainList(msgItem) {
+    console.log('checking for duplicity.');
+    if ( this.list && this.list.length > 0) {
+      console.log('about to loop.');
+   for (let i = 0; i < this.list.length; i ++) {
+     console.log(' In the Loop: ' + i + ', :' + JSON.stringify(this.list[i]['msg']) );
+
+     if (this.list[i]['msg'].id === msgItem.msg.id) {
+       this.list.splice(i, 1);
+     }
+   }}
   }
 
   openMessageList() {
@@ -183,8 +241,14 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.showingMessageList = false;
     console.log('closing');
 
-      this.messageListStyle = 'quickMessagesButton';
-
+    // this.messageListStyle = 'quickMessagesButton';
+    if (this.freshMessages && this.freshMessages.length > 0) {
+      // this.buildFreshMessageList();
+      this.messageListStyle = 'quickMessagesButtonFresh';
+      } else {
+       // this.freshList = null;
+        this.messageListStyle = 'quickMessagesButton';
+      }
 
 
     }
@@ -208,7 +272,9 @@ export class NavBarComponent implements OnInit, DoCheck {
   }
 
   gotoSettings() {
+    this.showAvatarMenu = false;
     const navigationString = '/usersettings/' + this.userService.currentUser.id + '/edit';
+    console.log('navigating to: ' + navigationString);
     this._router.navigate([navigationString]);
   }
 

@@ -84,11 +84,12 @@ export class MessageService implements OnInit {
       console.log('getting fresh list for: ' + user_id + ', at: ' + this.globals.freshmessages + '' + userString);
 
       return this._http.get <Message[]> (this.globals.freshmessages + '' + userString).
-      do( data => { console.log('got data back');
+      do( data => { console.log('got data back for fresh list: ' + JSON.stringify(data) );
           return data; }
         ).catch( this.handleError );
     }
     getMessage(users: string[]): Observable<any> {
+
       return this._http.get <Message> (this.globals.messages + '?users=' +
        users[0] + ',' + users[1]).
       do( data => data ).catch(
@@ -96,8 +97,9 @@ export class MessageService implements OnInit {
     }
 
     getMessagesForUser(user_id): Observable<any> {
+      console.log('In message service, getting messages for user: ' + user_id );
       return this._http.get <Message[]> (this.globals.messages + '?user=' +
-       user_id).do( data => data ).catch (this.handleError );
+       user_id).do( data =>  data ).catch (this.handleError );
     }
 
   // get all the messages - so we can keep track of our ID#s

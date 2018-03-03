@@ -2,36 +2,42 @@
 
     <div class="loomContainer group">
         <div class='settingsForm' *ngIf="settingsForm">
-        <form [formGroup]="settingsForm" (ngSubmit)="submitSettings()" novalidate
+        <form [formGroup]="settingsForm" novalidate
          enctype="multipart/form-data" class='loomForm'>
         
             <div class="loomCard"> 
                                 
             <flash-messages></flash-messages>
-        
+            <div class='closer'
+            (click)="cancel()"></div>
+
             <h1>{{ user.username }}'s Settings:</h1>
             <mat-form-field>
                 <input matInput placeholder="Username" 
                 formControlName="username" value="{{user.username}}">
-                </mat-form-field><br clear='all'><br>
+                </mat-form-field><br clear='all'>
             <mat-form-field>
                 <input matInput placeholder="First name" 
                 formControlName="firstname" value="{{user.firstname}}">
-                </mat-form-field><br clear='all'><br>
+                </mat-form-field><br clear='all'>
             <mat-form-field>
                     <input matInput placeholder="Last name" 
                     formControlName="lastname" value="{{user.lastname}}">
-                    </mat-form-field><br clear='all'><br>
+                    </mat-form-field><br clear='all'>
             <mat-form-field>
                     <input matInput placeholder="Email address" 
                     formControlName="email" value="{{user.email}}">
-                    </mat-form-field><br clear='all'><br>
-            <h1>Preferences</h1>
+                    </mat-form-field><br clear='all'>
+           <mat-form-field>
+            <textarea id="bio" matInput placeholder="Super Short Bio" 
+            formControlName="bio" rows="4" class='bioArea'>{{ user.bio}}</textarea>
+            <div class='hint' *ngIf='!settingsForm.get("bio").valid'>The bio needs to be 400 characters or less. It is currently {{ biolength }} characters.</div>
+            <div class='explanation' *ngIf='!settingsForm.get("bio").valid'>The bio is too long</div>
+            </mat-form-field><br clear='all'>
+<br>
             <div class="form-group">
-                    <input class="form-control" placeholder="favoritecolor"
-                     name="favoritecolor" formControlName="favoritecolor"/>                                  
-     
-                     <h1>Your Avatar Image:</h1>
+
+                     <h2>Your Avatar Image:</h2>
 
                    <!-- <br><img [src]="user.avatar_URL" width='200' height='200' *ngIf="user && user.avatar_URL"><br>
                    <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br> -->
@@ -40,11 +46,7 @@
                      <div class="upload-wrap" *ngIf="!user.facebookRegistration">
                         Upload New Avatar Image
 
-                        <!-- <input type="file" class="upload-btn"  name="avatar"  
-                        ng2FileSelect [uploader]="uploader" formControlName="avatar"
-                        (change)="fileChange($event)" id="avatar">
-
-                         -->
+         
                         <input type="file" class="upload-btn"  name="avatar"  
                         ng2FileSelect [uploader]="avatarUploader" formControlName="avatar"
                         (change)="avatarChange($event)" id="avatar">
@@ -52,64 +54,16 @@
                         
             </div> 
     
-           <!--      <mat-form-field>
-                <input matInput placeholder="Last name" 
-                name="lastname" formControlName='lastname' required minlength="3" maxlength="30">
-                </mat-form-field>
-                <br>
-                <mat-form-field>
-                <input matInput placeholder="email" name="email" 
-               formControlName='email' required type="email" minlength="7" maxlength="40">
-                </mat-form-field>
-                <mat-form-field>
-                <input matInput placeholder="witchy name" name="username" 
-                formControlName='username' required type="username" minlength="3" maxlength="40">
-                <mat-hint align="start">This will be the name that you login with</mat-hint>
-         
-                </mat-form-field>
-                <br clear='all'><br> -->
 
-            <!-- <tbody>
-                <tr *ngFor="let item of uploader.queue">
-                    <td><strong>{{ item.file.name }}</strong></td>
-                    <td><strong> {{ item.file.webkitRelativePath  }}</strong></td>
-                    <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
-                    <td>
-                        <div class="progress" style="margin-bottom: 0;">
-                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                        <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                        <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                    </td>
-                    <td nowrap>
-                        <button type="button" class="btn btn-success btn-xs"
-                                (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                            <span class="glyphicon glyphicon-upload"></span> Upload
-                        </button>
-                        <button type="button" class="btn btn-warning btn-xs"
-                                (click)="item.cancel()" [disabled]="!item.isUploading">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs"
-                                (click)="item.remove()">
-                            <span class="glyphicon glyphicon-trash"></span> Remove
-                        </button>
-                    </td>
-                </tr>
-                </tbody> -->
                 
             </div>
-            <!-- <button class='loomCancel' (click)="cancel()" type='reset' >Cancel</button>
-            <button type='submit' class='loomHalfButton' >Submit</button>
-        -->
+
+
        <br>
             <div class='loomButton loomSubmit' 
             (click)='submitSettings()'>Submit changes</div>
-           <div class='loomButton loomCancel' (click)="cancel()">Cancel</div>
-        <br clear='all'>
+           
+        <br clear='all'><br>
 
         </form>
         
@@ -117,3 +71,10 @@
     
  
 </div>
+
+<div class='debug'>
+        Form Dirty: {{ settingsForm.dirty }}<br>
+        Form Touched: {{ settingsForm.touched }}<br>
+        Form valid: {{ settingsForm.valid }}<br>
+
+     </div>

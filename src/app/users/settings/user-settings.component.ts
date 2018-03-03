@@ -35,6 +35,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     url: string;
     localImageUrl: string;
     avatar: string;
+    biolength: number;
 
     constructor(
         private _http: HttpClient,
@@ -42,17 +43,17 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         private router: Router,
         private _flashMessagesService: FlashMessagesService,
         private activated_route: ActivatedRoute,
-        private sanitizer: DomSanitizer, private fb: FormBuilder,
-        private globals: Globals) {}
+        private sanitizer: DomSanitizer,
+        private fb: FormBuilder,
+        private globals: Globals ) {}
 
     myInit() {
-    
         const urlWithQuery = this.globals.postavatars + '?userid=' + this.user.id;
         this.avatarUploader = new FileUploader({url: urlWithQuery});
         if (this.user.facebookRegistration) {
             this.localImageUrl = this.user.avatar_URL;
         } else {
-             this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename; 
+             this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename;
 
             if (this.user.avatar_filename === '' || this.user.avatar_filename === undefined) {
                 this.localImageUrl = this.globals.avatars + '/' + 'placeholder.png';
@@ -71,11 +72,6 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
             console.log('Done uploading' + JSON.stringify(this.tempName));
             console.log('USER: ' + JSON.stringify(this.user));
             alert('Your image will be cropped to fit a square aspect ratio.');
-            // const newfilename = 'avatar.' + this.tempName.split('.')[this.tempName.split('.').length - 1];
-            // console.log('New name: ' + newfilename);
-            // this.avatarimage = 'http://localhost:3100/avatars/' + this.currentUserId + '/' + newfilename;
-
-            // localStorage.setItem('avatarimage', this.avatarimage);
             this.localImageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.tempName;
 
             this.avatarUploader.queue[0].remove();
@@ -90,37 +86,45 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
                 firstname: [ this.user.firstname, [Validators.required, Validators.minLength(3)] ],
                 lastname: [ this.user.lastname, [Validators.required, Validators.minLength(3)] ],
                 email: [this.user.email, [ Validators.required,
-                    Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')] ],
+                Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')] ],
+                bio: [ this.user.bio, [Validators.maxLength(400)]]
             });
-            this.settingsForm.valueChanges.subscribe( value => console.log(value) );
-            console.log('USER: ' + JSON.stringify(this.user));
-        // this.user = this.userService.getCurrentUser();
-        // if (this.user) {
-        //     this.currentUserId = this.user.id;
-        // }
+            this.biolength = 0;
+            if (this.user.bio) {
+            this.biolength = this.user.bio.length; }
+            this.settingsForm.get('bio').valueChanges.subscribe( value => { this.biolength = value.length;
+                console.log('The bio changed: ' + value); });
+           // console.log('USER: ' + JSON.stringify(this.user));
+
     }
 
     ngOnInit () {
 
         const idFromURL = this.activated_route.snapshot.params['id'];
+        console.log('In user settings, ID = ' + idFromURL);
         if (idFromURL) {
-            this.userService.getUser(idFromURL).subscribe(
-                user =>  {this.user = user[0];
-                    this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
-                    this.myInit();
-                },
-                error => this.errorMessage = <any>error);
+            this.user = this.userService.getUserFromMemoryById(idFromURL);
+
+            if (this.user) {
+            this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
+
+            console.log('User: ' + JSON.stringify(this.user));
+                this.myInit();
+        }
+
+            // this.userService.getUser(idFromURL).subscribe(
+            //     user =>  {this.user = user[0];
+            //         this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
+            //         console.log('Got user and avatar: ' + JSON.stringify(this.user) + ', ' + this.avatar);
+            //         this.myInit();
+            //     },
+            //     error => this.errorMessage = <any>error);
         } else {
             this.user = this.userService.getCurrentUser();
             this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
             this.myInit();
         }
 
-
-
-     
-
-      
 
     }
 
@@ -153,14 +157,17 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         this.router.navigate(['/welcome']);
     }
     submitSettings() {
+
+        // No need to save the settings, if they haven't changed, or they're invalid
+        if (this.settingsForm.valid && this.settingsForm.dirty) {
         console.log('In submitSettings');
         console.log('settingsForm.value: ' + JSON.stringify( this.settingsForm.value) );
         const settingsObject = Object.assign( {}, this.user, this.settingsForm.value);
 
         // If the logged in user is the same as the user being edit - then let's update the model
         // so that the loggged in user model has the new info
-        if ( this.userService.getCurrentUser().id === this.user.id)
-        { this.userService.resetCurrentUser(settingsObject); }
+        if ( this.userService.getCurrentUser().id === this.user.id) {
+            this.userService.resetCurrentUser(settingsObject); }
 
         // Combine the Form Model with our Data Model
 
@@ -196,6 +203,6 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
 
     }
-
+    }
 
 }

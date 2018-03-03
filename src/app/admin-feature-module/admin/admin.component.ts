@@ -128,15 +128,15 @@ toggleSeries() {
 
   createThumbnail(user) {
     const thumbnailObj = { user: user, user_id: user.id,
-      editable: false, inRoom: true, size: 45, showUsername: false,
-      showInfo: false, textColor: '#000000', hot: false };
+       online: false, size: 45, showUsername: false,
+      showInfo: false, textColor: '#000000', hot: false, shape: 'circle' };
     return thumbnailObj;
   }
 
   createEditableThumbnail(user) {
-    const thumbnailObj = { user: user, user_id: user.id, editable: true,
-      inRoom: true, size: 45, showUsername: false,
-      showInfo: false, textColor: '#0000000', hot: false };
+    const thumbnailObj = { user: user, user_id: user.id,
+      online: false, size: 45, showUsername: false,
+      showInfo: false, textColor: '#0000000', hot: false, shape: 'circle' };
     return thumbnailObj;
   }
 
@@ -144,8 +144,6 @@ toggleSeries() {
     this.userService.getInstructors(0).subscribe(
       instructors =>  {this.instructors = instructors;
         this.instructorThumbnails = this.instructors.map(this.createThumbnail);
-        // console.log('Instructors: ' + JSON.stringify(this.instructors ) );
-     // console.log(this.instructors.length);
      },
       error => this.errorMessage = <any>error);
     }

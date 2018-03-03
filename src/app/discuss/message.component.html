@@ -1,4 +1,4 @@
-<div class='messageContainer' *ngIf='display'>
+<div class='messageContainer' *ngIf='display && userService.currentUser'>
     <div class='toolbar'>
         Message To: <span class='heavy'> {{toUser.username }}</span>
         <div class='smallCloser' (click)='closeMsgr()'></div>

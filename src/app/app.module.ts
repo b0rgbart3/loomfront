@@ -31,7 +31,7 @@ import { DialogComponent } from './classes/dialog.component';
 import { PossibleInstructorsResolver } from './resolvers/possible-instructors-resolver.service';
 import { UserResolver } from './resolvers/user-resolver';
 import { SectionComponent } from './courses/course/section.component';
-import { ChatroomComponent } from './chat/chatroom.component';
+// import { ChatroomComponent } from './chat/chatroom.component';
 import { DiscussionComponent } from './discuss/discussion.component';
 import { DiscussionService } from './services/discussion.service';
 import { ThreadComponent } from './discuss/thread.component';
@@ -84,6 +84,7 @@ import { MessagesResolver } from './resolvers/messages-resolver';
 import { MessageService } from './services/message.service';
 import { Ng2ScrollableModule } from 'ng2-scrollable';
 
+
 @NgModule({
   // External
   imports: [
@@ -114,7 +115,7 @@ import { Ng2ScrollableModule } from 'ng2-scrollable';
     InstructorAssignmentsComponent,
     DialogComponent,
     SectionComponent,
-    ChatroomComponent,
+    // ChatroomComponent,
     DiscussionComponent,
     ThreadComponent,
     InfobotComponent,
@@ -171,7 +172,8 @@ import { Ng2ScrollableModule } from 'ng2-scrollable';
     NotesService,
     NotesSettingsResolver,
     MessageService,
-    MessagesResolver
+    MessagesResolver,
+ 
 
    ],
   bootstrap: [ AppComponent ]

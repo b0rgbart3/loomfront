@@ -15,14 +15,15 @@
             <mat-form-field>
 
             <textarea id="description" matInput placeholder="Description" 
-            formControlName="description" ></textarea>
+            formControlName="description" rows="5" class='courseDescription'></textarea>
             </mat-form-field>
         <br>
-            <br><img [src]="existingImage" width='200' height='200' *ngIf='existingImage'><br>
+            <br><img [src]="existingImage" width='200' height='200' *ngIf='existingImage'>
+            <p *ngIf='!existingImage'>No image has yet been uploaded for this course.</p>
             <br><img [src]="imageUrl " width='200' height='200' *ngIf='imageUrl '><br>
 
             <div class="upload-wrap">
-            Upload Image
+            Upload Main Course Image
             <input type="file" class="upload-btn"  name="imageUploader"  
             ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
             (change)="fileChange($event)" id="imageUploader">
@@ -33,9 +34,9 @@
             <br>
             <mat-expansion-panel formArrayName='sections' *ngFor='let section of sections.controls; let i = index'>
 
-                    <mat-expansion-panel-header>
-                            <mat-panel-title>Section {{i +1}}</mat-panel-title>
-                        </mat-expansion-panel-header>
+                    <mat-expansion-panel-header *ngIf="i > 0">
+                            <mat-panel-title>Section {{i}}</mat-panel-title>
+                    </mat-expansion-panel-header>
 
                     <div [formGroupName]="i" class='sectionContainer'>
              
@@ -51,32 +52,9 @@
                             id="content" placeholder="Section Content"
                                 formControlName="content"></textarea>
                             </mat-form-field>
-                            <!-- <p>Material List:</p>
-                            <div *ngFor="let material of course.sections[i].materials">
-                                Material: {{ material.title }}
-                            </div> -->
-                            <!-- <h1>Materials</h1>
-                            <div *ngIf='materialFormArray && materialFormArray[i]'>
-                            <div formArrayName='materials' *ngFor="let material of materialFormArray[i].controls; let j = index">
-                                <div class='loomChoice'>
-                                <button class='loomKill rightAlignMe' (click)='killMaterial(i,j)'></button>
-                                <div [formGroupName]="j">
-                                    <mat-form-field>
-                                <mat-select [placeholder]="materialPlaceholder" formControlName="material">
-                                <mat-option *ngFor='let item of materials' mdOption [value]='item.id' 
-                                ng-selected='value'>{{item.title}}</mat-option>
-                            </mat-select></mat-form-field>
-                        </div></div> 
-                        </div></div><br clear='all'><br> 
-                        
-                        <div class='loomButton' (click)="addMaterial(i)">Add Material</div>-->
+
                         <br clear='all'>
 
-                        <!-- <div *ngFor='let materialObject of materialTypes'>
-                            <h1>{{ materialObject.longName }}</h1>
-                            <div class='smallLoomButton' (click)="addMaterial(i)">Add {{materialObject.longName}}</div>
-                        </div><br>
-                        <hr><br><br> -->
 
                         <div *ngIf='imageFormArray[i].controls && imageFormArray[i].controls.length > 0' class='group'>
                                 <h1>Images</h1>
@@ -263,7 +241,7 @@
             <br clear='all'><br><hr><br>
         <div class='loomButton loomSubmit' 
              (click)='postCourse()'>Submit changes</div>
-            <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div>
+            <!-- <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div> -->
       
            
             <br clear='all'><br><hr><br>

@@ -11,6 +11,7 @@ export class User {
         public middlename: string,
         public lastname: string,
         public email: string,
+        public bio: string,
         public password: string,
         public token: string,
         public verificationID: string,

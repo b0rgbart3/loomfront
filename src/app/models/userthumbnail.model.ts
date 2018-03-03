@@ -6,13 +6,13 @@ export class Userthumbnail {
   constructor (
       public user: User,
       public user_id: string,
-      public editable: boolean,
-      public inRoom: boolean,
+      public online: boolean,  // This is not implemented yet
       public size: number,
       public showUsername: boolean,
       public showInfo: boolean,
       public textColor: string,
-      public hot: boolean
+      public hot: boolean,
+      public shape: string,
 
   ) {}
 

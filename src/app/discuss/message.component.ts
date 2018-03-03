@@ -38,7 +38,8 @@ export class MessageComponent implements OnInit {
 
       console.log('a new message was requested:' + JSON.stringify(requested));
       this.toUser = requested['user'];
-      this.user1 = this.userService.currentUser.id;
+      if (this.userService.currentUser) {
+      this.user1 = this.userService.currentUser.id; }
       console.log('Requested: ' + JSON.stringify(requested['user']) );
       this.user2 = requested['user'].id;
 

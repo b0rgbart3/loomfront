@@ -1,47 +1,52 @@
 
-
-.userThumb {
-display:inline-block;
-vertical-align: top;
-text-align: center;
-/* border:1px solid green; */
-padding-left:2px;
-padding-right:2px;
-
+.userThumbWrapper {
+    border:1px solid rgba(0,0,0,0);
+    text-align: center;
 }
 
-p {
-    user-select: none;
+.circle {
+    display:inline-block;
+    vertical-align: top;
+    text-align: center;
+    padding-left:2px;
+    padding-right:2px; 
+    /* border:2px solid red; */
 }
 
-.userThumb img {
+.circle img {
     width:100%;
-border-radius:50%;
-box-shadow:0px 0px 8px black;
-vertical-align: top;
-margin-left: auto;
-margin-right: auto;
-cursor: pointer;
+    border-radius:50%;
+    box-shadow:0px 0px 8px black;
+    vertical-align: top;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.square {
+    display:inline-block;
+    vertical-align: top;
+    text-align: center;
+    padding-left:2px;
+    padding-right:2px;
+}
+
+.square img {
+    width:100%;
+    border-radius:0;
+    box-shadow:0px 0px 8px black;
+    vertical-align: top;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }
 
 img:hover {
     box-shadow:0px 0px 14px white !important;
 }
 
-.inDaHouse {
-border:2px solid #555555;
-opacity:1;
-box-shadow: 4px 4px 4px #888888;
-margin-right:10px;
 
-}
-
-.notInDaHouse {
-opacity: .42;
-
-}
-
- h2 {
+h2 {
     padding:0;
     margin:0;
     margin-top:4px;
@@ -50,15 +55,13 @@ opacity: .42;
     text-transform: uppercase;
     font-size:.8em;
     font-weight: 400;
-    /* border:1px solid blue; */
     word-wrap: break-word;
     max-width:120px;
     margin-left:auto;
     margin-right:auto;
     user-select: none;
 }
-.userThumbWrapper {
-    border:1px solid rgba(0,0,0,0);
-    text-align: center;
-    /* border:1px solid red; */
+
+p {
+    user-select: none;
 }

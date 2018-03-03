@@ -33,6 +33,7 @@ basepath = 'http://localhost:3100/';
 // This points to where the images and other assets are stored
 awspath = 'https://recloom.s3.amazonaws.com/';
 
+ users =              this.basepath + 'api/users';
  classes =            this.basepath + 'api/classes';
  postcourseimages =   this.basepath + 'api/courseimages';
  courseimages =       this.awspath  + 'courseimages';

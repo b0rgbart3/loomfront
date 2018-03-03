@@ -18,7 +18,7 @@ import { InstructorAssignmentsComponent } from './users/instructors/instructoras
 import { UsersResolver } from './resolvers/users-resolver';
 import { PossibleInstructorsResolver } from './resolvers/possible-instructors-resolver.service';
 import { UserResolver } from './resolvers/user-resolver';
-import { ChatroomComponent } from './chat/chatroom.component';
+// import { ChatroomComponent } from './chat/chatroom.component';
 import { DiscussionComponent } from './discuss/discussion.component';
 import { SectionResolver } from './resolvers/section-resolver.service';
 import { CoursesResolver } from './resolvers/courses-resolver.service';

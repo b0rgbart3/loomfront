@@ -13,3 +13,13 @@
 }
 
 
+textarea.mat-input-element {
+    line-height:2em !important;
+}
+
+.courseDescription {
+    background-color:rgba(255,255,255,.5);
+    padding:16px;
+    border-radius:4px;
+    width:97%;
+}

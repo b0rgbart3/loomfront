@@ -1,5 +1,6 @@
 <div class='loomContainer group'>
-    
+  
+
 <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>Courses</mat-panel-title>
@@ -20,7 +21,7 @@
 <div *ngFor='let assetType of types; let i = index;'>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
-            <mat-panel-title>{{ assetType.longName }}</mat-panel-title>
+            <mat-panel-title (click)='checkDataStream()'>{{ assetType.longName }}</mat-panel-title>
         </mat-expansion-panel-header>
 
         <mat-list>
@@ -35,55 +36,6 @@
     </mat-expansion-panel>
     
 </div>
-<!-- <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>Book References</mat-panel-title>
-        </mat-expansion-panel-header>
-    
-        <mat-list>
-            <mat-list-item [routerLink]="['/books', 0, 'edit']">
-                <mat-icon class="example-icon">add</mat-icon> Add a new Book Reference
-            </mat-list-item>
-            <mat-list-item *ngFor='let book of books' [routerLink]="['/books',book.id,'edit']">
-                {{ book.title }}
-            </mat-list-item>
-        </mat-list>
-    </mat-expansion-panel>
-    
-<mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>PDF Documents</mat-panel-title>
-        </mat-expansion-panel-header>
-    
-        <mat-list>
-            <mat-list-item [routerLink]="['/docs', 0, 'edit']">
-                <mat-icon class="example-icon">add</mat-icon> Add a new PDF Document
-            </mat-list-item>
-            <mat-list-item *ngFor='let doc of docs' [routerLink]="['/docs',doc.id,'edit']">
-                {{ doc.title }}
-            </mat-list-item>
-        </mat-list>
-    </mat-expansion-panel>
-
-    
-    <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Videos</mat-panel-title>
-            </mat-expansion-panel-header>
-        
-            <mat-list>
-                <mat-list-item [routerLink]="['/videos', 0, 'edit']">
-                    <mat-icon class="example-icon">add</mat-icon> Add a new Video
-                </mat-list-item>
-                <mat-list-item *ngFor='let video of videos' [routerLink]="['/videos',video.id,'edit']">
-                    {{ video.title }}
-                </mat-list-item>
-            </mat-list>
-        </mat-expansion-panel>
-    
-         -->
-
-
 
 
 

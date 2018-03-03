@@ -74,5 +74,9 @@ getCourses() {
   }
 
 
+  checkDataStream() {
+    // make sure we still have a connection to the Database.
+    // this.courseService.getCourses()
+  }
 
 }

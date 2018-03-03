@@ -160,6 +160,7 @@ export class CourseEditComponent implements OnInit {
 
     buildNewSection(i) {
 
+
         this.extractStuff(i);
         this.imageFormArray[i] = this.fb.array([]);
          this.bookFormArray[i] = this.fb.array([]);
@@ -168,6 +169,10 @@ export class CourseEditComponent implements OnInit {
          this.audioFormArray[i] = this.fb.array([]);
          this.quoteFormArray[i] = this.fb.array([]);
          this.blockFormArray[i] = this.fb.array([]);
+
+        //  if (!this.course.sections[i]) {
+        //      this.course.sections[i] = new Section('', '', '', null, null, i);
+        //  }
 
          if (this.course.sections[i] && this.extractedImages[i] ) {
              for (let j = 0; j < this.extractedImages[i].length; j++ ) {
@@ -202,10 +207,15 @@ export class CourseEditComponent implements OnInit {
                  } }
 
         // this.sectionMaterials[i] = this.materialService.sortMaterials(this.course.sections[i].materials);
-
+        let title = '';
+        let content = '';
+        if (this.course.sections[i]) {
+            if (this.course.sections[i].title) { title = this.course.sections[i].title; }
+            if (this.course.sections[i].content) { content = this.course.sections[i].content; }
+        }
          this.sectionReferences[i] = this.fb.group( {
-             title: this.course.sections[i].title,
-             content: this.course.sections[i].content,
+             title: title,
+             content: content,
              // materials: this.materialFormArray[i],
              images: this.imageFormArray[i],
              videos: this.videoFormArray[i],
@@ -217,6 +227,7 @@ export class CourseEditComponent implements OnInit {
 
           });
          this.sectionsFormArray.push(  this.sectionReferences[i] );
+
     }
     buildSections() {
        // console.log('building sections.');
@@ -291,7 +302,6 @@ export class CourseEditComponent implements OnInit {
 
 
         }
-  
 
   //      console.log('my extracted Array: ' + JSON.stringify(extractedArray));
         return extractedArray;
@@ -300,7 +310,7 @@ export class CourseEditComponent implements OnInit {
      // We want an array of books that has been selected for this SECTION --
      // so we look through all of the materials for this section, and extract the ones that are 'books'
      extractStuff(sectionNumber) {
-
+        // const offSetSectionNumber = sectionNumber + 1;
         this.extractedImages[sectionNumber] = [];
         this.extractedImages[sectionNumber] = this.extract(sectionNumber, 'image');
         this.extractedBooks[sectionNumber] = [];
@@ -336,8 +346,9 @@ export class CourseEditComponent implements OnInit {
         for (let i = 0; i < this.course.sections.length; i++) {
        //     console.log('delinting the sections');
             const sc = this.course.sections[i].content;
+            if (sc) {
             const editedSC = sc.replace(/<br>/g, '\n');
-            this.course.sections[i].content = editedSC;
+            this.course.sections[i].content = editedSC; }
         }
     }
 
@@ -348,7 +359,9 @@ export class CourseEditComponent implements OnInit {
        //     console.log('Linting section: ' + i);
             const sectionContent = combinedCourseObject.sections[i].content;
 
-            const LintedSectionContent = sectionContent.replace(/\n/g, '<br>');
+            let LintedSectionContent = sectionContent;
+            if (sectionContent) {
+            LintedSectionContent = sectionContent.replace(/\n/g, '<br>'); }
             combinedCourseObject.sections[i].content = LintedSectionContent;
         //    console.log(combinedCourseObject.sections[i].content);
         }
@@ -363,6 +376,9 @@ export class CourseEditComponent implements OnInit {
          // This is Deborah Korata's way of merging our data model with the form model
         let combinedCourseObject = Object.assign( {}, this.course, this.courseFormGroup.value);
         // const combinedCourseObject = this.courseFormGroup.value;
+
+        // add a dummy "section Zero" to the front of the sections array -- (which we use as the course syllabus page)
+     //   combinedCourseObject.sections.unshift({ 'sectionNumber' : '0' });
 
         // I want to consolidate all the materials into one array for each section
         for (let j = 0; j < combinedCourseObject.sections.length; j++) {
@@ -397,12 +413,13 @@ export class CourseEditComponent implements OnInit {
             delete combinedCourseObject.sections[j].images;
 
             // I also want to strip out the individual objects and just store an array of ID #s.
-
+            if (combinedCourseObject.sections[j].materials) {
             const IDArray = combinedCourseObject.sections[j].materials.map( material => {
-                return material.material;
+                if (material && material.material) {
+                return material.material; } else { return null; }
             });
             combinedCourseObject.sections[j].materials = IDArray;
-
+            }
             // we also need to store the SectionNumber -- although this might eventually already be part of the model
             // after / if we add the ability to move sections around.  For now - we'll just store the index.
             combinedCourseObject.sections[j].sectionNumber = j;
@@ -416,6 +433,7 @@ export class CourseEditComponent implements OnInit {
 
         const lintedModel = this.lintMe( combinedCourseObject );
         combinedCourseObject = lintedModel;
+        combinedCourseObject.sections[0].materials = [];
 
         if (this.course.id === '0') {
             this.courseService.createCourse( combinedCourseObject ).subscribe(
@@ -501,9 +519,20 @@ export class CourseEditComponent implements OnInit {
       }
 
     addSection(): void {
-        const newSection = this.course.sections.length + '';
-        this.course.sections.push(new Section( '', '', '', [], null, newSection) );
-        this.buildNewSection(this.course.sections.length - 1);
+        let newSection = '1';
+        if (this.course.sections && this.course.sections.length > 0) {
+         newSection = this.course.sections.length + '';
+         this.course.sections.push(new Section( '', '', '', [], null, newSection) );
+        this.buildNewSection(1);
+        } else {
+            newSection = '0';
+            this.course.sections.push(new Section( '', '', '', [], null, newSection) );
+            this.buildNewSection(0);
+            newSection = '1';
+            this.course.sections.push(new Section( '', '', '', [], null, newSection) );
+            this.buildNewSection(1);
+        }
+
     }
 
 
