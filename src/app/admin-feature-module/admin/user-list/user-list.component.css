@@ -1,0 +1,103 @@
+.userList {
+    text-align: left;
+    list-style: none;
+    line-height: .8em;
+}
+
+.userList li {
+    border-bottom:2px solid #9696CC;
+    margin-bottom:10px;
+}
+
+.userList p {
+    margin:0;padding:0;
+}
+
+.userLine {
+    padding:0;
+    overflow: hidden;
+    border-bottom:1px solid rgba(0,0,0,.2);
+    width:100%;
+    background-color:rgba(255,255,255,.5);
+    user-select: none;
+}
+
+.thumbnailAdmin {
+    display:inline-block;
+    margin:10px;
+}
+
+
+.userInfo {
+    color:black;
+    display:inline-block;
+    vertical-align: top;
+    font-family: 'Roboto';
+    font-size:.95em;
+    box-sizing:border-box;
+    padding:0;
+    margin:0;
+    min-width:200px;
+    margin-top:10px;
+    margin-bottom:10px;
+    line-height:1.2em;
+}
+
+.userLine:hover {
+    background-color:white;
+}
+
+.userInfo h1 {
+    margin:0;
+    padding:0;
+    text-transform: uppercase;
+    font-family: 'Roboto';
+    font-weight: 900;
+    font-size:.8em;
+    
+}
+.suspender {
+    background-color:rgba(116, 116, 116, .3);
+    color:white;
+    width:80px;
+    height:40px;
+    vertical-align: middle;
+    display:inline-block;
+    float:right;
+    margin:0;
+    padding-top:20px;
+    text-transform: uppercase;
+    font-family: 'Muli';
+    text-align:center;
+    user-select: none;
+    font-size:.9em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.suspender:hover {
+    background-color:rgb(50, 58, 92);
+}
+
+.remover {
+    background-color:rgba(116, 116, 116, .3);
+    color:white;
+    width:80px;
+    height:40px;
+    vertical-align: middle;
+    display:inline-block;
+    float:right;
+    margin:0;
+    padding-top:20px;
+    text-transform: uppercase;
+    font-family: 'Muli';
+    text-align:center;
+    user-select: none;
+    font-size:.9em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.remover:hover {
+    background-color:rgb(194, 8, 2);
+}

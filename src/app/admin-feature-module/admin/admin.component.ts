@@ -3,7 +3,7 @@ import { Course } from '../../models/course.model';
 import { User } from '../../models/user.model';
 import { ClassModel } from '../../models/class.model';
 import { CourseService } from '../../services/course.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ClassService } from '../../services/class.service';
 import { UserService } from '../../services/user.service';
 import { MaterialService } from '../../services/material.service';
@@ -53,6 +53,7 @@ export class AdminComponent implements OnInit {
     private userService: UserService,
     private seriesService: SeriesService,
     private globals: Globals,
+    private activated_route: ActivatedRoute,
 
   ) {
     this.AVATAR_IMAGE_PATH = globals.basepath + 'avatars/';
@@ -62,11 +63,13 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.userService.ngOnInit();
     this.username = localStorage.getItem('username');
-    this.getUsers();
+    this.users = this.activated_route.snapshot.data['users'];
+    // this.getUsers();
     this.getClasses();
     this.getCourses();
-    this.getMaterials();
-    this.getInstructors();
+    // this.getMaterials();
+    this.instructors = this.activated_route.snapshot.data['instructors'];
+//    this.getInstructors();
     this.getSeries();
   }
 
@@ -110,13 +113,13 @@ toggleMaterials() {
   }
 }
 
-toggleBooks() {
-  if (this.booksShowing === 'showing') {
-    this.booksShowing = 'hiding';
-  } else {
-    this.booksShowing = 'showing';
-  }
-}
+// toggleBooks() {
+//   if (this.booksShowing === 'showing') {
+//     this.booksShowing = 'hiding';
+//   } else {
+//     this.booksShowing = 'showing';
+//   }
+// }
 
 toggleSeries() {
   if (this.seriesShowing === 'showing') {
@@ -140,13 +143,13 @@ toggleSeries() {
     return thumbnailObj;
   }
 
-  getInstructors() {
-    this.userService.getInstructors(0).subscribe(
-      instructors =>  {this.instructors = instructors;
-        this.instructorThumbnails = this.instructors.map(this.createThumbnail);
-     },
-      error => this.errorMessage = <any>error);
-    }
+  // getInstructors() {
+  //   this.userService.getInstructors(0).subscribe(
+  //     instructors =>  {this.instructors = instructors;
+  //       this.instructorThumbnails = this.instructors.map(this.createThumbnail);
+  //    },
+  //     error => this.errorMessage = <any>error);
+  //   }
 
   getClasses() {
   this.classService
@@ -163,22 +166,22 @@ toggleSeries() {
     error => this.errorMessage = <any>error);
   }
 
-  getUsers() {
-  this.userService
-  .getUsers().subscribe(
-    users =>  {this.users = users;
+  // getUsers() {
+  // this.userService
+  // .getUsers().subscribe(
+  //   users =>  {this.users = users;
 
-    this.userThumbnails = this.users.map(this.createEditableThumbnail);
-    },
-    error => this.errorMessage = <any>error);
-  }
+  //   this.userThumbnails = this.users.map(this.createEditableThumbnail);
+  //   },
+  //   error => this.errorMessage = <any>error);
+  // }
 
-  getMaterials() {
-    this.materialService
-    .getMaterials(0).subscribe(
-      materials =>  this.materials = materials,
-      error => this.errorMessage = <any>error);
-    }
+  // getMaterials() {
+  //   this.materialService
+  //   .getMaterials(0).subscribe(
+  //     materials =>  this.materials = materials,
+  //     error => this.errorMessage = <any>error);
+  //   }
 
   getSeries() {
     this.seriesService.getSeries(0).subscribe(
@@ -237,7 +240,8 @@ toggleSeries() {
     if (result) {
     this.userService.deleteUser(userId).subscribe(
       data => {
-        this.getUsers(); },
+      //  this.getUsers();
+       },
         error => this.errorMessage = <any> error );
 
     }

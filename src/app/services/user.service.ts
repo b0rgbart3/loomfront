@@ -207,6 +207,10 @@ getUserFromMemoryById( queryID: string): User {
       }
     }
 
+    getAllInstructors(): Observable <User[]> {
+      return this._http.get <User[]> ( this.globals.instructors );
+    }
+
 
     getStudents( class_id ): Observable <User[]> {
       return this._http.get < User[] >( this._studentsUrl + '?id=' + class_id);

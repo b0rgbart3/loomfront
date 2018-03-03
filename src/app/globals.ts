@@ -33,25 +33,26 @@ basepath = 'http://localhost:3100/';
 // This points to where the images and other assets are stored
 awspath = 'https://recloom.s3.amazonaws.com/';
 
- users =              this.basepath + 'api/users';
- classes =            this.basepath + 'api/classes';
- postcourseimages =   this.basepath + 'api/courseimages';
- courseimages =       this.awspath  + 'courseimages';
- materials =          this.basepath + 'api/materials';
- postmaterialimages = this.basepath + 'api/materialimages';
- materialimages =     this.awspath  + 'materialimages';
- materialfiles =      this.awspath  + 'materialfiles';
- postmaterialfiles =  this.basepath + 'api/materialfiles';
- allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
- threads =            this.basepath + 'api/threads';
- postavatars =        this.basepath + 'api/avatars';
- avatars =            this.awspath  + 'avatars';
- series =             this.basepath + 'api/series';
- batchmaterials =     this.basepath + 'api/batchmaterials';
- discusssettings =    this.basepath + 'api/discussion/settings';
- notessettings =      this.basepath + 'api/notes/settings';
- enterdiscussion =    this.basepath + 'api/discussion/enter';
- whosin =             this.basepath + 'api/discussion/whosin';
+users =              this.basepath + 'api/users';
+instructors =        this.basepath + 'api/instructors';
+classes =            this.basepath + 'api/classes';
+postcourseimages =   this.basepath + 'api/courseimages';
+courseimages =       this.awspath  + 'courseimages';
+materials =          this.basepath + 'api/materials';
+postmaterialimages = this.basepath + 'api/materialimages';
+materialimages =     this.awspath  + 'materialimages';
+materialfiles =      this.awspath  + 'materialfiles';
+postmaterialfiles =  this.basepath + 'api/materialfiles';
+allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
+threads =            this.basepath + 'api/threads';
+postavatars =        this.basepath + 'api/avatars';
+avatars =            this.awspath  + 'avatars';
+series =             this.basepath + 'api/series';
+batchmaterials =     this.basepath + 'api/batchmaterials';
+discusssettings =    this.basepath + 'api/discussion/settings';
+notessettings =      this.basepath + 'api/notes/settings';
+enterdiscussion =    this.basepath + 'api/discussion/enter';
+whosin =             this.basepath + 'api/discussion/whosin';
  // the entire db listing of enrollment objects
  enrollments =        this.basepath + 'api/enrollments';
  // the student enrollment objects for the current user

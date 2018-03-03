@@ -24,6 +24,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { MessageService } from '../services/message.service';
 import { ConnectionComponent } from './connection.component';
 
+
 @NgModule ( {
     imports: [
         CommonModule,
@@ -50,7 +51,8 @@ import { ConnectionComponent } from './connection.component';
       //   ImageUploaderComponent,
         ClickOutsideDirective,
         PageNotFoundComponent,
-        ConnectionComponent
+        ConnectionComponent,
+
 
     ],
     providers: [
@@ -79,7 +81,8 @@ import { ConnectionComponent } from './connection.component';
         // ImageUploaderComponent,
         ClickOutsideDirective,
         FlashMessagesModule,
-        ConnectionComponent
+        ConnectionComponent,
+
     ]
 
 })

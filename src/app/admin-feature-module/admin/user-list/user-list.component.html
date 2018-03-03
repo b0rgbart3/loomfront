@@ -1,0 +1,20 @@
+
+<div *ngIf="users" class='userList'>
+
+      <div *ngFor='let user of thumbnails' class='userLine' 
+       [routerLink]="['/usersettings/' + user.user_id + '/edit']">
+          <div class='thumbnailAdmin'>
+              <user-thumb [thumbnail]=user ></user-thumb>
+          </div>
+          <div class='userInfo'>
+              <h1>{{ user.user.username }}</h1>
+            {{ user.user.firstname }} {{ user.user.lastname }}<br>
+            {{ user.user.email }}
+          </div>
+          <div class='remover' 
+          (click)="deleteUser(user.user.username, user.user_id)">Delete</div>
+          <div class='suspender'>Suspend</div>
+
+      </div>
+
+  </div>

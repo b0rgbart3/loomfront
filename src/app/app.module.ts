@@ -14,7 +14,7 @@ import { AlertService } from './services/alert.service';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';
 import { CourseService } from './services/course.service';
 import { ClassService } from './services/class.service';
-import { UserListComponent } from './users/user-list/user-list.component';
+// import { UserListComponent } from './users/user-list/user-list.component';
 import { UserSettingsComponent } from './users/settings/user-settings.component';
 import { SafePipe } from './shared/safe.pipe';
 import { MaterialService } from './services/material.service';
@@ -109,7 +109,6 @@ import { Ng2ScrollableModule } from 'ng2-scrollable';
     AlertComponent,
     RequestresetComponent,
     ClassComponent,
-    UserListComponent,
     HomeComponent,
     UserSettingsComponent,
     InstructorAssignmentsComponent,

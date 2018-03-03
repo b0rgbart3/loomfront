@@ -27,6 +27,8 @@ import { StudentEnrollmentsResolver } from '../resolvers/studentenrollments-reso
 import { InstructorAssignmentsResolver } from '../resolvers/instructorassignments-resolver.service';
 import { AllStudentEnrollmentsResolver } from '../resolvers/allstudentenrollments-resolver.service';
 import { AllInstructorAssignmentsResolver } from '../resolvers/allinstructorassignments-resolver.service';
+import { UserListComponent } from './admin/user-list/user-list.component';
+import { InstructorsResolver } from '../resolvers/instructors-resolver.service';
 
 
 @NgModule ( {
@@ -35,7 +37,7 @@ import { AllInstructorAssignmentsResolver } from '../resolvers/allinstructorassi
         FileUploadModule,
         RouterModule.forChild([
             { path: 'admin', pathMatch: 'full', component: AdminComponent,
-                canActivate: [ AdminRouteActivator ] },
+                canActivate: [ AdminRouteActivator ], resolve: { users: UsersResolver, instructors: InstructorsResolver } },
             { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
             resolve: { course: CourseResolver,
                 materials: MaterialsResolver }},
@@ -95,12 +97,14 @@ import { AllInstructorAssignmentsResolver } from '../resolvers/allinstructorassi
        EnrollmentEditComponent,
        EnrollmentStudentTabComponent,
        EnrollmentInstructorTabComponent,
+       UserListComponent
     ],
     providers: [
         AdminRouteActivator,
         ClassResolver,
         UsersResolver,
         CourseResolver,
+        InstructorsResolver
     ],
     exports: [
         AdminComponent,
@@ -109,7 +113,8 @@ import { AllInstructorAssignmentsResolver } from '../resolvers/allinstructorassi
         CourseEditComponent,
         MaterialEditComponent,
         SeriesEditComponent,
-        EnrollmentEditComponent
+        EnrollmentEditComponent,
+        UserListComponent
     ]
 })
 
