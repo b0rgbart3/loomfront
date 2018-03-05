@@ -1,0 +1,23 @@
+
+
+<div *ngIf='classArray'>
+    <div class='titlebar'>Classes</div>
+   <div class='listItem' *ngFor='let item of classArray'>
+    {{ item.title }}
+   </div>
+</div>
+<br>
+<div *ngIf='courseArray'>
+        <div class='titlebar'>Courses</div>
+        <div class='listItem' *ngFor='let item of courseArray'>
+        {{ item.title }}
+        </div>
+        </div>
+<br>
+
+<div *ngIf='seriesArray'>
+                <div class='titlebar'>Series</div>
+                <div class='listItem' *ngFor='let item of seriesArray'>
+                        {{ item.title }}
+                       </div> 
+ </div>

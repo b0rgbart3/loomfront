@@ -64,13 +64,18 @@ export class AdminComponent implements OnInit {
     this.userService.ngOnInit();
     this.username = localStorage.getItem('username');
     this.users = this.activated_route.snapshot.data['users'];
-    // this.getUsers();
-    this.getClasses();
-    this.getCourses();
-    // this.getMaterials();
+
+    // this.getClasses();
+    // this.getCourses();
+
     this.instructors = this.activated_route.snapshot.data['instructors'];
-//    this.getInstructors();
-    this.getSeries();
+
+   // this.getSeries();
+  }
+
+
+  closer() {
+    this.router.navigate(['/home']);
   }
 
   toggleStudents() {
@@ -143,64 +148,30 @@ toggleSeries() {
     return thumbnailObj;
   }
 
-  // getInstructors() {
-  //   this.userService.getInstructors(0).subscribe(
-  //     instructors =>  {this.instructors = instructors;
-  //       this.instructorThumbnails = this.instructors.map(this.createThumbnail);
-  //    },
-  //     error => this.errorMessage = <any>error);
-  //   }
 
-  getClasses() {
-  this.classService
-  .getClasses().subscribe(
-    classes =>  this.classes = classes,
-    error => this.errorMessage = <any>error);
-  }
-
-  getCourses() {
-  this.courseService
-  .getCourses().subscribe(
-    courses =>  {this.courses = courses;
-    this.courseCount = this.courses.length; },
-    error => this.errorMessage = <any>error);
-  }
-
-  // getUsers() {
-  // this.userService
-  // .getUsers().subscribe(
-  //   users =>  {this.users = users;
-
-  //   this.userThumbnails = this.users.map(this.createEditableThumbnail);
-  //   },
+  // getClasses() {
+  // this.classService
+  // .getClasses().subscribe(
+  //   classes =>  this.classes = classes,
   //   error => this.errorMessage = <any>error);
   // }
 
-  // getMaterials() {
-  //   this.materialService
-  //   .getMaterials(0).subscribe(
-  //     materials =>  this.materials = materials,
-  //     error => this.errorMessage = <any>error);
-  //   }
+  // getCourses() {
+  // this.courseService
+  // .getCourses().subscribe(
+  //   courses =>  {this.courses = courses;
+  //   this.courseCount = this.courses.length; },
+  //   error => this.errorMessage = <any>error);
+  // }
 
-  getSeries() {
-    this.seriesService.getSeries(0).subscribe(
-      series => {this.series = series;
-        console.log('Got Series: ' + JSON.stringify(series));
-      },
-      error => this.errorMessage = <any>error);
-  }
-  // getBooks() {
-  //   this.bookService.getBooks(0).subscribe(
-  //     books => this.books = books,
+
+  // getSeries() {
+  //   this.seriesService.getSeries(0).subscribe(
+  //     series => {this.series = series;
+  //       console.log('Got Series: ' + JSON.stringify(series));
+  //     },
   //     error => this.errorMessage = <any>error);
   // }
-  // getAssets() {
-  //   this.assetService
-  //   .getAssets().subscribe(
-  //     assets =>  this.assets = assets,
-  //     error => this.errorMessage = <any>error);
-  //   }
 
   deleteCourse(courseId) {
 
@@ -208,7 +179,8 @@ toggleSeries() {
     if (result) {
     this.courseService.deleteCourse(courseId).subscribe(
       data => {
-      this.getCourses(); },
+     // this.getCourses();
+     },
       error => this.errorMessage = <any>error );
    }
   }
@@ -230,7 +202,8 @@ toggleSeries() {
     if (result) {
     this.classService.deleteClass(classId).subscribe(
       data => {
-      this.getClasses(); },
+     // this.getClasses();
+    },
       error => this.errorMessage = <any>error );
     }
   }

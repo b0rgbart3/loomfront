@@ -29,6 +29,9 @@ import { AllStudentEnrollmentsResolver } from '../resolvers/allstudentenrollment
 import { AllInstructorAssignmentsResolver } from '../resolvers/allinstructorassignments-resolver.service';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { InstructorsResolver } from '../resolvers/instructors-resolver.service';
+import { ContentComponent } from './admin/content.component';
+import { StudentsComponent } from './admin/students.component';
+import { InstructorsComponent } from './admin/instructors.component';
 
 
 @NgModule ( {
@@ -36,9 +39,21 @@ import { InstructorsResolver } from '../resolvers/instructors-resolver.service';
         SharedModule,
         FileUploadModule,
         RouterModule.forChild([
-            { path: 'admin', pathMatch: 'full', component: AdminComponent,
-                canActivate: [ AdminRouteActivator ], resolve: { users: UsersResolver, instructors: InstructorsResolver } },
-            { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
+            { path: 'admin', component: AdminComponent,
+                canActivate: [ AdminRouteActivator ],
+                resolve: { users: UsersResolver, instructors: InstructorsResolver },
+                children: [
+                    { path: '', redirectTo: 'students', pathMatch: 'full' },
+                    { path: 'students', component: StudentsComponent, resolve: { users: UsersResolver }},
+                    { path: 'instructors', component: InstructorsComponent,
+                        resolve: { users: UsersResolver, instructors: InstructorsResolver }},
+                    { path: 'content', component: ContentComponent,
+                    resolve: { users: UsersResolver, instructors: InstructorsResolver,
+                        classes: ClassesResolver, series: SeriesResolver, courses: CoursesResolver }},
+                ]
+            },
+
+                { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
             resolve: { course: CourseResolver,
                 materials: MaterialsResolver }},
 
@@ -97,7 +112,11 @@ import { InstructorsResolver } from '../resolvers/instructors-resolver.service';
        EnrollmentEditComponent,
        EnrollmentStudentTabComponent,
        EnrollmentInstructorTabComponent,
-       UserListComponent
+       UserListComponent,
+       ContentComponent,
+       StudentsComponent,
+       InstructorsComponent,
+       ContentComponent
     ],
     providers: [
         AdminRouteActivator,

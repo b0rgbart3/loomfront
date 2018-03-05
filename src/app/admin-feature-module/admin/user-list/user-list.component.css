@@ -20,31 +20,99 @@
     width:100%;
     background-color:rgba(255,255,255,.5);
     user-select: none;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items:stretch;
+    align-content: stretch;
 }
 
+.suspend {
+    background-image:url('../../../../assets/images/suspend.svg');
+    background-size:30px 30px;
+    background-position: 50% 30%;
+    width:80px;
+    height:40px;
+    text-align:center;
+    padding-top:50px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    text-transform:uppercase;
+    font-size:.75em;
+    border-bottom:1px solid #555555;
+    height:80px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.suspend:hover {
+    background-color:#dddddd;
+}
+
+.suspend:active {
+    background-color:red;
+}
+
+.suspended {
+    background-image:url('../../../../assets/images/suspended.svg');
+    background-size:30px 30px;
+    background-position: 50% 30%;
+    width:80px;
+    height:40px;
+    text-align:center;
+    padding-top:50px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    text-transform:uppercase;
+    font-size:.75em;
+    border-bottom:1px solid #555555;
+    height:80px;
+    user-select: none;
+    cursor: pointer;
+    color:red;
+}
 .thumbnailAdmin {
-    display:inline-block;
-    margin:10px;
+    display:inline-flex;
+    flex-grow:2;
+    border:1px solid white;
+    border-bottom:1px solid #555555;
 }
 
+.thumbnailAdmin:hover {
+    background-color:white;
+    border-bottom:1px solid #333333;
+}
+
+.thumbnailAdmin:active {
+    border-bottom:2px solid black;
+    outline:none;
+}
 
 .userInfo {
     color:black;
-    display:inline-block;
+    float:left;
     vertical-align: top;
     font-family: 'Roboto';
     font-size:.95em;
     box-sizing:border-box;
     padding:0;
     margin:0;
-    min-width:200px;
     margin-top:10px;
     margin-bottom:10px;
     line-height:1.2em;
 }
 
-.userLine:hover {
+/* .userLine:hover {
     background-color:white;
+} */
+
+.listThumb {
+    display:inline;
+    float:left;
+    width:60px;
+    height:60px;
+    margin-top:8px;
+    margin-right:10px;
 }
 
 .userInfo h1 {
@@ -57,8 +125,8 @@
     
 }
 .suspender {
-    background-color:rgba(116, 116, 116, .3);
-    color:white;
+    background-color:white;
+    color:black;
     width:80px;
     height:40px;
     vertical-align: middle;
@@ -100,4 +168,128 @@
 
 .remover:hover {
     background-color:rgb(194, 8, 2);
+}
+
+.sorter {
+    background-color:rgba(0,0,0,.1);
+    border-radius:3px;
+    padding:2px;
+    width:100%;
+    text-transform:uppercase;
+}
+
+.sorter ul {
+    display:inline;
+    list-style:none;
+}
+
+.sorter ul li {
+    display:inline;
+    padding-left:10px;
+    padding-right:10px;
+    user-select: none;
+    cursor: pointer;
+    font-size:.85em;
+    font-weight: 500;
+}
+
+.chosen {
+    font-weight:700;
+    color:blue;
+}
+
+.unchosen {
+    font-weight:400;
+    color:#555555;
+}
+
+.list {
+
+    width:100%;
+    padding:0;
+}
+
+.list tr {
+    background-color:#ffffff;
+    border-bottom:1px solid #888888;
+}
+
+.list td {
+    padding:4px;
+}
+
+.username {
+    margin:0;
+    padding:0;
+    text-transform: uppercase;
+    font-family: 'Roboto';
+    font-weight: 900;
+    font-size:.8em;
+}
+
+.list p {
+    margin:0;
+    padding:0;
+    line-height:1em;
+}
+
+.list p.parameter {
+    font-weight:400;
+    color:#555555;
+    user-select: none;
+    cursor: pointer;
+}
+
+.list p.selected {
+    color:black;
+    font-weight: 600;
+    user-select: none;
+    cursor: pointer;
+}
+
+.editCell {
+    width:40px;
+}
+.editButton{
+    background-image:url('../../../../assets/images/edit_dark.svg');
+    background-size:30px 30px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    width:40px;
+    height:40px;
+
+}
+
+.editButton:hover {
+    background-color:green;
+}
+
+.editButton:active {
+    background-color:greenyellow;
+    outline:none;
+}
+
+.clickableCell {
+    outline:none;
+}
+
+.clickableCell:active {
+    outline:none;
+}
+
+table {
+    display:default;
+}
+
+.cleanTable {
+    border:1px solid #888888;
+}
+
+.cleanRow {
+   display:block;
+   border-bottom:3px solid red;
+}
+
+.cleantTable td {
+    border:1px solid #555555;
 }

@@ -1,62 +1,16 @@
-<div class='loomContainer'>
-<div class='adminForm'>
-<div class='collection group {{ studentsShowing }}'>
+
+<div class='loomContainer group'>
+    <div class='loomCard'>
+      <div class='closer'
+        (click)="closer()"></div>
     
-    <h1 (click)="toggleStudents()" class='collapsingTitle'>Peeps</h1>
-      <user-list [users]="users"></user-list>
-</div>
-
-<div class='collection group {{ instructorsShowing }}'>
-    <h1 (click)="toggleInstructors()" class='collapsingTitle'>Instructors</h1>
-      <user-list [users]="instructors"></user-list>
-</div>
-
-<div class='collection group {{ classesShowing }}'>
-    <h1 (click)="toggleClasses()" class='collapsingTitle'>Classes</h1>
-
-        <div class="collectionList" *ngIf="classes">
-         
-        <div *ngFor="let class of classes" [routerLink]="['/classedit', 
-        class.id]" class='collectionItem'>
-     
-          <table><tr>
-            <td>{{class.title}}</td>
-            <td> <p> {{class.start | date: 'yMMMd'}}</p> <!-- jms --></td>
-            <td><p> {{class.end | date: 'yMMMd'}}</p></td>
-          </tr></table>
-    
-          
-        </div>
-      </div>
-      <div *ngIf="classes" (click)='newClass()' class='basicButton'>Add a new Class</div>  
-      
-    <div class="notice" *ngIf="!classes">Currently having trouble accessing the API for class info.</div>
-  
-</div>
-
-<div class='collection group {{ seriesShowing }}'>
-    <h1 (click)="toggleSeries()" class='collapsingTitle'>Series of Classes</h1>
-
-    <div class="collectionList" *ngIf="classes">
-         
-        <div *ngFor="let serie of series" (click)="editSeries(serie.id)" class='collectionItem'>
-     
-          <table><tr>
-            <td>{{serie.title}}</td>
-          </tr></table>
-    
-          
-        </div>
-      </div>
-      <div *ngIf="classes" (click)='newSeries()' class='basicButton'>Add a new Series</div>  
-      
-    <div class="notice" *ngIf="!series">Currently having trouble accessing the API for series info.</div>
-
-
-  </div>
-
-</div>
-
-<br>
-
+      <nav>
+      <a routerLink="students" routerLinkActive="selected">Students</a>
+      <a routerLink="instructors" routerLinkActive="selected">Instructors</a>
+      <a routerLink="content" routerLinkActive="selected" class='test'>Content</a>
+      </nav>
+      <main>
+          <router-outlet></router-outlet> 
+      </main>
+    </div>
 </div>

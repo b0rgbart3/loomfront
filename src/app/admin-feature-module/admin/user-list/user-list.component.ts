@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { Userthumbnail } from '../../../models/userthumbnail.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'user-list',
@@ -12,77 +14,98 @@ import { Userthumbnail } from '../../../models/userthumbnail.model';
 
 export class UserListComponent implements OnInit {
 
+  order: string;
+  reverse: boolean;
+  // userForm: FormGroup;
 
-  thumbnails: Userthumbnail[];
   @Input() users: User[];
+  sortedUsers: User[];
+  thumbnails: Userthumbnail[];
+  sortedThumbnails: Userthumbnail[];
+  sortParams: string[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private fb: FormBuilder ) { }
 
   ngOnInit() {
+    this.order = 'username';
+    this.reverse = false;
 
-    // Generate an array of user thumbnail objects that correspond to our user array
-    this.thumbnails = this.users.map( user =>
+      this.thumbnails = this.users.map( user =>
       this.createThumbnail( user) );
+    this.sortedThumbnails = this.thumbnails;
+
+    this.sortParams = ['', 'username', 'lastname', 'email', 'signup_date'];
+    // this.userForm = this.fb.group({
+    //   suspend: '',
+    // });
 
  }
 
+// let the user choose which parameter to sort the list by
+// note the reverse order gets toggled - if the user clicks
+// on the same parameter item again
+ setOrder(value: string) {
+  if (this.order === value) {
+    this.reverse = !this.reverse;
+  } else {
+  this.order = value;
+  this.reverse = true;
+  }
+
+/* OK so this line of code is VERY sophisticated and is
+   doing a lot - so I feel the need to explain it while I
+   still understand it.
+
+   First, It's using a ternary operator to call one of two functions
+   based on the boolean value of the reverse property.
+
+   Then, it's passing a STRING to the sort function, to tell it
+   which property on the user object (which is nested in the
+   thumbnail object) of our array to sort by.
+
+   Pretty fucking amazing!
+*/
+
+  this.reverse ? this.thumbnailSort(this.order) :
+    this.thumbnailSortReverse(this.order);
+
+}
+
  createThumbnail(user) {
   const thumbnailObj = { user: user, user_id: user.id, online: false,
-      size: 50,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
+      size: 40,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
   return thumbnailObj;
 }
 
-
-  // getUsers() {
-  //   this.userService
-  //   .getUsers().subscribe(
-  //     courses =>  {this.users = courses;
-  //     this.userCount = this.users.length; },
-  //     error => this.errorMessage = <any>error);
-
-  // }
-
-
-  // private getIndexOfUser = (userId: String) => {
-  //   return this.users.findIndex((user) => {
-  //     return user._id === userId;
-  //   });
-  // }
-
-  // selectUser(user: User) {
-  //   this.selectedUser = user;
-  // }
-
-  // createNewUser() {
-  //   const thisUser = <User>{};
-  //   // By default, a newly-created course will have the selected state.
-  //   this.selectUser( thisUser );
-  // }
-
-  // deleteUser(userId) {
-  //   // console.log('In the Admin Component: Deleting course #' + courseId);
-
-  //   this.userService.deleteUser(userId).subscribe(
-  //     data => { // console.log('deleted course: ');
-  //     this.getUsers(); },
-  //     error => this.errorMessage = <any>error );
-  // }
+thumbnailSort(criteria: string) {
+    const copy = this.thumbnails;
+    copy.sort( function(a, b) {
+      const textA = a.user[criteria].toLocaleLowerCase();
+      const textB = b.user[criteria].toLocaleLowerCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+    this.sortedThumbnails = copy;
+  }
 
 
-  // addUser = (user: User) => {
-  //   this.users.push(user);
-  //   this.selectUser(user);
-  //   return this.users;
-  // }
+  thumbnailSortReverse(criteria: string) {
+    const copy = this.thumbnails;
+    copy.sort( function(a, b) {
+      const textA = a.user[criteria].toLocaleLowerCase();
+      const textB = b.user[criteria].toLocaleLowerCase();
+      return (textA > textB) ? -1 : (textA < textB) ? 1 : 0;
+    });
+    this.sortedThumbnails = copy;
+  }
 
-  // updateUser = (user: User) => {
-  //   const idx = this.getIndexOfUser(user._id);
-  //   if (idx !== -1) {
-  //     this.users[idx] = user;
-  //     this.selectUser(user);
-  //   }
-  //   return this.users;
-  // }
+  suspend(user) {
+    if (!user.suspended) {
+      console.log('suspending');
+    this.userService.suspendUser(user); } else {
+      console.log('unsuspending');
+      this.userService.unsuspendUser(user);
+    }
+  }
 
 }
 

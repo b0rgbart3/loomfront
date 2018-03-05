@@ -1,20 +1,83 @@
 
+<div class='sorter'>Sort By: <ul>
+    <li *ngFor='let param of sortParams' (click)='setOrder(param)'>
+        <span *ngIf='order===param' class='chosen'>{{param}}</span>
+        <span *ngIf='order!==param' class='unchosen'>{{param}}</span>
+    </li>
+    </ul></div>
 <div *ngIf="users" class='userList'>
 
-      <div *ngFor='let user of thumbnails' class='userLine' 
-       [routerLink]="['/usersettings/' + user.user_id + '/edit']">
-          <div class='thumbnailAdmin'>
-              <user-thumb [thumbnail]=user ></user-thumb>
-          </div>
-          <div class='userInfo'>
+      <div *ngFor="let user of sortedThumbnails" class='userLine' 
+       >
+          <div class='thumbnailAdmin' [routerLink]="['/usersettings/' + user.user_id + '/edit']">
+              <user-thumb [thumbnail]='user' class='listThumb'></user-thumb>
+            <div class='userInfo'>
               <h1>{{ user.user.username }}</h1>
             {{ user.user.firstname }} {{ user.user.lastname }}<br>
-            {{ user.user.email }}
+            {{ user.user.email }}</div>
           </div>
-          <div class='remover' 
-          (click)="deleteUser(user.user.username, user.user_id)">Delete</div>
-          <div class='suspender'>Suspend</div>
-
+          <!-- <div class='remover' 
+          (click)="deleteUser(user.user.username, user.user_id)">Delete</div> -->
+          <div class='suspend' (click)='suspend(user.user)' *ngIf='!user.user.suspended'>Suspend</div>
+          <div class='suspended' (click)='suspend(user.user)' *ngIf='user.user.suspended'>Suspended</div>
       </div>
 
   </div>
+
+<!-- <br><br>
+  <table class='userTable' *ngIf='sortedThumbnails' class='list' cellpadding='0' cellspacing='0'>
+    <tr>
+      
+        <th *ngFor='let param of sortParams' (click)='setOrder(param)'>
+            <p *ngIf='order===param' class='selected'>{{param}}</p>
+            <p *ngIf='order!==param' class='parameter'>{{param}}</p>
+        </th>
+
+      
+        <th>suspended</th>
+    </tr>
+    <tr *ngFor='let user of sortedThumbnails'>
+
+        <td [routerLink]=
+        "['/usersettings/' + user.user_id + '/edit']" class='clickableCell'>
+             <user-thumb [thumbnail]=user ></user-thumb>
+        </td>
+        <td class='username'>
+                {{ user.user.username }}
+        </td>
+        <td>
+                {{ user.user.firstname }} {{ user.user.lastname }}
+        </td>
+        <td>
+                {{ user.user.email }}
+        </td>
+        <td >
+      
+    </td>
+        <td> {{ user.user.suspended }} </td>
+    </tr>
+  </table>
+
+
+  <br>
+  <div class='sorter'>Sort By: <ul>
+        <li *ngFor='let param of sortParams' (click)='setOrder(param)'>
+            <span *ngIf='order===param' class='chosen'>{{param}}</span>
+            <span *ngIf='order!==param' class='unchosen'>{{param}}</span>
+        </li>
+        </ul>
+</div>
+
+<table class='cleanTable' *ngIf='sortedThumbnails' cellpadding='0' cellspacing='0' width='100%'>
+        <tr *ngFor='let user of sortedThumbnails' class='cleanRow'>
+
+                <td [routerLink]="['/usersettings/' + user.user_id + '/edit']" width='90%'>
+                <user-thumb [thumbnail]='user' class='listThumb'></user-thumb>
+                <div class='userInfo'>
+                  <h1>{{ user.user.username }}</h1>
+                {{ user.user.firstname }} {{ user.user.lastname }}<br>
+                {{ user.user.email }}</div>
+                </td>
+                <td> {{ user.user.suspended }} </td>
+            </tr>
+</table> -->
