@@ -64,7 +64,7 @@ resolve: {
 },
 
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
- canActivate: [ AuthGuard, UserAuthGuard ] },
+ canActivate: [ AuthGuard, UserAuthGuard ], resolve: { users: UsersResolver} },
 { path: 'reset/:key', component: ResetComponent },
 ];
 

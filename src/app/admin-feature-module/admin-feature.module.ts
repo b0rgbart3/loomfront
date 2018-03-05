@@ -32,6 +32,9 @@ import { InstructorsResolver } from '../resolvers/instructors-resolver.service';
 import { ContentComponent } from './admin/content.component';
 import { StudentsComponent } from './admin/students.component';
 import { InstructorsComponent } from './admin/instructors.component';
+import { SerieResolver } from '../resolvers/serie-resolver';
+import { EnrollmentsComponent } from './admin/enrollments.component';
+import { AssignmentsComponent } from './admin/assignments.component';
 
 
 @NgModule ( {
@@ -45,8 +48,12 @@ import { InstructorsComponent } from './admin/instructors.component';
                 children: [
                     { path: '', redirectTo: 'students', pathMatch: 'full' },
                     { path: 'students', component: StudentsComponent, resolve: { users: UsersResolver }},
+                    { path: 'enrollments', component: EnrollmentsComponent, resolve: {
+                        users: UsersResolver, classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver }},
                     { path: 'instructors', component: InstructorsComponent,
                         resolve: { users: UsersResolver, instructors: InstructorsResolver }},
+                    { path: 'assignments', component: AssignmentsComponent, resolve: {
+                        users: UsersResolver, classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver }},
                     { path: 'content', component: ContentComponent,
                     resolve: { users: UsersResolver, instructors: InstructorsResolver,
                         classes: ClassesResolver, series: SeriesResolver, courses: CoursesResolver }},
@@ -74,7 +81,7 @@ import { InstructorsComponent } from './admin/instructors.component';
             { path: 'classedit/:id', pathMatch: 'full', component: ClassEditComponent, resolve: {
     thisClass: ClassResolver, courses: CoursesResolver  } },
 
-            { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { series: SeriesResolver} },
+            { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { serie: SerieResolver} },
 
             { path: 'book/:id/edit', component: MaterialEditComponent,
             data: { type: 'book'}, resolve: { MaterialsResolver } },
@@ -116,14 +123,18 @@ import { InstructorsComponent } from './admin/instructors.component';
        ContentComponent,
        StudentsComponent,
        InstructorsComponent,
-       ContentComponent
+       ContentComponent,
+       EnrollmentsComponent,
+       AssignmentsComponent
     ],
     providers: [
         AdminRouteActivator,
         ClassResolver,
         UsersResolver,
         CourseResolver,
-        InstructorsResolver
+        InstructorsResolver,
+        SerieResolver,
+        SeriesResolver
     ],
     exports: [
         AdminComponent,

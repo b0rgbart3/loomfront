@@ -13,29 +13,14 @@ export class SeriesResolver implements Resolve <Series> {
 
     constructor( private seriesService: SeriesService, private router: Router ) { }
 
-    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Series> {
-        const id = route.params['id'];
-        console.log('Series Resolver: id: ' + id);
-        if (isNaN(id)) {
-            this.router.navigate(['/welcome']);
-            return Observable.of(null);
-        }
-        if (id === '0') {
-            console.log('Creating new Series');
-            const newSeries = new Series('', '', '', '' );
-            return Observable.of(newSeries); } else {
-        return this.seriesService.getSeries(id).
+    resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <any> {
+        return this.seriesService.getSeries(0).
         map(series => { if (series) {
-
-            console.log(' Resolver got a series. ' + id);
-            console.log(JSON.stringify(series[0]));
-            return series[0]; }
-        this.router.navigate(['/welcome']);
+            return series; }
         return null; })
     .catch(error => {
-        this.router.navigate(['/welcome']);
         return Observable.of(null);
     });
-    }
+
   }
 }

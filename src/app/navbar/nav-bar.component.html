@@ -8,7 +8,7 @@
 	<a *ngIf="currentUser" [routerLink]="['/home']">
 		<button mat-menu-item>Home</button></a>
 	<a *ngIf='admin' [routerLink]="['/coursebuilder']"><button mat-menu-item>Course Builder</button></a>
-	<a *ngIf='admin' [routerLink]="['/enrollments']"><button mat-menu-item>Enrollments</button></a>
+	<!-- <a *ngIf='admin' [routerLink]="['/enrollments']"><button mat-menu-item>Enrollments</button></a> -->
 	<a *ngIf='admin' [routerLink]="['/admin']"><button mat-menu-item>Admin</button></a>
 	<a  *ngIf="!currentUser" [routerLink]="['/signup']"><button mat-menu-item>Sign up</button></a>
 	<a   *ngIf="!currentUser" [routerLink]="['/login']">
@@ -19,7 +19,7 @@
 	THE RECLAIMING LOOM
 </div></a>
 
-<div class='quickMessageDoc' *ngIf='userService.currentUser'>
+<div class='quickMessageDoc' *ngIf='currentUser'>
 		<div [class]='messageListStyle' 
 		(click)='checkFresh();openMessageList()' (clickOutside)='closeMessageList()'></div>
 	<div class='messageListContainer group' *ngIf='showingMessageList'>
@@ -51,14 +51,14 @@
 	</div>
 </div>
 
-<div class='avatarMenuDoc'>
+<div class='avatarMenuDoc' *ngIf='currentUser'>
 		<img *ngIf="avatarimage" [src]="avatarimage" class='avatar' 
 		(click)='openAvatarMenu()' (clickOutside)='closeAvatarMenu()'>
 <div class='avatarMenu' *ngIf='showAvatarMenu'>
-	<div class='avatarMenuItem' *ngIf='userService.currentUser' (click)="gotoSettings()">
+	<div class='avatarMenuItem' *ngIf='currentUser' (click)="gotoSettings()">
 		My Settings
 	</div>
-	<div class='avatarMenuItem' *ngIf='userService.currentUser' (click)="logout()">
+	<div class='avatarMenuItem' *ngIf='currentUser' (click)="logout()">
 		Logout
 		</div>
 </div>

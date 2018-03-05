@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
             this.dataConnection = false;
           } else {
           this.users = users; if (this.users && this.users.length > 1) { this.dataConnection = true; }
-      console.log('What I got back from the User Service: ' + JSON.stringify(this.users));
+    //  console.log('What I got back from the User Service: ' + JSON.stringify(this.users));
           }
       },
         error => { this.errorMessage = <any>error; this.dataConnection = false; });

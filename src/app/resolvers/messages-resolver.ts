@@ -25,7 +25,10 @@ export class MessagesResolver implements Resolve <Message[]> {
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable <Message[]> {
         const class_id = route.params['id'];
+
+        if (this.userService.currentUser) {
         const user_id = this.userService.currentUser.id;
+
         const section = route.params['id2'] + '';
         console.log('In the notes settings resolver - class: ' + class_id +
             ', section: ' + section + ', user: ' + user_id);
@@ -47,6 +50,6 @@ export class MessagesResolver implements Resolve <Message[]> {
         return Observable.of(null);
     });
     }
-
+    }
 
 }

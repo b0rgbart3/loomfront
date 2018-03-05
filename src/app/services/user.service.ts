@@ -11,6 +11,7 @@ import { Enrollment } from '../models/enrollment.model';
 import { Globals } from '../globals';
 import { BoardSettings } from '../models/boardsettings.model';
 import { Reset } from '../models/reset.model';
+import * as io from 'socket.io-client';
 
 /*   Methods in this Service
 -------------------------------------
@@ -70,6 +71,7 @@ export class UserService implements OnInit {
   private _studentsUrl;
   private _avatar_image_url;
   _userSettingsUrl;
+  private socket: SocketIOClient.Socket;
 
   constructor (private _http: HttpClient, private globals: Globals) {
     const thisUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -86,6 +88,7 @@ export class UserService implements OnInit {
      this.resetUrl = this.base_path + 'api/reset';
 
      this._avatar_image_url = this.globals.avatars;
+     this.socket = io(this.globals.basepath);
   }
 
   ngOnInit() {
@@ -332,8 +335,12 @@ getUserFromMemoryById( queryID: string): User {
     saveSettings(settingsObject: any): Observable<any> {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
+        this.socket.emit('userSettingsChanged', settingsObject);
         return this._http.put(this._userSettingsUrl + '?id=' +
-            settingsObject.id, settingsObject, {headers: myHeaders, responseType: 'text'} );
+            settingsObject.id, settingsObject, {headers: myHeaders, responseType: 'text'} ).do(
+              data => { localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) ); },
+              error => { console.log('error saving settings.'); }
+            );
 
       }
 
@@ -397,6 +404,10 @@ getUserFromMemoryById( queryID: string): User {
          return this.currentUser;
      }
 
+    //  getCurrentUser(): Observable <User> {
+    //    return Observable.of(this.currentUser);
+    //  }
+
      resetCurrentUser( newUserObject ) {
       this.currentUser = newUserObject;
       localStorage.setItem('currentUser', JSON.stringify( newUserObject) );
@@ -430,6 +441,7 @@ getUserFromMemoryById( queryID: string): User {
                       if ( this.currentUser && this.currentUser.username) {
                       this.username = this.currentUser.username;
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
+                      this.socket.emit('userChanged', this.currentUser);
                     } else {
                       // console.log('user not yet signed up.');
                     }
@@ -465,6 +477,7 @@ getUserFromMemoryById( queryID: string): User {
                     this.currentUser = <User> response;
                     this.username = this.currentUser.username;
                     localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
+                    this.socket.emit('userChanged', this.currentUser);
                    return <User> response;
                 });
 

@@ -80,21 +80,28 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.username = null;
     this.avatarimage = '';
     this.userService.logout();
-    localStorage.removeItem('username');
+    // localStorage.removeItem('username');
+    if (this.FB) {
+    this.FB.logout(); }
     this._router.navigate(['/welcome']);
-    this.FB.logout();
   }
 
 
   ngOnInit() {
     this.showAvatarMenu = false;
     this.updateMyself();
-    this.userService.getUsers();
+    // this.userService.getUsers();
     this.username = localStorage.getItem('username');
     this.updateAvatar();
     this.showingMessageList = false;
     this.messageListStyle = 'quickMessagesButton';
     this.socket = io(this.globals.basepath);
+
+    this.currentUser = this.userService.currentUser;
+    // this.userService.getCurrentUser().subscribe(
+    //   data => this.currentUser = data,
+    //   error => console.log('error getting user from service')
+    // );
 
     // this.socket.on('msgRplyAdded', (data) => {
     //   this.msgRplyAdded.emit(data);
@@ -104,10 +111,19 @@ export class NavBarComponent implements OnInit, DoCheck {
       this.userService.getUsers();
       this.checkFresh();
     }
+    this.socket.on('userSettingsChanged', (user) => {
+      console.log('NavBar noticed the user settings changed.');
+      // this.updateMyself();
+      this.currentUser = user;
+   });
+    this.socket.on('userChanged', (user) => {
+       console.log('NavBar noticed the user changed.');
+       this.updateMyself();
+    });
 
     this.socket.on('messageChanged', (message) => {
 
-    //  console.log('NavBar noticed a message was sent.');
+     console.log('NavBar noticed a message was sent.');
       // this.msgChanged.emit(message);
 
       this.checkFresh();
@@ -281,7 +297,7 @@ export class NavBarComponent implements OnInit, DoCheck {
  ngDoCheck() {
   this.username = localStorage.getItem('username');
   if (!this.username || this.username === '') {
-    this.currentUser = this.userService.getCurrentUser();
+    // this.currentUser = this.userService.getCurrentUser();
     if (this.currentUser) {
       this.username = this.currentUser.username;
     }

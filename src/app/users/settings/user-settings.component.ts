@@ -37,6 +37,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     localImageUrl: string;
     avatar: string;
     biolength: number;
+    avatarChanged: boolean;
 
     constructor(
         private _http: HttpClient,
@@ -71,8 +72,8 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
          this.avatarUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
 
             this.tempName = this.avatarUploader.queue[0].file.name;
-            console.log('Done uploading' + JSON.stringify(this.tempName));
-            console.log('USER: ' + JSON.stringify(this.user));
+            // console.log('Done uploading' + JSON.stringify(this.tempName));
+            // console.log('USER: ' + JSON.stringify(this.user));
             alert('Your image will be cropped to fit a square aspect ratio.');
             this.localImageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.tempName;
 
@@ -102,6 +103,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
     ngOnInit () {
 
+        this.avatarChanged = false;
         const idFromURL = this.activated_route.snapshot.params['id'];
         console.log('In user settings, ID = ' + idFromURL);
         if (idFromURL) {
@@ -132,6 +134,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
 
 
     avatarChange(event) {
+        this.avatarChanged = true;
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
@@ -162,7 +165,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     submitSettings() {
 
         // No need to save the settings, if they haven't changed, or they're invalid
-        if (this.settingsForm.valid && this.settingsForm.dirty) {
+        if (this.settingsForm.valid && ( this.settingsForm.dirty || this.avatarChanged )) {
         console.log('In submitSettings');
         console.log('settingsForm.value: ' + JSON.stringify( this.settingsForm.value) );
         const settingsObject = Object.assign( {}, this.user, this.settingsForm.value);
@@ -200,6 +203,7 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
               },
               () => {
                 console.log('The POST observable is now completed.');
+                // this.userService.currentUser = settingsObject;
                 this.router.navigate(['/welcome']);
               }
         );

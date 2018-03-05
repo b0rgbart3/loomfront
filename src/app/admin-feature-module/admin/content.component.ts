@@ -30,6 +30,9 @@ export class ContentComponent implements OnInit {
 
 
     ngOnInit() {
+
+        console.log('In Content Component init.');
+
         this.activated_route.data.subscribe(
             data => {
             this.classArray = data['classes'];
