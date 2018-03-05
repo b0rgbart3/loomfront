@@ -13,6 +13,7 @@ import * as $ from 'jquery';
 import { Validators } from '@angular/forms';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Globals } from '../../globals';
+import {Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
@@ -45,7 +46,8 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         private activated_route: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private fb: FormBuilder,
-        private globals: Globals ) {}
+        private globals: Globals,
+        private _location: Location ) {}
 
     myInit() {
         const urlWithQuery = this.globals.postavatars + '?userid=' + this.user.id;
@@ -154,7 +156,8 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
     }
 
     cancel() {
-        this.router.navigate(['/welcome']);
+        this._location.back();
+//        this.router.navigate(['/welcome']);
     }
     submitSettings() {
 

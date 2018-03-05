@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { CourseListComponent } from './courses/course-list/course-list.component';
-import { UserListComponent } from './users/user-list/user-list.component';
+// import { UserListComponent } from './users/user-list/user-list.component';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestresetComponent } from './users/requestreset/requestreset.component';

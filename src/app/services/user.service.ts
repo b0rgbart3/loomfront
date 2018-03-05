@@ -363,6 +363,27 @@ getUserFromMemoryById( queryID: string): User {
         return this.currentUser;
      }
 
+     unsuspendUser( user: User ) {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+       user.suspended = false;
+
+       this.updateUser(user).subscribe( data => {}, error => {
+         console.log('error suspending user.');
+       });
+     }
+
+     suspendUser( user: User ) {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+       user.suspended = true;
+
+       this.updateUser(user).subscribe( data => {}, error => {
+         console.log('error suspending user.');
+       });
+     }
 
 
      checkAuthenticationStatus() {

@@ -20,7 +20,7 @@ export class User {
         public student: boolean,
         public instructor: boolean,
         public admin: boolean,
-        public status: string[],
+        public suspended: boolean,
         public favoritecolor: string,
         public avatar_filename: string,
         public avatar_URL: string,
