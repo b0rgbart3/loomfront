@@ -18,8 +18,14 @@
           </div>
           <!-- <div class='remover' 
           (click)="deleteUser(user.user.username, user.user_id)">Delete</div> -->
-          <div class='suspend' (click)='suspend(user.user)' *ngIf='!user.user.suspended'>Suspend</div>
-          <div class='suspended' (click)='suspend(user.user)' *ngIf='user.user.suspended'>Suspended</div>
+          <div *ngIf='showInstructorChoice' class='choice'>
+            <div class='notinstructor' (click)='toggleInstructorStatus(user.user)' *ngIf='!user.user.instructor'>Instructor</div>
+            <div class='instructor' (click)='toggleInstructorStatus(user.user)' *ngIf='user.user.instructor'>Instructor</div>
+          </div>
+          <div *ngIf='showSuspensionChoice' class='choice'>
+            <div class='suspend' (click)='suspend(user.user)' *ngIf='!user.user.suspended'>Suspend</div>
+            <div class='suspended' (click)='suspend(user.user)' *ngIf='user.user.suspended'>Suspended</div>
+          </div>
       </div>
 
   </div>

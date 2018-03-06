@@ -19,6 +19,9 @@ export class UserListComponent implements OnInit {
   // userForm: FormGroup;
 
   @Input() users: User[];
+  @Input() showInstructorChoice: boolean;
+  @Input() showSuspensionChoice: boolean;
+
   sortedUsers: User[];
   thumbnails: Userthumbnail[];
   sortedThumbnails: Userthumbnail[];
@@ -107,7 +110,8 @@ thumbnailSort(criteria: string) {
     }
   }
 
+  toggleInstructorStatus(user) {
+   this.userService.toggleInstructorStatus(user);
+  }
+
 }
-
-
-

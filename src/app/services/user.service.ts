@@ -392,6 +392,36 @@ getUserFromMemoryById( queryID: string): User {
        });
      }
 
+     toggleInstructorStatus( user: User) {
+      const myHeaders = new HttpHeaders();
+      myHeaders.append('Content-Type', 'application/json');
+
+      user.instructor = !user.instructor;
+      this.updateUser(user).subscribe( data => {}, error => {
+        console.log('error making instructor');
+      });
+    }
+
+
+    //  makeInstructor( user: User) {
+    //    const myHeaders = new HttpHeaders();
+    //    myHeaders.append('Content-Type', 'application/json');
+
+    //    user.instructor = true;
+    //    this.updateUser(user).subscribe( data => {}, error => {
+    //      console.log('error making instructor');
+    //    });
+    //  }
+
+    //  makeNotInstructor( user: User) {
+    //   const myHeaders = new HttpHeaders();
+    //   myHeaders.append('Content-Type', 'application/json');
+
+    //   user.instructor = false;
+    //   this.updateUser(user).subscribe( data => {}, error => {
+    //     console.log('error making instructor');
+    //   });
+    // }
 
      checkAuthenticationStatus() {
         // this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
