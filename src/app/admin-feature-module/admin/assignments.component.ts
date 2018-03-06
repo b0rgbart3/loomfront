@@ -12,6 +12,7 @@ import { EnrollmentsService } from '../../services/enrollments.service';
 
 @Component({
     moduleId: module.id,
+    selector: 'assignments',
     templateUrl: 'assignments.component.html',
     styleUrls: ['assignments.component.css']
 })

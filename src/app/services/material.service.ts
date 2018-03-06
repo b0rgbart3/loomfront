@@ -214,7 +214,7 @@ export class MaterialService {
 
     }
 
-    sortMaterials( materialsArray ) {
+    sortMaterials( materialsArray ): MaterialCollection {
 
       const videos = [];
       const docs = [];
@@ -223,6 +223,8 @@ export class MaterialService {
       const quotes = [];
       const blocks = [];
       const images = [];
+
+      console.log('Material Array length = ' + materialsArray.length);
 
       for (let i = 0; i < materialsArray.length; i++) {
 
@@ -261,6 +263,19 @@ export class MaterialService {
               break;
           }
         }
+
+        // { 'type': 'image',   'longName' : 'Images',          'pluralName' : 'images' },
+        // { 'type': 'video',   'longName' : 'Videos',          'pluralName' : 'videos' },
+        // { 'type': 'audio',   'longName' : 'Audio Files',     'pluralName' : 'audios' },
+        // { 'type': 'doc',     'longName' : 'PDF Documents',   'pluralName' : 'docs' },
+        // { 'type': 'quote',   'longName' : 'Quotations',      'pluralName' : 'quotes' },
+        // { 'type': 'block',   'longName' : 'HTML Content',    'pluralName' : 'blocks' },
+        // { 'type': 'book',    'longName' : 'Book References', 'pluralName' : 'books' }   ];
+
+
+
+        // const newMaterialsArray = new MaterialCollection( images, videos, audios, docs, quotes, blocks, books);
+        // return newMaterialsArray;
         // if (materialsArray[i]) {
         // if (materialsArray[i].type === 'video') {
         //   videos.push(materialsArray[i]);

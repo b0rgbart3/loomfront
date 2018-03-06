@@ -1,5 +1,4 @@
-<div class="padMe">
-    <h1>Student Enrollments:</h1>
+
     <div *ngFor='let classGroup of classes'>
         <h3>{{ classGroup.title }}  {{ classGroup.id}}</h3>
         <div *ngFor='let enrollment of enrollments; let i=index'>
@@ -60,4 +59,3 @@
        errors: {{ enrollmentForm.get('user_id').errors  | json }}<br>
             {{ enrollmentForm.value | json}}
          </div>
-</div>

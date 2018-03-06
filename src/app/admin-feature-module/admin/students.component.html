@@ -1,2 +1,14 @@
-
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+      <mat-panel-title>Students</mat-panel-title>
+  </mat-expansion-panel-header>
   <user-list [users]="users" *ngIf='users'></user-list>   
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>Student Enrollments</mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <enrollments></enrollments>
+</mat-expansion-panel>

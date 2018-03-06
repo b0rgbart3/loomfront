@@ -35,6 +35,7 @@ import { InstructorsComponent } from './admin/instructors.component';
 import { SerieResolver } from '../resolvers/serie-resolver';
 import { EnrollmentsComponent } from './admin/enrollments.component';
 import { AssignmentsComponent } from './admin/assignments.component';
+import { MaterialsComponent } from './admin/materials.component';
 
 
 @NgModule ( {
@@ -47,16 +48,19 @@ import { AssignmentsComponent } from './admin/assignments.component';
                 resolve: { users: UsersResolver, instructors: InstructorsResolver },
                 children: [
                     { path: '', redirectTo: 'students', pathMatch: 'full' },
-                    { path: 'students', component: StudentsComponent, resolve: { users: UsersResolver }},
-                    { path: 'enrollments', component: EnrollmentsComponent, resolve: {
-                        users: UsersResolver, classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver }},
+                    { path: 'students', component: StudentsComponent, resolve: { users: UsersResolver,
+                        classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver }},
+                    // { path: 'enrollments', component: EnrollmentsComponent, resolve: {
+                    //     users: UsersResolver, classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver }},
                     { path: 'instructors', component: InstructorsComponent,
-                        resolve: { users: UsersResolver, instructors: InstructorsResolver }},
-                    { path: 'assignments', component: AssignmentsComponent, resolve: {
-                        users: UsersResolver, classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver }},
-                    { path: 'content', component: ContentComponent,
+                        resolve: { users: UsersResolver, instructors: InstructorsResolver,
+                            classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver }},
+                    // { path: 'assignments', component: AssignmentsComponent, resolve: {
+                    //     users: UsersResolver, classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver }},
+                    { path: 'classes', component: ContentComponent,
                     resolve: { users: UsersResolver, instructors: InstructorsResolver,
                         classes: ClassesResolver, series: SeriesResolver, courses: CoursesResolver }},
+                    { path: 'materials', component: MaterialsComponent, resolve: { courses: CoursesResolver, materials: MaterialsResolver}}
                 ]
             },
 
@@ -125,7 +129,8 @@ import { AssignmentsComponent } from './admin/assignments.component';
        InstructorsComponent,
        ContentComponent,
        EnrollmentsComponent,
-       AssignmentsComponent
+       AssignmentsComponent,
+       MaterialsComponent
     ],
     providers: [
         AdminRouteActivator,

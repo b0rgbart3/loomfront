@@ -8,6 +8,7 @@ import { Material } from '../../models/material.model';
 import { MaterialService } from '../../services/material.service';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Globals } from '../../globals';
+import {Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
@@ -44,7 +45,8 @@ export class MaterialEditComponent implements OnInit {
     private activated_route: ActivatedRoute,
     private materialService: MaterialService,
     private router: Router,
-    private globals: Globals ) {    }
+    private globals: Globals,
+    private _location: Location  ) {    }
 
     ngOnInit() {
 
@@ -277,7 +279,8 @@ export class MaterialEditComponent implements OnInit {
       }
 
 
-    closeMe() {
-        this.router.navigate(['/coursebuilder']);
+    closer() {
+        this._location.back();
+//        this.router.navigate(['/coursebuilder']);
     }
 }

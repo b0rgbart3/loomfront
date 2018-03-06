@@ -1,0 +1,43 @@
+
+
+    
+<div *ngIf='data'>
+    <div *ngFor='let assetType of types; let i = index;'>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{ assetType.longName }}</mat-panel-title>
+            </mat-expansion-panel-header>
+    
+            <mat-list>
+                <mat-list-item (click)="addAsset(i)">
+                    <mat-icon class='example-icon'>add</mat-icon>
+                    Add a new {{ assetType.type }}
+                </mat-list-item>
+
+            
+                <!-- {{ assetType.type }} -->
+               <mat-list-item *ngFor='let item of data[assetType.pluralName]' (click)="editAsset(i, item.id)">
+                    {{ item.title }}
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+        
+    </div>
+</div>
+
+<br>
+<ul class='datatypes'>
+
+    <li *ngFor='let type of globals.materialTypes' (click)='setOrder(type)'>
+        <span *ngIf='order===type.type' class='chosen'>{{type.longName}}</span>
+        <span *ngIf='order!==type.type' class='unchosen'>{{type.longName}}</span>
+    </li>
+
+</ul><br clear='all'>
+
+<div *ngIf='data'>
+
+    <div *ngFor='let asset of data[order.pluralName]'>
+        {{ asset.title }}
+    </div>
+</div>

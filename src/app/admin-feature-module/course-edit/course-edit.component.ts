@@ -13,6 +13,7 @@ import { MaterialCollection } from '../../models/materialcollection.model';
 import { Materialtype } from '../../models/materialtype.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import _ from 'lodash';
+import {Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
@@ -86,7 +87,8 @@ export class CourseEditComponent implements OnInit {
     constructor(private router: Router, private activated_route: ActivatedRoute,
         private courseService: CourseService, private fb: FormBuilder,
         private materialService: MaterialService, private globals: Globals,
-    private _sanitizer: DomSanitizer ) { }
+    private _sanitizer: DomSanitizer,
+    private _location: Location  ) { }
 
     ngOnInit(): void {
 
@@ -666,8 +668,10 @@ export class CourseEditComponent implements OnInit {
                      .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
       }
 
-    returnToCourseBuilder() {
-        this.router.navigate(['/coursebuilder']);
+    closer() {
+        this._location.back();
+
+        // this.router.navigate(['/coursebuilder']);
     }
     deleteCourse(courseId) {
         const result = confirm( 'Are you sure you want to delete this course,' +

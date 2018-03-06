@@ -1,1 +1,12 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>Instructors</mat-panel-title>
+    </mat-expansion-panel-header>
 <user-list [users]="instructors" *ngIf='instructors'></user-list>   
+</mat-expansion-panel>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>Instructor Assignments</mat-panel-title>
+    </mat-expansion-panel-header>
+<assignments></assignments>
+</mat-expansion-panel>

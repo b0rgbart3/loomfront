@@ -1,0 +1,29 @@
+.datatypes {
+    list-style: none;
+}
+
+.datatypes li {
+    display:inline-block;
+    float:left;
+    padding-left:8px;
+    padding-right:8px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.chosen {
+    font-weight:700;
+    color:blue;
+}
+
+.unchosen {
+    font-weight:400;
+    color:#555555;
+}
+
+mat-list-item {
+    cursor: pointer;
+    outline:none;
+    padding:0 !important;
+    margin:0 !important;
+  }

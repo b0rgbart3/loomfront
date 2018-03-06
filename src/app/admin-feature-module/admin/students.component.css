@@ -1,0 +1,28 @@
+/* mat-expansion-panel-header {
+    border-bottom:2px solid black;
+    background-color:#cccccc;
+}
+
+mat-expansion-panel-header:hover {
+    border-color:blue;
+}
+
+mat-panel-title {
+    font-size:1.3em;
+    font-weight:bold;
+}
+
+mat-list-item {
+    cursor: pointer;
+    outline:none;
+}
+mat-list-item:hover {
+    background-color:#eeeeee;
+    border-bottom:1px solid blue;
+    outline:none;
+}
+
+mat-list-item:active {
+    background-color:#cccccc;
+    outline:none;
+} */
