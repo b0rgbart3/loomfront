@@ -6,7 +6,6 @@ import { ClassModel } from '../models/class.model';
 import { UserService } from '../services/user.service';
 import { ClassService } from '../services/class.service';
 
-
 @Component({
     templateUrl: 'welcome.component.html',
     styleUrls: ['welcome.component.css']

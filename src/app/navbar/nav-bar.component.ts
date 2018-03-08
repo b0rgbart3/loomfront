@@ -22,7 +22,6 @@ import { Userthumbnail } from '../models/userthumbnail.model';
   selector: 'nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-  providers: [  ]
 })
 
 export class NavBarComponent implements OnInit, DoCheck {

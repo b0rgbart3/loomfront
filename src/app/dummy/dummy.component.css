@@ -1,0 +1,316 @@
+.navBarWrap {
+    height:80px;
+    position: fixed;
+    z-index: 200;
+    width:100%;
+    margin:0;
+    min-width:458px;
+    background-color:#393f45;
+  }
+  
+  
+  .myNavWrapper {
+      margin:0;
+      padding:0;
+      box-sizing: border-box;
+      width:100%;
+      height:70px;
+      max-width:1100px;
+      margin-right:auto;
+      margin-left:auto;
+  }
+  
+  .userInfo {
+      font-size:.8em;
+      font-weight: 400;
+      padding:6px;
+      padding-left:17px;
+      padding-right:17px;
+      box-sizing: border-box;
+      border-radius:6px;
+  }
+  
+  .infoElement {
+      display:inline-block;
+      float:left;
+      border:4px solid green;
+      padding:20px;
+      min-width:300px;
+      color:white;
+      padding-top:12px;
+      min-height:40px;
+      margin-top:10px;
+  }
+  mat-toolbar {
+  margin-left:auto;
+  margin-right:auto;
+  width:100%;
+  border:2px solid red;
+  }
+  
+  .easyHomeButton {
+      display:inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      font-size:1.1em;
+      padding:12px;
+      padding-top:16px;
+      box-sizing: border-box;
+      vertical-align: top;
+      margin-top:17px;
+      font-family: 'Josefin Sans';
+      border:2px solid rgba(255,255,255,.2);
+  }
+  
+  a .easyHomeButton {
+      color:#777777;
+  }
+  
+  a:hover .easyHomeButton {
+      background-color:#111111;
+  }
+  
+  
+  p.userName {
+      float:right;
+      right:0;
+      vertical-align: top;
+      color:rgba(255,255,255,.6);
+      padding:4px 0 0 6px;
+      border-radius:2px;
+      text-align: right;
+      line-height: 25px;
+      margin-right:4px;
+      
+      margin-bottom:0px;
+      padding-bottom:0px;
+      word-wrap: break-word;
+      word-break: break-all;
+  }
+  
+  .avatar{
+      border:2px solid black;
+      cursor: pointer;
+      width:60px;
+      height:60px;
+      padding:1px;
+      margin-top:10px;
+      box-sizing: border-box;
+      border-radius: 0;
+  
+      border-radius:50%;
+  }
+  
+  .avatar:active {
+      border:2px solid white;
+  }
+  
+  
+  .usernameOnly {
+      color:rgba(255,255,255,.8);
+      font-size:16px;
+      line-height: 24px;
+  }
+  
+  .loomMenu {
+      color:white;
+      margin:6px;
+      width:54px;
+      height:54px;
+      box-sizing:border-box;
+      border:2px solid rgba(255,255,255,.2);
+      padding:0;
+      text-align: left;
+      padding-left:10px;
+      display:inline-block;
+      vertical-align: top;
+      margin-top:15px;
+  }
+  
+  mat-icon {
+      font-size:30px;
+  }
+  
+  .messageListContainer {
+      border:1px #555555;
+      box-shadow:0 0px 20px rgba(0,0,0,1);
+      position: relative;
+      top:-10px;
+      right:210px;
+      width:240px;
+  }
+  .messageList {
+      background-color:white;
+      width:260px;
+      min-height:50px;
+      margin-left:auto;
+      margin-right:auto;
+      border:1px solid #555555;
+      border-radius:4px 4px 4px 4px;
+      overflow: hidden;
+      border-top:none;
+  }
+  
+  .messageList p {
+      padding:8px;
+      user-select: none;
+  }
+  .quickMessageDoc {
+      float:right;
+    display:inline-block;
+    width:72px;
+    height:72px;
+    border:1px solid rgba(0,0,0,0);
+    padding-top:8px;
+    padding-left:8px;
+    box-sizing: border-box;
+    margin-right:8px;
+  }
+  
+  .quickMessagesButton {
+      background-image:url('../../assets/images/messages.svg');
+      background-size:60px 60px;
+      width:60px;
+      height:60px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      display:inline-block;
+  }
+  
+  .quickMessagesButtonFresh {
+      background-image:url('../../assets/images/messages_new.svg');
+      background-size:60px 60px;
+      width:60px;
+      height:60px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      display:inline-block;
+  }
+  
+  
+  .quickMessagesButton_hi {
+      background-image:url('../../assets/images/messages_hi.svg');
+      background-size:60px 60px;
+      width:60px;
+      height:60px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      display:inline-block;
+  }
+  
+  .listThumb {
+      display:inline-block;
+      float:left;
+      width:60px;
+      height:60px;
+      /* border:1px solid red; */
+      padding:0;
+  }
+  
+  .msgLine {
+      border:1px solid #999999;
+      background-color:#aaaaaa;
+      padding:0;
+      box-sizing: border-box;
+      padding-top:8px;
+  
+  }
+  .msgFreshLine {
+      border:2px solid rgb(24, 228, 24);
+      background-color:#eeeeee;
+      padding:0;
+      box-sizing: border-box;
+      padding-top:8px;
+  
+  }
+  .msgFreshLine:active {
+      background-color:rgb(24, 228, 24);
+  }
+  
+  .msgLine:active {
+      border:1px solid #ffffff;
+      background-color:white;
+  }
+  
+  .message {
+      width:190px;
+      /* border:2px solid yellow; */
+      display:inline-block;
+      float:right;
+      box-sizing: border-box;
+      padding:2px;
+      padding-top:6px;
+      height:60px;
+      overflow: hidden;
+      user-select: none;
+  }
+  
+  .message h1 {
+      font-family: 'Josefin Sans';
+      text-transform:uppercase;
+      font-size:14px;
+      color:#555555;
+      padding:0;
+      line-height:14px;
+      margin:0;
+      margin-bottom:5px;
+      user-select: none;
+  }
+  
+  .message p {
+      padding:0;
+      margin:0;
+      line-height:15px;
+      font-size:14px;
+      color:black;
+      user-select: none;
+  }
+  
+  .avatarMenu {
+  display:inline-block;
+  position: relative;
+  top: -10px;
+  left:-130px;
+  width:190px;
+  height:80px;
+  background-color:white;
+  border-radius:4px;
+  box-shadow:0 0 20px rgba(0,0,0,1);
+  overflow: hidden;
+  }
+  
+  
+  .avatarMenuDoc {
+      display:inline-block;
+      float:right;
+      width:60px;
+      height:60px;
+  }
+  
+  .avatarMenuItem {
+  width:100%;
+  height:40px;
+  padding:8px;
+  padding-top:12px;
+  padding-bottom:4px;
+  box-sizing:border-box;
+  background-color:#eeeeee;
+  border-bottom:1px solid #555555;
+  cursor: pointer;
+  user-select: none;
+  }
+  
+  .avatarMenuItem:hover {
+      background-color:#dddddd;
+  }
+  
+  .avatarMenuItem:active {
+      background-color:#ccccc;
+  }
+  
+  @media only screen and (max-width: 640px) {
+  
+    p.userName { 
+       display:none;
+    }
+  }

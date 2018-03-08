@@ -83,6 +83,7 @@ import { MessagesResolver } from './resolvers/messages-resolver';
 import { MessageService } from './services/message.service';
 import { Ng2ScrollableModule } from 'ng2-scrollable';
 import { BioPopComponent } from './classes/class/biopop.component';
+import { DummyComponent } from './dummy/dummy.component';
 
 
 @NgModule({
@@ -101,7 +102,7 @@ import { BioPopComponent } from './classes/class/biopop.component';
     AppComponent,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
-    NavBarComponent,
+
     LoginComponent,
     CourseListComponent,
     CourseImageComponent,
@@ -133,7 +134,8 @@ import { BioPopComponent } from './classes/class/biopop.component';
     CourseComponent,
     NotesComponent,
     MessageComponent,
-    BioPopComponent
+    BioPopComponent,
+
   ],
   providers: [
     AlertService,

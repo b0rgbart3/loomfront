@@ -23,6 +23,8 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { MessageService } from '../services/message.service';
 import { ConnectionComponent } from './connection.component';
+import { NavBarComponent } from '../navbar/nav-bar.component';
+import { DummyComponent } from '../dummy/dummy.component';
 
 
 @NgModule ( {
@@ -52,8 +54,7 @@ import { ConnectionComponent } from './connection.component';
         ClickOutsideDirective,
         PageNotFoundComponent,
         ConnectionComponent,
-
-
+        NavBarComponent,
     ],
     providers: [
         ClassResolver,
@@ -82,7 +83,7 @@ import { ConnectionComponent } from './connection.component';
         ClickOutsideDirective,
         FlashMessagesModule,
         ConnectionComponent,
-
+        NavBarComponent,
     ]
 
 })
