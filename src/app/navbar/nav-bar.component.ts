@@ -58,28 +58,12 @@ export class NavBarComponent implements OnInit, DoCheck {
   closeAvatarMenu() {
     this.showAvatarMenu = false;
   }
-  updateMyself() {
-    this.admin = false;
-    this.currentUser = this.userService.currentUser;
-    // console.log('In navbar: ' + JSON.stringify(this.currentUser));
-    if (this.currentUser) {
-      this.username = this.currentUser.username;
-     // console.log('username: ' + this.username);
-    }
-    if (this.currentUser && this.currentUser.admin) {
-      this.admin = true;
-    } else {
-      this.admin = false;
-    }
-
-  }
 
   logout() {
     this.showAvatarMenu = false;
     this.username = null;
     this.avatarimage = '';
     this.userService.logout();
-    // localStorage.removeItem('username');
     if (this.FB) {
     this.FB.logout(); }
     this._router.navigate(['/welcome']);
@@ -87,45 +71,29 @@ export class NavBarComponent implements OnInit, DoCheck {
 
 
   ngOnInit() {
+
     this.showAvatarMenu = false;
-    this.updateMyself();
-    // this.userService.getUsers();
-    this.username = localStorage.getItem('username');
-    this.updateAvatar();
     this.showingMessageList = false;
     this.messageListStyle = 'quickMessagesButton';
     this.socket = io(this.globals.basepath);
-
     this.currentUser = this.userService.getCurrentUser();
-    this.userService.getUsers().subscribe( data => {
-     // console.log('GOT DATA BACK FROM USER SERVICE.');
-      // if (this.userService.currentUser) {
-      //   // this.userService.getUsers();
-      //  // this.checkFresh();
-      // }
-    }, error => {});
-
-//    this.currentUser = this.userService.currentUser;
-    // this.userService.getCurrentUser().subscribe(
-    //   data => this.currentUser = data,
-    //   error => console.log('error getting user from service')
-    // );
-
-    // this.socket.on('msgRplyAdded', (data) => {
-    //   this.msgRplyAdded.emit(data);
-    // });
-    // this.getMessages();
+    this.generateAvatarPath();
+    this.admin = this.currentUser.admin;
 
     this.socket.on('userSettingsChanged', (user) => {
     //  console.log('NavBar noticed the user settings changed.');
       // this.updateMyself();
       this.currentUser = user;
+      this.admin = this.currentUser.admin;
       this.showingMessageList = false;
+      this.generateAvatarPath();
    });
     this.socket.on('userChanged', (user) => {
      //  console.log('NavBar noticed the user changed.');
+     this.currentUser = user;
+     this.admin = this.currentUser.admin;
      this.showingMessageList = false;
-       this.updateMyself();
+     this.generateAvatarPath();
     });
 
     this.socket.on('messageChanged', (message) => {
@@ -151,26 +119,26 @@ export class NavBarComponent implements OnInit, DoCheck {
       if (this.messages && this.messages.length > 0) {
     //    console.log('length was greater than zero.');
         this.buildMessageList();
+        this.freshMessages = null;
+        this.messageService.getFreshList( this.userService.currentUser.id ).
+          subscribe(
+            fresh => {
+              console.log('got fresh list: ' + JSON.stringify(fresh));
+            this.freshMessages = fresh;
+            if (this.freshMessages && this.freshMessages.length > 0) {
+            this.buildFreshMessageList();
+            } else {
+              this.freshList = null;
+             // this.messageListStyle = 'quickMessagesButton';
+            }
+          },
+            error => { console.log('error getting fresh list.'); }
+          );
 
       }
     },
       error => { console.log('error getting messages.'); }
      );
-     this.freshMessages = null;
-    this.messageService.getFreshList( this.userService.currentUser.id ).
-      subscribe(
-        data => {
-          console.log('got fresh list: ' + JSON.stringify(data));
-        this.freshMessages = data;
-        if (this.freshMessages && this.freshMessages.length > 0) {
-        this.buildFreshMessageList();
-        } else {
-          this.freshList = null;
-         // this.messageListStyle = 'quickMessagesButton';
-        }
-      },
-        error => { console.log('error getting fresh list.'); }
-      );
 
    }
 
@@ -291,10 +259,11 @@ export class NavBarComponent implements OnInit, DoCheck {
   }
 
   openMessageList() {
-    if (this.showingMessageList) { this.closeMessageList();
+    if (this.showingMessageList) {
+      this.closeMessageList();
     } else {
+      this.checkFresh();
     this.showingMessageList = true;
-  //  console.log('opening');
     this.messageListStyle = 'quickMessagesButton_hi';
   }
   }
@@ -302,9 +271,7 @@ export class NavBarComponent implements OnInit, DoCheck {
   closeMessageList() {
     if (this.showingMessageList) {
     this.showingMessageList = false;
-   // console.log('closing');
 
-    // this.messageListStyle = 'quickMessagesButton';
     if (this.freshMessages && this.freshMessages.length > 0) {
       // this.buildFreshMessageList();
       this.messageListStyle = 'quickMessagesButtonFresh';
@@ -317,7 +284,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     }
   }
 
-  updateAvatar() {
+generateAvatarPath() {
     if (this.currentUser) {
       if (this.currentUser.facebookRegistration) {
        // console.log('This was a fb reg.');
@@ -349,7 +316,7 @@ export class NavBarComponent implements OnInit, DoCheck {
       this.username = this.currentUser.username;
     }
   }
-  this.updateAvatar();
+  // this.updateAvatar();
  }
 
 }

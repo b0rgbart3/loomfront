@@ -13,10 +13,10 @@ import { Globals } from '../globals';
 
 @Injectable()
 export class ClassService implements OnInit {
-    private _registryUrl;
-    private _classesUrl;
-    _studentClassesUrl;
-    _instructorClassesUrl;
+    // private _registryUrl;
+    // private _classesUrl;
+    // _studentClassesUrl;
+    // _instructorClassesUrl;
     private classCount = 0;
     private highestID = 0;
     classes: ClassModel[];
@@ -81,6 +81,27 @@ export class ClassService implements OnInit {
   }
 
 
+  gethighestID(): number {
+    this.updateIDCount();
+    return this.highestID;
+  }
+
+  updateIDCount() {
+    // Loop through all the Materials to find the highest ID#
+    if (this.classes && this.classes.length > 0) {
+    for (let i = 0; i < this.classes.length; i++) {
+    const foundID = Number(this.classes[i].id);
+    // console.log('Found ID: ' + foundID);
+    if (foundID >= this.highestID) {
+      const newHigh = foundID + 1;
+      this.highestID = newHigh;
+      // console.log('newHigh == ' + newHigh);
+    }
+  } } else {
+    this.getClassesNow();
+  }
+}
+
 
   getClassFromMemory(queryID): ClassModel {
     // console.log('In getClassFromMemory method: ' + this.classes);
@@ -112,51 +133,17 @@ export class ClassService implements OnInit {
       }
   }
 
-  // This method just takes the classObject and a list of users,
-  // and returns an array of full User Objects for this class
-  // -- because the classObject stores user info objects - but not
-  // user objects.
-  // getStudents(classObject, users): User[] {
-  //   const students = <User[]> [];
-  //   for (let i = 0; i < classObject.students.length; i++) {
-  //     const student_id = classObject.students[i].user_id;
 
-  //     if (users) {
-  //     for (let j = 0; j < users.length; j++) {
-  //         if (users[j].id === student_id) {
-  //             students.push(users[j]);
-  //         }
-  //     }}
-  //   }
-  //   return students;
-  // }
-
-  // // Similarly here - we're colleting an array of User objects
-  // // of the instructors for this class
-  // getInstructors(classObject, users): User[] {
-  //     const instructors = <User[]> [];
-  //        for (let i = 0; i < classObject.instructors.length; i++) {
-  //           const inst_id = classObject.instructors[i].user_id;
-
-  //           if (users) { for (let j = 0; j < users.length; j++) {
-  //               if (users[j].id === inst_id) {
-  //                   instructors.push(users[j]);
-  //               }
-  //           }}
-  //       }
-  //       return instructors;
-  // }
 
  createClass(classObject): Observable<ClassModel> {
 
-  //  console.log('In createClass method of the Class Service: ' + JSON.stringify(classObject));
-    classObject.id = this.highestID.toString();
-   // console.log('New id =' + classObject.id);
+   console.log('In createClass method of the Class Service: ' + JSON.stringify(classObject));
+    classObject.id = this.gethighestID().toString();
+   console.log('New id =' + classObject.id);
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
 
-    // Note: I'm not passing the id as part of the url -- because it's inside the classObject
-    const url = this._classesUrl;
+    const url = this.globals.classes;
     const putString = url + '?id=' + classObject.id;
   //  console.log('Put string: ' + putString);
     return this._http.put(putString, classObject, {headers: myHeaders}).map(
@@ -169,12 +156,12 @@ export class ClassService implements OnInit {
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
 
-    return this._http.put(this._classesUrl + '?id=' + classObject.id, classObject, {headers: myHeaders});
+    return this._http.put(this.globals.classes + '?id=' + classObject.id, classObject, {headers: myHeaders});
 
   }
 
   deleteClass(classId: number): Observable<any> {
-    return this._http.delete( this._classesUrl + '?id=' + classId);
+    return this._http.delete( this.globals.classes+ '?id=' + classId);
 }
 
 

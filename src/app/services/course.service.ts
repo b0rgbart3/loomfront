@@ -58,21 +58,6 @@ export class CourseService implements OnInit {
       .catch( this.handleError );
   }
 
-  //  getCourseSeedID(): Observable<Course[]> {
-  //   return this._http.get <any> (this._coursesUrl)
-  //     // debug the flow of data
-  //     .do(data => console.log('All: ' + JSON.stringify(data)))
-  //     .catch( this.handleError );
-  // }
-
-  // loadCourseImage ( queryID ): Observable <any> {
-  //   console.log('In LoadCourseImage()');
-
-  //   const myHeaders = new HttpHeaders();
-  //   myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
-
-  //   return this._http.get('http://localhost:3100/api/courseimages?id=' + queryID, {headers: myHeaders} );
-  // }
 
   getCourseFromMemory(queryID): Course {
 

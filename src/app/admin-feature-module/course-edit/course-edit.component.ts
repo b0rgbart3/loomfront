@@ -435,6 +435,7 @@ export class CourseEditComponent implements OnInit {
 
         const lintedModel = this.lintMe( combinedCourseObject );
         combinedCourseObject = lintedModel;
+        combinedCourseObject.sections[0] = [];
         combinedCourseObject.sections[0].materials = [];
 
         if (this.course.id === '0') {

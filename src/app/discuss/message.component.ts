@@ -51,6 +51,11 @@ export class MessageComponent implements OnInit {
           this.currentMessage = data[0];
         //  scrollTo('#s3', '#v-scrollable');
          // console.log('Message Object from the service: ' + JSON.stringify(this.currentMessage));
+
+         // Because we are now *viewing* this message, it is no longer 'fresh', so mark it as such
+         // and save the update object to Mongo
+            this.currentMessage.freshness[0].fresh = false;
+            this.currentMessage.freshness[1].fresh = false;
           this.scrollMe();
           } else {
             const freshArray = [{user_id: this.user1, fresh: false}, {user_id: this.user2, fresh: true }];
@@ -134,16 +139,23 @@ export class MessageComponent implements OnInit {
   );
   }
   sendMsg() {
-    const thisReply = new MessageReply( this.userService.currentUser.id, this.msgForm.value.msg );
-    if (!this.currentMessage.msgList) {
-      this.currentMessage.msgList = [];
+    // only execut this chunk if the user actualy entered a new message,
+    // but if not, then they merely viewed the message, in which case we want to go ahead
+    // and save it as 'stale', without adding to the msgList
+
+    if (this.msgForm.dirty) {
+        const thisReply = new MessageReply( this.userService.currentUser.id, this.msgForm.value.msg );
+        if (!this.currentMessage.msgList) {
+          this.currentMessage.msgList = [];
+        }
+        this.currentMessage.msgList.push(thisReply);
+        this.msgForm.reset();
+
+
+        const freshArray = [{user_id: this.user1, fresh: false}, {user_id: this.user2, fresh: true }];
+        this.currentMessage['freshness'] = freshArray;
+
     }
-    this.currentMessage.msgList.push(thisReply);
-    this.msgForm.reset();
-
-    const freshArray = [{user_id: this.user1, fresh: false}, {user_id: this.user2, fresh: true }];
-    this.currentMessage['freshness'] = freshArray;
-
     // console.log('About to save Message Object: ' + JSON.stringify(this.currentMessage));
     // this._messages.msgRplyAdded.emit(thisReply);
     this._messages.saveMessage(this.currentMessage).subscribe(

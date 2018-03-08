@@ -23,28 +23,17 @@ export class ClassEditComponent implements OnInit {
     id: string;
     errorMessage: string;
     courses: Course[];
-   // instructorCount = 0;
-  //  studentCount = 0;
-// students: User[];
-  //  possibleInstructors: User[];
-  //  possibleStudents: User[];
     courseSelections: Object[];
     showDialog = false;
-  //  users: User[];
+
     instructorChoices: FormArray;
-   // studentChoices: FormArray;
+
 
     constructor( private activated_route: ActivatedRoute, private classService: ClassService,
         private router: Router, private courseService: CourseService,
         private userService: UserService, private fb: FormBuilder ) {   }
 
-    // get instructor_choices(): FormArray{
-    //         return <FormArray> this.classForm.get('instructor_choices');
-    //     }
 
-    // get student_choices(): FormArray{
-    //     return <FormArray> this.classForm.get('student_choices');
-    // }
 
     ngOnInit(): void {
 
@@ -53,35 +42,16 @@ export class ClassEditComponent implements OnInit {
         console.log('The ID for this new class is: ' + id);
 
         this.thisClass = this.activated_route.snapshot.data['thisClass'];
-        // this.students = this.thisClass.students;
-
-
-     //   this.users = this.activated_route.snapshot.data['users'];
         this.courses = this.activated_route.snapshot.data['courses'];
-      //  this.possibleInstructors = this.activated_route.snapshot.data['possibleInstructors'];
-        // console.log('in init: poss.Instructors: ' + JSON.stringify(this.possibleInstructors));
 
         console.log('In Class Edit Component: thisClass = ' + JSON.stringify(this.thisClass));
 
-        // this.possibleStudents = this.activated_route.snapshot.data['users'];
-        // this.instructorChoices = <FormArray> this.fb.array([ ]);
-        // this.studentChoices = <FormArray> this.fb.array([ ]);
-
         this.classForm = this.fb.group({
-            title: [ '', [ ]] ,
-            course: '',
-            start: [new Date()],
-            end: [new Date()],
-          //  instructor_choices: this.instructorChoices,
-            // student_choices: this.studentChoices
+            title: [ '' , []],
+            course: ['', []],
+            start: [new Date(), []],
+            end: [new Date(), []],
         });
-
-        // if (this.thisClass && this.thisClass.instructors) {
-        // this.instructors = this.thisClass.instructors; } else { this.instructors = null; }
-
-        // if (this.thisClass && this.thisClass.students) {this.students = this.thisClass.students; } else {
-        //     this.students = null;
-        // }
 
         this.courseSelections = [];
 
@@ -152,57 +122,30 @@ export class ClassEditComponent implements OnInit {
         } else {
             console.log('ERROR in Class Edit -- no thisClass object!');
         }
-
-
     }
-
-    // buildUserReference( regObj ): FormGroup {
-    //     return this.fb.group( {
-    //         userid: regObj.id,
-    //         username: regObj.username
-    //     });
-    // }
 
     save(): void {
         console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(this.classForm.value)  );
-        if (this.classForm.dirty && this.classForm.valid) {
+        if (this.classForm.dirty) {
 
-            console.log('Form was dirty and valid');
+            console.log('Form was dirty');
 
             // This is Deborah Korata's way of merging our data model with the form model
              const combinedClassObject = Object.assign( {}, this.thisClass, this.classForm.value);
 
             // we need to build the "instructors" array from the instructor_choices because
             // we only want to save the ones who are selected
-            const tempInstructor_choices = combinedClassObject.instructor_choices;
-      //      console.log('instructor_choices: ' + JSON.stringify(combinedClassObject.instructor_choices));
+         //   const tempInstructor_choices = combinedClassObject.instructor_choices;
 
-            // const instructors = [];
-            // for (let i = 0; i < tempInstructor_choices.length; i++) {
-            //     const saveableInstructor = tempInstructor_choices[i];
-
-            //     if (saveableInstructor.value === true) {
-
-            //         instructors.push(saveableInstructor);
-            //     }
-            // }
-            // combinedClassObject.instructors = instructors;
-            // delete combinedClassObject.instructor_choices;
-            // const tempStudent_choices = combinedClassObject.student_choices;
-
-            // const students = [];
-            // for (let i = 0; i < tempStudent_choices.length; i++) {
-            //     const saveableStudent = tempStudent_choices[i];
-            //     if (saveableStudent.value === true) {
-            //         students.push(saveableStudent);
-            //     }
-            // }
-            // combinedClassObject.students = students;
-            // delete combinedClassObject.student_choices;
-            // console.log('in save: ' + JSON.stringify(combinedClassObject) );
 
             // This sends the newly formed class Object to the API
-            const id_as_number = parseInt(this.thisClass.id, 10);
+            let id_as_number = 0;
+            if (this.thisClass.id) {
+             id_as_number = parseInt(this.thisClass.id, 10);
+            } else {
+                this.thisClass.id = '0';
+            }
+
             if ( id_as_number > 0 ) {
                 console.log('calling update: ');
                 this.classService
