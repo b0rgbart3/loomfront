@@ -23,14 +23,14 @@ export class NotesSettingsResolver implements Resolve <NotesSettings> {
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable <NotesSettings> {
         const class_id = route.params['id'];
-        const user_id = this.userService.currentUser.id;
+        const user_id = this.userService.getCurrentUser().id;
         const section = route.params['id2'] + '';
-        console.log('In the notes settings resolver - class: ' + class_id +
-            ', section: ' + section + ', user: ' + user_id);
+   //     console.log('In the notes settings resolver - class: ' + class_id +
+   //         ', section: ' + section + ', user: ' + user_id);
 
         return this.notesService.getNotesSettings(user_id, class_id, section).
         map(nsObject => { if (nsObject) {
-            console.log('found existing ns object.');
+         //   console.log('found existing ns object.');
         return nsObject; } else {
             const newNSObject = new NotesSettings( user_id, class_id, section, true, []);
                 console.log('did not find ns object, so creating one:' + JSON.stringify(newNSObject));

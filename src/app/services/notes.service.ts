@@ -42,14 +42,14 @@ export class NotesService implements OnInit {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
 
-        console.log('In the notes Service, getting settings for: user: ' + user_id + ', class: ' +
-      class_id + ', section: ' + section );
+       // console.log('In the notes Service, getting settings for: user: ' + user_id + ', class: ' +
+    //  class_id + ', section: ' + section );
 
          return this._http.get <NotesSettings> (this.globals.notessettings +
             '?user_id=' + user_id + '&class_id=' + class_id + '&section=' + section, {headers: myHeaders} )
         .do (data => {
           if (data) {
-           console.log('Got Notes Settings back from the API' + JSON.stringify(data));
+          // console.log('Got Notes Settings back from the API' + JSON.stringify(data));
            return data; } else {
              return new NotesSettings( user_id, class_id, section + '', false, [] );
            }
@@ -60,7 +60,7 @@ export class NotesService implements OnInit {
       storeNotesSettings( notesSettingsObject ): Observable <any> {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
-        console.log('putting notes settings: ' + JSON.stringify(notesSettingsObject));
+      //  console.log('putting notes settings: ' + JSON.stringify(notesSettingsObject));
 
         if (!notesSettingsObject.folds) {
             notesSettingsObject.folds = [];

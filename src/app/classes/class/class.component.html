@@ -11,15 +11,14 @@
             <p class='dates'> {{ thisClass.start | date:'MMMM dd, yyyy' }} - {{ thisClass.end | date:'MMMM dd, yyyy' }}</p>
             <div class='instructors group'>
                     <h2>Your Instructors</h2>
-                    <div *ngFor='let instructor of instructorThumbnails' class='userThumb' (click)='showIntructorMenu(instructor)'
-                    (clickOutside)='hideMenu(instructor)'>
+                    <div *ngFor='let instructor of instructorThumbnails' class='userThumb' (click)='showBio(instructor.user)'>
                         <user-thumb [thumbnail]='instructor'></user-thumb>
-                        <div class='tipContainer group'>
+                        <!-- <div class='tipContainer group'>
                                 <div class='tip' *ngIf='instructor.hot' (click)='message(instructor)'>send message</div>
                             </div>
-                    </div>
+                    </div> -->
                 </div>
-        </div>
+        </div>xx
 </div>
 
 
@@ -30,10 +29,11 @@
         <div class='students group'>
                 <h1>Your Fellow Students</h1>
                 <div *ngFor='let student of studentThumbnails; let i = index;' class='userThumb' 
-                (click)='showMenu(student)' (clickOutside)='hideMenu(student)'>
-                        <user-thumb [thumbnail]='student' class='button'></user-thumb>
+        >
+                        <user-thumb [thumbnail]='student' class='button' (click)='showBio(student.user)'
+                        ></user-thumb>
 
-                        <div class='tipContainer group'>
+                        <!-- <div class='tipContainer group'>
                             <div class='popBio' *ngIf='student.hot'>
                                 <user-thumb [thumbnail]='studentBioThumbnails[i]' class='popThumb'></user-thumb>    
                                 <div class='userBio'>
@@ -41,7 +41,7 @@
                                     <div class='tip' *ngIf='student.hot' (click)='message(student)'>send message</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                 </div> <!-- end of thumbnails -->
         </div> <!-- end of student group -->
   
@@ -102,3 +102,6 @@
 
 </div>
 
+<div class='popBio' *ngIf='showingBio'>
+        <biopop [bioUser]='bioChosen' (closeMe)="closeBio($event)" (messageMe)="message($event)"></biopop>
+    </div>

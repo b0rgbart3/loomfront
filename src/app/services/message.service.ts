@@ -48,7 +48,7 @@ export class MessageService implements OnInit {
     public msgAdded = this._message.asObservable();
 
     public sendMessage(message: Message) {
-      console.log('got request to send a message: ' + JSON.stringify(message));
+     // console.log('got request to send a message: ' + JSON.stringify(message));
         this._message.next(message);
     }
 
@@ -56,7 +56,7 @@ export class MessageService implements OnInit {
       private notes: NotificationsService,
       private globals: Globals) {
         this.msgChanged = new EventEmitter();
-        this.highestID = 1;
+        this.highestID = 0;
         this.socket = io(this.globals.basepath);
         // this.socket.on('msgRplyAdded', (data) => {
         //   this.msgRplyAdded.emit(data);
@@ -74,22 +74,27 @@ export class MessageService implements OnInit {
     ngOnInit() {
 
       // console.log('getting messages');
-      // this.getMessages();
+      this.getMessages();
 
 
+    }
+
+    gethighestID(): number {
+      this.updateIDCount();
+      return this.highestID;
     }
 
     getFreshList(user_id): Observable<any> {
       const userString = '?user_id=' + user_id;
-      console.log('getting fresh list for: ' + user_id + ', at: ' + this.globals.freshmessages + '' + userString);
+      // console.log('getting fresh list for: ' + user_id + ', at: ' + this.globals.freshmessages + '' + userString);
 
       return this._http.get <Message[]> (this.globals.freshmessages + '' + userString).
-      do( data => { console.log('got data back for fresh list: ' + JSON.stringify(data) );
+      do( data => { // console.log('got data back for fresh list: ' + JSON.stringify(data) );
           return data; }
         ).catch( this.handleError );
     }
     getMessage(users: string[]): Observable<any> {
-
+      console.log('In msg service, getitng message for users: ' + users[0] + ', ' + users[1]);
       return this._http.get <Message> (this.globals.messages + '?users=' +
        users[0] + ',' + users[1]).
       do( data => data ).catch(
@@ -97,17 +102,20 @@ export class MessageService implements OnInit {
     }
 
     getMessagesForUser(user_id): Observable<any> {
-      console.log('In message service, getting messages for user: ' + user_id );
+     // console.log('In message service, getting messages for user: ' + user_id );
       return this._http.get <Message[]> (this.globals.messages + '?user=' +
-       user_id).do( data =>  data ).catch (this.handleError );
+       user_id).do( data =>  { // console.log('Got messages for user: ' + JSON.stringify(data));
+       return data; }
+      ).catch (this.handleError );
     }
 
   // get all the messages - so we can keep track of our ID#s
    getMessages(): Observable<any> {
 
-    console.log('getting messages from api...: ' + this.globals.messages);
-    return this._http.get <Message[]> (this.globals.messages).do(data =>  { console.log('Got messages from the API.');
-      console.log(JSON.stringify(data));
+  //  console.log('getting messages from api...: ' + this.globals.messages);
+    return this._http.get <Message[]> (this.globals.messages).do(data =>  {
+      // console.log('Got messages from the API.');
+    //  console.log(JSON.stringify(data));
                     this.messageCount = data.length;
                     this.messages = data;
                     this.updateIDCount();
@@ -139,7 +147,7 @@ export class MessageService implements OnInit {
 
     message.freshness[0].fresh = false;
     message.freshness[1].fresh = false;
-    console.log('saving the Message: ' + JSON.stringify(message));
+  //  console.log('saving the Message: ' + JSON.stringify(message));
 
     return this._http.put(this.globals.messages +
        '?id=' + message.id, message, {headers: myHeaders}).map(
@@ -147,11 +155,26 @@ export class MessageService implements OnInit {
        return message;
         } );
   }
+
+  createMessage(message): Observable<Message> {
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('Content-Type', 'application/json');
+  //  console.log('saving the Message');
+
+    return this._http.put(this.globals.messages + '?id=' + message.id, message, {headers: myHeaders}).map(
+       () => {
+        console.log('in msg service, done creating new message'); 
+        this.messages.push(message);
+        this.getMessages();
+       return message;
+        } );
+
+  }
   saveMessage(message): Observable<Message> {
 
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
-    console.log('saving the Message');
+  //  console.log('saving the Message');
 
     return this._http.put(this.globals.messages + '?id=' + message.id, message, {headers: myHeaders}).map(
        () => {  this.socket.emit('messageChanged', message);

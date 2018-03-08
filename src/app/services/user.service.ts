@@ -46,6 +46,7 @@ deleteUser()
 getInMemoryUsers()
 getUserFromMemoryById()
 
+
 -------------------------------------
 */
 
@@ -105,6 +106,7 @@ export class UserService implements OnInit {
     this.subscribeToUsers();
     this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
   }
+
 
   subscribeToUsers() {
     this.getUsers().subscribe(
@@ -235,7 +237,7 @@ getUserFromMemoryById( queryID: string): User {
             // if we got a string back instead of an object  -then it's ACTUALLY an error.
             return data;
           } else {
-          console.log('Got Users data.');
+       //   console.log('Got Users data.');
           this.users = data;  // store a local copy - even though this method is usually called
                               // from an outside component
           for (let i = 0; i < this.users.length; i++ ) {

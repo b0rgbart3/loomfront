@@ -30,14 +30,14 @@ export class MessagesResolver implements Resolve <Message[]> {
         const user_id = this.userService.currentUser.id;
 
         const section = route.params['id2'] + '';
-        console.log('In the notes settings resolver - class: ' + class_id +
-            ', section: ' + section + ', user: ' + user_id);
+        // console.log('In the notes settings resolver - class: ' + class_id +
+        //     ', section: ' + section + ', user: ' + user_id);
 
         return this.messageService.getMessages().
         map(messages => { if (messages) {
-            console.log('found existing messages.');
+          //  console.log('found existing messages.');
         return messages; } else {
-           console.log('did not find any messages');
+        //   console.log('did not find any messages');
 
         // const returnableArray = [];
         // returnableArray.push(newDSObject);

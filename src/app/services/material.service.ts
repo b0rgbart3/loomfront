@@ -224,7 +224,7 @@ export class MaterialService {
       const blocks = [];
       const images = [];
 
-      console.log('Material Array length = ' + materialsArray.length);
+    //  console.log('Material Array length = ' + materialsArray.length);
 
       for (let i = 0; i < materialsArray.length; i++) {
 

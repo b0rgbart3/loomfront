@@ -82,6 +82,7 @@ import { MessageComponent } from './discuss/message.component';
 import { MessagesResolver } from './resolvers/messages-resolver';
 import { MessageService } from './services/message.service';
 import { Ng2ScrollableModule } from 'ng2-scrollable';
+import { BioPopComponent } from './classes/class/biopop.component';
 
 
 @NgModule({
@@ -132,7 +133,7 @@ import { Ng2ScrollableModule } from 'ng2-scrollable';
     CourseComponent,
     NotesComponent,
     MessageComponent,
-
+    BioPopComponent
   ],
   providers: [
     AlertService,

@@ -21,6 +21,7 @@ export class DiscussionSettingsResolver implements Resolve <DiscussionSettings> 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable <DiscussionSettings> {
         const class_id = route.params['id'];
+        if (this.userService.currentUser && this.userService.currentUser.id) {
         const user_id = this.userService.currentUser.id;
         const section = route.params['id2'];
        // console.log('In the discussion settings resolver - class: ' + class_id +
@@ -42,6 +43,6 @@ export class DiscussionSettingsResolver implements Resolve <DiscussionSettings> 
         console.log(`DS Retrieval error: ${error}`);
         return Observable.of(null);
     });
-    }
+    } }
 
 }

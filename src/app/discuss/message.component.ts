@@ -31,30 +31,31 @@ export class MessageComponent implements OnInit {
   constructor( private _messages: MessageService,
     private userService: UserService, private fb: FormBuilder) {
 
-      this._messages.ngOnInit();
+     // this._messages.ngOnInit();
       this.scrolled = false;
     this._msgs = new Array<{}>();
     _messages.msgAdded.subscribe( requested => {
 
-      console.log('a new message was requested:' + JSON.stringify(requested));
+    //  console.log('a new message was requested:' + JSON.stringify(requested));
       this.toUser = requested['user'];
       if (this.userService.currentUser) {
       this.user1 = this.userService.currentUser.id; }
-      console.log('Requested: ' + JSON.stringify(requested['user']) );
+   //   console.log('Requested: ' + JSON.stringify(requested['user']) );
       this.user2 = requested['user'].id;
 
       const users = [this.user1, this.user2];
-      console.log('Users: ' + JSON.stringify(users));
+    //  console.log('Users: ' + JSON.stringify(users));
       this._messages.getMessage( users ).subscribe(
         data => {
           if (data[0]) {
           this.currentMessage = data[0];
         //  scrollTo('#s3', '#v-scrollable');
-          console.log('Message Object from the service: ' + JSON.stringify(this.currentMessage));
+         // console.log('Message Object from the service: ' + JSON.stringify(this.currentMessage));
           this.scrollMe();
           } else {
             const freshArray = [{user_id: this.user1, fresh: false}, {user_id: this.user2, fresh: true }];
-            this.currentMessage = new Message( _messages.highestID, users, freshArray, [] );
+            this.currentMessage = new Message( _messages.gethighestID(), users, freshArray, [] );
+            this.createMsg();
             console.log('Created new Message object: ' + JSON.stringify(this.currentMessage));
             this.scrollMe();
           }
@@ -86,29 +87,30 @@ export class MessageComponent implements OnInit {
     // });
       this._messages.msgChanged.subscribe( message => {
          // if this message broadcast is an update to the model I'm displaying,
-         // then let's update it -- otherwise ignore it.
+         // then let's update it -- otherwise ignore it.  This is because I don't want to update the
+         // display for the current viewer (user) -- if two other people are chatting in a separate thread
          if (this.display) {
          if (message.id === this.currentMessage.id ) {
            this.currentMessage = message;
          }}
       });
 
-      console.log('In init method!!!');
+     // console.log('In init method!!!');
 
   }
 
   scrollMe() {
 
-    console.log('In the scrollMe method.');
+  //  console.log('In the scrollMe method.');
     const targetEl = <HTMLElement>document.querySelector('#s3');
     if (targetEl) {
-      console.log('found the target.');
+  //    console.log('found the target.');
     scrollTo('#s3', '#v-scrollable');
     this.scrolled = true; }
   }
 
   closeMsgr() {
-    console.log('closing the messenger');
+  //  console.log('closing the messenger');
     this.display = false;
     if (this.currentMessage) {
       this._messages.makeStale(this.currentMessage).subscribe(
@@ -116,6 +118,21 @@ export class MessageComponent implements OnInit {
       ); }
   }
 
+  // here we want to 'create' the message in Mongo as a stored object
+  // but since there's not actual message yet, we don't want to broadcast anything about it
+  createMsg() {
+    this._messages.createMessage(this.currentMessage).subscribe(
+      (data) => {
+        console.log('Created a new message, back from the service: ' + JSON.stringify(data));
+        this.currentMessage = data;
+        },
+        response => {
+        },
+        () => {
+          console.log('done creating message.');
+        }
+  );
+  }
   sendMsg() {
     const thisReply = new MessageReply( this.userService.currentUser.id, this.msgForm.value.msg );
     if (!this.currentMessage.msgList) {
@@ -127,7 +144,7 @@ export class MessageComponent implements OnInit {
     const freshArray = [{user_id: this.user1, fresh: false}, {user_id: this.user2, fresh: true }];
     this.currentMessage['freshness'] = freshArray;
 
-    console.log('About to save Message Object: ' + JSON.stringify(this.currentMessage));
+    // console.log('About to save Message Object: ' + JSON.stringify(this.currentMessage));
     // this._messages.msgRplyAdded.emit(thisReply);
     this._messages.saveMessage(this.currentMessage).subscribe(
       (val) => {
@@ -136,7 +153,7 @@ export class MessageComponent implements OnInit {
         response => {
         },
         () => {
-          console.log('done saving message.');
+      //    console.log('done saving message.');
         }
   );
   }

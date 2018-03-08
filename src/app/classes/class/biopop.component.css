@@ -1,0 +1,76 @@
+.bio {
+    display:inline-block;
+    width:500px;
+    height:400px;
+    position: fixed;
+    top:150px;
+    background-color:white;
+    z-index: 40;
+    box-shadow: 0 0 20px rgba(0,0,0,1);
+    background-color:#dddddd;
+    padding:10px;
+    border-radius:6px;
+}
+
+.popThumb {
+    position: relative;
+    width:230px;
+    top: -60px;
+    margin-left:134px;
+    height:200px;
+    display:inline-block;
+}
+
+
+.userBio {
+    position:relative;
+    top:-30px;
+    display:inline-block;
+    text-align:left;
+    width:94%;
+    font-size:.9em;
+    line-height:1.7em;
+    margin-left:10px;
+    margin-right:10px;
+
+    font-size:.9em;
+    line-height:1.5em;
+}
+
+.userBio h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size:1.8em;
+    font-weight: 900;
+    text-align:center;
+    margin-top:8px;
+    text-transform: uppercase;
+}
+
+.messageButton {
+    background-color:white;
+    border:2px solid #555555;
+    cursor:pointer;
+    user-select: none;
+    box-sizing: border-box;
+    box-shadow:0 0 8px rgba(0,0,0,.5);
+    padding-left:14px;
+    padding-right:14px;
+    padding-top:10px;
+    padding-bottom:8px;
+    width:200px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    font-weight:600;
+    border-radius:4px;
+
+}
+
+.messageButton:hover {
+    background-color:#dddddd;
+}
+
+.messageButton:active {
+    background-color:#555555;
+    color:white;
+}

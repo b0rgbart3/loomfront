@@ -60,6 +60,10 @@ export class ClassComponent implements OnInit {
     notesSettings: NotesSettings;
     messaging: boolean;
 
+    // for the BIO Popup
+    bioChosen: User;
+    showingBio: boolean;
+
     constructor( private router: Router,
     private activated_route: ActivatedRoute,
     private classService: ClassService,
@@ -102,7 +106,7 @@ export class ClassComponent implements OnInit {
         this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
         this.notesSettings = this.activated_route.snapshot.data['notesSettings'];
        // console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
-       console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
+      // console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
 
         this.studentIDList = [];
         this.studentIDList = this.enrollmentService.getStudentsInClass(this.thisClass.id);
@@ -121,8 +125,8 @@ export class ClassComponent implements OnInit {
         this.studentThumbnails = this.students.map( student =>
             this.createStudentThumbnail(student) );
 
-        this.studentBioThumbnails = this.students.map( student =>
-        this.createStudentBioThumbnail(student) );
+        // this.studentBioThumbnails = this.students.map( student =>
+        // this.createStudentBioThumbnail(student) );
 
         // Since we can't load the course data in a resolver (no way to access the
         // course ID # from the class object except inside a component), we
@@ -160,8 +164,17 @@ export class ClassComponent implements OnInit {
 
     }
 
+    showBio(user) {
+        if (!this.showingBio) {
+        this.bioChosen = user;
+        this.showingBio = true; }
+    }
+    closeBio(event) {
+        this.showingBio = false;
+    }
+
     message(student) {
-        this.hideMenu(student);
+      //  this.hideMenu(student);
         this.messageService.sendMessage(student);
     }
 
@@ -173,19 +186,19 @@ export class ClassComponent implements OnInit {
             console.log('showing menu');
             }
     }
-    showMenu(student) {
-        if (!student.hot) {
-        this.studentThumbnails.map( thumbnail => thumbnail.hot = false );
-        if (this.userService.currentUser.id !== student.user.id) {
-        student.hot = true;
-        }
-        console.log('showing menu');
-        }
-    }
+    // showMenu(student) {
+    //     if (!student.hot) {
+    //     this.studentThumbnails.map( thumbnail => thumbnail.hot = false );
+    //     if (this.userService.currentUser.id !== student.user.id) {
+    //     student.hot = true;
+    //     }
+    //     console.log('showing menu');
+    //     }
+    // }
 
-    hideMenu(student) {
-        student.hot = false;
-    }
+    // hideMenu(student) {
+    //     student.hot = false;
+    // }
 
 
     onSectionChange(newSectionNumber) {
@@ -208,20 +221,20 @@ export class ClassComponent implements OnInit {
 
     createInstructorThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, online: false,
-            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
+            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: true, shape: 'circle' };
         return thumbnailObj;
     }
 
     createStudentThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, online: false,
-            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
+            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: true, shape: 'circle' };
         return thumbnailObj;
     }
-    createStudentBioThumbnail(user) {
-        const thumbnailObj =  { user: user, user_id: user.id, online: false,
-            size: 200,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'square' };
-        return thumbnailObj;
-    }
+    // createStudentBioThumbnail(user) {
+    //     const thumbnailObj =  { user: user, user_id: user.id, online: false,
+    //         size: 200,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'square' };
+    //     return thumbnailObj;
+    // }
 
     nextSection() {
         this.sectionNumber++;
