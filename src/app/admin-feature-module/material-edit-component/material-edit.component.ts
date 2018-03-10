@@ -228,10 +228,10 @@ export class MaterialEditComponent implements OnInit {
                 (val) => {
                   },
                   response => {
-                    this.router.navigate(['/coursebuilder']);
+                    this.router.navigate(['/admin']);
                   },
                   () => {
-                    this.router.navigate(['/coursebuilder']);
+                    this.router.navigate(['/admin']);
                   }
             );
         } else {
@@ -241,10 +241,10 @@ export class MaterialEditComponent implements OnInit {
             (val) => {
             },
             response => {
-                this.router.navigate(['/coursebuilder']);
+                this.router.navigate(['/admin']);
             },
             () => {
-            this.router.navigate(['/coursebuilder']);
+            this.router.navigate(['/admin']);
             }
         );
         }
@@ -263,7 +263,7 @@ export class MaterialEditComponent implements OnInit {
         this.materialService.deleteMaterial( this.material.id ).subscribe(
             (data) => {
                 console.log('Got back from the Book Service.');
-                this.router.navigate(['/coursebuilder']);
+                this.router.navigate(['/admin']);
             },
           error => {
               this.errorMessage = <any>error;
@@ -271,7 +271,8 @@ export class MaterialEditComponent implements OnInit {
               // course was successfully deleted.
               if (error.status === 200) {
                 console.log('Got back from the Course Service.');
-                this.router.navigate(['/coursebuilder']);
+                this._location.back();
+               // this.router.navigate(['/coursebuilder']);
               } else {
              console.log('Error: ' + JSON.stringify(error) ); }
         } );

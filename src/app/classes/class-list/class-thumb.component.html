@@ -1,6 +1,14 @@
-<img [src]='courseimageURL' class='classThumnailImage' *ngIf='courseimageURL'>
+<div class='classAd group'>
+    <img [src]='courseimageURL' class='classThumnailImage' *ngIf='courseimageURL'>
+    <h1>{{classObject.title}}</h1>
+    <div class='classDate'>{{classObject.start | date : 'MMMM dd,' }} -
+        {{classObject.end | date : 'MMMM dd, yyyy'}}</div>
 
-<div class='classDate'>{{classObject.start | date : 'MMMM dd,' }} -
-     {{classObject.end | date : 'MMMM dd, yyyy'}}</div>
-
-     <h1>{{classObject.title}}</h1>
+     <p>{{ description }}</p>
+     <h2>Instructors:</h2>
+     <div *ngIf='instructorsThumbs'>
+     <div class='instructorIcon' *ngFor='let instructor of instructorThumbs' >
+         thumbnail
+     </div>
+    </div>
+</div>

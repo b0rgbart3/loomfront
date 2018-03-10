@@ -40,7 +40,7 @@ import { MessagesResolver } from './resolvers/messages-resolver';
 
 const ROUTES: Routes = [
 { path: 'welcome', pathMatch: 'full', component: WelcomeComponent, resolve: { users: UsersResolver,
-  messages: MessagesResolver }},
+  classes: ClassesResolver, messages: MessagesResolver, instructorassignments: InstructorAssignmentsResolver }},
 { path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },

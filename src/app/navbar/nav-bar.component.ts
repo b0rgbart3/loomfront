@@ -78,8 +78,10 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.socket = io(this.globals.basepath);
     this.currentUser = this.userService.getCurrentUser();
     this.generateAvatarPath();
+    this.admin = false;
+    if (this.currentUser) {
     this.admin = this.currentUser.admin;
-
+    }
     this.socket.on('userSettingsChanged', (user) => {
     //  console.log('NavBar noticed the user settings changed.');
       // this.updateMyself();

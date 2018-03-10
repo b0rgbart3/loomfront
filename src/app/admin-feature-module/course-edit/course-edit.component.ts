@@ -443,10 +443,10 @@ export class CourseEditComponent implements OnInit {
                 (val) => {
 
                   },
-                  response => { this.router.navigate(['/coursebuilder']);
+                  response => { this.router.navigate(['/admin']);
                   },
                   () => {
-                     this.router.navigate(['/coursebuilder']);
+                     this.router.navigate(['/admin']);
                   }
             );
         } else {
@@ -456,10 +456,10 @@ export class CourseEditComponent implements OnInit {
             (val) => {
 
             },
-            response => { this.router.navigate(['/coursebuilder']);
+            response => { this.router.navigate(['/admin']);
             },
             () => {
-             this.router.navigate(['/coursebuilder']);
+             this.router.navigate(['/admin']);
             }
         );
         }

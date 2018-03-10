@@ -3,17 +3,20 @@
 <div class='loomContainer group'>
         <!-- <flash-messages></flash-messages> -->
     
-    <div *ngIf="dataConnection">
+
     <div class='branding'>
         <h1> Welcome to the Reclaiming Loom {{ username }}</h1>
         <div class='loginButton' (click)="login()" 
         *ngIf="!currentUser">Login</div>
     </div>
 
-    <div class="loomCard" >
-           
-            <class-list></class-list>
-    </div>
 
-    </div>
+<div *ngFor='let instructor of instructorassignments'>
+    <p> Instructor: {{ instructor.user.username }}, 
+    {{ instructor.class_id }}</p>
+</div>
+           <!-- {{ instructorassignments | json }} -->
+            <class-list></class-list>
+
+
 </div>

@@ -1,10 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { User } from '../models/user.model';
 import { ClassModel } from '../models/class.model';
 import { UserService } from '../services/user.service';
 import { ClassService } from '../services/class.service';
+import { Enrollment } from '../models/enrollment.model';
 
 @Component({
     templateUrl: 'welcome.component.html',
@@ -16,10 +17,11 @@ export class WelcomeComponent implements OnInit {
     currentUser: User;
     classes: ClassModel[];
     errorMessage: string;
-    dataConnection: boolean;
+    instructorassignments: Enrollment[];
 
     constructor( private router: Router,
-    private userService: UserService, private classService: ClassService ) {
+    private userService: UserService, private classService: ClassService,
+    private activated_route: ActivatedRoute ) {
 
         }
 
@@ -28,21 +30,12 @@ export class WelcomeComponent implements OnInit {
         }
 
         ngOnInit() {
-            this.dataConnection = false;
-            this.classService
-            .getClasses().subscribe(
-              classes =>  { this.classes = classes; this.dataConnection = true; },
-              error => this.errorMessage = <any>error);
+            this.instructorassignments = this.activated_route.snapshot.data['instructorassignments'];
+
+            this.classes = this.activated_route.snapshot.data['classes'];
 
             this.currentUser = this.userService.getCurrentUser();
-
-            if (this.currentUser) {
-               // this.router.navigate(['/home']);
-            this.username = this.currentUser.username; } else {
-                this.username = '';
-            }
+            
 
         }
-
-
 }

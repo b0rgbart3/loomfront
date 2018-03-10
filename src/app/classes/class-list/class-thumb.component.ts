@@ -21,6 +21,7 @@ public courseID: string;
 public course: Course;
 public courseimageURL: string;
 public errorMessage: string;
+description: string;
 
   constructor(private classService: ClassService, private courseService: CourseService, private globals: Globals) { }
 
@@ -29,7 +30,7 @@ public errorMessage: string;
     this.courseService.getCourse(this.courseID).subscribe(
       course =>  {this.course = course[0];
       this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
-
+        this.description = this.course.description;
       },
           error => this.errorMessage = <any>error);
 
