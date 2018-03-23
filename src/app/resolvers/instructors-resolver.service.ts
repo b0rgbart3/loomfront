@@ -19,12 +19,14 @@ export class InstructorsResolver implements Resolve <User[]> {
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <User[]> {
 
         return this.userService.getAllInstructors().
-        map(course => { if (course) { return course; }
-        this.router.navigate(['/welcome']);
+        map(data => { if (data) {
+       //     console.log('Instructors: ' + JSON.stringify(data));
+            return data; }
+        // this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
-        console.log(`Retrieval error: ${error}`);
-        this.router.navigate(['/welcome']);
+     //   console.log(`Retrieval error: ${error}`);
+       //  this.router.navigate(['/welcome']);
         return Observable.of(null);
     });
     }

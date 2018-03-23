@@ -42,7 +42,7 @@ export class ClassService implements OnInit {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-     return this._http.get <ClassModel[]> (this.globals.studentenrollments + '?id=' + studentID, {headers: myHeaders});
+     return this._http.get <ClassModel[]> (this.globals.enrollments + '?id=' + studentID, {headers: myHeaders});
 
     }
 
@@ -50,12 +50,12 @@ export class ClassService implements OnInit {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-     return this._http.get <ClassModel[]> (this.globals.instructorassignments + '?id=' + userID, {headers: myHeaders});
+     return this._http.get <ClassModel[]> (this.globals.assignments + '?id=' + userID, {headers: myHeaders});
 
     }
 
    getClasses(): Observable<ClassModel[]> {
-     console.log('In class service, getClasses.');
+    // console.log('In class service, getClasses.');
      const myHeaders = new HttpHeaders();
      myHeaders.append('Content-Type', 'application/json');
 
@@ -137,9 +137,9 @@ export class ClassService implements OnInit {
 
  createClass(classObject): Observable<ClassModel> {
 
-   console.log('In createClass method of the Class Service: ' + JSON.stringify(classObject));
+   // console.log('In createClass method of the Class Service: ' + JSON.stringify(classObject));
     classObject.id = this.gethighestID().toString();
-   console.log('New id =' + classObject.id);
+   // console.log('New id =' + classObject.id);
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -161,7 +161,7 @@ export class ClassService implements OnInit {
   }
 
   deleteClass(classId: number): Observable<any> {
-    return this._http.delete( this.globals.classes+ '?id=' + classId);
+    return this._http.delete( this.globals.classes + '?id=' + classId);
 }
 
 

@@ -3,8 +3,8 @@
         <h3>{{ classGroup.title }}  {{ classGroup.id}}</h3>
         <div *ngFor='let enrollment of enrollments; let i=index'>
 
-        <div *ngIf='enrollment.class_id === classGroup.id && enrollment.participation ==="student"' class='listItem'>
-        <div class='tableRow'>
+        <div *ngIf='enrollment.class_id === classGroup.id' class='listItem'>
+        <div class='tableRow' *ngIf='enrollment.this_user'>
             <div class='tableCell'>
                 {{ enrollment.this_user.username}} {{ enrollment.this_user.id}}
             </div>

@@ -1,7 +1,7 @@
 import { User } from './user.model';
 import { ClassModel } from './class.model';
 
-export class Enrollment {
+export class Assignment {
     _id?: string;
 
     constructor (

@@ -8,6 +8,7 @@ import { ClassModel } from '../models/class.model';
 import { Globals } from '../globals';
 import { CourseService } from '../services/course.service';
 import { Enrollment } from '../models/enrollment.model';
+import { Assignment } from '../models/assignment.model';
 
 
 @Component({
@@ -28,8 +29,8 @@ export class HomeComponent implements OnInit {
     classesTaking: ClassModel[];
     classesTeachingIDList: string[];
     classesTeaching: ClassModel[];
-    studentenrollments: Enrollment[];
-    instructorassignments: Enrollment[];
+    enrollments: Enrollment[];
+    assignments: Assignment[];
 
     constructor (
         private userService: UserService,
@@ -50,11 +51,11 @@ export class HomeComponent implements OnInit {
         this.teachingLabel = 'tabLabel';
 
         // Get the student enrollment objects for the current user
-        this.studentenrollments = this.activated_route.snapshot.data['studentenrollments'];
+        this.enrollments = this.activated_route.snapshot.data['enrollments'];
 
         // extract out just the ID's into an array
-        if (this.studentenrollments) {
-        this.classesTakingIDList = this.studentenrollments.map( enrollment => enrollment.class_id); }
+        if (this.enrollments) {
+        this.classesTakingIDList = this.enrollments.map( enrollment => enrollment.class_id); }
 
         console.log('Classes Taking ID List: ' + JSON.stringify(this.classesTakingIDList));
 
@@ -66,10 +67,10 @@ export class HomeComponent implements OnInit {
         }
         console.log('TAKING: ' + JSON.stringify(this.classesTaking));
 
-        this.instructorassignments = this.activated_route.snapshot.data['instructorassignments'];
+        this.assignments = this.activated_route.snapshot.data['assignments'];
 
-        if (this.instructorassignments) {
-        this.classesTeachingIDList = this.instructorassignments.map( assignment => assignment.class_id); }
+        if (this.assignments) {
+        this.classesTeachingIDList = this.assignments.map( assignment => assignment.class_id); }
 
         if (this.classesTeachingIDList && this.classesTeachingIDList.length > 0 ) {
         this.classesTeaching = this.classesTeachingIDList.map( classID => this.classService.getClassFromMemory(classID));
@@ -95,28 +96,7 @@ export class HomeComponent implements OnInit {
             this.showTeaching = false;
 
         }
-        // this.currentUser = this.userService.getCurrentUser();
-        // if (this.currentUser) {
-        // this.username = this.currentUser.username; } else {
-        //     this.username = '';
-        // }
-       // this.classObjects = [];
-        // this.instructorClassObjects = [];
-        // this.classService.getClasses().subscribe(
-        //     classes => {this.classes = classes;
-        //         console.log('got classes ');
-        //         this.courseService.getCourses().subscribe(
-        //             courses => {
-        //                 this.courses = courses;
-        //                 console.log('loaded all the coureses.');
-        //                 if (this.currentUser) {
-        //                     this.getClassesForCurrentUser(); }
-        //             },
-        //             error => this.errorMessage = <any>error);
 
-        //     },
-        //     error => this.errorMessage = <any>error);
-        // console.log('end of home component init method.');
     }
 
 
@@ -134,87 +114,7 @@ export class HomeComponent implements OnInit {
         this.takingLabel = 'tabLabel';
         this.teachingLabel = 'tabLabelChosen';
     }
-    // getClassesForCurrentUser() {
-    //   //  console.log('getting classes for the user');
 
-    //     if (this.currentUser) {
-    //        console.log('we have a current user: ' + this.currentUser.id );
-    //     this.classService.getStudentClasses(this.currentUser.id).subscribe(
-    //         studentClasses => {
-    //             console.log('Got classes for students: ' + JSON.stringify(studentClasses));
-    //             this.studentClasses = studentClasses;
-    //             this.loadCourseImages(); },
-    //         error => console.log(error));
-
-    //     this.classService.getInstructorClasses(this.currentUser.id).subscribe(
-    //         instructorClasses => {
-    //            // console.log('Got classes for instructors.' + JSON.stringify(instructorClasses));
-    //             this.instructorClasses = instructorClasses;
-    //             this.loadCourseImagesForInstructors(); },
-    //         error => this.errorMessage = <any>error);
-    // }}
-
-    // This method builds an array of Course Images for the Classes that the student is enrolled in.
-    // I wish this was done in the Course Service - or Class Service - but alas, it is not.
-    // loadCourseImages() {
-    //     this.courseImages = [];
-    //     let tempCourse = null;
-    //     let tempCourseID = '';
-
-    //     let tempCourseImageUrl = '';
-    //     for (let i = 0; i < this.studentClasses.length; i++) {
-
-    //         // console.log(this.studentClasses[i].course);
-    //         tempCourseID = this.studentClasses[i].course;
-
-    //         /*  I'm using the fully loaded courses array, to look for a course with this ID #.
-    //         */
-    //         tempCourse = this.courses.filter( obj => (obj.id === tempCourseID) );
-
-
-    //         tempCourseImageUrl = this.globals.courseimages + '/' + this.studentClasses[i].course + '/' + tempCourse[0].image;
-
-    //         this.studentClasses[i].courseImageURL = tempCourseImageUrl;
-    //         this.courseService.getCourse(this.studentClasses[i].course).subscribe(
-    //           course => {
-    //             this.studentClasses[i].courseObject = course[0];
-    //             // this.studentClasses[i].description = course[0].description;
-
-    //           },
-    //           error => this.errorMessage = <any>error);
-
-    //     }
-
-    // }
-
-    // loadCourseImagesForInstructors() {
-    //     this.courseImages = [];
-    //     let tempCourse = null;
-    //     let tempCourseID = '';
-
-    //     let tempCourseImageUrl = '';
-    //     for (let i = 0; i < this.instructorClasses.length; i++) {
-
-    //         // console.log(this.studentClasses[i].course);
-    //         tempCourseID = this.instructorClasses[i].course;
-
-    //         /*  I'm using the fully loaded courses array, to look for a course with this ID #.
-    //         */
-    //         tempCourse = this.courses.filter( obj => (obj.id === tempCourseID) );
-
-    //         tempCourseImageUrl = this.globals.courseimages + '/' + this.instructorClasses[i].course + '/' + tempCourse[0].image;
-
-    //         this.instructorClasses[i].courseImageURL = tempCourseImageUrl;
-    //         this.courseService.getCourse(this.instructorClasses[i].course).subscribe(
-    //           course => {
-    //             this.instructorClasses[i].courseObject = course[0];
-    //             // this.instructorClasses[i].description = course[0].description;
-
-    //           },
-    //           error => this.errorMessage = <any>error);
-
-    //     }
-    // }
 
       goto( queryID ) {
           const queryString = '/classes/' + queryID + '/0';

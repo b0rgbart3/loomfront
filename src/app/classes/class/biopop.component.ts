@@ -23,6 +23,7 @@ import { ClickOutsideDirective } from '../../_directives/clickOutside.directive'
 export class BioPopComponent implements OnInit, OnChanges {
 
 @Input() bioUser: User;
+@Input() allowMessage: boolean;
 @Output() closeMe = new EventEmitter<boolean>();
 @Output() messageMe = new EventEmitter<User>();
 clicks: number;
@@ -34,6 +35,9 @@ thumbnail: Userthumbnail;
     ngOnInit() {
       this.clicks = 0;
       this.makeThumb();
+      if (this.allowMessage !== false) {
+        this.allowMessage = true;
+      }
     }
 
     makeThumb() {

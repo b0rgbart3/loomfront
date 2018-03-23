@@ -20,13 +20,12 @@ import { SeriesEditComponent } from './series-edit/series-edit.component';
 import { SeriesResolver } from '../resolvers/series-resolver.service';
 import { EnrollmentEditComponent } from './enrollments/enrollment-edit.component';
 import { ClassesResolver } from '../resolvers/classes-resolver.service';
-import { EnrollmentsResolver } from '../resolvers/enrollments-resolver';
+import { EnrollmentsResolver } from '../resolvers/enrollments-resolver.service';
 import { EnrollmentStudentTabComponent } from './enrollments/enrollment-student-tab.component';
 import { EnrollmentInstructorTabComponent } from './enrollments/enrollment-instructor-tab.component';
-import { StudentEnrollmentsResolver } from '../resolvers/studentenrollments-resolver.service';
-import { InstructorAssignmentsResolver } from '../resolvers/instructorassignments-resolver.service';
-import { AllStudentEnrollmentsResolver } from '../resolvers/allstudentenrollments-resolver.service';
-import { AllInstructorAssignmentsResolver } from '../resolvers/allinstructorassignments-resolver.service';
+import { AssignmentsResolver } from '../resolvers/assignments-resolver.service';
+import { AllEnrollmentsResolver } from '../resolvers/allenrollments-resolver.service';
+import { AllAssignmentsResolver } from '../resolvers/allassignments-resolver.service';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { InstructorsResolver } from '../resolvers/instructors-resolver.service';
 import { ContentComponent } from './admin/content.component';
@@ -49,64 +48,50 @@ import { MaterialsComponent } from './admin/materials.component';
                 children: [
                     { path: '', redirectTo: 'students', pathMatch: 'full' },
                     { path: 'students', component: StudentsComponent, resolve: { users: UsersResolver,
-                        classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver }},
+                        classes: ClassesResolver, enrollments: AllEnrollmentsResolver }},
                     // { path: 'enrollments', component: EnrollmentsComponent, resolve: {
-                    //     users: UsersResolver, classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver }},
+                    //     users: UsersResolver, classes: ClassesResolver, enrollments: AllEnrollmentsResolver }},
                     { path: 'instructors', component: InstructorsComponent,
                         resolve: { users: UsersResolver, instructors: InstructorsResolver,
-                            classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver }},
+                            classes: ClassesResolver, assignments: AllAssignmentsResolver }},
                     // { path: 'assignments', component: AssignmentsComponent, resolve: {
-                    //     users: UsersResolver, classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver }},
+                    //     users: UsersResolver, classes: ClassesResolver, assignments: AllAssignmentsResolver }},
+                    { path: 'classes/:id/edit', component: ClassEditComponent, resolve: { users: UsersResolver,
+                        thisClass: ClassResolver, courses: CoursesResolver
+                    }},
                     { path: 'classes', component: ContentComponent,
                     resolve: { users: UsersResolver, instructors: InstructorsResolver,
                         classes: ClassesResolver, series: SeriesResolver, courses: CoursesResolver }},
-                    { path: 'materials', component: MaterialsComponent, resolve: { courses: CoursesResolver, materials: MaterialsResolver}}
+                    { path: 'materials', component: MaterialsComponent, resolve: { courses: CoursesResolver, materials: MaterialsResolver}},
+                    { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
+                    resolve: { course: CourseResolver,
+                        materials: MaterialsResolver }},
+                    { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { serie: SerieResolver} },
+                    { path: 'book/:id/edit', component: MaterialEditComponent,
+                    data: { type: 'book'}, resolve: { MaterialsResolver } },
+
+                    { path: 'image/:id/edit', component: MaterialEditComponent,
+                    data: { type: 'image'}, resolve: { MaterialsResolver } },
+
+                    { path: 'doc/:id/edit', component:  MaterialEditComponent,
+                    data: { type: 'doc' }, resolve: { MaterialsResolver } },
+
+                    { path: 'video/:id/edit', component:  MaterialEditComponent,
+                    data: { type: 'video' }, resolve: { MaterialsResolver } },
+
+                    { path: 'audio/:id/edit', component:  MaterialEditComponent,
+                    data: { type: 'audio' }, resolve: { MaterialsResolver } },
+
+                    { path: 'quote/:id/edit', component:  MaterialEditComponent,
+                    data: { type: 'quote' }, resolve: { MaterialsResolver } },
+
+                   { path: 'block/:id/edit', component:  MaterialEditComponent,
+                    data: { type: 'block' }, resolve: { MaterialsResolver } },
+
                 ]
             },
 
-                { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
-            resolve: { course: CourseResolver,
-                materials: MaterialsResolver }},
 
-            { path: 'coursebuilder', component: CourseBuilderComponent },
-
-            { path: 'enrollments', component: EnrollmentEditComponent, resolve: {
-                users: UsersResolver, classes: ClassesResolver, enrollments: EnrollmentsResolver
-            },
-                children: [
-                { path: '', redirectTo: 'students', pathMatch: 'full' },
-                { path: 'students', component: EnrollmentStudentTabComponent, resolve: {
-                    users: UsersResolver, classes: ClassesResolver, enrollments: AllStudentEnrollmentsResolver
-                } },
-                { path: 'instructors', component: EnrollmentInstructorTabComponent, resolve: {
-                    users: UsersResolver, classes: ClassesResolver, enrollments: AllInstructorAssignmentsResolver
-                } }
-            ]  },
-            { path: 'classedit/:id', pathMatch: 'full', component: ClassEditComponent, resolve: {
-    thisClass: ClassResolver, courses: CoursesResolver  } },
-
-            { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { serie: SerieResolver} },
-
-            { path: 'book/:id/edit', component: MaterialEditComponent,
-            data: { type: 'book'}, resolve: { MaterialsResolver } },
-
-            { path: 'image/:id/edit', component: MaterialEditComponent,
-            data: { type: 'image'}, resolve: { MaterialsResolver } },
-
-            { path: 'doc/:id/edit', component:  MaterialEditComponent,
-            data: { type: 'doc' }, resolve: { MaterialsResolver } },
-
-            { path: 'video/:id/edit', component:  MaterialEditComponent,
-            data: { type: 'video' }, resolve: { MaterialsResolver } },
-
-            { path: 'audio/:id/edit', component:  MaterialEditComponent,
-            data: { type: 'audio' }, resolve: { MaterialsResolver } },
-
-            { path: 'quote/:id/edit', component:  MaterialEditComponent,
-            data: { type: 'quote' }, resolve: { MaterialsResolver } },
-
-            { path: 'block/:id/edit', component:  MaterialEditComponent,
-            data: { type: 'block' }, resolve: { MaterialsResolver } },
 
             { path: '404', component: Error404Component },
             { path: '', component: WelcomeComponent },

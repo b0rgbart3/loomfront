@@ -138,17 +138,18 @@ export class DiscussionComponent implements OnInit, OnChanges {
 
    });
 
-    this.ds.enterDiscussion(this.currentUser, this.thisClass, this.section.sectionNumber).subscribe(
-      Entry =>  { this.entry = Entry;
-       },
-      error => {this.errorMessage = <any> error;
-        if (error.status === 200) {
-          console.log('Got BOGUS Error message.');
-        } else {
-      console.log('Error: ' + JSON.stringify( error)); }
-      });
+    // this.ds.enterDiscussion(this.currentUser, this.thisClass, this.section.sectionNumber).subscribe(
+    //   Entry =>  { this.entry = Entry;
+    //    },
+    //   error => {this.errorMessage = <any> error;
+    //     if (error.status === 200) {
+    //       console.log('Got BOGUS Error message.');
+    //     } else {
+    //   console.log('Error: ' + JSON.stringify( error)); }
+    //   });
 
   }
+
 
 
  openDiscussion() {
@@ -165,7 +166,7 @@ closeDiscussion() {
  }
 
  saveDiscussionSettings() {
-
+       console.log('In saveDS: ' + JSON.stringify(this.settings));
        this.ds.storeDiscussionSettings(this.settings).subscribe(
        data => console.log('done storing discussion settings.'), error => {
            console.log('ERROR trying to store the settings!');

@@ -1,68 +1,146 @@
 .messageContainer {
-    background-color:white;
-    border:1px solid #777777;
+    background-color:#555555;
+    border:2px solid #333333;
     border-radius:3px;
     overflow: hidden;
-    box-shadow:0 0px 20px rgba(10,10,10,1);
+    box-shadow:0 0px 20px rgba(0,0,0,1);
     position: fixed;
    bottom:10px;
    right:10px;
    width:340px;
-   height:380px;
+   height:420px;
    z-index:80;
    font-family:'Roboto', sans-serif;
+   border-radius:12px;
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,45484d+99 */
+background: #000000; /* Old browsers */
+background: -moz-linear-gradient(top, #000000 0%, #45484d 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #000000 0%,#45484d 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #000000 0%,#45484d 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#45484d',GradientType=0 ); /* IE6-9 */
+overflow: hidden;
+
 }
 
 .toolbar {
     height:29px;
-    background-color:#cccccc;
+    background-color:#777777;
     padding-top:6px;
     padding-left:6px;
     box-sizing: border-box;
     font-size:.85em;
+    height:60px;
+    font-size:1.3em;
+    border-bottom:2px solid #555555;
+    box-shadow:0 2px 8px rgba(0,0,0,.5);
+
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#6f8096+0,313e4f+96,1f2732+100 */
+background: #6f8096; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #6f8096 0%, #313e4f 96%, #1f2732 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #6f8096 0%,#313e4f 96%,#1f2732 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #6f8096 0%,#313e4f 96%,#1f2732 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6f8096', endColorstr='#1f2732',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+.nameTag {
+    display:inline-block;
+    float:left;
+    width:200px;
+    vertical-align: top;
+    margin:0;
+    padding:0;
+
+    margin-left:10px;
+}
+/* .nameTag p {
+    margin:0;
+    padding:0;
+    line-height:1em;
+} */
+
+.chatThumb {
+    display:inline-block;
+    width:50px;
+    height:50px;
+    float:left;
+    position: relative;
+    left:-3px;
+    top:-2px;
+ 
+}
+
+.name {
+    font-weight: bold;
+    font-size:1.25em;
+    margin:0;
+    padding:0;
+    line-height:1.3em;
+    margin-top:6px;
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    color:#eeeeee;
+    font-weight: 400;
+}
+.chatwith {
+    font-size:.7em;
+    font-style:italic;
+    margin:0;
+    padding:0;
+    line-height:.7em;
+    margin-bottom:8px;
 }
 
 .footer {
-    height: 40px;
-    position:fixed;
-    bottom:20px;
-    background-color:#cccccc;
+    height: 64px;
+    background-color:#aaaaaa;
     width:100%;
+    padding-left:7px;
+    padding-top:7px;
+    border-top:2px solid #333333;
 }
 
 .msgInput {
-    width:200px;
-    height:40px;
+    width:270px;
+    height:44px;
     padding:4px;
+    padding-left:9px;
     box-sizing: border-box;
     font-size:1em;
     outline:none;
     border:none;
     background-color:white;
-    border-radius:4px;
     box-shadow: 0 0 4px rgba(0,0,0,.5);
     display:inline-block;
     float:left;
+    border-radius:0 0 0px 4px;
 }
 
 .replyButton {
-    background-image:url('../../assets/images/post.svg');
+    background-image:url('../../assets/images/send.svg');
     width:40px;
     height:40px;
-    background-size:40px 40px;
+    background-size:38px 38px;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    border-radius:50%;
-    border:2px solid rgba(0,0,0,0);
-    transition:all .5s;
     display:inline-block;
     float:left;
     vertical-align: top;
+    cursor: pointer;
+    user-select: none;
+    padding-left:15px;
+    opacity:.6;
+}
+
+.replyButton:hover {
+    opacity:1;
+    
 }
 
 .replyButton:active {
-    background-color:white;
-    box-shadow:0 0 8px rgba(0,0,0,.5);
+    opacity:1;
+    background-size:44px 44px;
 
 }
 
@@ -87,7 +165,7 @@
 }
 
 .speaker {
-    background-color:rgb(209, 209, 209);
+    background-color:rgba(209, 209, 209, .7);
     float:right;
     margin:0;
     margin-right:12px;
@@ -110,7 +188,7 @@
 }
 
 .other {
-    background-color:#88dd99;
+    background-color:#93a4b9;
     float:left;
     margin:0;
     margin-left:12px;

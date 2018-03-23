@@ -58,7 +58,7 @@ import { AdminFeatureModule } from './admin-feature-module/admin-feature.module'
 import { ModalComponent } from './materials/modal/modal.component';
 import { EmbedVideo } from 'ngx-embed-video';
 import { AudioComponent } from './materials/audio/audio.component';
-import {  FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule } from 'ng2-file-upload';
+import { FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule } from 'ng2-file-upload';
 import { SeriesService } from './services/series.service';
 import { SeriesResolver } from './resolvers/series-resolver.service';
 import { BlockComponent } from './materials/block/block.component';
@@ -68,12 +68,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { DiscussionSettingsResolver } from './resolvers/discussion-settings-resolver';
 import { ClassCourseResolver } from './resolvers/class-course-resolver.service';
 import { CourseComponent } from './courses/course/course.component';
-import { EnrollmentsResolver } from './resolvers/enrollments-resolver';
+import { EnrollmentsResolver } from './resolvers/enrollments-resolver.service';
 import { EnrollmentsService } from './services/enrollments.service';
-import { StudentEnrollmentsResolver } from './resolvers/studentenrollments-resolver.service';
-import { InstructorAssignmentsResolver } from './resolvers/instructorassignments-resolver.service';
-import { AllStudentEnrollmentsResolver } from './resolvers/allstudentenrollments-resolver.service';
-import { AllInstructorAssignmentsResolver } from './resolvers/allinstructorassignments-resolver.service';
+import { AssignmentsResolver } from './resolvers/assignments-resolver.service';
+import { AllEnrollmentsResolver } from './resolvers/allenrollments-resolver.service';
+import { AllAssignmentsResolver } from './resolvers/allassignments-resolver.service';
 import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.service';
 import { NotesComponent } from './discuss/notes.component';
 import { NotesSettingsResolver } from './resolvers/notes-settings-resolver';
@@ -83,7 +82,8 @@ import { MessagesResolver } from './resolvers/messages-resolver';
 import { MessageService } from './services/message.service';
 import { Ng2ScrollableModule } from 'ng2-scrollable';
 import { BioPopComponent } from './classes/class/biopop.component';
-import { DummyComponent } from './dummy/dummy.component';
+import { AssignmentsService } from './services/assignments.service';
+import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-settings-resolver';
 
 
 @NgModule({
@@ -134,7 +134,7 @@ import { DummyComponent } from './dummy/dummy.component';
     CourseComponent,
     NotesComponent,
     MessageComponent,
-    BioPopComponent,
+
 
   ],
   providers: [
@@ -164,17 +164,17 @@ import { DummyComponent } from './dummy/dummy.component';
     DiscussionSettingsResolver,
     ClassCourseResolver,
     EnrollmentsService,
+    AssignmentsService,
     EnrollmentsResolver,
-    StudentEnrollmentsResolver,
-    AllStudentEnrollmentsResolver,
-    InstructorAssignmentsResolver,
-    AllInstructorAssignmentsResolver,
+    AllEnrollmentsResolver,
+    AssignmentsResolver,
+    AllAssignmentsResolver,
+    AllDiscussionSettingsResolver,
     ClassMaterialsResolver,
     NotesService,
     NotesSettingsResolver,
     MessageService,
-    MessagesResolver,
- 
+    MessagesResolver
 
    ],
   bootstrap: [ AppComponent ]

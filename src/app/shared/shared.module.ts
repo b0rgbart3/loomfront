@@ -24,7 +24,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { MessageService } from '../services/message.service';
 import { ConnectionComponent } from './connection.component';
 import { NavBarComponent } from '../navbar/nav-bar.component';
-import { DummyComponent } from '../dummy/dummy.component';
+import { BioPopComponent } from '../classes/class/biopop.component';
+
 
 
 @NgModule ( {
@@ -55,6 +56,7 @@ import { DummyComponent } from '../dummy/dummy.component';
         PageNotFoundComponent,
         ConnectionComponent,
         NavBarComponent,
+        BioPopComponent
     ],
     providers: [
         ClassResolver,
@@ -84,6 +86,7 @@ import { DummyComponent } from '../dummy/dummy.component';
         FlashMessagesModule,
         ConnectionComponent,
         NavBarComponent,
+        BioPopComponent
     ]
 
 })

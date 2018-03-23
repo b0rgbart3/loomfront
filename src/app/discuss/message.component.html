@@ -1,9 +1,13 @@
 <div class='messageContainer' *ngIf='display && currentMessage'>
     <div class='toolbar'>
-        Message To: <span class='heavy'> {{toUser.username }}</span>
+        <div class='chatThumb' *ngIf='thumbnail'>
+            <user-thumb [thumbnail]='thumbnail'></user-thumb></div>
+            <div class='nameTag'>
+            <p class='chatwith'>Chatting with:   ( # {{ currentMessage.id }} )</p>
+        <p class='name'> {{toUser.username }}</p></div>
         <div class='smallCloser' (click)='closeMsgr()'></div>
     </div>
-    ID# {{ currentMessage.id }}
+
     <div *ngIf='currentMessage' class='bubleContainer scrollable' id="v-scrollable" ng2-scrollable (click)='scrollMe()'>
 
         <div class='msgReplies' *ngFor='let reply of currentMessage.msgList'>
@@ -19,7 +23,7 @@
     </div>
 
     <div class='footer'>
-        <form [formGroup]="msgForm">
+        <form [formGroup]="msgForm"  (keydown)="keyDownFunction($event)">
                 <input id="msg"  placeholder="your message..." formControlName="msg" class='msgInput' (click)="scrollMe()">
                 <div class='replyButton' (click)='sendMsg()'></div>
         </form>

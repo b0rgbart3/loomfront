@@ -29,33 +29,41 @@ import { BookResolver } from './resolvers/book-resolver.service';
 import { ResetComponent } from './users/reset/reset.component';
 import { DiscussionSettingsResolver } from './resolvers/discussion-settings-resolver';
 import { ClassCourseResolver } from './resolvers/class-course-resolver.service';
-import { StudentEnrollmentsResolver } from './resolvers/studentenrollments-resolver.service';
-import { InstructorAssignmentsResolver } from './resolvers/instructorassignments-resolver.service';
-import { EnrollmentsResolver } from './resolvers/enrollments-resolver';
+import { EnrollmentsResolver } from './resolvers/enrollments-resolver.service';
+import { AssignmentsResolver } from './resolvers/assignments-resolver.service';
 import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.service';
 import { NotesSettingsResolver } from './resolvers/notes-settings-resolver';
 import { MessagesResolver } from './resolvers/messages-resolver';
+import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-settings-resolver';
 
 
 
 const ROUTES: Routes = [
-{ path: 'welcome', pathMatch: 'full', component: WelcomeComponent, resolve: { users: UsersResolver,
-  classes: ClassesResolver, messages: MessagesResolver, instructorassignments: InstructorAssignmentsResolver }},
+{ path: 'welcome', component: WelcomeComponent, resolve: {
+    users: UsersResolver,
+    courses: CoursesResolver,
+    classes: ClassesResolver
+}},
+{ path: '', redirectTo: 'welcome', pathMatch: 'full'},
 { path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
-{ path: 'home', component: HomeComponent, resolve: { users: UsersResolver,
-    classes: ClassesResolver, courses: CoursesResolver,
-     studentenrollments: StudentEnrollmentsResolver,
-     instructorassignments: InstructorAssignmentsResolver,
-     messages: MessagesResolver
+{ path: 'home', component: HomeComponent, resolve: {
+     users: UsersResolver,
+     classes: ClassesResolver,
+     courses: CoursesResolver,
+     enrollments: EnrollmentsResolver,
+     assignments: AssignmentsResolver,
+    //  messages: MessagesResolver
 } },
 
 // This is a component-less parent route that only has one child (so far)
 // but this allows me to resolve the class data before loading the child (section)
-{ path: 'classes/:id', resolve: { thisClass: ClassResolver, users: UsersResolver,
-    enrollments: EnrollmentsResolver, allMaterials: MaterialsResolver, courses: CoursesResolver, messages: MessagesResolver},
+{ path: 'classes/:id', resolve: { allDSObjects: AllDiscussionSettingsResolver,
+    thisClass: ClassResolver, users: UsersResolver, assignments: AssignmentsResolver,
+    enrollments: EnrollmentsResolver, allMaterials: MaterialsResolver, courses: CoursesResolver, messages: MessagesResolver,
+    discussionSettings: DiscussionSettingsResolver },
   children: [ {
       path: ':id2', pathMatch: 'full', component: ClassComponent,
 resolve: {

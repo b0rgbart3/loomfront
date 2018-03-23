@@ -1,14 +1,22 @@
 <div class='classAd group'>
     <img [src]='courseimageURL' class='classThumnailImage' *ngIf='courseimageURL'>
+    <div class='classDescription'>
     <h1>{{classObject.title}}</h1>
     <div class='classDate'>{{classObject.start | date : 'MMMM dd,' }} -
         {{classObject.end | date : 'MMMM dd, yyyy'}}</div>
 
      <p>{{ description }}</p>
-     <h2>Instructors:</h2>
-     <div *ngIf='instructorsThumbs'>
-     <div class='instructorIcon' *ngFor='let instructor of instructorThumbs' >
-         thumbnail
+     <div *ngIf='showTeachers'>
+     <h2>Taught by:</h2>
+     <div *ngIf='instructors && instructorThumbnails'>
+     <div class='instructorIcon' *ngFor='let instructor of instructorThumbnails'  (click)='showBio(instructor.user)'>
+         <user-thumb [thumbnail]='instructor'></user-thumb>
      </div>
     </div>
+    </div>
+    </div>
+</div>
+
+<div class='popBio' *ngIf='showingBio'>
+  <biopop [bioUser]='bioChosen' (closeMe)="closeBio($event)" [allowMessage]='false'></biopop>
 </div>

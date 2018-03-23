@@ -10,6 +10,7 @@ import { MessageService } from '../services/message.service';
 import { Message } from '../models/message.model';
 import { MessageReply } from '../models/messagereply.model';
 import { scrollTo } from 'ng2-utils';
+import { Userthumbnail } from '../models/userthumbnail.model';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class MessageComponent implements OnInit {
   scrolled: boolean;
   user1: string;
   user2: string;
+  thumbnail: Userthumbnail;
 
   constructor( private _messages: MessageService,
     private userService: UserService, private fb: FormBuilder) {
@@ -36,21 +38,25 @@ export class MessageComponent implements OnInit {
     this._msgs = new Array<{}>();
     _messages.msgAdded.subscribe( requested => {
 
-    //  console.log('a new message was requested:' + JSON.stringify(requested));
+      console.log('a new message was requested:' + JSON.stringify(requested));
       this.toUser = requested['user'];
       if (this.userService.currentUser) {
       this.user1 = this.userService.currentUser.id; }
-   //   console.log('Requested: ' + JSON.stringify(requested['user']) );
+      console.log('Requested: ' + JSON.stringify(requested['user']) );
       this.user2 = requested['user'].id;
 
+      this.thumbnail = null;
+ 
+
       const users = [this.user1, this.user2];
-    //  console.log('Users: ' + JSON.stringify(users));
-      this._messages.getMessage( users ).subscribe(
+      console.log('Users: ' + JSON.stringify(users));
+      this._messages.getConversation( users ).subscribe(
         data => {
-          if (data[0]) {
+          if (data && data[0]) {
+
           this.currentMessage = data[0];
         //  scrollTo('#s3', '#v-scrollable');
-         // console.log('Message Object from the service: ' + JSON.stringify(this.currentMessage));
+           console.log('Message Object from the service: ' + JSON.stringify(data));
 
          // Because we are now *viewing* this message, it is no longer 'fresh', so mark it as such
          // and save the update object to Mongo
@@ -58,12 +64,16 @@ export class MessageComponent implements OnInit {
             this.currentMessage.freshness[1].fresh = false;
           this.scrollMe();
           } else {
+            console.log('Got no data returned from service.');
             const freshArray = [{user_id: this.user1, fresh: false}, {user_id: this.user2, fresh: true }];
             this.currentMessage = new Message( _messages.gethighestID(), users, freshArray, [] );
             this.createMsg();
             console.log('Created new Message object: ' + JSON.stringify(this.currentMessage));
             this.scrollMe();
           }
+          this.thumbnail = { user: this.toUser, user_id: this.toUser.id, online: false,
+            size: 50,  showUsername: false, showInfo: false, textColor: '#000000', hot: false, shape: 'circle' };
+
         },
         error => console.log('error getting message from the api')
       );
@@ -74,6 +84,12 @@ export class MessageComponent implements OnInit {
       this.scrollMe();
 
     });
+  }
+
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+     this.sendMsg();
+    }
   }
 
 

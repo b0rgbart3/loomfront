@@ -57,16 +57,11 @@ export class MessageService implements OnInit {
       private globals: Globals) {
         this.msgChanged = new EventEmitter();
         this.highestID = 0;
-        this.socket = io(this.globals.basepath);
-        // this.socket.on('msgRplyAdded', (data) => {
-        //   this.msgRplyAdded.emit(data);
-        // });
-        // this.getMessages();
-        this.socket.on('messageChanged', (message) => {
-          // console.log('GOT A THREAD UPDATE');
 
-        // this.sendNotice( {type: 'info', message: [ data.user.username + ' has entered the discussion.' ], delay: 2000} );
-        // this.userEntered.emit(data);
+
+        this.socket = io(this.globals.basepath);
+
+        this.socket.on('messageChanged', (message) => {
           this.msgChanged.emit(message);
       });
     }
@@ -79,16 +74,16 @@ export class MessageService implements OnInit {
 
     }
 
-    gethighestID(): number {
+    gethighestID(): string {
       this.updateIDCount();
-      return this.highestID;
+      return this.highestID + '';
     }
 
     getFreshList(user_id): Observable<any> {
-      const userString = '?user_id=' + user_id;
+      const userString = '?users=' + user_id + '&fresh=true';
       // console.log('getting fresh list for: ' + user_id + ', at: ' + this.globals.freshmessages + '' + userString);
 
-      return this._http.get <Message[]> (this.globals.freshmessages + '' + userString).
+      return this._http.get <Message[]> (this.globals.messages + userString).
       do( data => { // console.log('got data back for fresh list: ' + JSON.stringify(data) );
           return data; }
         ).catch( this.handleError );
@@ -101,9 +96,14 @@ export class MessageService implements OnInit {
         this.handleError );
     }
 
+    getConversation(users): Observable<any> {
+      const urlString = this.globals.messages + '?users=' + users[0] + ',' + users[1];
+      console.log('Getting conversation: ' + urlString);
+      return this._http.get <Message[]> ( urlString );
+    }
     getMessagesForUser(user_id): Observable<any> {
      // console.log('In message service, getting messages for user: ' + user_id );
-      return this._http.get <Message[]> (this.globals.messages + '?user=' +
+      return this._http.get <Message[]> (this.globals.messages + '?users=' +
        user_id).do( data =>  { // console.log('Got messages for user: ' + JSON.stringify(data));
        return data; }
       ).catch (this.handleError );
@@ -163,7 +163,7 @@ export class MessageService implements OnInit {
 
     return this._http.put(this.globals.messages + '?id=' + message.id, message, {headers: myHeaders}).map(
        () => {
-        console.log('in msg service, done creating new message'); 
+        console.log('in msg service, done creating new message');
         this.messages.push(message);
         this.getMessages();
        return message;
@@ -174,7 +174,7 @@ export class MessageService implements OnInit {
 
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
-  //  console.log('saving the Message');
+    console.log('saving the Message');
 
     return this._http.put(this.globals.messages + '?id=' + message.id, message, {headers: myHeaders}).map(
        () => {  this.socket.emit('messageChanged', message);

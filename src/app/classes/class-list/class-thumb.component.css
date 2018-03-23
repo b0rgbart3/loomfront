@@ -1,5 +1,5 @@
 .classAd {
-    border-bottom:2px solid #888888;
+    border-bottom:2px solid #245977;
     padding:0px;
     text-align:left;
     padding-bottom:20px;
@@ -12,7 +12,7 @@
     width:37%;
     display:inline-block;
     float:left;
-    margin-right:30px;
+    margin-right:10px;
     border-radius:8px;
     margin-top:10px;
 }
@@ -24,6 +24,14 @@
     color: #555555;
     text-transform: uppercase;
     margin-bottom:12px;
+}
+
+.classDescription {
+    display:inline-block;
+    width:55%;
+    float:left;
+    vertical-align: top;
+    margin-left:20px;
 }
 
 h1 {
@@ -40,6 +48,15 @@ h1 {
     letter-spacing: -.04em;
 }
 
+h2 {
+    font-family: 'Josefin Sans';
+    text-transform:uppercase;
+    font-size:1em;
+    font-weight: 500;
+    letter-spacing: .04em;
+    color: rgba(255,255,255,.85);
+}
+
 p { margin-top:0;
   font-family: 'Muli', sans-serif;
   font-size:.9em;
@@ -47,7 +64,29 @@ p { margin-top:0;
   color:#777777;
 }
 
-@media (max-width: 600px) {
+.instructorIcon {
+    width:80px;
+    height:80px;
+    margin-right:10px;
+    display:inline-block;
+}
+
+@media (max-width: 640px) {
+.classThumnailImage {
+    display:block;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+.classDescription {
+    display:block;
+    width:100%;
+    float:none;
+    vertical-align: top;
+    margin:0px;
+}
+
 
   }
 

@@ -11,6 +11,7 @@ import { Globals } from '../globals';
 
 import { Enrollment } from '../models/enrollment.model';
 import { UserService } from './user.service';
+import { Assignment } from '../models/assignment.model';
 
 
 @Injectable()
@@ -33,71 +34,37 @@ export class EnrollmentsService implements OnInit {
         error => this.errorMessage = <any>error);
     }
 
-    // Get a list of instructor ID#s that are in this class
-    getInstructorsInClass( classID): string[] {
-      const instructorIDList = this.enrollments.map( enrollment => {
-        if ((enrollment.class_id === classID) && (enrollment.participation === 'instructor')) {
-          return enrollment.user_id;
-        }
-      });
-      return instructorIDList;
+    getEnrollmentsInClass( classID ): Observable<any> {
+      return this._http.get <Enrollment[]> (this.globals.enrollments + '?class_id=' + classID )
+      .do (data => data).catch( this.handleError );
     }
     // Get a list of student ID#s that are in this class.
-    getStudentsInClass( classID ): string[] {
-      const studentIDList = this.enrollments.map( enrollment =>  {
-        if ((enrollment.class_id === classID) && (enrollment.participation === 'student')) {
-          return enrollment.user_id;
-        }
-      });
-      return studentIDList;
-    }
+    // getStudentsInClass( classID ): string[] {
+    //   const studentIDList = this.enrollments.map( enrollment =>  {
+    //     if ((enrollment.class_id === classID)) {
+    //       return enrollment.user_id;
+    //     }
+    //   });
+    //   return studentIDList;
+    // }
 
-    getAllInstructorAssignments(): Observable<any> {
-      return this._http.get <Enrollment[]> (this.globals.instructorassignments)
+    getAllEnrollments():  Observable<any> {
+      return this._http.get <Enrollment[]> (this.globals.enrollments )
       .do (data => {
-        return data;
-      }).catch( this.handleError );
-    }
-    // Return the list of instructor assignments for the current user
-    getInstructorAssignments(): Observable<any> {
-      return this._http.get <Enrollment[]> (this.globals.instructorassignments +
-         '?id=' + this.userService.getCurrentUser().id )
-      .do (data => {
-        console.log(' Returning data from the enrollments service: ' + JSON.stringify(data));
-        return data;
-      }).catch( this.handleError );
-    }
-
-    getAllStudentEnrollments():  Observable<any> {
-      return this._http.get <Enrollment[]> (this.globals.studentenrollments )
-      .do (data => {
+        this.enrollments = data;
           return data;
       }).catch( this.handleError );
 
     }
     // Return the list of student enrollments for the current user
-    getStudentEnrollments(): Observable<any> {
-      return this._http.get <Enrollment[]> (this.globals.studentenrollments + '?id=' +
+    getEnrollments(): Observable<any> {
+      return this._http.get <Enrollment[]> (this.globals.enrollments + '?user_id=' +
        this.userService.getCurrentUser().id )
       .do (data => {
           return data;
       }).catch( this.handleError );
 
     }
-
-    // get the entire list of enrollment objects
-   getEnrollments(): Observable<any> {
-
-    return this._http.get <Enrollment[]> (this.globals.enrollments )
-
-      .do(data =>  {
-                    this.enrollmentCount = data.length;
-                    this.enrollments = data;
-                    this.updateIDCount();
-
-                  } )
-      .catch( this.handleError );
-     }
 
      postEnrollment(enrollment): Observable<Enrollment> {
 
@@ -108,17 +75,17 @@ export class EnrollmentsService implements OnInit {
 
         this.enrollments.push(enrollment);
 
-        return this._http.put(this.globals.enrollments + '?id=' + enrollment.id, enrollment, {headers: myHeaders}).map(
+        return this._http.put(this.globals.enrollments + '?id=0', enrollment, {headers: myHeaders}).map(
            () => enrollment );
 
       }
 
-      remove(enrollment_id) {
+      remove(enrollment_id): Observable<any> {
 
-        console.log('In the service, calling delete: ' + enrollment_id);
+        // console.log('In the service, calling delete: ' + enrollment_id);
         const urlstring = this.globals.enrollments + '?id=' + enrollment_id;
-        console.log('urlstring: ' + urlstring);
-        return this._http.delete(urlstring);
+        // console.log('urlstring: ' + urlstring);
+        return this._http.delete(urlstring).do( data => data);
       }
 
   getNextId() {

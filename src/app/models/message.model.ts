@@ -5,7 +5,7 @@ export class Message {
     _id?: string;
 
     constructor (
-        public id,
+        public id: string,
         public users: string[],
         public freshness: Freshness[],
         public msgList: MessageReply[]

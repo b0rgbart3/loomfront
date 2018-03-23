@@ -11,12 +11,12 @@
     </div>
 
 
-<div *ngFor='let instructor of instructorassignments'>
+<!-- <div *ngFor='let instructor of instructorassignments'>
     <p> Instructor: {{ instructor.user.username }}, 
     {{ instructor.class_id }}</p>
-</div>
+</div> -->
            <!-- {{ instructorassignments | json }} -->
-            <class-list></class-list>
+            <class-list [classes]='classes'></class-list>
 
 
 </div>

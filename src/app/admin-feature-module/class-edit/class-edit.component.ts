@@ -8,6 +8,8 @@ import { Course } from '../../models/course.model';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Enrollment } from '../../models/enrollment.model';
+import _ from 'lodash';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -31,7 +33,8 @@ export class ClassEditComponent implements OnInit {
 
     constructor( private activated_route: ActivatedRoute, private classService: ClassService,
         private router: Router, private courseService: CourseService,
-        private userService: UserService, private fb: FormBuilder ) {   }
+        private userService: UserService, private fb: FormBuilder,
+        private _location: Location  ) {   }
 
 
 
@@ -166,7 +169,9 @@ export class ClassEditComponent implements OnInit {
 
         }
     }
-
+    closer() {
+        this._location.back();
+    }
 
 
     onSaveComplete(): void {

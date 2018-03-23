@@ -1,8 +1,10 @@
-<div class='loomContainer group'>
+
 
         <form [formGroup]="seriesForm" novalidate (ngSubmit)="save()" class='loomForm group'>
                                         
-        <div class='padMe'>
+        <div class='loomCard group'>
+                        <div class='closer'
+                        (click)="closer()"></div>
                 <h1>Series Info:</h1>
           
                 <mat-form-field>
@@ -17,7 +19,6 @@
         </div>
                  
         <div class='loomButton loomSubmit' (click)="save()">Submit Changes</div>
-        <div class='loomButton loomCancel' [routerLink]="['/admin']" type='reset' >Cancel</div>  
+        <!-- <div class='loomButton loomCancel' [routerLink]="['/admin']" type='reset' >Cancel</div>   -->
         
                 </form>
-</div>

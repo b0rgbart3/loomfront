@@ -32,12 +32,13 @@ const httpOptions = {
 export class DiscussionService implements OnInit, OnChanges {
     // private _registryUrl = 'http://localhost:3100/api/classregistrations';
     // private _threadsUrl = 'http://localhost:3100/api/threads';
-    private classCount = 0;
+    private dsCount = 0;
     private highestID = 0;
     threads: Thread[];
     errorMessage: string;
 
 
+    discussionSettings: DiscussionSettings[];
     public entered: EventEmitter <User>;
     private socket: SocketIOClient.Socket;
     threadAdded: EventEmitter <Thread>;
@@ -54,16 +55,7 @@ export class DiscussionService implements OnInit, OnChanges {
       this.userEntered = new EventEmitter();
       this.threadUpdated = new EventEmitter();
 
-      this.socket = io(this.globals.basepath);
-
-      // respond to broadcast messages from the chatserver
-    //   this.socket.on('userentering', (data) => {
-    //     // console.log('GOT A THREAD UPDATE');
-
-    //   // this.sendNotice( {type: 'info', message: [ data.user.username + ' has entered the discussion.' ], delay: 2000} );
-    //   this.userEntered.emit(data);
-
-    // });
+     this.socket = io(this.globals.basepath);
 
     this.socket.on('updatethread', (data) => {
       console.log('GOT A THREAD UPDATE');
@@ -73,11 +65,9 @@ export class DiscussionService implements OnInit, OnChanges {
     });
 
       this.socket.on('newthread', (data) => {
-       // console.log('New Thread: ' + JSON.stringify( data ) );
         this.threadAdded.emit(data);    });
 
       this.socket.on('deletethread', (data) => {
-       // console.log('Deleting Thread: ' + JSON.stringify( data ) );
         this.threadDeleted.emit(data);   });
 
 
@@ -97,10 +87,74 @@ export class DiscussionService implements OnInit, OnChanges {
 
     }
 
+    getHighestID(): number {
+      this.updateIDCount();
+      return this.highestID;
+    }
+
+    getDiscussionSettingsNow() {
+      this.getAllDiscussionSettings().subscribe(
+        discussionSettings => this.discussionSettings = discussionSettings,
+        error => this.errorMessage = <any>error);
+    }
+
+    getAllDiscussionSettings(): Observable<any> {
+    console.log('In discussion service, getAllDiscussionSettings.');
+       const myHeaders = new HttpHeaders();
+       myHeaders.append('Content-Type', 'application/json');
+
+      return this._http.get <DiscussionSettings[]> (this.globals.discussionsettings, {headers: myHeaders})
+        // debug the flow of data
+        .do(data => {
+          console.log('Got All ths dsObjects: ' + JSON.stringify(data));
+        this.discussionSettings = data;
+        this.dsCount = data.length;
+
+        // Loop through all the Classes to find the highest ID#
+        for (let i = 0; i < data.length; i++) {
+          const foundID = Number(data[i].id);
+
+          if (foundID >= this.highestID) {
+            const newHigh = foundID + 1;
+            this.highestID = newHigh;
+          }
+        }
+
+      } )
+        .catch( this.handleError );
+    }
+
+    updateIDCount() {
+      // Loop through all the Materials to find the highest ID#
+      if (this.discussionSettings && this.discussionSettings.length > 0) {
+      for (let i = 0; i < this.discussionSettings.length; i++) {
+      const foundID = Number(this.discussionSettings[i].id);
+      // console.log('Found ID: ' + foundID);
+      if (foundID >= this.highestID) {
+        const newHigh = foundID + 1;
+        this.highestID = newHigh;
+        // console.log('newHigh == ' + newHigh);
+      }
+    } } else {
+      this.getDiscussionSettingsNow();
+      if (this.highestID < 1) {
+        this.highestID = 1;
+      }
+    }
+  }
+
+  createNewDSObject(user_id, class_id, section) {
+    const newDSObject = new DiscussionSettings ('', user_id, class_id, section, false, []);
+    newDSObject.id = this.getHighestID() + '';
+    this.discussionSettings.push(newDSObject); // keep track of the newly created objects
+    return newDSObject;
+  }
+
     storeDiscussionSettings( discussionSettingsObject ): Observable <any> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
+      console.log('About to store DS Object: ' + JSON.stringify(discussionSettingsObject) );
       // console.log('Storing settings: ' + JSON.stringify(discussionSettingsObject));
       // return this._http.put <DiscussionSettings> (this.globals.discusssettings, {headers: myHeaders} )
       //  .do (data => { console.log('Got Discussion Settings back from the API' + JSON.stringify(data)); })
@@ -109,7 +163,7 @@ export class DiscussionService implements OnInit, OnChanges {
       if (!discussionSettingsObject.folds) {
         discussionSettingsObject.folds = [];
       }
-       return this._http.put(this.globals.discusssettings, discussionSettingsObject,
+       return this._http.put(this.globals.discussionsettings + '?id=' + discussionSettingsObject.id, discussionSettingsObject,
        {headers: myHeaders}).map( () => console.log('DONE') );
 
 
@@ -118,7 +172,7 @@ export class DiscussionService implements OnInit, OnChanges {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-       return this._http.get <DiscussionSettings> (this.globals.discusssettings +
+       return this._http.get <DiscussionSettings> (this.globals.discussionsettings +
           '?user_id=' + user_id + '&class_id=' + class_id + '&section=' + section, {headers: myHeaders} )
       .do (data => {
         // console.log('Got Discussion Settings back from the API' + JSON.stringify(data));
@@ -246,11 +300,12 @@ export class DiscussionService implements OnInit, OnChanges {
 
     enterDiscussion( user: User , thisClass: ClassModel, section: string): Observable <any> {
      // return Observable.of(null);
-    //  console.log('entering the discussion: ');
+   console.log('entering the discussion: ');
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
-      const enterDiscussionObject = { 'user_id': user.id, 'class_id': thisClass.id, 'section': section };
-      return this._http.put ( this.globals.enterdiscussion, enterDiscussionObject, this.headerOptions );
+      const enterDiscussionObject = new DiscussionSettings( '', user.id,  thisClass.id,  section, true, [] );
+      enterDiscussionObject.id = this.getHighestID() + '';
+      return this._http.put ( this.globals.discussionsettings, enterDiscussionObject, this.headerOptions );
   }
 
   // return an array of ID's of who's currently in the chatroom

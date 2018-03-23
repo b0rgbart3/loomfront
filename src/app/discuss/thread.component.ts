@@ -140,6 +140,7 @@ export class ThreadComponent implements OnInit, OnChanges {
   }
 
 
+
   submitReply(thread) {
     // console.log(this.replyFormGroup.get('reply').value);
     const reply = this.replyFormGroup.get('reply').value;

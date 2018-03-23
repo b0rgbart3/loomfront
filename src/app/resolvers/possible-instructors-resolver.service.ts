@@ -17,7 +17,7 @@ export class PossibleInstructorsResolver implements Resolve <User[]> {
 
         console.log('In the possible instructors resolver.');
 
-        return this.userService.getInstructors(0).
+        return this.userService.getAllInstructors().
         map(course => { if (course) { return course; }
         console.log(`Possible-Instructors not found`);
         this.router.navigate(['/welcome']);

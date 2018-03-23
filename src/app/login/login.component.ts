@@ -8,6 +8,7 @@ import { LoginResponse, FacebookService, InitParams } from 'ngx-facebook';
 import { AlertService } from '../services/alert.service';
 import { Globals } from '../globals';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotificationsService } from '../services/notifications.service';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class LoginComponent implements OnInit {
         private userService: UserService,
         private FB: FacebookService,
         private globals: Globals,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private notes: NotificationsService
          ) { }
 
     ngOnInit() {
@@ -70,55 +72,62 @@ export class LoginComponent implements OnInit {
     login() {
         console.log('In login method');
         this.loading = true;
-
-        this.userService.login(this.loginForm.get('username').value, this.loginForm.get('password').value)
+// this.loginForm.get('username').value, this.loginForm.get('password').value
+        this.userService.login(this.loginForm.value)
             .subscribe(result => {
 
+              console.log('Result status: ' + result.status);
                 if (result) {
                     const logger = result;
 
-                    console.log('AUTHENTICATED! - : ' + JSON.stringify(logger) );
-                    let redirect = '/welcome';
+                    if (result.error && (result.error === 'no match')) {
+                      this.error = 'Password is incorrect';
+                      console.log(this.error);
+                      this.notes.sendNotice( {type: 'warning', message: ['Incorrect password, please try again.' ], delay: 1400} );
+                      // this._flashMessagesService.show(this.error,
+                      //     { cssClass: 'alert-warning', timeout: 7000 });
+                          this.loading = false;
+                    } else {
+                      if (result.error && (result.error === 'no user')) {
+                        this.error = 'Username not found in the system';
+                        console.log(this.error);
+                        this.notes.sendNotice( {type: 'warning', message: [this.error ], delay: 1400} );
 
-
-                    if (logger.admin) { redirect = '/admin'; } else {
-                        redirect = '/home';
+                        // this._flashMessagesService.show(this.error,
+                        //   { cssClass: 'alert-warning', timeout: 7000 });
+                      } else {
+                        this._router.navigate(['/home']);
+                        console.log('AUTHENTICATED! - : ' + JSON.stringify(logger) );
+                      }
                     }
 
-
-                // Set our navigation extras object
-                // that passes on our global query params and fragment
-                // const navigationExtras: NavigationExtras = {
-                //   queryParamsHandling: 'preserve',
-                //   preserveFragment: true
-                // };
-
-                // Redirect the user
-                // this.router.navigate([redirect], navigationExtras);
-                this._router.navigate([redirect]);
-                return;
                 } else {
                     console.log('NOT AUTHENTICATED!');
-                    this.error = 'Username or password is incorrect';
+                    this._flashMessagesService.show('Error with login',
+                      { cssClass: 'alert-warning', timeout: 7000 });
                     this.loading = false;
-                    return;
+
                 }
             },
-        err => {
-           const tempUserName = this.loginForm.get('username').value;
-            console.log(tempUserName);
-            const foundUser = this.userService.findUserByUsername(tempUserName);
-            if (foundUser) {
-              this.error = 'Your Password is incorrect';
-            } else {
-              this.error = 'We didn\'t find that username in our system.';
-            }
+        // error => {
+        //   console.log('Got an error (supposedly: ' + JSON.stringify(error));
+        //   console.log('error code: ' + error.status);
+        //    const tempUserName = this.loginForm.get('username').value;
+        //     console.log(tempUserName);
+        //     const foundUser = this.userService.findUserByUsername(tempUserName);
+        //     if (foundUser) {
+        //       this.error = 'Your Password is incorrect';
+        //     } else {
+        //       this.error = 'We didn\'t find that username in our system.';
+        //     }
 
-            this._flashMessagesService.show(this.error,
-            { cssClass: 'alert-warning', timeout: 7000 });
-            this.loading = false;
-            return;
-        });
+        //     this._flashMessagesService.show(this.error,
+        //     { cssClass: 'alert-warning', timeout: 7000 });
+        //     this.loading = false;
+        //     return;
+        //
+      // }
+    );
 
 }
 

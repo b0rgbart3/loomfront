@@ -81,10 +81,22 @@ body {
       width:100%;
       padding:1em;
       box-sizing: border-box;
-      background-color:#cccccc;
       max-width:1100px;
   }
 
+  .clickableDiv {
+    border:2px solid rgba(0,0,0,0);
+    cursor: pointer;
+    user-select: none;
+  }
+  .clickableDiv:hover {
+  background-color:#2e394b;
+
+  }
+
+  .clickableDiv:active {
+    border:2px solid rgba(255,255,255,1);
+  }
 
   .loomCard h1 {
     color:#000000;
@@ -150,7 +162,6 @@ body {
   }
   .loomForm {
     padding:10px;
-    background-color:rgba(255,255,255,.5);
     font-family: "Roboto";
     padding-bottom:30px;
     box-sizing: border-box;
@@ -565,24 +576,27 @@ h2 {
 
 .smallCloser {
   background-image:url('./assets/images/closer_white.svg');
-  background-size:60%;
+  background-size:70%;
   background-position:50% 50%;
   background-repeat: no-repeat;
-  width:20px;
-  height:20px;
+  width:30px;
+  height:30px;
   border-radius:50%;
-  border:2px solid rgba(255,255,255,.8);
   display:inline-block;
   float:right;
   vertical-align: top;
-  margin:0;
-  position: relative;
-  top:-4px;
-  right:4px;
+  margin-top:6px;
+  margin-right:10px;
+  vertical-align: top;
+  opacity:.5;
 }
 
+.smallCloser:hover {
+  opacity:.75;
+}
 .smallCloser:active {
-  background-color:#555555;
+  opacity: 1;
+  background-size:90%;
 }
 .closer {
   background-image:url('./assets/images/closer_white.svg');
@@ -602,14 +616,14 @@ h2 {
 }
 
 .closer:hover {
-  opacity:.8;
-  background-image:url('./assets/images/closer.svg');
+  opacity:1;
+  background-image:url('./assets/images/closer_white.svg');
 }
 
 .closer:active {
   opacity:1;
-  background-image:url('./assets/images/closer.svg');
-  background-color:white;
+  background-image:url('./assets/images/closer_white.svg');
+  background-size:80%;
 
 }
 
@@ -798,6 +812,7 @@ nav a {
 	text-decoration: none;
   margin: 0 -7px;
   box-sizing: border-box;
+  color:#aaaaaa;
 } 
 
 nav a::before,
@@ -812,8 +827,8 @@ nav a::before {
 	z-index: -1;
 	border-bottom: none;
 	border-radius: 4px 4px 0 0;
-	background: #bbb;
-	box-shadow: 2px 2px 3px rgba(255,255,255,.9) inset;
+	background: #444;
+	box-shadow: 2px 2px 3px rgba(255,255,255,.5) inset;
 	transform: perspective(8px) rotateX(2deg);
 	transform-origin: bottom;
 }
@@ -827,7 +842,7 @@ nav.left a::before {
 }
 
 nav.right a {
-	padding: 1.5em 1em 1em 2em;
+  padding: 1.5em 1em 1em 2em;
 }
 
 nav.right a::before {
@@ -835,7 +850,8 @@ nav.right a::before {
 }
 
 nav a.selected {
-	z-index: 2;
+  z-index: 2;
+  color:#eee;
 }
 
 nav a.selected::before {
@@ -845,7 +861,7 @@ nav a.selected::before {
 
 nav a.selected::before,
 main {
-	background: #eee;
+  background: #888;
 }
 
 main {

@@ -1,14 +1,17 @@
-<div class='bio' (clickOutside)="checkMe()">
-        <div class='closer'
+<div class='bioContainer'>
+    <div class='bio group' (clickOutside)="checkMe()">        <div class='closer'
         (click)="closer()"></div>
         <div class='popThumb group'>
- <user-thumb [thumbnail]='thumbnail'></user-thumb>  </div>
-<div class='userBio'>
-    <h1>{{ bioUser.username }}</h1>
-    {{ bioUser.bio }}<br clear='all'>
-    <!-- <div class='tip' (click)='message(bioUser)'>send message</div> -->
+        <user-thumb [thumbnail]='thumbnail'></user-thumb>  
 
-</div>
-<div class='messageButton' (click)='message(thumbnail)'>Message {{ bioUser.username }}</div>
+        </div>
+        <div class='userBio'>
+            <h1>{{ bioUser.username }}</h1>
+            {{ bioUser.bio }}<br clear='all'>
+            <!-- <div class='tip' (click)='message(bioUser)'>send message</div> -->
+            <div class='messageButton' (click)='message(thumbnail)' *ngIf='allowMessage'>Message {{ bioUser.username }}</div>
 
+        </div>
+
+    </div>
 </div>

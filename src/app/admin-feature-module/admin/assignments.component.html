@@ -1,23 +1,25 @@
 <div class="padMe">
+        <!-- {{ assignments | json }} -->
         <div *ngFor='let classGroup of classes'>
-                <h3>{{ classGroup.title }}</h3>
-                <div *ngFor='let enrollment of enrollments; let i=index'>
+                <h3>{{ classGroup.title }} {{classGroup.id}}</h3>
+                <div *ngFor='let assignment of assignments; let i=index'>
 
-                <div *ngIf='enrollment.class_id === classGroup.id && enrollment.participation ==="instructor"' class='listItem'>
-                <div class='tableRow' *ngIf='enrollment.this_user'>
+                  
+                <div *ngIf='assignment.class_id === classGroup.id' class='listItem'>
+                <div class='tableRow' *ngIf='assignment.this_user'>
                     <div class='tableCell'>
-                        {{ enrollment.this_user.username}}
+                        {{ assignment.this_user.username}}
                     </div>
-                    <div class='tableCell'>{{ enrollment.this_user.firstname}}  </div>
-                        <div class='tableCell'>{{ enrollment.this_user.lastname}}  </div>
-                            <div class='tableCell'>{{ enrollment.this_user.email}}  </div>
+                    <div class='tableCell'>{{ assignment.this_user.firstname}}  </div>
+                        <div class='tableCell'>{{ assignment.this_user.lastname}}  </div>
+                            <div class='tableCell'>{{ assignment.this_user.email}}  </div>
                             <div class='tableCell'><div class='tinytrash' (click)='trash(i)'></div></div>
                 </div></div>
                 </div>
             </div>
           
 
-        <form [formGroup]="enrollmentForm" novalidate class='loomForm group'>
+        <form [formGroup]="form" novalidate class='loomForm group'>
                 <span class='feedback'>{{ feedback }}
                     </span> <h2>New Instructor Assignment:</h2>
     
@@ -25,11 +27,11 @@
             <div class='selectContainer'>
             <mat-form-field>
                 <mat-select placeholder='Instructor' mdSelect formControlName='user_id'>
-                     <mat-option *ngFor='let instructor of users' mdOption [value]='instructor.id'>
+                     <mat-option *ngFor='let instructor of instructors' mdOption [value]='instructor.id'>
                        {{ instructor.username }}</mat-option>
                  </mat-select></mat-form-field>
-                 <span class='help-block' *ngIf="(enrollmentForm.touched) && enrollmentForm.get('user_id').errors">
-                        <span *ngIf="enrollmentForm.get('user_id').errors">You need to choose the instructor</span>
+                 <span class='help-block' *ngIf="(form.touched) && form.get('user_id').errors">
+                        <span *ngIf="form.get('user_id').errors">You need to choose the instructor</span>
                      </span>
                 </div>
                 <div class='selectContainer'>
@@ -38,23 +40,23 @@
                      <mat-option *ngFor='let classModel of classes' mdOption [value]='classModel.id'>
                        {{ classModel.title }}</mat-option>
                  </mat-select></mat-form-field>
-                 <span class='help-block' *ngIf="(enrollmentForm.touched) && enrollmentForm.get('class_id').errors">
-                        <span *ngIf="enrollmentForm.get('class_id').errors">You need to choose the class</span>
+                 <span class='help-block' *ngIf="(form.touched) && form.get('class_id').errors">
+                        <span *ngIf="form.get('class_id').errors">You need to choose the class</span>
                      </span>
                     </div>
                     <div class='loomButton loomSubmit' 
-                    (click)='postAssignment()' [ngClass]="{'disabled': (!enrollmentForm.valid)}" >Submit</div>
+                    (click)='postAssignment()' [ngClass]="{'disabled': (!form.valid)}" >Submit</div>
                 
 
 
         </form>
         <div class='debug'>
-                Form touched: {{ enrollmentForm.touched }}<br>
-                Form dirty: {{ enrollmentForm.dirty }}<br>
-                Form valid: {{ enrollmentForm.valid }}<br>
-               touched:        {{ enrollmentForm.get('user_id').touched }}<br>
-               dirty: {{ enrollmentForm.get('user_id').dirty }} <br>
-               errors: {{ enrollmentForm.get('user_id').errors  | json }}<br>
-                    {{ enrollmentForm.value | json}}
+                Form touched: {{ form.touched }}<br>
+                Form dirty: {{ form.dirty }}<br>
+                Form valid: {{ form.valid }}<br>
+               touched:        {{ form.get('user_id').touched }}<br>
+               dirty: {{ form.get('user_id').dirty }} <br>
+               errors: {{ form.get('user_id').errors  | json }}<br>
+                    {{ form.value | json}}
                  </div>
     </div>

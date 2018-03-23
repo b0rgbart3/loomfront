@@ -58,9 +58,9 @@ export class EnrollmentStudentTabComponent implements OnInit {
         for (let i = 0; i < this.enrollments.length; i++) {
             if (object.user_id === this.enrollments[i].user_id) {
                 if ( object.class_id === this.enrollments[i].class_id) {
-                    if (object.participation === this.enrollments[i].participation) {
+                   
                         unique = false;
-                    }
+                    
                 }
             }
         }
@@ -89,7 +89,7 @@ export class EnrollmentStudentTabComponent implements OnInit {
     // I still have this method in here because the route resolver doesn't seem to update the user and class objects
     // the way it should.
     loadInEnrollments() {
-        this.enrollmentsService.getAllStudentEnrollments().subscribe(
+        this.enrollmentsService.getAllEnrollments().subscribe(
             data => { this.enrollments = data;
                 if (this.enrollments) {
                 this.enrollments.map( enrollment => {
@@ -107,7 +107,7 @@ export class EnrollmentStudentTabComponent implements OnInit {
         if (this.enrollmentForm.dirty &&  this.enrollmentForm.valid) {
         // This is Deborah Korata's way of merging our data model with the form model
      const comboObject = Object.assign( {}, {}, this.enrollmentForm.value);
-    comboObject.participation = 'student';
+
     const chosenUser = this.userService.getUserFromMemoryById(comboObject.user_id);
     const chosenClass = this.classService.getClassFromMemory(comboObject.class_id);
 

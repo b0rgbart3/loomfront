@@ -36,11 +36,11 @@ export class ClassResolver implements Resolve <ClassModel> {
             return thisClass[0];
         }
         // console.log(`Class was not found: ${id}`);
-        this.router.navigate(['/welcome']);
+      //  this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
         console.log(`Retrieval error: ${error}`);
-        this.router.navigate(['/welcome']);
+    //    this.router.navigate(['/welcome']);
         return Observable.of(null);
     });
     }

@@ -58,9 +58,9 @@ export class EnrollmentInstructorTabComponent implements OnInit {
                 for (let i = 0; i < this.enrollments.length; i++) {
                     if (object.user_id === this.enrollments[i].user_id) {
                         if ( object.class_id === this.enrollments[i].class_id) {
-                            if (object.participation === this.enrollments[i].participation) {
+
                                 unique = false;
-                            }
+
 
                         }
                     }
@@ -113,7 +113,6 @@ export class EnrollmentInstructorTabComponent implements OnInit {
 
         // This is Deborah Korata's way of merging our data model with the form model
      const comboObject = Object.assign( {}, {}, this.enrollmentForm.value);
-    comboObject.participation = 'instructor';
     const chosenUser = this.userService.getUserFromMemoryById(comboObject.user_id);
     const chosenClass = this.classService.getClassFromMemory(comboObject.class_id);
 

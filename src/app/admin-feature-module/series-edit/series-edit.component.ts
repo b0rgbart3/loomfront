@@ -5,6 +5,8 @@ import { ClassService } from '../../services/class.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { SeriesService } from '../../services/series.service';
 import { Series } from '../../models/series.model';
+import _ from 'lodash';
+import {Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
@@ -20,7 +22,8 @@ export class SeriesEditComponent implements OnInit {
     constructor( private activated_route: ActivatedRoute,
         private seriesService: SeriesService,
          private fb: FormBuilder,
-        private router: Router ) {
+        private router: Router,
+        private _location: Location ) {
 
     }
 
@@ -50,7 +53,9 @@ export class SeriesEditComponent implements OnInit {
         }
 
     }
-
+    closer() {
+        this._location.back();
+    }
     save() {
         console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(this.seriesForm.value)  );
         if (this.seriesForm.dirty && this.seriesForm.valid) {

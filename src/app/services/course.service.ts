@@ -14,9 +14,6 @@ import { Globals } from '../globals';
 
 @Injectable()
 export class CourseService implements OnInit {
-    private _coursesUrl;
-    private _courseImagesUrl;
-    private _materialsUrl;
     private courseCount = 0;
     private highestID = 0;
     errorMessage;
@@ -24,9 +21,6 @@ export class CourseService implements OnInit {
     // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     constructor (private _http: HttpClient, private globals: Globals) {
-      this._coursesUrl = globals.basepath + 'api/courses';
-      this._courseImagesUrl = globals.basepath + 'api/courseimages';
-      this._materialsUrl = globals.basepath + 'api/materials';
     }
 
     ngOnInit() {
@@ -38,7 +32,7 @@ export class CourseService implements OnInit {
     }
 
    getCourses(): Observable<Course[]> {
-    return this._http.get <Course[]> (this._coursesUrl)
+    return this._http.get <Course[]> (this.globals.courses)
       // debug the flow of data
       .do(data =>  { // console.log('All: ' + JSON.stringify(data));
                     this.courseCount = data.length;
@@ -74,7 +68,7 @@ export class CourseService implements OnInit {
   }
 
   getCourse(id): Observable<Course> {
-    return this._http.get<Course> ( this._coursesUrl + '?id=' + id )
+    return this._http.get<Course> ( this.globals.courses + '?id=' + id )
       .do(data => {
         // console.log( 'found: ' + JSON.stringify(data) );
       return data; })
@@ -98,7 +92,7 @@ export class CourseService implements OnInit {
   }
 
   getCourseImage(id): Observable<string> {
-    return this._http.get<string> ( this._courseImagesUrl + '?id=' + id )
+    return this._http.get<string> ( this.globals.courses + '?id=' + id )
       .do(data => {
     //    console.log( 'found: ' + JSON.stringify(data) );
       return data; })
@@ -106,7 +100,7 @@ export class CourseService implements OnInit {
   }
 
   deleteCourse(courseId: string): Observable<any> {
-      return this._http.delete( this._coursesUrl + '?id=' + courseId);
+      return this._http.delete( this.globals.courses + '?id=' + courseId);
   }
 
   private extractData(res: Response) {
@@ -130,7 +124,7 @@ export class CourseService implements OnInit {
             courseObject.id = this.highestID.toString();
             const body =  JSON.stringify(courseObject);
             console.log( 'Posting Course: ', body   );
-            return this._http.put(this._coursesUrl + '?id=' + courseObject.id,
+            return this._http.put(this.globals.courses + '?id=' + courseObject.id,
               courseObject, {headers: myHeaders});
       } else {
         return Observable.of(null);
@@ -144,7 +138,7 @@ export class CourseService implements OnInit {
       myHeaders.append('Content-Type', 'application/json');
       const body =  JSON.stringify(courseObject);
       // console.log( 'Posting Course: ', body   );
-      return this._http.put(this._coursesUrl + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
+      return this._http.put(this.globals.courses + '?id=' + courseObject.id, courseObject, {headers: myHeaders} );
    }
 
     private handleError (error: HttpErrorResponse) {

@@ -3,8 +3,8 @@
       <h1>Current &amp; Upcoming Classes on The Loom</h1>
   <div class="list-group" *ngIf="classes">
     <div class="list-group-item"
-      *ngFor="let class of classes">
-      <class-thumb [classObject]=class></class-thumb>
+      *ngFor="let classObject of classes">
+      <class-thumb [classObject]=classObject [showTeachers]=true></class-thumb>
       </div>
     </div>
 
@@ -13,3 +13,4 @@
 <div class="notice" *ngIf="!classes">Currently having 
   trouble accessing the database for class info.</div>
 </div>
+

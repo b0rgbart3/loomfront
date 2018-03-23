@@ -5,7 +5,8 @@ import { User } from '../models/user.model';
 import { ClassModel } from '../models/class.model';
 import { UserService } from '../services/user.service';
 import { ClassService } from '../services/class.service';
-import { Enrollment } from '../models/enrollment.model';
+import { Course } from '../models/course.model';
+import { Assignment } from '../models/assignment.model';
 
 @Component({
     templateUrl: 'welcome.component.html',
@@ -16,8 +17,10 @@ export class WelcomeComponent implements OnInit {
     username;
     currentUser: User;
     classes: ClassModel[];
+    courses: Course[];
     errorMessage: string;
-    instructorassignments: Enrollment[];
+    assignments: Assignment[];
+    instructorsByClass: any[];
 
     constructor( private router: Router,
     private userService: UserService, private classService: ClassService,
@@ -30,12 +33,45 @@ export class WelcomeComponent implements OnInit {
         }
 
         ngOnInit() {
-            this.instructorassignments = this.activated_route.snapshot.data['instructorassignments'];
-
-            this.classes = this.activated_route.snapshot.data['classes'];
-
+            // console.log('snapshot: ' + JSON.stringify(this.activated_route.snapshot.data));
             this.currentUser = this.userService.getCurrentUser();
-            
+            this.classes = [];
+            this.activated_route.data.subscribe(
+                data => {
+                 //   console.log('got data: ' + JSON.stringify(data));
+                    this.grabData();
+            }, err => {
+               // console.log('error retrieving data');
+            }, () => {
+               // console.log('Data finished: ');
+                this.grabData();
+            }
+        );
 
+        }
+
+        grabData() {
+            this.courses = this.activated_route.snapshot.data['courses'];
+            this.classes = this.activated_route.snapshot.data['classes'];
+            // console.log('Classes: ' + JSON.stringify(this.classes));
+            this.assignments = this.activated_route.snapshot.data['assignments'];
+            this.loadInstructors();
+        }
+        loadInstructors() {
+            this.instructorsByClass = [];
+
+            if (this.classes) {
+                for (let i = 0; i < this.classes.length; i++) {
+                    this.instructorsByClass[i] = [];
+                    this.userService.getInstructorsForClass(this.classes[i].id).subscribe( data => this.instructorsByClass[i] = data,
+                    err => console.log('error getting instructors') );
+                }
+                for (let i = 0; i < this.instructorsByClass.length; i++) {
+                    // these are assignment objects
+                    for (let j = 0; j < this.instructorsByClass[i].length; j++) {
+                        this.instructorsByClass[i][j].user = this.userService.getUserFromMemoryById(this.instructorsByClass[i][j].user_id);
+                    }
+                }
+            }
         }
 }

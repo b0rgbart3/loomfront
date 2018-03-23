@@ -21,13 +21,11 @@ export class UsersResolver implements Resolve <User[]> {
        // console.log('In the Users resolver.');
 
         return this.userService.getUsers().
-        map(course => { if (course) { return course; }
+        map(data => { if (data) { return data; }
         console.log(`users were not found:`);
-        this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
         console.log(`Retrieval error: ${error}`);
-        this.router.navigate(['/welcome']);
         return Observable.of(null);
     });
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ClassModel } from '../../models/class.model';
 import { ClassService } from '../../services/class.service';
 import { User } from '../../models/user.model';
@@ -12,28 +12,15 @@ import { User } from '../../models/user.model';
 
 export class ClassListComponent implements OnInit {
 
-  classes: ClassModel[];
   selectedClass: {};
   errorMessage: string;
-  currentUser: User;
   admin: boolean;
 
-
+@Input() classes: ClassModel[];
 
   constructor(private classService: ClassService) { }
 
   ngOnInit() {
-    if (localStorage.currentUser) {
-    this.currentUser = <User>JSON.parse( localStorage.currentUser );
-    console.log(this.currentUser);
-    }
-
-      if ( this.currentUser && this.currentUser.admin ) { this.admin = true; }
-
-      this.classService
-       .getClasses().subscribe(
-         classes =>  this.classes = classes,
-         error => this.errorMessage = <any>error);
 
   }
 

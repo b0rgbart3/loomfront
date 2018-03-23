@@ -15,10 +15,10 @@
         </mat-expansion-panel-header>
     
         <mat-list>
-            <mat-list-item [routerLink]="['/classedit', 0]">
+            <mat-list-item [routerLink]="['0/edit']">
                 <mat-icon class="example-icon">add</mat-icon> Add a new Class
             </mat-list-item>
-            <mat-list-item *ngFor='let classObject of classArray' [routerLink]="['/classedit',classObject.id]">
+            <mat-list-item *ngFor='let classObject of classArray' [routerLink]="[classObject.id,'edit']">
                 {{ classObject.title }}
             </mat-list-item>
         </mat-list>
@@ -30,10 +30,10 @@
         </mat-expansion-panel-header>
     
         <mat-list>
-            <mat-list-item [routerLink]="['/courses', 0, 'edit']">
+            <mat-list-item [routerLink]="['/admin/courses', 0, 'edit']">
                 <mat-icon class="example-icon">add</mat-icon> Add a new Course
             </mat-list-item>
-            <mat-list-item *ngFor='let course of courseArray' [routerLink]="['/courses',course.id,'edit']">
+            <mat-list-item *ngFor='let course of courseArray' [routerLink]="['/admin/courses',course.id,'edit']">
                 {{ course.title }}
             </mat-list-item>
         </mat-list>
@@ -46,10 +46,10 @@
         </mat-expansion-panel-header>
     
         <mat-list>
-            <mat-list-item [routerLink]="['/series', 0, 'edit']">
+            <mat-list-item [routerLink]="['/admin/series', 0, 'edit']">
                 <mat-icon class="example-icon">add</mat-icon> Add a new Series
             </mat-list-item>
-            <mat-list-item *ngFor='let serie of seriesArray' [routerLink]="['/series',serie.id,'edit']">
+            <mat-list-item *ngFor='let serie of seriesArray' [routerLink]="['/admin/series',serie.id,'edit']">
                 {{ serie.title }}
             </mat-list-item>
         </mat-list>

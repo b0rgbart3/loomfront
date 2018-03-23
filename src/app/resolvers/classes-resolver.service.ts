@@ -16,6 +16,8 @@ export class ClassesResolver implements Resolve <ClassModel> {
     constructor( private courseService: CourseService, private classService: ClassService,
         private router: Router ) { }
 
+    // console.log('creating the classes resolver');
+
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <ClassModel> {
 //        const id = route.params['id'];
 
@@ -26,18 +28,20 @@ export class ClassesResolver implements Resolve <ClassModel> {
         //     this.router.navigate(['/welcome']);
         //     return Observable.of(null);
         // }
-  //      console.log('In Classes Resolver: id=' + id);
+       // console.log('In Classes Resolver:' );
         return this.classService.getClasses().
-        map(thisClass => { if (thisClass) {
+        map(classes => {
+           // console.log('Got claseses, returning them.');
+            if (classes) {
             // console.log('This class id: ' + id);
            // console.log('found: ' + JSON.stringify(thisClass));
-            return thisClass; }
+            return classes; }
         // console.log(`Class was not found: ${id}`);
-        this.router.navigate(['/welcome']);
+        // this.router.navigate(['/welcome']);
         return null; })
     .catch(error => {
        // console.log(`Retrieval error: ${error}`);
-        this.router.navigate(['/welcome']);
+        // this.router.navigate(['/welcome']);
         return Observable.of(null);
     });
     }

@@ -7,7 +7,8 @@ import { ClassModel } from '../../models/class.model';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { ClassService } from '../../services/class.service';
-import { EnrollmentsService } from '../../services/enrollments.service';
+import { AssignmentsService } from '../../services/assignments.service';
+import { Assignment } from '../../models/assignment.model';
 
 
 @Component({
@@ -18,8 +19,9 @@ import { EnrollmentsService } from '../../services/enrollments.service';
 })
 
 export class AssignmentsComponent implements OnInit {
-    enrollmentForm: FormGroup;
-    enrollments: Enrollment[];
+    form: FormGroup;
+    assignments: Assignment[];
+    instructors: User[];
     classes: ClassModel[];
     users: User[];
   feedback: string;
@@ -27,7 +29,7 @@ export class AssignmentsComponent implements OnInit {
 
 
     constructor(private router: Router, private activated_route: ActivatedRoute, private fb: FormBuilder,
-        private globals: Globals, private userService: UserService, private enrollmentsService: EnrollmentsService,
+        private globals: Globals, private userService: UserService, private assignmentsService: AssignmentsService,
     private classService: ClassService ) { }
 
         // The form control names match the Enrollment Data Model.  Nice!
@@ -36,16 +38,16 @@ export class AssignmentsComponent implements OnInit {
 
         this.activated_route.data.subscribe(
             data => {
-            console.log('Got new data!');
-            this.enrollments = data['enrollments'];
-            console.log(' Enrollments: ' + JSON.stringify(data));
+          //  console.log('Got new data!');
+            this.assignments = data['assignments'];
+           // console.log(' Assignments: ' + JSON.stringify(data));
             this.classes = data['classes'];
             this.users = data['users'];
-           // this.assignUserObjects();
+            this.instructors = data['instructors'];
             }
         );
 
-        this.enrollmentForm = this.fb.group({
+        this.form = this.fb.group({
             user_id: [ '', Validators.required ],
             class_id: [ '', Validators.required ],
             });
@@ -56,12 +58,11 @@ export class AssignmentsComponent implements OnInit {
     unique( object ) {
         // We don't want to have a duplicate in the DB
                 let unique = true;
-                for (let i = 0; i < this.enrollments.length; i++) {
-                    if (object.user_id === this.enrollments[i].user_id) {
-                        if ( object.class_id === this.enrollments[i].class_id) {
-                            if (object.participation === this.enrollments[i].participation) {
+                for (let i = 0; i < this.assignments.length; i++) {
+                    if (object.user_id === this.assignments[i].user_id) {
+                        if ( object.class_id === this.assignments[i].class_id) {
+
                                 unique = false;
-                            }
 
                         }
                     }
@@ -70,12 +71,22 @@ export class AssignmentsComponent implements OnInit {
             }
 
             trash(index) {
-                console.log('about to delete: ' + JSON.stringify(this.enrollments[index]));
-                const result = confirm('Are you sure you want to un-assign ' +
-                this.enrollments[index].this_user.username + ' from teaching ' +
-            this.enrollments[index].this_class.title + '?');
-            if (result) {
-                this.enrollmentsService.remove(this.enrollments[index].id).subscribe(
+                let nameOfPerson = '';
+                if (this.assignments && this.assignments[index] && this.assignments[index].this_user) {
+                    nameOfPerson = this.assignments[index].this_user.username;
+                }
+                let classTitle = '';
+                if (this.assignments && this.assignments[index] && this.assignments[index].this_class) {
+                    classTitle = this.assignments[index].this_class.title;
+                } else {
+                    console.log('class: ' + JSON.stringify(this.assignments[index].this_class));
+                }
+                // console.log('about to delete: ' + JSON.stringify(this.assignments[index]));
+                const result = confirm('Are you sure you want to un-assign ' + nameOfPerson +
+                 ' from teaching ' + classTitle + '?');
+            if (result && this.assignments[index]) {
+                this.assignments.splice(index, 1 );
+                this.assignmentsService.remove(this.assignments[index].id).subscribe(
                 data =>  {},
                error => {
                  if (error.status === 200) {
@@ -83,62 +94,63 @@ export class AssignmentsComponent implements OnInit {
                  } else {
                console.log('Error: ' + JSON.stringify( error)); }
 
-               this.loadInEnrollments();
+              // this.loadInAssignments();
              }
               );
             }
             }
-            loadInEnrollments() {
-                this.enrollmentsService.getEnrollments().subscribe(
-                    data => { this.enrollments = data;
-                        if (this.enrollments) {
-                            this.enrollments.map( enrollment => {
+            loadInAssignments() {
+                this.assignmentsService.getAssignments().subscribe(
+                    data => { this.assignments = data;
+                        if (this.assignments) {
+                            this.assignments.map( enrollment => {
                                 enrollment.this_user = this.userService.getUserFromMemoryById(enrollment.user_id);
-                    enrollment.this_class = this.classService.getClassFromMemory(enrollment.class_id);
+                                 enrollment.this_class = this.classService.getClassFromMemory(enrollment.class_id);
                             });
                         }
                     console.log(' Enrollments: ' + JSON.stringify(data)); },
                     error => console.log('error getting enrollments after post.'),
                     () => {
-                    console.log('Instructor Enrollments: ' + JSON.stringify(this.enrollments));
+                    console.log('Instructor Assignments: ' + JSON.stringify(this.assignments));
                    // this.assignUserObjects();
-                    console.log('done getting new enrollments');
-                  this.router.navigate(['/enrollments/instructors']);
+                    console.log('done getting new assignments');
+                  // this.router.navigate(['/enrollments/instructors']);
 
                 }
                 );
             }
 
     postAssignment() {
-        if (this.enrollmentForm.dirty && this.enrollmentForm.valid) {
+        if (this.form.dirty && this.form.valid) {
 
         // This is Deborah Korata's way of merging our data model with the form model
-     const comboObject = Object.assign( {}, {}, this.enrollmentForm.value);
-    comboObject.participation = 'instructor';
+     const comboObject = Object.assign( {}, {}, this.form.value);
     const chosenUser = this.userService.getUserFromMemoryById(comboObject.user_id);
     const chosenClass = this.classService.getClassFromMemory(comboObject.class_id);
 
     if (!this.unique(comboObject)) {
-        this.enrollmentForm.reset();
+        this.form.reset();
         this.feedback = chosenUser.username + ' is already assigned to teach ' + chosenClass.title;
 
     } else {
 
-     this.enrollmentsService.postEnrollment( comboObject ).subscribe(
+     this.assignmentsService.postAssignment( comboObject ).subscribe(
        (val) => {
-
+            console.log('got val back');
          },
-         response => { this.router.navigate(['/coursebuilder']);
+         response => {
+             console.log('got resonse back');
          },
          () => {
+             console.log('got back from posting.');
 
-        this.enrollmentForm.reset();
+        this.form.reset();
         this.feedback = null;
 
         // Add this new assignment to our main enrollments data object!  There's an idea!
         comboObject.this_user = chosenUser;
         comboObject.this_class = chosenClass;
-        this.enrollments.push(comboObject);
+        this.assignments.push(comboObject);
         // this.loadInEnrollments();
          //  this.router.navigate(['/enrollments/instructors']);
 

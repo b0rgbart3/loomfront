@@ -27,54 +27,39 @@ export class Globals {
 // basepath = 'https://ddworks.org:8000/';
 
 // This points to the API
-basepath = 'http://localhost:3100/';
+basepath = 'http://localhost:3100';
 // basepath = 'https://young-bastion-45095.herokuapp.com/';
 
+api_path = this.basepath + '/api/';
 // This points to where the images and other assets are stored
 awspath = 'https://recloom.s3.amazonaws.com/';
 
-users =              this.basepath + 'api/users';
-instructors =        this.basepath + 'api/instructors';
-classes =            this.basepath + 'api/classes';
-postcourseimages =   this.basepath + 'api/courseimages';
+authenticate =       this.api_path + 'authenticate';
+users =              this.api_path + 'users';
+classes =            this.api_path + 'classes';
+courses =            this.api_path + 'courses';
+postcourseimages =   this.api_path + 'courseimages';
+materials =          this.api_path + 'materials';
+postmaterialimages = this.api_path + 'materialimages';
+postmaterialfiles =  this.api_path + 'materialfiles';
+allmaterialsbytype = this.api_path + 'allmaterialsbytype';
+threads =            this.api_path + 'threads';
+postavatars =        this.api_path + 'avatars';
+series =             this.api_path + 'series';
+batchmaterials =     this.api_path + 'batchmaterials';
+discussionsettings = this.api_path + 'discussionsettings';
+notessettings =      this.api_path + 'notessettings';
+// enterdiscussion =    this.api_path + 'discussion/enter';
+whosin =             this.api_path + 'discussion/whosin';
+enrollments =        this.api_path + 'enrollments';
+assignments =        this.api_path + 'assignments';
+messages =           this.api_path + 'messages';
+
 courseimages =       this.awspath  + 'courseimages';
-materials =          this.basepath + 'api/materials';
-postmaterialimages = this.basepath + 'api/materialimages';
 materialimages =     this.awspath  + 'materialimages';
 materialfiles =      this.awspath  + 'materialfiles';
-postmaterialfiles =  this.basepath + 'api/materialfiles';
-allmaterialsbytype = this.basepath + 'api/allmaterialsbytype';
-threads =            this.basepath + 'api/threads';
-postavatars =        this.basepath + 'api/avatars';
 avatars =            this.awspath  + 'avatars';
-series =             this.basepath + 'api/series';
-batchmaterials =     this.basepath + 'api/batchmaterials';
-discusssettings =    this.basepath + 'api/discussion/settings';
-notessettings =      this.basepath + 'api/notes/settings';
-enterdiscussion =    this.basepath + 'api/discussion/enter';
-whosin =             this.basepath + 'api/discussion/whosin';
- // the entire db listing of enrollment objects
- enrollments =        this.basepath + 'api/enrollments';
- // the student enrollment objects for the current user
- studentenrollments = this.basepath + 'api/studentenrollments';
- // the instructor assignment objects for the current user
- instructorassignments = this.basepath + 'api/instructorassignments';
 
- messages =              this.basepath + 'api/messages';
- freshmessages =         this.basepath + 'api/messages/fresh';
-
-//  videos =             this.basepath + 'api/videos';
-//  boosk =              this.basepath + 'api/books';
-//  docs =               this.basepath + 'api/docs';
-//  videofiles =         this.basepath + 'videos';
-//  docfiles =           this.basepath + 'docfiles';
-//  postdocfiles =       this.basepath + 'api/docfiles';
-//  postbookimages =     this.basepath + 'api/bookimages';
-//  bookimages =         this.basepath + 'bookimages';
-//  postdocimages =      this.basepath + 'api/docimages';
-//  docimages =          this.basepath + 'docimages';
-
- // chat_server = 'http://localhost:8001';
 
  fb_app_params = {
     appId: '143123396316217',

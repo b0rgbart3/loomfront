@@ -20,6 +20,9 @@ import { EnrollmentsService } from '../../services/enrollments.service';
 import { NotesSettings } from '../../models/notessettings.model';
 import { ClickOutsideDirective } from '../../_directives/clickOutside.directive';
 import { MessageService } from '../../services/message.service';
+import { AssignmentsService } from '../../services/assignments.service';
+import { Enrollment } from '../../models/enrollment.model';
+import { Assignment } from '../../models/assignment.model';
 
 @Component({
 
@@ -59,6 +62,8 @@ export class ClassComponent implements OnInit {
     classMaterials: MaterialCollection[];
     notesSettings: NotesSettings;
     messaging: boolean;
+    enrollments: Enrollment[];
+    assignments: Assignment[];
 
     // for the BIO Popup
     bioChosen: User;
@@ -71,7 +76,8 @@ export class ClassComponent implements OnInit {
     private userService: UserService,
     private materialService: MaterialService,
     private discussionService: DiscussionService,
-    private enrollmentService: EnrollmentsService,
+    private enrollmentsService: EnrollmentsService,
+    private assignmentsService: AssignmentsService,
     private messageService: MessageService,
     private globals: Globals ) {
     }
@@ -90,6 +96,16 @@ export class ClassComponent implements OnInit {
         this.messaging = false;
         this.activated_route.params.subscribe(params => {
             this.onSectionChange(params['id2']);
+
+                 // Grab the data from the Route
+            this.classID = this.activated_route.snapshot.params['id'];
+            this.thisClass = this.activated_route.snapshot.data['thisClass'];
+            this.users = this.activated_route.snapshot.data['users'];
+            this.sectionNumber = this.activated_route.snapshot.data['sectionNumber'];
+            this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
+            this.notesSettings = this.activated_route.snapshot.data['notesSettings'];
+            console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
+        // console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
         });
 
         this.activated_route.parent.data.subscribe(
@@ -98,32 +114,35 @@ export class ClassComponent implements OnInit {
 
         if (!this.sectionNumber) { this.sectionNumber = 0; }
 
-        // Grab the data from the Route
-        this.classID = this.activated_route.snapshot.params['id'];
-        this.thisClass = this.activated_route.snapshot.data['thisClass'];
-        this.users = this.activated_route.snapshot.data['users'];
-        this.sectionNumber = this.activated_route.snapshot.data['sectionNumber'];
-        this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
-        this.notesSettings = this.activated_route.snapshot.data['notesSettings'];
-       // console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
-      // console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
+   
 
         this.studentIDList = [];
-        this.studentIDList = this.enrollmentService.getStudentsInClass(this.thisClass.id);
-        this.studentIDList = this.clean(this.studentIDList, undefined);
-        this.students = this.studentIDList.map( student => this.userService.getUserFromMemoryById(student));
+        this.enrollmentsService.getEnrollmentsInClass( this.thisClass.id ).subscribe (
+            data => { this.enrollments = data;
+                this.students = this.enrollments.map( enrollment => this.userService.getUserFromMemoryById( enrollment.user_id ));
+                this.studentThumbnails = this.students.map( student =>
+                    this.createStudentThumbnail(student) );
+            }, err => { console.log('error getting enrollments'); } );
+
+        // this.studentIDList = this.enrollmentService.getStudentsInClass(this.thisClass.id);
+        // this.studentIDList = this.clean(this.studentIDList, undefined);
+        // this.students = this.studentIDList.map( student => this.userService.getUserFromMemoryById(student));
 
         this.instructorIDList = [];
-        this.instructorIDList = this.enrollmentService.getInstructorsInClass(this.thisClass.id);
-        this.instructorIDList = this.clean(this.instructorIDList, undefined);
-        this.instructors = this.instructorIDList.map( instructor => this.userService.getUserFromMemoryById(instructor));
+        this.assignmentsService.getAssignmentsInClass( this.thisClass.id ).subscribe (
+            data => { this.assignments = data;
+              this.instructors = this.assignments.map( assignment => this.userService.getUserFromMemoryById( assignment.user_id ));
+              this.instructorThumbnails = this.instructors.map(
+                instructor => this.createInstructorThumbnail(instructor) );
+            }, err => { console.log('error getting assignments'); } );
+
+        // this.instructorIDList = this.assignmentsService.getInstructorsInClass(this.thisClass.id);
+        // this.instructorIDList = this.clean(this.instructorIDList, undefined);
+        // this.instructors = this.instructorIDList.map( instructor => this.userService.getUserFromMemoryById(instructor));
 
        // console.log('Students: ' + JSON.stringify(this.studentIDList) );
        // console.log('Instructors: ' + JSON.stringify(this.instructorIDList) );
-        this.instructorThumbnails = this.instructors.map(
-            instructor => this.createInstructorThumbnail(instructor) );
-        this.studentThumbnails = this.students.map( student =>
-            this.createStudentThumbnail(student) );
+
 
         // this.studentBioThumbnails = this.students.map( student =>
         // this.createStudentBioThumbnail(student) );
@@ -178,27 +197,15 @@ export class ClassComponent implements OnInit {
         this.messageService.sendMessage(student);
     }
 
-    showIntructorMenu(instructor) {
-        if (!instructor.hot) {
-            this.instructorThumbnails.map( thumbnail => thumbnail.hot = false );
-            if (this.userService.currentUser.id !== instructor.user.id) {
-            instructor.hot = true; }
-            console.log('showing menu');
-            }
-    }
-    // showMenu(student) {
-    //     if (!student.hot) {
-    //     this.studentThumbnails.map( thumbnail => thumbnail.hot = false );
-    //     if (this.userService.currentUser.id !== student.user.id) {
-    //     student.hot = true;
-    //     }
-    //     console.log('showing menu');
-    //     }
+    // showIntructorMenu(instructor) {
+    //     if (!instructor.hot) {
+    //         this.instructorThumbnails.map( thumbnail => thumbnail.hot = false );
+    //         if (this.userService.currentUser.id !== instructor.user.id) {
+    //         instructor.hot = true; }
+    //         console.log('showing menu');
+    //         }
     // }
 
-    // hideMenu(student) {
-    //     student.hot = false;
-    // }
 
 
     onSectionChange(newSectionNumber) {

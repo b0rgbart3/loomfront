@@ -112,12 +112,12 @@ export class MaterialsComponent implements OnInit {
 
       addAsset(typeIndex) {
         console.log('Adding an asset of type: ' + this.globals.materialTypes[typeIndex].type);
-        const addAssetString = '/' + this.globals.materialTypes[typeIndex].type + '/0/edit';
+        const addAssetString = '/admin/' + this.globals.materialTypes[typeIndex].type + '/0/edit';
         console.log('add asset string: ' + addAssetString);
         this.router.navigate( [ addAssetString ] );
       }
       editAsset(typeIndex, assetID) {
-        const editAssetString = '/' + this.globals.materialTypes[typeIndex].type + '/' + assetID + '/edit' ;
+        const editAssetString = '/admin/' + this.globals.materialTypes[typeIndex].type + '/' + assetID + '/edit' ;
         this.router.navigate( [ editAssetString]);
       }
 

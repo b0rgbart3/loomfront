@@ -60,7 +60,9 @@ export class NavBarComponent implements OnInit, DoCheck {
   }
 
   logout() {
+    this.currentUser = null;
     this.showAvatarMenu = false;
+    this.showingMessageList = false;
     this.username = null;
     this.avatarimage = '';
     this.userService.logout();
@@ -75,23 +77,21 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.showAvatarMenu = false;
     this.showingMessageList = false;
     this.messageListStyle = 'quickMessagesButton';
-    this.socket = io(this.globals.basepath);
+   
     this.currentUser = this.userService.getCurrentUser();
     this.generateAvatarPath();
     this.admin = false;
     if (this.currentUser) {
     this.admin = this.currentUser.admin;
     }
+    this.socket = io(this.globals.basepath);
     this.socket.on('userSettingsChanged', (user) => {
-    //  console.log('NavBar noticed the user settings changed.');
-      // this.updateMyself();
       this.currentUser = user;
       this.admin = this.currentUser.admin;
       this.showingMessageList = false;
       this.generateAvatarPath();
    });
     this.socket.on('userChanged', (user) => {
-     //  console.log('NavBar noticed the user changed.');
      this.currentUser = user;
      this.admin = this.currentUser.admin;
      this.showingMessageList = false;
@@ -99,10 +99,6 @@ export class NavBarComponent implements OnInit, DoCheck {
     });
 
     this.socket.on('messageChanged', (message) => {
-
-     console.log('NavBar noticed a message was sent.');
-      // this.msgChanged.emit(message);
-
       this.showingMessageList = false;
       this.checkFresh();
 
@@ -116,10 +112,10 @@ export class NavBarComponent implements OnInit, DoCheck {
    this.messageService.getMessagesForUser(this.userService.currentUser.id).
      subscribe(
       data => {
-      //  console.log('got messages for user: ' + JSON.stringify(data));
+      console.log('got messages for user: ' + JSON.stringify(data));
       this.messages = data;
       if (this.messages && this.messages.length > 0) {
-    //    console.log('length was greater than zero.');
+       console.log('length was greater than zero.');
         this.buildMessageList();
         this.freshMessages = null;
         this.messageService.getFreshList( this.userService.currentUser.id ).

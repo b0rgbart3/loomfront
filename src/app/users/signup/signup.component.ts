@@ -196,7 +196,6 @@ export class SignupComponent implements OnInit {
         username: [this.user.username, [ Validators.required, uniqueUsername( this.users ) ]],
         password: [ this.user.password, [ Validators.required,
           Validators.pattern('^(?=.*?[0-9]).{6,}$')]],
-          student: this.user.student,
         instructor: this.user.instructor,
         admin: this.user.admin
       });

@@ -89,7 +89,7 @@ export class UserService implements OnInit {
      this.resetUrl = this.base_path + 'api/reset';
 
      this._avatar_image_url = this.globals.avatars;
-     this.socket = io(this.globals.basepath);
+   //  this.socket = io(this.globals.basepath);
   }
 
   ngOnInit() {
@@ -201,19 +201,12 @@ getUserFromMemoryById( queryID: string): User {
 
     }
 
-    // Return an array of Users that are enrolled as instructors for this class ID
-    getInstructors( class_id ): Observable <User[]> {
-      if (class_id === 0) {
-        // Get All the instructors...
-        return this._http.get < User[] >( this._instructorsUrl);
-      }  else {
-        // get a instructors of a particular class
-      return this._http.get < User[] >( this._instructorsUrl + '?id=' + class_id);
-      }
+    getInstructorsForClass(classID): Observable <User[]> {
+      return this._http.get <User[]> ( this.globals.assignments + '?class_id=' + classID);
     }
 
     getAllInstructors(): Observable <User[]> {
-      return this._http.get <User[]> ( this.globals.instructors );
+      return this._http.get <User[]> ( this.globals.users + '?instructor=true' );
     }
 
 
@@ -240,9 +233,19 @@ getUserFromMemoryById( queryID: string): User {
        //   console.log('Got Users data.');
           this.users = data;  // store a local copy - even though this method is usually called
                               // from an outside component
-          for (let i = 0; i < this.users.length; i++ ) {
+
+            for (let i = 0; i < this.users.length; i++) {
+              if (!this.users[i].username) {
+                // remove bogus data
+                this.users.splice(i, 1);
+                i--;  // I know this is very dangerous -could cause an infinite loop
+                      // but if take this out - then my algorithm only removes one bad object
+              }
+            }
+           for (let i = 0; i < this.users.length; i++ ) {
             // If this is not a facebook registration, then let's generate the avatar URL based
             // on the API server
+
             if (!this.users[i].facebookRegistration) {
               this.users[i].avatar_URL = this._avatar_image_url + this.users[i].id + '/' + this.users[i].avatar_filename;
 
@@ -250,8 +253,8 @@ getUserFromMemoryById( queryID: string): User {
               // console.log('setting placeholder');
               this.users[i].avatar_URL = this.globals.avatars + 'placeholder.png';
             }
-            }
-          }
+            }}
+
           // console.log('All: ' + JSON.stringify(data));
         this.userCount = data.length;
         // Loop through all the Courses to find the highest ID#
@@ -496,23 +499,29 @@ getUserFromMemoryById( queryID: string): User {
       });
     }
 
-    login(username: string, password: string): Observable <any> {
+    login(loginObject): Observable <any> {
 
+      console.log('About to login: ');
         this.logout();
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+        myHeaders.append('Access-Control-Allow-Origin',  this.globals.basepath   );
+        myHeaders.append('Access-Control-Allow-Methods', 'GET,PUT,POST,UPDATE,DELETE,OPTIONS');
+        myHeaders.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
-        const info =  { username: username, password: password };
+        console.log('With info: ' + JSON.stringify( loginObject ) );
 
-        return this._http.post(this.base_path + 'api/authenticate', info, {headers: myHeaders} )
-            .do((response) => {
+        return this._http.post(this.globals.authenticate, loginObject, {headers: myHeaders})
+            .do(response => {
+
+                   console.log('Response: ' + JSON.stringify(response));
+
                     this.currentUser = <User> response;
                     this.username = this.currentUser.username;
                     localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
                     this.socket.emit('userChanged', this.currentUser);
                    return <User> response;
-                });
-
+                }).catch( error => {   console.log('ERROR: ' + JSON.stringify( error) ); return Observable.of(error); } );
     }
 
     logout(): void {
