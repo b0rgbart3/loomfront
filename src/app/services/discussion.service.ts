@@ -99,14 +99,14 @@ export class DiscussionService implements OnInit, OnChanges {
     }
 
     getAllDiscussionSettings(): Observable<any> {
-    console.log('In discussion service, getAllDiscussionSettings.');
+  //  console.log('In discussion service, getAllDiscussionSettings.');
        const myHeaders = new HttpHeaders();
        myHeaders.append('Content-Type', 'application/json');
 
       return this._http.get <DiscussionSettings[]> (this.globals.discussionsettings, {headers: myHeaders})
         // debug the flow of data
         .do(data => {
-          console.log('Got All ths dsObjects: ' + JSON.stringify(data));
+      //    console.log('Got All ths dsObjects: ' + JSON.stringify(data));
         this.discussionSettings = data;
         this.dsCount = data.length;
 
@@ -154,7 +154,7 @@ export class DiscussionService implements OnInit, OnChanges {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
 
-      console.log('About to store DS Object: ' + JSON.stringify(discussionSettingsObject) );
+   //   console.log('About to store DS Object: ' + JSON.stringify(discussionSettingsObject) );
       // console.log('Storing settings: ' + JSON.stringify(discussionSettingsObject));
       // return this._http.put <DiscussionSettings> (this.globals.discusssettings, {headers: myHeaders} )
       //  .do (data => { console.log('Got Discussion Settings back from the API' + JSON.stringify(data)); })
@@ -300,7 +300,7 @@ export class DiscussionService implements OnInit, OnChanges {
 
     enterDiscussion( user: User , thisClass: ClassModel, section: string): Observable <any> {
      // return Observable.of(null);
-   console.log('entering the discussion: ');
+ //  console.log('entering the discussion: ');
     const myHeaders = new HttpHeaders();
     myHeaders.append('Content-Type', 'application/json');
       const enterDiscussionObject = new DiscussionSettings( '', user.id,  thisClass.id,  section, true, [] );
@@ -310,17 +310,17 @@ export class DiscussionService implements OnInit, OnChanges {
 
   // return an array of ID's of who's currently in the chatroom
 
-  whosIn( thisClass: ClassModel, section: number ): Observable <any> {
-      // console.log('Discussion service is requesting whos in the discussion.' + thisClass.id);
-      let whosIn = [];
-      const whosInObject = { classID: thisClass.id };
-      return this._http.get <any[]> ( this.globals.whosin + '?id=' +
-        thisClass.id + '&section=' + section  ).do( data => {whosIn = data;
-     // console.log('got the whosin data: ' + JSON.stringify( data ) );
-     }).catch(this.handleError );
-  }
+  // whosIn( thisClass: ClassModel, section: number ): Observable <any> {
+  //     // console.log('Discussion service is requesting whos in the discussion.' + thisClass.id);
+  //     let whosIn = [];
+  //     const whosInObject = { classID: thisClass.id };
+  //     return this._http.get <any[]> ( this.globals.whosin + '?id=' +
+  //       thisClass.id + '&section=' + section  ).do( data => {whosIn = data;
+  //    // console.log('got the whosin data: ' + JSON.stringify( data ) );
+  //    }).catch(this.handleError );
+  // }
   sendNotice(data) {
-    console.log('In Discussion service, about to send notice.');
+  //  console.log('In Discussion service, about to send notice.');
       this.notes.add( new Notification( data.type, data.message, data.delay ) );
 
     }

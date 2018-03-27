@@ -20,6 +20,7 @@ export class UserThumbComponent implements OnInit {
   errorMessage: string;
   inClass: string;
   shapeClass: string;
+  borderStyle: string;
 
   avatarImageURL: string;
 
@@ -46,7 +47,12 @@ export class UserThumbComponent implements OnInit {
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
 
-    this.shapeClass = this.thumbnail.shape;
+    
+    this.borderStyle = '';
+    if (this.thumbnail.border) {
+      this.borderStyle = ' noGlow';
+    }
+    this.shapeClass = this.thumbnail.shape + this.borderStyle;
 
   }
 

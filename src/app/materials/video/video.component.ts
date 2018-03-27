@@ -78,9 +78,12 @@ export class VideoComponent implements OnInit {
         this.externalVideo = false;
       //  console.log('Video Object: ');
       //  console.log(JSON.stringify(this.videoObject) );
+      if (this.videoObject.image) {
+          console.log('Video Image: ' + this.videoObject.image);
         this.backgroundImage = 'url('  + this.globals.materialimages + '/' + this.videoObject.id  +
         '/' + this.videoObject.image + ')';
         this.posterImage = this.globals.materialimages + '/' + this.videoObject.id + '/' + this.videoObject.image;
+      }
         // if (this.videoObject.contenturl) {
         //     console.log('my dirty url: ' + this.videoObject.contenturl);
         //     // this.videoSource = this.videoObject.contenturl; // this.cleanUpMyURL(this.videoObject.contenturl);

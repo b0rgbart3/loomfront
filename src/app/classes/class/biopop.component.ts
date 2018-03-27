@@ -42,7 +42,7 @@ thumbnail: Userthumbnail;
 
     makeThumb() {
       this.thumbnail = { user: this.bioUser, user_id: this.bioUser.id, online: false,
-        size: 220,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
+        size: 220,  showUsername: false, showInfo: false, textColor: '#ffffff', border: true, shape: 'circle' };
     }
     closer() {
       this.closeMe.emit(true);

@@ -170,7 +170,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     userArray.push(this.userService.currentUser.id);
     // not sure about all these thumbnail parameters -- certainly don't use most of them, most of the time.
     const thumbnailObj = <Userthumbnail> { user: otherUser, user_id: otherUser_id, online: false,
-          size: 40,  showUsername: true, showInfo: false, textColor: 'rgba(0,0,0,0)', hot: false, shape: 'circle' };
+          size: 40,  showUsername: true, showInfo: false, textColor: 'rgba(0,0,0,0)', border: false, shape: 'circle' };
 
     // console.log('Building MSGLine: ' + JSON.stringify(msg));
 

@@ -52,7 +52,7 @@ export class AssignmentsService implements OnInit {
       return this._http.get <Enrollment[]> (this.globals.assignments +
          '?user_id=' + this.userService.getCurrentUser().id )
       .do (data => {
-        console.log(' Returning data from the assignments service: ' + JSON.stringify(data));
+       // console.log(' Returning data from the assignments service: ' + JSON.stringify(data));
         return data;
       }).catch( this.handleError );
     }

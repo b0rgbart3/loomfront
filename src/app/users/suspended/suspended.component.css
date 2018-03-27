@@ -1,0 +1,31 @@
+.notice {
+    background-color:rgb(122, 21, 92);
+    color:white;
+    padding:40px;
+    border-radius:12px;
+}
+
+.homeButton {
+    background-color:#888888;
+    border-radius:4px;
+    padding:10px;
+    display:inline-block;
+    margin-left:10%;
+    border-left:1px solid white;
+    border-top:1px solid white;
+    user-select: none;
+    cursor:pointer;
+    outline:none;
+}
+
+.homeButton:hover {
+    background-color:#aaaaaa;
+}
+
+.homeButton:active {
+    background-color:rgb(62, 117, 235);
+    position: relative;
+    top:2px;
+    right:1px;
+    outline:none;
+}

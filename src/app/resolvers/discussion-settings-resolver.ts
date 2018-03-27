@@ -29,19 +29,19 @@ export class DiscussionSettingsResolver implements Resolve <DiscussionSettings> 
 
         return this.ds.getDiscussionSettings(user_id, class_id, section).
         map(dsObject => { if (dsObject) {
-           console.log('found existing ds object:' + JSON.stringify(dsObject));
-           console.log(dsObject.length);
+        //   console.log('found existing ds object:' + JSON.stringify(dsObject));
+        //   console.log(dsObject.length);
         if (dsObject.length >= 1) {
             dsObject = dsObject[0];
         }
         // I don't know why I'm getting an empty object returned to me, but if that's the case....
         if (dsObject.length < 1) {
             const newDSObject = this.ds.createNewDSObject(user_id, class_id, section);
-            console.log('length was zero, so we created a new object: ' + JSON.stringify(newDSObject));
+          //  console.log('length was zero, so we created a new object: ' + JSON.stringify(newDSObject));
             return newDSObject;
         }
         return dsObject; } else {
-              console.log('did not find ds object, so creating one.');
+            //  console.log('did not find ds object, so creating one.');
                 const newDSObject = this.ds.createNewDSObject(user_id, class_id, section);
         // const returnableArray = [];
         // returnableArray.push(newDSObject);

@@ -1,5 +1,5 @@
 <div class='userThumbWrapper'>
-  <div [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" [ngClass]='thumbnail.shape'>
+  <div [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" [ngClass]='shapeClass'>
     <div *ngIf='thumbnail.user !== undefined'>
       <img [src]="avatarImageURL" *ngIf='avatarImageURL'
         [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" >

@@ -80,7 +80,7 @@ export class ThreadComponent implements OnInit, OnChanges {
     this.replyThumbnails = this.thread.replies.map(
       reply => { return { user: this.userService.getUserFromMemoryById(reply.user_id),
          user_id: reply.user_id, online: false,
-      size: 40, showUsername: false, showInfo: false, textColor: '#000000', hot: false, shape: 'circle' };  }); }
+      size: 40, showUsername: false, showInfo: false, textColor: '#000000', border: false, shape: 'circle' };  }); }
    // console.log('thread.replies:' + JSON.stringify(this.thread.replies));
    // console.log('replyThumbnails: ' + JSON.stringify(this.replyThumbnails));
   }
@@ -94,7 +94,7 @@ export class ThreadComponent implements OnInit, OnChanges {
   createLiveThumbnail(user_id) {
     const thisUser = this.userService.getUserFromMemoryById(user_id);
     const thumbnailObj = { user: thisUser, user_id: user_id, online: false,
-      size: 40, showUsername: false, showInfo: false, textColor: '#000000', hot: false, shape: 'circle' };
+      size: 40, showUsername: false, showInfo: false, textColor: '#000000', border: false, shape: 'circle' };
     return thumbnailObj;
   }
 

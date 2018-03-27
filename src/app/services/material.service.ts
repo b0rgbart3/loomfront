@@ -51,6 +51,7 @@ export class MaterialService {
         }).catch(this.handleError);
 
     }
+  
     getDynamicMaterials( id, type ): Observable<any> {
       if (id === 0) {
         // get all the objects for this type
@@ -216,13 +217,13 @@ export class MaterialService {
 
     sortMaterials( materialsArray ): MaterialCollection {
 
-      const videos = [];
-      const docs = [];
-      const books = [];
-      const audios = [];
-      const quotes = [];
-      const blocks = [];
-      const images = [];
+      let videos = [];
+      let docs = [];
+      let books = [];
+      let audios = [];
+      let quotes = [];
+      let blocks = [];
+      let images = [];
 
     //  console.log('Material Array length = ' + materialsArray.length);
 
@@ -289,15 +290,67 @@ export class MaterialService {
         //   }
         // }
 //      }
-      }
 
-      const sortedMaterials = new MaterialCollection(images, videos, docs, books, audios, blocks, quotes);
-      // console.log('quotes: ' + JSON.stringify(quotes));
+      }
+      audios = this.sort(audios);
+      blocks = this.sort(blocks);
+      books = this.sort(books);
+      docs = this.sort(docs);
+      images = this.sort(images);
+      quotes = this.sort(quotes);
+      videos = this.sort(videos);
+
+     // const sortedMaterials = new MaterialCollection(images, videos, docs, books, audios, blocks, quotes);
+     const sortedMaterials = new MaterialCollection( audios, blocks, books, docs, images, quotes, videos );
+     // console.log('quotes: ' + JSON.stringify(quotes));
       // console.log('Sorted Mats: ' + JSON.stringify(sortedMaterials.quotes));
       return sortedMaterials;
 
     }
 
+
+    sortMaterialArray( materials ): Material[] {
+      // This is a "buble sort" algorithm - which I know is NOT the best algorithm for sorting, so I might
+      // replace this with a better algorithm at some point.
+
+      // don't bother unless we have an actual array of materials to work with
+      if (materials && materials.length > 1) {
+
+        let currentTitle = '';
+
+        // loop through all the titles - except the last
+        for ( let i = 0; i < materials.length - 1; i++) {
+            currentTitle = materials[i].title;
+
+            let comparativeTitle = '';
+            // compare each title with the title after it
+            for ( let j = i; j < materials.length; j++) {
+              comparativeTitle = materials[j].title;
+
+              if (currentTitle > comparativeTitle) {
+                // if the first is 'larger' than the 2nd, then swap them
+                const dummyMaterial = materials[j];
+                materials[j] = materials[i];
+                materials[i] = dummyMaterial;
+              }
+            }
+
+        }
+
+      }
+      return materials;
+    }
+
+    // I don't quite understand how this method works for sorting an array alphabetically, but it seems to work
+    sort(materials) {
+      const copy = materials;
+      copy.sort( function(a, b) {
+        const textA = a.title.toLocaleLowerCase();
+        const textB = b.title.toLocaleLowerCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      });
+      return copy;
+    }
 
 }
 

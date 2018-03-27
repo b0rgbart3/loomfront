@@ -16,7 +16,7 @@ export class CoursesResolver implements Resolve <Course> {
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable <Course> {
 
-        console.log('In the course(s) resolver.');
+    //    console.log('In the course(s) resolver.');
         return this.courseService.getCourses().
         map(courses => { if (courses) {
             // console.log('got courses back from the api: ' + JSON.stringify(courses));

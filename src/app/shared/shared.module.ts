@@ -25,6 +25,16 @@ import { MessageService } from '../services/message.service';
 import { ConnectionComponent } from './connection.component';
 import { NavBarComponent } from '../navbar/nav-bar.component';
 import { BioPopComponent } from '../classes/class/biopop.component';
+import { PermissionComponent } from '../users/permission.component';
+import { SuspendedComponent } from '../users/suspended/suspended.component';
+import { ContactComponent } from '../welcome/contact/contact.component';
+import { ContactService } from '../services/contact.service';
+import { VideoComponent } from '../materials/video/video.component';
+import { Video } from '../models/video.model';
+import { DragulaModule } from 'ng2-dragula';
+import { ChoiceModalComponent } from '../modals/choice-modal.component';
+import { MaterialComponent } from '../materials/material.component';
+import { MaterialIconComponent } from '../materials/icon/material-icon.component';
 
 
 
@@ -43,7 +53,10 @@ import { BioPopComponent } from '../classes/class/biopop.component';
         VgOverlayPlayModule,
         VgBufferingModule,
         CustomMaterialModule,
-        FlashMessagesModule
+        FlashMessagesModule,
+        DragulaModule,
+     
+
     ],
     declarations: [
         UserThumbComponent,
@@ -56,11 +69,19 @@ import { BioPopComponent } from '../classes/class/biopop.component';
         PageNotFoundComponent,
         ConnectionComponent,
         NavBarComponent,
-        BioPopComponent
+        BioPopComponent,
+        PermissionComponent,
+        SuspendedComponent,
+        ContactComponent,
+        VideoComponent,
+        ChoiceModalComponent,
+        MaterialComponent,
+        MaterialIconComponent,
     ],
     providers: [
         ClassResolver,
-        MessageService
+        MessageService,
+        ContactService
     ],
     exports: [
         CommonModule,
@@ -76,6 +97,8 @@ import { BioPopComponent } from '../classes/class/biopop.component';
         VgOverlayPlayModule,
         VgBufferingModule,
         CustomMaterialModule,
+
+
         UserThumbComponent,
         Error404Component,
         WelcomeComponent,
@@ -86,7 +109,15 @@ import { BioPopComponent } from '../classes/class/biopop.component';
         FlashMessagesModule,
         ConnectionComponent,
         NavBarComponent,
-        BioPopComponent
+        BioPopComponent,
+        PermissionComponent,
+        SuspendedComponent,
+        ContactComponent,
+        VideoComponent,
+        DragulaModule,
+        ChoiceModalComponent,
+        MaterialComponent,
+        MaterialIconComponent
     ]
 
 })

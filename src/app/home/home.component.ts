@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
         if (this.enrollments) {
         this.classesTakingIDList = this.enrollments.map( enrollment => enrollment.class_id); }
 
-        console.log('Classes Taking ID List: ' + JSON.stringify(this.classesTakingIDList));
+     //   console.log('Classes Taking ID List: ' + JSON.stringify(this.classesTakingIDList));
 
         // Ask the class service for a class object for each id in that array
         if (this.classesTakingIDList && this.classesTakingIDList.length > 0) {
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
         } else {
             this.classesTaking = null;
         }
-        console.log('TAKING: ' + JSON.stringify(this.classesTaking));
+     //   console.log('TAKING: ' + JSON.stringify(this.classesTaking));
 
         this.assignments = this.activated_route.snapshot.data['assignments'];
 
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
 
       goto( queryID ) {
           const queryString = '/classes/' + queryID + '/0';
-          console.log('Routing to: ' + queryString );
+   //       console.log('Routing to: ' + queryString );
         this._router.navigate( [queryString] );
       }
 }

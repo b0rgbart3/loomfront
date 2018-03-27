@@ -14,7 +14,7 @@ export class AdminRouteActivator implements CanActivate {
 
         if (loggedIn && admin) {
             return true; } else {
-                this.router.navigate(['/login']);
+                this.router.navigate(['/permission']);
             return false;
         }
     }

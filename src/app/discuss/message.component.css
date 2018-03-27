@@ -9,7 +9,7 @@
    right:10px;
    width:340px;
    height:420px;
-   z-index:80;
+   z-index:280;
    font-family:'Roboto', sans-serif;
    border-radius:12px;
    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,45484d+99 */
@@ -214,6 +214,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6f8096', end
     width:100%;
     height:40px;
     margin-bottom:10px;
+    scroll-snap-destination: bottom;
+    border:4px solid red;
 }
 
 .bubbleLine {

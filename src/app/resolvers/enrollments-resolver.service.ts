@@ -30,7 +30,9 @@ export class EnrollmentsResolver implements Resolve <Enrollment[]> {
          this.enrollments.map( enrollment => {
           //   console.log('User id: ' + enrollment.user_id );
              enrollment.this_user = this.userService.getUserFromMemoryById(enrollment.user_id);
-            if (enrollment.this_user) { console.log('found user: ' + JSON.stringify(enrollment.this_user)); }
+            if (enrollment.this_user) {
+                // console.log('found user: ' + JSON.stringify(enrollment.this_user));
+            }
             } );
          this.enrollments.map( enrollment => { enrollment.this_class = this.classService.getClassFromMemory(enrollment.class_id); } );
         //    console.log('Done mapping user objects.');

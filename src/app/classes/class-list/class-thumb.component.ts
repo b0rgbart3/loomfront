@@ -70,7 +70,7 @@ closeBio(event) {
 }
   createInstructorThumbnail(user) {
     const thumbnailObj = { user: user, user_id: user.id, online: false,
-        size: 80,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: true, shape: 'circle' };
+        size: 80,  showUsername: true, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
     return thumbnailObj;
 }
 

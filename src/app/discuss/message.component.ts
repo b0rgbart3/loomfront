@@ -62,17 +62,17 @@ export class MessageComponent implements OnInit {
          // and save the update object to Mongo
             this.currentMessage.freshness[0].fresh = false;
             this.currentMessage.freshness[1].fresh = false;
-          this.scrollMe();
+        //  this.scrollMe();
           } else {
             console.log('Got no data returned from service.');
             const freshArray = [{user_id: this.user1, fresh: false}, {user_id: this.user2, fresh: true }];
             this.currentMessage = new Message( _messages.gethighestID(), users, freshArray, [] );
             this.createMsg();
             console.log('Created new Message object: ' + JSON.stringify(this.currentMessage));
-            this.scrollMe();
+       //     this.scrollMe();
           }
           this.thumbnail = { user: this.toUser, user_id: this.toUser.id, online: false,
-            size: 50,  showUsername: false, showInfo: false, textColor: '#000000', hot: false, shape: 'circle' };
+            size: 50,  showUsername: false, showInfo: false, textColor: '#000000', border: true, shape: 'circle' };
 
         },
         error => console.log('error getting message from the api')
@@ -81,7 +81,7 @@ export class MessageComponent implements OnInit {
      // this._msgs = data;
       this.display = true;
 
-      this.scrollMe();
+    //  this.scrollMe();
 
     });
   }
@@ -122,12 +122,8 @@ export class MessageComponent implements OnInit {
 
   scrollMe() {
 
-  //  console.log('In the scrollMe method.');
-    const targetEl = <HTMLElement>document.querySelector('#s3');
-    if (targetEl) {
-  //    console.log('found the target.');
     scrollTo('#s3', '#v-scrollable');
-    this.scrolled = true; }
+    this.scrolled = true;
   }
 
   closeMsgr() {

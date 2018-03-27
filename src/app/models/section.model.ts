@@ -6,11 +6,10 @@ export class Section {
 
   constructor (
       public title: string,
-      public id: string,
       public content: string,
       public materials: string[],
       public materialCollection: MaterialCollection,
-      public sectionNumber: string
+      public sectionNumber: number
   ) {}
 
 }

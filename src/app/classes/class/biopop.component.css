@@ -1,8 +1,8 @@
 .bioContainer {
     position: fixed;
-    top:160px;
+    bottom:40px;
     left:0;
-    z-index: 70;
+    z-index: 240;
     text-align:center;
     width:100%;
 }
@@ -13,9 +13,10 @@
     min-height:400px;
     box-shadow: 0 0 60px white;
     background-color:#111111;
+    background-image:url('../../../assets/images/bluedottexture.gif');
     padding:10px;
     border-radius:6px;
-    border:2px solid #888888;
+    border:2px solid #29557e;
     margin-left:auto;
     margin-right:auto;
 }
@@ -86,3 +87,6 @@
     color:white;
 }
 
+#nohover .circle img:hover {
+    box-shadow:0 0 0 #000000;
+}

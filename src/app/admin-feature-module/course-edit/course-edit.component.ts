@@ -435,7 +435,7 @@ export class CourseEditComponent implements OnInit {
 
         const lintedModel = this.lintMe( combinedCourseObject );
         combinedCourseObject = lintedModel;
-        combinedCourseObject.sections[0] = [];
+        combinedCourseObject.sections[0] = { 'sectionNumber': 0 };
         combinedCourseObject.sections[0].materials = [];
 
         if (this.course.id === '0') {
@@ -443,10 +443,12 @@ export class CourseEditComponent implements OnInit {
                 (val) => {
 
                   },
-                  response => { this.router.navigate(['/admin']);
+                  response => { this.reset();
+                    this.router.navigate(['/admin/classes']);
                   },
                   () => {
-                     this.router.navigate(['/admin']);
+                      this.reset();
+                     this.router.navigate(['/admin/classes']);
                   }
             );
         } else {
@@ -456,13 +458,18 @@ export class CourseEditComponent implements OnInit {
             (val) => {
 
             },
-            response => { this.router.navigate(['/admin']);
+            response => { this.reset(); this.router.navigate(['/admin/classes']);
             },
             () => {
-             this.router.navigate(['/admin']);
+                this.reset();
+             this.router.navigate(['/admin/classes']);
             }
         );
         }
+    }
+
+    reset() {
+        this.courseFormGroup.reset();
     }
 
     getPossibleQuotes() {
@@ -522,17 +529,19 @@ export class CourseEditComponent implements OnInit {
       }
 
     addSection(): void {
-        let newSection = '1';
+        let newSection = 1;
         if (this.course.sections && this.course.sections.length > 0) {
-         newSection = this.course.sections.length + '';
-         this.course.sections.push(new Section( '', '', '', [], null, newSection) );
-        this.buildNewSection(1);
+            console.log('At least one section already exists.');
+         newSection = this.course.sections.length;
+         this.course.sections.push(new Section( '', '', [], null, newSection) );
+         console.log('About to build a new section:' + newSection);
+        this.buildNewSection(newSection);
         } else {
-            newSection = '0';
-            this.course.sections.push(new Section( '', '', '', [], null, newSection) );
+            newSection = 0;
+            this.course.sections.push(new Section( '', '', [], null, newSection) );
             this.buildNewSection(0);
-            newSection = '1';
-            this.course.sections.push(new Section( '', '', '', [], null, newSection) );
+            newSection = 1;
+            this.course.sections.push(new Section( '', '', [], null, newSection) );
             this.buildNewSection(1);
         }
 
@@ -669,10 +678,26 @@ export class CourseEditComponent implements OnInit {
                      .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
       }
 
-    closer() {
-        this._location.back();
+      moveUp(i) {
+          if (i > 1) {
+            console.log('moving up: ' + i);
 
-        // this.router.navigate(['/coursebuilder']);
+
+            // const dummySection = this.sectionReferences[i - 1];
+            // const dummyFormArray = this.sectionsFormArray[i - 1];
+            // this.sectionReferences[i - 1] = this.sectionReferences[i];
+            // this.sectionsFormArray[i - 1] = this.sectionsFormArray[i];
+            // this.sectionReferences[i] = dummySection;
+            // this.sectionsFormArray[i] = dummyFormArray;
+           // this.courseFormGroup.patchValue({sections: this.sectionsFormArray });
+
+          }
+      }
+    closer() {
+        this.router.navigate(['/admin/classes']);
+        // this._location.back();
+
+        // // this.router.navigate(['/coursebuilder']);
     }
     deleteCourse(courseId) {
         const result = confirm( 'Are you sure you want to delete this course,' +

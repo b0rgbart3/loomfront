@@ -1,0 +1,38 @@
+.chooser {
+    display:inline-block;
+    position: fixed;
+    top:100px;
+    min-height:100px;
+    max-height:400px;
+    width:400px;
+    background-color:#777777;
+    border-radius:8px;
+    padding:20px;
+    box-shadow:0 0 20px black;
+}
+
+.choices {
+    margin-top:40px;
+    background-color:#555555;
+    padding:10px;
+    height:300px;
+    overflow: auto;
+}
+
+.choice {
+    background-color:white;
+    color:black;
+    font-size:1em;
+    padding:4px;
+    border:2px solid black;
+    user-select: none;
+    cursor: pointer;
+}
+
+.choice:hover {
+    background-color:#999999;
+}
+
+.choice:active {
+    background-color:rgb(25, 87, 255);
+}

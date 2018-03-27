@@ -1,0 +1,12 @@
+<div class='chooser' *ngIf='display'>
+        <div class='closer'
+        (click)="closeModal()"></div>
+        <h1> {{ headline }} </h1>
+    <div class='choices'>
+        
+        <div *ngFor='let choice of choices; let i=index;' class='choice' (click)='choose(i)'>
+            {{ choice }}
+        </div>
+
+    </div>
+</div>

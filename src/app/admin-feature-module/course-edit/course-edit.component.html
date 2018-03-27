@@ -35,7 +35,8 @@
             <mat-expansion-panel formArrayName='sections' *ngFor='let section of sections.controls; let i = index'>
 
                     <mat-expansion-panel-header *ngIf="i > 0">
-                            <mat-panel-title>Section {{i}}</mat-panel-title>
+                            <mat-panel-title *ngIf='course.sections[i].title'>{{course.sections[i].title}}</mat-panel-title>
+                            <mat-panel-title *ngIf='!course.sections[i].title'>Section {{i}}</mat-panel-title>
                     </mat-expansion-panel-header>
 
                     <div [formGroupName]="i" class='sectionContainer'>
@@ -222,8 +223,9 @@
                         <div class='smallLoomButton' (click)="addVideo(i)">Add Video</div>
                         <div class='smallLoomButton' (click)="addQuote(i)">Add a PullQuote</div>
                         <div class='smallLoomButton' (click)="addBlock(i)">Add an HTML Block</div>
-
+<hr>
                         <br clear='all'>
+                        <div class='loomButton moveUp' (click)="moveUp(i)">Move this section up in the sequence</div><br>
                         <div class='loomButton dangerous' (click)="killSection(i)">
                                 <mat-icon>delete</mat-icon><span class='raise'>
                                  Delete This Section</span></div>

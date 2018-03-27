@@ -1,0 +1,50 @@
+.sectionBox {
+    padding:20px;
+    background-color:#eeeeee;
+    border:2px solid black;
+    border-radius:4px;
+}
+
+.container {
+  padding:12px;
+  background-color:rgba(255,255,255,.5);
+  border:2px solid white;
+}
+
+.draggable {
+  padding:4px;
+  background-color:rgba(200,250,255,.5);
+  border:2px solid black;
+  cursor:pointer;
+  user-select: none;
+}
+.courseEditForm {
+
+  border-radius:8px;
+  padding:18px;
+}
+
+.courseDescription {
+  background-color:rgba(255,255,255,.5);
+  padding:30px;
+  border-radius:8px;
+  width:92%;
+  line-height:2em;
+  overflow: auto;
+}
+
+.mat-input-infix {
+  left:20px;
+}
+
+mat-expansion-panel-header h1 {
+  font-weight:bold;
+  font-size:1.2em;
+}
+
+.testDiv {
+  background-color:#ddddff;
+  padding:10px;
+  border:2px solid #555500;
+}
+

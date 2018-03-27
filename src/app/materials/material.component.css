@@ -5,3 +5,8 @@
     position: relative;
     top:14px;
 }
+.materialContainer {
+    display:inline-block;
+    vertical-align: top;
+    user-select: none;
+}

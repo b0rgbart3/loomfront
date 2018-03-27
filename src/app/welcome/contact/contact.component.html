@@ -1,0 +1,38 @@
+<nav-bar></nav-bar>
+<div class='loomContainer'>
+
+<div class='Box'>
+        <form novalidate [formGroup]="contactForm" class='contactForm'>
+<h1>Contact the Reclaiming Loom</h1>
+                <mat-form-field>
+                        <input matInput  formControlName='firstname' placeholder="First Name" 
+                        name="firstname" required minlength="3" maxlength="50">
+                        </mat-form-field>
+                <mat-form-field>
+                        <input matInput  formControlName='lastname' placeholder="Last Name" 
+                        name="lastname" required minlength="3" maxlength="50">
+                        </mat-form-field>
+                <mat-form-field>
+                        <input matInput  formControlName='email' placeholder="Email" 
+                        name="email" required minlength="3" maxlength="50">
+                        </mat-form-field>   
+                <mat-form-field>
+                        <input matInput  formControlName='phone' placeholder="Phone Number" 
+                        name="phone">
+                        </mat-form-field>   
+            
+                        <mat-form-field>
+
+                                <textarea id="message" matInput placeholder="Your message..." 
+                                formControlName="message" rows="5" class='message'></textarea>
+                                </mat-form-field>
+                              
+                
+               <br>
+               <div class='loomButton loomSubmit' 
+               (click)='sendMsg()'>SEND</div>
+               <br clear='all'>
+
+        </form>
+    </div> 
+</div>

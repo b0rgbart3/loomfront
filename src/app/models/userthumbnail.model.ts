@@ -11,7 +11,7 @@ export class Userthumbnail {
       public showUsername: boolean,
       public showInfo: boolean,
       public textColor: string,
-      public hot: boolean,
+      public border: boolean,
       public shape: string,
 
   ) {}

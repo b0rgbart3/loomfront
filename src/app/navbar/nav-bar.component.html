@@ -13,6 +13,7 @@
 	<a  *ngIf="!currentUser" [routerLink]="['/signup']"><button mat-menu-item>Sign up</button></a>
 	<a   *ngIf="!currentUser" [routerLink]="['/login']">
 		<button mat-menu-item>Login</button></a>
+	<a [routerLink]="['/contact']"><button mat-menu-item>Contact</button></a>
 </mat-menu>
 
 <a [routerLink]="['/home']"><div class='easyHomeButton'>

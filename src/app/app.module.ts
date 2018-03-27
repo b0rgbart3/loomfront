@@ -84,7 +84,8 @@ import { Ng2ScrollableModule } from 'ng2-scrollable';
 import { BioPopComponent } from './classes/class/biopop.component';
 import { AssignmentsService } from './services/assignments.service';
 import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-settings-resolver';
-
+import { PermissionComponent } from './users/permission.component';
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   // External
@@ -95,7 +96,9 @@ import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-setting
     EmbedVideo.forRoot(),
     FileUploadModule,
     HttpClientModule,
-    Ng2ScrollableModule
+    Ng2ScrollableModule,
+    DragulaModule,
+    Ng2ScrollableModule,
   ],
   // Internal
   declarations: [
@@ -120,7 +123,7 @@ import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-setting
     ThreadComponent,
     InfobotComponent,
     NotificationsComponent,
-    VideoComponent,
+
     BooksComponent,
     BookComponent,
     MaterialCollectionComponent,
@@ -134,7 +137,7 @@ import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-setting
     CourseComponent,
     NotesComponent,
     MessageComponent,
-
+  
 
   ],
   providers: [

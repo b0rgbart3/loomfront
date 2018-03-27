@@ -37,6 +37,9 @@
     </mat-form-field>
 
     <br clear='all'><br>
+    <div *ngIf='type==="video" && this.file'>
+            <video-component [videoObject]="this"></video-component>
+    </div>
     <div *ngIf='uploaderNeeded'>
     <p class='instructions'>To post an asset, you can either just include a URL, or upload the file itself.
     </p>
@@ -57,15 +60,14 @@
         ng2FileSelect [uploader]="fileUploader" formControlName="fileUploader"
         (change)="fileChange($event)" id="file">
 
-        <!-- <input type="file" class="upload-btn"  name="file"  
-        ng2FileSelect formControlName="fileUploader"
-        (change)="fileChange($event)" id="file"> -->
     </div>
     File:  {{ file }}<br><br>
 </div></div>
 <br clear='all'>
-<img [src]="imageUrl" width='200' height='200' *ngIf='image'><br>
-
+<div *ngIf='image'>
+    <p>Showing an image</p>
+<img [src]="imageUrl" width='200' height='200'><br>
+</div>
 <div class="upload-wrap" *ngIf="type!=='quote'">
     Include Thumbnail Image
 

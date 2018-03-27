@@ -35,6 +35,9 @@ import { ClassMaterialsResolver } from './resolvers/class-materials-resolver.ser
 import { NotesSettingsResolver } from './resolvers/notes-settings-resolver';
 import { MessagesResolver } from './resolvers/messages-resolver';
 import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-settings-resolver';
+import { PermissionComponent } from './users/permission.component';
+import { SuspendedComponent } from './users/suspended/suspended.component';
+import { ContactComponent } from './welcome/contact/contact.component';
 
 
 
@@ -49,7 +52,8 @@ const ROUTES: Routes = [
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
-{ path: 'home', component: HomeComponent, resolve: {
+{ path: 'home', component: HomeComponent, canActivate: [ AuthGuard ],
+     resolve: {
      users: UsersResolver,
      classes: ClassesResolver,
      courses: CoursesResolver,
@@ -60,7 +64,7 @@ resolve: { user: UserResolver, users: UsersResolver} },
 
 // This is a component-less parent route that only has one child (so far)
 // but this allows me to resolve the class data before loading the child (section)
-{ path: 'classes/:id', resolve: { allDSObjects: AllDiscussionSettingsResolver,
+{ path: 'classes/:id',  canActivate: [ AuthGuard ], resolve: { allDSObjects: AllDiscussionSettingsResolver,
     thisClass: ClassResolver, users: UsersResolver, assignments: AssignmentsResolver,
     enrollments: EnrollmentsResolver, allMaterials: MaterialsResolver, courses: CoursesResolver, messages: MessagesResolver,
     discussionSettings: DiscussionSettingsResolver },
@@ -75,6 +79,9 @@ resolve: {
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
  canActivate: [ AuthGuard, UserAuthGuard ], resolve: { users: UsersResolver} },
 { path: 'reset/:key', component: ResetComponent },
+{ path: 'permission', component: PermissionComponent },
+{ path: 'suspended', component: SuspendedComponent },
+{ path: 'contact', component: ContactComponent }
 ];
 
 

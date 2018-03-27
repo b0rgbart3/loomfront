@@ -1,7 +1,7 @@
 <!-- Section: {{ section.sectionNumber }}
 Notes Settings: Reading {{ notesSettings.reading }} -->
 
-<div class='section' *ngIf='section.sectionNumber > 0'>
+<div class='section' *ngIf='section.sectionNumber !== "0"'>
     {{ section.sectionNumber }}
     <notes [settings]='notesSettings'></notes>
     <h1> {{ section.title }} </h1>
@@ -20,7 +20,7 @@ Notes Settings: Reading {{ notesSettings.reading }} -->
 <!-- <p>section:{{ section.sectionNumber }}</p> -->
 
 <discussion [thisClass]="thisClass" [students]='students' [instructors]='instructors' 
-[section]='section' [settings]='discussionSettings'></discussion>
+[section]='section' [settings]='discussionSettings' *ngIf='section.sectionNumber!==0'></discussion>
 
 </div>
 

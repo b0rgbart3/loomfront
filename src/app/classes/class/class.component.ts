@@ -197,14 +197,6 @@ export class ClassComponent implements OnInit {
         this.messageService.sendMessage(student);
     }
 
-    // showIntructorMenu(instructor) {
-    //     if (!instructor.hot) {
-    //         this.instructorThumbnails.map( thumbnail => thumbnail.hot = false );
-    //         if (this.userService.currentUser.id !== instructor.user.id) {
-    //         instructor.hot = true; }
-    //         console.log('showing menu');
-    //         }
-    // }
 
 
 
@@ -228,20 +220,16 @@ export class ClassComponent implements OnInit {
 
     createInstructorThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, online: false,
-            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: true, shape: 'circle' };
+            size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
         return thumbnailObj;
     }
 
     createStudentThumbnail(user) {
         const thumbnailObj = { user: user, user_id: user.id, online: false,
-            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', hot: true, shape: 'circle' };
+            size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
         return thumbnailObj;
     }
-    // createStudentBioThumbnail(user) {
-    //     const thumbnailObj =  { user: user, user_id: user.id, online: false,
-    //         size: 200,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'square' };
-    //     return thumbnailObj;
-    // }
+
 
     nextSection() {
         this.sectionNumber++;

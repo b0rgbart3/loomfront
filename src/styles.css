@@ -281,6 +281,35 @@ body {
     margin-left:auto;
     margin-right:auto; */
 }
+.smallSquareButton {
+  border-radius:0;
+  text-transform: uppercase;
+  color:rgb(253, 253, 253);
+  padding-top:14px;
+  padding-bottom:14px;
+  padding-left:10px;
+  padding-right:10px;
+  box-shadow: 0px 0px 4px #666666;
+  display:inline-block;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 10px;
+  background-color:#777777;
+  font-size:.8em;
+  border-radius:4px;
+  max-width:60px;
+  min-width:60px;
+  text-align:center;
+  margin-bottom:14px;
+}
+
+.smallSquareButton:hover {
+  background-color:#999999;
+}
+
+.smallSquareButton:active {
+  background-color:#555555;
+}
 
 .smallLoomButton {
   border-radius:0;
@@ -318,7 +347,7 @@ body {
   border-radius:4px;
 }
 .loomButton:hover {
-  background-color: #6dff40;
+  background-color: #06bce7;
 }
 .loomCancel {
 background-color:#bbbbbb;
@@ -833,6 +862,11 @@ nav a::before {
 	transform-origin: bottom;
 }
 
+nav a:hover::before {
+  background:#2452a4;
+  color:#dddddd;
+}
+
 nav.left a {
   padding: 1.5em 2em 1em 1em;
 }
@@ -975,4 +1009,60 @@ mat-list-item:hover {
 mat-list-item:active {
   background-color:#cccccc;
   outline:none;
+}
+
+/*  My Material Icons */
+
+.icon {
+  width:40px;
+  height:40px;
+  background-size:100%;
+  background-repeat: no-repeat;
+  display:inline-block;
+  vertical-align: middle;
+}
+.icon-audio {
+  background-image:url('./assets/images/icon-audio.svg');
+}
+.icon-video{
+  background-image:url('./assets/images/icon-video.svg');
+}
+.icon-doc {
+  background-image:url('./assets/images/icon-doc.svg');
+}
+.icon-book {
+  background-image:url('./assets/images/icon-book.svg');
+}
+.icon-quote {
+  background-image:url('./assets/images/icon-quote.svg');
+}
+.icon-block {
+  background-image:url('./assets/images/icon-block.svg');
+}
+.icon-image {
+  background-image:url('./assets/images/icon-image.svg');
+}
+/* From Dragula */
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
 }

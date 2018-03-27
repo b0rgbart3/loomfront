@@ -63,7 +63,7 @@ export class MaterialsComponent implements OnInit {
             data => {
 
             this.data = this.materialService.sortMaterials(data.materials);
-                this.materials = data.materials;
+            this.materials = data.materials;
                 // this.images = this.data['images'];
                 // this.videos = this.data['videos'];
                 // this.audios = this.data['audios'];

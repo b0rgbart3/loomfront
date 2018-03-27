@@ -76,7 +76,7 @@ export class UserListComponent implements OnInit {
 
  createThumbnail(user) {
   const thumbnailObj = { user: user, user_id: user.id, online: false,
-      size: 40,  showUsername: false, showInfo: false, textColor: '#ffffff', hot: false, shape: 'circle' };
+      size: 40,  showUsername: false, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
   return thumbnailObj;
 }
 

@@ -1,4 +1,5 @@
-<a [href]='reference'>
-<img [src]='iconref' class='materialIcon'>
+
+<div *ngIf='material' class='materialContainer'>
+    <material-icon [type]='material.type'></material-icon>
 {{material.title}}
-</a>
+</div>

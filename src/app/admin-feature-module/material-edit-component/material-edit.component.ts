@@ -111,7 +111,7 @@ export class MaterialEditComponent implements OnInit {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
             this.localImageUrl = url;
-
+            console.log('In build form: onAfterAddingFile: url =' + url);
             this.imageUploader.queue[0].upload();
 
         };
@@ -147,11 +147,12 @@ export class MaterialEditComponent implements OnInit {
         };
 
         this.fileUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+                        console.log('About to assign tempName');
                         this.tempName = this.fileUploader.queue[0].file.name;
                         console.log('Response from the server: ' + this.tempName);
                         this.file = this.tempName;
                         this.fileUrl = this.globals.materialfiles + '/' + this.material.id + '/' + this.file;
-                        // console.log('Image url: ' + this.imageUrl);
+                        console.log('File url: ' + this.fileUrl);
                          this.fileUploader.queue[0].remove();
                      };
     }
@@ -162,6 +163,7 @@ export class MaterialEditComponent implements OnInit {
                 console.log('got material ' + id + ' info :' + JSON.stringify(material) );
                 this.image = this.material.image;
                 if (this.image) {
+                    console.log('including an image with this material');
                   this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
                 } else { this.imageUrl = null; }
                 this.file = this.material.file;
@@ -228,10 +230,10 @@ export class MaterialEditComponent implements OnInit {
                 (val) => {
                   },
                   response => {
-                    this.router.navigate(['/admin']);
+                    this.router.navigate(['/admin/materials']);
                   },
                   () => {
-                    this.router.navigate(['/admin']);
+                    this.router.navigate(['/admin/materials']);
                   }
             );
         } else {
@@ -241,10 +243,10 @@ export class MaterialEditComponent implements OnInit {
             (val) => {
             },
             response => {
-                this.router.navigate(['/admin']);
+                this.router.navigate(['/admin/materials']);
             },
             () => {
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin/materials']);
             }
         );
         }
@@ -263,7 +265,7 @@ export class MaterialEditComponent implements OnInit {
         this.materialService.deleteMaterial( this.material.id ).subscribe(
             (data) => {
                 console.log('Got back from the Book Service.');
-                this.router.navigate(['/admin']);
+                this.router.navigate(['/admin/materials']);
             },
           error => {
               this.errorMessage = <any>error;
@@ -281,7 +283,6 @@ export class MaterialEditComponent implements OnInit {
 
 
     closer() {
-        this._location.back();
-//        this.router.navigate(['/coursebuilder']);
+        this.router.navigate(['/admin/materials']);
     }
 }

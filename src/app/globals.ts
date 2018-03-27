@@ -10,13 +10,14 @@ export class Globals {
 //  assetLongSingularNames = ['Book', 'PDF Document', 'Video', 'Audio File', 'Pull Quote', 'HTML Block'];
 
  materialTypes = [
-        { 'type': 'image',   'longName' : 'Images',          'pluralName' : 'images' },
-        { 'type': 'video',   'longName' : 'Videos',          'pluralName' : 'videos' },
-        { 'type': 'audio',   'longName' : 'Audio Files',     'pluralName' : 'audios' },
-        { 'type': 'doc',     'longName' : 'PDF Documents',   'pluralName' : 'docs' },
-        { 'type': 'quote',   'longName' : 'Quotations',      'pluralName' : 'quotes' },
-        { 'type': 'block',   'longName' : 'HTML Content',    'pluralName' : 'blocks' },
-        { 'type': 'book',    'longName' : 'Book References', 'pluralName' : 'books' }   ];
+        { 'type': 'audio',   'longName' : 'Audio Files',        'pluralName' : 'audios' },
+        { 'type': 'block',   'longName' : 'Blocks of Content',  'pluralName' : 'blocks' },
+        { 'type': 'book',    'longName' : 'Book References',    'pluralName' : 'books' },
+        { 'type': 'doc',     'longName' : 'PDF Documents',      'pluralName' : 'docs' },
+        { 'type': 'image',   'longName' : 'Images',             'pluralName' : 'images' },
+        { 'type': 'quote',   'longName' : 'Quotations',         'pluralName' : 'quotes' },
+        { 'type': 'video',   'longName' : 'Videos',             'pluralName' : 'videos' },
+         ];
 
 
 // Local paths for Development
@@ -50,10 +51,11 @@ batchmaterials =     this.api_path + 'batchmaterials';
 discussionsettings = this.api_path + 'discussionsettings';
 notessettings =      this.api_path + 'notessettings';
 // enterdiscussion =    this.api_path + 'discussion/enter';
-whosin =             this.api_path + 'discussion/whosin';
+// whosin =             this.api_path + 'discussion/whosin';
 enrollments =        this.api_path + 'enrollments';
 assignments =        this.api_path + 'assignments';
 messages =           this.api_path + 'messages';
+sendCFMsg =          this.api_path + 'sendCFMsg';
 
 courseimages =       this.awspath  + 'courseimages';
 materialimages =     this.awspath  + 'materialimages';

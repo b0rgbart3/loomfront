@@ -20,11 +20,11 @@ export class AllDiscussionSettingsResolver implements Resolve <DiscussionSetting
 
     resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable <DiscussionSettings[]> {
-        console.log('IN the ALL DS Resolver.');
+      //  console.log('IN the ALL DS Resolver.');
 
         return this.ds.getAllDiscussionSettings().
         map(dsObjects => {
-            console.log('In the all ds resolver - returning: ' + JSON.stringify(dsObjects));
+        //    console.log('In the all ds resolver - returning: ' + JSON.stringify(dsObjects));
             return dsObjects;
         }
         ).catch( error => {

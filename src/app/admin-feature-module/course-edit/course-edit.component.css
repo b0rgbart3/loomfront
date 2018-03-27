@@ -23,3 +23,10 @@ textarea.mat-input-element {
     border-radius:4px;
     width:97%;
 }
+
+.moveUp {
+    padding:2px;
+    padding-left:8px;
+    padding-right:8px;
+    margin-top:10px;
+}

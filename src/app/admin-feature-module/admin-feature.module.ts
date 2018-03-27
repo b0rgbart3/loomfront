@@ -35,6 +35,12 @@ import { SerieResolver } from '../resolvers/serie-resolver';
 import { EnrollmentsComponent } from './admin/enrollments.component';
 import { AssignmentsComponent } from './admin/assignments.component';
 import { MaterialsComponent } from './admin/materials.component';
+import { CourseEditGuard } from './course-edit/course-edit-guard.service';
+import { CourseObjectEditComponent } from './courseObject-edit/courseObject-edit.component';
+import { SectionEditComponent } from './courseObject-edit/section-edit.component';
+import { CourseObjectEditGuard } from './courseObject-edit/courseObject-edit-guard.service';
+
+
 
 
 @NgModule ( {
@@ -64,6 +70,11 @@ import { MaterialsComponent } from './admin/materials.component';
                         classes: ClassesResolver, series: SeriesResolver, courses: CoursesResolver }},
                     { path: 'materials', component: MaterialsComponent, resolve: { courses: CoursesResolver, materials: MaterialsResolver}},
                     { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
+                    canDeactivate: [ CourseEditGuard ],
+                    resolve: { course: CourseResolver,
+                        materials: MaterialsResolver }},
+                    { path: 'courseObjects/:id/edit', pathMatch: 'full', component: CourseObjectEditComponent,
+                    canDeactivate: [ CourseObjectEditGuard ],
                     resolve: { course: CourseResolver,
                         materials: MaterialsResolver }},
                     { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { serie: SerieResolver} },
@@ -115,7 +126,9 @@ import { MaterialsComponent } from './admin/materials.component';
        ContentComponent,
        EnrollmentsComponent,
        AssignmentsComponent,
-       MaterialsComponent
+       MaterialsComponent,
+       CourseObjectEditComponent,
+       SectionEditComponent,
     ],
     providers: [
         AdminRouteActivator,
@@ -124,7 +137,9 @@ import { MaterialsComponent } from './admin/materials.component';
         CourseResolver,
         InstructorsResolver,
         SerieResolver,
-        SeriesResolver
+        SeriesResolver,
+        CourseEditGuard,
+        CourseObjectEditGuard,
     ],
     exports: [
         AdminComponent,
@@ -134,7 +149,10 @@ import { MaterialsComponent } from './admin/materials.component';
         MaterialEditComponent,
         SeriesEditComponent,
         EnrollmentEditComponent,
-        UserListComponent
+        UserListComponent,
+        CourseObjectEditComponent,
+        AssignmentsComponent,
+        SectionEditComponent,
     ]
 })
 

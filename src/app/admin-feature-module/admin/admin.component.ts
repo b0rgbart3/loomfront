@@ -137,14 +137,14 @@ toggleSeries() {
   createThumbnail(user) {
     const thumbnailObj = { user: user, user_id: user.id,
        online: false, size: 45, showUsername: false,
-      showInfo: false, textColor: '#000000', hot: false, shape: 'circle' };
+      showInfo: false, textColor: '#000000', border: false, shape: 'circle' };
     return thumbnailObj;
   }
 
   createEditableThumbnail(user) {
     const thumbnailObj = { user: user, user_id: user.id,
       online: false, size: 45, showUsername: false,
-      showInfo: false, textColor: '#0000000', hot: false, shape: 'circle' };
+      showInfo: false, textColor: '#0000000', border: false, shape: 'circle' };
     return thumbnailObj;
   }
 

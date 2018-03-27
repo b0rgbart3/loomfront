@@ -23,7 +23,7 @@
             </mat-list-item>
         </mat-list>
     </mat-expansion-panel>
-
+<br>
 <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>Courses</mat-panel-title>
@@ -38,8 +38,23 @@
             </mat-list-item>
         </mat-list>
     </mat-expansion-panel>
+<br>
+<mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Courses as Objects</mat-panel-title>
+        </mat-expansion-panel-header>
+    
+        <mat-list>
+            <mat-list-item [routerLink]="['/admin/courseObjects', 0, 'edit']">
+                <mat-icon class="example-icon">add</mat-icon> Add a new Course
+            </mat-list-item>
+            <mat-list-item *ngFor='let course of courseArray' [routerLink]="['/admin/courseObjects',course.id,'edit']">
+                {{ course.title }}
+            </mat-list-item>
+        </mat-list>
+    </mat-expansion-panel>
 
-
+    <br>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>Series</mat-panel-title>
