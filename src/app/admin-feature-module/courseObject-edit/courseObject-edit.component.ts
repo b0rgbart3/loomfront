@@ -68,9 +68,10 @@ export class CourseObjectEditComponent implements OnInit {
         this.course = this.activated_route.snapshot.data['course'];
         this.originalMaterialArrays = [];
         this.originalCourse = _.cloneDeep(this.course);  // Deep Clone the object - otherwise it's just another pointer
-        for (let i = 0; i < this.course.sections.length; i++) {
-            this.originalMaterialArrays[i] = Object.assign({}, this.course.sections[i].materials);
-        }
+        // for (let i = 0; i < this.course.sections.length; i++) {
+        //     this.originalMaterialArrays[i] = _.cloneDeep(this.course.sections[i].materials);
+        //     // Object.assign({}, this.course.sections[i].materials);
+        // }
         this.materials = this.activated_route.snapshot.data['materials'];
 
         this.uploadedCourseImage = false;
@@ -108,12 +109,12 @@ export class CourseObjectEditComponent implements OnInit {
             return true;
         }
         for (let i = 0; i < this.course.sections.length; i++) {
-            console.log(this.course.sections[i].title + ': ' + this.originalCourse.sections[i].title);
+           // console.log(this.course.sections[i].title + ': ' + this.originalCourse.sections[i].title);
             if (!this.originalCourse.sections[i]) { return true; }  // If the section is new, then this 'Form' is dirty
             if (this.course.sections[i].title !== this.originalCourse.sections[i].title) {
                 return true;    // If the titles are different (any of them ) then this 'Form' is dirty
             }
-            if (JSON.stringify(this.course.sections[i].materials) !== JSON.stringify(this.originalMaterialArrays[i])) {
+            if (JSON.stringify(this.course.sections[i].materials) !== JSON.stringify(this.originalCourse.sections[i].materials)) {
                 return true;
             }
         }
@@ -230,10 +231,21 @@ export class CourseObjectEditComponent implements OnInit {
     }
     reset() {
         this.courseFormGroup.reset();
+
+        // Since I didn't build angular Form Controls -- to match these data objects, I have to re-synch them
+        // after a post so that the RouteGuard won't think the model is still dirty
+
         this.originalCourse = _.cloneDeep(this.course);  // Deep Clone the object - otherwise it's just another pointer
-        for (let i = 0; i < this.course.sections.length; i++) {
-            this.originalMaterialArrays[i] = Object.assign({}, this.course.sections[i].materials);
-        }
+        // for (let i = 0; i < this.course.sections.length; i++) {
+        //     this.originalMaterialArrays[i] = Object.assign({}, this.course.sections[i].materials);
+        // }
+        // for (let i = 0; i < this.course.sections.length; i++) {
+        //     this.originalCourse.sections[i] = _.cloneDeep( this.course.sections[i]);
+        //     this.originalCourse.sections[i].title = this.course.sections[i].title;
+
+        //     this.originalCourse.sections[i].materials = _.cloneDeep(this.course.sections[i].materials);
+
+        // }
     }
 
 

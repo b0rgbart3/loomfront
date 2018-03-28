@@ -45,6 +45,7 @@
                             <block [block]="set.materials[0]"></block> 
                     </div>
                     <div *ngIf='set.materials[0].type === "quote"' class='quoteWrap'>
+                        <!-- <P>SHOULD BE A QUOTE HERE</P> {{ set.materials[0] | json }} -->
                             <quote-component [quoteObject]="set.materials[0]"></quote-component> 
                     </div>
                  </div>

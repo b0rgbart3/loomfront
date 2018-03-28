@@ -4,9 +4,9 @@
 		<mat-icon>menu</mat-icon>
 	</button>
 <mat-menu #menu="matMenu">
-	<a href="" [routerLink]="['/welcome']"><button mat-menu-item>Welcome</button></a>
-	<a *ngIf="currentUser" [routerLink]="['/home']">
-		<button mat-menu-item>Home</button></a>
+	<a href="" [routerLink]="['/']"><button mat-menu-item>Home</button></a>
+	<a *ngIf="currentUser" [routerLink]="['/classes']">
+		<button mat-menu-item>My Classes</button></a>
 	<!-- <a *ngIf='admin' [routerLink]="['/coursebuilder']"><button mat-menu-item>Course Builder</button></a> -->
 	<!-- <a *ngIf='admin' [routerLink]="['/enrollments']"><button mat-menu-item>Enrollments</button></a> -->
 	<a *ngIf='admin' [routerLink]="['/admin']"><button mat-menu-item>Admin</button></a>
@@ -16,7 +16,7 @@
 	<a [routerLink]="['/contact']"><button mat-menu-item>Contact</button></a>
 </mat-menu>
 
-<a [routerLink]="['/home']"><div class='easyHomeButton'>
+<a [routerLink]="['/classes']"><div class='easyHomeButton'>
 	THE RECLAIMING LOOM
 </div></a>
 

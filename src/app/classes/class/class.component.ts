@@ -189,6 +189,7 @@ export class ClassComponent implements OnInit {
                         i++;
                         material = this.classMaterials[j][i];
                     }
+                    if (i > first) { i--; }
 
                 } else {
                 if ( (material.type === 'doc') ) {
@@ -201,6 +202,7 @@ export class ClassComponent implements OnInit {
                         i++;
                         material = this.classMaterials[j][i];
                     }
+                    if (i > first) { i--; }
 
                 } else {
                 // If it's not a book or a doc - then we don't need to group it

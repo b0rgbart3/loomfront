@@ -108,7 +108,7 @@ import { AllMaterialsResolver } from '../resolvers/all-materials-resolver.servic
 
             { path: '404', component: Error404Component },
             { path: '', component: WelcomeComponent },
-            { path: '**', component: WelcomeComponent }
+            { path: '**', redirectTo: '' }
         ])
     ],
     declarations: [

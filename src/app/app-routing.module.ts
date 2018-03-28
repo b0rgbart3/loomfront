@@ -43,25 +43,12 @@ import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service
 
 
 const ROUTES: Routes = [
-{ path: 'welcome', component: WelcomeComponent, resolve: {
-    users: UsersResolver,
-    courses: CoursesResolver,
-    classes: ClassesResolver
-}},
-{ path: '', redirectTo: 'welcome', pathMatch: 'full'},
+
+
 { path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
 { path: 'requestreset', pathMatch: 'full', component: RequestresetComponent },
-{ path: 'home', component: HomeComponent, canActivate: [ AuthGuard ],
-     resolve: {
-     users: UsersResolver,
-     classes: ClassesResolver,
-     courses: CoursesResolver,
-     enrollments: EnrollmentsResolver,
-     assignments: AssignmentsResolver,
-    //  messages: MessagesResolver
-} },
 
 // This is a component-less parent route that only has one child (so far)
 // but this allows me to resolve the class data before loading the child (section)
@@ -78,13 +65,27 @@ resolve: {
     discussionSettings: DiscussionSettingsResolver,
     notesSettings: NotesSettingsResolver, messages: MessagesResolver  } }]
 },
+{ path: 'classes', component: HomeComponent, canActivate: [ AuthGuard ],
+     resolve: {
+     users: UsersResolver,
+     classes: ClassesResolver,
+     courses: CoursesResolver,
+     enrollments: EnrollmentsResolver,
+     assignments: AssignmentsResolver,
+    //  messages: MessagesResolver
+} },
 
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
  canActivate: [ AuthGuard, UserAuthGuard ], resolve: { users: UsersResolver} },
 { path: 'reset/:key', component: ResetComponent },
 { path: 'permission', component: PermissionComponent },
 { path: 'suspended', component: SuspendedComponent },
-{ path: 'contact', component: ContactComponent }
+{ path: 'contact', component: ContactComponent },
+{ path: '', pathMatch: 'full', component: WelcomeComponent, resolve: {
+    users: UsersResolver,
+    courses: CoursesResolver,
+    classes: ClassesResolver
+}},
 ];
 
 
