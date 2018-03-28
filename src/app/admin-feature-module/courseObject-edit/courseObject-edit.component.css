@@ -48,3 +48,32 @@ mat-expansion-panel-header h1 {
   border:2px solid #555500;
 }
 
+.courseEditSubmit {
+  font-family: 'Roboto';
+  background-color:yellowgreen;
+  padding:20px;
+  text-transform:uppercase;
+  color:rgb(65, 83, 30);
+  font-size:1.1em;
+  display:inline-block;
+  font-weight: 600;
+  float:right;
+  border-radius:8px;
+  border:4px solid rgb(90, 116, 40);
+  box-shadow: 0 0 12px rgb(56, 68, 31);
+  user-select: none;
+  cursor: pointer;
+  margin-right:10px;
+}
+
+.courseEditSubmit:hover {
+  background-color:rgb(174, 231, 59);
+}
+
+.courseEditSubmit:active {
+  background-color:rgb(215, 255, 134);
+  position: relative;
+  left:1px;
+  top:1px;
+
+}

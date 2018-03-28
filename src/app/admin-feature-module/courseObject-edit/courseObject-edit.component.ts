@@ -52,7 +52,7 @@ export class CourseObjectEditComponent implements OnInit {
 
         dragulaService.setOptions('section-bag', {
             moves: function (el, container, handle) {
-                console.log(handle);
+             //   console.log(handle);
               return handle.className === 'mat-content';   // mat-content is the class of the "span" for the material expander's titlebar
             }
           });
@@ -80,12 +80,12 @@ export class CourseObjectEditComponent implements OnInit {
             //  console.log('Existing image: ' + this.existingImage);
           }
 
-        this.sectionControls = this.fb.array([  ]);
+       // this.sectionControls = this.fb.array([  ]);
         this.courseFormGroup = this.fb.group( {
             title: [ ''] ,
             description: [ ''],
             imageUploader: '',
-            sections: this.sectionControls
+          //  sections: this.sectionControls
         });
 
         if (!this.course.sections) {
@@ -98,13 +98,14 @@ export class CourseObjectEditComponent implements OnInit {
 
     isDirty() {
         if (this.courseFormGroup.dirty) {
+            console.log('courseFormGroup was dirty');
             return true;
         }
-        for (let i = 0; i < this.sectionControls.length; i++) {
-            if (this.sectionControls.at(i).dirty) {
-                return true;
-            }
-        }
+        // for (let i = 0; i < this.sectionControls.length; i++) {
+        //     if (this.sectionControls.at(i).dirty) {
+        //         return true;
+        //     }
+        // }
         if (this.course.sections.length !== this.originalCourse.sections.length) {
             return true;
         }
@@ -113,6 +114,9 @@ export class CourseObjectEditComponent implements OnInit {
             if (!this.originalCourse.sections[i]) { return true; }  // If the section is new, then this 'Form' is dirty
             if (this.course.sections[i].title !== this.originalCourse.sections[i].title) {
                 return true;    // If the titles are different (any of them ) then this 'Form' is dirty
+            }
+            if (this.course.sections[i].content !== this.originalCourse.sections[i].content) {
+                return true;
             }
             if (JSON.stringify(this.course.sections[i].materials) !== JSON.stringify(this.originalCourse.sections[i].materials)) {
                 return true;
@@ -125,27 +129,33 @@ export class CourseObjectEditComponent implements OnInit {
 
     }
     addSectionForm() {
-        const sectionFormGroup = this.fb.group( {
-            title: [''],
-            content: [''],
-        });
-        this.sectionControls.push(sectionFormGroup);
+        // const sectionFormGroup = this.fb.group( {
+        //     title: [''],
+        //     content: [''],
+        // });
+        // this.sectionControls.push(sectionFormGroup);
 //           this.sectionPointers.push(sectionFormGroup);
     }
     buildSectionForms() {
-        for (let i = 0; i < this.course.sections.length; i++) {
-            this.addSectionForm();
+        // for (let i = 0; i < this.course.sections.length; i++) {
+        //     this.addSectionForm();
 
-        }
+        // }
     }
     addSection() {
         this.course.sections.push( new Section( 'Section' + this.course.sections.length, '', [], null, this.course.sections.length) );
-        this.addSectionForm();
+       // this.addSectionForm();
     }
     destroySection(index: number) {
         console.log('Index passed: ' + index);
        this.course.sections.splice(index, 1);
-       this.sectionControls.removeAt( index );
+    //   this.sectionControls.removeAt( index );
+    }
+    changeSection(section: Section) {
+        // update the model in the course edit component to match the one passed by an event from
+        // the section edit component
+        console.log('Got notified of a change in one of the sections: ' + section.sectionNumber);
+        this.course.sections[section.sectionNumber] = section;
     }
 
     postCourse() {
@@ -160,6 +170,15 @@ export class CourseObjectEditComponent implements OnInit {
             const lintedModel = this.lintMe( this.course );
             this.course = lintedModel;
 
+           // console.log('# of section Controls: ' + this.sectionControls.length);
+            // Clear out the old section data
+            // this.course.sections = [];
+        //    for (let i = 0; i < this.sectionControls.length; i++ ) {
+            //    console.log('sectionControl: ' +  JSON.stringify( this.sectionControls.at(i).value ) );
+                // console.log('SECTION CONTROL: ' + this.sectionControls[i].value);
+                // this.course.sections[i].title = this.sectionControls[i].value.title;
+                // this.course.sections[i].content = this.sectionControls[i].value.content;
+          //  }
             // Let's just make sure the output sequence matches whatever state the user put it into
             for (let i = 0; i < this.course.sections.length; i++) {
                 const section = this.course.sections[i];

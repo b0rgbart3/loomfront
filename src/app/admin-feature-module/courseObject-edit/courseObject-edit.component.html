@@ -28,20 +28,21 @@
     <br></div>
   <div class='wrapper' [dragula]='"section-bag"' [dragulaModel]='course.sections'>
   
-        <mat-expansion-panel formArrayName='sections' *ngFor='let section of course.sections; let i = index'>
-           
+        <mat-expansion-panel  *ngFor='let section of course.sections; let i = index'>
+           <!-- formArrayName='sections' -->
             <mat-expansion-panel-header *ngIf="i > 0" class='header'>  
                 <div class='handle'><h1>{{section.title}}</h1></div>
             </mat-expansion-panel-header>
-            <section-edit [section]=section [index]=i (onDestroy)='destroySection($event)'></section-edit>
+            <section-edit [section]=section [index]=i (onDestroy)='destroySection($event)'
+            (onChange)='changeSection($event)'></section-edit>
       </mat-expansion-panel>
   </div>
 </form>
 
 <div (click)='addSection()' class='loomButton simpleAdd'>Add a new Section</div>
 <br clear='all'>
-<div class='loomButton loomSubmit' 
-(click)='postCourse()'>Submit changes to this course</div>
+<div class='courseEditSubmit' 
+(click)='postCourse()'>Save My Changes</div>
 <br clear='all'><br><hr><br>
 <div class='loomButton dangerous' (click)="deleteCourse(this.course.id)">
     <mat-icon>delete</mat-icon><span class='raise'>

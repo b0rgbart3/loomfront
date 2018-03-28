@@ -13,7 +13,8 @@
 
     <h1>Materials</h1>
 
-    <div class='wrapper' [dragula]='"materials-bag"' [dragulaModel]='section.materials'>
+    <div class='wrapper' [dragula]='"materials-bag"' [dragulaModel]='section.materials'
+    [dragulaOptions]='dragOptions'>
         <div *ngFor='let material of section.materials; let i = index' class='materialBox'>
             <div>
             <material [id]='material'></material>
