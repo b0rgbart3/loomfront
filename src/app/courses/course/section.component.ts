@@ -13,6 +13,7 @@ import { DiscussionService } from '../../services/discussion.service';
 import { DiscussionSettings } from '../../models/discussionsettings.model';
 import { User } from '../../models/user.model';
 import { NotesSettings } from '../../models/notessettings.model';
+import { MaterialSet } from '../../models/materialset.model';
 
 @Component({
     moduleId: module.id,
@@ -34,7 +35,7 @@ export class SectionComponent implements OnInit, OnChanges {
     @Input() instructors: User[];
     @Input() discussionSettings: DiscussionSettings;
     @Input() notesSettings: NotesSettings;
-    @Input() materialCollection: MaterialCollection;
+    @Input() materialSets: MaterialSet[];
 
     public books: Material [];
     public docs: Material [];
@@ -46,7 +47,8 @@ export class SectionComponent implements OnInit, OnChanges {
 
     ngOnInit() {
 
-        this.initMe();
+       // console.log('In Section INit: ' + JSON.stringify(this.materialSets));
+      //  this.initMe();
     }
 
     initMe() {
@@ -54,7 +56,7 @@ export class SectionComponent implements OnInit, OnChanges {
      //   console.log('In section init: discussionSettings: ' +
        //  JSON.stringify(this.discussionSettings));
         // this.materialCollection = null;
-        this.section = this.course.sections[this.section.sectionNumber];
+       // this.section = this.course.sections[this.section.sectionNumber];
 
         // const sortedMaterials = this.materialService.sortMaterials(this.materials);
         // this.materialCollection = sortedMaterials;
@@ -62,6 +64,7 @@ export class SectionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
+      //  console.log('In Section Init: Materials: ' + JSON.stringify(this.materials));
         // console.log('somethign changeD: ' + this.sectionNumber);
         // this.discussionService.getDiscussionSettings(this.userService.currentUser.id,
         //     this.thisClass.id, this.sectionNumber).

@@ -39,6 +39,7 @@ import { CourseEditGuard } from './course-edit/course-edit-guard.service';
 import { CourseObjectEditComponent } from './courseObject-edit/courseObject-edit.component';
 import { SectionEditComponent } from './courseObject-edit/section-edit.component';
 import { CourseObjectEditGuard } from './courseObject-edit/courseObject-edit-guard.service';
+import { AllMaterialsResolver } from '../resolvers/all-materials-resolver.service';
 
 
 
@@ -68,36 +69,37 @@ import { CourseObjectEditGuard } from './courseObject-edit/courseObject-edit-gua
                     { path: 'classes', component: ContentComponent,
                     resolve: { users: UsersResolver, instructors: InstructorsResolver,
                         classes: ClassesResolver, series: SeriesResolver, courses: CoursesResolver }},
-                    { path: 'materials', component: MaterialsComponent, resolve: { courses: CoursesResolver, materials: MaterialsResolver}},
+                    { path: 'materials', component: MaterialsComponent,
+                    resolve: { courses: CoursesResolver, materials: AllMaterialsResolver}},
                     { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
                     canDeactivate: [ CourseEditGuard ],
                     resolve: { course: CourseResolver,
-                        materials: MaterialsResolver }},
+                        allmaterials: AllMaterialsResolver }},
                     { path: 'courseObjects/:id/edit', pathMatch: 'full', component: CourseObjectEditComponent,
                     canDeactivate: [ CourseObjectEditGuard ],
                     resolve: { course: CourseResolver,
-                        materials: MaterialsResolver }},
+                        allmaterials: AllMaterialsResolver }},
                     { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { serie: SerieResolver} },
                     { path: 'book/:id/edit', component: MaterialEditComponent,
-                    data: { type: 'book'}, resolve: { MaterialsResolver } },
+                    data: { type: 'book'}},
 
                     { path: 'image/:id/edit', component: MaterialEditComponent,
-                    data: { type: 'image'}, resolve: { MaterialsResolver } },
+                    data: { type: 'image'}},
 
                     { path: 'doc/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'doc' }, resolve: { MaterialsResolver } },
+                    data: { type: 'doc' } },
 
                     { path: 'video/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'video' }, resolve: { MaterialsResolver } },
+                    data: { type: 'video' } },
 
                     { path: 'audio/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'audio' }, resolve: { MaterialsResolver } },
+                    data: { type: 'audio' } },
 
                     { path: 'quote/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'quote' }, resolve: { MaterialsResolver } },
+                    data: { type: 'quote' } },
 
                    { path: 'block/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'block' }, resolve: { MaterialsResolver } },
+                    data: { type: 'block' } },
 
                 ]
             },
@@ -126,9 +128,9 @@ import { CourseObjectEditGuard } from './courseObject-edit/courseObject-edit-gua
        ContentComponent,
        EnrollmentsComponent,
        AssignmentsComponent,
-       MaterialsComponent,
        CourseObjectEditComponent,
        SectionEditComponent,
+       MaterialsComponent
     ],
     providers: [
         AdminRouteActivator,
@@ -153,6 +155,7 @@ import { CourseObjectEditGuard } from './courseObject-edit/courseObject-edit-gua
         CourseObjectEditComponent,
         AssignmentsComponent,
         SectionEditComponent,
+        MaterialsComponent
     ]
 })
 

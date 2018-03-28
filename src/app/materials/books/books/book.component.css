@@ -28,7 +28,8 @@
     padding-bottom:24px;
     /* box-shadow:4px 4px 4px rgba(0,0,0,.5); */
     text-align: center;
-
+    border:1px dashed #555555;
+    max-height:300px;
 }
 
 .bookContainer h1 {

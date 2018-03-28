@@ -159,6 +159,12 @@ export class CourseObjectEditComponent implements OnInit {
             const lintedModel = this.lintMe( this.course );
             this.course = lintedModel;
 
+            // Let's just make sure the output sequence matches whatever state the user put it into
+            for (let i = 0; i < this.course.sections.length; i++) {
+                const section = this.course.sections[i];
+                section.sectionNumber = i;
+            }
+
             if (this.course.id === '0') {
                 this.courseService.createCourse( this.course ).subscribe(
                     (val) => {

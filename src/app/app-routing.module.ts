@@ -38,6 +38,7 @@ import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-setting
 import { PermissionComponent } from './users/permission.component';
 import { SuspendedComponent } from './users/suspended/suspended.component';
 import { ContactComponent } from './welcome/contact/contact.component';
+import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service';
 
 
 
@@ -64,14 +65,16 @@ resolve: { user: UserResolver, users: UsersResolver} },
 
 // This is a component-less parent route that only has one child (so far)
 // but this allows me to resolve the class data before loading the child (section)
+// In other words - I'm structuring it this way so that I can control the sequence of the resolvers
+
 { path: 'classes/:id',  canActivate: [ AuthGuard ], resolve: { allDSObjects: AllDiscussionSettingsResolver,
     thisClass: ClassResolver, users: UsersResolver, assignments: AssignmentsResolver,
-    enrollments: EnrollmentsResolver, allMaterials: MaterialsResolver, courses: CoursesResolver, messages: MessagesResolver,
+    enrollments: EnrollmentsResolver, allMaterials: AllMaterialsResolver, courses: CoursesResolver, messages: MessagesResolver,
     discussionSettings: DiscussionSettingsResolver },
   children: [ {
       path: ':id2', pathMatch: 'full', component: ClassComponent,
 resolve: {
-    thisCourse: ClassCourseResolver, classMaterials: ClassMaterialsResolver,
+    thisCourse: ClassCourseResolver, classMaterials: MaterialsResolver,
     discussionSettings: DiscussionSettingsResolver,
     notesSettings: NotesSettingsResolver, messages: MessagesResolver  } }]
 },

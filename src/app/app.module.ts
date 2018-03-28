@@ -30,14 +30,12 @@ import { DialogComponent } from './classes/dialog.component';
 import { PossibleInstructorsResolver } from './resolvers/possible-instructors-resolver.service';
 import { UserResolver } from './resolvers/user-resolver';
 import { SectionComponent } from './courses/course/section.component';
-// import { ChatroomComponent } from './chat/chatroom.component';
 import { DiscussionComponent } from './discuss/discussion.component';
 import { DiscussionService } from './services/discussion.service';
 import { ThreadComponent } from './discuss/thread.component';
 import { InfobotComponent } from './infobot/infobot.component';
 import { NotificationsService } from './services/notifications.service';
 import { NotificationsComponent } from './shared/notifications.component';
-// import { MaterialComponent } from './materials/material.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 import { SectionResolver } from './resolvers/section-resolver.service';
 import { Globals } from './globals';
@@ -86,6 +84,7 @@ import { AssignmentsService } from './services/assignments.service';
 import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-settings-resolver';
 import { PermissionComponent } from './users/permission.component';
 import { DragulaModule } from 'ng2-dragula';
+import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service';
 
 @NgModule({
   // External
@@ -124,20 +123,15 @@ import { DragulaModule } from 'ng2-dragula';
     InfobotComponent,
     NotificationsComponent,
 
-    BooksComponent,
-    BookComponent,
+ //   BooksComponent,
+
     MaterialCollectionComponent,
-    QuoteComponent,
     SafePipe,
-    ModalComponent,
-    AudioComponent,
-    BlockComponent,
-    ImageComponent,
     ResetComponent,
     CourseComponent,
     NotesComponent,
     MessageComponent,
-  
+
 
   ],
   providers: [
@@ -177,7 +171,8 @@ import { DragulaModule } from 'ng2-dragula';
     NotesService,
     NotesSettingsResolver,
     MessageService,
-    MessagesResolver
+    MessagesResolver,
+    AllMaterialsResolver
 
    ],
   bootstrap: [ AppComponent ]

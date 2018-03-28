@@ -23,6 +23,7 @@ import { MessageService } from '../../services/message.service';
 import { AssignmentsService } from '../../services/assignments.service';
 import { Enrollment } from '../../models/enrollment.model';
 import { Assignment } from '../../models/assignment.model';
+import { MaterialSet } from '../../models/materialset.model';
 
 @Component({
 
@@ -59,11 +60,13 @@ export class ClassComponent implements OnInit {
     COURSE_IMAGE_PATH: string;
     AVATAR_IMAGE_PATH: string;
     discussionSettings: DiscussionSettings;
-    classMaterials: MaterialCollection[];
+    classMaterials: Material[];
     notesSettings: NotesSettings;
     messaging: boolean;
     enrollments: Enrollment[];
     assignments: Assignment[];
+    materialSets: MaterialSet[][];
+    currentMaterials: MaterialSet[];
 
     // for the BIO Popup
     bioChosen: User;
@@ -93,7 +96,9 @@ export class ClassComponent implements OnInit {
       }
 
     ngOnInit() {
+        this.currentMaterials = null;
         this.messaging = false;
+
         this.activated_route.params.subscribe(params => {
             this.onSectionChange(params['id2']);
 
@@ -101,10 +106,11 @@ export class ClassComponent implements OnInit {
             this.classID = this.activated_route.snapshot.params['id'];
             this.thisClass = this.activated_route.snapshot.data['thisClass'];
             this.users = this.activated_route.snapshot.data['users'];
-            this.sectionNumber = this.activated_route.snapshot.data['sectionNumber'];
+            this.sectionNumber = this.activated_route.snapshot.params['id2'];
             this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
             this.notesSettings = this.activated_route.snapshot.data['notesSettings'];
-            console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
+            console.log('In class init: ' + this.sectionNumber);
+           // console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
         // console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
         });
 
@@ -113,8 +119,6 @@ export class ClassComponent implements OnInit {
         );
 
         if (!this.sectionNumber) { this.sectionNumber = 0; }
-
-   
 
         this.studentIDList = [];
         this.enrollmentsService.getEnrollmentsInClass( this.thisClass.id ).subscribe (
@@ -162,7 +166,53 @@ export class ClassComponent implements OnInit {
 
         this.classMaterials = this.activated_route.snapshot.data['classMaterials'];
 
+       // console.log('In Class INit: ' + this.classMaterials[2].length);
+
+       // This is where we look through ALL the materials - and group them into sets, if need be
+       // for books and docs  (The only reason for doing this is that it is more aesthetically pleaseing
+       // to have them grouped in clusters when they are displayed on the page ).
+        this.materialSets = [];
+        for (let j = 0; j < this.classMaterials.length; j++) {
+            this.materialSets[j] = [];
+            for (let i = 0; i < +this.classMaterials[j].length; i++) {
+                let material = this.classMaterials[j][i];
+                const aMaterialSet = new MaterialSet( false, material.type, []);
+
+                if ( (material.type === 'book') ) {
+                    const first = i;
+                    // collect books and documents together into sets of up to 4
+                    while (( material && (material.type === 'book' ) )
+                    && (i < first + 4 ) && (i < +this.classMaterials[j].length)) {
+                        // its only a group if is more than one - so this only happens after the 2nd time
+                        if (i > first) { aMaterialSet.group = true; }
+                        aMaterialSet.materials.push(this.classMaterials[j][i]);
+                        i++;
+                        material = this.classMaterials[j][i];
+                    }
+
+                } else {
+                if ( (material.type === 'doc') ) {
+                    const first = i;
+                    // collect books and documents together into sets of up to 4
+                    while (( material && (material.type === 'doc') )
+                    && (i < first + 4 ) && (i < +this.classMaterials[j].length)) {
+                        if (i > first) { aMaterialSet.group = true;  }// its only a group if is more than one
+                        aMaterialSet.materials.push(this.classMaterials[j][i]);
+                        i++;
+                        material = this.classMaterials[j][i];
+                    }
+
+                } else {
+                // If it's not a book or a doc - then we don't need to group it
+                if ( (material.type !== 'doc') && (material.type !== 'book')) {
+                    aMaterialSet.materials.push(material);
+                } } }
+                this.materialSets[j].push(aMaterialSet);
+            }
+        }
         // console.log('Class Materials' + JSON.stringify(this.classMaterials));
+        console.log('In class INIT, sectionNumber: ' + this.sectionNumber);
+        this.currentMaterials = this.materialSets[this.sectionNumber];
 
         this.activated_route.params.subscribe( params => {
 
@@ -237,6 +287,8 @@ export class ClassComponent implements OnInit {
             this.sectionNumber = ( this.currentCourse.sections.length - 1);
         }
         this.section = this.currentCourse.sections[this.sectionNumber];
+        this.currentMaterials = this.materialSets[this.sectionNumber];
+        console.log('current Materials' + JSON.stringify(this.currentMaterials));
         const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
         this.router.navigate( [routeString] );
 
@@ -246,6 +298,7 @@ export class ClassComponent implements OnInit {
         this.sectionNumber--;
         if (this.sectionNumber < 0 ) { this.sectionNumber = 0; }
         this.section = this.currentCourse.sections[this.sectionNumber];
+        this.currentMaterials = this.materialSets[this.sectionNumber];
         const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
         this.router.navigate( [routeString] );
 
@@ -254,6 +307,7 @@ export class ClassComponent implements OnInit {
     navigateTo(sectionNumber) {
      this.showingSectionMenu = false;
      this.sectionNumber = sectionNumber;
+     this.currentMaterials = this.materialSets[this.sectionNumber];
      this.section = this.currentCourse.sections[this.sectionNumber];
      const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
         this.router.navigate([routeString]);

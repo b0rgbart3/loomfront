@@ -3,16 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Globals } from '../../globals';
 import { RouterLinkWithHref } from '@angular/router';
+import { Material } from '../../models/material.model';
 
 @Component({
     moduleId: module.id,
-    selector: 'quote',
+    selector: 'quote-component',
     templateUrl: 'quote.component.html',
     styleUrls: ['quote.component.css']
 })
 
 export class QuoteComponent implements OnInit {
-    @Input() materialcollection: MaterialCollection;
+    @Input() quoteObject: Material;
 
 
 

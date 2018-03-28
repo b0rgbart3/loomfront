@@ -1,0 +1,53 @@
+
+<div *ngIf="materialSets" class='materials'>
+
+            <div *ngFor="let set of materialSets; let i = index">
+
+                <div *ngIf="set.group" class='set group'>
+
+                            <div *ngIf='set.type === "book"' class='bookSet'>
+                                <h1>Recommended In-Depth Reading:</h1>
+                                <div *ngFor='let material of set.materials' class='bookPluralWrap'>
+                                        <book [book]='material'></book>
+                                </div>
+
+                            </div>
+                            <div *ngIf='set.type === "doc"' class='docSet'>
+                                <div *ngFor='let material of set.materials' class='docPluralWrap'>
+                                        <doc-component [docObject]="material"></doc-component>
+                                </div>
+
+                    </div>
+                </div>
+
+                <div *ngIf='!set.group && set.materials[0]'>
+
+                    <div *ngIf='set.materials[0].type === "video"' class='videoWrap'>
+                            <video-component [videoObject]="set.materials[0]"></video-component>
+                    </div>
+
+                    <div *ngIf='set.materials[0].type === "audio"' class='audioWrap'>
+                        <audio-component [audioObject]="set.materials[0]"></audio-component>
+                    </div>
+
+                    <div *ngIf='set.materials[0].type === "image"' class='imageWrap'>
+                        <image-component [imageObject]="set.materials[0]"></image-component>
+                    </div>
+
+                    <div *ngIf='set.materials[0].type === "doc"' class='docWrap'>
+                        <doc-component [docObject]="set.materials[0]"></doc-component>
+                    </div>
+                    
+                    <div *ngIf='set.materials[0].type === "book"' class='bookWrap'>
+                        <book [book]='set.materials[0]'></book>
+                    </div>
+                    <div *ngIf='set.materials[0].type === "block"' class='blockWrap'>
+                            <block [block]="set.materials[0]"></block> 
+                    </div>
+                    <div *ngIf='set.materials[0].type === "quote"' class='quoteWrap'>
+                            <quote-component [quoteObject]="set.materials[0]"></quote-component> 
+                    </div>
+                 </div>
+</div>
+
+              

@@ -1,0 +1,120 @@
+
+
+  .endPiece {
+
+    border-right:2px solid rgba(0,0,0,.3);
+    display:inline-block;
+    margin-left:auto;
+    margin-right:auto;
+ 
+ }
+ 
+ 
+ 
+ .materials {
+     margin-top:20px;
+    padding-top:20px;
+ }
+
+ .docWrap {
+  width:200px;
+  margin:0;
+  border:2px solid #dddddd;
+  padding:0px;
+  padding-bottom:20px;
+  display:inline-block;
+  vertical-align: top;
+  margin-bottom:14px;
+  background-color:rgba(255,255,255,.23);
+  cursor: pointer;
+  user-select: none;
+
+
+}
+
+.bookWrap {
+  margin-left:auto;
+  margin-right:auto;
+  display:inline-block;
+  
+}
+
+.docWrap:hover {
+  border:2px solid #999999;
+  background-color:rgba(255,255,255,.3);
+}
+
+.docWrap:active {
+  border:2px solid white;
+  background-color:rgba(255,255,255,.5);
+  box-shadow:0 0 10px rgba(0,0,0,.5);
+  position: relative;
+  top:2px;
+  left:2px;
+}
+
+.set {
+  margin-bottom:14px;
+}
+
+/* This 'inner' div will center the books in the group set*/
+.bookSet {
+  display:inline-block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* This 'inner' div will center the books in the group set*/
+.docSet {
+  display:inline-block;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:20px;
+
+}
+
+.bookSet h1 {
+  font-family:'Josefin sans';
+  text-transform:uppercase;
+  font-weight:500;
+  font-size:1.4em;
+  color:#444444;
+  letter-spacing: -.06em;
+}
+
+.bookPluralWrap { 
+  display:inline-block;
+  vertical-align: top;
+  float:left;
+}
+
+.docPluralWrap { 
+  display:inline-block;
+  vertical-align: top;
+  float:left;
+  width:200px;
+  border:2px solid #dddddd;
+  padding:0px;
+  padding-bottom:20px;
+  vertical-align: top;
+  margin-bottom:14px;
+  background-color:rgba(255,255,255,.23);
+  cursor: pointer;
+  user-select: none;
+  height:400px;
+  overflow: hidden;
+}
+
+.docPluralWrap:hover {
+  border:2px solid #999999;
+  background-color:rgba(255,255,255,.3);
+}
+
+.docPluralWrap:active {
+  border:2px solid white;
+  background-color:rgba(255,255,255,.5);
+  box-shadow:0 0 10px rgba(0,0,0,.5);
+  position: relative;
+  top:2px;
+  left:2px;
+}

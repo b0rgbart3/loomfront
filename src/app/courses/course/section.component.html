@@ -1,22 +1,26 @@
-<!-- Section: {{ section.sectionNumber }}
+<!-- Section: {{ section.sectionNumber }} -->
+<!--
 Notes Settings: Reading {{ notesSettings.reading }} -->
 
 <div class='section' *ngIf='section.sectionNumber !== "0"'>
-    {{ section.sectionNumber }}
+    <!-- {{ section.sectionNumber }} -->
     <notes [settings]='notesSettings'></notes>
     <h1> {{ section.title }} </h1>
 
-    <div *ngIf='materialCollection && materialCollection.quotes && (materialCollection.quotes.length > 0)'>
+    <!-- <div *ngIf='materialCollection && materialCollection.quotes && (materialCollection.quotes.length > 0)'>
             <quote [materialcollection]='materialCollection' *ngIf='materialCollection'></quote>
-    </div>
+    </div> -->
 
     <div [innerHTML]= 'section.content'></div>
 
-    <div *ngIf='materialCollection'>
+    <div *ngIf='materialSets && materialSets.length > 0'>
         <div class='materials group'>
-        <material-collection [materialcollection]="materialCollection"></material-collection>
+        <!-- <material-collection [materialcollection]="materialCollection"></material-collection> -->
+        <display-materials [materialSets]="materialSets"></display-materials>
+       
         </div>
     </div>
+
 <!-- <p>section:{{ section.sectionNumber }}</p> -->
 
 <discussion [thisClass]="thisClass" [students]='students' [instructors]='instructors' 

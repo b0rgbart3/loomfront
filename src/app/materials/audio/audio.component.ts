@@ -26,6 +26,7 @@ export class AudioComponent implements OnInit {
     ngOnInit(): void {
         this.audioSource = this.globals.materialfiles + '/' + this.audioObject.id + '/' + this.audioObject.file; // }
         this.imageURL = this.globals.materialimages + '/' + this.audioObject.id + '/' + this.audioObject.image;
+      //  console.log('This image URL: ' + this.imageURL);
     }
 
     onRightClick() {

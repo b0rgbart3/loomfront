@@ -67,8 +67,6 @@
                  </div>
                 </div>
 
-        
-                
                 <div *ngIf='currentCourse.sections' class='section group'>
                     <section 
                     [thisClass]='thisClass' 
@@ -76,7 +74,7 @@
                     [section]='section'
                     [students]='students'
                     [instructors]='instructors'
-                    [materialCollection]='classMaterials[sectionNumber]'
+                    [materialSets]='currentMaterials'
                     [discussionSettings] = 'discussionSettings'
                     [notesSettings] = 'notesSettings'
                     >
@@ -86,8 +84,6 @@
 
 
     </div>
-
-
 
 </div>
 

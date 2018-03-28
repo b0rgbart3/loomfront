@@ -1,0 +1,18 @@
+<div (click)='open_modal()' class='group'>
+        <div *ngIf='imageURL'>
+             <div class='documentImage' 
+                [ngStyle]="{ 'background-image': 'url(' + imageURL + ')'}"
+                *ngIf="imageURL"></div>
+            <div class='documentImage'  *ngIf="!imageURL"></div>
+        </div>
+           
+        <h1>{{docObject.title}}</h1>
+        <h2>{{docObject.author}}</h2>
+        <p>{{ docObject.description }}</p>
+
+        <p class='length'>{{ docObject.length }}</p>
+</div>
+
+<div *ngIf='displayModal' class='modal'>
+        <modal [modalURL]='modalURL' (closeMe)="closeModal($event)"></modal>
+</div>

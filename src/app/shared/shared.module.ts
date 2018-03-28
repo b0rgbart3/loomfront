@@ -35,6 +35,14 @@ import { DragulaModule } from 'ng2-dragula';
 import { ChoiceModalComponent } from '../modals/choice-modal.component';
 import { MaterialComponent } from '../materials/material.component';
 import { MaterialIconComponent } from '../materials/icon/material-icon.component';
+import { DisplayMaterialsComponent } from '../materials/display-materials/display-materials.component';
+import { AudioComponent } from '../materials/audio/audio.component';
+import { ImageComponent } from '../materials/image/image.component';
+import { BookComponent } from '../materials/books/books/book.component';
+import { BlockComponent } from '../materials/block/block.component';
+import { ModalComponent } from '../materials/modal/modal.component';
+import { DocComponent } from '../materials/doc/doc.component';
+import { QuoteComponent } from '../materials/quote/quote.component';
 
 
 
@@ -55,7 +63,7 @@ import { MaterialIconComponent } from '../materials/icon/material-icon.component
         CustomMaterialModule,
         FlashMessagesModule,
         DragulaModule,
-     
+
 
     ],
     declarations: [
@@ -74,9 +82,17 @@ import { MaterialIconComponent } from '../materials/icon/material-icon.component
         SuspendedComponent,
         ContactComponent,
         VideoComponent,
+        AudioComponent,
+        ImageComponent,
+        BookComponent,
+        BlockComponent,
+        DocComponent,
+        QuoteComponent,
+        ModalComponent,
         ChoiceModalComponent,
         MaterialComponent,
         MaterialIconComponent,
+        DisplayMaterialsComponent
     ],
     providers: [
         ClassResolver,
@@ -114,10 +130,18 @@ import { MaterialIconComponent } from '../materials/icon/material-icon.component
         SuspendedComponent,
         ContactComponent,
         VideoComponent,
+        AudioComponent,
+        ImageComponent,
+        BookComponent,
+        BlockComponent,
+        DocComponent,
+        QuoteComponent,
+        ModalComponent,
         DragulaModule,
         ChoiceModalComponent,
         MaterialComponent,
-        MaterialIconComponent
+        MaterialIconComponent,
+        DisplayMaterialsComponent
     ]
 
 })
