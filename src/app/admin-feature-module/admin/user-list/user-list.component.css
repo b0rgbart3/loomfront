@@ -1,3 +1,4 @@
+
 .userList {
     text-align: left;
     list-style: none;
@@ -5,7 +6,6 @@
 }
 
 .userList li {
-    border-bottom:2px solid #9696CC;
     margin-bottom:10px;
 }
 
@@ -16,7 +16,7 @@
 .userLine {
     padding:0;
     overflow: hidden;
-    border-bottom:1px solid rgba(0,0,0,.2);
+    border-bottom:2px solid #aaaaaa;
     width:100%;
     background-color:rgba(255,255,255,.5);
     user-select: none;
@@ -32,6 +32,22 @@
     float:right;
 }
 
+.signupDate {
+    color:black;
+    float:left;
+    vertical-align: top;
+    font-family: 'Roboto';
+    font-size:.95em;
+    box-sizing:border-box;
+    padding:0;
+    margin:0;
+    margin-top:10px;
+    margin-bottom:10px;
+    line-height:1.2em;
+    width:150px;
+    display:inline-block;
+}
+
 .suspend {
     background-image:url('../../../../assets/images/suspend.svg');
     background-size:30px 30px;
@@ -45,7 +61,7 @@
     text-transform:uppercase;
     font-size:.75em;
     font-weight:600;
-    border-bottom:1px solid #555555;
+
     height:80px;
     user-select: none;
     cursor: pointer;
@@ -71,7 +87,7 @@
     background-repeat: no-repeat;
     text-transform:uppercase;
     font-size:.75em;
-    border-bottom:1px solid #555555;
+
     height:80px;
     user-select: none;
     cursor: pointer;
@@ -81,16 +97,16 @@
     display:inline-flex;
     flex-grow:2;
     border:1px solid white;
-    border-bottom:1px solid #555555;
+
 }
 
 .thumbnailAdmin:hover {
     background-color:white;
-    border-bottom:1px solid #333333;
+ 
 }
 
 .thumbnailAdmin:active {
-    border-bottom:2px solid black;
+ 
     outline:none;
 }
 
@@ -217,7 +233,7 @@
 
 .list tr {
     background-color:#ffffff;
-    border-bottom:1px solid #888888;
+
 }
 
 .list td {
@@ -292,7 +308,7 @@ table {
     text-transform:uppercase;
     font-size:.75em;
     font-weight:600;
-    border-bottom:1px solid #555555;
+   
     height:80px;
     user-select: none;
     cursor: pointer;
@@ -311,9 +327,10 @@ table {
     text-transform:uppercase;
     font-size:.75em;
     font-weight:600;
-    border-bottom:1px solid #555555;
+    
     height:80px;
     user-select: none;
     cursor: pointer;
     color:#888888;
 }
+

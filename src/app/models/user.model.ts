@@ -23,6 +23,8 @@ export class User {
         public favoritecolor: string,
         public avatar_filename: string,
         public avatar_URL: string,
+        public created_date: string,
+        public verified_date: string,
         public completed_classes: string[],
         public completed_series: string[],
 

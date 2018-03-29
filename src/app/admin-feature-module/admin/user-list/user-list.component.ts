@@ -37,7 +37,7 @@ export class UserListComponent implements OnInit {
       this.createThumbnail( user) );
     this.sortedThumbnails = this.thumbnails;
 
-    this.sortParams = ['', 'username', 'lastname', 'email', 'signup_date'];
+    this.sortParams = ['', 'username', 'firstname', 'lastname', 'email', 'created_date'];
     // this.userForm = this.fb.group({
     //   suspend: '',
     // });
@@ -76,15 +76,16 @@ export class UserListComponent implements OnInit {
 
  createThumbnail(user) {
   const thumbnailObj = { user: user, user_id: user.id, online: false,
-      size: 40,  showUsername: false, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
+      size: 50,  showUsername: false, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
   return thumbnailObj;
 }
 
 thumbnailSort(criteria: string) {
+  console.log('sorting thumbnails with criteria of: ' + criteria);
     const copy = this.thumbnails;
     copy.sort( function(a, b) {
-      const textA = a.user[criteria].toLocaleLowerCase();
-      const textB = b.user[criteria].toLocaleLowerCase();
+      const textA = a.user[criteria].toString().toLocaleLowerCase();
+      const textB = b.user[criteria].toString().toLocaleLowerCase();
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
     this.sortedThumbnails = copy;
@@ -94,8 +95,9 @@ thumbnailSort(criteria: string) {
   thumbnailSortReverse(criteria: string) {
     const copy = this.thumbnails;
     copy.sort( function(a, b) {
-      const textA = a.user[criteria].toLocaleLowerCase();
-      const textB = b.user[criteria].toLocaleLowerCase();
+      console.log('User A: ' + a.user[criteria]);
+      const textA = a.user[criteria].toString().toLocaleLowerCase();
+      const textB = b.user[criteria].toString().toLocaleLowerCase();
       return (textA > textB) ? -1 : (textA < textB) ? 1 : 0;
     });
     this.sortedThumbnails = copy;

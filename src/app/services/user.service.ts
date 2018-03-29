@@ -89,7 +89,7 @@ export class UserService implements OnInit {
      this.resetUrl = this.base_path + 'api/reset';
 
      this._avatar_image_url = this.globals.avatars;
-   //  this.socket = io(this.globals.basepath);
+     this.socket = io(this.globals.basepath);
   }
 
   ngOnInit() {
@@ -341,7 +341,7 @@ getUserFromMemoryById( queryID: string): User {
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
         this.socket.emit('userSettingsChanged', settingsObject);
-        return this._http.put(this._userSettingsUrl + '?id=' +
+        return this._http.put(this.globals.users + '?id=' +
             settingsObject.id, settingsObject, {headers: myHeaders, responseType: 'text'} ).do(
               data => { localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) ); },
               error => { console.log('error saving settings.'); }
