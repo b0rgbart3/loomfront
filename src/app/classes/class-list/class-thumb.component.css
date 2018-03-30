@@ -9,9 +9,7 @@
 }
 
 .classThumnailImage {
-    width:37%;
-    display:inline-block;
-    float:left;
+    width:100%;
     margin-right:10px;
     border-radius:8px;
     margin-top:10px;
@@ -69,6 +67,28 @@ p { margin-top:0;
     height:80px;
     margin-right:10px;
     display:inline-block;
+}
+
+.leftCol {
+    float:left;
+    display:inline-block;
+    width:37%;
+}
+.regButton {
+    display:inline-block;
+    padding:10px;
+    background-color:#cccccc;
+    border-radius:6px;
+    user-select: none;
+    cursor:pointer;
+}
+
+.regButton:hover {
+    background-color:#dddddd;
+}
+
+.regButton:active {
+    background-color:white;
 }
 
 @media (max-width: 640px) {

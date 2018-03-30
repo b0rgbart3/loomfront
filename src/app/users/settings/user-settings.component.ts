@@ -21,140 +21,174 @@ import {Location} from '@angular/common';
     styleUrls: ['user-settings.component.css']
 })
 
-export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChanges {
+export class UserSettingsComponent implements OnInit {
     user: User;
-    thisFile: File;
-    tempName: string;
-    favoritecolor: FormControl;
-    avatarInput: FormControl;
-    firstname: FormControl;
-    currentUserId;
-    avatarimage: string;
-    public avatarUploader: FileUploader;
+
+    public imageUploader: FileUploader;
     settingsForm: FormGroup;
     errorMessage: string;
-    url: string;
-    localImageUrl: string;
-    avatar: string;
+
+    image: string;
+    imageUrl: string;
     biolength: number;
+    thisFile: File;
     avatarChanged: boolean;
+    tempName: string;
+    localImageUrl: string;
+    maxFileSize: number;
+
+    public hasBaseDropZoneOver = false;
+    public hasAnotherDropZoneOver = false;
 
     constructor(
-        private _http: HttpClient,
         public userService: UserService,
         private router: Router,
-        private _flashMessagesService: FlashMessagesService,
         private activated_route: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private fb: FormBuilder,
         private globals: Globals,
         private _location: Location ) {}
 
+        // updateDisplay() {
+        //     console.log('Done uploading');
+        //     this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.image;
+        // }
+        private formatBytes(bytes, decimals?) {
+            if (bytes === 0) { return '0 Bytes'; }
+            const k = 1024,
+              dm = decimals || 2,
+              sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+              i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+              }
+
     myInit() {
-        const urlWithQuery = this.globals.postavatars + '?userid=' + this.user.id;
-        this.avatarUploader = new FileUploader({url: urlWithQuery});
-        if (this.user.facebookRegistration) {
-            this.localImageUrl = this.user.avatar_URL;
-        } else {
-             this.localImageUrl = this.globals.avatars + '/' +  this.user.id + '/' + this.user.avatar_filename;
 
-            if (this.user.avatar_filename === '' || this.user.avatar_filename === undefined) {
-                this.localImageUrl = this.globals.avatars + '/' + 'placeholder.png';
-            }
-        }
+        this.maxFileSize = 5 * 1024 * 1024;
+        console.log('This user id: ' + this.user.id);
+        const urlWithQuery = this.globals.postavatars + '?id=' + this.user.id;
+        console.log('after url query defined.');
+      //  this.imageUploader = new FileUploader({url: urlWithQuery});
 
-        this.avatarUploader.onAfterAddingFile = (fileItem) => {
-            const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
-                : (window as any).webkitURL.createObjectURL(fileItem._file);
-            // this.localImageUrl = url;
-            this.avatarUploader.queue[0].upload();
-         };
-         this.avatarUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+        // this.imageUploader = new FileUploader({
+        //     url: urlWithQuery,
+        //     disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
+        //     formatDataFunctionIsAsync: true,
+        //     formatDataFunction: async (item) => {
+        //       return new Promise( (resolve, reject) => {
+        //         resolve({
+        //           name: item._file.name,
+        //           length: item._file.size,
+        //           contentType: item._file.type,
+        //           date: new Date()
+        //         });
+        //       });
+        //     }
+        //   });
 
-            this.tempName = this.avatarUploader.queue[0].file.name;
-            // console.log('Done uploading' + JSON.stringify(this.tempName));
-            // console.log('USER: ' + JSON.stringify(this.user));
-            alert('Your image will be cropped to fit a square aspect ratio.');
-            this.localImageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.tempName;
+        this.imageUploader = new FileUploader({url: urlWithQuery,
+            maxFileSize: this.maxFileSize,
+            allowedMimeType: ['image/jpeg', 'image/png', 'image/jpg', 'image/gif' ]
+              },
+        );
 
-            this.avatarUploader.queue[0].remove();
-            this.positionCropper();
+        this.imageUploader.onAfterAddingFile = (fileItem) => {
+         //   const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
+           //     : (window as any).webkitURL.createObjectURL(fileItem._file);
+           // this.imageUrl = url;
+           // console.log('In build form: onAfterAddingFile: url =' + url);
+           this.imageUploader.queue[0].upload();
+
         };
+        this.imageUploader.onWhenAddingFileFailed = (item, filter) => {
+            let message = '';
+            switch (filter.name) {
+              case 'queueLimit':
+                message = 'Queue Limit surpassed';
+                break;
+              case 'fileSize':
+                message = 'The file: ' + item.name + ' is ' +
+                 this.formatBytes(item.size) +
+                 ', which exceeds the maximum filesize of:  ' +
+                  this.formatBytes(this.maxFileSize) + '. Please resize this image or choose a different file';
+                break;
+              case 'mimeType':
+                message = 'Your avatar image needs to be a Jpeg, Jpg, PNG or Gif file-type.';
+                break;
+              default:
+                message = 'Error uploading the image';
+                break;
+            }
+
+            alert(message);
+
+          };
+
+        this.imageUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            console.log('item complete.');
+            this.avatarChanged = true;
+          //  this.imageUrl = null;
+                        this.tempName = this.imageUploader.queue[0].file.name;
+                         this.image = this.tempName;
+                         this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' +
+                          this.image;
+                         this.imageUploader.queue[0].remove();
+                       //  this.updateDisplay();
+                     };
+
 
                //  Here I am using the formBuilder to build my form controls
                this.settingsForm = this.fb.group( {
                 favoritecolor: [''],
-                avatar: '',
+                imageUploader: '',
                 username: [ this.user.username, [Validators.required, Validators.minLength(3)] ],
                 firstname: [ this.user.firstname, [Validators.required, Validators.minLength(3)] ],
                 lastname: [ this.user.lastname, [Validators.required, Validators.minLength(3)] ],
                 email: [this.user.email, [ Validators.required,
-                Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')] ],
+                    Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')] ],
                 bio: [ this.user.bio, [Validators.maxLength(400)]]
             });
             this.biolength = 0;
             if (this.user.bio) {
             this.biolength = this.user.bio.length; }
-            this.settingsForm.get('bio').valueChanges.subscribe( value => { this.biolength = value.length;
-                console.log('The bio changed: ' + value); });
-           // console.log('USER: ' + JSON.stringify(this.user));
-
+            this.settingsForm.get('bio').valueChanges.subscribe( value => { if (value) {this.biolength = value.length;
+                console.log('The bio changed: ' + value); } });
     }
 
     ngOnInit () {
 
-        this.avatarChanged = false;
         const idFromURL = this.activated_route.snapshot.params['id'];
-        console.log('In user settings, ID = ' + idFromURL);
+ 
         if (idFromURL) {
             this.user = this.userService.getUserFromMemoryById(idFromURL);
 
             if (this.user) {
-            this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
-
-            console.log('User: ' + JSON.stringify(this.user));
-                this.myInit();
+                this.image = this.user.avatar_filename;
+                if (this.image) {
+                    console.log('including an image with this avatar');
+                  this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.image;
+                } else { this.imageUrl = null; }
+            }
         }
 
-            // this.userService.getUser(idFromURL).subscribe(
-            //     user =>  {this.user = user[0];
-            //         this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
-            //         console.log('Got user and avatar: ' + JSON.stringify(this.user) + ', ' + this.avatar);
-            //         this.myInit();
-            //     },
-            //     error => this.errorMessage = <any>error);
-        } else {
-            this.user = this.userService.getCurrentUser();
-            this.avatar = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
-            this.myInit();
-        }
-
-
+        this.myInit();
     }
 
 
-    avatarChange(event) {
-        this.avatarChanged = true;
-        const fileList: FileList = event.target.files;
-        if ( fileList.length > 0) {
-            const file: File = fileList[0];
-            this.thisFile = file;
+    // imageChange(event) {
+    //     const fileList: FileList = event.target.files;
+    //     if ( fileList.length > 0) {
+    //         const file: File = fileList[0];
+    //         console.log('Got a file: ' + file.name);
+    //         this.thisFile = file;
+    //         this.user.avatar_filename = file.name;
+    //         this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + file.name;
 
-        }
-    }
+    //     }
+    // }
 
-    positionCropper() {
 
-    }
     populateForm(): void {
-
-    }
-
-    ngAfterViewChecked() {
-
-    }
-
-    ngOnChanges() {
 
     }
 
@@ -170,6 +204,8 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
         console.log('settingsForm.value: ' + JSON.stringify( this.settingsForm.value) );
         const settingsObject = Object.assign( {}, this.user, this.settingsForm.value);
 
+        settingsObject.avatar_filename = this.thisFile;
+        settingsObject.avatar_URL = this.imageUrl;
         // If the logged in user is the same as the user being edit - then let's update the model
         // so that the loggged in user model has the new info
         if ( this.userService.getCurrentUser().id === this.user.id) {
@@ -204,9 +240,13 @@ export class UserSettingsComponent implements OnInit, AfterViewChecked, OnChange
               () => {
                 console.log('The POST observable is now completed.');
                 // this.userService.currentUser = settingsObject;
-                this.router.navigate(['/welcome']);
+                // Now that we are done saving the changes - we can reset the form so that the Guard doesn't think it's still fresh
+                this.settingsForm.reset();
+                this.avatarChanged = false;
+                this.router.navigate(['/']);
               }
         );
+
 
 
     }

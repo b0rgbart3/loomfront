@@ -24,7 +24,7 @@ export class MaterialEditComponent implements OnInit {
     id: string;
     errorMessage: string;
     thisFile: File;
-    public imageUploader: FileUploader;
+    imageUploader: FileUploader;
     public fileUploader: FileUploader;
     localImageUrl: string;
     tempName: string;
@@ -107,6 +107,7 @@ export class MaterialEditComponent implements OnInit {
     buildForm() {
         const urlWithQuery = this.globals.postmaterialimages + '?id=' + this.id;
         this.imageUploader = new FileUploader({url: urlWithQuery});
+        
         this.imageUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
@@ -120,7 +121,8 @@ export class MaterialEditComponent implements OnInit {
                         this.tempName = this.imageUploader.queue[0].file.name;
                      //    console.log('Response from the server: ' + this.tempName);
                          this.image = this.tempName;
-                         this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
+                         this.imageUrl = this.globals.materialimages + '/' +
+                          this.material.id + '/' + this.image;
                       //   console.log('Image url: ' + this.imageUrl);
                          this.imageUploader.queue[0].remove();
                      };

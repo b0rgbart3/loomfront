@@ -1,7 +1,8 @@
-﻿
+﻿<nav-bar></nav-bar>
 <div class='loomContainer'>
         <flash-messages></flash-messages>
 
+        <div class='redirectMsg' *ngIf='redirect'>{{ redirectMsg }}</div>
  <div class='loginStuff' *ngIf='!currentUser'>   <br>   
                 <p>New to the Loom? <a [routerLink]="['/signup']">&nbsp; &#10148;&nbsp;Sign up today!</a></p>
                        

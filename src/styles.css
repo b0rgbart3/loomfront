@@ -537,10 +537,10 @@ color:white;
 
 .upload-btn {
   position: absolute;
-  top:-60px;
+  top:-40px;
   left: 0;
-  width:220px;
-  height:95px;
+  width:230px;
+  height:115px;
   outline: none;
   cursor: pointer;
   user-select: none;

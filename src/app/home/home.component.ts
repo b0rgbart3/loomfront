@@ -9,6 +9,8 @@ import { Globals } from '../globals';
 import { CourseService } from '../services/course.service';
 import { Enrollment } from '../models/enrollment.model';
 import { Assignment } from '../models/assignment.model';
+import { LoomNotificationsService } from '../services/loom.notifications.service';
+import { LoomNotification } from '../models/loom.notification.model';
 
 
 @Component({
@@ -38,7 +40,8 @@ export class HomeComponent implements OnInit {
         private _router: Router,
         private globals: Globals,
         private courseService: CourseService,
-        private activated_route: ActivatedRoute ) {
+        private activated_route: ActivatedRoute,
+        private _notes: LoomNotificationsService ) {
     }
 
     ngOnInit() {
@@ -97,6 +100,12 @@ export class HomeComponent implements OnInit {
 
         }
 
+        if (!this.showTeaching && !this.showTaking) {
+            this._router.navigate(['/']);
+            const thisNotification = new LoomNotification('success',
+            ['You are not yet registered for classes'], 3000);
+            this._notes.add( thisNotification );
+        }
     }
 
 

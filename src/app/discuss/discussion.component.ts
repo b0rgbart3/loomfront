@@ -9,8 +9,8 @@ import { Thread } from '../models/thread.model';
 import { DiscussionService } from '../services/discussion.service';
 import { Section } from '../models/section.model';
 // import { ChatService } from '../chat/chat.service';
-import { NotificationsService } from '../services/notifications.service';
-import { Notification } from '../models/notifications.model';
+import { LoomNotificationsService } from '../services/loom.notifications.service';
+import { LoomNotification } from '../models/loom.notification.model';
 import { DiscussionSettings } from '../models/discussionsettings.model';
 
 
@@ -57,7 +57,7 @@ export class DiscussionComponent implements OnInit, OnChanges {
     private userService: UserService,
     private fb: FormBuilder,
     private ds: DiscussionService,
-    private notes: NotificationsService,
+    private notes: LoomNotificationsService,
  ) {}
 
   ngOnInit() {

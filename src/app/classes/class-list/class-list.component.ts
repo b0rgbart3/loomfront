@@ -17,6 +17,7 @@ export class ClassListComponent implements OnInit {
   admin: boolean;
 
 @Input() classes: ClassModel[];
+@Input() showRegButtons: boolean;
 
   constructor(private classService: ClassService) { }
 
@@ -37,7 +38,7 @@ export class ClassListComponent implements OnInit {
   createNewClass() {
     const classObject: ClassModel = {
       id: '0', title: '', course: '', start: '', end: '',
-       courseObject: null, courseImageURL: ''
+       courseObject: null, courseImageURL: '', cost: '', costBlurb: ''
     };
 
     // By default, a newly-created course will have the selected state.

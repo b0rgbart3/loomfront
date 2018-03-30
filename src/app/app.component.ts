@@ -1,8 +1,9 @@
 import { Component, Output, OnInit, Input } from '@angular/core';
 import {Http} from '@angular/http';
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
 import { User } from './models/user.model';
 import { UserService } from './services/user.service';
+
 
 
 @Component({
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   errorMessage: string;
   dataConnection: boolean;
 
-  constructor( private userService: UserService ) {
+  constructor( private userService: UserService, private router: Router ) {
 
   }
   ngOnInit() {
@@ -38,7 +39,16 @@ export class AppComponent implements OnInit {
           }
       },
         error => { this.errorMessage = <any>error; this.dataConnection = false; });
+
+
+      //   this.router.events.subscribe((evt) => {
+      //     if (!(evt instanceof NavigationEvent)) {
+      //         return;
+      //     }
+      //     window.scrollTo(0, 0);
+      // });
   }
+
 
 }
 

@@ -11,8 +11,8 @@ import { FacebookService, InitParams, LoginResponse, LoginStatus } from 'ngx-fac
 import { BoardSettings } from '../../models/boardsettings.model';
 import { Globals } from '../../globals';
 import { AbstractClassPart } from '@angular/compiler/src/output/output_ast';
-import { NotificationsService } from '../../services/notifications.service';
-import { Notification } from '../../models/notifications.model';
+import { LoomNotificationsService } from '../../services/loom.notifications.service';
+import { LoomNotification } from '../../models/loom.notification.model';
 
 // These are my custom validation methods for the signup form
 function uniqueUsername( users: User[]): ValidatorFn {
@@ -95,7 +95,7 @@ export class SignupComponent implements OnInit {
       private formBuilder: FormBuilder,
       private FB: FacebookService,
       private globals: Globals,
-      private _notes: NotificationsService ) {
+      private _notes: LoomNotificationsService ) {
       }
 
      private validationMessages = {
@@ -348,8 +348,8 @@ export class SignupComponent implements OnInit {
           // ' Now, please check your email, and use the verification code to verify your account. Thank you.',
           //   { cssClass: 'alert-success', timeout: 18000 });
           // }
-          this._notes.add(new Notification('success', ['Welcome to the ReclaimingLoom, ' +
-          this.regFormGroup.get('username').value + '!', 
+          this._notes.add(new LoomNotification('success', ['Welcome to the ReclaimingLoom, ' +
+          this.regFormGroup.get('username').value + '!',
           'Now you can login using the credentials you just created.'], 10000));
             // this.router.navigate(['/welcome']);
            },

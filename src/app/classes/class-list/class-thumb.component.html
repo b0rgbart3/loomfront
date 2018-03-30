@@ -1,5 +1,8 @@
 <div class='classAd group'>
-    <img [src]='courseimageURL' class='classThumnailImage' *ngIf='courseimageURL'>
+    <div class='leftCol group'>
+        <img [src]='courseimageURL' class='classThumnailImage' *ngIf='courseimageURL'><br clear='all'>
+        <div class='regButton' (click)='register()' *ngIf='showRegButtons'>Register for this class</div>
+    </div>
     <div class='classDescription'>
     <h1>{{classObject.title}}</h1>
     <div class='classDate'>{{classObject.start | date : 'MMMM dd,' }} -
@@ -10,7 +13,7 @@
      <h2>Taught by:</h2>
      <div *ngIf='instructors && instructorThumbnails'>
      <div class='instructorIcon' *ngFor='let instructor of instructorThumbnails'  (click)='showBio(instructor.user)'>
-         <user-thumb [thumbnail]='instructor'></user-thumb>
+         <user-thumb [thumbnail]='instructor' *ngIf='instructor'></user-thumb>
      </div>
     </div>
     </div>

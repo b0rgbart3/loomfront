@@ -3,8 +3,8 @@ import { User } from '../../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { NotificationsService } from '../../services/notifications.service';
-import { Notification } from '../../models/notifications.model';
+import { LoomNotificationsService } from '../../services/loom.notifications.service';
+import { LoomNotification } from '../../models/loom.notification.model';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class RequestresetComponent {
         private userService: UserService,
         private _flashMessagesService: FlashMessagesService,
         private _router: Router,
-        private _notes: NotificationsService
+        private _notes: LoomNotificationsService
          ) { }
 
 
@@ -35,7 +35,7 @@ export class RequestresetComponent {
         () => {
             console.log('Finished the sendResetRequest...');
             this._notes.add(
-                new Notification('success', ['Please check your email for a message from the loom' +
+                new LoomNotification('success', ['Please check your email for a message from the loom' +
                 '-- and then follow the link inside that email to reset your password.  Thank you..',
             'Please note: it may take a few minutes for the email to arrive in your inbox.'], 15000));
             this._router.navigate(['/welcome']);

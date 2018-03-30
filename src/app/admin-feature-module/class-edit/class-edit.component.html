@@ -8,7 +8,7 @@
         <h1>Class Info:</h1>
         <mat-form-field>
         <input matInput  formControlName='title' placeholder="Title" 
-        name="title" required minlength="3" maxlength="50">
+        name="title">
         </mat-form-field>
 
         <mat-form-field>
@@ -43,7 +43,22 @@
             <mat-datepicker #endDate ></mat-datepicker>
             </mat-form-field>
         </div> 
-        <br clear='all'>
+        <br clear='all'><br>
+
+
+        
+        <h2>Cost Info:</h2>
+        <mat-form-field>
+        <input matInput  formControlName='cost' placeholder="Cost"  name="title">
+        </mat-form-field>
+        <br clear='all'><br>
+
+
+        <mat-form-field>
+                <textarea id="costBlurb" matInput placeholder="Say something about the cost and how to pay for this class" 
+                formControlName="costBlurb" rows="5" class='costBlurb'></textarea>
+                </mat-form-field>
+            <br>
         <!-- <br><h1>Instructors</h1> -->
 
         <!-- These are the list of possible instructors -->

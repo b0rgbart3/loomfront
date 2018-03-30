@@ -12,8 +12,8 @@ import { ClassModel } from '../models/class.model';
 import { Thread } from '../models/thread.model';
 import { Globals } from '../globals';
 import { User } from '../models/user.model';
-import { NotificationsService } from '../services/notifications.service';
-import { Notification } from '../models/notifications.model';
+import { LoomNotificationsService } from '../services/loom.notifications.service';
+import { LoomNotification } from '../models/loom.notification.model';
 import { DiscussionSettings } from '../models/discussionsettings.model';
 import { HttpParamsOptions } from '@angular/common/http/src/params';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -48,7 +48,7 @@ export class DiscussionService implements OnInit, OnChanges {
     headerOptions: {};
 
     constructor (private _http: HttpClient,
-      private notes: NotificationsService,
+      private loomNotificationService: LoomNotificationsService,
       private globals: Globals) {
       this.threadAdded = new EventEmitter();
       this.threadDeleted = new EventEmitter();
@@ -321,7 +321,7 @@ export class DiscussionService implements OnInit, OnChanges {
   // }
   sendNotice(data) {
   //  console.log('In Discussion service, about to send notice.');
-      this.notes.add( new Notification( data.type, data.message, data.delay ) );
+      this.loomNotificationService.add( new LoomNotification( data.type, data.message, data.delay ) );
 
     }
 

@@ -34,8 +34,8 @@ import { DiscussionComponent } from './discuss/discussion.component';
 import { DiscussionService } from './services/discussion.service';
 import { ThreadComponent } from './discuss/thread.component';
 import { InfobotComponent } from './infobot/infobot.component';
-import { NotificationsService } from './services/notifications.service';
-import { NotificationsComponent } from './shared/notifications.component';
+import { LoomNotificationsService } from './services/loom.notifications.service';
+import { LoomNotificationsComponent } from './shared/loom.notifications.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 import { SectionResolver } from './resolvers/section-resolver.service';
 import { Globals } from './globals';
@@ -85,6 +85,8 @@ import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-setting
 import { PermissionComponent } from './users/permission.component';
 import { DragulaModule } from 'ng2-dragula';
 import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service';
+import { RegisterComponent } from './users/register/register.component';
+import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
 
 @NgModule({
   // External
@@ -121,7 +123,8 @@ import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service
     DiscussionComponent,
     ThreadComponent,
     InfobotComponent,
-    NotificationsComponent,
+    LoomNotificationsComponent,
+    RegisterComponent,
 
  //   BooksComponent,
 
@@ -148,7 +151,7 @@ import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service
     LoomsFacebookService,
     MaterialService,
     MaterialsResolver,
-    NotificationsService,
+    LoomNotificationsService,
     PossibleInstructorsResolver,
     SectionResolver,
     UserResolver,
@@ -173,6 +176,7 @@ import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service
     MessageService,
     MessagesResolver,
     AllMaterialsResolver
+    UserSettingsGuard
 
    ],
   bootstrap: [ AppComponent ]

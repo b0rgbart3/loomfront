@@ -1,13 +1,12 @@
 
-
+<nav-bar></nav-bar>
     <div class="loomContainer group">
         <div class='settingsForm' *ngIf="settingsForm">
-        <form [formGroup]="settingsForm" novalidate
-         enctype="multipart/form-data" class='loomForm'>
+        <form [formGroup]="settingsForm" novalidate enctype="multipart/form-data" class='loomForm'>
         
             <div class="loomCard"> 
                                 
-            <flash-messages></flash-messages>
+            <!-- <flash-messages></flash-messages> -->
             <div class='closer'
             (click)="cancel()"></div>
 
@@ -41,17 +40,43 @@
 
                    <!-- <br><img [src]="user.avatar_URL" width='200' height='200' *ngIf="user && user.avatar_URL"><br>
                    <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br> -->
-                   <img [src]="localImageUrl" class="avatar">
+                   <!-- <img [src]="imageUrl" class="avatar" *ngIf='imageUrl'> -->
                    
-                     <div class="upload-wrap" *ngIf="!user.facebookRegistration">
-                        Upload New Avatar Image
-
-         
-                        <input type="file" class="upload-btn"  name="avatar"  
-                        ng2FileSelect [uploader]="avatarUploader" formControlName="avatar"
-                        (change)="avatarChange($event)" id="avatar">
+                   <div *ngIf='image'>
+                        <p>Showing an image</p>
+                    <img [src]="imageUrl" width='200' height='200'><br>
                     </div>
+                   <!-- <div class='progress-bar'></div> -->
+                   <!-- <div *ngIf='imageUploader.queue[0]'>
+                   <div class="progress-bar" role="progressbar" 
+                        [ngStyle]="{ 'width': imageUploader.queue[0].progress + '%' }"></div>
+                    </div> -->
+
+                    <div *ngIf="!user.facebookRegistration">
+                        <div class="upload-wrap">
+                            Upload New Avatar Image
+
+                            <input type="file" ng2FileSelect [uploader]="imageUploader" class="upload-btn" />
+                            <!-- <input type="file" class="upload-btn"  name="image"  
+                            ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
+                            (change)="imageChange($event)" id="image">
                         
+                            -->
+                            
+                            
+                            <!-- <input type="file" class="upload-btn"  name="avatar"  
+                            ng2FileSelect [uploader]="avatarUploader" formControlName="avatar"
+                            (change)="avatarChange($event)" id="avatar"> -->
+
+            
+                        </div>
+                        <div *ngIf='imageUploader.queue[0]'>
+                            Queue progress:
+                            <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': imageUploader.progress + '%' }"></div>
+                            </div>
+                        </div>  
+                    </div>
             </div> 
     
 
@@ -59,6 +84,10 @@
             </div>
 
 
+            
+
+
+                 
        <br>
             <div class='loomButton loomSubmit' 
             (click)='submitSettings()'>Submit changes</div>
@@ -73,8 +102,8 @@
 </div>
 
 <div class='debug'>
-        Form Dirty: {{ settingsForm.dirty }}<br>
+        <!-- Form Dirty: {{ settingsForm.dirty }}<br>
         Form Touched: {{ settingsForm.touched }}<br>
-        Form valid: {{ settingsForm.valid }}<br>
+        Form valid: {{ settingsForm.valid }}<br> -->
 
      </div>

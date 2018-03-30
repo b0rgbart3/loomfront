@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Output } from '@angular/core';
+﻿import { Component, OnInit, Output, AfterViewInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { LoginResponse, FacebookService, InitParams } from 'ngx-facebook';
 import { AlertService } from '../services/alert.service';
 import { Globals } from '../globals';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotificationsService } from '../services/notifications.service';
+import { LoomNotificationsService } from '../services/loom.notifications.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { NotificationsService } from '../services/notifications.service';
     styleUrls: ['login.component.css']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
     model = <User> {};
     loading = false;
@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
     users: User [];
     errorMessage: string;
     loginForm: FormGroup;
+    redirect: boolean;
+    redirectMsg: string;
 
     constructor(
         private alertService: AlertService,
@@ -43,11 +45,15 @@ export class LoginComponent implements OnInit {
         private FB: FacebookService,
         private globals: Globals,
         private formBuilder: FormBuilder,
-        private notes: NotificationsService
+        private notes: LoomNotificationsService
          ) { }
 
     ngOnInit() {
 
+      if (this.userService.redirectUrl && this.userService.redirectMsg) {
+        this.redirect = true;
+        this.redirectMsg = this.userService.redirectMsg;
+      }
       this.userService.getUsers().subscribe(
         users =>  {this.users = users;
         },
@@ -62,6 +68,10 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required ] });
 
   }
+
+  ngAfterViewInit() {
+    window.scrollTo(0, 0);
+ }
 
   keyDownFunction(event) {
     if (event.keyCode === 13) {
@@ -96,7 +106,13 @@ export class LoginComponent implements OnInit {
                         // this._flashMessagesService.show(this.error,
                         //   { cssClass: 'alert-warning', timeout: 7000 });
                       } else {
-                        this._router.navigate(['/home']);
+                        if (this.userService.redirectUrl) {
+                          const wantedURL = this.userService.redirectUrl;
+                         // this.userService.redirectUrl = ''; // clear it out
+                        //  this.userService.redirectMsg = '';
+                          this._router.navigateByUrl(this.userService.redirectUrl);
+                        } else {
+                        this._router.navigate(['/home']); }
                         console.log('AUTHENTICATED! - : ' + JSON.stringify(logger) );
                       }
                     }

@@ -1,0 +1,406 @@
+
+.registerBox {
+    background-color:#37414d;
+   padding:0;
+   overflow: hidden;
+    margin-top:40px;
+    position: relative;
+}
+
+
+.classDate {
+    font-weight: 300;
+    font-size:1.3em;
+    color: #ffffff;
+    margin-bottom:12px;
+    line-height: 1.5em;
+}
+
+
+
+input.register {
+    height:50px;
+    box-sizing:border-box;
+    font-family: 'Roboto';
+    font-size:2.7em;
+    color:#a7b1bd;
+    font-weight: 300;
+    border-radius:4px;
+    background-color:rgba(255,255,255,0);
+    outline:none;
+    border:0;
+    border-bottom:1px solid rgba(167, 177, 189,.25);
+    border-radius: 0;
+    margin-left:10px;
+    padding-top:20px;
+    padding-bottom:14px;
+    display:block;
+    box-sizing: border-box;
+    margin-left:140px;
+    transition:all .5s;
+}
+
+label {
+    padding-top:20px;
+    box-sizing:border-box;
+    font-family: 'Roboto';
+    font-size:1em;
+    text-align: right;
+    display:inline-block;
+    float:left;
+    min-width:120px;
+    margin-right:0px;
+    text-transform: uppercase;
+    color: rgba(194, 200, 206, 0.7);
+}
+
+#email {
+    font-size:1.9em;
+}
+
+input.register:focus {
+    border-bottom:2px solid white;
+}
+
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #34414e inset;
+    border-bottom:2px solid rgba(200,200,200,1);
+    color:#a7b1bd;
+    -webkit-text-fill-color: #a7b1bd;
+    border-bottom:1px solid rgba(167, 177, 189,.25);
+}
+
+
+.hint {
+color:rgb(141, 156, 158);
+font-family: 'Roboto'; 
+margin-top:12px;
+margin-left:200px;
+opacity:.8;
+font-style:italic;   
+}
+
+.validation-error {
+    color:#ffdf88;
+    margin-left:200px;
+    font-weight: normal;
+    font-size:.9em;
+    padding-top:4px;
+    max-width:680px;
+    line-height:1.6em;
+}
+
+.branding {
+    display:inline-block;
+    width:30%;
+    background-color:#3f4b58;
+    float:left;
+    vertical-align: top;
+    padding:20px;
+    margin:0;
+    box-sizing: border-box;
+    min-width:260px;
+    padding-bottom:320px;
+}
+
+ h1 {
+    font-family: 'Roboto';
+    font-weight:300;
+    color:white;
+    padding:0;
+    margin:0;
+    margin-top:50px;
+    margin-bottom:12px;
+    font-size:2.3em;
+}
+h2 {
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    font-weight:500;
+    color:white;
+    padding:0;
+    margin:0;
+    font-size:1.2em;
+    margin-bottom:38px;
+}
+
+.paymentBlurb {
+    width: 98%;
+    max-width:640px;
+    line-height:2em;
+    margin-top:40px;
+}
+
+.costContainer {
+    border:2px solid rgba(0,0,0,0);
+    margin-top:30px;
+    padding:0;
+    margin-left:0;
+}
+.costLabel {
+    background-color:rgba(220, 227, 235, .61);;
+    padding:10px;
+    border-radius:7px 0 0 7px;
+    display:inline-block;
+    float:left;
+    user-select: none;
+    font-weight:500;
+    text-transform:capitalize;
+    font-size:1.1em;
+    vertical-align: top;
+    height:45px;
+    box-sizing:border-box;
+    padding-top:14px;
+    margin-left:0;
+    padding-right:4px;
+}
+
+.cost {
+    border:2px solid rgba(194, 200, 206, 0);
+    display:inline-block;
+    float:left;
+    vertical-align: top;
+    padding:4px;
+    font-weight:300;
+    font-size:1.6em;
+    color:white;
+    height:45px;
+    box-sizing:border-box;
+    padding-left:10px;
+    background-color:rgba(194, 200, 206, 0.7);
+    background-color:rgba(0, 0, 0, .25);
+    border-radius:0 7px 7px 0;
+    padding-top:6px;
+}
+.formContainer {
+    padding-left:40px;
+    float:left;
+    display:inline-block;
+    vertical-align: top;
+    margin:0;
+    box-sizing: border-box;
+    width:64%;
+    padding-bottom:40px;
+}
+
+.branding h1 {
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    font-weight:500;
+    color:white;
+    padding:0;
+    margin:0;
+    font-size:1.4em;
+    margin-bottom:38px;
+}
+
+.classThumnailImage {
+    width:100%;
+    margin-right:10px;
+    border-radius:8px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.paymentBlurb {
+    font-family:Roboto;
+    font-size:1em;
+    color: rgba(194, 200, 206, 0.7);
+}
+
+.currency {
+    font-weight: 200;
+    color:rgba(194, 200, 206, 0.7);
+    font-size:.8em;
+}
+
+.payPalButton {
+    background-color:rgba(79, 127, 175, 0.7);
+    color:white;
+    font-size:1.8em;
+    padding:20px;
+    display:inline-block;
+    float:left;
+    margin-right:20px;
+    border-radius:5px;
+    transition: all .5s;
+    user-select: none;
+    cursor: pointer;
+}
+
+.payPalButton:hover {
+    background-color:rgba(81, 140, 199, 1);
+    box-shadow:2px 2px 4px rgba(42, 81, 119, 0.7);
+}
+
+.payPalButton:active {
+    background-color:rgb(91, 162, 233);
+    box-shadow:0px 0px 6px rgb(9, 18, 27);
+    position: relative;
+    top:1px;
+    left:1px;
+}
+
+.venmoButton {
+    background-color:rgba(28, 81, 134, 0.7);
+    color:white;
+    font-size:1.8em;
+    padding:20px;
+    display:inline-block;
+    float:left;
+    margin-right:20px;
+    border-radius:5px;
+    transition: all .5s;
+    user-select: none;
+    cursor: pointer;
+}
+
+.venmoButton:hover {
+    background-color:rgba(30, 90, 150, 1);
+    box-shadow:2px 2px 4px rgba(42, 81, 119, 0.7);
+}
+
+.venmoButton:active {
+    background-color:rgb(5, 101, 197);
+    box-shadow:0px 0px 6px rgb(9, 18, 27);
+    position: relative;
+    top:1px;
+    left:1px;
+}
+
+.paybyCheck {
+    color:white;
+    font-size:1.5em;
+    font-weight:200;
+    display:inline-block;
+    float:left;
+    padding-top:20px;
+}
+.paymentOptions {
+    text-transform:uppercase;
+    font-size:1.2em;
+    font-weight:500;
+}
+
+.registerSubmit {
+    background-color:rgba(28, 81, 134, 1);
+    padding:30px;
+    color:white;
+    width:119%;
+    text-transform:uppercase;
+    font-size:1.5em;
+    position: relative;
+    left:-40px;
+    margin-top:40px;
+    text-align:center;
+    margin-bottom:0;
+    box-sizing: border-box;
+    transition:all .5s;
+    user-select:none;
+    cursor: pointer;
+    font-family:'Roboto';
+    font-weight: 400;
+    letter-spacing:.01em;
+    position: absolute;
+    bottom:0;
+}
+
+.registerSubmit:hover {
+    background-color:rgba(30, 90, 150, 1);
+}
+
+.registerSubmit:active {
+    background-color:rgb(5, 101, 197);
+}
+form {
+    padding-bottom:0;
+    margin-bottom:0;
+}
+
+.existingInfo {
+    display:inline-block;
+    float:left;
+    color:rgb(213, 220, 228);
+    vertical-align: top;
+    padding-top:10px;
+    font-size:1.8em;
+    margin-left:20px;
+}
+
+
+@media (max-width: 920px) {
+   
+.branding {
+    width:100%;
+    display:block;
+    float:none;
+    border:4px solid #3f4b58;
+    padding-bottom:40px;
+    padding-left:30px;
+    padding-right:30px;
+}
+
+.branding h1 {
+    margin-top:14px;
+    font-size:2.2em;
+}
+
+.formContainer {
+    width:100%;
+    display:block;
+    float:none;
+    padding-bottom:100px;
+}
+
+.registerBox {
+
+}
+
+.registerSubmit {
+    width:106%;
+    position: relative;
+}
+}
+
+@media(max-width: 700px) {
+    label {
+        padding-top:20px;
+        box-sizing:border-box;
+        font-family: 'Roboto';
+        font-size:1em;
+        text-align: right;
+        display:block;
+        float:none;
+        min-width:120px;
+        margin-right:0px;
+        text-transform: uppercase;
+        color: rgba(194, 200, 206, 0.7);
+        text-align:left;
+    }
+
+    input.register {
+        height:50px;
+        box-sizing:border-box;
+        font-family: 'Roboto';
+        font-size:2.7em;
+        color:#a7b1bd;
+        font-weight: 300;
+        border-radius:4px;
+        background-color:rgba(255,255,255,0);
+        outline:none;
+        border:0;
+        border-bottom:1px solid rgba(167, 177, 189,.25);
+        border-radius: 0;
+        margin-left:10px;
+        padding-top:20px;
+        padding-bottom:14px;
+        display:block;
+        box-sizing: border-box;
+        margin-left:10px;
+        transition:all .5s;
+        width:89%;
+    }
+
+
+}

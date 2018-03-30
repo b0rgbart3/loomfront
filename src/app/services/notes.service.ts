@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import * as io from 'socket.io-client';
-import { NotificationsService } from './notifications.service';
+import { LoomNotificationsService } from './loom.notifications.service';
 import { Globals } from '../globals';
 import { NotesSettings } from '../models/notessettings.model';
 
@@ -28,7 +28,6 @@ export class NotesService implements OnInit {
 
 
     constructor (private _http: HttpClient,
-      private notes: NotificationsService,
       private globals: Globals) {
 
     }

@@ -8,7 +8,6 @@ import { LoginResponse, FacebookService, InitParams } from 'ngx-facebook';
 import { AlertService } from '../services/alert.service';
 import { Globals } from '../globals';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotificationsService } from '../services/notifications.service';
 import { Subject } from 'rxjs/Subject';
 
 

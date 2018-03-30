@@ -12,8 +12,8 @@ import { ClassModel } from '../models/class.model';
 import { Thread } from '../models/thread.model';
 import { Globals } from '../globals';
 import { User } from '../models/user.model';
-import { NotificationsService } from '../services/notifications.service';
-import { Notification } from '../models/notifications.model';
+import { LoomNotificationsService } from '../services/loom.notifications.service';
+import { LoomNotification } from '../models/loom.notification.model';
 
 import { HttpParamsOptions } from '@angular/common/http/src/params';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
@@ -53,7 +53,7 @@ export class MessageService implements OnInit {
     }
 
     constructor (private _http: HttpClient,
-      private notes: NotificationsService,
+      private notes: LoomNotificationsService,
       private globals: Globals) {
         this.msgChanged = new EventEmitter();
         this.highestID = 0;

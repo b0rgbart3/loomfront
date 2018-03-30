@@ -1,8 +1,8 @@
 import { Component, OnInit, AnimationTransitionEvent } from '@angular/core';
 import { trigger, state, style, animate, transition
 } from '@angular/animations';
-import { NotificationsService } from '../services/notifications.service';
-import { Notification } from '../models/notifications.model';
+import { LoomNotificationsService } from '../services/loom.notifications.service';
+import { LoomNotification } from '../models/loom.notification.model';
 
 @Component({
     selector: 'notifications',
@@ -34,13 +34,13 @@ import { Notification } from '../models/notifications.model';
         ])
       ]
 })
-export class NotificationsComponent implements OnInit {
-    public _notes: Notification[];
+export class LoomNotificationsComponent implements OnInit {
+    public _notes: LoomNotification[];
     public state = 'first';
-    constructor(private _notifications: NotificationsService) {
-        this._notes = new Array<Notification>();
+    constructor(private _notifications: LoomNotificationsService) {
+        this._notes = new Array<LoomNotification>();
         _notifications.noteAdded.subscribe(note => {
-            this._notes.push(note);
+            this._notes.push( note );
             this.state = 'first';
             setTimeout(() => { this.state = 'active'; }, 10);
 

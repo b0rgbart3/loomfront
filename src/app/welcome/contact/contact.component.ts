@@ -6,8 +6,6 @@ import { UserService } from '../../services/user.service';
 import { NgForm, FormControl, FormBuilder,
     FormGroup, FormArray, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Reset } from '../../models/reset.model';
-import { NotificationsService } from '../../services/notifications.service';
-import { Notification } from '../../models/notifications.model';
 import { ContactService } from '../../services/contact.service';
 import { CFMessage } from '../../models/cfmessage.model';
 

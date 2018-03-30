@@ -1,14 +1,14 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Message } from '../models/message.model';
-import { NotificationsService } from './notifications.service';
-import { Notification } from '../models/notifications.model';
+
 import { Globals } from '../globals';
+import { LoomNotificationsService } from './loom.notifications.service';
 @Injectable()
 export class ChatSocketService implements OnInit {
   private socket: SocketIOClient.Socket; // The client instance of socket.io
 
-  constructor(private _notes: NotificationsService, private globals: Globals ) {
+  constructor(private _notes: LoomNotificationsService, private globals: Globals ) {
     // this.socket = io(globals.chat_server);
     // this.socket.connect('http://localhost:3101');
 

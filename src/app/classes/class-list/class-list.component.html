@@ -4,7 +4,7 @@
   <div class="list-group" *ngIf="classes">
     <div class="list-group-item"
       *ngFor="let classObject of classes">
-      <class-thumb [classObject]=classObject [showTeachers]=true></class-thumb>
+      <class-thumb [classObject]=classObject [showTeachers]=true [showRegButtons]='showRegButtons'></class-thumb>
       </div>
     </div>
 

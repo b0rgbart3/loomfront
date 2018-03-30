@@ -6,8 +6,8 @@ import { UserService } from '../../services/user.service';
 import { NgForm, FormControl, FormBuilder,
     FormGroup, FormArray, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Reset } from '../../models/reset.model';
-import { NotificationsService } from '../../services/notifications.service';
-import { Notification } from '../../models/notifications.model';
+import { LoomNotificationsService } from '../../services/loom.notifications.service';
+import { LoomNotification } from '../../models/loom.notification.model';
 
 @Component({
     moduleId: module.id,
@@ -30,7 +30,7 @@ export class ResetComponent implements OnInit {
         private _router: Router,
         private formBuilder: FormBuilder,
         private _activatedRoute: ActivatedRoute,
-        private _notes: NotificationsService
+        private _notes: LoomNotificationsService
          ) { }
 
 
@@ -58,7 +58,7 @@ export class ResetComponent implements OnInit {
          // This is Deborah Korata's way of merging our data model with the form model
         const combinedObject = Object.assign( {}, keyObject, this.resetForm.value);
 
-        console.log("The combined object: " + JSON.stringify(combinedObject) );
+        console.log('The combined object: ' + JSON.stringify(combinedObject) );
 
         this.userService
           .resetPassword( combinedObject ).subscribe(
@@ -68,7 +68,7 @@ export class ResetComponent implements OnInit {
           () => {
             console.log('The POST observable is now completed.');
             this._notes.add(
-                new Notification('success', ['Your password has now been reset.'], 10000));
+                new LoomNotification('success', ['Your password has now been reset.'], 10000));
             this._router.navigate(['/login']);
             }
           );

@@ -9,6 +9,7 @@ import { AssignmentsService } from '../../services/assignments.service';
 import { Assignment } from '../../models/assignment.model';
 import { UserService } from '../../services/user.service';
 import { Userthumbnail } from '../../models/userthumbnail.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'class-thumb',
@@ -21,6 +22,7 @@ export class ClassThumbComponent implements OnInit {
 
 @Input() classObject: ClassModel;
 @Input() showTeachers: boolean;
+@Input() showRegButtons: boolean;
 public classImageURL: string;
 public courseID: string;
 public course: Course;
@@ -33,8 +35,9 @@ instructorThumbnails: Userthumbnail[];
 showingBio: boolean;
 bioChosen: User;
 
-  constructor(private classService: ClassService, private courseService: CourseService, private globals: Globals,
-    private assignmentsService: AssignmentsService, private userService: UserService) { }
+  constructor(private classService: ClassService, private courseService: CourseService,
+     private globals: Globals, private assignmentsService: AssignmentsService,
+     private userService: UserService, private router: Router ) { }
 
   ngOnInit() {
     this.showingBio = false;
@@ -46,8 +49,12 @@ bioChosen: User;
         for (let i = 0; i < this.assignments.length; i++) {
           this.instructors.push(this.userService.getUserFromMemoryById(this.assignments[i].user_id) );
         }
-        this.instructorThumbnails = this.instructors.map( instructor => this.createInstructorThumbnail(instructor));
-       // console.log('# of instructors for this class: ' + this.instructorThumbnails.length);
+        console.log('instructors length' + this.instructors.length);
+        if (this.instructors.length > 0) {
+          this.instructorThumbnails = this.instructors.map( instructor =>
+             this.createInstructorThumbnail(instructor));
+        }
+        // console.log('# of instructors for this class: ' + this.instructorThumbnails.length);
       }
     );
     this.courseService.getCourse(this.courseID).subscribe(
@@ -59,6 +66,12 @@ bioChosen: User;
           error => this.errorMessage = <any>error);
 
   }
+  register() {
+    const gotoURL = '/register/' + this.classObject.id;
+    this.userService.redirectMsg = 'To register for a class on the Reclaiming Loom' +
+    ' you first need to login to your account.';
+    this.router.navigate( [gotoURL] );
+  }
 
   showBio(user) {
     if (!this.showingBio) {
@@ -69,9 +82,13 @@ closeBio(event) {
     this.showingBio = false;
 }
   createInstructorThumbnail(user) {
+    console.log('Making thumbnail for user: ' + JSON.stringify(user));
+    if (user) {
     const thumbnailObj = { user: user, user_id: user.id, online: false,
         size: 80,  showUsername: true, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
     return thumbnailObj;
+    }
+    return null;
 }
 
 }

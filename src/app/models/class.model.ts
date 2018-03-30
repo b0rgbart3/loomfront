@@ -9,10 +9,12 @@ export class ClassModel {
       public start: string,
       public end: string,
       public id: string,
+      public cost: string,
       // public instructors: Instructor[],
       // public students: Student[],
       public courseObject: Course,
-      public courseImageURL: string
+      public courseImageURL: string,
+      public costBlurb: string
 
   ) {}
 

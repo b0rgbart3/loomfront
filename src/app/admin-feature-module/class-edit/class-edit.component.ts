@@ -54,6 +54,8 @@ export class ClassEditComponent implements OnInit {
             course: ['', []],
             start: [new Date(), []],
             end: [new Date(), []],
+            cost: [''],
+            costBlurb: ['', []]
         });
 
         this.courseSelections = [];
@@ -120,8 +122,9 @@ export class ClassEditComponent implements OnInit {
 
         if (this.thisClass) {
             console.log('In Class edit component - about to patch Values to the form: ' + JSON.stringify(this.thisClass));
-        this.classForm.patchValue({'title': this.thisClass.title,
-            'course' : this.thisClass.course, 'start' : new Date(this.thisClass.start), 'end' : new Date(this.thisClass.end) });
+            this.classForm.patchValue({'title': this.thisClass.title,
+            'course' : this.thisClass.course, 'start' : new Date(this.thisClass.start), 'end' : new Date(this.thisClass.end),
+            'cost' : this.thisClass.cost, 'costBlurb': this.thisClass.costBlurb });
         } else {
             console.log('ERROR in Class Edit -- no thisClass object!');
         }

@@ -1,4 +1,4 @@
-export class Notification {
+export class LoomNotification {
     _id?: string;
 
     constructor (

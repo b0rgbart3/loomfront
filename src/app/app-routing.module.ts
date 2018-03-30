@@ -39,6 +39,8 @@ import { PermissionComponent } from './users/permission.component';
 import { SuspendedComponent } from './users/suspended/suspended.component';
 import { ContactComponent } from './welcome/contact/contact.component';
 import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service';
+import { RegisterComponent } from './users/register/register.component';
+import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
 
 
 
@@ -76,11 +78,13 @@ resolve: {
 } },
 
 { path: 'usersettings/:id/edit', pathMatch: 'full', component: UserSettingsComponent,
- canActivate: [ AuthGuard, UserAuthGuard ], resolve: { users: UsersResolver} },
+ canActivate: [ AuthGuard, UserAuthGuard ], canDeactivate: [ UserSettingsGuard ], resolve: { users: UsersResolver} },
 { path: 'reset/:key', component: ResetComponent },
 { path: 'permission', component: PermissionComponent },
 { path: 'suspended', component: SuspendedComponent },
 { path: 'contact', component: ContactComponent },
+{ path: 'register/:id', component: RegisterComponent, canActivate: [AuthGuard ],
+  resolve: { requestedClass: ClassResolver}},
 { path: '', pathMatch: 'full', component: WelcomeComponent, resolve: {
     users: UsersResolver,
     courses: CoursesResolver,

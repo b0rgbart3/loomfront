@@ -73,6 +73,10 @@ export class UserService implements OnInit {
   private _avatar_image_url;
   _userSettingsUrl;
   private socket: SocketIOClient.Socket;
+  redirectMsg: string;
+  redirectUrl: string;  // This might not be the best place to store this data
+                        // but for now, my User Service Singleton is the main
+                        // singleton service that is available across the whole app
 
   constructor (private _http: HttpClient, private globals: Globals) {
     const thisUser = JSON.parse(localStorage.getItem('currentUser'));

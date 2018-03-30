@@ -1,0 +1,53 @@
+<nav-bar></nav-bar>
+<div class="loomContainer group">
+    <div class='registerBox group'>
+        
+        <div class='branding group'>
+                <img [src]='courseimageURL' class='classThumnailImage' *ngIf='courseimageURL'>
+                <br clear='all'>
+                <h1>{{ requestedClass.title }}</h1>
+                <div class='classDate'>{{requestedClass.start | date : 'MMMM dd, yyyy' }} -
+                        {{requestedClass.end | date : 'MMMM dd, yyyy'}}</div>
+                    <div class='costContainer group'>
+                <div class='costLabel'>cost:</div><div class='cost'>$ {{ requestedClass.cost }}
+                    <span class='currency'> (USD)</span></div>
+                        </div>
+            </div>
+        <div class='formContainer group'>
+                <h1>Register for:</h1>
+                <h2>{{ requestedClass.title }}</h2>
+                 <form novalidate [formGroup]="RegisterFormGroup" class='registerForm'>
+                <label for='firstname'>First Name</label>
+                <div class='existingInfo'>
+                {{ currentUser.firstname }}</div>
+                
+               <br clear='all'>
+          
+               <label for='lastname'>Last Name</label>
+                <!-- <input  class='register' name="lastname" formControlName='lastname'>
+           -->
+           <div class='existingInfo'>
+                {{ currentUser.lastname }}</div>
+                <br clear='all'>
+                <label for='email'>email address</label>
+                <div class='existingInfo'>
+                        {{ currentUser.email }}</div>
+                <!-- <input class='register' id="email" name="email" formControlName='email' type='email'>
+               <span class='help-block' *ngIf='emailMessage'>
+                   {{ emailMessage }}
+               </span> -->
+               <br clear='all'>
+               <div class='paymentBlurb'>
+                    {{ requestedClass.costBlurb }}
+                </div><br>
+                <p class='paymentOptions'>Your Payment Options:</p>
+                <br>
+                <div class='payPalButton'>PayPal</div>
+                <div class='venmoButton'>Venmo</div>
+                <div class='paybyCheck'><mat-checkbox>I will mail in a check</mat-checkbox></div>
+                <br clear='all'><br>
+                <div class='registerSubmit' (click)='registerSubmit()'>Register</div>
+            </form>
+        </div>
+    </div>
+</div>        

@@ -13,23 +13,7 @@
                         <div (click)='goto(classObject.id)' class='clickableDiv'>
                         <class-thumb [classObject]=classObject [showTeachers]=false></class-thumb>
                         </div></div>
-        <!-- <div *ngFor='let classobject of classesTaking; let j = index' >
-        <div class='selectorBox group' (click)='goto(classobject.id)'>
-                <div class='classInfoSelectionCollection group'>
-                        <h1>{{ classobject.title }}</h1>
-                <div class='classCourseImageThumnail'>         
-             
-                <course-image [courseID]='classobject.course'></course-image>
-                </div>
-                <div class='classInfo'>
-                        <p class='classDates'>
-                        {{ classobject.start | date:'MMMM dd, yyyy' }} 
-                        {{ classobject.end | date:'MMMM dd, yyyy' }}</p>
-                
-                <p>{{ classobject.description }}</p>
-                        </div>
-        </div></div> 
-        </div>--></div>
+</div>
 
         <div *ngIf='classesTeaching && showTeaching' class='listOfClasses'>
                         <div class="list-group-item"
@@ -37,26 +21,14 @@
                         <div (click)='goto(classObject.id)' class='clickableDiv'>
                         <class-thumb [classObject]=classObject></class-thumb></div>
                         </div>
-<!-- 
-        <div *ngFor='let classobject of classesTeaching'>
-                <div class='selectorBox group' (click)='goto(classobject.id)' *ngIf='classobject'>
-                        <div class='classInfoSelectionCollection group'>
-                                <h1>{{ classobject.title }}</h1>
-                        <div class='classCourseImageThumnail'>
-                        <course-image [courseID]='classobject.course'></course-image>
-                        </div>
-                        <div class='classInfo'>
-                                <p class='classDates'>
-                                {{ classobject.start | date:'MMMM dd, yyyy' }} 
-                                -- {{ classobject.end | date:'MMMM dd, yyyy' }}</p>            
-                        <p>{{ classobject.description }}</p>
-                                        </div>
-                </div></div>
-                </div></div>
-                <div *ngIf='!showTeaching && !showTaking'>
-                        <p>It looks like you are not yet enrolled in any courses, or assigned to teach any courses yet.</p>
-                </div> -->
+
         </div>
 
-
+        <div *ngIf='!showTaking && !showTeaching'>
+                <!-- <div class='welcome'>
+                Welcome to the Reclaiming Loom!  You have not yet registered for any classes.
+                <br>
+                See the list of upcoming classes!
+                </div> -->
+        </div>
 </div>

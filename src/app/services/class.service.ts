@@ -129,7 +129,7 @@ export class ClassService implements OnInit {
       return data; })
       .catch (this.handleError); } else {
        // console.log('The ID is zero, so we\'re creating a fresh new Class.');
-        return Observable.of( new ClassModel('', '', '', '', '', null, null ) );
+        return Observable.of( new ClassModel('', '', '', '', '', '', null, null , '') );
       }
   }
 
