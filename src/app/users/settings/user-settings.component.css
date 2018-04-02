@@ -29,3 +29,17 @@
 .my-drop-zone { border: dotted 3px lightgray; }
     .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
     .another-file-over-class { border: dotted 3px green; }
+
+
+    /* Cropper */
+
+.preview {border-radius:50%;
+
+    width:200px;
+    height:200px;
+    overflow:hidden;
+}
+
+.preview img {
+    width:100%;
+}

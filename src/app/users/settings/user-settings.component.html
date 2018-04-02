@@ -42,7 +42,7 @@
                    <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br> -->
                    <!-- <img [src]="imageUrl" class="avatar" *ngIf='imageUrl'> -->
                    
-                   <div *ngIf='image'>
+                   <div *ngIf='imageurl'>
                         <p>Showing an image</p>
                     <img [src]="imageUrl" width='200' height='200'><br>
                     </div>
@@ -53,10 +53,20 @@
                     </div> -->
 
                     <div *ngIf="!user.facebookRegistration">
-                        <div class="upload-wrap">
-                            Upload New Avatar Image
+                        <div>
+     
+                            <div>
+                                <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
+                                <div class='preview'>
+                                <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+                            </div>
+                            </div>
+                       
+                           </div>
+                        <!-- <div class="upload-wrap">
+                            Upload New Avatar Image -->
 
-                            <input type="file" ng2FileSelect [uploader]="imageUploader" class="upload-btn" id='avatar' name='avatar' />
+                            <!-- <input type="file" ng2FileSelect [uploader]="imageUploader" class="upload-btn" id='avatar' name='avatar' /> -->
                             <!-- <input type="file" class="upload-btn"  name="image"  
                             ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
                             (change)="imageChange($event)" id="image">
@@ -69,7 +79,7 @@
                             (change)="avatarChange($event)" id="avatar"> -->
 
             
-                        </div>
+                        <!-- </div> -->
                         <div *ngIf='imageUploader.queue[0]'>
                             Queue progress:
                             <div class="progress" style="">

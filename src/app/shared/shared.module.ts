@@ -44,6 +44,8 @@ import { ModalComponent } from '../materials/modal/modal.component';
 import { DocComponent } from '../materials/doc/doc.component';
 import { QuoteComponent } from '../materials/quote/quote.component';
 import { EnrollmentsService } from '../services/enrollments.service';
+import { ImageCropperComponent } from 'ngx-img-cropper';
+
 
 
 
@@ -93,7 +95,8 @@ import { EnrollmentsService } from '../services/enrollments.service';
         ChoiceModalComponent,
         MaterialComponent,
         MaterialIconComponent,
-        DisplayMaterialsComponent
+        DisplayMaterialsComponent,
+        ImageCropperComponent
     ],
     providers: [
         ClassResolver,
@@ -143,7 +146,8 @@ import { EnrollmentsService } from '../services/enrollments.service';
         ChoiceModalComponent,
         MaterialComponent,
         MaterialIconComponent,
-        DisplayMaterialsComponent
+        DisplayMaterialsComponent,
+        ImageCropperComponent,
     ]
 
 })

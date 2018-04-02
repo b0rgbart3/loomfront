@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Type } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -14,11 +14,12 @@ import { Validators } from '@angular/forms';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Globals } from '../../globals';
 import {Location} from '@angular/common';
+import { ImageCropperComponent, CropperSettings, Bounds } from 'ngx-img-cropper';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'user-settings.component.html',
-    styleUrls: ['user-settings.component.css']
+    styleUrls: ['user-settings.component.css'],
 })
 
 export class UserSettingsComponent implements OnInit {
@@ -40,14 +41,38 @@ export class UserSettingsComponent implements OnInit {
     public hasBaseDropZoneOver = false;
     public hasAnotherDropZoneOver = false;
 
+    // Cropper
+    cropperSettings: CropperSettings;
+    data: any;
+
     constructor(
         public userService: UserService,
         private router: Router,
         private activated_route: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private fb: FormBuilder,
-        private globals: Globals,
-        private _location: Location ) {}
+        private globals: Globals ) {
+
+            this.cropperSettings = new CropperSettings();
+            this.cropperSettings.width = 200;
+            this.cropperSettings.height = 200;
+            this.cropperSettings.keepAspect = false;
+            this.cropperSettings.croppedWidth = 200;
+            this.cropperSettings.croppedHeight = 200;
+            this.cropperSettings.canvasWidth = 500;
+            this.cropperSettings.canvasHeight = 300;
+            this.cropperSettings.minWidth = 100;
+            this.cropperSettings.minHeight = 100;
+            this.cropperSettings.rounded = true;
+            this.cropperSettings.minWithRelativeToResolution = false;
+            this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+            this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
+           // this.cropperSettings.noFileInput = true;
+            this.data = {};
+        }
+
+
+
 
         // updateDisplay() {
         //     console.log('Done uploading');
@@ -61,6 +86,11 @@ export class UserSettingsComponent implements OnInit {
               i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
               }
+
+    sendData() {
+       //  this.imageUploader.addToQueue(this.data.image);
+      // console.log('cropper: ' + JSON.stringify())
+     }
 
     myInit() {
 
@@ -91,9 +121,10 @@ export class UserSettingsComponent implements OnInit {
 
         this.imageUploader = new FileUploader({url: urlWithQuery,
             maxFileSize: this.maxFileSize,
-            allowedMimeType: ['image/jpeg', 'image/png', 'image/jpg', 'image/gif' ]
+           // allowedMimeType: ['image/jpeg', 'image/png', 'image/jpg', 'image/gif' ]
               },
         );
+
 
         this.imageUploader.onAfterAddingFile = (fileItem) => {
          //   const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
@@ -198,8 +229,7 @@ export class UserSettingsComponent implements OnInit {
     }
 
     cancel() {
-        this._location.back();
-//        this.router.navigate(['/welcome']);
+
     }
     submitSettings() {
 
@@ -253,8 +283,8 @@ export class UserSettingsComponent implements OnInit {
         );
 
 
+    }
+    }
 
-    }
-    }
 
 }
