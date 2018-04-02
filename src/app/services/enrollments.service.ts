@@ -25,6 +25,7 @@ export class EnrollmentsService implements OnInit {
     constructor (private _http: HttpClient, private globals: Globals, private userService: UserService) {}
 
     ngOnInit() {
+      this.enrollments = [];
       this.getEnrollmentsNow();
 
     }
@@ -69,14 +70,16 @@ export class EnrollmentsService implements OnInit {
      postEnrollment(enrollment): Observable<Enrollment> {
 
         enrollment.id = this.getNextId();
-       // console.log('New id =' + classObject.id);
+        console.log('New id =' + enrollment.id);
         const myHeaders = new HttpHeaders();
         myHeaders.append('Content-Type', 'application/json');
 
+        if (!this.enrollments) { this.enrollments = []; }
         this.enrollments.push(enrollment);
 
+        console.log('About to place put request for: ' + JSON.stringify(enrollment));
         return this._http.put(this.globals.enrollments + '?id=0', enrollment, {headers: myHeaders}).map(
-           () => enrollment );
+           () => enrollment ).catch( this.handleError );
 
       }
 

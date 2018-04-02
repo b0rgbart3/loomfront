@@ -92,7 +92,7 @@ export class EnrollmentInstructorTabComponent implements OnInit {
                     data => { this.enrollments = data;
                         if (this.enrollments) {
                             this.enrollments.map( enrollment => {
-                                enrollment.this_user = this.userService.getUserFromMemoryById(enrollment.user_id);
+                                enrollment.this_user = this.userService.getUserFromMemoryById('' + enrollment.user_id);
                     enrollment.this_class = this.classService.getClassFromMemory(enrollment.class_id);
                             });
                         }

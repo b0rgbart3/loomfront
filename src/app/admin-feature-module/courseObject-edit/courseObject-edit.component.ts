@@ -33,6 +33,7 @@ export class CourseObjectEditComponent implements OnInit {
     sectionControls: FormArray;
     uploadedCourseImage: boolean;
     image: string;
+    imageURL: string;
     existingImage: string;
     errorMessage: string;
     items: any[];

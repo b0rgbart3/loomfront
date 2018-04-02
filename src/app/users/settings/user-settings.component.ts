@@ -65,6 +65,9 @@ export class UserSettingsComponent implements OnInit {
     myInit() {
 
         this.maxFileSize = 5 * 1024 * 1024;
+        if (!this.user) {
+            this.router.navigate(['/']);
+        }
         console.log('This user id: ' + this.user.id);
         const urlWithQuery = this.globals.postavatars + '?id=' + this.user.id;
         console.log('after url query defined.');
@@ -169,6 +172,8 @@ export class UserSettingsComponent implements OnInit {
                   this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.image;
                 } else { this.imageUrl = null; }
             }
+        } else {
+            this.router.navigate(['/']);
         }
 
         this.myInit();

@@ -17,9 +17,9 @@
 
 
 .classDate {
-    font-weight: 900;
-    font-size:.9em;
-    color: #555555;
+    font-weight: 300;
+    font-size:1.1em;
+    color: #aaaaaa;
     text-transform: uppercase;
     margin-bottom:12px;
 }
@@ -29,7 +29,15 @@
     width:55%;
     float:left;
     vertical-align: top;
-    margin-left:20px;
+    margin-left:30px;
+    margin-top:14px;
+}
+
+.classDescription p {
+    color:rgba(255,255,255,.6);
+    line-height: 2.0;
+    font-family: 'Muli';
+    font-size:1.1em;
 }
 
 h1 {
@@ -73,22 +81,32 @@ p { margin-top:0;
     float:left;
     display:inline-block;
     width:37%;
+    border:1px dashed rgba(75, 92, 128,0);
+    padding:8px;
+    box-sizing: border-box;
 }
 .regButton {
+    margin-top:14px;
     display:inline-block;
-    padding:10px;
-    background-color:#cccccc;
-    border-radius:6px;
+    padding:14px;
+    background-color:#326996;
+    border-radius:8px;
     user-select: none;
     cursor:pointer;
+    color:rgba(255,255,255,.8);
+    padding-left:20px;
+    padding-right:20px;
+    width:100%;
+    box-sizing:border-box;
+    text-align: center;
 }
 
 .regButton:hover {
-    background-color:#dddddd;
+    background-color:#3578af;
 }
 
 .regButton:active {
-    background-color:white;
+    background-color:#4783b4;
 }
 
 @media (max-width: 640px) {

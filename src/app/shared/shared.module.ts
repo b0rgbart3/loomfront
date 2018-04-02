@@ -43,6 +43,7 @@ import { BlockComponent } from '../materials/block/block.component';
 import { ModalComponent } from '../materials/modal/modal.component';
 import { DocComponent } from '../materials/doc/doc.component';
 import { QuoteComponent } from '../materials/quote/quote.component';
+import { EnrollmentsService } from '../services/enrollments.service';
 
 
 
@@ -97,7 +98,8 @@ import { QuoteComponent } from '../materials/quote/quote.component';
     providers: [
         ClassResolver,
         MessageService,
-        ContactService
+        ContactService,
+        EnrollmentsService
     ],
     exports: [
         CommonModule,

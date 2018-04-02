@@ -157,15 +157,15 @@ export class ClassEditComponent implements OnInit {
                 this.classService
                 .updateClass( combinedClassObject ).subscribe(
                 (val) => {
-                 this.router.navigate(['/welcome']);
-            }, response => { this.router.navigate(['/welcome']); },
+                 this.router.navigate(['/admin/classes']);
+            }, response => { this.router.navigate(['/admin/classes']); },
                 () => { });
 
             } else {
                 console.log('calling createClass');
                 this.classService.createClass( combinedClassObject ).subscribe(
                     (val) => { }, (response) => { console.log('save completed');
-                     this.router.navigate(['/welcome']); }
+                     this.router.navigate(['/admin/classes']); }
                     ,
                       () => {});
             }

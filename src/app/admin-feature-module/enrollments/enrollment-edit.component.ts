@@ -35,7 +35,7 @@ export class EnrollmentEditComponent implements OnInit {
 
         for (let i = 0; i < this.enrollments.length; i++) {
             this.enrollments[i].this_user =
-            this.userService.getUserFromMemoryById(this.enrollments[i].user_id);
+            this.userService.getUserFromMemoryById('' + this.enrollments[i].user_id);
             this.enrollments[i].this_class =
             this.classService.getClassFromMemory(this.enrollments[i].class_id);
         }

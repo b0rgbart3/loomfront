@@ -9,6 +9,9 @@ import { ClassService } from '../../services/class.service';
 import { ClassModel } from '../../models/class.model';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
+import { Enrollment } from '../../models/enrollment.model';
+import { EnrollmentsService } from '../../services/enrollments.service';
+
 @Component({
     moduleId: module.id,
     templateUrl: 'register.component.html',
@@ -30,7 +33,9 @@ export class RegisterComponent implements OnInit {
     constructor(private formBuilder: FormBuilder, private courseService: CourseService,
         private activated_route: ActivatedRoute, private globals: Globals,
         private classService: ClassService,
-    private userService: UserService ) {
+    private userService: UserService,
+    private router: Router,
+private enrollmentService: EnrollmentsService ) {
     }
 
     ngOnInit() {
@@ -49,11 +54,38 @@ export class RegisterComponent implements OnInit {
                 error => this.errorMessage = <any>error);
 
         this.RegisterFormGroup = this.formBuilder.group({
-            firstname: [ '' , []],
-            lastname: [ '' , []],
-            email: [ '' , []],
-            message: [ '' , []],
+            // firstname: [ '' , []],
+            // lastname: [ '' , []],
+            // email: [ '' , []],
+            // message: [ '' , []],
+
         });
+
+    }
+
+    registerSubmit() {
+        // OK!  I'm going to go for it and let user's register themselves.
+        // In other words - this Registration Form will automatically enter a student Enrollment into the DB
+
+        const newEnrollment = new Enrollment( '', this.currentUser.id, '' + this.requestedClassID, [], null, null );
+
+        this.enrollmentService.postEnrollment(newEnrollment).subscribe(
+
+            (val) => {
+                console.log('POST call successful value returned in body ', val);
+              },
+              response => {
+                console.log('POST call in error', response);
+              },
+              () => {
+                console.log('The POST observable is now completed.');
+                // this.userService.currentUser = settingsObject;
+                // Now that we are done saving the changes - we can reset the form so that the Guard doesn't think it's still fresh
+                this.RegisterFormGroup.reset();
+                this.router.navigate(['/']);
+              }
+        );
+
 
     }
 

@@ -45,6 +45,7 @@ createUser()
 deleteUser()
 getInMemoryUsers()
 getUserFromMemoryById()
+userExists()
 
 
 -------------------------------------
@@ -111,6 +112,16 @@ export class UserService implements OnInit {
     this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
   }
 
+  userExists(id) {
+    const userThatExists = this.findUserById(id);
+    console.log('User that exists: ' + JSON.stringify(userThatExists));
+    if (userThatExists && userThatExists.id === id) {
+      console.log('That user really exists.');
+      return true;
+    } else {
+      console.log('That user really doesnt exist.');
+      return false; }
+  }
 
   subscribeToUsers() {
     this.getUsers().subscribe(

@@ -349,6 +349,10 @@ body {
 .loomButton:hover {
   background-color: #06bce7;
 }
+
+.loomButton:active {
+  outline:none;
+}
 .loomCancel {
 background-color:#bbbbbb;
 float:right;

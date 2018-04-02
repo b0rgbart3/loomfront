@@ -2,7 +2,7 @@
 <!--
 Notes Settings: Reading {{ notesSettings.reading }} -->
 
-<div class='section' *ngIf='section.sectionNumber !== "0"'>
+<div class='section' *ngIf='+section.sectionNumber !== "0"'>
     <!-- {{ section.sectionNumber }} -->
     <!-- <notes [settings]='notesSettings'></notes> -->
     <h1> {{ section.title }} </h1>
@@ -13,7 +13,7 @@ Notes Settings: Reading {{ notesSettings.reading }} -->
 
     <div [innerHTML]= 'section.content'></div>
 
-    <div *ngIf='materialSets && materialSets.length > 0'>
+    <div *ngIf='materialSets && +materialSets.length > 0'>
         <div class='materials group'>
         <!-- <material-collection [materialcollection]="materialCollection"></material-collection> -->
         <display-materials [materialSets]="materialSets"></display-materials>
@@ -24,11 +24,11 @@ Notes Settings: Reading {{ notesSettings.reading }} -->
 <!-- <p>section:{{ section.sectionNumber }}</p> -->
 
 <discussion [thisClass]="thisClass" [students]='students' [instructors]='instructors' 
-[section]='section' [settings]='discussionSettings' *ngIf='section.sectionNumber!==0'></discussion>
+[section]='section' [settings]='discussionSettings' *ngIf='+section.sectionNumber!==0'></discussion>
 
 </div>
 
-<div *ngIf='section.sectionNumber===0' class='section'>
+<div *ngIf='+section.sectionNumber===0' class='section'>
     <h1>Welcome</h1>
     <p>Welcome to the {{thisClass.title}} course.  Your instructors and your fellow students are listed above.  
         You can click on any of their avatars to find out more about them, and to send them a message.</p>

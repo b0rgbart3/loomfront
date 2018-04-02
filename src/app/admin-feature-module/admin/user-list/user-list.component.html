@@ -12,7 +12,7 @@
           <div class='thumbnailAdmin' [routerLink]="['/usersettings/' + user.user_id + '/edit']">
               <user-thumb [thumbnail]='user' class='listThumb'></user-thumb>
             <div class='userInfo'>
-              <h1>{{ user.user.username }}</h1>
+              <h1>{{ user.user.username }}  {{ user.user.id }}</h1>
             {{ user.user.firstname }} {{ user.user.lastname }}<br>
             {{ user.user.email }}</div>
           </div>

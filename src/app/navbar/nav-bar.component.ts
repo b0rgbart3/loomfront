@@ -66,8 +66,8 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.username = null;
     this.avatarimage = '';
     this.userService.logout();
-    if (this.FB) {
-    this.FB.logout(); }
+    // if (this.FB) {
+    // this.FB.logout(); }
     this._router.navigate(['/welcome']);
   }
 

@@ -48,7 +48,7 @@ import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
 import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
 import { VideoComponent } from './materials/video/video.component';
-import { BooksComponent } from './materials/books/books/books.component';
+// import { BooksComponent } from './materials/books/books/books.component';
 import { BookComponent } from './materials/books/books/book.component';
 import { QuoteComponent } from './materials/quote/quote.component';
 import { SharedModule } from './shared/shared.module';
@@ -163,7 +163,6 @@ import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.ser
     SeriesResolver,
     DiscussionSettingsResolver,
     ClassCourseResolver,
-    EnrollmentsService,
     AssignmentsService,
     EnrollmentsResolver,
     AllEnrollmentsResolver,
@@ -175,7 +174,7 @@ import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.ser
     NotesSettingsResolver,
     MessageService,
     MessagesResolver,
-    AllMaterialsResolver
+    AllMaterialsResolver,
     UserSettingsGuard
 
    ],
