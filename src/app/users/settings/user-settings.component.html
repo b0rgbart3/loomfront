@@ -42,9 +42,8 @@
                    <br><img [src]="localImageUrl" *ngIf="localImageUrl" class='cropTarget'><br> -->
                    <!-- <img [src]="imageUrl" class="avatar" *ngIf='imageUrl'> -->
                    
-                   <div *ngIf='imageurl'>
-                        <p>Showing an image</p>
-                    <img [src]="imageUrl" width='200' height='200'><br>
+                   <div *ngIf='imageUrl'>
+                    <img [src]="imageUrl" class='existingAvatar'><br>
                     </div>
                    <!-- <div class='progress-bar'></div> -->
                    <!-- <div *ngIf='imageUploader.queue[0]'>
@@ -55,23 +54,38 @@
                     <div *ngIf="!user.facebookRegistration">
                         <div>
      
-                            <div>
-                                <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
-                                <div class='preview'>
-                                <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+                            <div *ngIf='imageUploader.queue[0]'>
+                                <img-cropper [image]="data" [settings]="cropperSettings" #cropper ></img-cropper><br>
+                                <div class='preview' *ngIf='data.image'>
+                                <img [src]="data.image" >
                             </div>
                             </div>
-                       
-                           </div>
-                        <!-- <div class="upload-wrap">
-                            Upload New Avatar Image -->
+<br>
+                            <!-- <div class='useThis' (click)='useThis()'>Use This</div>
+                        -->
+                            <!-- <div *ngIf='imageUploader.queue[0]'>
+                                Queue progress:
+                                <div class="progress" style="">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': imageUploader.progress + '%' }"></div>
+                                </div>
+                            </div>   -->
 
-                            <!-- <input type="file" ng2FileSelect [uploader]="imageUploader" class="upload-btn" id='avatar' name='avatar' /> -->
-                            <!-- <input type="file" class="upload-btn"  name="image"  
+                            
+                         </div>
+                         <div class="upload-wrap" *ngIf='!imageUploader.queue[0]'>
+                            Upload New Avatar Image 
+
+                            <div class="file-upload">
+                                <input id="custom-input" type="file" (change)="fileChangeListener($event)" ng2FileSelect [uploader]="imageUploader"
+                                class="upload-btn" id='avatar' name='avatar'>
+                            </div>
+
+                            <!-- <input type="file" ng2FileSelect [uploader]="imageUploader" class="upload-btn" id='avatar' name='avatar' />
+                             <input type="file" class="upload-btn"  name="image"  
                             ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
-                            (change)="imageChange($event)" id="image">
+                            (change)="imageChange($event)" id="image"> -->
                         
-                            -->
+                            <!-- {{ imageUploader.queue[0]?.file?.name }} -->
                             
                             
                             <!-- <input type="file" class="upload-btn"  name="avatar"  
@@ -79,13 +93,11 @@
                             (change)="avatarChange($event)" id="avatar"> -->
 
             
-                        <!-- </div> -->
-                        <div *ngIf='imageUploader.queue[0]'>
-                            Queue progress:
-                            <div class="progress" style="">
-                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': imageUploader.progress + '%' }"></div>
-                            </div>
-                        </div>  
+                        </div> 
+                        <!-- <div *ngIf='imageUploader.queue[0]' (click)='useThis()'>
+                            <div class='useThis'>Use This Image</div>
+                        </div> -->
+
                     </div>
             </div> 
     

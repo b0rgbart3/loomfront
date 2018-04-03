@@ -49,7 +49,7 @@ bioChosen: User;
         for (let i = 0; i < this.assignments.length; i++) {
           this.instructors.push(this.userService.getUserFromMemoryById(this.assignments[i].user_id) );
         }
-        console.log('instructors length' + this.instructors.length);
+      //  console.log('instructors length' + this.instructors.length);
         if (this.instructors.length > 0) {
           this.instructorThumbnails = this.instructors.map( instructor =>
              this.createInstructorThumbnail(instructor));
@@ -82,7 +82,7 @@ closeBio(event) {
     this.showingBio = false;
 }
   createInstructorThumbnail(user) {
-    console.log('Making thumbnail for user: ' + JSON.stringify(user));
+  //  console.log('Making thumbnail for user: ' + JSON.stringify(user));
     if (user) {
     const thumbnailObj = { user: user, user_id: user.id, online: false,
         size: 80,  showUsername: true, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };

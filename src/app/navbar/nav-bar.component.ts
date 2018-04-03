@@ -38,6 +38,7 @@ export class NavBarComponent implements OnInit, DoCheck {
   messageListStyle: string;
   freshList: {}[];
   list: {}[];
+  avatarExists: boolean;
   private socket: SocketIOClient.Socket;
   private showAvatarMenu: boolean;
 
@@ -72,8 +73,24 @@ export class NavBarComponent implements OnInit, DoCheck {
   }
 
 
-  ngOnInit() {
+   imageExists(url) {
 
+    const checkImage = new Image();
+
+    checkImage.src = url;
+
+    if (!checkImage.complete) {
+        return false;
+    } else if (checkImage.height === 0) {
+        return false;
+    }
+
+    return true;
+}
+
+
+  ngOnInit() {
+    this.avatarExists = false;
     this.showAvatarMenu = false;
     this.showingMessageList = false;
     this.messageListStyle = 'quickMessagesButton';
@@ -89,7 +106,10 @@ export class NavBarComponent implements OnInit, DoCheck {
       this.currentUser = user;
       this.admin = this.currentUser.admin;
       this.showingMessageList = false;
-      this.generateAvatarPath();
+     // console.log('avatar changed');
+     // setTimeout(this.generateAvatarPath, 3000);
+   //   setTimeout(() => { this.generateAvatarPath(); }, 3000);
+//      this.generateAvatarPath();
    });
     this.socket.on('userChanged', (user) => {
      this.currentUser = user;
@@ -282,7 +302,15 @@ export class NavBarComponent implements OnInit, DoCheck {
     }
   }
 
-generateAvatarPath() {
+  // updateUrl( event ) {
+  //   setTimeout( () => { console.log('waited 3 seconds');
+  //         this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
+  //       }, 2000 );
+  // }
+
+generateAvatarPath( ) {
+
+
     if (this.currentUser) {
       if (this.currentUser.facebookRegistration) {
        // console.log('This was a fb reg.');
@@ -292,7 +320,20 @@ generateAvatarPath() {
       } else {
        // console.log('This was not a fb reg.');
        if (this.currentUser.avatar_filename) {
-        this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename; } else {
+        this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
+
+        if (this.imageExists(this.avatarimage) ) {
+          console.log('image exists.');
+          this.avatarExists = true;
+        } else {
+          this.avatarExists = false;
+          console.log('image doesnt yet exist.');
+          setTimeout( () => { console.log('waited 2 seconds');
+          this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
+          this.avatarExists = true;
+        }, 2000 );
+        }
+      } else {
         this.avatarimage = this.globals.avatars + '/placeholder.png';
         }
       }

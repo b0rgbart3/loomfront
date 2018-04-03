@@ -46,7 +46,7 @@ deleteUser()
 getInMemoryUsers()
 getUserFromMemoryById()
 userExists()
-
+uploadAvatar()
 
 -------------------------------------
 */
@@ -364,6 +364,12 @@ getUserFromMemoryById( queryID: string): User {
 
       }
 
+      // uploadAvatar( image ): Observable<any> {
+      //   const myHeaders = new HttpHeaders();
+      //   myHeaders.append('Content-Type', 'application/json');
+      //   console.log('In user service, uploading avatar: ' + JSON.stringify(image));
+      //   return this._http.post(this.globals.postavatars + '?id=' + image.id, image.image, {headers: myHeaders } );
+      // }
     sendResetRequest(email: string): Observable<any> {
         const emailObject = {'email': email};
         const emailObjectString = JSON.stringify(emailObject);

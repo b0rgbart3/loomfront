@@ -31,6 +31,12 @@
     .another-file-over-class { border: dotted 3px green; }
 
 
+.existingAvatar {
+    width:200px;
+    height:200px;
+    border-radius:50%;
+  
+}
     /* Cropper */
 
 .preview {border-radius:50%;
@@ -42,4 +48,11 @@
 
 .preview img {
     width:100%;
+}
+
+.useThis {
+    background-color:white;
+    padding:20px;
+    user-select: none;
+    cursor: pointer;
 }

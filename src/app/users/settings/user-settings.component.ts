@@ -16,6 +16,7 @@ import { Globals } from '../../globals';
 import {Location} from '@angular/common';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ngx-img-cropper';
 
+
 @Component({
     moduleId: module.id,
     templateUrl: 'user-settings.component.html',
@@ -42,23 +43,26 @@ export class UserSettingsComponent implements OnInit {
     public hasAnotherDropZoneOver = false;
 
     // Cropper
+    chosenFile: string;
     cropperSettings: CropperSettings;
     data: any;
 
+    @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
     constructor(
         public userService: UserService,
         private router: Router,
         private activated_route: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private fb: FormBuilder,
-        private globals: Globals ) {
+        private globals: Globals,
+        private _location: Location ) {
 
             this.cropperSettings = new CropperSettings();
             this.cropperSettings.width = 200;
             this.cropperSettings.height = 200;
             this.cropperSettings.keepAspect = false;
-            this.cropperSettings.croppedWidth = 200;
-            this.cropperSettings.croppedHeight = 200;
+            this.cropperSettings.croppedWidth = 600;
+            this.cropperSettings.croppedHeight = 600;
             this.cropperSettings.canvasWidth = 500;
             this.cropperSettings.canvasHeight = 300;
             this.cropperSettings.minWidth = 100;
@@ -67,7 +71,7 @@ export class UserSettingsComponent implements OnInit {
             this.cropperSettings.minWithRelativeToResolution = false;
             this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
             this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
-           // this.cropperSettings.noFileInput = true;
+            this.cropperSettings.noFileInput = true;
             this.data = {};
         }
 
@@ -131,7 +135,11 @@ export class UserSettingsComponent implements OnInit {
            //     : (window as any).webkitURL.createObjectURL(fileItem._file);
            // this.imageUrl = url;
            // console.log('In build form: onAfterAddingFile: url =' + url);
-           this.imageUploader.queue[0].upload();
+
+           // this.imageUploader.queue[0].upload();
+            // Instead of uploading this image right away - we are first going to send it to the cropper
+            // and then try to send the modified version to the uploader
+
 
         };
         this.imageUploader.onWhenAddingFileFailed = (item, filter) => {
@@ -164,8 +172,7 @@ export class UserSettingsComponent implements OnInit {
           //  this.imageUrl = null;
                         this.tempName = this.imageUploader.queue[0].file.name;
                          this.image = this.tempName;
-                         this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' +
-                          this.image;
+                         this.imageUrl = this.globals.avatars + '/' + this.user.id + '/avatar.jpg';
                          this.imageUploader.queue[0].remove();
                        //  this.updateDisplay();
                      };
@@ -200,7 +207,7 @@ export class UserSettingsComponent implements OnInit {
                 this.image = this.user.avatar_filename;
                 if (this.image) {
                     console.log('including an image with this avatar');
-                  this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.image;
+                  this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.user.avatar_filename;
                 } else { this.imageUrl = null; }
             }
         } else {
@@ -211,14 +218,52 @@ export class UserSettingsComponent implements OnInit {
     }
 
 
+
+    useThis() {
+       // console.log('ready to upload: ' + JSON.stringify(this.data));
+      //  this.data.image.filename = this.chosenFile.filename;
+    //  this.imageUploader.queue[0].fileItem = this.data.image;
+      //  console.log(this.imageUploader.queue[0]);
+        //  console.log('Use This: ' + this.data.image);
+        // const fakeFileObject = { files: [ {data: this.data.image, filename: 'bart.jpg' }]};
+        //  const imageObject = { image: fakeFileObject, id: this.user.id };
+        //  this.userService.uploadAvatar(imageObject).subscribe(
+        //      data => { console.log('uploaded.');
+        //     console.log('data' + JSON.stringify(data) ); }
+        //  );
+        // const fakeFile = new File([this.data.image], 'croppedAvatar');
+
+        const nameParts = this.chosenFile.split('.');
+        nameParts.pop();
+        const name = nameParts.join();
+        console.log('Chosen File: ' + name);
+
+        const blob = this.dataURItoBlob(this.data.image);
+        this.tempName = name + new Date().getTime() + '.jpg';
+        const fakeFile = new File([blob], this.tempName);
+        // const fd = new FormData(document.forms[0]);
+        // const xhr = new XMLHttpRequest();
+
+       // fd.append('myFile', blob);
+        // xhr.open('POST', '/', true);
+        // xhr.send(fd);
+
+     this.imageUploader.addToQueue([ fakeFile ]);
+     this.imageUploader.queue[1].upload();
+
+     this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + this.tempName;
+    }
+
     // imageChange(event) {
     //     const fileList: FileList = event.target.files;
     //     if ( fileList.length > 0) {
-    //         const file: File = fileList[0];
-    //         console.log('Got a file: ' + file.name);
-    //         this.thisFile = file;
-    //         this.user.avatar_filename = file.name;
-    //         this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + file.name;
+    //         this.chosenFile = fileList[0];
+    //         console.log('Got a file: ' + this.chosenFile.name);
+    //         // this.thisFile = file;
+    //         // this.user.avatar_filename = file.name;
+    //         // this.imageUrl = this.globals.avatars + '/' + this.user.id + '/' + file.name;
+
+    //          this.data = this.chosenFile;
 
     //     }
     // }
@@ -229,9 +274,10 @@ export class UserSettingsComponent implements OnInit {
     }
 
     cancel() {
-
+        this._location.back();
     }
     submitSettings() {
+
 
         // No need to save the settings, if they haven't changed, or they're invalid
         if (this.settingsForm.valid && ( this.settingsForm.dirty || this.avatarChanged )) {
@@ -239,8 +285,15 @@ export class UserSettingsComponent implements OnInit {
         console.log('settingsForm.value: ' + JSON.stringify( this.settingsForm.value) );
         const settingsObject = Object.assign( {}, this.user, this.settingsForm.value);
 
-        settingsObject.avatar_filename = this.thisFile;
-        settingsObject.avatar_URL = this.imageUrl;
+        if (this.avatarChanged) {
+            this.useThis();
+            // const nameParts = this.chosenFile.split('.');
+            // nameParts.pop();
+            // const name = nameParts.join();
+
+          settingsObject.avatar_filename = this.tempName;
+          settingsObject.avatar_URL = '';
+        }
         // If the logged in user is the same as the user being edit - then let's update the model
         // so that the loggged in user model has the new info
         if ( this.userService.getCurrentUser().id === this.user.id) {
@@ -253,15 +306,15 @@ export class UserSettingsComponent implements OnInit {
 
         // const settingsObject = <User> this.user;
         // settingsObject['id'] = this.currentUserId;
-        settingsObject['favoritecolor'] = this.settingsForm.value.favoritecolor;
+//        settingsObject['favoritecolor'] = this.settingsForm.value.favoritecolor;
 
-        if ( this.tempName ) {
-            settingsObject['avatar_filename'] = JSON.stringify(this.tempName);
-            settingsObject['avatar_filename'] =
-                    settingsObject['avatar_filename'].substring(1, settingsObject['avatar_filename'].length - 1);
-            // settingsObject['avatar_path'] = 'http://localhost:3100/avatars/' + this.user.id + '/';
-            // settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];
-        }
+        // if ( this.tempName ) {
+        //     settingsObject['avatar_filename'] = JSON.stringify(this.tempName);
+        //     settingsObject['avatar_filename'] =
+        //             settingsObject['avatar_filename'].substring(1, settingsObject['avatar_filename'].length - 1);
+        //     // settingsObject['avatar_path'] = 'http://localhost:3100/avatars/' + this.user.id + '/';
+        //     // settingsObject['avatar_URL'] = settingsObject['avatar_path'] + settingsObject['avatar_filename'];
+        // }
 
         // this.userService.resetCurrentUser(settingsObject);
         console.log(JSON.stringify(settingsObject));
@@ -284,6 +337,51 @@ export class UserSettingsComponent implements OnInit {
 
 
     }
+    }
+
+
+    dataURItoBlob(dataURI) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+        const byteString = atob(dataURI.split(',')[1]);
+
+        // separate out the mime component
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        // write the bytes of the string to an ArrayBuffer
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+
+        return new Blob([ab], {type: mimeString});
+
+    }
+
+
+
+    /**
+     * Used to send image to second cropper
+     * @param $event
+     */
+    fileChangeListener($event) {
+        const image: any = new Image();
+        const file: File = $event.target.files[0];
+        this.chosenFile = file.name;
+        const myReader: FileReader = new FileReader();
+        const that = this;
+        this.avatarChanged = true;
+
+        myReader.onloadend = function (loadEvent: any) {
+            image.src = loadEvent.target.result;
+            that.cropper.setImage(image);
+            console.log('In Listener: ' + image);
+
+        };
+
+        myReader.readAsDataURL(file);
     }
 
 

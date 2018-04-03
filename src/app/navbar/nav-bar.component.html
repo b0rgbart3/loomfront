@@ -53,7 +53,7 @@
 </div>
 
 <div class='avatarMenuDoc' *ngIf='currentUser'>
-		<img *ngIf="avatarimage" [src]="avatarimage" class='avatar' 
+		<img *ngIf="avatarExists" [src]="avatarimage" class='avatar' 
 		(click)='openAvatarMenu()' (clickOutside)='closeAvatarMenu()'>
 <div class='avatarMenu' *ngIf='showAvatarMenu'>
 	<div class='avatarMenuItem' *ngIf='currentUser' (click)="gotoSettings()">
