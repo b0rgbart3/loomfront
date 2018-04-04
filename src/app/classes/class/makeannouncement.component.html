@@ -1,0 +1,30 @@
+<div class='makeAnnouncement'>
+    <form [formGroup]='form' novalidate class='loomForm group'>
+        <div class='closeAnnouncements' (click)='closeMe()'></div>
+            <h1>Make an Announcement:</h1>
+            <mat-form-field>
+            <input matInput  formControlName='title' placeholder="Short Announcement Title (for the menu)" 
+            name="title">
+            </mat-form-field>
+    
+
+                <br clear='all'>
+                <mat-form-field>
+                        <textarea id="announcement" matInput placeholder="Make your announcement...." 
+                        formControlName="announcement" rows="5" class='announcement'></textarea>
+               </mat-form-field>
+
+               <!-- <div class='loomDate'>
+                    <mat-form-field>
+                    <input matInput [matDatepicker]="announcementdate" placeholder="Announcement Date" name="announcement_date" formControlName="announcement_date">
+                    <mat-datepicker-toggle mdSuffix [for]="announcementdate"></mat-datepicker-toggle>
+                    <mat-datepicker #announcementdate ></mat-datepicker>
+                    </mat-form-field>
+                    </div> -->
+                
+               <div class='formSubmit' (click)='submitForm()'>
+                   Post Announcement
+               </div>
+                     
+    </form>
+</div>

@@ -45,6 +45,10 @@ import { DocComponent } from '../materials/doc/doc.component';
 import { QuoteComponent } from '../materials/quote/quote.component';
 import { EnrollmentsService } from '../services/enrollments.service';
 import { ImageCropperComponent } from 'ngx-img-cropper';
+import { AnnouncementsService } from '../services/announcements.service';
+import { AnnouncementsResolver } from '../resolvers/announcements-resolver.service';
+import { MakeAnnouncementComponent } from '../classes/class/makeannouncement.component';
+import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver';
 
 
 
@@ -96,13 +100,17 @@ import { ImageCropperComponent } from 'ngx-img-cropper';
         MaterialComponent,
         MaterialIconComponent,
         DisplayMaterialsComponent,
-        ImageCropperComponent
+        ImageCropperComponent,
+        MakeAnnouncementComponent
     ],
     providers: [
         ClassResolver,
         MessageService,
         ContactService,
-        EnrollmentsService
+        EnrollmentsService,
+        AnnouncementsService,
+        AnnouncementsResolver,
+        AllAnnouncementsResolver
     ],
     exports: [
         CommonModule,
@@ -148,6 +156,7 @@ import { ImageCropperComponent } from 'ngx-img-cropper';
         MaterialIconComponent,
         DisplayMaterialsComponent,
         ImageCropperComponent,
+        MakeAnnouncementComponent
     ]
 
 })

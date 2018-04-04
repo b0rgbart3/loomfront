@@ -41,6 +41,8 @@ import { ContactComponent } from './welcome/contact/contact.component';
 import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service';
 import { RegisterComponent } from './users/register/register.component';
 import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
+import { AnnouncementsResolver } from './resolvers/announcements-resolver.service';
+import { AllAnnouncementsResolver } from './resolvers/allannouncements.resolver';
 
 
 
@@ -62,7 +64,7 @@ resolve: { user: UserResolver, users: UsersResolver} },
     discussionSettings: DiscussionSettingsResolver },
   children: [ {
       path: ':id2', pathMatch: 'full', component: ClassComponent,
-resolve: {
+resolve: { allAnnouncements: AllAnnouncementsResolver, announcements: AnnouncementsResolver,
     thisCourse: ClassCourseResolver, classMaterials: MaterialsResolver,
     discussionSettings: DiscussionSettingsResolver,
     notesSettings: NotesSettingsResolver, messages: MessagesResolver  } }]

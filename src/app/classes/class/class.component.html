@@ -41,9 +41,26 @@
         <div *ngIf='currentCourse && !messaging'>
 
                 <div class='classNavBar'>
+                    <div class='announcementsNavTitle' (click)='showAnnouncementsMenu()' 
+                      (clickOutside)='hideAnnouncementsMenu()'
+                       *ngIf='(announcements && announcements.length > 0) || (currentUser.admin && currentUserIsInstructor)'>
+                       Announcements ( {{announcements.length}} )</div>
+
+                      <div id='announcementsMenu' class='announcementsMenu group' *ngIf='showingAnnouncementsMenu'>
+                          <div class='menuLiner group'>
+                              <div class='announcementsNav' *ngIf='currentUser.admin && currentUserIsInstructor'>
+                                  <div (click)='makeAnnouncement()' class='announcementsNavItem'>
+                                        Make an announcement
+                                  </div>
+                              </div>
+                              <div class='announcementsNav' *ngFor='let announcement of this.announcements; let t=index'>
+                                  <div (click)='displayAnnouncement(t)' class='announcementsNavItem'>{{announcement.title}}</div>
+                              </div>
+                          </div>
+                      </div>
                 <div class='sectionNavTitle' (click)='showSectionMenu()'
                 (clickOutside)='hideSectionMenu()' >Sections</div>
-                <div id='sectionMenu' class='group' *ngIf='showingSectionMenu'>
+                <div id='sectionMenu' class='sectionMenu group' *ngIf='showingSectionMenu'>
                     <div class='menuLiner group'>
                 <div class='sectionNav' *ngFor='let section of this.currentCourse.sections; 
                 let s=index'>
@@ -67,6 +84,20 @@
                  </div>
                 </div>
 
+                <make-announcement *ngIf='showingAnnouncementsForm' (close)='closeAnnoucementsForm( $event )'
+                  [instructorID]='currentUser.id' 
+                  [classID]='thisClass.id'></make-announcement>
+                <!-- currentUser.id: {{currentUser.id }}<br>
+                thisClass.id {{ thisClass.id }} <br> -->
+                <div class='announcementBox' *ngIf='showingAnnouncements'>
+                    <div class='closeAnnouncements' (click)='hideAnnouncements()'></div>
+                    <h1>{{ currentAnnouncement.title }} -- {{ currentAnnouncement.id}}</h1>
+                   {{ currentAnnouncement.announcement }}
+
+                   <div *ngIf='currentUser.admin && currentUserIsInstructor'>
+                         <div class='deleteAnnouncement' (click)='deleteAnnouncement()'>Delete</div><div class='editAnnouncement'>Edit</div>
+                    </div>
+                </div>
                 <div *ngIf='currentCourse.sections' class='section group'>
                     <section 
                     [thisClass]='thisClass' 

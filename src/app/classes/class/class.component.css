@@ -119,15 +119,33 @@ margin:0;
     overflow-y: auto;
   
 }
-#sectionMenu {
+.sectionMenu {
+    background-color: rgba(255,255,255,1);
+    width:270px;
+    height:0px;
+    position: absolute;
+    top:58px;
+    right:40px;
+    transition:all .5s;
+    z-index:10;
+    display:inline-block;
+    vertical-align: top;
+    
+}
+
+.announcementsMenu {
     background-color: rgba(255,255,255,1);
     width:270px;
     height:0px;
     position: relative;
-    top:-8px;
-    left:0px;
+    top:58px;
+    left:-250px;
     transition:all .5s;
     z-index:10;
+    float:left;
+    display:inline-block;
+    vertical-align: top;
+    
 }
 
 .menuLiner {
@@ -281,6 +299,36 @@ margin:0;
     opacity:0;
 }
 
+.announcementsNav {
+    margin-bottom:0px;
+    border-radius:0px;
+    padding:0px;
+    cursor:pointer;
+    user-select:none;
+    box-sizing: border-box;
+    background-color:rgb(187, 235, 187);
+    color:green;
+    border:1px solid #008000;
+}
+.announcementsNavItem {
+    width:100%;
+    padding-left:20px;
+    padding-top:18px;
+    padding-right:10px;
+    padding-bottom:8px;
+    box-sizing: border-box;
+    margin:0;
+    background-color:rgb(187, 235, 187);
+    color:green;
+}
+
+.announcementsNavItem:hover {
+    background-color:rgb(224, 250, 224);
+}
+.announcementsNavItem:active {
+    background-color:#ffffff;
+}
+
 
 .sectionNav {
     background-color: rgba(255,255,255,1);
@@ -315,8 +363,7 @@ margin:0;
     width:200px;
     float:right;
     vertical-align: top;
-    position:absolute;
-    top:0;
+    position: absolute;
     right:0;
     padding-right:0px;
     padding-bottom:0px;
@@ -328,8 +375,6 @@ margin:0;
   user-select:none;
   display:inline-block;
   border:2px solid #555555;
-  margin-top:20px;
-  margin-left:14px;
   padding-left:14px;
   padding-right:14px;
   padding-top:8px;
@@ -339,6 +384,10 @@ margin:0;
   font-weight: 400;
   font-size:1.3em;
   background-color:#cccccc;
+  float:right;
+  margin-right:182px;
+  margin-top:14px;
+  vertical-align: top;
 }
 
 .sectionNavTitle:hover {
@@ -390,8 +439,91 @@ margin:0;
     color:rgba(255,255,255,.6);
 }
 
-
+.announcementsNavTitle {
+    text-transform: uppercase;
+    cursor:pointer;
+    user-select:none;
+    display:inline-block;
+    margin-top:14px;
+    margin-left:14px;
+    padding-left:14px;
+    padding-right:14px;
+    padding-top:8px;
+    padding-bottom:8px;
+    box-sizing: border-box;
+    font-family: 'Muli';
+    font-weight: 400;
+    font-size:1.3em;
+    float:left;
+    vertical-align: top;
+    background-color:rgb(187, 235, 187);
+    color:green;
+    border:4px solid #008000;
+}
   
+.announcementBox {
+    border:4px solid #008000;
+    padding:60px;
+    background-color:rgb(202, 241, 202);
+    color:green;
+    font-weight: 700;
+    position: relative;
+    font-size:1.1em;
+    line-height:1.8em;
+    margin-top:20px;
+    margin-left:4%;
+    margin-right:4%;
+}
+
+.closeAnnouncements {
+    background-image:url('../../../assets/images/closer_green.svg');
+    width:24px;
+    height:24px;
+    display:inline-block;
+    position: absolute;
+    top:14px;
+    right:14px;
+    opacity:.8;
+    background-size:90%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.closeAnnouncements:hover {
+    opacity: 1;
+}
+
+.closeAnnouncements:active {
+    background-size:80%;
+}
+
+.editAnnouncement {
+    background-color:rgb(187, 235, 187);
+    border:2px solid green;
+    display:inline-block;
+    padding:8px;
+    user-select: none;
+    cursor: pointer;
+    position: absolute;
+    right:20px;
+    bottom:4px;
+}
+
+.deleteAnnouncement {
+    background-color:rgb(187, 235, 187);
+    border:2px solid green;
+    display:inline-block;
+    padding:8px;
+    user-select: none;
+    cursor: pointer;
+    position: absolute;
+    right:80px;
+    bottom:4px;
+}
+
+
+
+
 
 /* .slideColumn {
     display:inline-block;

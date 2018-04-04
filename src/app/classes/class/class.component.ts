@@ -24,6 +24,8 @@ import { AssignmentsService } from '../../services/assignments.service';
 import { Enrollment } from '../../models/enrollment.model';
 import { Assignment } from '../../models/assignment.model';
 import { MaterialSet } from '../../models/materialset.model';
+import { Announcements } from '../../models/announcements.model';
+import { AnnouncementsService } from '../../services/announcements.service';
 
 @Component({
 
@@ -56,7 +58,11 @@ export class ClassComponent implements OnInit {
     studentThumbnails: Userthumbnail[];
     studentBioThumbnails: Userthumbnail[];
     showingSectionMenu: boolean;
+    showingAnnouncementsMenu: boolean;
+    showingAnnouncements: boolean;
+    showingAnnouncementsForm: boolean;
     currentUser: User;
+    currentUserIsInstructor: boolean;
     COURSE_IMAGE_PATH: string;
     AVATAR_IMAGE_PATH: string;
     discussionSettings: DiscussionSettings;
@@ -67,6 +73,8 @@ export class ClassComponent implements OnInit {
     assignments: Assignment[];
     materialSets: MaterialSet[][];
     currentMaterials: MaterialSet[];
+    announcements: Announcements[];
+    currentAnnouncement: Announcements;
 
     // for the BIO Popup
     bioChosen: User;
@@ -82,7 +90,8 @@ export class ClassComponent implements OnInit {
     private enrollmentsService: EnrollmentsService,
     private assignmentsService: AssignmentsService,
     private messageService: MessageService,
-    private globals: Globals ) {
+    private globals: Globals,
+private announcementsService: AnnouncementsService ) {
     }
 
    clean(thisArray, deleteValue): any[] {
@@ -98,6 +107,8 @@ export class ClassComponent implements OnInit {
     ngOnInit() {
         this.currentMaterials = null;
         this.messaging = false;
+        this.currentUser = this.userService.getCurrentUser();
+        this.currentUserIsInstructor = false;
 
         this.activated_route.params.subscribe(params => {
             this.onSectionChange(params['id2']);
@@ -109,7 +120,10 @@ export class ClassComponent implements OnInit {
             this.sectionNumber = this.activated_route.snapshot.params['id2'];
             this.discussionSettings = this.activated_route.snapshot.data['discussionSettings'];
             this.notesSettings = this.activated_route.snapshot.data['notesSettings'];
-            console.log('In class init: ' + this.sectionNumber);
+            this.announcements = this.activated_route.snapshot.data['announcements'];
+            console.log('Announcements: ' + this.announcements.length);
+            this.currentUser = this.userService.getCurrentUser();
+    //        console.log('In class init: ' + this.sectionNumber);
            // console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
         // console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
         });
@@ -262,6 +276,14 @@ export class ClassComponent implements OnInit {
         this.thisClass = newClassObject;
     }
 
+    showAnnouncementsMenu() {
+        this.showingAnnouncementsMenu = !this.showingAnnouncementsMenu;
+    }
+
+    hideAnnouncementsMenu() {
+        this.showingAnnouncementsMenu = false;
+    }
+
     hideSectionMenu() {
         this.showingSectionMenu = false;
     }
@@ -271,6 +293,9 @@ export class ClassComponent implements OnInit {
     }
 
     createInstructorThumbnail(user) {
+        if (user.id === this.currentUser.id) {
+            this.currentUserIsInstructor = true;
+        }
         const thumbnailObj = { user: user, user_id: user.id, online: false,
             size: 100,  showUsername: true, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
         return thumbnailObj;
@@ -282,6 +307,14 @@ export class ClassComponent implements OnInit {
         return thumbnailObj;
     }
 
+    displayAnnouncement( t ) {
+        this.showingAnnouncements = true;
+        this.currentAnnouncement = this.announcements[t];
+    }
+
+    hideAnnouncements() {
+        this.showingAnnouncements = false;
+    }
 
     nextSection() {
         this.sectionNumber++;
@@ -314,6 +347,35 @@ export class ClassComponent implements OnInit {
      const routeString = '/classes/' + this.classID + '/' + this.sectionNumber;
         this.router.navigate([routeString]);
     }
+
+    makeAnnouncement() {
+        this.showingAnnouncementsForm = true;
+    }
+    closeAnnoucementsForm( event ) {
+        this.showingAnnouncementsForm = false;
+    }
+    deleteAnnouncement() {
+        console.log('About to deete Announcement with id of: ' + this.currentAnnouncement.id);
+        
+        this.announcementsService.delete( this.currentAnnouncement.id ).subscribe(
+            (data) => {
+                console.log('Got back from the Announcement Service, after deleting.');
+                this.showingAnnouncements = false;
+            },
+          error => {
+              this.errorMessage = <any>error;
+              // This is a work-around for a HTTP error message I was getting even when the
+              // course was successfully deleted.
+              if (error.status === 200) {
+                console.log('Got back from the Announcement Service, with error deleting.');
+                this.showingAnnouncements = false;
+               // this.router.navigate(['/coursebuilder']);
+              } else {
+             console.log('Error: ' + JSON.stringify(error) ); }
+        } );
+
+    }
+
 }
 
 

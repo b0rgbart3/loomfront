@@ -56,6 +56,7 @@ enrollments =        this.api_path + 'enrollments';
 assignments =        this.api_path + 'assignments';
 messages =           this.api_path + 'messages';
 sendCFMsg =          this.api_path + 'sendCFMsg';
+announcements =      this.api_path + 'announcements';
 
 courseimages =       this.awspath  + 'courseimages';
 materialimages =     this.awspath  + 'materialimages';
