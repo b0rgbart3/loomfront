@@ -5,6 +5,7 @@ export class ChoiceList {
 
   constructor (
       public headline: string,
+      public type: string,
       public choices: string[],
 
   ) {}

@@ -144,8 +144,18 @@ export class CourseObjectEditComponent implements OnInit {
         // }
     }
     addSection() {
+        // this variable needs to exist before we start working with it
+        if (this.course.sections) {
+
+          // If there are no sections yet-- we need to create "Section Zero" before we add new sections
+          // Section Zero is the section which allows us to display the syllabus (and still keep a clean URL path)
+          if (this.course.sections.length < 1) {
+              this.course.sections.push( new Section( 'Section0', '', [], null, this.course.sections.length) );
+          }
+
+        // OK - NOW we can add sections like normal
         this.course.sections.push( new Section( 'Section' + this.course.sections.length, '', [], null, this.course.sections.length) );
-       // this.addSectionForm();
+        }
     }
     destroySection(index: number) {
         console.log('Index passed: ' + index);

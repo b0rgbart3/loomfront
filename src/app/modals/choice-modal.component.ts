@@ -23,21 +23,34 @@ export class ChoiceModalComponent implements OnInit {
     display: boolean;
     choices: string[];
     headline: string;
+    type: string;
 
     @Input() ChoiceList: string[];
     @Input() openModal: Subject<any>;
     @Output() onChosen = new EventEmitter <number>();
+    @Output() addNew = new EventEmitter <string>();
     constructor() {
     }
 
     ngOnInit() {
 
         this.display = false;
+
+        // We subscribe to this "openModal" input variable -- so that whenever a new list
+        // is added to this RxJs observable - we will get a notification that it's time to display
+        // the modal - with new data
+
         this.openModal.subscribe( choiceList => {
             this.headline = choiceList.headline;
             this.choices = choiceList.choices;
+            this.type = choiceList.type;
             this.display = true;
         });
+    }
+
+    add() {
+        this.addNew.emit( this.type );
+        this.display = false;
     }
 
     choose(choice) {

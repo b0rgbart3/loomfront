@@ -112,7 +112,7 @@ export class AnnouncementsService implements OnInit {
       }
      }
 
-     delete(id: number): Observable<any> {
+     delete(id: string): Observable<any> {
        console.log('requestion deletion');
          return this._http.delete( this.globals.announcements + '?id=' + id);
      }
@@ -125,7 +125,7 @@ export class AnnouncementsService implements OnInit {
            this.highestID = 1;
          }
 
-         announcementsObject.id = this.highestID;
+         announcementsObject.id = this.highestID + '';
          console.log('creating announcement object: ' + announcementsObject.id);
 
          // courseObject.id = '' + thisID;

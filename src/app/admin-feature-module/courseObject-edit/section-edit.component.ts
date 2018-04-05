@@ -18,15 +18,12 @@ import { Subject } from 'rxjs/Subject';
 import { ChoiceList } from '../../models/choiceList.model';
 import { DragulaService } from 'ng2-dragula';
 
-
 @Component({
     moduleId: module.id,
     selector: 'section-edit',
     templateUrl: 'section-edit.component.html',
     styleUrls: ['section-edit.component.css']
 })
-
-
 
 export class SectionEditComponent implements OnInit {
 
@@ -38,6 +35,7 @@ export class SectionEditComponent implements OnInit {
 
     sectionFormGroup: FormGroup;
     openModal: Subject<any> = new Subject();
+    newMaterialModal: Subject<any> = new Subject();
     choiceList: string[];
     currentMaterialGroup: Material[];
     dragOptions: any;
@@ -107,10 +105,24 @@ export class SectionEditComponent implements OnInit {
             materials => { materialGroup = materials;
                 this.currentMaterialGroup = materials;
                 const materialList = materialGroup.map( mat => mat.title );
-                console.log('Built materialList: ' + JSON.stringify(materialGroup));
-                const choiceList = new ChoiceList( 'Choose a ' + material.type, materialList);
+               // console.log('Built materialList: ' + JSON.stringify(materialGroup));
+                const choiceList = new ChoiceList( 'Choose a ' + material.type, material.type, materialList);
+
+                // I am using the openModal as an observable subject -- so that I can push a new list to it
+                // as a way of telling the Modal to display itself - and initiate that process.  Pretty cool!
+
                 this.openModal.next(choiceList); }
         );
+    }
+
+    newMaterialAdded( material ) {
+        this.section.materials.push(material.id);
+    }
+
+    addNew( type ) {
+
+        const emptyMaterial =  new Material('material', '', '', '0', type, '', '', '', '', '', '', '', false);
+        this.newMaterialModal.next( emptyMaterial);
     }
 
     dragEvent(el, source, handle, sibling) {

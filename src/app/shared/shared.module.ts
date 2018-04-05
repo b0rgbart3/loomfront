@@ -51,8 +51,6 @@ import { MakeAnnouncementComponent } from '../classes/class/makeannouncement.com
 import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver';
 
 
-
-
 @NgModule ( {
     imports: [
         CommonModule,
@@ -101,7 +99,8 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         MaterialIconComponent,
         DisplayMaterialsComponent,
         ImageCropperComponent,
-        MakeAnnouncementComponent
+        MakeAnnouncementComponent,
+       
     ],
     providers: [
         ClassResolver,
@@ -156,7 +155,8 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         MaterialIconComponent,
         DisplayMaterialsComponent,
         ImageCropperComponent,
-        MakeAnnouncementComponent
+        MakeAnnouncementComponent,
+        
     ]
 
 })

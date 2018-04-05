@@ -3,7 +3,7 @@
         (click)="closeModal()"></div>
         <h1> {{ headline }} </h1>
     <div class='choices'>
-        
+        <div class='choice' (click)='add()'>Add new {{type}}</div>
         <div *ngFor='let choice of choices; let i=index;' class='choice' (click)='choose(i)'>
             {{ choice }}
         </div>

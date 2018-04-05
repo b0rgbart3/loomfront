@@ -1,0 +1,13 @@
+.newModal {
+    display:inline-block;
+    position: fixed;
+    top:80px;
+    min-height:400px;
+    width:60%;
+    min-width:640px;
+    background-color:#777777;
+    border-radius:8px;
+    padding:20px;
+    box-shadow:0 0 20px black;
+    z-index: 10;
+}

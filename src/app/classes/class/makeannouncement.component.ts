@@ -19,12 +19,12 @@ import { Router } from '@angular/router';
     announcement: Announcements;
     @Input() classID: string;
     @Input() instructorID: string;
-    @Output() close = new EventEmitter <boolean>();
+    @Output() close = new EventEmitter <Announcements>();
 
 
     constructor( private formBuilder: FormBuilder, private announcementsService: AnnouncementsService, private router: Router ) { }
     ngOnInit() {
-        this.announcement = new Announcements(0, +this.classID, +this.instructorID, null, '', '' );
+        this.announcement = new Announcements('0', this.classID, this.instructorID, '', '' );
         this.form = this.formBuilder.group( {
             title: ['',  Validators.required],
             announcement: ['',  Validators.required],
@@ -33,7 +33,7 @@ import { Router } from '@angular/router';
     }
 
     closeMe() {
-        this.close.emit( true );
+        this.close.emit( null );
     }
 
     submitForm() {
@@ -47,7 +47,7 @@ import { Router } from '@angular/router';
              combinedObject.class_id = +this.classID;
              combinedObject.instructor_id = +this.instructorID;
 
-             if ( this.announcement.id > 0 ) {
+             if ( +this.announcement.id > 0 ) {
                 console.log('calling update: ');
                 this.announcementsService
                 .update( combinedObject ).subscribe(
@@ -58,12 +58,14 @@ import { Router } from '@angular/router';
 
             } else {
                 this.announcementsService.create( combinedObject ).subscribe(
-                    (val) => { }, (response) => { console.log('save completed');
+                    (val) => {
+                       this.announcement = val;
+                     }, (response) => { console.log('save completed');
                       }
                     ,
-                      () => {});
+                      () => {  this.close.emit( this.announcement ); });
             }
         }
-        this.close.emit( true );
+
     }
   }

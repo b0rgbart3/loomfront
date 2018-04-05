@@ -123,9 +123,6 @@ private announcementsService: AnnouncementsService ) {
             this.announcements = this.activated_route.snapshot.data['announcements'];
             console.log('Announcements: ' + this.announcements.length);
             this.currentUser = this.userService.getCurrentUser();
-    //        console.log('In class init: ' + this.sectionNumber);
-           // console.log('In class INit: discussionSettings: ' + JSON.stringify(this.discussionSettings));
-        // console.log('In class init: notesSettings: ' + JSON.stringify(this.notesSettings));
         });
 
         this.activated_route.parent.data.subscribe(
@@ -142,10 +139,6 @@ private announcementsService: AnnouncementsService ) {
                     this.createStudentThumbnail(student) );
             }, err => { console.log('error getting enrollments'); } );
 
-        // this.studentIDList = this.enrollmentService.getStudentsInClass(this.thisClass.id);
-        // this.studentIDList = this.clean(this.studentIDList, undefined);
-        // this.students = this.studentIDList.map( student => this.userService.getUserFromMemoryById(student));
-
         this.instructorIDList = [];
         this.assignmentsService.getAssignmentsInClass( this.thisClass.id ).subscribe (
             data => { this.assignments = data;
@@ -154,80 +147,13 @@ private announcementsService: AnnouncementsService ) {
                 instructor => this.createInstructorThumbnail(instructor) );
             }, err => { console.log('error getting assignments'); } );
 
-        // this.instructorIDList = this.assignmentsService.getInstructorsInClass(this.thisClass.id);
-        // this.instructorIDList = this.clean(this.instructorIDList, undefined);
-        // this.instructors = this.instructorIDList.map( instructor => this.userService.getUserFromMemoryById(instructor));
-
-       // console.log('Students: ' + JSON.stringify(this.studentIDList) );
-       // console.log('Instructors: ' + JSON.stringify(this.instructorIDList) );
-
-
-        // this.studentBioThumbnails = this.students.map( student =>
-        // this.createStudentBioThumbnail(student) );
-
-        // Since we can't load the course data in a resolver (no way to access the
-        // course ID # from the class object except inside a component), we
-        // instead, will subscribe to the course data here (this ngOnInit method
-        // will get re-invoked if the user changes classes, so it's ok if we
-        // only subscribe to it once, I think.)
-
         this.currentCourse = this.activated_route.snapshot.data['thisCourse'];
         this.courseimageURL = this.globals.courseimages + '/' + this.currentCourse.id
         + '/' + this.currentCourse.image;
-        // console.log('currentCourse: ' + JSON.stringify(this.currentCourse));
-       // this.loadCourse();
-       // this.loadMaterials();
 
         this.classMaterials = this.activated_route.snapshot.data['classMaterials'];
 
-       // console.log('In Class INit: ' + this.classMaterials[2].length);
-
-       // This is where we look through ALL the materials - and group them into sets, if need be
-       // for books and docs  (The only reason for doing this is that it is more aesthetically pleaseing
-       // to have them grouped in clusters when they are displayed on the page ).
-        this.materialSets = [];
-        for (let j = 0; j < this.classMaterials.length; j++) {
-            this.materialSets[j] = [];
-            for (let i = 0; i < +this.classMaterials[j].length; i++) {
-                let material = this.classMaterials[j][i];
-                const aMaterialSet = new MaterialSet( false, material.type, []);
-
-                if ( (material.type === 'book') ) {
-                    const first = i;
-                    // collect books and documents together into sets of up to 4
-                    while (( material && (material.type === 'book' ) )
-                    && (i < first + 4 ) && (i < +this.classMaterials[j].length)) {
-                        // its only a group if is more than one - so this only happens after the 2nd time
-                        if (i > first) { aMaterialSet.group = true; }
-                        aMaterialSet.materials.push(this.classMaterials[j][i]);
-                        i++;
-                        material = this.classMaterials[j][i];
-                    }
-                    if (i > first) { i--; }
-
-                } else {
-                if ( (material.type === 'doc') ) {
-                    const first = i;
-                    // collect books and documents together into sets of up to 4
-                    while (( material && (material.type === 'doc') )
-                    && (i < first + 4 ) && (i < +this.classMaterials[j].length)) {
-                        if (i > first) { aMaterialSet.group = true;  }// its only a group if is more than one
-                        aMaterialSet.materials.push(this.classMaterials[j][i]);
-                        i++;
-                        material = this.classMaterials[j][i];
-                    }
-                    if (i > first) { i--; }
-
-                } else {
-                // If it's not a book or a doc - then we don't need to group it
-                if ( (material.type !== 'doc') && (material.type !== 'book')) {
-                    aMaterialSet.materials.push(material);
-                } } }
-                this.materialSets[j].push(aMaterialSet);
-            }
-        }
-        // console.log('Class Materials' + JSON.stringify(this.classMaterials));
-        console.log('In class INIT, sectionNumber: ' + this.sectionNumber);
+        this.buildMaterialSets();
         this.currentMaterials = this.materialSets[this.sectionNumber];
 
         this.activated_route.params.subscribe( params => {
@@ -241,7 +167,7 @@ private announcementsService: AnnouncementsService ) {
                 if (this.currentCourse && this.currentCourse.sections) {
 
                 this.section = this.currentCourse.sections[this.sectionNumber];
-
+                this.currentMaterials = this.materialSets[this.sectionNumber];
             }
 
             }
@@ -249,6 +175,54 @@ private announcementsService: AnnouncementsService ) {
 
     }
 
+    // This is where we look through ALL the materials - and group them into sets, if need be
+    // for books and docs  (The only reason for doing this is that it is more aesthetically pleaseing
+    // to have them grouped in clusters when they are displayed on the page ).
+    buildMaterialSets() {
+        this.materialSets = [];
+        for (let j = 0; j < this.classMaterials.length; j++) {
+            this.materialSets[j] = [];
+            for (let i = 0; i < +this.classMaterials[j].length; i++) {
+                let material = this.classMaterials[j][i];
+                if (material) {
+                    const aMaterialSet = new MaterialSet( false, material.type, []);
+
+                    if ( (material.type === 'book') ) {
+                        const first = i;
+                        // collect books and documents together into sets of up to 4
+                        while (( material && (material.type === 'book' ) )
+                        && (i < first + 4 ) && (i < +this.classMaterials[j].length)) {
+                            // its only a group if is more than one - so this only happens after the 2nd time
+                            if (i > first) { aMaterialSet.group = true; }
+                            aMaterialSet.materials.push(this.classMaterials[j][i]);
+                            i++;
+                            material = this.classMaterials[j][i];
+                        }
+                        if (i > first) { i--; }
+
+                    } else {
+                    if ( (material.type === 'doc') ) {
+                        const first = i;
+                        // collect books and documents together into sets of up to 4
+                        while (( material && (material.type === 'doc') )
+                        && (i < first + 4 ) && (i < +this.classMaterials[j].length)) {
+                            if (i > first) { aMaterialSet.group = true;  }// its only a group if is more than one
+                            aMaterialSet.materials.push(this.classMaterials[j][i]);
+                            i++;
+                            material = this.classMaterials[j][i];
+                        }
+                        if (i > first) { i--; }
+
+                    } else {
+                    // If it's not a book or a doc - then we don't need to group it
+                    if ( (material.type !== 'doc') && (material.type !== 'book')) {
+                        aMaterialSet.materials.push(material);
+                    } } }
+                    this.materialSets[j].push(aMaterialSet);
+                }
+            }
+        }
+    }
     showBio(user) {
         if (!this.showingBio) {
         this.bioChosen = user;
@@ -262,9 +236,6 @@ private announcementsService: AnnouncementsService ) {
       //  this.hideMenu(student);
         this.messageService.sendMessage(student);
     }
-
-
-
 
     onSectionChange(newSectionNumber) {
         this.sectionNumber = newSectionNumber;
@@ -353,22 +324,36 @@ private announcementsService: AnnouncementsService ) {
     }
     closeAnnoucementsForm( event ) {
         this.showingAnnouncementsForm = false;
+        // If we got an Announcments object back, then let's add it to our current list of announcements.
+        if (event) {
+            console.log('This is the event / Announcment we got back: ' + JSON.stringify(event));
+            this.announcements.push(event); }
     }
     deleteAnnouncement() {
         console.log('About to deete Announcement with id of: ' + this.currentAnnouncement.id);
-        
+
         this.announcementsService.delete( this.currentAnnouncement.id ).subscribe(
             (data) => {
                 console.log('Got back from the Announcement Service, after deleting.');
                 this.showingAnnouncements = false;
+                const index = this.announcements.indexOf(this.currentAnnouncement);
+                console.log('Announcements: ' + JSON.stringify(this.announcements));
+                console.log('index: ' + index);
+                this.announcements.splice(index, 1);
             },
           error => {
               this.errorMessage = <any>error;
+              console.log('Got back from the Announcement Service, with error deleting.');
               // This is a work-around for a HTTP error message I was getting even when the
               // course was successfully deleted.
               if (error.status === 200) {
-                console.log('Got back from the Announcement Service, with error deleting.');
+                console.log('But this is one of those bogus errors');
                 this.showingAnnouncements = false;
+                const index = this.announcements.indexOf(this.currentAnnouncement);
+                console.log('Announcements: ' + JSON.stringify(this.announcements));
+                console.log('index: ' + index);
+                this.announcements.splice(index, 1);
+
                // this.router.navigate(['/coursebuilder']);
               } else {
              console.log('Error: ' + JSON.stringify(error) ); }

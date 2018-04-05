@@ -3,10 +3,9 @@ export class Announcements {
 
     constructor (
 
-        public id: number,
-        public class_id: number,
-        public insstructor_id: number,
-        public announcement_date: DateTimeFormat,
+        public id: string,
+        public class_id: string,
+        public insstructor_id: string,
         public title: string,
         public announcement: string
     ) {}

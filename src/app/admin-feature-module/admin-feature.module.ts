@@ -40,6 +40,7 @@ import { CourseObjectEditComponent } from './courseObject-edit/courseObject-edit
 import { SectionEditComponent } from './courseObject-edit/section-edit.component';
 import { CourseObjectEditGuard } from './courseObject-edit/courseObject-edit-guard.service';
 import { AllMaterialsResolver } from '../resolvers/all-materials-resolver.service';
+import { NewMaterialModalComponent } from './courseObject-edit/new-material-modal.component';
 
 
 
@@ -130,7 +131,8 @@ import { AllMaterialsResolver } from '../resolvers/all-materials-resolver.servic
        AssignmentsComponent,
        CourseObjectEditComponent,
        SectionEditComponent,
-       MaterialsComponent
+       MaterialsComponent,
+       NewMaterialModalComponent
     ],
     providers: [
         AdminRouteActivator,
@@ -155,7 +157,8 @@ import { AllMaterialsResolver } from '../resolvers/all-materials-resolver.servic
         CourseObjectEditComponent,
         AssignmentsComponent,
         SectionEditComponent,
-        MaterialsComponent
+        MaterialsComponent,
+        NewMaterialModalComponent
     ]
 })
 

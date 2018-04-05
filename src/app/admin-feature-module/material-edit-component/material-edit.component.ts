@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ClassModel } from '../../models/class.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
@@ -12,12 +12,16 @@ import {Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
+    selector: 'material-edit',
     templateUrl: 'material-edit.component.html',
     styleUrls: ['material-edit.component.css']
 })
 
 export class MaterialEditComponent implements OnInit {
-    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '', '', '', '');
+    @Input() newType: string;
+    @Output() onComplete= new EventEmitter <Material>();
+    modalVersion: boolean;
+    material: Material = new Material ( 'material', '', '', '0', '', '', '', '', '', '', '', '', false);
     materialForm: FormGroup;
     type: string;
     // types: Array<string>;
@@ -53,8 +57,15 @@ export class MaterialEditComponent implements OnInit {
         // This gets the resource type from the router, as a data parameter
         // which we will use to dynamically
         // change our Form Model to accommodate the resource type
+        // First we check to see if this is being called as a Modal - and we can tell
+        // by weather or not the newType Input var is set.
+        if (this.newType) {
+            this.modalVersion = true;
+            console.log('found a new Type: ' + this.newType);
+            this.type = this.newType; } else {
+                this.modalVersion = false;
         this.type = this.activated_route.snapshot.data['type'];
-
+        }
         switch (this.type) {
             case 'book':
             this.urlLabel = 'Purchase URL';
@@ -91,9 +102,15 @@ export class MaterialEditComponent implements OnInit {
             this.descriptionPlaceholder = 'Description';
             break;
         }
+
+        if (this.modalVersion) { this.id = '0';
+        this.material.id = this.id;
+       } else {
         this.id = this.activated_route.snapshot.params['id'];
         this.material.id = this.id;
+        }
 
+        console.log('This material id: ' + this.id);
         if (this.id !== '0') {
             this.getMaterial(this.id);
          } else {
@@ -102,12 +119,13 @@ export class MaterialEditComponent implements OnInit {
              console.log('the ID we got was: ' + this.id);
          }
          this.buildForm();
+
     }
 
     buildForm() {
         const urlWithQuery = this.globals.postmaterialimages + '?id=' + this.id;
         this.imageUploader = new FileUploader({url: urlWithQuery});
-        
+
         this.imageUploader.onAfterAddingFile = (fileItem) => {
             const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
                 : (window as any).webkitURL.createObjectURL(fileItem._file);
@@ -232,10 +250,13 @@ export class MaterialEditComponent implements OnInit {
                 (val) => {
                   },
                   response => {
-                    this.router.navigate(['/admin/materials']);
+                   // this.router.navigate(['/admin/materials']);
                   },
                   () => {
-                    this.router.navigate(['/admin/materials']);
+                      if (!this.modalVersion) {
+                    this.router.navigate(['/admin/materials']); } else {
+                        this.complete();
+                    }
                   }
             );
         } else {
@@ -243,12 +264,18 @@ export class MaterialEditComponent implements OnInit {
             this.materialService
             .updateMaterial( combinedObject ).subscribe(
             (val) => {
+                console.log('The current material model is: ' + JSON.stringify(this.material));
+                this.material = val;
+                console.log('Reassigning the material model to: ' + JSON.stringify(val));
             },
             response => {
-                this.router.navigate(['/admin/materials']);
+              //  this.router.navigate(['/admin/materials']);
             },
             () => {
-            this.router.navigate(['/admin/materials']);
+                if (!this.modalVersion) {
+            this.router.navigate(['/admin/materials']); } else {
+                this.complete();
+            }
             }
         );
         }
@@ -286,5 +313,10 @@ export class MaterialEditComponent implements OnInit {
 
     closer() {
         this.router.navigate(['/admin/materials']);
+    }
+
+    complete() {
+        console.log('onComplete in Material edit, Im emitting this material: ' + JSON.stringify(this.material));
+        this.onComplete.emit(this.material);
     }
 }

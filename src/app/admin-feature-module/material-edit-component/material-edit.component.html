@@ -5,13 +5,12 @@
              
     <div class='loomCard group'>
         <div class='closer'
-        (click)="closer()"></div>
+        (click)="closer()" *ngIf='!modalVersion'></div>
     
  
     <h1>{{ type }}</h1>
-    <mat-form-field *ngIf="type!=='quote'">
-    <textarea matInput placeholder="Title" name="title" id='title' formControlName='title'matTextareaAutosize matAutosizeMinRows="2"
-    matAutosizeMaxRows="5"></textarea>
+    <mat-form-field>
+            <input matInput placeholder="Title" name='title' id='title' formControlName='title'>
     </mat-form-field>
 
     <div *ngIf='descriptionNeeded'>
@@ -41,17 +40,17 @@
             <video-component [videoObject]="this"></video-component>
     </div>
     <div *ngIf='uploaderNeeded'>
-    <p class='instructions'>To post an asset, you can either just include a URL, or upload the file itself.
-    </p>
-    <div class='choice1'>
+    <!-- <p class='instructions'>To post an asset, you can either just include a URL, or upload the file itself.
+    </p> -->
+    <!-- <div class='choice1'>
     <mat-form-field>
         <input matInput [placeholder]="urlLabel" name="contenturl" id='contenturl' formControlName='contenturl'>
         </mat-form-field>
-    </div>
+    </div> -->
     <!-- <mat-select placeholder='Material Type' formControlName='type'>
         <mat-option *ngFor='let type of types' mdOption [value]='type' ng-selected="material.type"> {{ type }}</mat-option>
     </mat-select> -->
-<div class='or'>OR</div>
+<!-- <div class='or'>OR</div> -->
 <div class='choice2'>
     <div class="upload-wrap">
         Upload Document
@@ -98,8 +97,9 @@
 <!-- <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div> -->
 <br clear='all'>
 
-<br clear='all'><br><hr><br>
-<div class='loomButton dangerous' (click)="deleteMaterial()">
+<br clear='all'>
+<div class='loomButton dangerous' (click)="deleteMaterial()" *ngIf='!modalVersion'>
+        <br><hr><br>
 <mat-icon>delete</mat-icon><span class='raise'>
     Delete this {{ type }}</span></div>
 
