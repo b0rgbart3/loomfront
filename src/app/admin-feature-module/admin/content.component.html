@@ -61,6 +61,27 @@
             </mat-list-item>
         </mat-list>
     </mat-expansion-panel>
-    <br>
-    
+    <br><br><br>
+    <div class='divider'></div>
+    <br><br>
 
+    <div class='trashCan'>
+        <mat-expansion-panel>
+        <mat-expansion-panel-header>Trashed Data Recovery</mat-expansion-panel-header>
+            <div *ngIf='removedClasses && removedClasses.length > 0'>
+                <h2>Classes</h2>
+            <div *ngFor='let classObject of removedClasses' class='removedObjectLine'>{{classObject.title}} 
+                <p>{{classObject.start | date}}</p>|  <a (click)='recoverClass(classObject)'>recover this class</a> |</div>
+            </div>
+            <div *ngIf='removedCourses && removedCourses.length > 0'>
+                <h2>Course Work</h2>
+                <div *ngFor='let courseObject of removedCourses' class='removedObjectLine'>{{courseObject.title}} 
+                        <p>{{courseObject.description}}</p>|  <a (click)='recoverCourse(courseObject)'>recover this course</a> |</div>
+            </div>
+            <div *ngIf='removedSeries && removedSeries.length > 0'>
+                <h2>Series</h2>
+                <div *ngFor='let seriesObject of removedSeries' class='removedObjectLine'>{{seriesObject.title}} 
+                        <p>{{seriesObject.description}}</p>|  <a (click)='recoverSeries(seriesObject)'>recover this series</a> |</div>
+            </div>    
+        </mat-expansion-panel>
+    </div>

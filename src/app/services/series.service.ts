@@ -17,6 +17,7 @@ export class SeriesService {
     materialCount = 0;
     highestID = 0;
     series: Series[];
+    removedSeries: Series[];
     seriesCount: number;
 
     constructor (private _http: HttpClient, private globals: Globals) {}
@@ -31,6 +32,7 @@ export class SeriesService {
           this.series = data;
           console.log('Got Data back for Series: ' + JSON.stringify(data));
           this.updateIDCount();
+          this.hideRemovals();
         }).catch(this.handleError);
      } else {
     return this._http.get <Series[]> (this.globals.series + '?id=' + series_id )
@@ -46,6 +48,19 @@ export class SeriesService {
 
   }
 
+  hideRemovals() {
+    // For now I'm just going to remove the class objects that are 'marked for removal'
+    // from our main array -- and store them in a separate array
+    this.removedSeries = [];
+    if (this.series && this.series.length > 0) {
+      for (let i = 0; i < this.series.length; i++) {
+        if (this.series[i].remove_this) {
+          this.removedSeries.push(this.series[i]);
+          this.series.splice(i, 1);
+        }
+      }
+    }
+  }
 
   getNextId() {
 
@@ -54,8 +69,34 @@ export class SeriesService {
 
   }
 
+  remove( object: Series): Observable<any> {
+    console.log('Got call to remove: ' + JSON.stringify(object));
+    object.remove_this = true;
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('Content-Type', 'application/json');
 
+    return this._http.put(this.globals.series + '?id=' + object.id, object, {headers: myHeaders});
 
+  }
+
+  recoverSeries(seriesObject): Observable <any> {
+    seriesObject.remove_this = false;
+    return this.updateSeries(seriesObject).do(
+      data => {
+        // add this course object back into our main array
+        this.series.push(data);
+        // remove this course object from our list of removed courses
+        for (let i = 0; i < this.removedSeries.length; i++) {
+          if ( this.removedSeries[i].id === data.id) {
+            this.removedSeries.splice(i, 1);
+          }
+        }
+
+        console.log('recovering course data');
+        return data; }   )
+      .catch( this.handleError );
+
+  }
 
   updateIDCount() {
       // Loop through all the Materials to find the highest ID#

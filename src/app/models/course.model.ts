@@ -8,7 +8,8 @@ export class Course {
       public description: string,
       public id: string,
       public sections: Section[],
-      public image: string
+      public image: string,
+      public remove_this: boolean
   ) {}
 
 }

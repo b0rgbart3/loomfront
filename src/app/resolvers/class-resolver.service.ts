@@ -24,7 +24,7 @@ export class ClassResolver implements Resolve <ClassModel> {
 
         if (id === '0') {
         //    console.log('CREATING NEW EMPTY CLASSMODEL');
-            const newClass = new ClassModel('', '', '', '', '0', '', null, '', '');
+            const newClass = new ClassModel('', '', new Date(), new Date(), '0', '', null, '', '', false);
             return Observable.of(newClass); } else {
 
 

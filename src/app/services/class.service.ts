@@ -21,7 +21,7 @@ export class ClassService implements OnInit {
     private highestID = 0;
     classes: ClassModel[];
     errorMessage: string;
-
+    removedClasses: ClassModel[];
 
     constructor (private _http: HttpClient, private globals: Globals) {
     }
@@ -54,6 +54,8 @@ export class ClassService implements OnInit {
 
     }
 
+    // Get ALL the class objects
+
    getClasses(): Observable<ClassModel[]> {
     // console.log('In class service, getClasses.');
      const myHeaders = new HttpHeaders();
@@ -66,20 +68,36 @@ export class ClassService implements OnInit {
       this.classCount = +data.length;
 
       // Loop through all the Classes to find the highest ID#
-      for (let i = 0; i < data.length; i++) {
-        const foundID = Number(data[i].id);
+      this.updateIDCount();
+      this.hideRemovals();
+      // for (let i = 0; i < data.length; i++) {
+      //   const foundID = Number(data[i].id);
 
-        if (foundID >= this.highestID) {
-          const newHigh = foundID + 1;
-          this.highestID = newHigh;
-        }
-      }
-
+      //   if (foundID >= this.highestID) {
+      //     const newHigh = foundID + 1;
+      //     this.highestID = newHigh;
+      //   }
+      // }
+      return this.classes;
 
     } )
       .catch( this.handleError );
   }
 
+
+  hideRemovals() {
+    // For now I'm just going to remove the class objects that are 'marked for removal'
+    // from our main array -- and store them in a separate array
+    this.removedClasses = [];
+    if (this.classes && this.classes.length > 0) {
+      for (let i = 0; i < this.classes.length; i++) {
+        if (this.classes[i].remove_this) {
+          this.removedClasses.push(this.classes[i]);
+          this.classes.splice(i, 1);
+        }
+      }
+    }
+  }
 
   gethighestID(): number {
     this.updateIDCount();
@@ -129,7 +147,10 @@ export class ClassService implements OnInit {
       return data; })
       .catch (this.handleError); } else {
        // console.log('The ID is zero, so we\'re creating a fresh new Class.');
-        return Observable.of( new ClassModel('', '', '', '', '', '', null, null , '') );
+       const newClass = new ClassModel('', '', new Date(), new Date(), '', '', null, null , '', false);
+       newClass.start = new Date();
+       newClass.end = new Date();
+        return Observable.of(  );
       }
   }
 
@@ -151,6 +172,14 @@ export class ClassService implements OnInit {
 
   }
 
+  removeClass( classObject: ClassModel): Observable<any> {
+    classObject.remove_this = true;
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('Content-Type', 'application/json');
+
+    return this._http.put(this.globals.classes + '?id=' + classObject.id, classObject, {headers: myHeaders});
+
+  }
   updateClass(classObject: ClassModel): Observable<any> {
 
     const myHeaders = new HttpHeaders();
@@ -164,6 +193,24 @@ export class ClassService implements OnInit {
     return this._http.delete( this.globals.classes + '?id=' + classId);
 }
 
+recoverClass(classObject): Observable <any> {
+  classObject.remove_this = false;
+  return this.updateClass(classObject).do(
+    data => {
+      // add this class object back into our main array
+      this.classes.push(data);
+      // remove this class object from our list of removed classes
+      for (let i = 0; i < this.removedClasses.length; i++) {
+        if ( this.removedClasses[i].id === data.id) {
+          this.removedClasses.splice(i, 1);
+        }
+      }
+
+      console.log('recovering course data');
+      return data; }   )
+    .catch( this.handleError );
+
+}
 
     private handleError (error: HttpErrorResponse) {
     //  console.log( error.message );

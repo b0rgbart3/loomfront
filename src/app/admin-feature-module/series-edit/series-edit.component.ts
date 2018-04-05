@@ -30,34 +30,46 @@ export class SeriesEditComponent implements OnInit {
     ngOnInit() {
         const id = this.activated_route.snapshot.params['id'];
 
-        console.log('The ID for this new series is: ' + id);
+       console.log('The ID for this new series is: ' + id);
 
-        this.series = this.activated_route.snapshot.data['series'];
-
+        if (id !== '0') {
+          this.series = this.activated_route.snapshot.data['series'];
+        } else {
+            this.series = new Series ( '', '', '0', null, false );
+        }
         this.seriesForm = this.fb.group( {
             title: null,
             description: null,
         });
-        console.log('Got into the Series Edit Component.');
+       // console.log('Got into the Series Edit Component.');
 
         this.populateForm();
     }
 
     populateForm() {
         if (this.series) {
-            console.log('In Series edit component - about to patch Values to the form: ' + JSON.stringify(this.series));
+         //   console.log('In Series edit component - about to patch Values to the form: ' + JSON.stringify(this.series));
         this.seriesForm.patchValue({'title': this.series.title,
             'description' : this.series.description });
         } else {
-            console.log('ERROR in Series Edit -- no series object!');
+            console.log('in Series Edit -- no series object!');
         }
 
     }
     closer() {
         this._location.back();
     }
+
+    remove() {
+        this.seriesService.remove( this.series ).subscribe( (val) => {
+            this.router.navigate(['/admin/classes']);
+        }, response => { this.router.navigate(['/admin/classes']); },
+            () => { this.router.navigate(['/admin/classes']); });
+
+    }
+
     save() {
-        console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(this.seriesForm.value)  );
+       // console.log('In Class-Edit component, about to savemodel: ' + JSON.stringify(this.seriesForm.value)  );
         if (this.seriesForm.dirty && this.seriesForm.valid) {
 
 
@@ -70,21 +82,20 @@ export class SeriesEditComponent implements OnInit {
              const id_as_number = parseInt(this.series.id, 10);
 
              if ( id_as_number > 0 ) {
-                 console.log('calling update: ');
+             //    console.log('calling update: ');
                  this.seriesService
                  .updateSeries( combinedClassObject ).subscribe(
                  (val) => {
-                  this.router.navigate(['/welcome']);
-             }, response => { this.router.navigate(['/welcome']); },
+                  this.router.navigate(['/admin/classes']);
+             }, response => { this.router.navigate(['/admin/classes']); },
                  () => { });
  
              } else {
-                 console.log('calling createClass');
+            //     console.log('calling createClass');
                  this.seriesService.createSeries( combinedClassObject ).subscribe(
-                     (val) => { }, (response) => { console.log('save completed');
-                      this.router.navigate(['/welcome']); }
+                     (val) => { }, (response) => {  }
                      ,
-                       () => {});
+                       () => { this.router.navigate(['/admin/classes']); });
              }
 
         }

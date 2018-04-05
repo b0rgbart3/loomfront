@@ -35,7 +35,7 @@ export class CourseResolver implements Resolve <Course> {
         }
         if (id === '0' ) {
             console.log('creating a new empty course. ');
-            const newCourse = new Course('', '', '0', [], '');
+            const newCourse = new Course('', '', '0', [], '', false);
             return Observable.of( newCourse ); }
         return this.courseService.getCourse(id).
         map(course => { if (course) {

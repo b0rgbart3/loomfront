@@ -22,7 +22,7 @@ export class SerieResolver implements Resolve <Series> {
         // }
         if (id === '0') {
             console.log('Creating new Series');
-            const newSeries = new Series('', '', '', '' );
+            const newSeries = new Series('', '', '', '', false);
             return Observable.of(newSeries); } else {
         return this.seriesService.getSeries(id).
         map(series => { if (series) {

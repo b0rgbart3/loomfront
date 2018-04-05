@@ -22,9 +22,17 @@ export class ClassListComponent implements OnInit {
   constructor(private classService: ClassService) { }
 
   ngOnInit() {
-
+     // Let's not display classes that don't yet have enough real data
+     this.weedOut();
   }
 
+  weedOut() {
+    for (let i = 0; i < this.classes.length; i++) {
+      if ((!this.classes[i].start) ) {
+        this.classes.splice(i, 1);
+      }
+    }
+  }
   private getIndexOfClass = (classId: String) => {
     return this.classes.findIndex( (classObject ) => {
       return classObject._id === classId;
@@ -37,8 +45,8 @@ export class ClassListComponent implements OnInit {
 
   createNewClass() {
     const classObject: ClassModel = {
-      id: '0', title: '', course: '', start: '', end: '',
-       courseObject: null, courseImageURL: '', cost: '', costBlurb: ''
+      id: '0', title: '', course: '', start: new Date(), end: new Date(),
+       courseObject: null, courseImageURL: '', cost: '', costBlurb: '', remove_this: false
     };
 
     // By default, a newly-created course will have the selected state.

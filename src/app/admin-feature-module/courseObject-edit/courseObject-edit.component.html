@@ -31,7 +31,7 @@
         <mat-expansion-panel  *ngFor='let section of course.sections; let i = index'>
            <!-- formArrayName='sections' -->
             <mat-expansion-panel-header *ngIf="i > 0" class='header'>  
-                <div class='handle'><h1>{{section.title}}</h1></div>
+                <div class='handle'><h1>{{section.title}}  - {{course.sections[i].sectionNumber}}</h1></div>
             </mat-expansion-panel-header>
             <section-edit [section]=section [index]=i (onDestroy)='destroySection($event)'
             (onChange)='changeSection($event)'></section-edit>
@@ -43,10 +43,10 @@
 <br clear='all'>
 <div class='courseEditSubmit' 
 (click)='postCourse()'>Save My Changes</div>
-<br clear='all'><br><hr><br>
-<div class='loomButton dangerous' (click)="deleteCourse(this.course.id)">
+          <br clear='all'><br><hr><br>
+<div class='loomButton dangerous' (click)="removeCourse()">
     <mat-icon>delete</mat-icon><span class='raise'>
-        Completely Delete This Course</span></div>
+        Remove This Course</span></div>
  
         
         <!-- <div class='wrapper' [dragula]='"test-outer-bag"'>

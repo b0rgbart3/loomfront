@@ -57,6 +57,18 @@ export class CourseObjectEditComponent implements OnInit {
               return handle.className === 'mat-content';   // mat-content is the class of the "span" for the material expander's titlebar
             }
           });
+
+          dragulaService.drop.subscribe((value) => {
+            console.log(`drop: ${value[0]}`);
+            this.onDrop();
+          });
+    }
+
+    onDrop() {
+        // Here the user rearranged the sections - so we just need to update their individual sectionNumbers to reflect the new order
+        for (let i = 0; i < this.course.sections.length; i++ ) {
+            this.course.sections[i].sectionNumber = i;
+        }
     }
     ngOnInit() {
 
@@ -167,6 +179,7 @@ export class CourseObjectEditComponent implements OnInit {
         // the section edit component
         console.log('Got notified of a change in one of the sections: ' + section.sectionNumber);
         this.course.sections[section.sectionNumber] = section;
+        this.onDrop();
     }
 
     postCourse() {
@@ -278,6 +291,17 @@ export class CourseObjectEditComponent implements OnInit {
         // }
     }
 
+    removeCourse() {
+        const result = confirm( 'Are you sure you want to remove this course,' +
+    ' and ALL of it\'s related sections, with ID: ' + this.course.id + '? ');
+
+    if (result) {
+        this.courseService.removeCourse( this.course).subscribe( (val) => {
+            this.router.navigate(['/admin/classes']);
+        }, response => { this.router.navigate(['/admin/classes']); },
+            () => { });
+      }
+    }
 
     deleteCourse(courseId) {
         const result = confirm( 'Are you sure you want to delete this course,' +

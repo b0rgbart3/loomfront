@@ -6,6 +6,7 @@ export class Series {
       public description: string,
       public id: string,
       public image: string,
+      public remove_this: boolean
 
   ) {}
 

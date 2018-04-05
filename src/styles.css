@@ -1016,6 +1016,22 @@ mat-list-item:active {
   outline:none;
 }
 
+
+.divider {
+  padding:20px;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+.trashCan {
+  margin-top:200px;
+  background-color:rgba(0,0,0,.3);
+  border-radius:4px;
+  padding:20px;
+}
+.removedObjectLine {
+  border: 1px dashed #888888;
+  padding:4px;
+}
 /*  My Material Icons */
 
 .icon {

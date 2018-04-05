@@ -1,6 +1,6 @@
 
 
-        <form [formGroup]="seriesForm" novalidate (ngSubmit)="save()" class='loomForm group'>
+        <form [formGroup]="seriesForm" novalidate class='loomForm group'>
                                         
         <div class='loomCard group'>
                         <div class='closer'
@@ -22,3 +22,7 @@
         <!-- <div class='loomButton loomCancel' [routerLink]="['/admin']" type='reset' >Cancel</div>   -->
         
                 </form>
+                <br clear='all'><br><hr><br>
+                <div class='loomButton dangerous' (click)="remove()">
+                    <mat-icon>delete</mat-icon><span class='raise'>
+                        Remove This Series</span></div>

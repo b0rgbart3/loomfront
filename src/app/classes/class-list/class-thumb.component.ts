@@ -59,9 +59,11 @@ bioChosen: User;
     );
     this.courseService.getCourse(this.courseID).subscribe(
       course =>  {this.course = course[0];
-      this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image;
+        if (this.course && this.course.image) {
+      this.courseimageURL = this.globals.courseimages + '/' + this.courseID + '/' + this.course.image; }
       // console.log('this.courseimageURL: ' + this.courseimageURL);
-        this.description = this.course.description;
+      if (this.course && this.course.description) {
+        this.description = this.course.description; }
       },
           error => this.errorMessage = <any>error);
 

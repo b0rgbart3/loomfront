@@ -80,7 +80,7 @@ import { NewMaterialModalComponent } from './courseObject-edit/new-material-moda
                     canDeactivate: [ CourseObjectEditGuard ],
                     resolve: { course: CourseResolver,
                         allmaterials: AllMaterialsResolver }},
-                    { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { serie: SerieResolver} },
+                    { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { series: SerieResolver} },
                     { path: 'book/:id/edit', component: MaterialEditComponent,
                     data: { type: 'book'}},
 

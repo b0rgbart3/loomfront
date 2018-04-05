@@ -51,13 +51,13 @@ export class CourseEditComponent implements OnInit {
     books: Material[];
     videos: Material[];
     audios: Material[];
-    extractedBooks: Material[][];
-    extractedDocs: Material[][];
-    extractedVideos: Material[][];
-    extractedAudios: Material[][];
-    extractedQuotes: Material[][];
-    extractedBlocks: Material[][];
-    extractedImages: Material[][];
+    // extractedBooks: Material[][];
+    // extractedDocs: Material[][];
+    // extractedVideos: Material[][];
+    // extractedAudios: Material[][];
+    // extractedQuotes: Material[][];
+    // extractedBlocks: Material[][];
+    // extractedImages: Material[][];
 
     bookOptions: Material[];
     docOptions: Material[];
@@ -103,13 +103,13 @@ export class CourseEditComponent implements OnInit {
         this.imagePlaceholder = 'Choose an image';
 
         this.courseService.ngOnInit();
-        this.extractedBooks = [];
-        this.extractedDocs = [];
-        this.extractedVideos = [];
-        this.extractedAudios = [];
-        this.extractedQuotes = [];
-        this.extractedBlocks = [];
-        this.extractedImages = [];
+        // this.extractedBooks = [];
+        // this.extractedDocs = [];
+        // this.extractedVideos = [];
+        // this.extractedAudios = [];
+        // this.extractedQuotes = [];
+        // this.extractedBlocks = [];
+        // this.extractedImages = [];
 
         this.imageFormArray = [];
         this.bookFormArray = [];
@@ -176,37 +176,37 @@ export class CourseEditComponent implements OnInit {
         //      this.course.sections[i] = new Section('', '', '', null, null, i);
         //  }
 
-         if (this.course.sections[i] && this.extractedImages[i] ) {
-             for (let j = 0; j < this.extractedImages[i].length; j++ ) {
-                 this.imageFormArray[i].push(this.buildMaterialsSubSection(this.extractedImages[i][j]['id'] ));
-             } }
-         if (this.course.sections[i] && this.extractedVideos[i] ) {
-             for (let j = 0; j < this.extractedVideos[i].length; j++ ) {
-                 this.videoFormArray[i].push(this.buildMaterialsSubSection(this.extractedVideos[i][j]['id'] ));
-             } }
-         if (this.course.sections[i] && this.extractedAudios[i] ) {
-                 for (let j = 0; j < this.extractedAudios[i].length; j++ ) {
-                     this.audioFormArray[i].push(this.buildMaterialsSubSection(this.extractedAudios[i][j]['id'] ));
-                 } }
-         if (this.course.sections[i] && this.extractedBooks[i] ) {
-             for (let j = 0; j < this.extractedBooks[i].length; j++ ) {
-                 this.bookFormArray[i].push(this.buildMaterialsSubSection(this.extractedBooks[i][j]['id'] ));
-             } }
+        //  if (this.course.sections[i] && this.extractedImages[i] ) {
+        //      for (let j = 0; j < this.extractedImages[i].length; j++ ) {
+        //          this.imageFormArray[i].push(this.buildMaterialsSubSection(this.extractedImages[i][j]['id'] ));
+        //      } }
+        //  if (this.course.sections[i] && this.extractedVideos[i] ) {
+        //      for (let j = 0; j < this.extractedVideos[i].length; j++ ) {
+        //          this.videoFormArray[i].push(this.buildMaterialsSubSection(this.extractedVideos[i][j]['id'] ));
+        //      } }
+        //  if (this.course.sections[i] && this.extractedAudios[i] ) {
+        //          for (let j = 0; j < this.extractedAudios[i].length; j++ ) {
+        //              this.audioFormArray[i].push(this.buildMaterialsSubSection(this.extractedAudios[i][j]['id'] ));
+        //          } }
+        //  if (this.course.sections[i] && this.extractedBooks[i] ) {
+        //      for (let j = 0; j < this.extractedBooks[i].length; j++ ) {
+        //          this.bookFormArray[i].push(this.buildMaterialsSubSection(this.extractedBooks[i][j]['id'] ));
+        //      } }
 
-         if (this.course.sections[i] && this.extractedDocs[i] ) {
-             for (let j = 0; j < this.extractedDocs[i].length; j++ ) {
-                 this.docFormArray[i].push(this.buildMaterialsSubSection(this.extractedDocs[i][j]['id']) );
-             } }
+        //  if (this.course.sections[i] && this.extractedDocs[i] ) {
+        //      for (let j = 0; j < this.extractedDocs[i].length; j++ ) {
+        //          this.docFormArray[i].push(this.buildMaterialsSubSection(this.extractedDocs[i][j]['id']) );
+        //      } }
 
-         if (this.course.sections[i] && this.extractedQuotes[i] ) {
-             for (let j = 0; j < this.extractedQuotes[i].length; j++ ) {
-                 this.quoteFormArray[i].push(this.buildMaterialsSubSection(this.extractedQuotes[i][j]['id']) );
-             } }
+        //  if (this.course.sections[i] && this.extractedQuotes[i] ) {
+        //      for (let j = 0; j < this.extractedQuotes[i].length; j++ ) {
+        //          this.quoteFormArray[i].push(this.buildMaterialsSubSection(this.extractedQuotes[i][j]['id']) );
+        //      } }
 
-         if (this.course.sections[i] && this.extractedBlocks[i] ) {
-                 for (let j = 0; j < this.extractedBlocks[i].length; j++ ) {
-                     this.blockFormArray[i].push(this.buildMaterialsSubSection(this.extractedBlocks[i][j]['id']) );
-                 } }
+        //  if (this.course.sections[i] && this.extractedBlocks[i] ) {
+        //          for (let j = 0; j < this.extractedBlocks[i].length; j++ ) {
+        //              this.blockFormArray[i].push(this.buildMaterialsSubSection(this.extractedBlocks[i][j]['id']) );
+        //          } }
 
         // this.sectionMaterials[i] = this.materialService.sortMaterials(this.course.sections[i].materials);
         let title = '';
@@ -313,20 +313,20 @@ export class CourseEditComponent implements OnInit {
      // so we look through all of the materials for this section, and extract the ones that are 'books'
      extractStuff(sectionNumber) {
         // const offSetSectionNumber = sectionNumber + 1;
-        this.extractedImages[sectionNumber] = [];
-        this.extractedImages[sectionNumber] = this.extract(sectionNumber, 'image');
-        this.extractedBooks[sectionNumber] = [];
-        this.extractedBooks[sectionNumber] = this.extract(sectionNumber, 'book');
-        this.extractedDocs[sectionNumber] = [];
-        this.extractedDocs[sectionNumber] = this.extract(sectionNumber, 'doc');
-        this.extractedVideos[sectionNumber] = [];
-        this.extractedVideos[sectionNumber] = this.extract(sectionNumber, 'video');
-        this.extractedAudios[sectionNumber] = [];
-        this.extractedAudios[sectionNumber] = this.extract(sectionNumber, 'audio');
-        this.extractedQuotes[sectionNumber] = [];
-        this.extractedQuotes[sectionNumber] = this.extract(sectionNumber, 'quote');
-        this.extractedBlocks[sectionNumber] = [];
-        this.extractedBlocks[sectionNumber] = this.extract(sectionNumber, 'block');
+        // this.extractedImages[sectionNumber] = [];
+        // this.extractedImages[sectionNumber] = this.extract(sectionNumber, 'image');
+        // this.extractedBooks[sectionNumber] = [];
+        // this.extractedBooks[sectionNumber] = this.extract(sectionNumber, 'book');
+        // this.extractedDocs[sectionNumber] = [];
+        // this.extractedDocs[sectionNumber] = this.extract(sectionNumber, 'doc');
+        // this.extractedVideos[sectionNumber] = [];
+        // this.extractedVideos[sectionNumber] = this.extract(sectionNumber, 'video');
+        // this.extractedAudios[sectionNumber] = [];
+        // this.extractedAudios[sectionNumber] = this.extract(sectionNumber, 'audio');
+        // this.extractedQuotes[sectionNumber] = [];
+        // this.extractedQuotes[sectionNumber] = this.extract(sectionNumber, 'quote');
+        // this.extractedBlocks[sectionNumber] = [];
+        // this.extractedBlocks[sectionNumber] = this.extract(sectionNumber, 'block');
 
        }
 
@@ -624,33 +624,33 @@ export class CourseEditComponent implements OnInit {
     }
 
 
-    killBook(i, k) {
-        this.bookFormArray[i].removeAt(k);
-    }
+    // killBook(i, k) {
+    //     this.bookFormArray[i].removeAt(k);
+    // }
 
-    killBlock(i, k) {
-        this.blockFormArray[i].removeAt(k);
-    }
+    // killBlock(i, k) {
+    //     this.blockFormArray[i].removeAt(k);
+    // }
 
-    killImage(i, k) {
-        this.imageFormArray[i].removeAt(k);
-    }
+    // killImage(i, k) {
+    //     this.imageFormArray[i].removeAt(k);
+    // }
 
-    killDoc(i, k) {
-        this.docFormArray[i].removeAt(k);
-    }
+    // killDoc(i, k) {
+    //     this.docFormArray[i].removeAt(k);
+    // }
 
-    killVideo(i, k) {
-        this.videoFormArray[i].removeAt(k);
-    }
+    // killVideo(i, k) {
+    //     this.videoFormArray[i].removeAt(k);
+    // }
 
-    killQuote(i, k) {
-        this.quoteFormArray[i].removeAt(k);
-    }
+    // killQuote(i, k) {
+    //     this.quoteFormArray[i].removeAt(k);
+    // }
 
-    killAudio(i, k) {
-        this.audioFormArray[i].removeAt(k);
-    }
+    // killAudio(i, k) {
+    //     this.audioFormArray[i].removeAt(k);
+    // }
 
     addCourseImage() {
 
@@ -698,6 +698,13 @@ export class CourseEditComponent implements OnInit {
         // this._location.back();
 
         // // this.router.navigate(['/coursebuilder']);
+    }
+    removeCourse() {
+        this.courseService.removeCourse( this.course).subscribe( (val) => {
+            this.router.navigate(['/admin/classes']);
+        }, response => { this.router.navigate(['/admin/classes']); },
+            () => { this.router.navigate(['/admin/classes']); });
+
     }
     deleteCourse(courseId) {
         const result = confirm( 'Are you sure you want to delete this course,' +

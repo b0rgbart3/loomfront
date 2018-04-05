@@ -164,16 +164,24 @@ export class ClassEditComponent implements OnInit {
             } else {
                 console.log('calling createClass');
                 this.classService.createClass( combinedClassObject ).subscribe(
-                    (val) => { }, (response) => { console.log('save completed');
-                     this.router.navigate(['/admin/classes']); }
-                    ,
-                      () => {});
+                    (val) => { }, (response) => { console.log('continued response');  },
+                      () => {console.log('save completed');
+                      this.router.navigate(['/admin/classes']); });
             }
 
         }
     }
     closer() {
         this._location.back();
+    }
+
+    remove() {
+        // wondering if I should combine the form object with the data model here before marking it to be removed....
+        this.classService.removeClass( this.thisClass).subscribe( (val) => {
+            this.router.navigate(['/admin/classes']);
+        }, response => { this.router.navigate(['/admin/classes']); },
+            () => { });
+
     }
 
 
