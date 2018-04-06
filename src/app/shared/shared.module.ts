@@ -33,7 +33,7 @@ import { VideoComponent } from '../materials/video/video.component';
 import { Video } from '../models/video.model';
 import { DragulaModule } from 'ng2-dragula';
 import { ChoiceModalComponent } from '../modals/choice-modal.component';
-import { MaterialComponent } from '../materials/material.component';
+
 import { MaterialIconComponent } from '../materials/icon/material-icon.component';
 import { DisplayMaterialsComponent } from '../materials/display-materials/display-materials.component';
 import { AudioComponent } from '../materials/audio/audio.component';
@@ -95,12 +95,11 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         QuoteComponent,
         ModalComponent,
         ChoiceModalComponent,
-        MaterialComponent,
         MaterialIconComponent,
         DisplayMaterialsComponent,
         ImageCropperComponent,
         MakeAnnouncementComponent,
-       
+
     ],
     providers: [
         ClassResolver,
@@ -151,12 +150,11 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         ModalComponent,
         DragulaModule,
         ChoiceModalComponent,
-        MaterialComponent,
         MaterialIconComponent,
         DisplayMaterialsComponent,
         ImageCropperComponent,
         MakeAnnouncementComponent,
-        
+
     ]
 
 })

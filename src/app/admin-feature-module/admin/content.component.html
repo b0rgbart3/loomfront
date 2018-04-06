@@ -1,21 +1,7 @@
 
 
 
-<mat-expansion-panel  [expanded]="true">
-        <mat-expansion-panel-header>
-            <mat-panel-title>Classes</mat-panel-title>
-        </mat-expansion-panel-header>
-    
-        <mat-list>
-            <mat-list-item [routerLink]="['0/edit']">
-                <mat-icon class="example-icon">add</mat-icon> Add a new Class
-            </mat-list-item>
-            <mat-list-item *ngFor='let classObject of classArray' [routerLink]="[classObject.id,'edit']">
-                {{ classObject.title }}
-            </mat-list-item>
-        </mat-list>
-    </mat-expansion-panel>
-<br>
+
 <!-- <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>Courses</mat-panel-title>
@@ -31,9 +17,9 @@
         </mat-list>
     </mat-expansion-panel>
 <br> -->
-<mat-expansion-panel>
+<mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
-            <mat-panel-title>Courses as Objects</mat-panel-title>
+            <mat-panel-title>Coursework</mat-panel-title>
         </mat-expansion-panel-header>
     
         <mat-list>
@@ -46,6 +32,21 @@
         </mat-list>
     </mat-expansion-panel>
 
+    <br>
+    <mat-expansion-panel >
+            <mat-expansion-panel-header>
+                <mat-panel-title>Classes</mat-panel-title>
+            </mat-expansion-panel-header>
+        
+            <mat-list>
+                <mat-list-item [routerLink]="['0/edit']">
+                    <mat-icon class="example-icon">add</mat-icon> Add a new Class
+                </mat-list-item>
+                <mat-list-item *ngFor='let classObject of classArray' [routerLink]="[classObject.id,'edit']">
+                    {{ classObject.title }}
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
     <br>
     <mat-expansion-panel>
         <mat-expansion-panel-header>

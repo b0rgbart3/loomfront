@@ -2,7 +2,6 @@ export class Material {
   _id?: string;
 
   constructor (
-      public collection_type: string,
       public title: string,
       public description: string,
       public id: string,

@@ -1,4 +1,4 @@
-
+<div class='materialEditor'>
 
     <form [formGroup]="materialForm" novalidate
     (ngSubmit)="postMaterial()" class='loomForm group'>
@@ -7,8 +7,8 @@
         <div class='closer'
         (click)="closer()" *ngIf='!modalVersion'></div>
     
- 
-    <h1>{{ type }}</h1>
+
+    <h1 *ngIf='!modalVersion'>{{ type }}</h1>
     <mat-form-field>
             <input matInput placeholder="Title" name='title' id='title' formControlName='title'>
     </mat-form-field>
@@ -34,8 +34,6 @@
     <mat-form-field *ngIf="lengthNeeded">
         <input matInput placeholder="Length (minutes or # of pages)" name='length' id='length' formControlName='length'>
     </mat-form-field>
-
-    <br clear='all'><br>
     <div *ngIf='type==="video" && this.file'>
             <video-component [videoObject]="this"></video-component>
     </div>
@@ -51,36 +49,23 @@
         <mat-option *ngFor='let type of types' mdOption [value]='type' ng-selected="material.type"> {{ type }}</mat-option>
     </mat-select> -->
 <!-- <div class='or'>OR</div> -->
-<div class='choice2'>
     <div class="upload-wrap">
         Upload Document
-
         <input type="file" class="upload-btn"  name="file"  
         ng2FileSelect [uploader]="fileUploader" formControlName="fileUploader"
         (change)="fileChange($event)" id="file">
-
     </div>
-    File:  {{ file }}<br><br>
-</div></div>
-<br clear='all'>
+    File:  {{ file }}
+</div>
 <div *ngIf='image'>
-    <p>Showing an image</p>
 <img [src]="imageUrl" width='200' height='200'><br>
 </div>
 <div class="upload-wrap" *ngIf="type!=='quote'">
-    Include Thumbnail Image
-
+    Include Image
     <input type="file" class="upload-btn"  name="image"  
     ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
     (change)="imageChange($event)" id="image">
-
-    <!-- <input type="file" class="upload-btn"  name="image"  
-    ng2FileSelect formControlName="imageUploader"
-    (change)="imageChange($event)" id="image"> -->
 </div>
-
-
-
 
 <div *ngIf='urlNeeded'>
     <mat-form-field>
@@ -97,12 +82,23 @@
 <!-- <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div> -->
 <br clear='all'>
 
-<br clear='all'>
+<!-- <br clear='all'>
 <div class='loomButton dangerous' (click)="deleteMaterial()" *ngIf='!modalVersion'>
         <br><hr><br>
 <mat-icon>delete</mat-icon><span class='raise'>
-    Delete this {{ type }}</span></div>
+    Delete this {{ type }}</span></div> -->
 
+    <br clear='all'><br><hr><br>
+    <div class='loomButton dangerous' (click)="remove()" *ngIf='!modalVersion'>
+        <mat-icon>delete</mat-icon><span class='raise'>
+            Remove This {{ type }}</span></div>
 
 
 </form>    
+</div>
+
+<div class='debug'>
+Dirty:    {{ materialForm.dirty }}<br>
+<br>
+{{materialForm.value | json }}
+</div>

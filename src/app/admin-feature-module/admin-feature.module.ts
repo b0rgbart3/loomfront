@@ -34,13 +34,15 @@ import { InstructorsComponent } from './admin/instructors.component';
 import { SerieResolver } from '../resolvers/serie-resolver';
 import { EnrollmentsComponent } from './admin/enrollments.component';
 import { AssignmentsComponent } from './admin/assignments.component';
-import { MaterialsComponent } from './admin/materials.component';
+import { MaterialsAdminComponent } from './admin/materials-admin.component';
 import { CourseEditGuard } from './course-edit/course-edit-guard.service';
 import { CourseObjectEditComponent } from './courseObject-edit/courseObject-edit.component';
 import { SectionEditComponent } from './courseObject-edit/section-edit.component';
 import { CourseObjectEditGuard } from './courseObject-edit/courseObject-edit-guard.service';
 import { AllMaterialsResolver } from '../resolvers/all-materials-resolver.service';
 import { NewMaterialModalComponent } from './courseObject-edit/new-material-modal.component';
+import { MaterialEditGuard } from './material-edit-component/material-edit-guard.service';
+import { MaterialLineItemComponent } from './courseObject-edit/material-line-item.component';
 
 
 
@@ -70,7 +72,7 @@ import { NewMaterialModalComponent } from './courseObject-edit/new-material-moda
                     { path: 'classes', component: ContentComponent,
                     resolve: { users: UsersResolver, instructors: InstructorsResolver,
                         classes: ClassesResolver, series: SeriesResolver, courses: CoursesResolver }},
-                    { path: 'materials', component: MaterialsComponent,
+                    { path: 'materials', component: MaterialsAdminComponent,
                     resolve: { courses: CoursesResolver, materials: AllMaterialsResolver}},
                     { path: 'courses/:id/edit', pathMatch: 'full', component: CourseEditComponent,
                     canDeactivate: [ CourseEditGuard ],
@@ -80,27 +82,28 @@ import { NewMaterialModalComponent } from './courseObject-edit/new-material-moda
                     canDeactivate: [ CourseObjectEditGuard ],
                     resolve: { course: CourseResolver,
                         allmaterials: AllMaterialsResolver }},
-                    { path: 'series/:id/edit', component: SeriesEditComponent, resolve: { series: SerieResolver} },
+                    { path: 'series/:id/edit', component: SeriesEditComponent,
+                    canDeactivate: [ MaterialEditGuard ], resolve: { series: SerieResolver} },
                     { path: 'book/:id/edit', component: MaterialEditComponent,
-                    data: { type: 'book'}},
+                    canDeactivate: [ MaterialEditGuard ], data: { type: 'book'}},
 
                     { path: 'image/:id/edit', component: MaterialEditComponent,
-                    data: { type: 'image'}},
+                    canDeactivate: [ MaterialEditGuard ], data: { type: 'image'}},
 
                     { path: 'doc/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'doc' } },
+                    canDeactivate: [ MaterialEditGuard ], data: { type: 'doc' } },
 
                     { path: 'video/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'video' } },
+                    canDeactivate: [ MaterialEditGuard ], data: { type: 'video' } },
 
                     { path: 'audio/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'audio' } },
+                    canDeactivate: [ MaterialEditGuard ], data: { type: 'audio' } },
 
                     { path: 'quote/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'quote' } },
+                    canDeactivate: [ MaterialEditGuard ], data: { type: 'quote' } },
 
                    { path: 'block/:id/edit', component:  MaterialEditComponent,
-                    data: { type: 'block' } },
+                   canDeactivate: [ MaterialEditGuard ], data: { type: 'block' } },
 
                 ]
             },
@@ -131,8 +134,9 @@ import { NewMaterialModalComponent } from './courseObject-edit/new-material-moda
        AssignmentsComponent,
        CourseObjectEditComponent,
        SectionEditComponent,
-       MaterialsComponent,
-       NewMaterialModalComponent
+       MaterialsAdminComponent,
+       NewMaterialModalComponent,
+       MaterialLineItemComponent
     ],
     providers: [
         AdminRouteActivator,
@@ -144,6 +148,7 @@ import { NewMaterialModalComponent } from './courseObject-edit/new-material-moda
         SeriesResolver,
         CourseEditGuard,
         CourseObjectEditGuard,
+        MaterialEditGuard
     ],
     exports: [
         AdminComponent,
@@ -157,8 +162,9 @@ import { NewMaterialModalComponent } from './courseObject-edit/new-material-moda
         CourseObjectEditComponent,
         AssignmentsComponent,
         SectionEditComponent,
-        MaterialsComponent,
-        NewMaterialModalComponent
+        MaterialsAdminComponent,
+        NewMaterialModalComponent,
+        MaterialLineItemComponent
     ]
 })
 

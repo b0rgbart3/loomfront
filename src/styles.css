@@ -345,6 +345,8 @@ body {
   background-color:white;
   border:2px solid #555555;
   border-radius:4px;
+  box-sizing: border-box;
+  margin-left:14px;
 }
 .loomButton:hover {
   background-color: #06bce7;

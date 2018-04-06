@@ -17,26 +17,19 @@ import {Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'materials.component.html',
-    styleUrls: ['materials.component.css']
+    templateUrl: 'materials-admin.component.html',
+    styleUrls: ['materials-admin.component.css']
 })
 
-export class MaterialsComponent implements OnInit {
+export class MaterialsAdminComponent implements OnInit {
 
-    // classArray: ClassModel[];
-    // seriesArray: Series[];
-    // courseArray: Course[];
+
     types: any[];
     data: MaterialCollection;
     materials: Material[];
+    removed: Material[];
     errorMessage: string;
-    // images: Material[];
-    // videos: Material[];
-    // public docs: Material[];
-    // public books: Material[];
-    // public audios: Material[];
-    // public blocks: Material[];
-    // public quotes: Material[];
+
     myCollection: any[];
     order: string;
     reverse: boolean;
@@ -64,31 +57,10 @@ export class MaterialsComponent implements OnInit {
 
             this.data = this.materialService.sortMaterials(data.materials);
             this.materials = data.materials;
-                // this.images = this.data['images'];
-                // this.videos = this.data['videos'];
-                // this.audios = this.data['audios'];
-                // this.blocks = this.data['blocks'];
-                // this.docs = this.data['docs'];
-                // this.books = this.data['books'];
-                // this.quotes = this.data['quotes'];
-
-               // this.myCollection = [];
-              //  this.myCollection['image'] = this.images;
-
-          //      console.log( ' my Collection[image]: ' + JSON.stringify( this.myCollection['image']));
-                // this.myCollection['video'] = this.videos;
-                // this.myCollection['audio'] = this.audios;
-                // this.myCollection['block'] = this.blocks;
-                // this.myCollection['doc'] = this.docs;
-                // this.myCollection['book'] = this.books;
-                // this.myCollection['quote'] = this.quotes;
+            this.removed = this.materialService.removed;
+            console.log('In Materials Admin component: ' + JSON.stringify(this.removed));
             }
-
-
-
         );
-
-
     }
 
     setOrder(value: string) {
@@ -99,16 +71,18 @@ export class MaterialsComponent implements OnInit {
         this.reverse = true;
         }
     }
-    // getAssets(type) {
-    //     this.materialService.getDynamicMaterials(0, type).subscribe(
-    //       data => { this.data[type] = data;
-    //         // console.log('');
-    //         // console.log(type + ':');
-    //         // console.log( JSON.stringify( this.data[type]) );
-    //       },
-    //       error => this.errorMessage = <any> error);
-    //   }
-
+    recover(object) {
+        this.materialService.recover(object).subscribe(
+            data => {
+             //  this.materials.push(data);
+               console.log('back from recovering material'); }, error => {
+                console.log('error recovering material');
+            }, () => { console.log('finished recovering material');
+            this.data = this.materialService.sortMaterials(this.materials);
+            this.removed = this.materialService.removed;
+                }
+        );
+    }
 
       addAsset(typeIndex) {
         console.log('Adding an asset of type: ' + this.globals.materialTypes[typeIndex].type);

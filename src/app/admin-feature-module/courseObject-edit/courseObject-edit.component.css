@@ -77,3 +77,7 @@ mat-expansion-panel-header h1 {
   top:1px;
 
 }
+
+.mat-expansion-panel-header {
+  margin-top:20px;
+}

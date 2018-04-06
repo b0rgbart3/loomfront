@@ -15,9 +15,9 @@
     formControlName="description" rows="5" class='courseDescription'></textarea>
     </mat-form-field>
 <br>
-    <br><img [src]="existingImage" width='200' height='200' *ngIf='existingImage'>
+    <br><img [src]="existingImage" width='150' height='150' *ngIf='existingImage'>
     <p *ngIf='!existingImage'>No image has yet been uploaded for this course.</p>
-    <br><img [src]="imageUrl " width='200' height='200' *ngIf='imageUrl '><br>
+    <img [src]="imageUrl " width='150' height='150' *ngIf='imageUrl '>
 
     <div class="upload-wrap">
     Upload Main Course Image
@@ -25,13 +25,13 @@
     ng2FileSelect [uploader]="uploader" formControlName="imageUploader"
     (change)="fileChange($event)" id="imageUploader"> -->
 
-    <br></div>
+    <br></div><br>
   <div class='wrapper' [dragula]='"section-bag"' [dragulaModel]='course.sections'>
   
         <mat-expansion-panel  *ngFor='let section of course.sections; let i = index'>
            <!-- formArrayName='sections' -->
             <mat-expansion-panel-header *ngIf="i > 0" class='header'>  
-                <div class='handle'><h1>{{section.title}}  - {{course.sections[i].sectionNumber}}</h1></div>
+                <div class='handle'><h1>{{course.sections[i].sectionNumber}} - {{section.title}}</h1></div>
             </mat-expansion-panel-header>
             <section-edit [section]=section [index]=i (onDestroy)='destroySection($event)'
             (onChange)='changeSection($event)'></section-edit>

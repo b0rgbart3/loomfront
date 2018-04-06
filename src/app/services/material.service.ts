@@ -19,6 +19,7 @@ export class MaterialService {
     materialCount = 0;
     highestID = 0;
     materials: Material[];
+    removed: Material[];
     material: Material;
     errorMessage: string;
     bookArray: Material[];
@@ -124,6 +125,7 @@ export class MaterialService {
           this.materialCount = data.length;
           this.materials = data;
           this.updateIDCount();
+          this.hideRemovals();
         }).catch(this.handleError);
      } else {
     return this._http.get <Material[]> (this.globals.materials + '?id=' + course_id )
@@ -131,7 +133,7 @@ export class MaterialService {
       .do(data =>  {
         // console.log('All materials for course: ' + course_id + ': ' + JSON.stringify(data));
                     this.materialCount = data.length;
-                    this.materials = data;
+                   // this.materials = data;
                     this.updateIDCount();
             // console.log("Course highest ID: "+ this.highestID);
                   } )
@@ -140,6 +142,20 @@ export class MaterialService {
 
   }
 
+  hideRemovals() {
+    // For now I'm just going to remove the class objects that are 'marked for removal'
+    // from our main array -- and store them in a separate array
+    this.removed = [];
+    if (this.materials && this.materials.length > 0) {
+      for (let i = 0; i < this.materials.length; i++) {
+        if (this.materials[i].remove_this) {
+          this.removed.push(this.materials[i]);
+          this.materials.splice(i, 1);
+        }
+      }
+    }
+    console.log('after hiding materials: ' + JSON.stringify(this.removed));
+  }
 
   getNextId() {
 
@@ -153,16 +169,19 @@ export class MaterialService {
 
   updateIDCount() {
       // Loop through all the Materials to find the highest ID#
+      console.log('UPDATING ID COUNT: ' + this.highestID);
+      console.log( 'length' + this.materials.length);
       if (this.materials && this.materials.length > 0) {
       for (let i = 0; i < this.materials.length; i++) {
-      const foundID = Number(this.materials[i].id);
-      // console.log('Found ID: ' + foundID);
+      const foundID = +this.materials[i].id;
+      console.log('Found ID: ' + foundID);
       if (foundID >= this.highestID) {
         const newHigh = foundID + 1;
         this.highestID = newHigh;
-        // console.log('newHigh == ' + newHigh);
+         console.log('newHigh == ' + newHigh);
       }
     } } else { this.highestID = 1; }
+    console.log('highest ID: ' + this.highestID);
   }
 
 
@@ -174,6 +193,33 @@ export class MaterialService {
       .catch (this.handleError);
   }
 
+  remove( object: Material): Observable<any> {
+    object.remove_this = true;
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('Content-Type', 'application/json');
+
+    return this._http.put(this.globals.materials + '?id=' + object.id, object, {headers: myHeaders});
+
+  }
+
+  recover(object): Observable <any> {
+    object.remove_this = false;
+    return this.updateMaterial(object).do(
+      data => {
+        // add this course object back into our main array
+        this.materials.push(data);
+        // remove this course object from our list of removed courses
+        for (let i = 0; i < this.removed.length; i++) {
+          if ( this.removed[i].id === data.id) {
+            this.removed.splice(i, 1);
+          }
+        }
+
+        console.log('recovering course data');
+        return data; }   )
+      .catch( this.handleError );
+
+  }
   deleteMaterial(id: string): Observable<any> {
       return this._http.delete( this.globals.materials + '?id=' + id);
   }
@@ -183,7 +229,7 @@ export class MaterialService {
     return body || {};
   }
 
-  createMaterial(courseObject: Material): Observable<any> {
+  createMaterial(object: Material): Observable<any> {
       const myHeaders = new HttpHeaders();
       myHeaders.append('Content-Type', 'application/json');
       // let thisID = this.courseCount + 1;
@@ -191,13 +237,15 @@ export class MaterialService {
       if (this.highestID < 1) {
         this.highestID = 1;
       }
-      courseObject.id = this.highestID.toString();
+      object.id = this.highestID.toString();
 
       // courseObject.id = '' + thisID;
-      const body =  JSON.stringify(courseObject);
-      // console.log( 'Posting Course: ', body   );
+      const body =  JSON.stringify(object);
+      console.log( 'Posting Material: ');
+      this.materials.push(object);
+      this.updateIDCount();
       return this._http.put(this.globals.materials + '?id=' +
-       courseObject.id, courseObject, {headers: myHeaders} );
+      object.id, object, {headers: myHeaders} );
    }
 
    updateMaterial(courseObject: Material): Observable<any> {

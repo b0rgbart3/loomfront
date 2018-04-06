@@ -39,6 +39,7 @@ export class SectionEditComponent implements OnInit {
     choiceList: string[];
     currentMaterialGroup: Material[];
     dragOptions: any;
+    bagName: string;
 
     constructor( private fb: FormBuilder, private globals: Globals, private materialService: MaterialService,
         private dragulaService: DragulaService) {
@@ -60,9 +61,13 @@ export class SectionEditComponent implements OnInit {
     // and save it (as though it were form data)
 
     private onDrop(args) {
+        console.log(JSON.stringify(this.section.materials));
         this.onChange.emit(this.section);
     }
     ngOnInit() {
+        this.bagName = 'materials-bag' + this.index;
+        console.log('Bag name: ' + this.bagName);
+
         this.deLintMe();
         // This tells my Drag Bag to fire off this method whenever Drag happens
         this.dragOptions = { moves: this.dragEvent };
@@ -97,16 +102,16 @@ export class SectionEditComponent implements OnInit {
     }
 
     addMaterial( index ) {
-        const material = this.globals.materialTypes[index];
+        const material = this.globals.materialTypes[index].type;
         let materialGroup = null;
         console.log(material);
 
-        this.materialService.getDynamicMaterials(0, material.type).subscribe(
+        this.materialService.getDynamicMaterials(0, material).subscribe(
             materials => { materialGroup = materials;
                 this.currentMaterialGroup = materials;
                 const materialList = materialGroup.map( mat => mat.title );
                // console.log('Built materialList: ' + JSON.stringify(materialGroup));
-                const choiceList = new ChoiceList( 'Choose a ' + material.type, material.type, materialList);
+                const choiceList = new ChoiceList( 'Choose a ' + material, material, materialList);
 
                 // I am using the openModal as an observable subject -- so that I can push a new list to it
                 // as a way of telling the Modal to display itself - and initiate that process.  Pretty cool!
@@ -121,7 +126,7 @@ export class SectionEditComponent implements OnInit {
 
     addNew( type ) {
 
-        const emptyMaterial =  new Material('material', '', '', '0', type, '', '', '', '', '', '', '', false);
+        const emptyMaterial =  new Material( '', '', '0', type, '', '', '', '', '', '', '', false);
         this.newMaterialModal.next( emptyMaterial);
     }
 

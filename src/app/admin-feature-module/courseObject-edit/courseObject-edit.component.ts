@@ -66,9 +66,9 @@ export class CourseObjectEditComponent implements OnInit {
 
     onDrop() {
         // Here the user rearranged the sections - so we just need to update their individual sectionNumbers to reflect the new order
-        for (let i = 0; i < this.course.sections.length; i++ ) {
-            this.course.sections[i].sectionNumber = i;
-        }
+        // for (let i = 0; i < this.course.sections.length; i++ ) {
+        //     this.course.sections[i].sectionNumber = i;
+        // }
     }
     ngOnInit() {
 
@@ -120,18 +120,26 @@ export class CourseObjectEditComponent implements OnInit {
         //     }
         // }
         if (this.course.sections.length !== this.originalCourse.sections.length) {
+            console.log('Number of sections was different.');
             return true;
         }
         for (let i = 0; i < this.course.sections.length; i++) {
            // console.log(this.course.sections[i].title + ': ' + this.originalCourse.sections[i].title);
             if (!this.originalCourse.sections[i]) { return true; }  // If the section is new, then this 'Form' is dirty
             if (this.course.sections[i].title !== this.originalCourse.sections[i].title) {
+                console.log('section titles were different');
                 return true;    // If the titles are different (any of them ) then this 'Form' is dirty
             }
-            if (this.course.sections[i].content !== this.originalCourse.sections[i].content) {
-                return true;
+            if (this.course.sections[i].content) {
+                if (this.lintString(this.course.sections[i].content) !== this.originalCourse.sections[i].content) {
+                    console.log('section content was different.');
+                    console.log('This course section content: ' + this.course.sections[i].content);
+                    console.log('The orig course sec content: ' + this.originalCourse.sections[i].content);
+                    return true;
+                }
             }
             if (JSON.stringify(this.course.sections[i].materials) !== JSON.stringify(this.originalCourse.sections[i].materials)) {
+                console.log('material list was different.');
                 return true;
             }
         }
@@ -178,8 +186,8 @@ export class CourseObjectEditComponent implements OnInit {
         // update the model in the course edit component to match the one passed by an event from
         // the section edit component
         console.log('Got notified of a change in one of the sections: ' + section.sectionNumber);
-        this.course.sections[section.sectionNumber] = section;
-        this.onDrop();
+     //   this.course.sections[section.sectionNumber] = section;
+     //   this.onDrop();
     }
 
     postCourse() {
@@ -258,6 +266,11 @@ export class CourseObjectEditComponent implements OnInit {
         return lintedModel;
     }
 
+    lintString (string) {
+        if (string) {
+            return string.replace(/\n/g, '<br>');
+        } else {return null; }
+    }
     // call this method before posting the course
     lintSectionContent ( section ) {
 

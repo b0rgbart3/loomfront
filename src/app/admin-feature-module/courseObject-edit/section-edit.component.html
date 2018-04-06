@@ -1,36 +1,38 @@
 <div class='sectionEditContainer'>
     <div [formGroup]="sectionFormGroup">
 
-    <mat-form-field>
-        <input matInput id="{{ 'title' + index }}" 
-        placeholder="Title" formControlName="title" >
-    </mat-form-field>
-    <mat-form-field>
-            <textarea matInput matTextareaAutosize matAutosizeMinRows="2"
-            id="content" placeholder="Section Content"
-                formControlName="content"></textarea>
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput id="{{ 'title' + index }}" 
+            placeholder="Title" formControlName="title" >
+        </mat-form-field>
+        <mat-form-field>
+                <textarea matInput matTextareaAutosize matAutosizeMinRows="2"
+                id="content" placeholder="Section Content"
+                    formControlName="content"></textarea>
+        </mat-form-field>
 
-    <h1>Materials</h1>
+        <h1>Materials</h1>
 
-    <div class='wrapper' [dragula]='"materials-bag"' [dragulaModel]='section.materials'
-    [dragulaOptions]='dragOptions'>
-        <div *ngFor='let material of section.materials; let i = index' class='materialBox'>
-            <div>
-            <material [id]='material'></material>
-            <div class='trash' (click)='trashMaterial(i)'></div>
+        <div class='wrapper' [dragula]='bagName' [dragulaModel]='section.materials'
+        [dragulaOptions]='dragOptions'>
+            <div *ngFor='let material of section.materials; let i = index' class='materialBox'>
+                <div>
+                <material-line-item [id]='material'></material-line-item> {{ i }}
+                <div class='trash' (click)='trashMaterial(i)'></div>
+                </div>
             </div>
         </div>
+        <br clear='all'><br>
+        <div class='smallSquareButton' *ngFor='let material of globals.materialTypes; let j=index' (click)='addMaterial(j)'>
+            {{ material.pluralName }} </div>
+
+
+        <br clear='all'><br><hr><br>
+        <div class='loomButton dangerous' (click)="delete()">
+            <mat-icon>delete</mat-icon><span class='raise'>
+                Completely Delete This Section</span>
+        </div>
     </div>
-    <br clear='all'><br>
-    <div class='smallSquareButton' *ngFor='let material of globals.materialTypes; let j=index' (click)='addMaterial(j)'> {{ material.pluralName }} </div>
-
-
-    <br clear='all'><br><hr><br>
-    <div class='loomButton dangerous' (click)="delete()">
-        <mat-icon>delete</mat-icon><span class='raise'>
-            Completely Delete This Section</span></div>
-</div>
 </div>
 
 <choice-modal [openModal]="openModal" (onChosen)='chose($event)' (addNew)='addNew($event)'></choice-modal>

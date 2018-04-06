@@ -21,7 +21,7 @@ export class MaterialEditComponent implements OnInit {
     @Input() newType: string;
     @Output() onComplete= new EventEmitter <Material>();
     modalVersion: boolean;
-    material: Material = new Material ( 'material', '', '', '0', '', '', '', '', '', '', '', '', false);
+    material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '', '', false);
     materialForm: FormGroup;
     type: string;
     // types: Array<string>;
@@ -29,7 +29,9 @@ export class MaterialEditComponent implements OnInit {
     errorMessage: string;
     thisFile: File;
     imageUploader: FileUploader;
+    imageUploaded: boolean;
     public fileUploader: FileUploader;
+    fileUploaded: boolean;
     localImageUrl: string;
     tempName: string;
     image: string;
@@ -44,6 +46,7 @@ export class MaterialEditComponent implements OnInit {
     descriptionNeeded: boolean;
     contentNeeded: boolean;
     lengthNeeded: boolean;
+    maxFileSize = 5 * 1024 * 1024;
 
     constructor(private fb: FormBuilder,
     private activated_route: ActivatedRoute,
@@ -52,8 +55,33 @@ export class MaterialEditComponent implements OnInit {
     private globals: Globals,
     private _location: Location  ) {    }
 
+    isDirty() {
+console.log('checking dirty status');
+        if (this.imageUploaded) {
+            console.log('image was uploaded.');
+            return true;
+        }
+        if (this.fileUploaded) {
+            console.log('file was uploaded.');
+            return true;
+        }
+        if (this.materialForm.dirty) {
+            console.log('courseFormGroup was dirty');
+            return true;
+        }
+
+        if (this.imageUploaded || this.fileUploaded) {
+            return true;
+        }
+
+
+        return false;
+    }
+
     ngOnInit() {
 
+        this.imageUploaded = false;
+        this.fileUploaded = false;
         // This gets the resource type from the router, as a data parameter
         // which we will use to dynamically
         // change our Form Model to accommodate the resource type
@@ -114,23 +142,33 @@ export class MaterialEditComponent implements OnInit {
         if (this.id !== '0') {
             this.getMaterial(this.id);
          } else {
-             this.id = this.materialService.getNextId();
-             this.material.id = this.id;
-             console.log('the ID we got was: ' + this.id);
+            //  this.id = this.materialService.getNextId();
+            //  this.material.id = this.id;
+            //  console.log('the ID we got was: ' + this.id);
          }
          this.buildForm();
 
     }
 
+    private formatBytes(bytes, decimals?) {
+        if (bytes === 0) { return '0 Bytes'; }
+        const k = 1024,
+          dm = decimals || 2,
+          sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+          i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+          }
+
     buildForm() {
         const urlWithQuery = this.globals.postmaterialimages + '?id=' + this.id;
-        this.imageUploader = new FileUploader({url: urlWithQuery});
+        this.imageUploader = new FileUploader({url: urlWithQuery, maxFileSize: this.maxFileSize});
 
         this.imageUploader.onAfterAddingFile = (fileItem) => {
-            const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
-                : (window as any).webkitURL.createObjectURL(fileItem._file);
-            this.localImageUrl = url;
-            console.log('In build form: onAfterAddingFile: url =' + url);
+            this.imageUploaded = true;
+            // const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
+            //     : (window as any).webkitURL.createObjectURL(fileItem._file);
+            // this.localImageUrl = url;
+            // console.log('In build form: onAfterAddingFile: url =' + url);
             this.imageUploader.queue[0].upload();
 
         };
@@ -143,7 +181,31 @@ export class MaterialEditComponent implements OnInit {
                           this.material.id + '/' + this.image;
                       //   console.log('Image url: ' + this.imageUrl);
                          this.imageUploader.queue[0].remove();
+
                      };
+        this.imageUploader.onWhenAddingFileFailed = (item, filter) => {
+        let message = '';
+        switch (filter.name) {
+            case 'queueLimit':
+            message = 'Queue Limit surpassed';
+            break;
+            case 'fileSize':
+            message = 'The file: ' + item.name + ' is ' +
+                this.formatBytes(item.size) +
+                ', which exceeds the maximum filesize of:  ' +
+                this.formatBytes(this.maxFileSize) + '. Please resize this image or choose a different file';
+            break;
+            case 'mimeType':
+            message = 'Your avatar image needs to be a Jpeg, Jpg, PNG or Gif file-type.';
+            break;
+            default:
+            message = 'Error uploading the image';
+            break;
+        }
+
+        alert(message);
+
+        };
 
         this.materialForm = this.fb.group({
             title: [ '', [Validators.required, Validators.minLength(3)] ] ,
@@ -159,11 +221,12 @@ export class MaterialEditComponent implements OnInit {
         const fileurlWithQuery = this.globals.postmaterialfiles + '?id=' + this.id;
         this.fileUploader = new FileUploader({url: fileurlWithQuery});
         this.fileUploader.onAfterAddingFile = (fileItem) => {
-            const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
-                : (window as any).webkitURL.createObjectURL(fileItem._file);
-            console.log('About to upload');
-            this.fileUploader.queue[0].upload();
-            console.log('Upload request sent');
+            this.fileUploaded = true;
+            // const url = (window.URL) ? window.URL.createObjectURL(fileItem._file)
+            //     : (window as any).webkitURL.createObjectURL(fileItem._file);
+            // console.log('About to upload');
+             this.fileUploader.queue[0].upload();
+            // console.log('Upload request sent');
         };
 
         this.fileUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -174,6 +237,7 @@ export class MaterialEditComponent implements OnInit {
                         this.fileUrl = this.globals.materialfiles + '/' + this.material.id + '/' + this.file;
                         console.log('File url: ' + this.fileUrl);
                          this.fileUploader.queue[0].remove();
+
                      };
     }
 
@@ -198,7 +262,7 @@ export class MaterialEditComponent implements OnInit {
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-           // console.log('Got a file: ' + file.name);
+            console.log('Got a file: ' + file.name);
             this.thisFile = file;
 
         }
@@ -235,14 +299,18 @@ export class MaterialEditComponent implements OnInit {
         this.material.image = this.image;
         this.material.file = this.file;
         this.material.type = this.type;
-        if (this.type === 'quote') {
-            console.log('posting a quotation: ' + this.materialForm.value['content']);
-            this.materialForm.patchValue({'title': this.materialForm.value['content'].substring(0, 80) + '...' });
-        }
+        // if (this.type === 'quote') {
+        //     console.log('posting a quotation: ' + this.materialForm.value['content']);
+        //     this.materialForm.patchValue({'title': this.materialForm.value['content'].substring(0, 80) + '...' });
+        // }
 
          // This is Deborah Korata's way of merging our data model with the form model
         const combinedObject = Object.assign( {}, this.material, this.materialForm.value);
        // console.log( 'Posting material: ' + JSON.stringify( combinedObject ) );
+
+       // I don't need to store these in the database
+       delete combinedObject.imageUploader;
+       delete combinedObject.fileUploader;
 
         if (this.material.id === '0') {
            // console.log('Creating material');
@@ -253,8 +321,13 @@ export class MaterialEditComponent implements OnInit {
                    // this.router.navigate(['/admin/materials']);
                   },
                   () => {
+                      console.log('Done creating new material.');
                       if (!this.modalVersion) {
+                          this.materialForm.reset();
+                          this.imageUploaded = false; // just to reset it
+                          this.fileUploaded = false;
                     this.router.navigate(['/admin/materials']); } else {
+                        this.material = combinedObject;
                         this.complete();
                     }
                   }
@@ -264,16 +337,20 @@ export class MaterialEditComponent implements OnInit {
             this.materialService
             .updateMaterial( combinedObject ).subscribe(
             (val) => {
-                console.log('The current material model is: ' + JSON.stringify(this.material));
+            //    console.log('The current material model is: ' + JSON.stringify(this.material));
                 this.material = val;
-                console.log('Reassigning the material model to: ' + JSON.stringify(val));
+              //  console.log('Reassigning the material model to: ' + JSON.stringify(val));
             },
             response => {
               //  this.router.navigate(['/admin/materials']);
             },
             () => {
                 if (!this.modalVersion) {
-            this.router.navigate(['/admin/materials']); } else {
+            this.router.navigate(['/admin/materials']);
+            this.materialForm.reset();
+            this.imageUploaded = false; // just to reset it
+            this.fileUploaded = false;
+        } else {
                 this.complete();
             }
             }
@@ -310,6 +387,17 @@ export class MaterialEditComponent implements OnInit {
        }
       }
 
+      remove() {
+        const result = confirm( 'Are you sure you want to remove this ,' +
+    this.material.type + ' and ALL of it\'s data, with ID: ' + this.material.id + '? ');
+
+    if (result) {
+        this.materialService.remove( this.material).subscribe( (val) => {
+            this.router.navigate(['/admin/materials']);
+        }, response => { this.router.navigate(['/admin/materials']); },
+            () => { });
+      }
+    }
 
     closer() {
         this.router.navigate(['/admin/materials']);
@@ -319,4 +407,6 @@ export class MaterialEditComponent implements OnInit {
         console.log('onComplete in Material edit, Im emitting this material: ' + JSON.stringify(this.material));
         this.onComplete.emit(this.material);
     }
+
+
 }

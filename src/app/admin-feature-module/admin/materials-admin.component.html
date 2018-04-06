@@ -41,3 +41,20 @@
         {{ asset.title }}
     </div>
 </div> -->
+
+<div class='trashCan'>
+        <mat-expansion-panel>
+        <mat-expansion-panel-header>Trashed Data Recovery</mat-expansion-panel-header>
+            <div *ngIf='removed&& removed.length > 0'>
+                <div *ngFor='let type of globals.materialTypes'>
+                    <h2>{{type.longName}}</h2>
+                    <div *ngFor='let material of removed'>
+                        <div *ngIf='material.type === type.type' class='removedObjectLine'>
+                            {{ material.title }}
+                            |  <a (click)='recover(material)'>recover this {{ type.type }}</a> |
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </div>
