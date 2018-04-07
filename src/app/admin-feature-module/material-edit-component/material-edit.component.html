@@ -4,11 +4,11 @@
     (ngSubmit)="postMaterial()" class='loomForm group'>
              
     <div class='loomCard group'>
-        <div class='closer'
+        <div class='closer closerdark'
         (click)="closer()" *ngIf='!modalVersion'></div>
-    
+        <h1 *ngIf='!modalVersion'>{{ type }}</h1>   
+<div class='contentContainer'>
 
-    <h1 *ngIf='!modalVersion'>{{ type }}</h1>
     <mat-form-field>
             <input matInput placeholder="Title" name='title' id='title' formControlName='title'>
     </mat-form-field>
@@ -34,61 +34,56 @@
     <mat-form-field *ngIf="lengthNeeded">
         <input matInput placeholder="Length (minutes or # of pages)" name='length' id='length' formControlName='length'>
     </mat-form-field>
+    <br clear='all'>
+    <div *ngIf='urlNeeded'>
+            <mat-form-field>
+                <input matInput [placeholder]="urlLabel" name="contenturl" id='contenturl' 
+                formControlName='contenturl'>
+                </mat-form-field>
+        </div>
+</div>
+
+<div class='contentContainer'>
+  <!-- Document Content Here -->
     <div *ngIf='type==="video" && this.file'>
             <video-component [videoObject]="this"></video-component>
     </div>
-    <div *ngIf='uploaderNeeded'>
-    <!-- <p class='instructions'>To post an asset, you can either just include a URL, or upload the file itself.
-    </p> -->
-    <!-- <div class='choice1'>
-    <mat-form-field>
-        <input matInput [placeholder]="urlLabel" name="contenturl" id='contenturl' formControlName='contenturl'>
-        </mat-form-field>
-    </div> -->
-    <!-- <mat-select placeholder='Material Type' formControlName='type'>
-        <mat-option *ngFor='let type of types' mdOption [value]='type' ng-selected="material.type"> {{ type }}</mat-option>
-    </mat-select> -->
-<!-- <div class='or'>OR</div> -->
-    <div class="upload-wrap">
-        Upload Document
-        <input type="file" class="upload-btn"  name="file"  
-        ng2FileSelect [uploader]="fileUploader" formControlName="fileUploader"
-        (change)="fileChange($event)" id="file">
-    </div>
-    File:  {{ file }}
-</div>
-<div *ngIf='image'>
-<img [src]="imageUrl" width='200' height='200'><br>
-</div>
-<div class="upload-wrap" *ngIf="type!=='quote'">
-    Include Image
-    <input type="file" class="upload-btn"  name="image"  
-    ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
-    (change)="imageChange($event)" id="image">
-</div>
 
-<div *ngIf='urlNeeded'>
-    <mat-form-field>
-        <input matInput [placeholder]="urlLabel" name="contenturl" id='contenturl' 
-        formControlName='contenturl'>
-        </mat-form-field>
-</div>
-</div>
+    <div *ngIf='file'>File:  {{ file }}</div>
+    <div *ngIf='uploaderNeeded'>
+
+            <div class="upload-wrap">
+                Upload Document
+                <input type="file" class="upload-btn"  name="file"  
+                ng2FileSelect [uploader]="fileUploader" formControlName="fileUploader"
+                (change)="fileChange($event)" id="file">
+            </div>
+          
+    </div>
+<br clear='all'><hr><br>
+    <!-- IMAGE -->
+    <div *ngIf='image' class='associatedImage'>
+        <img [src]="imageUrl"><br>
+        </div>
+        <div class="upload-wrap" *ngIf="type!=='quote'">
+           {{ includeimagestring }}
+            <input type="file" class="upload-btn"  name="image"  
+            ng2FileSelect [uploader]="imageUploader" formControlName="imageUploader"
+            (change)="imageChange($event)" id="image">
+        </div>
+    </div>
+
+</div>  <!-- close of 2nd content Container-->
 
 <br clear='all'>
 <br>
 <div class='loomButton loomSubmit' 
 (click)='postMaterial()'>Submit changes</div>
-<!-- <div class='loomButton loomCancel' [routerLink]="['/coursebuilder']" type='reset' >Cancel</div> -->
+
 <br clear='all'>
 
-<!-- <br clear='all'>
-<div class='loomButton dangerous' (click)="deleteMaterial()" *ngIf='!modalVersion'>
-        <br><hr><br>
-<mat-icon>delete</mat-icon><span class='raise'>
-    Delete this {{ type }}</span></div> -->
 
-    <br clear='all'><br><hr><br>
+    <br clear='all'><hr>
     <div class='loomButton dangerous' (click)="remove()" *ngIf='!modalVersion'>
         <mat-icon>delete</mat-icon><span class='raise'>
             Remove This {{ type }}</span></div>

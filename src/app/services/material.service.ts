@@ -154,7 +154,7 @@ export class MaterialService {
         }
       }
     }
-    console.log('after hiding materials: ' + JSON.stringify(this.removed));
+   // console.log('after hiding materials: ' + JSON.stringify(this.removed));
   }
 
   getNextId() {
@@ -169,19 +169,19 @@ export class MaterialService {
 
   updateIDCount() {
       // Loop through all the Materials to find the highest ID#
-      console.log('UPDATING ID COUNT: ' + this.highestID);
-      console.log( 'length' + this.materials.length);
+   //   console.log('UPDATING ID COUNT: ' + this.highestID);
+    //  console.log( 'length' + this.materials.length);
       if (this.materials && this.materials.length > 0) {
       for (let i = 0; i < this.materials.length; i++) {
       const foundID = +this.materials[i].id;
-      console.log('Found ID: ' + foundID);
+   //   console.log('Found ID: ' + foundID);
       if (foundID >= this.highestID) {
         const newHigh = foundID + 1;
         this.highestID = newHigh;
-         console.log('newHigh == ' + newHigh);
+    //     console.log('newHigh == ' + newHigh);
       }
     } } else { this.highestID = 1; }
-    console.log('highest ID: ' + this.highestID);
+ //   console.log('highest ID: ' + this.highestID);
   }
 
 
@@ -215,7 +215,7 @@ export class MaterialService {
           }
         }
 
-        console.log('recovering course data');
+       // console.log('recovering course data');
         return data; }   )
       .catch( this.handleError );
 
@@ -241,7 +241,7 @@ export class MaterialService {
 
       // courseObject.id = '' + thisID;
       const body =  JSON.stringify(object);
-      console.log( 'Posting Material: ');
+   //   console.log( 'Posting Material: ');
       this.materials.push(object);
       this.updateIDCount();
       return this._http.put(this.globals.materials + '?id=' +

@@ -18,7 +18,9 @@
             <div *ngFor='let material of section.materials; let i = index' class='materialBox'>
                 <div>
                 <material-line-item [id]='material'></material-line-item> {{ i }}
+               
                 <div class='trash' (click)='trashMaterial(i)'></div>
+                <div class='edit' (click)='editMaterial(material)'></div>
                 </div>
             </div>
         </div>

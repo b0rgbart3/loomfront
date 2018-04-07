@@ -87,6 +87,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service';
 import { RegisterComponent } from './users/register/register.component';
 import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
+import { ImageCropperComponent, ImageCropperModule } from 'ngx-img-cropper';
 
 @NgModule({
   // External
@@ -100,13 +101,13 @@ import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.ser
     Ng2ScrollableModule,
     DragulaModule,
     Ng2ScrollableModule,
+    ImageCropperModule
   ],
   // Internal
   declarations: [
     AppComponent,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
-
     LoginComponent,
     CourseListComponent,
     CourseImageComponent,
@@ -119,15 +120,11 @@ import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.ser
     InstructorAssignmentsComponent,
     DialogComponent,
     SectionComponent,
-    // ChatroomComponent,
     DiscussionComponent,
     ThreadComponent,
     InfobotComponent,
     LoomNotificationsComponent,
     RegisterComponent,
-
- //   BooksComponent,
-
     MaterialCollectionComponent,
     SafePipe,
     ResetComponent,

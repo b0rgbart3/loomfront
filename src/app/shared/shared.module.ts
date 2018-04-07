@@ -97,7 +97,6 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         ChoiceModalComponent,
         MaterialIconComponent,
         DisplayMaterialsComponent,
-        ImageCropperComponent,
         MakeAnnouncementComponent,
 
     ],
@@ -152,7 +151,6 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         ChoiceModalComponent,
         MaterialIconComponent,
         DisplayMaterialsComponent,
-        ImageCropperComponent,
         MakeAnnouncementComponent,
 
     ]

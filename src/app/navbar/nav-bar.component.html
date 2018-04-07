@@ -20,6 +20,7 @@
 	THE RECLAIMING LOOM
 </div></a>
 
+<div *ngIf='admin' [routerLink]="['/admin']" class='adminLink'>admin</div>
 <div class='quickMessageDoc' *ngIf='currentUser'>
 		<div [class]='messageListStyle' 
 		(click)='openMessageList()' (clickOutside)='closeMessageList()'></div>

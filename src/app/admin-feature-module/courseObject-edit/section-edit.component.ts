@@ -66,7 +66,7 @@ export class SectionEditComponent implements OnInit {
     }
     ngOnInit() {
         this.bagName = 'materials-bag' + this.index;
-        console.log('Bag name: ' + this.bagName);
+      //  console.log('Bag name: ' + this.bagName);
 
         this.deLintMe();
         // This tells my Drag Bag to fire off this method whenever Drag happens
@@ -83,14 +83,15 @@ export class SectionEditComponent implements OnInit {
             // grab the new title value and emit it to our parent course editor
             this.section.title = value;
             this.onChange.emit(this.section);
-            console.log('section change: ' + value ); }
+        //    console.log('section change: ' + value );
+            }
         );
 
         // same for the content text area control
         this.sectionFormGroup.get('content').valueChanges.subscribe( value => {
             this.section.content = value;
             this.onChange.emit(this.section);
-            console.log('section change: ' + value );
+      //      console.log('section change: ' + value );
         });
     }
 
@@ -120,12 +121,15 @@ export class SectionEditComponent implements OnInit {
         );
     }
 
+    // The user chose a material from the modal list - so let's add it to this section's list of material ids
     newMaterialAdded( material ) {
         this.section.materials.push(material.id);
     }
 
-    addNew( type ) {
+    // The user hit one of the square buttons to add a new material - so we create an empty material object
+    // and push it to the material modal
 
+    addNew( type ) {
         const emptyMaterial =  new Material( '', '', '0', type, '', '', '', '', '', '', '', false);
         this.newMaterialModal.next( emptyMaterial);
     }
@@ -140,7 +144,7 @@ export class SectionEditComponent implements OnInit {
     }
 
     chose( index ) {
-        console.log('Chose: ' + JSON.stringify( this.currentMaterialGroup[index] ) );
+     //   console.log('Chose: ' + JSON.stringify( this.currentMaterialGroup[index] ) );
         this.section.materials.push(this.currentMaterialGroup[index].id);
         // We finished adding a new material - so let's notify the parent of the change to our model data
         this.onChange.emit(this.section);
@@ -150,6 +154,13 @@ export class SectionEditComponent implements OnInit {
         this.section.materials.splice( index, 1);
         // We finished trashing a material - so let's notify the parent of the change to our model data
         this.onChange.emit(this.section);
+    }
+
+    editMaterial(material) {
+        console.log('About to edit: ' + material);
+        const materialToEdit = this.materialService.getMaterialFromMemory(material);
+        console.log('About to edit: ' + JSON.stringify(materialToEdit));
+        this.newMaterialModal.next( materialToEdit );
     }
 
     deLintMe() {

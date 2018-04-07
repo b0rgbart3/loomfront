@@ -305,9 +305,25 @@ user-select: none;
 }
 
 .avatarMenuItem:active {
-	background-color:#ccccc;
+	background-color:#cccccc;
 }
 
+
+.adminLink {
+  color:#999999;
+  font-family:'Josefin Sans';
+  padding-top:30px;
+  text-transform: uppercase;
+  display:inline-block;
+  user-select:none;
+  cursor: pointer;
+  outline:none;
+  padding-left:10px;
+}
+
+.adminLink:active {
+	outline:none;
+}
 @media only screen and (max-width: 640px) {
 
   p.userName { 

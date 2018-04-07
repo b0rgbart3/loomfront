@@ -19,6 +19,7 @@ import {Location} from '@angular/common';
 
 export class MaterialEditComponent implements OnInit {
     @Input() newType: string;
+    @Input() passedMaterialObject: Material;
     @Output() onComplete= new EventEmitter <Material>();
     modalVersion: boolean;
     material: Material = new Material ( '', '', '0', '', '', '', '', '', '', '', '', false);
@@ -43,6 +44,7 @@ export class MaterialEditComponent implements OnInit {
     uploaderNeeded: boolean;
     descriptionPlaceholder: string;
     contentPlaceholder: string;
+    includeimagestring: string;
     descriptionNeeded: boolean;
     contentNeeded: boolean;
     lengthNeeded: boolean;
@@ -56,17 +58,17 @@ export class MaterialEditComponent implements OnInit {
     private _location: Location  ) {    }
 
     isDirty() {
-console.log('checking dirty status');
+// console.log('checking dirty status');
         if (this.imageUploaded) {
-            console.log('image was uploaded.');
+   //         console.log('image was uploaded.');
             return true;
         }
         if (this.fileUploaded) {
-            console.log('file was uploaded.');
+     //       console.log('file was uploaded.');
             return true;
         }
         if (this.materialForm.dirty) {
-            console.log('courseFormGroup was dirty');
+       //     console.log('courseFormGroup was dirty');
             return true;
         }
 
@@ -80,6 +82,7 @@ console.log('checking dirty status');
 
     ngOnInit() {
 
+        this.includeimagestring = 'Include Image';
         this.imageUploaded = false;
         this.fileUploaded = false;
         // This gets the resource type from the router, as a data parameter
@@ -89,8 +92,14 @@ console.log('checking dirty status');
         // by weather or not the newType Input var is set.
         if (this.newType) {
             this.modalVersion = true;
-            console.log('found a new Type: ' + this.newType);
-            this.type = this.newType; } else {
+        //    console.log('found a new Type: ' + this.newType);
+            this.type = this.newType;
+            console.log('ASSIGNING MATERIAL OBJECT: ' + JSON.stringify(this.passedMaterialObject));
+            this.material = this.passedMaterialObject;
+            if (this.material.image !== '') {
+                this.includeimagestring = 'Change Image';
+            }
+        } else {
                 this.modalVersion = false;
         this.type = this.activated_route.snapshot.data['type'];
         }
@@ -131,12 +140,15 @@ console.log('checking dirty status');
             break;
         }
 
-        if (this.modalVersion) { this.id = '0';
-        this.material.id = this.id;
+        if (this.modalVersion) {// this.id = '0';
+        // this.material.id = this.id;
+        this.id = this.material.id;
        } else {
         this.id = this.activated_route.snapshot.params['id'];
         this.material.id = this.id;
         }
+
+
 
         console.log('This material id: ' + this.id);
         if (this.id !== '0') {
@@ -147,6 +159,7 @@ console.log('checking dirty status');
             //  console.log('the ID we got was: ' + this.id);
          }
          this.buildForm();
+
 
     }
 
@@ -230,12 +243,12 @@ console.log('checking dirty status');
         };
 
         this.fileUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-                        console.log('About to assign tempName');
+                   //     console.log('About to assign tempName');
                         this.tempName = this.fileUploader.queue[0].file.name;
-                        console.log('Response from the server: ' + this.tempName);
+                   //     console.log('Response from the server: ' + this.tempName);
                         this.file = this.tempName;
                         this.fileUrl = this.globals.materialfiles + '/' + this.material.id + '/' + this.file;
-                        console.log('File url: ' + this.fileUrl);
+                   //     console.log('File url: ' + this.fileUrl);
                          this.fileUploader.queue[0].remove();
 
                      };
@@ -244,10 +257,13 @@ console.log('checking dirty status');
     getMaterial(id: string) {
         this.materialService.getMaterial(id).subscribe(
             material => { this.material = <Material>material[0];
-                console.log('got material ' + id + ' info :' + JSON.stringify(material) );
+           //     console.log('got material ' + id + ' info :' + JSON.stringify(material) );
                 this.image = this.material.image;
+                if (this.material.image !== '') {
+                    this.includeimagestring = 'Change Image';
+                }
                 if (this.image) {
-                    console.log('including an image with this material');
+                //    console.log('including an image with this material');
                   this.imageUrl = this.globals.materialimages + '/' + this.material.id + '/' + this.image;
                 } else { this.imageUrl = null; }
                 this.file = this.material.file;
@@ -262,7 +278,7 @@ console.log('checking dirty status');
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
             const file: File = fileList[0];
-            console.log('Got a file: ' + file.name);
+           // console.log('Got a file: ' + file.name);
             this.thisFile = file;
 
         }
@@ -321,7 +337,7 @@ console.log('checking dirty status');
                    // this.router.navigate(['/admin/materials']);
                   },
                   () => {
-                      console.log('Done creating new material.');
+               //       console.log('Done creating new material.');
                       if (!this.modalVersion) {
                           this.materialForm.reset();
                           this.imageUploaded = false; // just to reset it
@@ -366,7 +382,7 @@ console.log('checking dirty status');
         this.type + ' : ' + this.material.title + ', and all of it\'s related data from the database?' +
         ' width ID: ' + this.material.id + '? ');
         if (result) {
-            console.log('Got the ok to delete the book.');
+      //      console.log('Got the ok to delete the book.');
 
         this.materialService.deleteMaterial( this.material.id ).subscribe(
             (data) => {
@@ -378,7 +394,7 @@ console.log('checking dirty status');
               // This is a work-around for a HTTP error message I was getting even when the
               // course was successfully deleted.
               if (error.status === 200) {
-                console.log('Got back from the Course Service.');
+        //        console.log('Got back from the Course Service.');
                 this._location.back();
                // this.router.navigate(['/coursebuilder']);
               } else {

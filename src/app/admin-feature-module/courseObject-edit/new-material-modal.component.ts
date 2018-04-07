@@ -27,11 +27,13 @@ export class NewMaterialModalComponent implements OnInit {
     @Input() newMateriaModal: Subject<any>;
     @Output() onComplete= new EventEmitter <Material>();
     @Output() onClose = new EventEmitter <boolean>();
+
+    fresh: boolean;
     constructor() {
     }
 
     ngOnInit() {
-
+        this.fresh = false;
         this.display = false;
 
         // We subscribe to this "openModal" input variable -- so that whenever a new list
@@ -40,6 +42,9 @@ export class NewMaterialModalComponent implements OnInit {
 
         this.newMateriaModal.subscribe( materialObject => {
             this.material = materialObject;
+            if (this.material.id === '0' ) { this.fresh = true; } else {
+                this.fresh = false;
+            }
             this.display = true;
             console.log('got a new Material Object: ' + JSON.stringify(this.material));
         });

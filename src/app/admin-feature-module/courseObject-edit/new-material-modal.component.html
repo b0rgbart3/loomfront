@@ -1,15 +1,5 @@
 <div class='newModal' *ngIf='display'>
 <div class='closer' (click)='close()'></div>
-      <h1>Add a new {{material.type}}</h1>
-
-
-
-
-     <material-edit [newType]='material.type' (onComplete)='completed($event)'></material-edit>
- 
-
-
-
-
-
+      <h1 *ngIf='fresh'>Add a new {{material.type}}</h1>
+     <material-edit [newType]='material.type' [passedMaterialObject]='material' (onComplete)='completed($event)' ></material-edit>
 </div>
