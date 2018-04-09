@@ -56,7 +56,7 @@ import { MaterialLineItemComponent } from './courseObject-edit/material-line-ite
                 canActivate: [ AdminRouteActivator ],
                 resolve: { users: UsersResolver, instructors: InstructorsResolver },
                 children: [
-                    { path: '', redirectTo: 'students', pathMatch: 'full' },
+                    { path: '', redirectTo: 'classes', pathMatch: 'full' },
                     { path: 'students', component: StudentsComponent, resolve: { users: UsersResolver,
                         classes: ClassesResolver, enrollments: AllEnrollmentsResolver }},
                     // { path: 'enrollments', component: EnrollmentsComponent, resolve: {

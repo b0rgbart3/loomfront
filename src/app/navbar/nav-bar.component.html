@@ -16,9 +16,9 @@
 	<a [routerLink]="['/contact']"><button mat-menu-item>Contact</button></a>
 </mat-menu>
 
-<a [routerLink]="['/classes']"><div class='easyHomeButton'>
+<div class='easyHomeButton' [routerLink]="['/classes']">
 	THE RECLAIMING LOOM
-</div></a>
+</div>
 
 <div *ngIf='admin' [routerLink]="['/admin']" class='adminLink'>admin</div>
 <div class='quickMessageDoc' *ngIf='currentUser'>

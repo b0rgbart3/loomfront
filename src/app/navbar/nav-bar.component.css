@@ -60,16 +60,24 @@ border:2px solid red;
 	margin-top:17px;
 	font-family: 'Josefin Sans';
 	border:2px solid rgba(255,255,255,.2);
-}
-
-a .easyHomeButton {
 	color:#777777;
+	user-select: none;
+	cursor: pointer;
+	outline:none;
+	transition:all .5s;
 }
 
-a:hover .easyHomeButton {
-	background-color:#111111;
+.easyHomeButton:hover {
+	background-color:rgba(0,0,0,.2);
+	border:2px solid #888888;
+	color:#888888;
 }
 
+.easyHomeButton:active {
+	border-color:#eeeeee;
+	color:#eeeeee;
+	outline: none;
+}
 
 p.userName {
 	float:right;
@@ -310,20 +318,36 @@ user-select: none;
 
 
 .adminLink {
-  color:#999999;
-  font-family:'Josefin Sans';
-  padding-top:30px;
-  text-transform: uppercase;
-  display:inline-block;
-  user-select:none;
-  cursor: pointer;
-  outline:none;
-  padding-left:10px;
+	display:inline-block;
+	text-align: center;
+	text-transform: uppercase;
+	font-size:1.1em;
+	padding:12px;
+	padding-top:16px;
+	box-sizing: border-box;
+	vertical-align: top;
+	margin-top:17px;
+	font-family: 'Josefin Sans';
+	border:2px solid rgba(255,255,255,.2);
+	color:#777777;
+	user-select: none;
+	cursor: pointer;
+	outline:none;
+	transition:all .5s;
+}
+
+.adminLink:hover {
+	background-color:rgba(0,0,0,.2);
+	border:2px solid #888888;
+	color:#888888;
 }
 
 .adminLink:active {
-	outline:none;
+	border-color:#eeeeee;
+	color:#eeeeee;
+	outline: none;
 }
+
 @media only screen and (max-width: 640px) {
 
   p.userName { 

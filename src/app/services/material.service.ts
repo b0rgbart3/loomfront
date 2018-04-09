@@ -68,7 +68,8 @@ export class MaterialService {
                 // console.log('sorted docs: ');
                 // sortedObjs.map( doc => console.log(doc.title));
 
-                return data;
+                const activeMaterials = this.hideRemovalsFromBatch( data );
+                return activeMaterials;
         }).catch(this.handleError);
       } else {
         // pass back a single object of this type
@@ -140,6 +141,21 @@ export class MaterialService {
       .catch( this.handleError );
      }
 
+  }
+  hideRemovalsFromBatch( batch ) {
+    // For now I'm just going to remove the class objects that are 'marked for removal'
+    // from our main array -- and store them in a separate array
+    this.removed = [];
+    if (batch && batch.length > 0) {
+      for (let i = 0; i < batch.length; i++) {
+        if (batch[i].remove_this) {
+          this.removed.push(batch[i]);
+          batch.splice(i, 1);
+        }
+      }
+    }
+   // console.log('after hiding materials: ' + JSON.stringify(this.removed));
+   return batch;
   }
 
   hideRemovals() {

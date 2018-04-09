@@ -58,6 +58,8 @@
                               </div>
                           </div>
                       </div>
+
+                <div class='interfaceButton' *ngIf='currentUser.admin' (click)='gotoEditor()'>Edit course</div>
                 <div class='sectionNavTitle' (click)='showSectionMenu()'
                 (clickOutside)='hideSectionMenu()' >Sections</div>
                 <div id='sectionMenu' class='sectionMenu group' *ngIf='showingSectionMenu'>

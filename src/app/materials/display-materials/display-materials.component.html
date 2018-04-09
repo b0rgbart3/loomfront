@@ -5,7 +5,7 @@
 
                 <div *ngIf="set.group" class='set group'>
 
-                            <div *ngIf='set.type === "book"' class='bookSet'>
+                            <div *ngIf='set.type === "book"' class='bookSet group'>
                                 <h1>Recommended In-Depth Reading:</h1>
                                 <div *ngFor='let material of set.materials' class='bookPluralWrap'>
                                         <book [book]='material'></book>

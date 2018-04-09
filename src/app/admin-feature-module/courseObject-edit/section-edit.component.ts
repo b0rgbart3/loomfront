@@ -108,7 +108,8 @@ export class SectionEditComponent implements OnInit {
         console.log(material);
 
         this.materialService.getDynamicMaterials(0, material).subscribe(
-            materials => { materialGroup = materials;
+            materials => {
+                 materialGroup = materials;
                 this.currentMaterialGroup = materials;
                 const materialList = materialGroup.map( mat => mat.title );
                // console.log('Built materialList: ' + JSON.stringify(materialGroup));
@@ -123,7 +124,10 @@ export class SectionEditComponent implements OnInit {
 
     // The user chose a material from the modal list - so let's add it to this section's list of material ids
     newMaterialAdded( material ) {
-        this.section.materials.push(material.id);
+        // If a materialObject got sent back to us - that means it's a new one and we want to add it to the list
+        // otherwise the user was just editing an existing material object
+        if (material) {
+        this.section.materials.push(material.id); }
     }
 
     // The user hit one of the square buttons to add a new material - so we create an empty material object

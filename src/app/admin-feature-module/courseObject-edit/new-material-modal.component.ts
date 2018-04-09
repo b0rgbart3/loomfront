@@ -57,7 +57,12 @@ export class NewMaterialModalComponent implements OnInit {
 
 
     completed( material ) {
-        this.onComplete.emit( material);
+        // If this is a new material object - we want to send it back to the section component so it can be
+        // added to the list of materials in this section.  Otherwise, the user was just editing an existing one.
+        if ( this.fresh ) {
+        this.onComplete.emit( material); } else {
+            this.onComplete.emit( null );
+        }
         this.closeModal();
     }
 

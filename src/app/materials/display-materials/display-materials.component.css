@@ -1,16 +1,10 @@
-
-
   .endPiece {
-
     border-right:2px solid rgba(0,0,0,.3);
     display:inline-block;
     margin-left:auto;
     margin-right:auto;
- 
  }
- 
- 
- 
+
  .materials {
      margin-top:20px;
     padding-top:20px;
@@ -29,14 +23,12 @@
   cursor: pointer;
   user-select: none;
 
-
 }
 
 .bookWrap {
   margin-left:auto;
   margin-right:auto;
   display:inline-block;
-  
 }
 
 .docWrap:hover {
@@ -55,6 +47,7 @@
 
 .set {
   margin-bottom:14px;
+  display:inline-block;
 }
 
 /* This 'inner' div will center the books in the group set*/
@@ -64,7 +57,7 @@
   margin-right:auto;
 }
 
-/* This 'inner' div will center the books in the group set*/
+/* This 'inner' div will center the docs in the group set*/
 .docSet {
   display:inline-block;
   margin-left:auto;
@@ -85,13 +78,11 @@
 .bookPluralWrap { 
   display:inline-block;
   vertical-align: top;
-  float:left;
 }
 
 .docPluralWrap { 
   display:inline-block;
   vertical-align: top;
-  float:left;
   width:200px;
   border:2px solid #dddddd;
   padding:0px;
@@ -103,6 +94,8 @@
   user-select: none;
   height:400px;
   overflow: hidden;
+  margin-left:8px;
+  margin-right:8px;
 }
 
 .docPluralWrap:hover {

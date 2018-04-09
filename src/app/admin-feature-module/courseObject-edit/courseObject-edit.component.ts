@@ -1,6 +1,6 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { Course } from '../../models/course.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CourseService } from '../../services/course.service';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Section } from '../../models/section.model';
@@ -71,6 +71,13 @@ export class CourseObjectEditComponent implements OnInit {
         // }
     }
     ngOnInit() {
+
+        // this.router.events.subscribe((evt) => {
+        //     if (!(evt instanceof NavigationEnd)) {
+        //         return;
+        //     }
+        //     window.scrollTo(0, 0);
+        // });
 
         this.items = [{'title': 'Mary'},
         {'title': 'joe'},

@@ -1,6 +1,6 @@
 import { Component, Output, OnInit, Input } from '@angular/core';
 import {Http} from '@angular/http';
-import { RouterModule, Routes, NavigationExtras, Router } from '@angular/router';
+import { RouterModule, Routes, NavigationExtras, Router, NavigationEnd } from '@angular/router';
 import { User } from './models/user.model';
 import { UserService } from './services/user.service';
 
@@ -25,6 +25,14 @@ export class AppComponent implements OnInit {
   ngOnInit() {
       this.errorMessage = null;
       this.dataConnection = false;
+
+      // Scroll to the top of the page when a user navigates around
+    //   this.router.events.subscribe((evt) => {
+    //     if (!(evt instanceof NavigationEnd)) {
+    //         return;
+    //     }
+    //     window.scrollTo(0, 0);
+    // });
 
       this.userService
       .getUsers().subscribe(

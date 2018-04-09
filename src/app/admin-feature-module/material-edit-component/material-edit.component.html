@@ -24,7 +24,7 @@
         <mat-form-field>
                 <textarea matInput [placeholder]="contentPlaceholder" name="content" 
                 id='content' formControlName='content' matTextareaAutosize matAutosizeMinRows="2"
-                matAutosizeMaxRows="5"></textarea>
+                matAutosizeMaxRows="5" class='content'></textarea>
                 </mat-form-field></div>
 
     <mat-form-field *ngIf="type==='book' || type==='doc' || type==='quote' || type==='audio' || type==='video'">
@@ -43,15 +43,28 @@
         </div>
 </div>
 
-<div class='contentContainer'>
+<div class='contentContainer' *ngIf='type!=="quote"'>
   <!-- Document Content Here -->
-    <div *ngIf='type==="video" && this.file'>
+    <div *ngIf='type==="video" && file && !loading'>
             <video-component [videoObject]="this"></video-component>
     </div>
-
+    <div *ngIf='type==="doc" && file && !loading && !displayModal' (click)='openModal()' class='button hotDoc'>
+        preview this document
+    </div>
+    <div *ngIf='type==="doc" && file && !loading && displayModal'>
+        <modal [modalURL]='fileUrl' (closeMe)="closeModal()"></modal>
+    </div>
+    <div *ngIf='type==="audio" && file && !loading'>
+        <audio controls controlsList="nodownload">
+            <source [src]="fileUrl" type="audio/mpeg">
+          Your browser does not support the audio element.
+          </audio>
+    </div>
     <div *ngIf='file'>File:  {{ file }}</div>
-    <div *ngIf='uploaderNeeded'>
+    <div *ngIf='loading' class='spinner'>
 
+    </div>
+    <div *ngIf='uploaderNeeded'>
             <div class="upload-wrap">
                 Upload Document
                 <input type="file" class="upload-btn"  name="file"  
@@ -77,7 +90,7 @@
 
 <br clear='all'>
 <br>
-<div class='loomButton loomSubmit' 
+<div class='bigGreen' 
 (click)='postMaterial()'>Submit changes</div>
 
 <br clear='all'>

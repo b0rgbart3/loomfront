@@ -730,6 +730,36 @@ h2 {
   color:#555555;
 }
 
+.interfaceButton {
+  text-transform: uppercase;
+  color:black;
+  cursor:pointer;
+  user-select:none;
+  display:inline-block;
+  border:2px solid #555555;
+  padding-left:14px;
+  padding-right:14px;
+  padding-top:8px;
+  padding-bottom:8px;
+  box-sizing: border-box;
+  font-family: 'Muli';
+  font-weight: 400;
+  font-size:1.3em;
+  background-color:#cccccc;
+  margin-top:14px;
+  vertical-align: top;
+  margin-left:10px;
+}
+
+.interfaceButton:hover {
+    background-color:#eeeeee;
+}
+
+.interfaceButton:active {
+    background-color:#ffffff;
+    box-shadow:0 0 10px rgba(0,0,0,.5);
+}
+
 
 
 /*  ClearFix  -----------------------------------------------------------
@@ -1100,4 +1130,42 @@ mat-list-item:active {
   opacity: 0.2;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
+}
+
+
+/*  Buttons */
+
+.bigGreen {
+  font-family: 'Roboto';
+  background-color:yellowgreen;
+  padding:20px;
+  text-transform:uppercase;
+  color:rgb(65, 83, 30);
+  font-size:1.1em;
+  display:inline-block;
+  font-weight: 600;
+  float:right;
+  border-radius:8px;
+  border:4px solid rgb(90, 116, 40);
+  box-shadow: 0 0 12px rgb(56, 68, 31);
+  user-select: none;
+  cursor: pointer;
+  margin-right:10px;
+}
+
+.bigGreen:hover {
+  background-color:rgb(174, 231, 59);
+}
+
+.bigGreen:active {
+  background-color:rgb(215, 255, 134);
+  position: relative;
+  left:1px;
+  top:1px;
+
+}
+
+.button {
+  user-select: none;
+  cursor: pointer;
 }

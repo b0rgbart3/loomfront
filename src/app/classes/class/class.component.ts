@@ -75,7 +75,7 @@ export class ClassComponent implements OnInit {
     currentMaterials: MaterialSet[];
     announcements: Announcements[];
     currentAnnouncement: Announcements;
-
+  
     // for the BIO Popup
     bioChosen: User;
     showingBio: boolean;
@@ -105,6 +105,7 @@ private announcementsService: AnnouncementsService ) {
       }
 
     ngOnInit() {
+
         this.currentMaterials = null;
         this.messaging = false;
         this.currentUser = this.userService.getCurrentUser();
@@ -123,6 +124,7 @@ private announcementsService: AnnouncementsService ) {
             this.announcements = this.activated_route.snapshot.data['announcements'];
             console.log('Announcements: ' + this.announcements.length);
             this.currentUser = this.userService.getCurrentUser();
+
         });
 
         this.activated_route.parent.data.subscribe(
@@ -175,6 +177,11 @@ private announcementsService: AnnouncementsService ) {
 
     }
 
+    gotoEditor() {
+        if (this.currentUser && this.currentUser.admin) {
+            this.router.navigate( ['/admin/courseObjects/' + this.thisClass.course + '/edit'] );
+        }
+    }
     // This is where we look through ALL the materials - and group them into sets, if need be
     // for books and docs  (The only reason for doing this is that it is more aesthetically pleaseing
     // to have them grouped in clusters when they are displayed on the page ).

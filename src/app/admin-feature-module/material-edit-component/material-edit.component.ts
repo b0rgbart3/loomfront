@@ -49,6 +49,8 @@ export class MaterialEditComponent implements OnInit {
     contentNeeded: boolean;
     lengthNeeded: boolean;
     maxFileSize = 5 * 1024 * 1024;
+    loading: boolean;
+    displayModal: boolean;
 
     constructor(private fb: FormBuilder,
     private activated_route: ActivatedRoute,
@@ -81,7 +83,8 @@ export class MaterialEditComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.displayModal = false;
+        this.loading = false;
         this.includeimagestring = 'Include Image';
         this.imageUploaded = false;
         this.fileUploaded = false;
@@ -247,6 +250,7 @@ export class MaterialEditComponent implements OnInit {
                         this.tempName = this.fileUploader.queue[0].file.name;
                    //     console.log('Response from the server: ' + this.tempName);
                         this.file = this.tempName;
+                        this.loading = false;
                         this.fileUrl = this.globals.materialfiles + '/' + this.material.id + '/' + this.file;
                    //     console.log('File url: ' + this.fileUrl);
                          this.fileUploader.queue[0].remove();
@@ -285,6 +289,7 @@ export class MaterialEditComponent implements OnInit {
     }
 
     fileChange(event) {
+        this.loading = true;
         console.log('File changed.');
         const fileList: FileList = event.target.files;
         if ( fileList.length > 0) {
@@ -424,5 +429,11 @@ export class MaterialEditComponent implements OnInit {
         this.onComplete.emit(this.material);
     }
 
+    openModal() {
+        this.displayModal = true;
+    }
+    closeModal() {
+        this.displayModal = false;
+    }
 
 }
