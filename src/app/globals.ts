@@ -29,6 +29,8 @@ export class Globals {
 
 // This points to the API
 // basepath = 'http://localhost:3100';
+//
+
 basepath = 'https://young-bastion-45095.herokuapp.com';
 
 api_path = this.basepath + '/api/';

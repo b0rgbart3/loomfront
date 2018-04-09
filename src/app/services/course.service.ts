@@ -19,7 +19,7 @@ export class CourseService implements OnInit {
     errorMessage;
     courses: Course[];
     removedCourses: Course[];
-    // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
+
 
     constructor (private _http: HttpClient, private globals: Globals) {
     }

@@ -30,8 +30,7 @@ const httpOptions = {
 
 
 export class DiscussionService implements OnInit, OnChanges {
-    // private _registryUrl = 'http://localhost:3100/api/classregistrations';
-    // private _threadsUrl = 'http://localhost:3100/api/threads';
+
     private dsCount = 0;
     private highestID = 0;
     threads: Thread[];

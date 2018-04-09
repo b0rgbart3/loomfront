@@ -26,7 +26,6 @@ export class MaterialService {
     docArray: Material[];
     allMaterialsByType: Material[][];
 
-    // private _courseSeedUrl = 'http;//localhost:3100/course_seed';
 
     /* Methods in this service:
     getDynamicMaterials( id, type )
