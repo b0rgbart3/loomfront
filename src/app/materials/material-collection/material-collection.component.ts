@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialCollection } from '../../models/materialcollection.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { RouterLinkWithHref } from '@angular/router';
 
 @Component({

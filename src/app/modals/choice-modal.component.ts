@@ -6,7 +6,7 @@ import { UserService } from '../services/user.service';
 import { LoomsFacebookService } from '../services/loomsfacebook.service';
 import { LoginResponse, FacebookService, InitParams } from 'ngx-facebook';
 import { AlertService } from '../services/alert.service';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 

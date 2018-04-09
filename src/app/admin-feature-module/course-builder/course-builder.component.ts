@@ -5,7 +5,7 @@ import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Router } from '@angular/router';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 
 @Component ({
     templateUrl: './course-builder.component.html',

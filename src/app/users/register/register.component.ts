@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model';
 import { NgForm, FormControl, FormBuilder,
   FormGroup, FormArray, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { UserService } from '../../services/user.service';
 import { ClassService } from '../../services/class.service';
 import { ClassModel } from '../../models/class.model';

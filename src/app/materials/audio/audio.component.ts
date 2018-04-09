@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 
 
 @Component({

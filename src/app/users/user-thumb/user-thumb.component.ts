@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Userthumbnail } from '../../models/userthumbnail.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 
 @Component({
   selector: 'user-thumb',

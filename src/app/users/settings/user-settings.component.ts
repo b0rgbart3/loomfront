@@ -12,7 +12,7 @@ import { Pipe, DoCheck, AfterViewChecked, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
 import { Validators } from '@angular/forms';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import {Location} from '@angular/common';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ngx-img-cropper';
 

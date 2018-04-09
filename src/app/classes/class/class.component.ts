@@ -12,7 +12,7 @@ import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Userthumbnail } from '../../models/userthumbnail.model';
 import { BoardSettings } from '../../models/boardsettings.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { DiscussionSettings } from '../../models/discussionsettings.model';
 import { DiscussionService } from '../../services/discussion.service';

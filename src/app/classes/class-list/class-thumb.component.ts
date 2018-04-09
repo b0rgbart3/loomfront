@@ -4,7 +4,7 @@ import { ClassService } from '../../services/class.service';
 import { User } from '../../models/user.model';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { AssignmentsService } from '../../services/assignments.service';
 import { Assignment } from '../../models/assignment.model';
 import { UserService } from '../../services/user.service';

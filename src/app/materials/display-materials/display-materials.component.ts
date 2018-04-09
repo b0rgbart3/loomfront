@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { RouterLinkWithHref } from '@angular/router';
 import { Material } from '../../models/material.model';
 import { MaterialSet } from '../../models/materialset.model';

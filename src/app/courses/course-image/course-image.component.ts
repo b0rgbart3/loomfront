@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Course } from '../../models/course.model';
 import { CourseService } from '../../services/course.service';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 
 
 @Component({

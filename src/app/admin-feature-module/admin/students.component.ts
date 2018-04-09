@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { Enrollment } from '../../models/enrollment.model';
 import { ClassModel } from '../../models/class.model';
 import { User } from '../../models/user.model';

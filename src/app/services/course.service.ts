@@ -9,7 +9,7 @@ import 'rxjs/add/operator/do';
 
 import { Course } from '../models/course.model';
 import { Material } from '../models/material.model';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 
 
 @Injectable()

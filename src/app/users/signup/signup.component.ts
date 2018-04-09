@@ -9,7 +9,7 @@ import { AlertService } from '../../services/alert.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FacebookService, InitParams, LoginResponse, LoginStatus } from 'ngx-facebook';
 import { BoardSettings } from '../../models/boardsettings.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { AbstractClassPart } from '@angular/compiler/src/output/output_ast';
 import { LoomNotificationsService } from '../../services/loom.notifications.service';
 import { LoomNotification } from '../../models/loom.notification.model';

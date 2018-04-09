@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Message } from '../models/message.model';
 
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 import { LoomNotificationsService } from './loom.notifications.service';
 @Injectable()
 export class ChatSocketService implements OnInit {

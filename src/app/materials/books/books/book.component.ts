@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Globals } from '../../../globals';
+import { Globals } from '../../../globals2';
 import { ClickOutsideDirective } from '../../../_directives/clickOutside.directive';
 import { Router } from '@angular/router';
 import { Material } from '../../../models/material.model';

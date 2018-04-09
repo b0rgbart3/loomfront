@@ -9,7 +9,7 @@ import 'rxjs/add/operator/do';
 
 import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 
 @Injectable()
 export class ClassService implements OnInit {

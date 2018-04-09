@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import * as io from 'socket.io-client';
 import { LoomNotificationsService } from './loom.notifications.service';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 import { NotesSettings } from '../models/notessettings.model';
 
 

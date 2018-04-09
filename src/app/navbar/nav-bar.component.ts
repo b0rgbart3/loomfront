@@ -8,7 +8,7 @@ import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs/Subscription';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FacebookService } from 'ngx-facebook/dist/esm/providers/facebook';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 import { ClickOutsideDirective } from '../_directives/clickOutside.directive';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';

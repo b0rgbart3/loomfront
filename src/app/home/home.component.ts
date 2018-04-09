@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Course } from '../models/course.model';
 import { ClassModel } from '../models/class.model';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 import { CourseService } from '../services/course.service';
 import { Enrollment } from '../models/enrollment.model';
 import { Assignment } from '../models/assignment.model';

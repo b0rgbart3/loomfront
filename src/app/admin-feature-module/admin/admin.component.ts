@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
 import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Userthumbnail } from '../../models/userthumbnail.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { Book } from '../../models/book.model';
 import { Series } from '../../models/series.model';
 import { SeriesService } from '../../services/series.service';

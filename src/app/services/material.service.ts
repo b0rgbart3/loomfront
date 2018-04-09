@@ -6,7 +6,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 
 import { Material } from '../models/material.model';
 import { MaterialCollection } from '../models/materialcollection.model';

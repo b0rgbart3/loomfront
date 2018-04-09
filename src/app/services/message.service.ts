@@ -10,7 +10,7 @@ import * as io from 'socket.io-client';
 
 import { ClassModel } from '../models/class.model';
 import { Thread } from '../models/thread.model';
-import { Globals } from '../globals';
+import { Globals } from '../globals2';
 import { User } from '../models/user.model';
 import { LoomNotificationsService } from '../services/loom.notifications.service';
 import { LoomNotification } from '../models/loom.notification.model';

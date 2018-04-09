@@ -4,7 +4,7 @@ import { Course } from '../../models/course.model';
 import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
 import { Video } from '../../models/video.model';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 
 import {VgCoreModule} from 'videogular2/core';
 import {VgControlsModule} from 'videogular2/controls';

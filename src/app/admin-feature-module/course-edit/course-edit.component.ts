@@ -8,7 +8,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { Material } from '../../models/material.model';
 import { Book } from '../../models/book.model';
 import { MaterialService } from '../../services/material.service';
-import { Globals } from '../../globals';
+import { Globals } from '../../globals2';
 import { MaterialCollection } from '../../models/materialcollection.model';
 import { Materialtype } from '../../models/materialtype.model';
 import { DomSanitizer } from '@angular/platform-browser';
