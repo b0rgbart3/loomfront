@@ -38,7 +38,7 @@ import { LoomNotificationsService } from './services/loom.notifications.service'
 import { LoomNotificationsComponent } from './shared/loom.notifications.component';
 import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 import { SectionResolver } from './resolvers/section-resolver.service';
-import { Globals } from './globals';
+import { Globals } from './globals2';
 import { MatInputModule } from '@angular/material';
 import { FacebookModule } from 'ngx-facebook';
 import { LoomsFacebookService } from './services/loomsfacebook.service';
