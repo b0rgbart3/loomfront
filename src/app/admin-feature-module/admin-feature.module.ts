@@ -21,8 +21,6 @@ import { SeriesResolver } from '../resolvers/series-resolver.service';
 import { EnrollmentEditComponent } from './enrollments/enrollment-edit.component';
 import { ClassesResolver } from '../resolvers/classes-resolver.service';
 import { EnrollmentsResolver } from '../resolvers/enrollments-resolver.service';
-// import { EnrollmentStudentTabComponent } from './enrollments/enrollment-student-tab.component';
-// import { EnrollmentInstructorTabComponent } from './enrollments/enrollment-instructor-tab.component';
 import { AssignmentsResolver } from '../resolvers/assignments-resolver.service';
 import { AllEnrollmentsResolver } from '../resolvers/allenrollments-resolver.service';
 import { AllAssignmentsResolver } from '../resolvers/allassignments-resolver.service';
@@ -123,8 +121,6 @@ import { MaterialLineItemComponent } from './courseObject-edit/material-line-ite
        MaterialEditComponent,
        SeriesEditComponent,
        EnrollmentEditComponent,
-    //    EnrollmentStudentTabComponent,
-    //    EnrollmentInstructorTabComponent,
        UserListComponent,
        ContentComponent,
        StudentsComponent,
