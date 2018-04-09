@@ -28,8 +28,8 @@ export class Globals {
 // basepath = 'https://ddworks.org:8000/';
 
 // This points to the API
-basepath = 'http://localhost:3100';
-// basepath = 'https://young-bastion-45095.herokuapp.com/';
+// basepath = 'http://localhost:3100';
+basepath = 'https://young-bastion-45095.herokuapp.com';
 
 api_path = this.basepath + '/api/';
 // This points to where the images and other assets are stored
