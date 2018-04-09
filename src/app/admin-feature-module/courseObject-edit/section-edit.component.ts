@@ -40,6 +40,7 @@ export class SectionEditComponent implements OnInit {
     currentMaterialGroup: Material[];
     dragOptions: any;
     bagName: string;
+    materialTypes: any[];
 
     constructor( private fb: FormBuilder, private globals: Globals, private materialService: MaterialService,
         private dragulaService: DragulaService) {
@@ -65,6 +66,7 @@ export class SectionEditComponent implements OnInit {
         this.onChange.emit(this.section);
     }
     ngOnInit() {
+        this.materialTypes = this.globals.materialTypes;
         this.bagName = 'materials-bag' + this.index;
       //  console.log('Bag name: ' + this.bagName);
 

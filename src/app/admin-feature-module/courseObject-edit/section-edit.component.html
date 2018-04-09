@@ -25,7 +25,7 @@
             </div>
         </div>
         <br clear='all'><br>
-        <div class='smallSquareButton' *ngFor='let material of globals.materialTypes; let j=index' (click)='addMaterial(j)'>
+        <div class='smallSquareButton' *ngFor='let material of materialTypes; let j=index' (click)='addMaterial(j)'>
             {{ material.pluralName }} </div>
 
 
