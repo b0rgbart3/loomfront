@@ -236,7 +236,7 @@ getUserFromMemoryById( queryID: string): User {
     }
 
     getUsers(): Observable<any> {
-      // console.log ('In user service, gettingUsers');
+      console.log ('In user service, gettingUsers');
       return this._http.get <User[]> (this.globals.users)
         // debug the flow of data
         .do(data => {
