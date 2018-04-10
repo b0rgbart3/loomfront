@@ -108,7 +108,7 @@ export class UserService implements OnInit {
     // Apparently this lifecycle hook doesn't work for 'services'.
     // console.log ('In user service, ngOnInit');
     this.usersLoaded = false;
-    this.subscribeToUsers();
+   // this.subscribeToUsers();
     this.currentUser = JSON.parse( localStorage.getItem('currentUser') );
   }
 
