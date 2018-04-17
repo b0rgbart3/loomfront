@@ -315,7 +315,8 @@ generateAvatarPath( ) {
       if (this.currentUser.facebookRegistration) {
        // console.log('This was a fb reg.');
         this.avatarimage = this.currentUser.avatar_URL;
-       // console.log('The avatar url is: ' + this.avatarimage);
+        console.log('The avatar url is: ' + this.avatarimage);
+        this.avatarExists = true;
 
       } else {
        // console.log('This was not a fb reg.');
