@@ -31,7 +31,7 @@ export class Globals {
 // basepath = 'http://localhost:3100';
 //
 
-basepath = 'http://young-bastion-45095.herokuapp.com';
+basepath = 'https://young-bastion-45095.herokuapp.com';
 
 api_path = this.basepath + '/api/';
 // This points to where the images and other assets are stored
