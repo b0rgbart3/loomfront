@@ -14,6 +14,7 @@
 	<a   *ngIf="!currentUser" [routerLink]="['/login']">
 		<button mat-menu-item>Login</button></a>
 	<a [routerLink]="['/contact']"><button mat-menu-item>Contact</button></a>
+	<a (click)='logout()'><button mat-menu-item>Log Out</button></a>
 </mat-menu>
 
 <div class='easyHomeButton' [routerLink]="['/classes']">
