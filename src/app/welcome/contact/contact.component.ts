@@ -37,7 +37,9 @@ export class ContactComponent implements OnInit {
         if (this.contactForm.dirty && this.contactForm.valid) {
             this.cfMessage = this.contactForm.value;
             console.log(this.contactForm.value);
-            this.contactService.sendMsg( this.cfMessage ).subscribe();
+            this.contactService.sendMsg( this.cfMessage ).subscribe(
+                response => { console.log( JSON.stringify( response) ); },
+            );
         }
     }
 }
