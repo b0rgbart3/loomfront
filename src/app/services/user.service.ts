@@ -493,7 +493,7 @@ getUserFromMemoryById( queryID: string): User {
        //  console.log('In USER SERVICE, looking for the user by email: ' + User.email );
          return this.findUserByEmailFromDB( User.email ).subscribe(
            (val) => { this.currentUser = <User> val[0];
-         //      console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
+                console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
                       if ( this.currentUser && this.currentUser.username) {
                       this.username = this.currentUser.username;
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
@@ -514,7 +514,7 @@ getUserFromMemoryById( queryID: string): User {
       return this._http.get(this.base_path + 'api/finduser?email=' + email , {headers: myHeaders} ).do((response) => {
         this.currentUser = <User> response[0];
         this.username = this.currentUser.username;
-      //  console.log('Found username: ' + this.username);
+        console.log('Found username by email: ' + this.username);
         localStorage.setItem('currentUser', JSON.stringify( this.currentUser ) );
        return <User> response[0];
       });

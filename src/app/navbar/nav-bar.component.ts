@@ -346,7 +346,7 @@ generateAvatarPath( ) {
 
   gotoSettings() {
     this.showAvatarMenu = false;
-    const navigationString = '/usersettings/' + this.currentUser.id + '/edit';
+    const navigationString = '/usersettings/' + this.userService.currentUser.id + '/edit';
     console.log('navigating to: ' + navigationString);
     this._router.navigate([navigationString]);
   }
