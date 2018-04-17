@@ -100,6 +100,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.admin = false;
     if (this.currentUser) {
       console.log('Navbar found a current user.');
+      console.log('current user: ' + JSON.stringify(this.currentUser));
     this.admin = this.currentUser.admin;
     }
     this.socket = io(this.globals.basepath);
@@ -345,7 +346,7 @@ generateAvatarPath( ) {
 
   gotoSettings() {
     this.showAvatarMenu = false;
-    const navigationString = '/usersettings/' + this.userService.currentUser.id + '/edit';
+    const navigationString = '/usersettings/' + this.currentUser.id + '/edit';
     console.log('navigating to: ' + navigationString);
     this._router.navigate([navigationString]);
   }
