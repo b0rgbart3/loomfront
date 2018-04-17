@@ -223,6 +223,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
       console.log('about to signup the user');
 
               const existingUser = this.userService.findUserByEmail ( newFBUser.email );
+              if (existingUser && !existingUser.facebookRegistration ) {
+                // Here we have a user in the system - who's email matches their FB account,
+                // but they already have a non-facebook account.
+                this.alertService.error('We already have an account for you with your email address.' +
+                '  Please just login with your username and password.');
+                this._router.navigate(['/login']);
+              }
               if (existingUser === null) {
                 console.log('no user found, so creating one.');
                 this.createFBUser(newFBUser);
