@@ -35,6 +35,7 @@ export class WelcomeComponent implements OnInit {
         ngOnInit() {
             // console.log('snapshot: ' + JSON.stringify(this.activated_route.snapshot.data));
             this.currentUser = this.userService.getCurrentUser();
+            console.log('In Welcome, currentUser: ' + JSON.stringify(this.currentUser));
             this.classes = [];
             this.activated_route.data.subscribe(
                 data => {
