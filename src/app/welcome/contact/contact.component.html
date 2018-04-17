@@ -1,7 +1,9 @@
 <nav-bar></nav-bar>
 <div class='loomContainer'>
-
-<div class='Box'>
+<div *ngIf='confirmation=="success"'>
+        Thank you for contacting the reclaiming loom.  We will respond to you shortly.
+</div>
+<div class='Box' *ngIf='confirmation !== "success"'>
         <form novalidate [formGroup]="contactForm" class='contactForm'>
 <h1>Contact the Reclaiming Loom</h1>
                 <mat-form-field>

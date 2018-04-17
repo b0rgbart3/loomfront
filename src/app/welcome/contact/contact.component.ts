@@ -21,9 +21,11 @@ export class ContactComponent implements OnInit {
 
     contactForm: FormGroup;
     cfMessage: CFMessage;
+    confirmation: string;
 
     constructor(private formBuilder: FormBuilder, private contactService: ContactService) {}
     ngOnInit() {
+        this.confirmation = '';
         this.contactForm = this.formBuilder.group( {
             firstname: ['' ],
             lastname: ['' ],
@@ -38,7 +40,11 @@ export class ContactComponent implements OnInit {
             this.cfMessage = this.contactForm.value;
             console.log(this.contactForm.value);
             this.contactService.sendMsg( this.cfMessage ).subscribe(
-                response => { console.log( JSON.stringify( response) ); },
+                response => { console.log('Response == '); console.log( JSON.stringify( response) );
+                if (response) {
+                    this.confirmation = 'success';
+                }
+            },
             );
         }
     }
