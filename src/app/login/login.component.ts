@@ -295,6 +295,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         console.log( 'After Login call: the response is: ' + JSON.stringify(response));
         this.fb_LoginResponseObject = response;
         if (this.fb_LoginResponseObject.status === 'connected') {
+          console.log('getting user info from FB');
             this.getUserInfoFromFB();
         }
          }

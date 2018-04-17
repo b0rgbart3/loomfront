@@ -482,11 +482,11 @@ getUserFromMemoryById( queryID: string): User {
    //   console.log('IN User Service:, calling find by Email:' + User.email);
 
        // const FBUser = this.findUserByEmail ( User.email );
-      //  if (User !== null) {
-      //    this.currentUser = <User> User;
-      //    this.username = this.currentUser.username;
-      //    localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
-      //  } else {
+       if (User !== null) {
+         this.currentUser = <User> User;
+         this.username = this.currentUser.username;
+         localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
+       } else {
       //   console.log('In USER SERVICE, in the loginFBUser method, didnt find the user by email');
          this.logout();
        //  console.log('In USER SERVICE, looking for the user by email: ' + User.email );
@@ -498,12 +498,12 @@ getUserFromMemoryById( queryID: string): User {
                       localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
                       this.socket.emit('userChanged', this.currentUser);
                     } else {
-                      // console.log('user not yet signed up.');
+                        console.log('user not yet signed up.');
                     }
                      },
            (error) => { this.errorMessage = error; }
          );
-   //   }
+       }
     }
 
     findUserByEmailFromDB( email: string ): Observable <any> {
