@@ -334,6 +334,7 @@ generateAvatarPath( ) {
         }, 2000 );
         }
       } else {
+        this.avatarExists = true;
         this.avatarimage = this.globals.avatars + '/placeholder.png';
         }
       }
