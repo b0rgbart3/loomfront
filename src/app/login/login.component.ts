@@ -226,6 +226,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
               if (existingUser && !existingUser.facebookRegistration ) {
                 // Here we have a user in the system - who's email matches their FB account,
                 // but they already have a non-facebook account.
+                console.log('Double account.');
                 this.alertService.error('We already have an account for you with your email address.' +
                 '  Please just login with your username and password.');
                 this._router.navigate(['/login']);
@@ -236,6 +237,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 // this.userService.loginFBUser( newFBUser );
                 // this._router.navigate(['/home']);
               } else {
+                console.log('existing account, so logging in FBUser');
                 this.userService.loginFBUser( newFBUser );
                 this._router.navigate(['/home']);
               }
