@@ -95,10 +95,11 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.showingMessageList = false;
     this.messageListStyle = 'quickMessagesButton';
    
-    this.currentUser = this.userService.getCurrentUser();
+    this.currentUser = this.userService.currentUser; // getCurrentUser();
     this.generateAvatarPath();
     this.admin = false;
     if (this.currentUser) {
+      console.log('Navbar found a current user.');
     this.admin = this.currentUser.admin;
     }
     this.socket = io(this.globals.basepath);
