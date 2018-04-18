@@ -469,7 +469,10 @@ getUserFromMemoryById( queryID: string): User {
       localStorage.setItem('currentUser', JSON.stringify( newUserObject) );
      }
 
-    loginFBUser ( User ) {
+
+
+
+     loginFBUser ( User ) {
       /*  This User object is being sent to this method because we already called the FB api in the
           registration component.  So we are assuming that part of things has already happened.
           We might need another method to login in a user to FB and the loom -- cold, here in the User
@@ -486,8 +489,25 @@ getUserFromMemoryById( queryID: string): User {
          this.currentUser = <User> User;
          this.username = this.currentUser.username;
          localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
+
+         console.log('In User Service, logging in FB user');
+
+         this.findUserByEmailFromDB( User.email ).subscribe(
+          (val) => { this.currentUser = <User> val[0];
+               console.log('In USER SERVICE, back from the API: ' + JSON.stringify (val ) );
+                     if ( this.currentUser && this.currentUser.username) {
+                     this.username = this.currentUser.username;
+                     localStorage.setItem('currentUser', JSON.stringify( this.currentUser ));
+                     this.socket.emit('userChanged', this.currentUser);
+                   } else {
+                       console.log('user not yet signed up.');
+                   }
+                    },
+          (error) => { this.errorMessage = error; }
+        );
+
        } else {
-      //   console.log('In USER SERVICE, in the loginFBUser method, didnt find the user by email');
+      console.log('In US / loginFBUser: User==null');
          this.logout();
        //  console.log('In USER SERVICE, looking for the user by email: ' + User.email );
          return this.findUserByEmailFromDB( User.email ).subscribe(
