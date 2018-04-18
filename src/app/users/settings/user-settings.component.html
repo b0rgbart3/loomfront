@@ -36,6 +36,7 @@
 <br>
             <div class="form-group">
 
+                <div *ngIf="!user.facebookRegistration">
                      <h2>Your Avatar Image:</h2>
 
                    <!-- <br><img [src]="user.avatar_URL" width='200' height='200' *ngIf="user && user.avatar_URL"><br>
@@ -51,7 +52,7 @@
                         [ngStyle]="{ 'width': imageUploader.queue[0].progress + '%' }"></div>
                     </div> -->
 
-                    <div *ngIf="!user.facebookRegistration">
+                   
                         <div>
      
                             <div *ngIf='imageUploader.queue[0]'>
