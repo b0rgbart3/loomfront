@@ -36,8 +36,10 @@
                <span class='help-block' *ngIf='emailMessage'>
                    {{ emailMessage }}
                </span> -->
-               <div *ngIf='alreadyRegistered'>
-                   <p>You are already registered for this class.</p>
+               <br clear='all'>
+               <div *ngIf='alreadyRegistered'><br>
+                   <p>You are already registered for {{ requestedClass.title }}.</p>
+                   <a routerLink="['/classes/' + requestedClass.id']"> Go to the clas page. </a>
                </div>
                <div *ngIf='!alreadyRegistered'>
                 <br clear='all'>
