@@ -230,7 +230,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.alertService.error('We already have an account for you with your email address.' +
                 '  Please just login with your username and password.');
                 this._router.navigate(['/login']);
-              }
+              } else {
               if (existingUser === null) {
                 console.log('no user found, so creating one.');
                 this.createFBUser(newFBUser);
@@ -241,7 +241,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.userService.loginFBUser( newFBUser );
                 this._router.navigate(['/home']);
               }
-            }
+            }}
 
     createFBUser( newFBUser: User) {
       console.log('About to create a user: ' + JSON.stringify(newFBUser));
