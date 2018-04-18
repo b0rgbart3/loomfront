@@ -86,7 +86,9 @@ resolve: { allAnnouncements: AllAnnouncementsResolver, announcements: Announceme
 { path: 'suspended', component: SuspendedComponent },
 { path: 'contact', component: ContactComponent },
 { path: 'register/:id', component: RegisterComponent, canActivate: [AuthGuard ],
-  resolve: { requestedClass: ClassResolver}},
+  resolve: { requestedClass: ClassResolver,
+             enrollments: EnrollmentsResolver,
+             assignments: AssignmentsResolver }},
 { path: '', pathMatch: 'full', component: WelcomeComponent, resolve: {
     users: UsersResolver,
     courses: CoursesResolver,

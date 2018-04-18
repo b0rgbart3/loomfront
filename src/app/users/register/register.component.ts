@@ -29,6 +29,9 @@ export class RegisterComponent implements OnInit {
     description: string;
     errorMessage: string;
     currentUser: User;
+    enrollments: Enrollment[];
+    classesTakingIDList: any[];
+    alreadyRegistered: boolean;
 
     constructor(private formBuilder: FormBuilder, private courseService: CourseService,
         private activated_route: ActivatedRoute, private globals: Globals,
@@ -40,6 +43,7 @@ private enrollmentService: EnrollmentsService ) {
 
     ngOnInit() {
 
+        this.alreadyRegistered = false;
         this.requestedClassID = this.activated_route.snapshot.params['id'];
         this.requestedClass = this.activated_route.snapshot.data['requestedClass'];
         this.courseID = +this.requestedClass.course;
@@ -58,8 +62,20 @@ private enrollmentService: EnrollmentsService ) {
             // lastname: [ '' , []],
             // email: [ '' , []],
             // message: [ '' , []],
-
+            // I used to ask for this info -- but now we just grab the info from a logged in user.
         });
+
+        // Get the student enrollment objects for the current user
+        this.enrollments = this.activated_route.snapshot.data['enrollments'];
+
+        // extract out just the ID's into an array
+        if (this.enrollments) {
+        this.classesTakingIDList = this.enrollments.map( enrollment => enrollment.class_id); }
+
+        if ( this.classesTakingIDList.indexOf(this.requestedClassID) !== -1) {
+            // apparently this user has already registered for this class
+            this.alreadyRegistered = true;
+        }
 
     }
 

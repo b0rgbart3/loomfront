@@ -36,17 +36,22 @@
                <span class='help-block' *ngIf='emailMessage'>
                    {{ emailMessage }}
                </span> -->
-               <br clear='all'>
-               <div class='paymentBlurb'>
-                    {{ requestedClass.costBlurb }}
-                </div><br>
-                <p class='paymentOptions'>Your Payment Options:</p>
-                <br>
-                <div class='payPalButton'>PayPal</div>
-                <div class='venmoButton'>Venmo</div>
-                <div class='paybyCheck'><mat-checkbox>I will mail in a check</mat-checkbox></div>
-                <br clear='all'><br>
-                <div class='registerSubmit' (click)='registerSubmit()'>Register</div>
+               <div *ngIf='alreadyRegistered'>
+                   <p>You are already registered for this class.</p>
+               </div>
+               <div *ngIf='!alreadyRegistered'>
+                <br clear='all'>
+                <div class='paymentBlurb'>
+                        {{ requestedClass.costBlurb }}
+                    </div><br>
+                    <p class='paymentOptions'>Your Payment Options:</p>
+                    <br>
+                    <div class='payPalButton'>PayPal</div>
+                    <div class='venmoButton'>Venmo</div>
+                    <div class='paybyCheck'><mat-checkbox>I will mail in a check</mat-checkbox></div>
+                    <br clear='all'><br>
+                    <div class='registerSubmit' (click)='registerSubmit()'>Register</div>
+                </div>
             </form>
         </div>
     </div>

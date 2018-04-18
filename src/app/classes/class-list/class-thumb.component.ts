@@ -71,7 +71,7 @@ bioChosen: User;
   register() {
     const gotoURL = '/register/' + this.classObject.id;
     this.userService.redirectMsg = 'To register for a class on the Reclaiming Loom' +
-    ' you first need to login to your account.';
+    ' you first need to log in to your account, or sign up to create your account.';
     this.router.navigate( [gotoURL] );
   }
 
