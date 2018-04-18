@@ -16,9 +16,13 @@ export class UserAuthGuard implements CanActivate {
         const id = route.params['id'];
         console.log('In user-auth: id: ' + id);
 
+        if (id !== this.userService.currentUser.id) {
+            // The id in the url should match the id of the logged in user -- otherwise a user is attempting to
+            // edit the settings of another user -- this is only allowable for administrators
         // If the user is not designated as an administrator - then let's send this enterprising soul to the permission denied component
         const authorized = this.userService.isAdmin();
         if (!authorized) { this.router.navigate(['/permission']); return Observable.of(false); }
+        }
 
         return this.userService.getUser(id).map(
             foundUser => {
