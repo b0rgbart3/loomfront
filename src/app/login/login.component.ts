@@ -240,8 +240,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
               if (existingUser === null) {
                 console.log('no user found, so creating one.');
                 this.createFBUser(newFBUser);
-                // this.userService.loginFBUser( newFBUser );
-                // this._router.navigate(['/home']);
+                this.userService.loginFBUser( newFBUser );
+                this._router.navigate(['/home']);
               } else {
                 console.log('existing account, so logging in FBUser');
                 this.userService.loginFBUser( newFBUser );
@@ -261,22 +261,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
                   this._router.navigate(['/home']);
                 },
                   () => {console.log('The POST observable is now completed.');
-                    this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
-                      ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
+                    // this.alertService.success('Thank you for registering with the Reclaiming Loom. ' +
+                    //   ' Now, please check your email, and use the verification code to verify your account.  Thank you.', true);
 
-                      this.userService.findUserByEmailFromDB(newFBUser.email).subscribe(
-                        (newUser) => {
-                          console.log('Found new FBUser in the DB by their email name: ' + newFBUser.email);
-                          this.userService.loginFBUser( newFBUser );
-                          // this._router.navigate(['/home']);
-                          this.currentUser = newFBUser;
+                      // this.userService.findUserByEmailFromDB(newFBUser.email).subscribe(
+                      //   (newUser) => {
+                      //     console.log('Found new FBUser in the DB by their email name: ' + newFBUser.email);
+                      //     this.userService.loginFBUser( newFBUser );
+                      //     // this._router.navigate(['/home']);
+                      //     this.currentUser = newFBUser;
 
-                          this._flashMessagesService.show('Welcome to The Loom, ' + newFBUser.firstname,
-                          { cssClass: 'alert-success', timeout: 14000 });
-                         },
-                        (error) => console.log(error)
+                      //     this._flashMessagesService.show('Welcome to The Loom, ' + newFBUser.firstname,
+                      //     { cssClass: 'alert-success', timeout: 14000 });
+                      //    },
+                      //   (error) => console.log(error)
 
-                       );
+                      //  );
 
                      // this._router.navigate(['/welcome']);
                     });
