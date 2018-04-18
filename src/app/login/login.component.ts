@@ -231,8 +231,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 // this._flashMessagesService.show('We already have an account for you with your email address.' +
                 // + '  Please just login with your username and password.', { cssClass: 'alert-error', timeout: 14000 });
                 const thisNotification = new LoomNotification('error',
-            ['We already have an account for you with your email address.' +
-          ' Please just login with your username and password.' ], 3000);
+            ['We already have an account for you that is connect to your email address: ' + newFBUser.email +
+          ' Please just login with your username and password.' ], 5000);
             this.notes.add( thisNotification );
 
                 this._router.navigate(['/login']);
