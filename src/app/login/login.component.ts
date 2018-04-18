@@ -9,6 +9,7 @@ import { AlertService } from '../services/alert.service';
 import { Globals } from '../globals2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoomNotificationsService } from '../services/loom.notifications.service';
+import { LoomNotification } from '../models/loom.notification.model';
 
 
 @Component({
@@ -227,8 +228,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 // Here we have a user in the system - who's email matches their FB account,
                 // but they already have a non-facebook account.
                 console.log('Double account.');
-                this._flashMessagesService.show('We already have an account for you with your email address.' +
-                + '  Please just login with your username and password.', { cssClass: 'alert-error', timeout: 14000 });
+                // this._flashMessagesService.show('We already have an account for you with your email address.' +
+                // + '  Please just login with your username and password.', { cssClass: 'alert-error', timeout: 14000 });
+                const thisNotification = new LoomNotification('error',
+            ['We already have an account for you with your email address.' +
+          ' Please just login with your username and password.' ], 3000);
+            this.notes.add( thisNotification );
 
                 this._router.navigate(['/login']);
               } else {
