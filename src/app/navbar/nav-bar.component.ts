@@ -69,6 +69,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.userService.logout();
     // if (this.FB) {
     // this.FB.logout(); }
+    this.userService.logout();
     this._router.navigate(['/welcome']);
   }
 
