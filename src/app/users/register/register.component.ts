@@ -79,6 +79,10 @@ private enrollmentService: EnrollmentsService ) {
 
     }
 
+    gotoClassPage() {
+        const routeString = 'classes/' + this.requestedClassID + '/0';
+        this.router.navigate([routeString]);
+    }
     registerSubmit() {
         // OK!  I'm going to go for it and let user's register themselves.
         // In other words - this Registration Form will automatically enter a student Enrollment into the DB
