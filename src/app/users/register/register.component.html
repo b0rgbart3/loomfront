@@ -39,7 +39,7 @@
                <br clear='all'>
                <div *ngIf='alreadyRegistered'><br>
                    <p>You are already registered for {{ requestedClass.title }}.</p>
-                   <a routerLink="['/classes/' + requestedClass.id']"> Go to the clas page. </a>
+                   <a routerLink="['/classes/' + requestedClass.id + '/0']"> Go to the class page. </a>
                </div>
                <div *ngIf='!alreadyRegistered'>
                 <br clear='all'>

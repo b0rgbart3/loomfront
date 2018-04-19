@@ -81,7 +81,7 @@ export class MessageComponent implements OnInit {
      // this._msgs = data;
       this.display = true;
 
-    //  this.scrollMe();
+      this.scrollMe();
 
     });
   }

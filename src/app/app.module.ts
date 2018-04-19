@@ -88,6 +88,7 @@ import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service
 import { RegisterComponent } from './users/register/register.component';
 import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
 import { ImageCropperComponent, ImageCropperModule } from 'ngx-img-cropper';
+import { ValidateComponent } from './users/validate/validate.component';
 
 @NgModule({
   // External
@@ -131,6 +132,7 @@ import { ImageCropperComponent, ImageCropperModule } from 'ngx-img-cropper';
     CourseComponent,
     NotesComponent,
     MessageComponent,
+    ValidateComponent,
 
 
   ],

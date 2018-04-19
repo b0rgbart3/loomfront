@@ -43,6 +43,7 @@ import { RegisterComponent } from './users/register/register.component';
 import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
 import { AnnouncementsResolver } from './resolvers/announcements-resolver.service';
 import { AllAnnouncementsResolver } from './resolvers/allannouncements.resolver';
+import { ValidateComponent } from './users/validate/validate.component';
 
 
 
@@ -84,6 +85,7 @@ resolve: { allAnnouncements: AllAnnouncementsResolver, announcements: Announceme
 { path: 'reset/:key', component: ResetComponent },
 { path: 'permission', component: PermissionComponent },
 { path: 'suspended', component: SuspendedComponent },
+{ path: 'validate/:vcode', pathMatch: 'full', component: ValidateComponent },
 { path: 'contact', component: ContactComponent },
 { path: 'register/:id', component: RegisterComponent, canActivate: [AuthGuard ],
   resolve: { requestedClass: ClassResolver,
