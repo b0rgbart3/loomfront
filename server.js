@@ -119,7 +119,8 @@ var port;
 
 if (local) { 
     server = http.createServer(app);
-    origin = "http://localhost:4200";  
+    origin = "http://localhost:4200"; 
+    origin = "https://ddworks.org"; 
     port = 3100;
     
 }

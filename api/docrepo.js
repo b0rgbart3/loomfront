@@ -21,9 +21,9 @@ var docrepo = function() {
     var mongodb = require("mongodb");
     var db = {};
     var db;
-    var origin = "https://thawing-reaches-29763.herokuapp.com";
-    origin = "localhost:3100";
-    origin = "*";
+   // var origin = "https://thawing-reaches-29763.herokuapp.com";
+   // origin = "localhost:3100";
+    var origin = "*";
     
     var ObjectID = mongodb.ObjectID;
     // this should be set to: process.env.MONGODB_URI
