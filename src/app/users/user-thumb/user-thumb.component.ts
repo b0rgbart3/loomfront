@@ -38,6 +38,10 @@ export class UserThumbComponent implements OnInit {
 
       this.avatarImageURL = this.globals.avatars + '/' +
         this.thumbnail.user_id + '/' + this.thumbnail.user.avatar_filename;
+
+    if (this.thumbnail.user && this.thumbnail.user.facebookRegistration) {
+      this.thumbnail.user.avatar_URL = this.thumbnail.user.avatar_filename;
+    }
     if (this.thumbnail.user && this.thumbnail.user.avatar_filename === '' ) {
         this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
@@ -47,7 +51,7 @@ export class UserThumbComponent implements OnInit {
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
 
-    
+
     this.borderStyle = '';
     if (this.thumbnail.border) {
       this.borderStyle = ' noGlow';
