@@ -17,7 +17,7 @@ let ssl_options = {};
 var origin = '';
 var avatar_path = '';
 var upload_path = '';
-var local = false;
+var local = true;
 var fs = require('fs');
 
 var jwt = require('jsonwebtoken');
@@ -119,13 +119,13 @@ var port;
 
 if (local) { 
     server = http.createServer(app);
-    origin = "http://localhost:4200"; 
-    origin = "https://ddworks.org"; 
-    port = 3100;
+    origin = "localhost:4200"; 
+  //  origin = "https://ddworks.org"; 
+    port = 4200;
     
 }
 else {
-   server = http.createServer(app);
+ //  server = http.createServer(app);
    origin= "https://thawing-reaches-29763.herokuapp.com";
   // origin = "http://localhost"; 
 
@@ -133,10 +133,10 @@ else {
         key:fs.readFileSync('./ssl/privkey.pem'),
         cert:fs.readFileSync('./ssl/allchange.pem')
     };
-    port = process.env.PORT;
+  //  port = process.env.PORT;
 }
 
-server.listen(port);
+server.listen(process.env.PORT || 4200);
 
 console.log('server running on port: ' + port);
 
