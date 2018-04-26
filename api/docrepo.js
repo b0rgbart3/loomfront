@@ -3,7 +3,7 @@ var sortBy = require('../node_modules/lodash').sortBy;
 var jwt = require('jsonwebtoken');
 var fs = require('fs');
 var origin = "https://thawing-reaches-29763.herokuapp.com";
-var origin = "localhost:3100";
+// var origin = "localhost:3100";
 
 var makeid = function() {
     var text = "";
