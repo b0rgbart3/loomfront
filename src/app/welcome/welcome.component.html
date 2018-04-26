@@ -7,7 +7,7 @@
     <div class='branding'>
         <h1> Welcome to the Reclaiming Loom {{ username }}</h1>
         <div class='loginButton' (click)="login()" 
-        *ngIf="!currentUser">Login</div>
+        *ngIf="!currentUser || currentUser == null">Login</div>
     </div>
 
 
