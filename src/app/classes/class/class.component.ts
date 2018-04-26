@@ -280,9 +280,12 @@ private announcementsService: AnnouncementsService ) {
     }
 
     createStudentThumbnail(user) {
+        if (user) {
         const thumbnailObj = { user: user, user_id: user.id, online: false,
             size: 60,  showUsername: true, showInfo: false, textColor: '#ffffff', border: false, shape: 'circle' };
-        return thumbnailObj;
+        return thumbnailObj; } else {
+            return null;
+        }
     }
 
     displayAnnouncement( t ) {
