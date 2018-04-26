@@ -23,10 +23,14 @@
                     <input matInput placeholder="Last name" 
                     formControlName="lastname" value="{{user.lastname}}">
                     </mat-form-field><br clear='all'>
-            <mat-form-field>
+            <!-- <mat-form-field>
                     <input matInput placeholder="Email address" 
                     formControlName="email" value="{{user.email}}">
-                    </mat-form-field><br clear='all'>
+                    </mat-form-field> -->
+                    
+                    <p>Your email address:</p>{{ user.email }}
+
+                    <br clear='all'>
            <mat-form-field>
             <textarea id="bio" matInput placeholder="Super Short Bio" 
             formControlName="bio" rows="4" class='bioArea'>{{ user.bio}}</textarea>
