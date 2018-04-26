@@ -3,6 +3,7 @@ var sortBy = require('../node_modules/lodash').sortBy;
 var jwt = require('jsonwebtoken');
 var fs = require('fs');
 var origin = "https://thawing-reaches-29763.herokuapp.com";
+var origin = "localhost:3100";
 
 var makeid = function() {
     var text = "";
@@ -86,7 +87,7 @@ var docrepo = function() {
                 resourceObject.token = userJWT;
                 let verificationID = makeid();
                 resourceObject.verificationID = verificationID;
-                valPath = 'https://thawing-reaches-29763.herokuapp.com/validate?vcode=' + resourceObject.verificationID;
+                valPath = origin + '?vcode=' + resourceObject.verificationID;
                 valString = 'Copy and paste this url into your browser to confirm and validate your account: <br><b>' + valPath + '</b>';
                 textString = 'Copy and paste this url into your browser to confirm and validate your account: /n' + valPath;
 
