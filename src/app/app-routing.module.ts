@@ -49,7 +49,7 @@ import { ValidateComponent } from './users/validate/validate.component';
 
 const ROUTES: Routes = [
 
-
+    { path: 'validate/:vcode', component: ValidateComponent },
 { path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
@@ -85,7 +85,7 @@ resolve: { allAnnouncements: AllAnnouncementsResolver, announcements: Announceme
 { path: 'reset/:key', component: ResetComponent },
 { path: 'permission', component: PermissionComponent },
 { path: 'suspended', component: SuspendedComponent },
-{ path: 'validate/:vcode', pathMatch: 'full', component: ValidateComponent },
+
 { path: 'contact', component: ContactComponent },
 { path: 'register/:id', component: RegisterComponent, canActivate: [AuthGuard ],
   resolve: { requestedClass: ClassResolver,

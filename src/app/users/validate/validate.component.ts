@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-validate',
   templateUrl: './validate.component.html',
   styleUrls: ['./validate.component.css'],
   encapsulation: ViewEncapsulation.None
