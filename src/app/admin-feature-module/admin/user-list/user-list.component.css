@@ -334,3 +334,10 @@ table {
     color:#888888;
 }
 
+.fbReg {
+    background-image:url(../../../../assets/images/fb_icon.png);
+    border:2px solid red; 
+    width:80px;
+    height:80px;
+    background-size:80px 80px;
+}
