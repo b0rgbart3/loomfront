@@ -41,6 +41,7 @@ export class UserThumbComponent implements OnInit {
 
     if (this.thumbnail.user && this.thumbnail.user.facebookRegistration) {
       this.thumbnail.user.avatar_URL = this.thumbnail.user.avatar_URL;
+      this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
     if (this.thumbnail.user && this.thumbnail.user.avatar_filename === '' ) {
         this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
