@@ -40,7 +40,7 @@ export class UserThumbComponent implements OnInit {
         this.thumbnail.user_id + '/' + this.thumbnail.user.avatar_filename;
 
     if (this.thumbnail.user && this.thumbnail.user.facebookRegistration) {
-      this.thumbnail.user.avatar_URL = this.thumbnail.user.avatar_URL;
+      // this.thumbnail.user.avatar_URL = this.thumbnail.user.avatar_URL;
       this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
     if (this.thumbnail.user && this.thumbnail.user.avatar_filename === '' ) {

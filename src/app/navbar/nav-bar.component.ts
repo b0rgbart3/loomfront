@@ -70,7 +70,7 @@ export class NavBarComponent implements OnInit, DoCheck {
     // if (this.FB) {
     // this.FB.logout(); }
     this.userService.logout();
-    console.log('Logging out of the navbar: ' + this.userService.currentUser);
+   // console.log('Logging out of the navbar: ' + this.userService.currentUser);
     this._router.navigate(['/welcome']);
   }
 
@@ -101,8 +101,8 @@ export class NavBarComponent implements OnInit, DoCheck {
     this.generateAvatarPath();
     this.admin = false;
     if (this.currentUser) {
-      console.log('Navbar found a current user.');
-      console.log('current user: ' + JSON.stringify(this.currentUser));
+     // console.log('Navbar found a current user.');
+   //   console.log('current user: ' + JSON.stringify(this.currentUser));
     this.admin = this.currentUser.admin;
     }
     this.socket = io(this.globals.basepath);
@@ -136,16 +136,16 @@ export class NavBarComponent implements OnInit, DoCheck {
    this.messageService.getMessagesForUser(this.userService.currentUser.id).
      subscribe(
       data => {
-      console.log('got messages for user: ' + JSON.stringify(data));
+   //   console.log('got messages for user: ' + JSON.stringify(data));
       this.messages = data;
       if (this.messages && this.messages.length > 0) {
-       console.log('length was greater than zero.');
+      // console.log('length was greater than zero.');
         this.buildMessageList();
         this.freshMessages = null;
         this.messageService.getFreshList( this.userService.currentUser.id ).
           subscribe(
             fresh => {
-              console.log('got fresh list: ' + JSON.stringify(fresh));
+          //    console.log('got fresh list: ' + JSON.stringify(fresh));
             this.freshMessages = fresh;
             if (this.freshMessages && this.freshMessages.length > 0) {
             this.buildFreshMessageList();
@@ -227,21 +227,21 @@ export class NavBarComponent implements OnInit, DoCheck {
 
     if (this.freshMessages) {
 
-      console.log('checking for empty fresh messages');
+    //  console.log('checking for empty fresh messages');
 
       for (let i = 0; i < this.freshMessages.length; i++) {
        const aMsg = this.freshMessages[i];
-       console.log('Fresh message: ' + i + ', ' + aMsg.id);
-       console.log('msgList' + JSON.stringify(aMsg.msgList));
+     //  console.log('Fresh message: ' + i + ', ' + aMsg.id);
+     //  console.log('msgList' + JSON.stringify(aMsg.msgList));
        if (aMsg.msgList && aMsg.msgList.length < 1) {
          // ok so this is a 'fake-start' of a new message, so let's ignore it
-         console.log('Found an empty message.');
-         console.log('FreshMessages before Splice: ' + JSON.stringify(this.freshMessages));
+     //    console.log('Found an empty message.');
+     //    console.log('FreshMessages before Splice: ' + JSON.stringify(this.freshMessages));
         this.freshMessages.splice(i, 1);
-         console.log('FreshMessages after Splice: ' + JSON.stringify(this.freshMessages));
+      //   console.log('FreshMessages after Splice: ' + JSON.stringify(this.freshMessages));
        }
       }
-      console.log('FreshMessages before leaving this block: ' + JSON.stringify(this.freshMessages));
+   //   console.log('FreshMessages before leaving this block: ' + JSON.stringify(this.freshMessages));
     }
    // console.log('About to build freshList, based on: ' + JSON.stringify( this.freshMessages ) );
     if (this.freshMessages && (this.freshMessages.length > 0) ) {
@@ -267,7 +267,7 @@ export class NavBarComponent implements OnInit, DoCheck {
   }
 
   removeItemFromMainList(msgItem) {
-    console.log('checking for duplicity.');
+ //   console.log('checking for duplicity.');
     if ( this.list && this.list.length > 0) {
     //  console.log('about to loop.');
    for (let i = 0; i < this.list.length; i ++) {
@@ -328,11 +328,11 @@ generateAvatarPath( ) {
         this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
 
         if (this.imageExists(this.avatarimage) ) {
-          console.log('image exists.');
+      //    console.log('image exists.');
           this.avatarExists = true;
         } else {
           this.avatarExists = false;
-          console.log('image doesnt yet exist.');
+         // console.log('image doesnt yet exist.');
           setTimeout( () => { console.log('waited 2 seconds');
           this.avatarimage = this.globals.avatars + '/' + this.currentUser.id + '/' + this.currentUser.avatar_filename;
           this.avatarExists = true;
@@ -349,7 +349,7 @@ generateAvatarPath( ) {
   gotoSettings() {
     this.showAvatarMenu = false;
     const navigationString = '/usersettings/' + this.userService.currentUser.id + '/edit';
-    console.log('navigating to: ' + navigationString);
+   // console.log('navigating to: ' + navigationString);
     this._router.navigate([navigationString]);
   }
 
