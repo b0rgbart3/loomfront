@@ -40,9 +40,10 @@ export class UserThumbComponent implements OnInit {
         this.thumbnail.user_id + '/' + this.thumbnail.user.avatar_filename;
 
     if (this.thumbnail.user && this.thumbnail.user.facebookRegistration) {
+      console.log('fb user: ' + JSON.stringify( this.thumbnail.user ) );
       // this.thumbnail.user.avatar_URL = this.thumbnail.user.avatar_URL;
       this.avatarImageURL = this.thumbnail.user.avatar_URL;
-    }
+    }  else {
     if (this.thumbnail.user && this.thumbnail.user.avatar_filename === '' ) {
         this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
@@ -51,7 +52,7 @@ export class UserThumbComponent implements OnInit {
       this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
         this.avatarImageURL = this.thumbnail.user.avatar_URL;
     }
-
+  }
 
     this.borderStyle = '';
     if (this.thumbnail.border) {
