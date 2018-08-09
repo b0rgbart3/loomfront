@@ -596,6 +596,15 @@ getUserFromMemoryById( queryID: string): User {
     }
 
 
+      validateUser( code ): Observable <any> {
+        const myHeaders = new HttpHeaders();
+        myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.base_path + '/api/users?verificationID=' + code , {headers: myHeaders} ).do(( verifiedUser) => {
+          const validatedUser = <User> verifiedUser[0];
+          return validatedUser;
+      });
+    }
+
 
 }
-

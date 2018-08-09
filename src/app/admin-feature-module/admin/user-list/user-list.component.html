@@ -17,14 +17,15 @@
             {{ user.user.email }}</div>
           </div>
           <div class='signupDate'>
-              {{ user.user.created_date | date }}
+             Created:  {{ user.user.created_date | date }}
           </div>
-          <div class='signupDate' *ngIf='user.user.verified_date'>
-            {{ user.user.verified_date | date }}
+          <div class='signupDate' *ngIf='user.user.verified !== "false"'>
+            Verified: {{ user.user.verified | date }}
         </div>
-        <div class='signupDate' *ngIf='!user.user.verified_date'>
-            Account not verified.
+        <div class='signupDate' *ngIf='user.user.verified == "false"'>
+            account not verified
         </div>
+
         <div class='fbReg' *ngIf='user.user.facebookRegistration'>
         </div>
        

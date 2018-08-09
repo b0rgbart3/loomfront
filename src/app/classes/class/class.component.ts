@@ -124,7 +124,7 @@ private announcementsService: AnnouncementsService ) {
             this.announcements = this.activated_route.snapshot.data['announcements'];
             console.log('Announcements: ' + this.announcements.length);
             this.currentUser = this.userService.getCurrentUser();
-
+            console.log('This happens next');
         });
 
         this.activated_route.parent.data.subscribe(

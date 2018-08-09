@@ -43,13 +43,13 @@ import { RegisterComponent } from './users/register/register.component';
 import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
 import { AnnouncementsResolver } from './resolvers/announcements-resolver.service';
 import { AllAnnouncementsResolver } from './resolvers/allannouncements.resolver';
-import { ValidateComponent } from './users/validate/validate.component';
+import { ValidatorComponent } from './users/validate/validator.component';
 
 
 
 const ROUTES: Routes = [
 
-    { path: 'validate/:vcode', component: ValidateComponent },
+
 { path: 'signup', pathMatch: 'full', component: SignupComponent,
 resolve: { user: UserResolver, users: UsersResolver} },
 { path: 'login', pathMatch: 'full', component: LoginComponent },
@@ -91,6 +91,7 @@ resolve: { allAnnouncements: AllAnnouncementsResolver, announcements: Announceme
   resolve: { requestedClass: ClassResolver,
              enrollments: EnrollmentsResolver,
              assignments: AssignmentsResolver }},
+{ path: 'validator/:vcode', pathMatch: 'full', component: ValidatorComponent },
 { path: '', pathMatch: 'full', component: WelcomeComponent, resolve: {
     users: UsersResolver,
     courses: CoursesResolver,

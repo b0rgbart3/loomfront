@@ -1,3 +1,4 @@
+<div *ngIf='thumbnail'>
 <div class='userThumbWrapper'>
   <div [style.width.px]="thumbnail.size" [style.height.px]="thumbnail.size" [ngClass]='shapeClass'>
     <div *ngIf='thumbnail.user !== undefined'>
@@ -13,4 +14,4 @@
     <p *ngIf='thumbnail.showInfo'> {{thumbnail.user.email}}</p>
   </div>
 </div>
-
+</div>

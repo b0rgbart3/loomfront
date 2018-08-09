@@ -336,7 +336,10 @@ table {
 
 .fbReg {
     background-image:url(../../../../assets/images/fb_icon.png);
-    width:40px;
-    height:40px;
-    background-size:40px 40px;
+    width:30px;
+    height:30px;
+    padding-top:10px;
+    box-sizing: border-box;
+    background-size:30px 30px;
+    margin-top:10px;
 }

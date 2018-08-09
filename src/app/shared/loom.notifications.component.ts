@@ -6,6 +6,7 @@ import { LoomNotification } from '../models/loom.notification.model';
 
 @Component({
     selector: 'notifications',
+    styleUrls: ['./loom.notifications.component.css'],
     template: `
     <div class="notifications" *ngFor='let note of _notes'>
         <div (click)="hide(note)" class="{{ note.type }}" [@noteState]="state"

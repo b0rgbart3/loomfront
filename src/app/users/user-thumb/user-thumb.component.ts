@@ -28,39 +28,40 @@ export class UserThumbComponent implements OnInit {
 
   ngOnInit() {
 
-    if (!this.thumbnail.user) {
+    if (this.thumbnail) {
+      if (!this.thumbnail.user) {
 
-     this.userService.getUser(this.thumbnail.user_id).subscribe(
-        user =>  {this.thumbnail.user = user[0];
-        },
-        error => this.errorMessage = <any>error);
+      this.userService.getUser(this.thumbnail.user_id).subscribe(
+          user =>  {this.thumbnail.user = user[0];
+          },
+          error => this.errorMessage = <any>error);
+        }
+
+        this.avatarImageURL = this.globals.avatars + '/' +
+          this.thumbnail.user_id + '/' + this.thumbnail.user.avatar_filename;
+
+      if (this.thumbnail.user && this.thumbnail.user.facebookRegistration) {
+        console.log('fb user: ' + JSON.stringify( this.thumbnail.user ) );
+        // this.thumbnail.user.avatar_URL = this.thumbnail.user.avatar_URL;
+        this.avatarImageURL = this.thumbnail.user.avatar_URL;
+      }  else {
+      if (this.thumbnail.user && this.thumbnail.user.avatar_filename === '' ) {
+          this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
+          this.avatarImageURL = this.thumbnail.user.avatar_URL;
       }
-
-      this.avatarImageURL = this.globals.avatars + '/' +
-        this.thumbnail.user_id + '/' + this.thumbnail.user.avatar_filename;
-
-    if (this.thumbnail.user && this.thumbnail.user.facebookRegistration) {
-      console.log('fb user: ' + JSON.stringify( this.thumbnail.user ) );
-      // this.thumbnail.user.avatar_URL = this.thumbnail.user.avatar_URL;
-      this.avatarImageURL = this.thumbnail.user.avatar_URL;
-    }  else {
-    if (this.thumbnail.user && this.thumbnail.user.avatar_filename === '' ) {
+      if (this.thumbnail.user.avatar_filename === undefined) {
         this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
-        this.avatarImageURL = this.thumbnail.user.avatar_URL;
+          this.avatarImageURL = this.thumbnail.user.avatar_URL;
+      }
     }
-    if (this.thumbnail.user.avatar_filename === undefined) {
-      this.thumbnail.user.avatar_URL = this.globals.avatars + '/placeholder.png';
-        this.avatarImageURL = this.thumbnail.user.avatar_URL;
+
+      this.borderStyle = '';
+      if (this.thumbnail.border) {
+        this.borderStyle = ' noGlow';
+      }
+      this.shapeClass = this.thumbnail.shape + this.borderStyle;
+
     }
   }
-
-    this.borderStyle = '';
-    if (this.thumbnail.border) {
-      this.borderStyle = ' noGlow';
-    }
-    this.shapeClass = this.thumbnail.shape + this.borderStyle;
-
-  }
-
 }
 
