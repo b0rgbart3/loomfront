@@ -46,7 +46,6 @@ export class MessageComponent implements OnInit {
       this.user2 = requested['user'].id;
 
       this.thumbnail = null;
- 
 
       const users = [this.user1, this.user2];
       console.log('Users: ' + JSON.stringify(users));
@@ -122,7 +121,7 @@ export class MessageComponent implements OnInit {
 
   scrollMe() {
 
-    scrollTo('#s3', '#v-scrollable');
+   // scrollTo('#s3', '#v-scrollable');
     this.scrolled = true;
   }
 

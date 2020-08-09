@@ -31,11 +31,11 @@ export class Globals {
 // basepath = 'http://localhost:3100';
 //
 
- basepath = 'https://young-bastion-45095.herokuapp.com';
+// basepath = 'https://young-bastion-45095.herokuapp.com';
 // basepath = 'https://thawing-reaches-29763.herokuapp.com';
 // basepath = 'http://localhost:4200';
 // basepath = 'https://ddworks.org';
-// basepath = 'http://localhost:3100';
+ basepath = 'http://localhost:3100';
 
 api_path = this.basepath + '/api/';
 // This points to where the images and other assets are stored

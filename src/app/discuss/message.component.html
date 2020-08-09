@@ -1,4 +1,4 @@
-<div class='messageContainer' *ngIf='display && currentMessage'>
+<div class='messageContainer' *ngIf='display && currentMessage && userService.currentUser'>
     <div class='toolbar'>
         <div class='chatThumb' *ngIf='thumbnail'>
             <user-thumb [thumbnail]='thumbnail'></user-thumb></div>
