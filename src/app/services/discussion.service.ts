@@ -2,7 +2,7 @@ import { Injectable, OnInit, OnChanges, EventEmitter, Output } from '@angular/co
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+// import { Http, Response, Headers, RequestOptions } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -15,9 +15,10 @@ import { User } from '../models/user.model';
 import { LoomNotificationsService } from '../services/loom.notifications.service';
 import { LoomNotification } from '../models/loom.notification.model';
 import { DiscussionSettings } from '../models/discussionsettings.model';
-import { HttpParamsOptions } from '@angular/common/http/src/params';
+// import { HttpParamsOptions } from '@angular/common/http/src/params';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -293,8 +294,11 @@ export class DiscussionService implements OnInit, OnChanges {
           `body was: ${ JSON.stringify(error.error)}`);
       }
       // return an ErrorObservable with a user-facing error message
-      return new ErrorObservable(
-        'Something bad happened; please try again later.');
+      // return new ErrorObservable(
+      //   'Something bad happened; please try again later.');
+
+        return throwError('Something bad happened; please try again later');
+
     }
 
     enterDiscussion( user: User , thisClass: ClassModel, section: string): Observable <any> {

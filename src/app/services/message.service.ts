@@ -2,7 +2,7 @@ import { Injectable, OnInit, OnChanges, EventEmitter, Output } from '@angular/co
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+//import { Http, Response, Headers, RequestOptions } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -15,7 +15,7 @@ import { User } from '../models/user.model';
 import { LoomNotificationsService } from '../services/loom.notifications.service';
 import { LoomNotification } from '../models/loom.notification.model';
 
-import { HttpParamsOptions } from '@angular/common/http/src/params';
+//import { HttpParamsOptions } from '@angular/common/http/src/params';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import { Message } from '../models/message.model';

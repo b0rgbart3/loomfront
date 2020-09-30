@@ -2,12 +2,12 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+
 import { User } from '../models/user.model';
 import { HttpHeaders } from '@angular/common/http';
-import { Enrollment } from '../models/enrollment.model';
+//import { Enrollment } from '../models/enrollment.model';
 import { Globals } from '../globals2';
 import { BoardSettings } from '../models/boardsettings.model';
 import { Reset } from '../models/reset.model';

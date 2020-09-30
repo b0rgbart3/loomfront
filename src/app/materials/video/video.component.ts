@@ -1,20 +1,23 @@
 import { Component, OnInit, Output, Input, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
-import { Course } from '../../models/course.model';
-import { MaterialService } from '../../services/material.service';
+// import { Router } from '@angular/router';
+// import { Course } from '../../models/course.model';
+// import { MaterialService } from '../../services/material.service';
 import { Material } from '../../models/material.model';
-import { Video } from '../../models/video.model';
+//import { Video } from '../../models/video.model';
 import { Globals } from '../../globals2';
 
-import {VgCoreModule} from 'videogular2/core';
-import {VgControlsModule} from 'videogular2/controls';
-import {VgOverlayPlayModule} from 'videogular2/overlay-play';
-import {VgBufferingModule} from 'videogular2/buffering';
-import {VgAPI} from 'videogular2/core';
+// import {VgCoreModule} from 'videogular2/core';
+// import {VgControlsModule} from 'videogular2/controls';
+// import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+// import {VgBufferingModule} from 'videogular2/buffering';
+//Old way // import {VgAPI} from 'videogular2';
+import {VgApiService} from '@videogular/ngx-videogular/core';
 
 import { DomSanitizer } from '@angular/platform-browser';
-import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
-import { EmbedVideoService } from 'ngx-embed-video';
+import { SafeResourceUrl } from '@angular/platform-browser';
+
+//import { EmbedVideoService } from 'ngx-embed-video';
+
 
 @Component({
     moduleId: module.id,
@@ -34,7 +37,7 @@ export class VideoComponent implements OnInit {
     backgroundImage: string;
     posterImage: string;
     preload = 'auto';
-    api: VgAPI;
+    api: VgApiService;
     started: boolean;
     videoSource: SafeResourceUrl;
     videoBoxClass: string;
@@ -43,12 +46,11 @@ export class VideoComponent implements OnInit {
     iframe_html: any;
 
     @Input() videoObject: Material;
-    constructor( private globals: Globals, private domSanitizer: DomSanitizer,
-        private embedService: EmbedVideoService ) {
-
+    constructor( private globals: Globals, private domSanitizer: DomSanitizer ) {
+// ,   private embedService: EmbedVideoService
     }
 
-    onPlayerReady(api: VgAPI) {
+    onPlayerReady(api: VgApiService) {
         this.api = api;
 
         this.api.getDefaultMedia().subscriptions.ended.subscribe(

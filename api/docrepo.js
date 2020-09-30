@@ -19,28 +19,57 @@ var makeid = function() {
 
 
 var docrepo = function() {
-    var mongodb = require("mongodb");
-    var db = {};
+    //var mongodb = require("mongodb");
+    const { MongoClient } = require("mongodb");
+   // var db = {};
     var db;
    // var origin = "https://thawing-reaches-29763.herokuapp.com";
    // origin = "localhost:3100";
     var origin = "*";
     
-    var ObjectID = mongodb.ObjectID;
+    //var ObjectID = mongodb.ObjectID;
     // this should be set to: process.env.MONGODB_URI
-    const MONGODB_URI = 'mongodb://bart:givemedata@ds163360.mlab.com:63360/loomdata';
+    //const MONGODB_URI = 'mongodb://bart:givemedata@ds163360.mlab.com:63360/loomdata';
+    const MONGODB_URI = process.env.MONGODB_URI;
+    
 
-    mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
-
+    MongoClient.connect(MONGODB_URI, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true },
+        function(err, atlas) {
             if (err) {
                 console.log(err);
-                process.exit(1);
-            }
-            // Save database object from the callback for reuse.
-            db = database;
-            console.log("Connected to MLAB");
-
+            } 
+            db = atlas;
+            console.log("Connected to Atlas");
         });
+
+
+    // const client = new MongoClient(MONGODB_URI);
+
+    // async function run() {
+    //     try {
+    //       // Connect the client to the server
+    //       await client.connect();
+      
+    //       // Establish and verify connection
+    //       await client.db("admin").command({ ping: 1 });
+    //       console.log("Connected successfully to Atlas server");
+    //     } finally {
+    //       // Ensures that the client will close when you finish/error
+    //       await client.close();
+    //     }
+    //   }
+    //   run().catch(console.dir);
+    // mongodb.MongoClient.connect(MONGODB_URI, function (err, database) {
+
+    //         if (err) {
+    //             console.log(err);
+    //             process.exit(1);
+    //         }
+    //         // Save database object from the callback for reuse.
+    //         db = database;
+    //         console.log("Connected to Atlas");
+
+    //     });
 
 
     var put = function(type, request, response, next, certString ) {
@@ -187,8 +216,12 @@ var docrepo = function() {
                 }
             }
         console.log('Query = ' + JSON.stringify( request.query ));
+
+        console.log('DB: ', db);
+        console.log('type:', type);
     
-        db.collection(type).find(request.query).toArray(function(err,docs) {
+        const collection = db.collection(type);
+        collection.find(request.query).toArray(function(err,docs) {
                   if ( err ) {
                       handleError(err);
                       return null;

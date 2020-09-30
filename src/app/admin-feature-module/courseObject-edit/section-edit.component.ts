@@ -50,9 +50,9 @@ export class SectionEditComponent implements OnInit {
             // data model.  Dragula is changing our Data model for us- because we bound the bag
             // to our data model in the HTML template
 
-                dragulaService.drop.subscribe((value) => {
+                dragulaService.drop('section-bag').subscribe((value) => {
                    // console.log(`drop: ${value[0]}`);
-                    this.onDrop(value.slice(1));
+                    this.onDrop(value);  //.slice(1)
                 });
 
            }

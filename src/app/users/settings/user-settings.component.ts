@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Type } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { RouterModule, Routes, NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+// import { Http, Response, Headers, RequestOptions } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
@@ -11,7 +11,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, DoCheck, AfterViewChecked, OnChanges } from '@angular/core';
 import * as $ from 'jquery';
 import { Validators } from '@angular/forms';
-import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+//import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
+
 import { Globals } from '../../globals2';
 import {Location} from '@angular/common';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ngx-img-cropper';
@@ -47,7 +49,7 @@ export class UserSettingsComponent implements OnInit {
     cropperSettings: CropperSettings;
     data: any;
 
-    @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
+    @ViewChild('cropper') cropper: ImageCropperComponent;
     constructor(
         public userService: UserService,
         private router: Router,

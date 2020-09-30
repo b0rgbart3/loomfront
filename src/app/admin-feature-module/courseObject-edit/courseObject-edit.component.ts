@@ -51,14 +51,14 @@ export class CourseObjectEditComponent implements OnInit {
         const bag: any = this.dragulaService.find('section-bag');
         if (bag !== undefined ) {this.dragulaService.destroy('section-bag'); }
 
-        dragulaService.setOptions('section-bag', {
+        dragulaService.createGroup('section-bag', {
             moves: function (el, container, handle) {
              //   console.log(handle);
               return handle.className === 'mat-content';   // mat-content is the class of the "span" for the material expander's titlebar
             }
           });
 
-          dragulaService.drop.subscribe((value) => {
+          dragulaService.drop('section-bag').subscribe((value) => {
             console.log(`drop: ${value[0]}`);
             this.onDrop();
           });

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnChanges, AfterViewChecked, AfterViewInit, AfterContentInit } from '@angular/core';
-import { ClassService } from '../services/class.service';
-import { ClassModel } from '../models/class.model';
+// import { ClassService } from '../services/class.service';
+// import { ClassModel } from '../models/class.model';
 import { User } from '../models/user.model';
-import { ActivatedRoute, Router } from '@angular/router';
+// import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Section } from '../models/section.model';
@@ -11,6 +11,7 @@ import { Message } from '../models/message.model';
 import { MessageReply } from '../models/messagereply.model';
 import { scrollTo } from 'ng2-utils';
 import { Userthumbnail } from '../models/userthumbnail.model';
+// import { NumberOfBytesType } from 'aws-sdk/clients/kms';
 
 
 @Component({
@@ -29,12 +30,23 @@ export class MessageComponent implements OnInit {
   user1: string;
   user2: string;
   thumbnail: Userthumbnail;
+  currentUserID: string;
+  currentUser: User;
 
   constructor( private _messages: MessageService,
     private userService: UserService, private fb: FormBuilder) {
 
      // this._messages.ngOnInit();
       this.scrolled = false;
+    
+      this.currentUser = userService.getCurrentUser();
+      if (this.currentUser && this.currentUser.id) {
+      this.currentUserID = this.currentUser.id;
+      } else {
+        this.currentUserID = "0";
+      }
+
+
     this._msgs = new Array<{}>();
     _messages.msgAdded.subscribe( requested => {
 

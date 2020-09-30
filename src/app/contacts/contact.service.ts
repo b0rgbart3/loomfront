@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Contact } from './contact';
-import { Http, Response } from '@angular/http';
+import { Http, Response } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()

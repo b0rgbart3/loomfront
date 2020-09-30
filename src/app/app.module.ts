@@ -36,10 +36,10 @@ import { ThreadComponent } from './discuss/thread.component';
 import { InfobotComponent } from './infobot/infobot.component';
 import { LoomNotificationsService } from './services/loom.notifications.service';
 import { LoomNotificationsComponent } from './shared/loom.notifications.component';
-import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
+//import { ClassThumbComponent } from './classes/class-list/class-thumb.component';
 import { SectionResolver } from './resolvers/section-resolver.service';
 import { Globals } from './globals2';
-import { MatInputModule } from '@angular/material';
+//import { MatInputModule } from '@angular/material';
 import { FacebookModule } from 'ngx-facebook';
 import { LoomsFacebookService } from './services/loomsfacebook.service';
 import { CoursesResolver } from './resolvers/courses-resolver.service';
@@ -47,27 +47,27 @@ import { ClassResolver } from './resolvers/class-resolver.service';
 import { UserAuthGuard } from './services/user-auth-guard.service';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
 import { MaterialCollectionComponent } from './materials/material-collection/material-collection.component';
-import { VideoComponent } from './materials/video/video.component';
+//import { VideoComponent } from './materials/video/video.component';
 // import { BooksComponent } from './materials/books/books/books.component';
 import { BookComponent } from './materials/books/books/book.component';
 import { QuoteComponent } from './materials/quote/quote.component';
 import { SharedModule } from './shared/shared.module';
 import { AdminFeatureModule } from './admin-feature-module/admin-feature.module';
 import { ModalComponent } from './materials/modal/modal.component';
-import { EmbedVideo } from 'ngx-embed-video';
-import { AudioComponent } from './materials/audio/audio.component';
+//import { EmbedVideo } from 'ngx-embed-video';
+//import { AudioComponent } from './materials/audio/audio.component';
 import { FileSelectDirective, FileDropDirective, FileUploader, FileUploadModule } from 'ng2-file-upload';
 import { SeriesService } from './services/series.service';
 import { SeriesResolver } from './resolvers/series-resolver.service';
-import { BlockComponent } from './materials/block/block.component';
-import { ImageComponent } from './materials/image/image.component';
+//import { BlockComponent } from './materials/block/block.component';
+//import { ImageComponent } from './materials/image/image.component';
 import { ResetComponent } from './users/reset/reset.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DiscussionSettingsResolver } from './resolvers/discussion-settings-resolver';
 import { ClassCourseResolver } from './resolvers/class-course-resolver.service';
 import { CourseComponent } from './courses/course/course.component';
 import { EnrollmentsResolver } from './resolvers/enrollments-resolver.service';
-import { EnrollmentsService } from './services/enrollments.service';
+//import { EnrollmentsService } from './services/enrollments.service';
 import { AssignmentsResolver } from './resolvers/assignments-resolver.service';
 import { AllEnrollmentsResolver } from './resolvers/allenrollments-resolver.service';
 import { AllAssignmentsResolver } from './resolvers/allassignments-resolver.service';
@@ -78,33 +78,35 @@ import { NotesService } from './services/notes.service';
 import { MessageComponent } from './discuss/message.component';
 import { MessagesResolver } from './resolvers/messages-resolver';
 import { MessageService } from './services/message.service';
-import { Ng2ScrollableModule } from 'ng2-scrollable';
-import { BioPopComponent } from './classes/class/biopop.component';
+//import { Ng2ScrollableModule } from 'ng2-scrollable';
+//import { BioPopComponent } from './classes/class/biopop.component';
 import { AssignmentsService } from './services/assignments.service';
 import { AllDiscussionSettingsResolver } from './resolvers/alldiscussion-settings-resolver';
-import { PermissionComponent } from './users/permission.component';
-import { DragulaModule } from 'ng2-dragula';
+//import { PermissionComponent } from './users/permission.component';
+import { DragulaModule } from 'ng2-dragula/dist';
 import { AllMaterialsResolver } from './resolvers/all-materials-resolver.service';
 import { RegisterComponent } from './users/register/register.component';
 import { UserSettingsGuard } from './users/settings/user-settings-edit-guard.service';
-import { ImageCropperComponent, ImageCropperModule } from 'ngx-img-cropper';
+import { ImageCropperComponent, ImageCropperModule } from 'ngx-img-cropper/ngx-img-cropper';
 import { ValidatorComponent } from './users/validate/validator.component';
+import { Observable } from "rxjs/Observable";
+import {VgApiService} from '@videogular/ngx-videogular/core';
+
+  // External
+//  EmbedVideo.forRoot(),
 
 @NgModule({
-  // External
   imports: [
     SharedModule,
     AdminFeatureModule,
     FacebookModule.forRoot(),
-    EmbedVideo.forRoot(),
     FileUploadModule,
     HttpClientModule,
-    Ng2ScrollableModule,
-    DragulaModule,
-    Ng2ScrollableModule,
-    ImageCropperModule
+    DragulaModule.forRoot(),
+    ImageCropperModule,
+    Observable,
+    VgApiService
   ],
-  // Internal
   declarations: [
     AppComponent,
     DynamicFormComponent,
@@ -132,8 +134,7 @@ import { ValidatorComponent } from './users/validate/validator.component';
     CourseComponent,
     NotesComponent,
     MessageComponent,
-    ValidatorComponent,
-
+    ValidatorComponent
 
   ],
   providers: [
@@ -174,8 +175,8 @@ import { ValidatorComponent } from './users/validate/validator.component';
     MessageService,
     MessagesResolver,
     AllMaterialsResolver,
-    UserSettingsGuard
-
+    UserSettingsGuard,
+    VgApiService
    ],
   bootstrap: [ AppComponent ]
 })

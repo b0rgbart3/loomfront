@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+// import { Http, Response, Headers, RequestOptions } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -141,7 +141,7 @@ export class ClassService implements OnInit {
     const idNumber = parseInt(id, 10);
     if (idNumber > 0 ) {
      // console.log('The ID wasn\'t zero, so we\'re gettin the class from the api.');
-    return this._http.get<ClassModel[]> ( this.globals.classes + '?id=' + id )
+    return this._http.get<ClassModel> ( this.globals.classes + '?id=' + id )
       .do(data => {
 
       return data; })

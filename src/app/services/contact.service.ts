@@ -1,17 +1,17 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+//import { HttpErrorResponse } from '@angular/common/http';
+// import { Http, Response, Headers, RequestOptions } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { Globals } from '../globals2';
 
 
-import { Enrollment } from '../models/enrollment.model';
+//import { Enrollment } from '../models/enrollment.model';
 import { UserService } from './user.service';
-import { Assignment } from '../models/assignment.model';
+//import { Assignment } from '../models/assignment.model';
 import { CFMessage } from '../models/cfmessage.model';
 
 

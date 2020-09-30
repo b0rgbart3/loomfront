@@ -31,6 +31,8 @@ var Datum = require('./api/datum.js');
 
 var multer  = require('multer');
 var multerS3 = require('multer-s3');
+
+
 // var easyimg = require('easyimage');
 // var im = require('imagemagick');
 
@@ -88,6 +90,7 @@ class Discussion {
   var discussions = [];
 
 
+
 avatar_path = 'https://recloom.s3.amazonaws.com/avatars';
 upload_path = 'https://recloom.s3.amazonaws.com/';
 
@@ -118,6 +121,7 @@ var returnSuccess = function( req,res,next) {
 var port;
 
 
+
 if (local) { 
     server = http.createServer(app);
     origin = "localhost:4200"; 
@@ -138,6 +142,7 @@ else {
 }
 
 server.listen(process.env.PORT || 4200);
+
 
 console.log('server running on port: ' + port);
 
@@ -177,69 +182,70 @@ app.post('/api/authenticate', jsonParser, function(req,res,next) {
     processAuthentication( req, res, next); 
 });
 
+
 app.options('/api/discussion/enter', function(req, res, next){
-         returnSuccess( req, res, next ); });
+    returnSuccess( req, res, next ); });
 app.options('/api/sendCFMsg', function(req, res, next){
-    console.log('Sent OPTIONS for CFMsg');
-        returnSuccess( req, res, next ); });
+console.log('Sent OPTIONS for CFMsg');
+   returnSuccess( req, res, next ); });
 app.options('/api/avatars', function(req, res, next){
-    console.log('Sent OPTIONS for Avatars');
-            returnSuccess( req, res, next ); });
-   
+console.log('Sent OPTIONS for Avatars');
+       returnSuccess( req, res, next ); });
+
 app.put('/api/sendCFMsg', jsonParser, function(req,res,next) {
-    sendCFMsg(req,res,next);
+sendCFMsg(req,res,next);
 });
-  
+
 app.put('/api/discussion/enter', jsonParser, function(req,res,next) {
-       console.log('Got a discussion entry request');
-      discussionLogin( req, res, next);
-    });
+  console.log('Got a discussion entry request');
+ discussionLogin( req, res, next);
+});
 
 app.options('/api/materialimages', function(req, res, next){
-        returnSuccess( req, res, next ); });
+   returnSuccess( req, res, next ); });
 
 app.options('/api/materialfiles', function(req, res, next){
-    returnSuccess( req, res, next ); });  
+returnSuccess( req, res, next ); });  
 
 app.post('/api/materialimages', jsonParser, function(req,res,next) {
-    uploadMaterialImage(req,res,function(err){
+uploadMaterialImage(req,res,function(err){
 
-        if(err){
-            console.log('not able to post image.');
-            console.log( JSON.stringify(err));
+   if(err){
+       console.log('not able to post image.');
+       console.log( JSON.stringify(err));
 
-                res.json({error_code:1,err_desc:err});
-                return;
-        }
-        res.setHeader('Access-Control-Allow-Origin', origin );
-        res.setHeader('Access-Control-Allow-Methods', "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
-        res.setHeader("Access-Control-Allow-Headers", 
-        "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
-        res.setHeader("Access-Control-Allow-Credentials", true);
-        res.writeHead(200, { 'Content-Type': 'plain/text' });
-        res.end();
-    });
+           res.json({error_code:1,err_desc:err});
+           return;
+   }
+   res.setHeader('Access-Control-Allow-Origin', origin );
+   res.setHeader('Access-Control-Allow-Methods', "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
+   res.setHeader("Access-Control-Allow-Headers", 
+   "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
+   res.setHeader("Access-Control-Allow-Credentials", true);
+   res.writeHead(200, { 'Content-Type': 'plain/text' });
+   res.end();
+});
 });
 
 app.post('/api/avatars', jsonParser, function(req,res,next) {
-    console.log('posting avatar image: ' + req.query);
-    uploadAvatarImage(req,res,function(err){
+console.log('posting avatar image: ' + req.query);
+uploadAvatarImage(req,res,function(err){
 
-        if(err){
-            console.log('not able to post image.');
-            console.log( JSON.stringify(err));
+   if(err){
+       console.log('not able to post image.');
+       console.log( JSON.stringify(err));
 
-                res.json({error_code:1,err_desc:err});
-                return;
-        }
-        res.setHeader('Access-Control-Allow-Origin', origin );
-        res.setHeader('Access-Control-Allow-Methods', "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
-        res.setHeader("Access-Control-Allow-Headers", 
-        "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
-        res.setHeader("Access-Control-Allow-Credentials", true);
-        res.writeHead(200, { 'Content-Type': 'plain/text' });
-        res.end();
-    });
+           res.json({error_code:1,err_desc:err});
+           return;
+   }
+   res.setHeader('Access-Control-Allow-Origin', origin );
+   res.setHeader('Access-Control-Allow-Methods', "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
+   res.setHeader("Access-Control-Allow-Headers", 
+   "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
+   res.setHeader("Access-Control-Allow-Credentials", true);
+   res.writeHead(200, { 'Content-Type': 'plain/text' });
+   res.end();
+});
 });
 
 
@@ -377,6 +383,7 @@ var discussionLogin = function( req,res,next) {
 };
 
 
+
 // Image stuff ---------------------------------
 
 var storeMaterialImage = multerS3( {
@@ -476,21 +483,21 @@ var uploadMaterialFile = multer({ //multer settings
     storage: storeMaterialFile
 }).single('file');
 
-app.use(express.static(__dirname + '/dist'));
-
-app.use('/', httpsRedirect());
 
 
+// Serve only the static files form the dist directory
+// app.use(express.static(__dirname + '/dist'));
 
-app.get('/*', function(req, res){
+// app.use('/', httpsRedirect());
 
-    res.sendFile(path.join(__dirname + '/dist/index.html') );
+
+// app.get('/*', function(req, res){
+
+//     res.sendFile(path.join(__dirname + '/dist/index.html') );
   
   
-  });
-
+//   });
   
-// Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080);
+// // Start the app by listening on the default Heroku port
+// app.listen(process.env.PORT || 8080);
 
-// does adding a comment constitute a change?

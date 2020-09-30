@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { VgCoreModule } from 'videogular2/src/core/core';
-import { VgControlsModule } from 'videogular2/src/controls/controls';
-import { VgOverlayPlayModule } from 'videogular2/src/overlay-play/overlay-play';
-import { VgBufferingModule } from 'videogular2/src/buffering/buffering';
+//import { VgCoreModule } from 'videogular2/src/core/core';
+import {VgCoreModule } from '@videogular/ngx-videogular/core';
+// import { VgControlsModule } from 'videogular2/src/controls/controls';
+import {VgControlsModule } from '@videogular/ngx-videogular/controls';
+//import { VgOverlayPlayModule } from 'videogular2/src/overlay-play/overlay-play';
+import {VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+// import { VgBufferingModule } from 'videogular2/src/buffering/buffering';
+import {VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { UserThumbComponent } from '../users/user-thumb/user-thumb.component';
 import { Error404Component } from '../errors/404component';
 import { WelcomeComponent } from '../welcome/welcome.component';
@@ -31,7 +35,7 @@ import { ContactComponent } from '../welcome/contact/contact.component';
 import { ContactService } from '../services/contact.service';
 import { VideoComponent } from '../materials/video/video.component';
 import { Video } from '../models/video.model';
-import { DragulaModule } from 'ng2-dragula';
+//import { DragulaModule } from 'ng2-dragula';
 import { ChoiceModalComponent } from '../modals/choice-modal.component';
 
 import { MaterialIconComponent } from '../materials/icon/material-icon.component';
@@ -50,6 +54,7 @@ import { AnnouncementsResolver } from '../resolvers/announcements-resolver.servi
 import { MakeAnnouncementComponent } from '../classes/class/makeannouncement.component';
 import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver';
 
+// took out:         HttpModule,
 
 @NgModule ( {
     imports: [
@@ -58,7 +63,6 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-        HttpModule,
         ReactiveFormsModule,
         AppRoutingModule,
         VgCoreModule,
@@ -66,8 +70,7 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         VgOverlayPlayModule,
         VgBufferingModule,
         CustomMaterialModule,
-        FlashMessagesModule,
-        DragulaModule,
+        FlashMessagesModule
 
 
     ],
@@ -115,7 +118,6 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-        HttpModule,
         ReactiveFormsModule,
         AppRoutingModule,
         VgCoreModule,
@@ -147,7 +149,6 @@ import { AllAnnouncementsResolver } from '../resolvers/allannouncements.resolver
         DocComponent,
         QuoteComponent,
         ModalComponent,
-        DragulaModule,
         ChoiceModalComponent,
         MaterialIconComponent,
         DisplayMaterialsComponent,

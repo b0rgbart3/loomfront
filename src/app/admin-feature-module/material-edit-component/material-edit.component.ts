@@ -6,7 +6,8 @@ import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
 import { Material } from '../../models/material.model';
 import { MaterialService } from '../../services/material.service';
-import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+//import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { Globals } from '../../globals2';
 import {Location} from '@angular/common';
 

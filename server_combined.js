@@ -1,13 +1,10 @@
 var http = require('http');
-// var https = require('https');
-// var url = require('url');
-const path = require('path');
-var httpsRedirect = require('express-https-redirect');
-
-
+var https = require('https');
+var url = require('url');
 var bodyParser = require("body-parser");
 var formidable = require("formidable");
-
+var httpsRedirect = require('express-https-redirect');
+const path = require('path');
 var url = require('url');
 var AVATAR_PATH = 'https://recloom.s3.amazonaws.com/avatars';
 
@@ -21,8 +18,8 @@ var local = true;
 var fs = require('fs');
 
 var jwt = require('jsonwebtoken');
-// var logger = require('./api/logger');
-// var mailer = require('./api/sendmail');
+var logger = require('./api/logger');
+var mailer = require('./api/sendmail');
 
 //var Collection = require('./api/collection.js');
 
@@ -102,7 +99,6 @@ app.use(bodyParser.json());
 
 // create application/json parser
 var jsonParser = bodyParser.json();
-
 var returnSuccess = function( req,res,next) {
     console.log('in return success - origin: ' + origin);
     res.setHeader('Access-Control-Allow-Origin', origin );
@@ -119,43 +115,64 @@ var port;
 
 
 if (local) { 
-    server = http.createServer(app);
-    origin = "localhost:4200"; 
-  //  origin = "https://ddworks.org"; 
-    port = 4200;
+   // server = http.createServer(app);
+    origin = "http://localhost:4200";  
+    port = 3100;
     
 }
 else {
- //  server = http.createServer(app);
+  // server = http.createServer(app);
    origin= "https://thawing-reaches-29763.herokuapp.com";
   // origin = "http://localhost"; 
+  //origin = ["https://thawing-reaches-29763.herokuapp.com", "http://localhost"];
 
     let ssl_options = {
         key:fs.readFileSync('./ssl/privkey.pem'),
         cert:fs.readFileSync('./ssl/allchange.pem')
     };
-  //  port = process.env.PORT;
+    port = process.env.PORT;
 }
 
-server.listen(process.env.PORT || 4200);
+app.listen(port);
 
 console.log('server running on port: ' + port);
 
 var discussion = require('./api/discussion')(jsonParser, server, app );
+
+//DocRepo.setOrigin(origin);
+//DocRepo.connect();
+
+// var getCB = function(request, response, next) {
+//     console.log('got a get request.');
+// }
+
+
 var optionsCB = function( req, res, next) {
-  console.log('Origin == ' + origin);
-  console.log('Sending sucess for Options Request....');
-  res.setHeader('Access-Control-Allow-Origin', origin );
-  res.setHeader('Access-Control-Allow-Methods', "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", 
-  "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.writeHead(200, { 'Content-Type': 'plain/text' });
-  res.end();
+    console.log('Origin == ' + origin);
+    console.log('Sending sucess for Options Request....');
+    res.setHeader('Access-Control-Allow-Origin', origin );
+    res.setHeader('Access-Control-Allow-Methods', "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", 
+    "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.writeHead(200, { 'Content-Type': 'plain/text' });
+    res.end();
 }
 
+// app.options('/api/users', function(request, response) {
+//     res.setHeader('Access-Control-Allow-Origin', origin );
+//     res.setHeader('Access-Control-Allow-Methods', "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
+//     res.setHeader("Access-Control-Allow-Headers", 
+//     "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
+//     res.setHeader("Access-Control-Allow-Credentials", true);
+//     res.writeHead(200, { 'Content-Type': 'plain/text' });
+//     res.end();
+// });
 
-
+// app.get('/api/users', function(request, response) {
+//     response.json('success');
+//     response.end();
+// });
 var datums = [];
 for (var i =0; i < dataTypes.length; i++) {
     datum = new Datum(dataTypes[i]);
@@ -166,12 +183,6 @@ for (var i =0; i < dataTypes.length; i++) {
     app.delete('/api/' + dataTypes[i], jsonParser, datums[dataTypes[i]].deleteCB);
   
 }
-
-app.use(express.static(__dirname + '/dist'));
-
-app.get('/api/test',function(req, res, next){
-  console.log('GOT test');
-          returnSuccess( req, res, next ); });
 
 app.post('/api/authenticate', jsonParser, function(req,res,next) {
     processAuthentication( req, res, next); 
@@ -476,21 +487,26 @@ var uploadMaterialFile = multer({ //multer settings
     storage: storeMaterialFile
 }).single('file');
 
+
 app.use(express.static(__dirname + '/dist'));
 
+
+
 app.use('/', httpsRedirect());
-
-
-
 app.get('/*', function(req, res){
 
     res.sendFile(path.join(__dirname + '/dist/index.html') );
   
   
   });
-
   
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
 
-// does adding a comment constitute a change?
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-<div class='messageContainer' *ngIf='display && currentMessage && userService.currentUser'>
+<div class='messageContainer' *ngIf='display && currentMessage && currentUser && currentUserID'>
     <div class='toolbar'>
         <div class='chatThumb' *ngIf='thumbnail'>
             <user-thumb [thumbnail]='thumbnail'></user-thumb></div>
@@ -9,13 +9,13 @@
     </div>
 
     <div *ngIf='currentMessage' class='bubleContainer scrollable section' id="v-scrollable" 
-    ng2-scrollable (click)='scrollMe()'>
+    scrollable (click)='scrollMe()'>
 
         <div class='msgReplies' *ngFor='let reply of currentMessage.msgList'>
-            <div class='bubbleLine' *ngIf='reply.user_id === userService.currentUser.id' >
+            <div class='bubbleLine' *ngIf='reply.user_id === currentUserID' >
             <div class='bubble speaker'>{{ reply.message }}</div><br clear='all'>
             <div class='speaker_tail'></div></div>
-            <div class='bubbleLine' *ngIf='reply.user_id !== userService.currentUser.id'>
+            <div class='bubbleLine' *ngIf='reply.user_id !== currentUserID'>
             <div class='bubble other'>{{ reply.message }}</div><br clear='all'>
             <div class='bubble other_tail'></div></div>
         </div>

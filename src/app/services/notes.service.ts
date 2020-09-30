@@ -2,7 +2,7 @@ import { Injectable, OnInit, OnChanges, EventEmitter, Output } from '@angular/co
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+// import { Http, Response, Headers, RequestOptions } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
